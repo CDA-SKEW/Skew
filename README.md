@@ -2,6 +2,7 @@
 <p>
 </p>
 
+<center>
 
 [![OS - Linux](https://img.shields.io/badge/OS-Linux-blue?logo=linux&logoColor=white&style=plastic)](https://www.linux.org/ "Go to Linux homepage")
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/Naereen/badges)
@@ -14,6 +15,11 @@
 ![npm](https://img.shields.io/npm/v/react-router?color=red&label=react-router&logo=react-router&logoColor=red&style=plastic)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white&style=plastic)
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white&style=plastic)
+
+</center>
+
+
+
 ----------------------------------------
 
 
@@ -65,9 +71,17 @@ npm i -s react-redux redux redux-thunk redux-devtools-extension
 
 ## Tech Stack
 
-**Front:** React, Redux, Node-Sass
+<center>
 
-**Back:** Java, Mysql
+| Front         | Back      | 
+| :---          | ---:      |     
+| React         | Java      | 
+| Redux         | Mysql     | 
+| Node-sass     |           | 
+| MUI           |           |
+
+</center>
+
 
 
 ## 👤 Authors 
