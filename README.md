@@ -83,7 +83,7 @@ npm i -s react-redux redux redux-thunk redux-devtools-extension
 
 | Front         | Back      | 
 | :---          | ---:      |     
-| React         | Express   | 
+| React         | Node      | 
 | Redux         | Mysql     | 
 | Node-sass     | Core      | 
 | MUI           | Node      |
