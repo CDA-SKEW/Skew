@@ -75,7 +75,7 @@ npm i -s react-redux redux redux-thunk redux-devtools-extension
 
 | Front         | Back      | 
 | :---          | ---:      |     
-| React         | Java      | 
+| React         | Node      | 
 | Redux         | Mysql     | 
 | Node-sass     |           | 
 | MUI           |           |
