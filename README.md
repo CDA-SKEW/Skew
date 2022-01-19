@@ -92,3 +92,4 @@ npm i -s react-redux redux redux-thunk redux-devtools-extension
 ## License
 
 Released under [MIT](/LICENSE).
+@skew
