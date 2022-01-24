@@ -1,5 +1,5 @@
-import { createTheme } from '@mui/material/styles';
-import { orange, blue, purple } from '@mui/material/colors';
+import { createTheme } from "@mui/material/styles";
+import { orange, blue, purple } from "@mui/material/colors";
 
 // Main Layout
 let theme = createTheme({
@@ -8,8 +8,8 @@ let theme = createTheme({
       main: blue[500],
     },
     secondary: {
-      main: orange[500]
-    }
+      main: orange[500],
+    },
   },
 });
 
@@ -22,10 +22,10 @@ let themeAdmin = createTheme({
       main: purple[500],
     },
     secondary: {
-      main: orange[500]
-    }
+      main: orange[500],
+    },
   },
 });
 // themeAdmin = responsiveFontSizes(theme);
 
-export { theme, themeAdmin }
+export { theme, themeAdmin };
