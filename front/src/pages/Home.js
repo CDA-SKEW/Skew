@@ -1,10 +1,10 @@
 import React from 'react';
+import Visiteur from "../layouts/Visiteur"
 
 const Home = () => {
     return (
-        <div>
-            
-        </div>
+        <Visiteur>
+        </Visiteur>
     );
 };
 
