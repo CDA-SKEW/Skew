@@ -1,0 +1,21 @@
+{
+  "name": "apiskewjs",
+  "version": "1.0.0",
+  "description": "api pour application Skew",
+  "main": "apiskew.js",
+  "scripts": {
+    "start": "node apiskew.js",
+    "dev": "nodemon apiskew.js"
+  },
+  "author": "skew",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "node-cron": "^3.0.0"
+  }
+}
