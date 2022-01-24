@@ -8,10 +8,21 @@
 # testing
 /coverage
 
+# part Back
+/back/node_modules
+/back/.env
+
+# part front
+
 # production
-/build
+/front/build
+/front/dist
+/front/platforms
+/front/node_modules
+/front/.env
 
 # misc
+.env
 .DS_Store
 .env.local
 .env.development.local
