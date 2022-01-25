@@ -3,6 +3,7 @@ import VisiteurLayout from 'layouts/VisiteurLayout';
 import { Container } from '@mui/material';
 import CardHome from 'components/CardHome';
 import WhyHome from 'components/WhyHome';
+import StatBarHome from 'components/StatBarHome';
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
             <Container>
                 <CardHome />
                 <WhyHome />
+                <StatBarHome />
             </Container>
         </VisiteurLayout>
     );
