@@ -1,11 +1,8 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 import WhyHome1 from '../assets/images/WhyHome01.jpg';
 import WhyHome2 from '../assets/images/WhyHome02.jpg';
 import { Box } from '@mui/system';
+import CardParagrapheImg from './CardParagrapheImg';
 
 export default function WhyHome() {
 
@@ -17,28 +14,7 @@ export default function WhyHome() {
     return (
         <Box>
             {CardsContents.map((index) => (
-                <Card sx={{
-                    Width: 1000,
-                    my: 20,
-                    display: "flex",
-                    bgcolor: "#fff",
-                    boxShadow: "none"
-                }}>
-                    <CardMedia
-                        component="img"
-                        height="400"
-                        image={index.image}
-                        alt="Pourquoi-nous"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {index.titre}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {index.texte}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <CardParagrapheImg index={index} />
             ))}
         </Box>
     );
