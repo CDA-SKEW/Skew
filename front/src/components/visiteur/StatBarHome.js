@@ -14,9 +14,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function StatBarHome() {
 
 const StatList = [
-    {nombre: "2500", titre: "Candidats"},
-    {nombre: "500", titre: "Entreprises"},
-    {nombre: "25000", titre: "Offres"}
+    {key: 1, nombre: "2500", titre: "Candidats"},
+    {key: 2, nombre: "500", titre: "Entreprises"},
+    {key: 3, nombre: "25000", titre: "Offres"}
 ]
 
     return (
@@ -31,7 +31,7 @@ const StatList = [
                 mx: "75px",
             }}>
                 {StatList.map((index) => (
-                <Item sx={{
+                <Item key={index.key} sx={{
                     bgcolor: "#FFD9B8",
                     color: '#000000',
                     boxShadow: "none",

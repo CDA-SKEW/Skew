@@ -17,14 +17,14 @@ import Logo8 from '../../assets/societesImgs/logo8.jpg';
 export default function DirectionStack() {
 
     const ImgList = [
-        { img: Logo1, alt: 'img1', key: "1" },
-        { img: Logo2, alt: 'img2', key: "2" },
-        { img: Logo3, alt: 'img3', key: "3" },
-        { img: Logo4, alt: 'img4', key: "4" },
-        { img: Logo5, alt: 'img5', key: "5" },
-        { img: Logo6, alt: 'img6', key: "6" },
-        { img: Logo7, alt: 'img7', key: "7" },
-        { img: Logo8, alt: 'img8', key: "8" },
+        { img: Logo1, alt: 'img1', key: 1 },
+        { img: Logo2, alt: 'img2', key: 2 },
+        { img: Logo3, alt: 'img3', key: 3 },
+        { img: Logo4, alt: 'img4', key: 4 },
+        { img: Logo5, alt: 'img5', key: 5 },
+        { img: Logo6, alt: 'img6', key: 6 },
+        { img: Logo7, alt: 'img7', key: 7 },
+        { img: Logo8, alt: 'img8', key: 8 },
     ]
 
     return (
