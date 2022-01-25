@@ -1,10 +1,13 @@
-import VisiteurLayout from 'layouts/VisiteurLayout';
 import React from 'react';
+import VisiteurLayout from 'layouts/VisiteurLayout';
+import { Container } from '@mui/material';
 
 const Home = () => {
     return (
         <VisiteurLayout>
-            <p>Home</p>
+            <Container>
+                <h1>Home</h1>
+            </Container>
         </VisiteurLayout>
     );
 };
