@@ -3,7 +3,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 // Import page
 import Home from "./pages/visitor/Home";
 import PresentationRecruteur from "./pages/visitor/PresentationRecruteur";
-import PresentationCandidat from "./pages/visitor/PresationCandidat"
+import PresentationCandidat from "./pages/visitor/PresentationCandidat"
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
