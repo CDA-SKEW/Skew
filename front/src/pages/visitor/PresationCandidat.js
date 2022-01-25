@@ -6,7 +6,7 @@ const PresentationCandidat = () => {
     return (
         <VisiteurLayout>
             <Container>
-
+                <p>Je suis Candidat</p>
             </Container>
         </VisiteurLayout>
     );

@@ -6,7 +6,7 @@ const PresentationRecruteur = () => {
     return (
         <VisiteurLayout>
             <Container>
-
+                <p>Je suis recruteur</p>
             </Container>
         </VisiteurLayout>
     );
