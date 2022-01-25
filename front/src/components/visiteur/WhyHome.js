@@ -1,8 +1,8 @@
 import * as React from 'react';
-import WhyHome1 from '../assets/images/WhyHome01.jpg';
-import WhyHome2 from '../assets/images/WhyHome02.jpg';
+import WhyHome1 from '../../assets/images/WhyHome01.jpg';
+import WhyHome2 from '../../assets/images/WhyHome02.jpg';
 import { Box } from '@mui/system';
-import CardParagrapheImg from './CardParagrapheImg';
+import CardParagrapheImg from '../CardParagrapheImg';
 
 export default function WhyHome() {
 
