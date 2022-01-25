@@ -7,8 +7,8 @@ import { Typography } from "@mui/material";
 export default function CardHome() {
 
     const CardsList = [
-        { titre: "Je suis un recruteur", lien: "#", color: "#ABC4FF" },
-        { titre: "Je suis un candidat", lien: "#", color: "#C4FFE9" }
+        { titre: "Je suis un recruteur", lien: "/recruteur", color: "#ABC4FF" },
+        { titre: "Je suis un candidat", lien: "/candidat", color: "#C4FFE9" }
     ]
 
     return (
