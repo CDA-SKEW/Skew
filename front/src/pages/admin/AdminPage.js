@@ -1,21 +1,15 @@
-import { Container, DialogTitle, Typography } from "@mui/material";
 import React from "react";
 import AdminLayout from "layouts/AdminLayout";
+import Typography from "@mui/material/Typography";
 import AdminCardUsers from "components/core/AdminCardUsers";
 
 const AdminPage = () => {
   return (
-    <AdminLayout>
-      <DialogTitle>
-        <Typography sx={{ textAlign: "center" }} component="h1" variant="h2">
-          Espace Admin
-        </Typography>
-      </DialogTitle>
-
-      <AdminCardUsers />
-
-      {/* <Container maxWidth="md">
-        <Typography component={"span"} variant={"body2"}>
+    <div>
+      <AdminLayout>
+        <AdminCardUsers />
+        <br />
+        <Typography paragraph component="h6">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
           dolor purus non enim praesent elementum facilisis leo vel. Risus at
@@ -30,8 +24,8 @@ const AdminPage = () => {
           lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
           faucibus et molestie ac.
         </Typography>
-      </Container> */}
-    </AdminLayout>
+      </AdminLayout>
+    </div>
   );
 };
 

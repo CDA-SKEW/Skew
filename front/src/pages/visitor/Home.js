@@ -1,8 +1,20 @@
-import React from "react";
-import Visiteur from "layouts/VisiteurLayout";
+import React from 'react';
+import VisiteurLayout from 'layouts/VisiteurLayout';
+import { Container } from '@mui/material';
+import CardHome from 'components/visiteur/CardHome';
+import WhyHome from 'components/visiteur/WhyHome';
+import StatBarHome from 'components/visiteur/StatBarHome';
 
 const Home = () => {
-  return <Visiteur></Visiteur>;
+    return (
+        <VisiteurLayout>
+            <Container>
+                <CardHome />
+                <WhyHome />
+                <StatBarHome />
+            </Container>
+        </VisiteurLayout>
+    );
 };
 
 export default Home;

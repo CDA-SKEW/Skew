@@ -7,8 +7,8 @@ import { Typography } from "@mui/material";
 export default function CardHome() {
 
     const CardsList = [
-        { titre: "Je suis un recruteur", lien: "#", color: "#ABC4FF" },
-        { titre: "Je suis un candidat", lien: "#", color: "#C4FFE9" }
+        { key: 1, titre: "Je suis un recruteur", lien: "/recruteur", color: "#ABC4FF" },
+        { key: 2, titre: "Je suis un candidat", lien: "/candidat", color: "#C4FFE9" }
     ]
 
     return (
@@ -20,6 +20,7 @@ export default function CardHome() {
         }}>
             {CardsList.map((index) => (
                 <Link
+                    key={index.key}
                     href={index.lien}
                     color="#000000"
                     underline="none"
