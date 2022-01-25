@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import WhyCandidat from 'components/visiteur/WhyCandidat';
 import CollaborationCandidat from 'components/visiteur/CollaborationCandidat';
 import ConfianceCandidat from 'components/visiteur/ConfianceCandidat';
+import LastOffres from 'components/visiteur/LastOffres';
 
 const PresentationCandidat = () => {
     return (
@@ -12,6 +13,7 @@ const PresentationCandidat = () => {
                 <WhyCandidat />
                 <CollaborationCandidat />
                 <ConfianceCandidat />
+                <LastOffres />
             </Container>
         </VisiteurLayout>
     );
