@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 const pages = [
   { titre: "Accueil", lien: "/" },
-  { titre: "Offres", lien: "/presentation" },
+  { titre: "Offres", lien: "/offres" },
   { titre: "Contactez-nous", lien: "/contact" },
 ];
 

@@ -2,14 +2,14 @@ import React from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
 import { Container } from '@mui/material';
 
-const Home = () => {
+const PresentationRecruteur = () => {
     return (
         <VisiteurLayout>
             <Container>
-                <h1>Home</h1>
+                <p>Je suis recruteur</p>
             </Container>
         </VisiteurLayout>
     );
 };
 
-export default Home;
+export default PresentationRecruteur;

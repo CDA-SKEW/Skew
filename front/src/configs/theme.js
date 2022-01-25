@@ -10,6 +10,9 @@ let theme = createTheme({
     secondary: {
       main: orange[500],
     },
+    background: {
+      paper: '#ABC4FF'
+    }
   },
 });
 
