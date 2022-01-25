@@ -10,11 +10,7 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/" exact element={<Home />} />
-        <Route
-          path="/Employer/dashboard"
-          exact
-          element={<EmployerDashboard />}
-        />
+        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />}/>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
