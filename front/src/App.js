@@ -1,6 +1,8 @@
-import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
+
+// Import page
 import Home from "./pages/Home";
+<<<<<<< HEAD
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import PageNotFound from "pages/PageNotFound";
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import Visiteur from "../layouts/Visiteur"
+// import Visiteur from "../layouts/Visiteur"
 
 const Home = () => {
     return (
-        <Visiteur>
-        </Visiteur>
+        <div>
+            <p>Home</p>
+        </div>
+
     );
 };
 
