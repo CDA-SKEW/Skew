@@ -5,6 +5,7 @@ import CardDashbord from "components/CardDashbord";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import CardDashboard from "components/CardDashboard";
 
 const arrayDash = [
   {
@@ -77,7 +78,7 @@ const EmployerDashboard = () => {
           >
             {arrayDash.length > 0 &&
               arrayDash.map((list, index) => (
-                <CardDashbord key={index} list={list} />
+                <CardDashboard key={index} list={list} />
               ))}
           </Box>
         </Box>
