@@ -1,11 +1,11 @@
 import { createTheme } from "@mui/material/styles";
-import { orange, blue, purple } from "@mui/material/colors";
+import { orange, purple } from "@mui/material/colors";
 
 // Main Layout
 let theme = createTheme({
   palette: {
     primary: {
-      main: blue[500],
+      main: '#FFD9B8',
     },
     secondary: {
       main: orange[500],
