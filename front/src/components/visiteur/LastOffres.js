@@ -13,7 +13,9 @@ export default function LastOffres() {
     ]
 
     return (
-        <Box>
+        <Box sx={{
+            bgcolor: '#FFD9B8'
+        }}>
             <Typography variant="h5" component="div" sx={{
                 textAlign: 'center',
                 my: 5
