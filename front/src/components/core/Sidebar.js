@@ -15,23 +15,31 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
+import { Avatar } from '@mui/material';
+import { Stack } from '@mui/material';
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
+    const ListCandidatSidebar = ["Mon profil", "Mes candidatures", "Dashboard", "Recherche Ofrre"];
+    const ListEmployeurSidebar = ["Mon profil", "Mes Offres", "Dashboard", "Candidature"];
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
+
     const drawer = (
         <div>
             <Toolbar />
+            <Stack direction="row" spacing={2}>
+                <Avatar alt="" srcSet="https://thiscatdoesnotexist.com/" sx={{ width: 220, height: 220 }} />
+            </Stack>
             <Divider />
             <List>
-                {['Mon Profil', 'Mes Candidatures', 'Dashboard', 'Rechercher Offre'].map((text, index) => (
+                {ListCandidatSidebar.map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -55,6 +63,7 @@ function ResponsiveDrawer(props) {
                 sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
                 aria-label="mailbox folders"
             >
+
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                     container={container}
