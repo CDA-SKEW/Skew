@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 // Import page
 import Home from "./pages/Home";
 import EmployerDashboard from "pages/employer/EmployerDashboard";
+import EmployerProfil from "pages/employer/EmployerProfil";
 import PageNotFound from "pages/PageNotFound";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           exact
           element={<EmployerDashboard />}
         />
+        <Route path="/Employer/profil" exact element={<EmployerProfil />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
