@@ -15,7 +15,8 @@ export default function CardHome() {
         <Box sx={{
             display: 'flex',
             width: 1000,
-            m: 'auto',
+            mx: 'auto',
+            my: 20
         }}>
             {CardsList.map((index) => (
                 <Link
