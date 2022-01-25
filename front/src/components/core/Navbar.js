@@ -9,10 +9,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Accueil', 'Offres', 'Contactez-nous'];
+const pages = [
+  {titre:'Accueil', lien:"/"}, 
+  {titre:'Offres', lien:"/presentation"},
+  {titre:'Contactez-nous', lien:"/contact"}
+];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -32,9 +35,7 @@ const ResponsiveAppBar = () => {
 
         {/* Logo */}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-            </Tooltip>
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -71,8 +72,8 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.titre} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.titre}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -82,11 +83,11 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.titre}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.titre}
               </Button>
             ))}
           </Box>
