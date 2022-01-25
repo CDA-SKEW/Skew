@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, width } from "@mui/system";
 import React from "react";
 import Sidebar from "components/core/Sidebar";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,8 +15,8 @@ const CandidatProfil = () => {
             <Container
                 sx={{
                     bgcolor: "#E5E5E5",
-                    height: "100vh",
-                    my: 2
+                    minHeight: "100vh",
+                    my: 0
                 }}
             >
                 <Box
@@ -33,33 +33,68 @@ const CandidatProfil = () => {
                             px: 1,
                             mt: 2,
                             bgcolor: "#004F98",
-                            color: "white",
                             borderRadius: 1,
                             position: "relative",
-                            top: 15
+                            top: 15,
+                            color: "white"
                         }}
                     >
                         Contact
                     </Typography>
+                </Box>
+
+
+
+
+
+
+
+                <Box sx={{ bgcolor: "#FFFFFF", height: "40vh", display: "flex", justifyContent: "center", }} >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            backgroundColor: "orange",
+                            justifyContent: "space-around",
+                            position: "relative",
+                            mt: 3,
+                            width: { md: '75%', xs: '100%' }
+                        }}>
+                        <Typography>
+                            Adresse Postal
+                        </Typography>
+                        <Typography>
+                            Téléphone
+
+                        </Typography>
+                        <Typography>
+                            Email
+                        </Typography>
+                    </Box>
 
                 </Box>
-                <Typography
-                    variant="h7"
-                    component="h7"
+
+
+
+
+                <Box
                     sx={{
-                        display: "inline-flex",
-                        bgcolor: "orange",
-                        position: "absolute",
-                        color: "white",
-                        mt: "50"
+                        display: "flex",
+                        position: "relative"
                     }}>
-                    Adresse Postale Téléphone Email
-                </Typography>
-
-                <Box sx={{ bgcolor: "#FFFFFF", height: "40vh" }} />
-
+                    <Typography variant="p" color="black">
+                        10 rue du Skew
+                        Skewland 00000
+                    </Typography>
+                    <Typography>
+                        06 00 00 00 00
+                    </Typography>
+                    <Typography>
+                        skew@skew.fr
+                    </Typography>
+                </Box>
             </Container>
         </React.Fragment>
+
     );
 }
 
