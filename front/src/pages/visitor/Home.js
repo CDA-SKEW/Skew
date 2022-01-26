@@ -8,7 +8,7 @@ import StatBarHome from 'components/visiteur/StatBarHome';
 const Home = () => {
     return (
         <VisiteurLayout>
-            <Container>
+            <Container maxWidth='xl'>
                 <CardHome />
                 <WhyHome />
                 <StatBarHome />
