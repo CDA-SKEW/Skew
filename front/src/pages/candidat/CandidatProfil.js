@@ -229,6 +229,7 @@ const CandidatProfilTest = () => {
             </Typography>
           </Box>
         </Box>
+
         <Box
           sx={{
             bgcolor: "#FFFFFF",
@@ -260,7 +261,7 @@ const CandidatProfilTest = () => {
                 top: -15,
               }}
             >
-              Compétence
+              Interet
             </Typography>
           </Box>
 
@@ -270,13 +271,13 @@ const CandidatProfilTest = () => {
           mt:2
           }}>
             <Typography>
-              HTML
+              Manga
             </Typography>
             <Typography>
-            CSS
+             Sport
             </Typography>
             <Typography>
-              JavaScript
+              Aqua-Poney
             </Typography>
           </Box>
           <Box
@@ -285,13 +286,13 @@ const CandidatProfilTest = () => {
           mt:2
           }}>
             <Typography>
-              React
+              Cuisiner
             </Typography>
             <Typography>
-            MUI
+            Coder
             </Typography>
             <Typography>
-              NodeJs
+              Cinéma
             </Typography>
           </Box>
         </Box>
@@ -421,16 +422,8 @@ const CandidatProfilTest = () => {
           </Box>
           <Box>
             <ChekboxCV/>
-            CV-1 Dev WEB
           </Box>
-          <Box>
-            <ChekboxCV/>
-            CV-2 Designer WEB
-          </Box>
-          <Box>
-            <ChekboxCV/>
-            CV-3 Cuisinier
-          </Box>
+         
         </Box>
         
       </Container>
