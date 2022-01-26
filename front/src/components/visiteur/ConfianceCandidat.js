@@ -29,7 +29,8 @@ export default function DirectionStack() {
 
     return (
         <Box sx={{
-            my:10
+            my:10,
+            width: '100%'
         }}>
             <Typography variant="h5" component="div" sx={{
                 textAlign: 'center',
@@ -37,19 +38,20 @@ export default function DirectionStack() {
             }}>
                 Ils nous font confiance
             </Typography>
-            <Stack direction="row" spacing={2}>
+            <Stack spacing={2}>
                 <ImageListItem sx={{
                     display: 'flex',
-                    py: 5,
-                    borderTop: 1,
-                    borderBottom: 1,
+                    py: 3,
+                    borderTop: 2,
+                    borderBottom: 2,
+                    width: '100%',
+                    m: 'auto',
+                    justifyContent: { xs: "center", md: "space-around" },
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: { xs: "center", md: "none" },
                 }}>
                     {ImgList.map((index) => (
-                        <Avatar key={index.key} alt={index.alt} src={index.img}
-                            sx={{
-                                mx: 7
-                            }}
-                        />
+                        <Avatar key={index.key} alt={index.alt} src={index.img}/>
                     ))}
                 </ImageListItem>
             </Stack>
