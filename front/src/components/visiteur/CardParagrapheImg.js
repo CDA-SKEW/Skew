@@ -4,7 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-const CardParagrapheImg = ({index}) => {
+const CardParagrapheImg = ({ index }) => {
     return (
         <Card sx={{
             Width: 1000,
@@ -15,15 +15,28 @@ const CardParagrapheImg = ({index}) => {
         }}>
             <CardMedia
                 component="img"
-                height="400"
                 image={index.image}
                 alt="Pourquoi-nous"
+                sx={{
+                    maxWidth: "40%",
+                }}
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+            <CardContent sx={{
+                pt: 0
+            }}>
+                <Typography
+                    variant="h5"
+                >
                     {index.titre}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    align="justify"
+                    sx = {{
+                        px: 5,
+                    }}
+                >
                     {index.texte}
                 </Typography>
             </CardContent>

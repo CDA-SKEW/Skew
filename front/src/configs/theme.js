@@ -14,6 +14,12 @@ let theme = createTheme({
       paper: '#ABC4FF'
     }
   },
+  typography: {
+    h5: {
+      textAlign: 'center',
+      marginBottom: 10
+    },
+  }
 });
 
 // theme = responsiveFontSizes(theme);

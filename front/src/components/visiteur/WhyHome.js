@@ -1,7 +1,7 @@
 import * as React from 'react';
 import WhyHome1 from '../../assets/images/WhyHome01.jpg';
 import WhyHome2 from '../../assets/images/WhyHome02.jpg';
-import { Box } from '@mui/system';
+import Container from '@mui/material/Container';
 import CardParagrapheImg from './CardParagrapheImg';
 
 export default function WhyHome() {
@@ -12,10 +12,11 @@ export default function WhyHome() {
     ]
 
     return (
-        <Box>
+        <Container
+        maxWidth="md">
             {CardsContents.map((index) => (
                 <CardParagrapheImg key={index.key} index={index} />
             ))}
-        </Box>
+        </Container>
     );
 }
