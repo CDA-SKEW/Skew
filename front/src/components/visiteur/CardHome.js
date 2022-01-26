@@ -16,7 +16,7 @@ export default function CardHome() {
             display: 'flex',
             width: 1000,
             mx: 'auto',
-            my: 20
+            my: 10
         }}>
             {CardsList.map((index) => (
                 <Link
@@ -33,10 +33,12 @@ export default function CardHome() {
                     <Card sx={{
                         height: 400,
                     }}>
-                        <Typography sx={{
-                            textAlign: 'center',
-                            justifyContent: 'center'
-                        }}>
+                        <Typography
+                            variant="h3"
+                            align="center"
+                            sx={{
+                                justifyContent: 'center'
+                            }}>
                             {index.titre}
                         </Typography>
                     </Card>
