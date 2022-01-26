@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -13,34 +14,41 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function StatBarHome() {
 
-const StatList = [
-    {key: 1, nombre: "2500", titre: "Candidats"},
-    {key: 2, nombre: "500", titre: "Entreprises"},
-    {key: 3, nombre: "25000", titre: "Offres"}
-]
+    const StatList = [
+        { key: 1, nombre: "2500", titre: "Candidats" },
+        { key: 2, nombre: "500", titre: "Entreprises" },
+        { key: 3, nombre: "25000", titre: "Offres" }
+    ]
 
     return (
-        <Box sx={{
-            bgcolor: "#FFD9B8",
-            width: 600,
-            mx: 'auto',
-            mb: "30px",
-            borderRadius: 50
-        }}>
-            <Stack direction="row" spacing={2} sx = {{
+        <Box
+            sx={{
+                maxWidth: '800px',
+                bgcolor: "#FFD9B8",
+                mx: 'auto',
+                mb: "30px",
+                height: 100,
+                borderRadius: 50
+            }}>
+            <Stack direction="row" spacing={2} sx={{
                 mx: "75px",
             }}>
                 {StatList.map((index) => (
-                <Item key={index.key} sx={{
-                    bgcolor: "#FFD9B8",
-                    color: '#000000',
-                    boxShadow: "none",
-                    width: 150
-                }}>
-                    {index.nombre}
-                    <br/>
-                    {index.titre}
-                </Item>
+                    <Typography
+                        variant='h5'
+                        key={index.key}
+                        align='center'
+                        sx={{
+                            bgcolor: "#FFD9B8",
+                            color: '#000000',
+                            boxShadow: "none",
+                            pt: 2,
+                            width: '33%'
+                        }}>
+                        {index.nombre}
+                        <br />
+                        {index.titre}
+                    </Typography>
                 ))}
             </Stack>
         </Box>
