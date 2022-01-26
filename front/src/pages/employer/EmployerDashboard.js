@@ -1,31 +1,36 @@
 import { Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import CardDashbord from "components/CardDashbord";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
 
-const arrayDash = [
-  {
-    icon: <LibraryBooksIcon sx={{ width: "45px", height: "45px" }} />,
-    number: 128,
-    text: "Mes offres déposée",
-  },
-  {
-    icon: <VisibilityIcon sx={{ width: "45px", height: "45px" }} />,
-    number: 10,
-    text: "Candidatures reçues",
-  },
-  {
-    icon: <NotificationsActiveIcon sx={{ width: "45px", height: "45px" }} />,
-    number: 5,
-    text: "Notifications",
-  },
-];
-
 const EmployerDashboard = () => {
+  const { nbNotif, nbCandidateReceive, NbMyOffers } = {
+    nbNotif: [0, 1, 2, 3, 4, 5],
+    nbCandidateReceive: [0, 1, 2, 3],
+    NbMyOffers: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  };
+
+  const arrayDash = [
+    {
+      icon: <LibraryBooksIcon sx={{ width: "45px", height: "45px" }} />,
+      number: NbMyOffers.length,
+      text: "Mes offres déposée",
+    },
+    {
+      icon: <VisibilityIcon sx={{ width: "45px", height: "45px" }} />,
+      number: nbCandidateReceive.length,
+      text: "Candidatures reçues",
+    },
+    {
+      icon: <NotificationsActiveIcon sx={{ width: "45px", height: "45px" }} />,
+      number: nbNotif.length,
+      text: "Notifications",
+    },
+  ];
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -33,10 +38,12 @@ const EmployerDashboard = () => {
         sx={{
           bgcolor: "#E5E5E5",
           p: 2,
-          height: "100vh",
+          height: "auto",
           mt: 2,
         }}
       >
+        {/* Card résumé dashboard */}
+
         <Box
           sx={{
             bgcolor: "#FFFFFF",
@@ -45,6 +52,7 @@ const EmployerDashboard = () => {
             my: 4,
           }}
         >
+          {/* Titre section Résumé dashboard */}
           <Box
             sx={{
               display: "flex",
@@ -83,17 +91,17 @@ const EmployerDashboard = () => {
           </Box>
         </Box>
 
-        {/* part2 */}
+        {/* Card Dernieres offres postées dashboard */}
 
         <Box
           sx={{
             bgcolor: "#FFFFFF",
             height: "auto",
             borderRadius: 1,
-            mt: 8,
-            mb: 4,
+            my: 4,
           }}
         >
+          {/* Titre section Dernieres offres postées dashboard */}
           <Box
             sx={{
               display: "flex",
@@ -113,7 +121,7 @@ const EmployerDashboard = () => {
                 top: -15,
               }}
             >
-              Dernière offres postulées
+              Dernieres offres postées
             </Typography>
           </Box>
 
@@ -124,12 +132,7 @@ const EmployerDashboard = () => {
               flexDirection: { xs: "column", md: "row" },
               alignItems: { xs: "center", md: "none" },
             }}
-          >
-            {arrayDash.length > 0 &&
-              arrayDash.map((list, index) => (
-                <CardDashbord key={index} list={list} />
-              ))}
-          </Box>
+          ></Box>
         </Box>
       </Container>
     </React.Fragment>

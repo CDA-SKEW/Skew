@@ -20,15 +20,16 @@ const CardDashboardStyle = styled(Card)(() => ({
 
 const CardDashboard = (props) => {
   //console.log(props.list.icon);
+  const { list } = props;
 
   return (
     <CardDashboardStyle>
-      <Grid sx={{ mt: 8 }}>{props.list.icon}</Grid>
+      <Grid sx={{ mt: 8 }}>{list.icon}</Grid>
       <Grid sx={{ my: 1 }}>
-        <Typography variant="h6">{props.list.number}</Typography>
+        <Typography variant="h6">{list.number}</Typography>
       </Grid>
       <Grid sx={{ mb: 8 }}>
-        <Typography variant="h6">{props.list.text}</Typography>
+        <Typography variant="h6">{list.text}</Typography>
       </Grid>
     </CardDashboardStyle>
   );
