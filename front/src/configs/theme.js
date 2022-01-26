@@ -16,10 +16,10 @@ let theme = createTheme({
   },
   typography: {
     h5: {
-      textAlign: 'center',
-      marginBottom: 10
+      textAlign: "center",
+      marginBottom: 10,
     },
-  }
+  },
 });
 
 // theme = responsiveFontSizes(theme);
@@ -39,15 +39,21 @@ const themeAdmin = createTheme({
       paper: "#212b36",
     },
   },
-  shape: {
-    borderRadius: 4,
-  },
   overrides: {
     MuiAppBar: {
       colorInherit: {
-        backgroundColor: "#161C24",
+        backgroundColor: "#689f38",
         color: "#fff",
       },
+    },
+  },
+  spacing: 8,
+  shape: {
+    borderRadius: 4,
+  },
+  props: {
+    MuiAppBar: {
+      color: "transparent",
     },
   },
 });
