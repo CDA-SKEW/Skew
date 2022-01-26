@@ -13,14 +13,15 @@ export default function CardUser({index}) {
             sx={{
                 width: "40%",
                 m: 'auto',
-                minWidth: 180
+                minWidth: 150,
+                maxWidth: 370
             }}
         >
             <Card sx={{
                 height: 400,
             }}>
                 <Typography
-                    variant="h3"
+                    variant="h4"
                     align="center"
                     sx={{
                         my: 18,

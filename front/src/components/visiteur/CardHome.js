@@ -11,14 +11,15 @@ export default function CardHome() {
 
     return (
         <Container
-            maxWidth='xl'
+            maxWidth='md'
+            disableGutters='true'
             sx={{
                 display: 'flex',
                 mx: 'auto',
                 my: 10
             }}>
             {CardsList.map((index) => (
-                <CardUser key={index.key} index={index}/>
+                <CardUser key={index.key} index={index} />
             ))}
         </Container>
     );
