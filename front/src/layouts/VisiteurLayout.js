@@ -17,7 +17,7 @@ const Main = styled("div")(({ theme }) => ({
 }));
 
 
-const VisiteurLayout = ({ children }) => {
+export default function VisiteurLayout ({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -26,7 +26,7 @@ const VisiteurLayout = ({ children }) => {
       <Container
         component="main"
         maxWidth='xl'
-        disableGutters='true'
+        disableGutters
         sx={{ flexGrow: 1 }}>
         <Main>{children}</Main>
       </Container>
@@ -34,5 +34,3 @@ const VisiteurLayout = ({ children }) => {
     </ThemeProvider>
   );
 };
-
-export default VisiteurLayout;

@@ -12,7 +12,7 @@ export default function CardHome() {
     return (
         <Container
             maxWidth='md'
-            disableGutters='true'
+            disableGutters
             sx={{
                 display: 'flex',
                 mx: 'auto',

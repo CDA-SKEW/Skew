@@ -6,10 +6,13 @@ import CollaborationCandidat from 'components/visiteur/CollaborationCandidat';
 import ConfianceCandidat from 'components/visiteur/ConfianceCandidat';
 import LastOffres from 'components/visiteur/LastOffres';
 
-const PresentationCandidat = () => {
+export default function PresentationCandidat () {
     return (
         <VisiteurLayout>
-            <Container>
+            <Container
+                maxWidth='xl'
+                disableGutters
+            >
                 <WhyCandidat />
                 <CollaborationCandidat />
                 <ConfianceCandidat />
@@ -18,5 +21,3 @@ const PresentationCandidat = () => {
         </VisiteurLayout>
     );
 };
-
-export default PresentationCandidat;

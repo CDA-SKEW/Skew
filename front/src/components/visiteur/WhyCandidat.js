@@ -1,7 +1,7 @@
 import * as React from 'react';
 import WhyCandidat1 from '../../assets/images/WhyCandidat01.jpg';
 import WhyCandidat2 from '../../assets/images/WhyCandidat02.jpg';
-import { Box } from '@mui/system';
+import Container from '@mui/material/Container';
 import CardParagrapheImg from './CardParagrapheImg';
 
 export default function WhyCandidat() {
@@ -12,10 +12,10 @@ export default function WhyCandidat() {
     ]
 
     return (
-        <Box>
+        <Container maxWidth="lg">
             {CardsContents.map((index) => (
                 <CardParagrapheImg key={index.key} index={index} />
             ))}
-        </Box>
+        </Container>
     );
 }

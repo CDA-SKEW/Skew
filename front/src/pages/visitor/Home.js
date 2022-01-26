@@ -5,12 +5,12 @@ import CardHome from 'components/visiteur/CardHome';
 import WhyHome from 'components/visiteur/WhyHome';
 import StatBarHome from 'components/visiteur/StatBarHome';
 
-const Home = () => {
+export default function Home () {
     return (
         <VisiteurLayout>
             <Container
                 maxWidth='xl'
-                disableGutters='true'
+                disableGutters
             >
                 <CardHome />
                 <WhyHome />
@@ -19,5 +19,3 @@ const Home = () => {
         </VisiteurLayout>
     );
 };
-
-export default Home;

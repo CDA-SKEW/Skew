@@ -3,7 +3,7 @@ import VisiteurLayout from 'layouts/VisiteurLayout';
 import WhyRecruteur from 'components/visiteur/WhyRecruteur';
 import { Container } from '@mui/material';
 
-const PresentationRecruteur = () => {
+export default function PresentationRecruteur () {
     return (
         <VisiteurLayout>
             <Container>
@@ -12,5 +12,3 @@ const PresentationRecruteur = () => {
         </VisiteurLayout>
     );
 };
-
-export default PresentationRecruteur;

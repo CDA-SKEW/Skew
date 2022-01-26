@@ -4,15 +4,13 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-const CardParagrapheImg = ({ index }) => {
+export default function CardParagrapheImg ({ index }){
     return (
         <Card sx={{
-            Width: 1000,
             my: 20,
             display: "flex",
             bgcolor: "#fff",
             boxShadow: "none",
-            display: "flex",
             justifyContent: { xs: "center", md: "space-around" },
             flexDirection: { xs: "column", md: "row" },
             alignItems: { xs: "center", md: "none" },
@@ -22,13 +20,15 @@ const CardParagrapheImg = ({ index }) => {
                 image={index.image}
                 alt="Pourquoi-nous"
                 sx={{
-                    maxWidth: "40%",
-                    minWidth: "340px",
+                    minWidth: 340,
+                    width: '90%'
                 }}
             />
             <CardContent sx={{
                 pt: 0,
-                px: 2
+                px: 2,
+                width: '90%',
+                verticalAlign: 'top'
             }}>
                 <Typography
                     variant="h5"
@@ -46,5 +46,3 @@ const CardParagrapheImg = ({ index }) => {
         </Card>
     );
 };
-
-export default CardParagrapheImg;
