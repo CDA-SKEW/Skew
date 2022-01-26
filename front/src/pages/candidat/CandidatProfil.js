@@ -46,12 +46,7 @@ const CandidatProfil = () => {
                 </Box>
 
 
-
-
-
-
-
-                <Box sx={{ bgcolor: "#FFFFFF", height: "40vh", display: "flex", justifyContent: "center", }} >
+                <Box sx={{ bgcolor: "#FFFFFF", height: "20vh", display: "flex", justifyContent: "center", }} >
                       <Box
                         sx={{
                             display: "flex",
@@ -96,6 +91,179 @@ const CandidatProfil = () => {
                       </Box>
 
                 </Box>
+
+
+
+
+
+
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                    }}
+                >
+                    <Typography
+                        variant="h6"
+                        component="h6"
+                        sx={{
+                            display: "inline-flex",
+                            px: 1,
+                            mt: 2,
+                            bgcolor: "#004F98",
+                            borderRadius: 1,
+                            position: "relative",
+                            top: 15,
+                            color: "white"
+                        }}
+                    >
+                       Expérience
+                    </Typography>
+                </Box>
+
+                <Box sx={{ bgcolor: "#FFFFFF", height: "20vh", display: "flex", justifyContent: "center", }} >
+                      <Box
+                        sx={{
+                            display: "flex",
+                            backgroundColor: "orange",
+                            justifyContent: "space-around",
+                            position: "absolute",
+                            mt: 3,
+                           width:"75%"
+                        }}>
+                        <Typography>
+                            Entreprise
+                        </Typography>
+
+                        <Typography>
+                            Poste
+                        </Typography>
+
+                        <Typography>
+                            Date de debut
+                        </Typography>
+
+                        <Typography>
+                            Date de fin
+                        </Typography>
+                      </Box>
+
+                      <Box
+                        sx={{
+                            display: "flex",
+                            
+                            justifyContent: "space-around",
+                            position: "absolute",
+                            mt: 10,
+                           width:"75%"
+                        }}>
+                        <Typography>
+                            Arinfo
+                        </Typography>
+                        <Typography>
+                           Stagiaire
+
+                        </Typography>
+                        <Typography>
+                           10/02/2021
+                        </Typography>
+                        <Typography>
+                           10/02/2022
+                        </Typography>
+                      </Box>
+
+                </Box>
+
+
+
+
+
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center"
+                    }}
+                >
+                    <Typography
+                        variant="h6"
+                        component="h6"
+                        sx={{
+                            display: "inline-flex",
+                            px: 1,
+                            mt: 2,
+                            bgcolor: "#004F98",
+                            borderRadius: 1,
+                            position: "relative",
+                            top: 15,
+                            color: "white"
+                        }}
+                    >
+                       Expérience
+                    </Typography>
+                </Box>
+
+                <Box sx={{ bgcolor: "#FFFFFF", height: "20vh", width:"50%", display: "flex", justifyContent: "center", }} >
+                      
+                      
+                      
+                      <Box
+                        sx={{
+                            display: "flex",
+                            backgroundColor: "orange",
+                            justifyContent: "space-around",
+                            position: "absolute",
+                            mt: 3,
+                           width:"50%"
+                        }}>
+                        <Typography>
+                            Entreprise
+                        </Typography>
+
+                        <Typography>
+                            Poste
+                        </Typography>
+
+                        <Typography>
+                            Date de debut
+                        </Typography>
+
+                        <Typography>
+                            Date de fin
+                        </Typography>
+                      </Box>
+
+                      <Box
+                        sx={{
+                            display: "flex",
+                            
+                            justifyContent: "space-around",
+                            position: "absolute",
+                            mt: 10,
+                           width:"75%"
+                        }}>
+                        <Typography>
+                            Arinfo
+                        </Typography>
+                        <Typography>
+                           Stagiaire
+
+                        </Typography>
+                        <Typography>
+                           10/02/2021
+                        </Typography>
+                        <Typography>
+                           10/02/2022
+                        </Typography>
+                      </Box>
+
+                </Box>
+
+
+
+
+                
 
 
 
