@@ -5,6 +5,11 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
+import CardOffer from "components/CardOffer";
+import { themeUser } from "configs/theme";
+
+// import image en static mais à voir pour aller chercher l'image dans le back plus tard
+import imageEmployer from "assets/images/imageEmployor.png";
 
 const EmployerDashboard = () => {
   const { nbNotif, nbCandidateReceive, NbMyOffers } = {
@@ -31,25 +36,62 @@ const EmployerDashboard = () => {
     },
   ];
 
+  const arrayOffer = [
+    {
+      image: imageEmployer,
+      titleOffer: "Devellopeur Application",
+      nameEmployor: "arinfo",
+      dateOfferDays: "10",
+      badgeEmployor: true,
+    },
+    {
+      image: imageEmployer,
+      titleOffer: "Développeur web",
+      nameEmployor: "SII",
+      dateOfferDays: "20",
+      badgeEmployor: true,
+    },
+    {
+      image: imageEmployer,
+      titleOffer: "Assistante de direction et gestion de paye",
+      nameEmployor: "Covea",
+      dateOfferDays: "2",
+      badgeEmployor: false,
+    },
+    {
+      image: imageEmployer,
+      titleOffer: "Chauffeur Routier",
+      nameEmployor: "ST micro electronique",
+      dateOfferDays: "1",
+      badgeEmployor: false,
+    },
+    {
+      image: imageEmployer,
+      titleOffer: "Cuisinier",
+      nameEmployor: "pole emploi",
+      dateOfferDays: "15",
+      badgeEmployor: true,
+    },
+  ];
+
   return (
     <React.Fragment>
       <CssBaseline />
       <Container
         sx={{
-          bgcolor: "#E5E5E5",
+          bgcolor: themeUser.palette.background.default,
           p: 2,
-          height: "auto",
-          mt: 2,
         }}
       >
         {/* Card résumé dashboard */}
 
         <Box
           sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
+            bgcolor: themeUser.palette.text.primary,
             borderRadius: 1,
-            my: 4,
+            pt: 2,
+            pb: 8,
+            mt: 8,
           }}
         >
           {/* Titre section Résumé dashboard */}
@@ -65,11 +107,11 @@ const EmployerDashboard = () => {
               component="h5"
               sx={{
                 px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
+                bgcolor: themeUser.palette.primary.main,
+                color: themeUser.palette.text.primary,
                 borderRadius: 1,
                 position: "relative",
-                top: -15,
+                top: "-30px",
               }}
             >
               Résumé
@@ -95,10 +137,11 @@ const EmployerDashboard = () => {
 
         <Box
           sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
+            bgcolor: themeUser.palette.secondary.main,
             borderRadius: 1,
-            my: 4,
+            pt: 2,
+            pb: 8,
+            my: 8,
           }}
         >
           {/* Titre section Dernieres offres postées dashboard */}
@@ -114,11 +157,11 @@ const EmployerDashboard = () => {
               component="h5"
               sx={{
                 px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
+                bgcolor: themeUser.palette.primary.main,
+                color: themeUser.palette.text.primary,
                 borderRadius: 1,
                 position: "relative",
-                top: -15,
+                top: "-30px",
               }}
             >
               Dernieres offres postées
@@ -132,7 +175,15 @@ const EmployerDashboard = () => {
               flexDirection: { xs: "column", md: "row" },
               alignItems: { xs: "center", md: "none" },
             }}
-          ></Box>
+          >
+            {arrayOffer.length > 0 &&
+              arrayOffer
+                .slice(-3)
+                .reverse()
+                .map((listOffer, index) => (
+                  <CardOffer key={index} listOffer={listOffer} />
+                ))}
+          </Box>
         </Box>
       </Container>
     </React.Fragment>

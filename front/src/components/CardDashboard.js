@@ -1,24 +1,23 @@
 // material
 import { styled } from "@mui/material/styles";
 import { Card, Grid, Typography } from "@mui/material";
+import { themeUser } from "configs/theme";
 // ----------------------------------------------------------------------
 
 const CardDashboardStyle = styled(Card)(() => ({
   textAlign: "center",
-  padding: 2,
-  color: "white",
-  backgroundColor: "#FF7F50",
+  color: themeUser.palette.text.primary,
+  backgroundColor: themeUser.palette.background.paper,
   height: "250px",
   width: "250px",
-  marginTop: "35px",
-  marginBottom: "35px",
+  marginTop: 8,
 }));
 
 // ----------------------------------------------------------------------
 
 // const TOTAL = 234;
 
-const CardDashboard = (props) => {
+export default function CardDashboard(props) {
   //console.log(props.list.icon);
   const { list } = props;
 
@@ -33,6 +32,4 @@ const CardDashboard = (props) => {
       </Grid>
     </CardDashboardStyle>
   );
-};
-
-export default CardDashboard;
+}
