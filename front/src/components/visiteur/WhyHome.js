@@ -12,8 +12,7 @@ export default function WhyHome() {
     ]
 
     return (
-        <Container
-        maxWidth="md">
+        <Container maxWidth="md">
             {CardsContents.map((index) => (
                 <CardParagrapheImg key={index.key} index={index} />
             ))}

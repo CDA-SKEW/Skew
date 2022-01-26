@@ -11,7 +11,11 @@ const CardParagrapheImg = ({ index }) => {
             my: 20,
             display: "flex",
             bgcolor: "#fff",
-            boxShadow: "none"
+            boxShadow: "none",
+            display: "flex",
+            justifyContent: { xs: "center", md: "space-around" },
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "center", md: "none" },
         }}>
             <CardMedia
                 component="img"
@@ -19,10 +23,12 @@ const CardParagrapheImg = ({ index }) => {
                 alt="Pourquoi-nous"
                 sx={{
                     maxWidth: "40%",
+                    minWidth: "340px",
                 }}
             />
             <CardContent sx={{
-                pt: 0
+                pt: 0,
+                px: 2
             }}>
                 <Typography
                     variant="h5"
@@ -33,9 +39,6 @@ const CardParagrapheImg = ({ index }) => {
                     variant="body2"
                     color="text.secondary"
                     align="justify"
-                    sx = {{
-                        px: 5,
-                    }}
                 >
                     {index.texte}
                 </Typography>
