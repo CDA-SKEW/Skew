@@ -16,9 +16,11 @@ const CandidatProfil = () => {
                 sx={{
                     bgcolor: "#E5E5E5",
                     minHeight: "100vh",
-                    my: 0
+                    my: 0,
+                    minWidth:"100vw"
                 }}
             >
+                
                 <Box
                     sx={{
                         display: "flex",
@@ -50,14 +52,14 @@ const CandidatProfil = () => {
 
 
                 <Box sx={{ bgcolor: "#FFFFFF", height: "40vh", display: "flex", justifyContent: "center", }} >
-                    <Box
+                      <Box
                         sx={{
                             display: "flex",
                             backgroundColor: "orange",
                             justifyContent: "space-around",
-                            position: "relative",
+                            position: "absolute",
                             mt: 3,
-                            width: { md: '75%', xs: '100%' }
+                           width:"75%"
                         }}>
                         <Typography>
                             Adresse Postal
@@ -69,29 +71,35 @@ const CandidatProfil = () => {
                         <Typography>
                             Email
                         </Typography>
-                    </Box>
+                      </Box>
+
+                      <Box
+                        sx={{
+                            display: "flex",
+                            
+                            justifyContent: "space-around",
+                            position: "absolute",
+                            mt: 10,
+                           width:"75%"
+                        }}>
+                        <Typography>
+                            10 rue du Skew 
+                            72000 le mans
+                        </Typography>
+                        <Typography>
+                           06 00 00 00 00
+
+                        </Typography>
+                        <Typography>
+                            Skew@skew.fr
+                        </Typography>
+                      </Box>
 
                 </Box>
 
 
 
 
-                <Box
-                    sx={{
-                        display: "flex",
-                        position: "relative"
-                    }}>
-                    <Typography variant="p" color="black">
-                        10 rue du Skew
-                        Skewland 00000
-                    </Typography>
-                    <Typography>
-                        06 00 00 00 00
-                    </Typography>
-                    <Typography>
-                        skew@skew.fr
-                    </Typography>
-                </Box>
             </Container>
         </React.Fragment>
 
