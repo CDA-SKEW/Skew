@@ -11,8 +11,8 @@ let theme = createTheme({
       main: orange[500],
     },
     background: {
-      paper: '#ABC4FF'
-    }
+      paper: "#ABC4FF",
+    },
   },
   typography: {
     h5: {
@@ -54,4 +54,28 @@ const themeAdmin = createTheme({
 
 // themeAdmin = responsiveFontSizes(theme);
 
-export { theme, themeAdmin };
+// AdminLayout
+const themeUser = createTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#004F98",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+    background: {
+      default: "#E5E5E5",
+      paper: "#FF7F50",
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#004F98",
+    },
+  },
+  shape: {
+    borderRadius: 4,
+  },
+});
+
+export { theme, themeAdmin, themeUser };
