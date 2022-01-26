@@ -6,10 +6,13 @@ import Avatar from '@mui/material/Avatar';
 
 export default function CardUserIntervention({ index }) {
     return (
-        <Card sx={{
-            width: '45%',
+        <Card 
+        sx={{
+            // width: '30%',
+            mx: 5,
+            textAlign: 'center',
             bgcolor: '#FFD9B8',
-            boxShadow: 'none'
+            boxShadow: 'none',
         }}>
             <Avatar alt={index.alt} src={index.img} sx={{
                 width: 100,
@@ -23,7 +26,8 @@ export default function CardUserIntervention({ index }) {
                     {index.prenom} {index.nom}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{
-                    textAlign: 'justify'
+                    textAlign: 'justify',
+                    width: 200
                 }}>
                     {index.message}
                 </Typography>
