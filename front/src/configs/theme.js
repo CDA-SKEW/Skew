@@ -11,8 +11,8 @@ let theme = createTheme({
       main: orange[500],
     },
     background: {
-      paper: '#ABC4FF'
-    }
+      paper: "#ABC4FF",
+    },
   },
 });
 
@@ -33,19 +33,23 @@ const themeAdmin = createTheme({
       paper: "#212b36",
     },
   },
-  shape: {
-    borderRadius: 4,
-  },
   overrides: {
     MuiAppBar: {
       colorInherit: {
-        backgroundColor: "#161C24",
+        backgroundColor: "#689f38",
         color: "#fff",
       },
     },
   },
+  spacing: 8,
+  shape: {
+    borderRadius: 4,
+  },
+  props: {
+    MuiAppBar: {
+      color: "transparent",
+    },
+  },
 });
-
-// themeAdmin = responsiveFontSizes(theme);
 
 export { theme, themeAdmin };
