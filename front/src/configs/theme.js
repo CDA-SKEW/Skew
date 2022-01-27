@@ -22,8 +22,6 @@ let theme = createTheme({
   },
 });
 
-// theme = responsiveFontSizes(theme);
-
 // AdminLayout
 const themeAdmin = createTheme({
   palette: {
@@ -39,6 +37,22 @@ const themeAdmin = createTheme({
       paper: "#212b36",
     },
   },
+  typography: {
+    fontFamily: "Mulish, sans-serif",
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Mulish';
+          font-style: regular;
+          font-display: swap;
+          font-weight: 400;
+          
+        }
+      `,
+    },
+  },
   overrides: {
     MuiAppBar: {
       colorInherit: {
@@ -49,7 +63,7 @@ const themeAdmin = createTheme({
   },
   spacing: 8,
   shape: {
-    borderRadius: 4,
+    borderRadius: 12,
   },
   props: {
     MuiAppBar: {
@@ -58,9 +72,7 @@ const themeAdmin = createTheme({
   },
 });
 
-// themeAdmin = responsiveFontSizes(theme);
-
-// AdminLayout
+// User
 const themeUser = createTheme({
   palette: {
     type: "dark",
@@ -78,9 +90,10 @@ const themeUser = createTheme({
       primary: "#ffffff",
       secondary: "#004F98",
     },
-  },
-  shape: {
-    borderRadius: 4,
+
+    shape: {
+      borderRadius: 4,
+    },
   },
 });
 

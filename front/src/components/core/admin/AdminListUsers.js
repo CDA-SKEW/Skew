@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
-import { themeAdmin } from "configs/theme";
 
 export default function BasicCard() {
   const { nbUser, name, email } = {
@@ -41,7 +40,7 @@ export default function BasicCard() {
       sx={{
         display: "flex",
         justifyContent: "space-around",
-        padding: "32px",
+        p: 2,
         flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
         borderRadius: "12px",
@@ -54,7 +53,6 @@ export default function BasicCard() {
           <Card
             key={item}
             sx={{
-              backgroundColor: themeAdmin.palette.background.paper,
               borderRadius: "12px",
               border: "1px solid #3c4752",
               fontSize: "13px",
@@ -65,19 +63,7 @@ export default function BasicCard() {
           >
             <CardContent>
               <Stack direction="row" spacing={2}>
-                <Avatar
-                  alt="avatar"
-                  sx={{
-                    width: "48px",
-                    height: "48px",
-                    left: "0px",
-                    top: "0px",
-                    flex: "none",
-                    order: 0,
-                    flexGrow: 0,
-                    margin: "0px 12px",
-                  }}
-                >
+                <Avatar alt="avatar" sx={{ width: 56, height: 56 }}>
                   {item.avatar}
                 </Avatar>
               </Stack>

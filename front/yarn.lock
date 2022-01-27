@@ -1572,7 +1572,7 @@
   resolved "https://registry.npmjs.org/@mui/types/-/types-7.1.0.tgz"
   integrity sha512-Hh7ALdq/GjfIwLvqH3XftuY3bcKhupktTm+S6qRIDGOtPtRuq2L21VWzOK4p7kblirK0XgGVH5BLwa6u8z/6QQ==
 
-"@mui/utils@^5.3.0":
+"@mui/utils@^5.2.3", "@mui/utils@^5.3.0":
   version "5.3.0"
   resolved "https://registry.npmjs.org/@mui/utils/-/utils-5.3.0.tgz"
   integrity sha512-O/E9IQKPMg0OrN7+gkn7Ga5o5WA2iXQGdyqNBFPNrYzxOvwzsEtM5K7MtTCGGYKFe8mhTRM0ZOjh5OM0dglw+Q==
@@ -1582,6 +1582,16 @@
     "@types/react-is" "^16.7.1 || ^17.0.0"
     prop-types "^15.7.2"
     react-is "^17.0.2"
+
+"@mui/x-data-grid@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-5.3.0.tgz#84ea1608a3ba4be6c342168c4f018e8cadd4ce67"
+  integrity sha512-TYo151g4U5BGyzfxcr1CsrY5/r7Tq+qfEQcNwsiz00xUZNhwspv0SmzKDvny33Q/qW8ey7o/CtjTkU/iBwOCGg==
+  dependencies:
+    "@mui/utils" "^5.2.3"
+    clsx "^1.1.1"
+    prop-types "^15.8.1"
+    reselect "^4.1.5"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -7335,7 +7345,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7729,6 +7739,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+reselect@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.5.tgz#852c361247198da6756d07d9296c2b51eddb79f6"
+  integrity sha512-uVdlz8J7OO+ASpBYoz1Zypgx0KasCY20H+N8JD13oUMtPvSHQuscrHop4KbXrbsBcdB9Ds7lVK7eRkBIfO43vQ==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"
