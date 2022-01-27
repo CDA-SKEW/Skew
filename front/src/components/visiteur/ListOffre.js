@@ -21,7 +21,7 @@ export default function ListOffre({ index }) {
                         {[{ prop: index.date }, { prop: index.lieu }, { prop: index.type }].map((indice) => (
                             <Typography
                                 key={indice.prop}
-                                sx={{ display: 'inline-block', width: "200px" }}
+                                sx={{ display: 'inline-block', width: "400px", fontSize: '25px' }}
                                 component="span"
                                 variant="body2"
                                 color="text.primary"
@@ -31,7 +31,7 @@ export default function ListOffre({ index }) {
                         ))}
                     </React.Fragment>
                 }
-                primaryTypographyProps={{fontWeight: 'bold', fontSize: '25px'}}
+                primaryTypographyProps={{fontWeight: 'bold', fontSize: '25px', mb: 5}}
             />
         </ListItem>
     );
