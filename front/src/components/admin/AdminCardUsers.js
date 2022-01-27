@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import GroupIcon from "@mui/icons-material/Group";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import WorkIcon from "@mui/icons-material/Work";
+import { Container } from "@mui/material";
 
 export default function BasicCard() {
   const { nbUser, nbWork, nbNotif } = {
@@ -34,82 +35,85 @@ export default function BasicCard() {
     },
   ];
   return (
-    <Box
-      component="span"
-      sx={{
-        display: "flex",
-        justifyContent: "space-around",
-        p: 6,
-        flexDirection: { xs: "column", md: "row" },
-        alignItems: "center",
-        borderRadius: "12px",
-        fontWeight: "bold",
-        position: "relative",
-      }}
-    >
-      {array.map((item, index) => {
-        return (
-          <Card
-            key={index}
-            sx={{
-              minWidth: 342,
-              height: 121,
-              borderRadius: "12px",
-              border: "1px solid #3c4752",
-              boxSizing: "border-box",
-              fontSize: "13px",
-              m: 1,
-            }}
-          >
-            <CardContent>
-              <Typography>{item.icon}</Typography>
+    <div title="Dashboard | Minimal-UI">
+      <Container maxWidth="xl">
+        <Box
+          component="span"
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            p: 6,
+            flexDirection: { xs: "column", md: "row" },
+            borderRadius: "12px",
+            fontWeight: "bold",
+            position: "relative",
+            alignItems: "stretch",
+          }}
+        >
+          {array.map((item, index) => {
+            return (
+              <Card
+                key={index}
+                sx={{
+                  minWidth: 342,
+                  height: 121,
+                  borderRadius: "12px",
+                  boxSizing: "border-box",
+                  fontSize: "13px",
+                  m: 1,
+                }}
+              >
+                <CardContent>
+                  <Typography>{item.icon}</Typography>
 
-              <Typography
-                component="h6"
-                sx={{
-                  position: "static",
-                  width: "92px",
-                  height: "20px",
-                  left: "0px",
-                  top: "0px",
-                  fontSize: "16px",
-                  fontStyle: "normal",
-                  fontWeight: "bold",
-                  lineHeight: "20px",
-                  letterSpacing: "0.4px",
-                  flex: "none",
-                  order: 0,
-                  flexGrow: 0,
-                  margin: "8px 0px",
-                }}
-              >
-                {item.title}
-              </Typography>
-              <Typography
-                sx={{
-                  position: "static",
-                  width: "43px",
-                  height: "29px",
-                  left: "0px",
-                  top: "28px",
-                  fontSize: "24px",
-                  fontStyle: "normal",
-                  fontWeight: "bold",
-                  lineHeight: "29px",
-                  letterSpacing: "0.4px",
-                  flex: "none",
-                  order: 1,
-                  flexGrow: 0,
-                  margin: "8px 0px",
-                }}
-                component="h6"
-              >
-                {item.nb}
-              </Typography>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </Box>
+                  <Typography
+                    component="h6"
+                    sx={{
+                      position: "static",
+                      width: "92px",
+                      height: "20px",
+                      left: "0px",
+                      top: "0px",
+                      fontSize: "16px",
+                      fontStyle: "normal",
+                      fontWeight: "bold",
+                      lineHeight: "20px",
+                      letterSpacing: "0.4px",
+                      flex: "none",
+                      order: 0,
+                      flexGrow: 0,
+                      margin: "8px 0px",
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      position: "static",
+                      width: "43px",
+                      height: "29px",
+                      left: "0px",
+                      top: "28px",
+                      fontSize: "24px",
+                      fontStyle: "normal",
+                      fontWeight: "bold",
+                      lineHeight: "29px",
+                      letterSpacing: "0.4px",
+                      flex: "none",
+                      order: 1,
+                      flexGrow: 0,
+                      margin: "8px 0px",
+                    }}
+                    component="h6"
+                  >
+                    {item.nb}
+                  </Typography>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </Box>
+      </Container>
+    </div>
   );
 }
