@@ -47,10 +47,10 @@ export default function BasicCard() {
         position: "relative",
       }}
     >
-      {array.map((item) => {
+      {array.map((item, index) => {
         return (
           <Card
-            key={item}
+            key={index}
             sx={{
               minWidth: 342,
               height: 121,

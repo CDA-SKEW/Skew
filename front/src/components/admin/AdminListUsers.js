@@ -45,13 +45,13 @@ export default function BasicCard() {
         alignItems: "center",
         borderRadius: "12px",
         fontWeight: "bold",
-        position: "relative",
+        position: "static",
       }}
     >
-      {array.map((item) => {
+      {array.map((item, index) => {
         return (
           <Card
-            key={item}
+            key={index}
             sx={{
               borderRadius: "12px",
               border: "1px solid #3c4752",
@@ -62,11 +62,12 @@ export default function BasicCard() {
             }}
           >
             <CardContent>
-              <Stack direction="row" spacing={2}>
+              <Stack>
                 <Avatar alt="avatar" sx={{ width: 56, height: 56 }}>
                   {item.avatar}
                 </Avatar>
               </Stack>
+              <Typography component="h6">{index}</Typography>
               <Typography component="h6">{item.title}</Typography>
               <Typography component="h6">{item.name}</Typography>
               <Typography component="h6">{item.email}</Typography>

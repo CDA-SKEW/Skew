@@ -9,14 +9,15 @@ import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
 import PageNotFound from "pages/PageNotFound";
 import AdminPage from "pages/admin/AdminPage";
-import UsersTable from "components/admin/UsersTable";
+// import UsersTable from "components/admin/UsersTable";
+import AdminUsersTable from "pages/admin/AdminUsersTable";
 
 function App() {
   return (
     <HashRouter>
       <Routes>
         <Route path="/admin" exact element={<AdminPage />} />
-        <Route path="/admin/users" exact element={<UsersTable />} />
+        <Route path="/admin/users" exact element={<AdminUsersTable />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />

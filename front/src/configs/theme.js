@@ -33,25 +33,16 @@ const themeAdmin = createTheme({
       main: "#c1f8d2",
     },
     background: {
-      default: "#161C24",
+      default: "#161c24",
       paper: "#212b36",
+    },
+    text: {
+      primary: "#ffffff",
     },
   },
   typography: {
-    fontFamily: "Mulish, sans-serif",
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'Mulish';
-          font-style: regular;
-          font-display: swap;
-          font-weight: 400;
-          
-        }
-      `,
-    },
+    fontSize: 14,
+    fontWeightLight: 400,
   },
   overrides: {
     MuiAppBar: {
@@ -60,10 +51,6 @@ const themeAdmin = createTheme({
         color: "#fff",
       },
     },
-  },
-  spacing: 8,
-  shape: {
-    borderRadius: 12,
   },
   props: {
     MuiAppBar: {
