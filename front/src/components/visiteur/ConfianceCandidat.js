@@ -47,7 +47,6 @@ export default function DirectionStack() {
                     width: '100%',
                     m: 'auto',
                     justifyContent: { xs: "center", md: "space-around" },
-                    flexDirection: { xs: "column", md: "row" },
                     alignItems: { xs: "center", md: "none" },
                 }}>
                     {ImgList.map((index) => (

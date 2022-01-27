@@ -2,12 +2,15 @@ import React from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import { fontWeight } from '@mui/system';
 
-export default function ListOffre ({ index }) {
+export default function ListOffre({ index }) {
 
     return (
-        <ListItem alignItems="flex-start" sx={{
+        <ListItem sx={{
             bgcolor: "#E6C3A5",
+            width: '80%',
+            mx: "10%",
             my: 2,
             py: 2
         }}>
@@ -18,7 +21,7 @@ export default function ListOffre ({ index }) {
                         {[{ prop: index.date }, { prop: index.lieu }, { prop: index.type }].map((indice) => (
                             <Typography
                                 key={indice.prop}
-                                sx={{ display: 'inline-block', width: "200px" }}
+                                sx={{ display: 'inline-block', width: "400px", fontSize: '25px' }}
                                 component="span"
                                 variant="body2"
                                 color="text.primary"
@@ -28,6 +31,7 @@ export default function ListOffre ({ index }) {
                         ))}
                     </React.Fragment>
                 }
+                primaryTypographyProps={{fontWeight: 'bold', fontSize: '25px', mb: 5}}
             />
         </ListItem>
     );
