@@ -11,6 +11,7 @@ import PageNotFound from "pages/PageNotFound";
 import AdminPage from "pages/admin/AdminPage";
 import EmployerAddOffer from "pages/employer/EmployerAddOffer";
 import CandidatDashboard from "pages/candidat/CandidatDashboard";
+import CandidatCandidature from "pages/candidat/CandidatCandidature";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
         <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
+        <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/admin" exact element={<AdminPage />} />
       </Routes>

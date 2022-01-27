@@ -2,7 +2,6 @@ import { Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import ChekboxCV from "../../components/ChekboxCV";
-import TextField from '@mui/material/TextField';
 import Masonry from '@mui/lab/Masonry';
 
 
