@@ -1,9 +1,10 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
 const EmployerAddOffer = () => {
   return (
     <div>
-      <h1>Add offers</h1>
+    <Typography>Coucou Add offer</Typography>
     </div>
   );
 };
