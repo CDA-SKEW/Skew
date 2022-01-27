@@ -13,6 +13,7 @@ export default function CardMethodRecruteur({ index }) {
                 fontSize="1000px"
                 sx={{
                     display: 'block',
+                    
                 }}
             />
             <Typography variant="h6" color="initial">
