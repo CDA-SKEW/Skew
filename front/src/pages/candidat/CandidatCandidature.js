@@ -1,6 +1,7 @@
 import { Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import CandidatureList from "components/candidat/CandidatureList";
 
 const CandidatCandidature = () => {
   return (
@@ -12,7 +13,7 @@ const CandidatCandidature = () => {
         mt: 2,
       }}>
        <Box>
-        <Typography>Candidat Candidature</Typography>
+        <CandidatureList/>
        </Box>
       </Container>
    
