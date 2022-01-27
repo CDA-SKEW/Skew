@@ -9,7 +9,7 @@ import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
 import PageNotFound from "pages/PageNotFound";
 import AdminPage from "pages/admin/AdminPage";
-import CandidatProfilTest from "pages/candidat/CandidatProfil";
+import EmployerAddOffer from "pages/employer/EmployerAddOffer";
 
 function App() {
   return (
