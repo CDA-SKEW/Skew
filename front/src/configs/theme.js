@@ -30,27 +30,34 @@ const themeAdmin = createTheme({
       main: "#33c863",
     },
     secondary: {
-      main: "#c1f8d2",
+      main: "#f50057",
     },
     background: {
-      default: "#161c24",
-      paper: "#212b36",
+      default: "#161C24",
+      paper: "#212B36",
     },
     text: {
       primary: "#ffffff",
     },
-  },
-  typography: {
-    fontSize: 14,
-    fontWeightLight: 400,
-  },
-  overrides: {
-    MuiAppBar: {
-      colorInherit: {
-        backgroundColor: "#689f38",
-        color: "#fff",
-      },
+    divider: "#3C4752",
+    success: {
+      main: "#c7f1d1",
     },
+    info: {
+      main: "#2196f3",
+    },
+    warning: {
+      main: "#ff9800",
+    },
+    error: {
+      main: "#f44336",
+    },
+    MuiTable: {
+      size: "small",
+    },
+  },
+  shape: {
+    borderRadius: 12,
   },
   props: {
     MuiAppBar: {
