@@ -17,7 +17,7 @@ export default function WhyCandidat() {
     return (
         <Box>
             <Card sx={{
-                my: 20,
+                mt: 10,
                 display: "flex",
                 bgcolor: "#fff",
                 boxShadow: "none",
@@ -54,10 +54,19 @@ export default function WhyCandidat() {
                     </Typography>
                     {BaliseList.map((index) => (
                         <Box
+                            key= {index.key}
                             sx={{
-                                bgcolor: "#FFD9B8"
+                                bgcolor: "#FFD9B8",
+                                py: 3,
+                                my: 2,
+                                mx: 'auto',
+                                width: 250,
+                                display: 'flex',
+                                justifyContent: { xs: "center", md: "space-around" },
+                                flexDirection: { xs: "column", md: "row" },
+                                alignItems: { xs: "center", md: "none" },
                             }}>
-                            <Typography variant="body1" color="initial">
+                            <Typography variant="h6" color="initial">
                                 {index.titre}
                             </Typography>
                         </Box>
