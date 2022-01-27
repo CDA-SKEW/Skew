@@ -3,12 +3,13 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 // Import page
 import Home from "./pages/visitor/Home";
 import PresentationRecruteur from "./pages/visitor/PresentationRecruteur";
-import PresentationCandidat from "./pages/visitor/PresentationCandidat"
+import PresentationCandidat from "./pages/visitor/PresentationCandidat";
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
 import PageNotFound from "pages/PageNotFound";
 import AdminPage from "pages/admin/AdminPage";
+import EmployerAddOffer from "pages/employer/EmployerAddOffer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           element={<EmployerDashboard />}
         />
         <Route path="/Employer/profil" exact element={<EmployerProfil />} />
+        <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/admin" exact element={<AdminPage />} />
