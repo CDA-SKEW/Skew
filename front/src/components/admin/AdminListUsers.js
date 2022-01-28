@@ -54,7 +54,6 @@ export default function BasicCard() {
             key={index}
             sx={{
               borderRadius: "12px",
-              border: "1px solid #3c4752",
               fontSize: "13px",
               width: "539px",
               height: "449px",
