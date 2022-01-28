@@ -31,7 +31,12 @@ const ResponsiveAppBar = () => {
   return (
     <AppBar position="static">
       <Box maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{
+            display: { xs: "flex", md: "block" }
+          }}
+        >
           {/* Logo */}
           <Box sx={{ display: { xs: "flex", md: "block" } }}>
             <Box
@@ -40,7 +45,7 @@ const ResponsiveAppBar = () => {
                 display: 'flex'
               }}
             >
-              <Avatar variant="square" src={Logo} sx={{mx: 2}} />
+              <Avatar variant="square" src={Logo} sx={{ mx: 2 }} />
               <Typography variant='h1'>
                 SKEW
               </Typography>

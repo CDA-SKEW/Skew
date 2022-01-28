@@ -22,7 +22,7 @@ export default function FormContact() {
                 sx={{
                     borderBottom: 2,
                     mx: 'auto',
-                    mb: 3,
+                    my: 3,
                     pb: 5,
                     width: '50%',
                 }}
