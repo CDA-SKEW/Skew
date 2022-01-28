@@ -33,14 +33,14 @@ const ResponsiveAppBar = () => {
       <Box maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo */}
-          <Box sx={{ display: 'block' }}>
+          <Box sx={{ display: { xs: "flex", md: "block" } }}>
             <Box
               sx={{
-                // flexGrow: 0,
+                flexGrow: 0,
                 display: 'flex'
               }}
             >
-              <Avatar variant="square" src={Logo} />
+              <Avatar variant="square" src={Logo} sx={{mx: 2}} />
               <Typography variant='h1'>
                 SKEW
               </Typography>
@@ -48,17 +48,17 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {/* Menu */}
-          <Box sx={{ display: 'block' }}>
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
             <Box
               sx={{
                 flexGrow: 1,
-                display: { xs: "none", md: "flex" }
+                display: "flex"
               }}>
               {pages.map((page) => (
                 <Button
                   key={page.titre}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "block" }}
                 >
                   {page.titre}
                 </Button>
