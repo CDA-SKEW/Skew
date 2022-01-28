@@ -7,13 +7,15 @@ export default function CardMethodRecruteur({ index }) {
         <Card
             sx={{
                 bgcolor: "#FFD9B8",
+                width: 300,
+                mx: 5
             }}
         >
             <SearchIcon
-                fontSize="1000px"
                 sx={{
+                    fontSize: "75px",
                     display: 'block',
-                    
+                    mx: 'auto'
                 }}
             />
             <Typography variant="h6" color="initial">
