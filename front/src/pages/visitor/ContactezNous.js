@@ -1,10 +1,11 @@
-import { Box } from '@mui/system';
 import React from 'react';
+import VisiteurLayout from 'layouts/VisiteurLayout';
+import FormContact from 'components/visiteur/FormContact'
 
 export default function ContactezNous () {
     return (
-        <Box>
-            
-        </Box>
+        <VisiteurLayout>
+            <FormContact />
+        </VisiteurLayout>
     );
 };

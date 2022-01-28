@@ -15,6 +15,11 @@ let theme = createTheme({
     },
   },
   typography: {
+    h2: {
+      textAlign: "center",
+      marginTop: 50,
+      marginBottom: 10,
+    },
     h5: {
       textAlign: "center",
       marginBottom: 10,
