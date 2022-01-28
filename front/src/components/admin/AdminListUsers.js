@@ -40,12 +40,12 @@ export default function BasicCard() {
       sx={{
         display: "flex",
         justifyContent: "space-around",
-        p: 2,
+        p: 6,
         flexDirection: { xs: "column", md: "row" },
-        alignItems: "center",
         borderRadius: "12px",
         fontWeight: "bold",
-        position: "static",
+        position: "relative",
+        alignItems: "stretch",
       }}
     >
       {array.map((item, index) => {
@@ -55,8 +55,10 @@ export default function BasicCard() {
             sx={{
               borderRadius: "12px",
               fontSize: "13px",
-              width: "539px",
-              height: "449px",
+              boxSizing: "border-box",
+
+              // width: "539px",
+              // height: "449px",
               m: 1,
             }}
           >

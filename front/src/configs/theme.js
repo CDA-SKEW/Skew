@@ -30,40 +30,34 @@ const themeAdmin = createTheme({
       main: "#33c863",
     },
     secondary: {
-      main: "#f50057",
+      main: "#c1f8d2",
     },
     background: {
-      default: "#161C24",
-      paper: "#212B36",
+      default: "#161c24",
+      paper: "#212b36",
     },
     text: {
       primary: "#ffffff",
     },
-    divider: "#3C4752",
-    success: {
-      main: "#c7f1d1",
-    },
-    info: {
-      main: "#2196f3",
-    },
-    warning: {
-      main: "#ff9800",
-    },
-    error: {
-      main: "#f44336",
-    },
-    MuiTable: {
-      size: "small",
-    },
   },
-  shape: {
-    borderRadius: 12,
+  typography: {
+    fontSize: 14,
+    fontWeightLight: 400,
+  },
+  overrides: {
+    MuiAppBar: {
+      colorInherit: {
+        backgroundColor: "#689f38",
+        color: "#fff",
+      },
+    },
   },
   props: {
     MuiAppBar: {
       color: "transparent",
     },
   },
+  spacing: 8,
 });
 
 // User
