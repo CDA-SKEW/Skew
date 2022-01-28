@@ -15,9 +15,26 @@ let theme = createTheme({
     },
   },
   typography: {
+    h1: {
+      textAlign: "center",
+      fontSize: 40
+    },
+    h2: {
+      textAlign: "center",
+      marginTop: 50,
+      marginBottom: 10,
+    },
     h5: {
       textAlign: "center",
       marginBottom: 10,
+    },
+    h6: {
+      textAlign: "center",
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    body1: {
+      textAlign: "justify",
     },
   },
 });

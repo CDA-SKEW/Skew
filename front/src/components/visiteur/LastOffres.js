@@ -13,16 +13,16 @@ export default function LastOffres() {
     ]
 
     return (
-        <Box>
+        <Box sx={{ mb: 10, }}>
             <Typography variant="h5" component="div" sx={{
                 textAlign: 'center',
-                my: 5
+                my: 5,
             }}>
                 Nos dernières offres
             </Typography>
             <Box sx={{
-            bgcolor: '#FFD9B8'
-        }}>
+                bgcolor: '#FFD9B8'
+            }}>
                 <List>
                     {OffresList.map((index) => (
                         <ListOffre key={index.key} index={index} />

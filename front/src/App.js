@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/visitor/Home";
 import PresentationRecruteur from "./pages/visitor/PresentationRecruteur";
 import PresentationCandidat from "./pages/visitor/PresentationCandidat";
+import ContactezNous from "./pages/visitor/ContactezNous";
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
@@ -14,6 +15,7 @@ import CandidatDashboard from "pages/candidat/CandidatDashboard";
 import CandidatCandidature from "pages/candidat/CandidatCandidature";
 // import UsersTable from "components/admin/UsersTable";
 import AdminUsersTable from "pages/admin/AdminUsersTable";
+import OffresView from "pages/visitor/OffresView";
 
 function App() {
   return (
@@ -24,7 +26,9 @@ function App() {
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
-        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />}        />
+        <Route path="/contactus" exact element={<ContactezNous />} />
+        <Route path="/offres" exact element={<OffresView />} />
+        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />} />
         <Route
           path="/Employer/dashboard"
           exact
