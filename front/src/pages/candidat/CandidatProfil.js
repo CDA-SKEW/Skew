@@ -3,6 +3,8 @@ import { Box } from "@mui/system";
 import React from "react";
 import ChekboxCV from "../../components/candidat/ChekboxCV";
 import Masonry from '@mui/lab/Masonry';
+import TableContact from "components/candidat/TableContact";
+import TableExperience from "components/candidat/TableExperience";
 
 
 const CandidatProfilTest = () => {
@@ -20,8 +22,9 @@ const CandidatProfilTest = () => {
         }}
       >
         {/*   {/* BOX CONTACT*/} 
-
-        <Box
+       
+       
+       <Box
           sx={{
             bgcolor: "#FFFFFF",
             height: "auto",
@@ -29,8 +32,8 @@ const CandidatProfilTest = () => {
             my: 4,
           }}
         >
-          {/* Titre section Contact dashboard */}
-          <Box
+          {/* Titre section Expériences */}
+            <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -52,43 +55,10 @@ const CandidatProfilTest = () => {
               Contact
             </Typography>
           </Box>
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          bgcolor:"#FF7F50",
-          
-          }}>
-            <Typography>
-              Adresse postal
-            </Typography>
-            <Typography>
-              Téléphone
-            </Typography>
-            <Typography>
-              Email
-            </Typography>
-          </Box> 
-
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              10 rue du Skew
-              72000 Le Mans
-            </Typography>
-            <Typography>
-              06-00-00-00-00
-            </Typography>
-            <Typography>
-              skew@skew
-            </Typography>
-          </Box>
-
-          
+          <TableContact/>
          
-        </Box>
+        </Box> 
+
 
          {/* BOX Expérience*/}
 
@@ -123,41 +93,7 @@ const CandidatProfilTest = () => {
               Expériences
             </Typography>
           </Box>
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          background: "#FF7F50",
-          }}>
-            <Typography>
-              Entreprise
-            </Typography>
-            <Typography>
-              Poste
-            </Typography>
-            <Typography>
-              Date de début
-            </Typography>
-            <Typography>
-              Date de fin
-            </Typography>
-          </Box> 
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              Arinfo
-            </Typography>
-            <Typography>
-              Stagiaire
-            </Typography>
-            <Typography>
-              25/01/2020
-            </Typography>
-            <Typography>
-              25/01/2021            </Typography>
-          </Box>
+          <TableExperience/>
          
         </Box>
 
