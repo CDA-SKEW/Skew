@@ -4,9 +4,11 @@ import TextField from "@mui/material/TextField";
 import { Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
+import { useDispatch } from "react-redux";
+import { postFormProfilEmployer } from "store/actions/EmployerActions";
+
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
-import { useDispatch } from "react-redux";
 
 const Img = styled("img")({
   margin: "auto",
@@ -16,7 +18,7 @@ const Img = styled("img")({
 });
 
 export default function FormProfilEmployer() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const [imgUpload, setImgUpload] = useState(imageEmployer);
   const [stateImgUpload, setStateImgUpload] = useState("")
@@ -79,7 +81,7 @@ export default function FormProfilEmployer() {
 
     console.log("dataFormProfilEmployer", dataFormProfilEmployer);
 
-    // await dispatch(addPosts(dataFormProfilEmployer))
+    await dispatch(postFormProfilEmployer(dataFormProfilEmployer))
   };
 
   return (
