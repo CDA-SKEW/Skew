@@ -56,17 +56,9 @@ const EmployerProfil = () => {
           >
             Informations entreprise
           </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "none" },
-            }}
-          >
+      
             <FormProfilEmployer />
-          </Box>
+      
         </Box>
       </Container>
     </React.Fragment>
