@@ -17,7 +17,8 @@ export default function FormContact() {
     return (
         <Box sx={{ px: 5 }}>
             <Typography
-                variant="h2"
+            align='center'
+                variant="h3"
                 sx={{
                     borderBottom: 2,
                     mx: 'auto',

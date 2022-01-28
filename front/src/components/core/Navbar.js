@@ -6,10 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import Logo from "assets/logo/logo.png";
 
 const pages = [
   { titre: "Accueil", lien: "/" },
@@ -30,15 +30,50 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Box maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Box sx={{ display: 'block' }}>
+            <Box
+              sx={{
+                // flexGrow: 0,
+                display: 'flex'
+              }}
+            >
+              <Avatar variant="square" src={Logo} />
+              <Typography variant='h1'>
+                SKEW
+              </Typography>
+            </Box>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            {/* Menu burger responsive */}
+          {/* Menu */}
+          <Box sx={{ display: 'block' }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" }
+              }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.titre}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.titre}
+                </Button>
+              ))}
+            </Box>
+          </Box>
+
+          {/* Menu burger responsive */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              flexDirection: 'row-reverse',
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -49,6 +84,7 @@ const ResponsiveAppBar = () => {
             >
               <MenuIcon />
             </IconButton>
+
 
             {/* Menu responsive */}
             <Menu
@@ -76,21 +112,8 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-
-          {/* Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page.titre}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page.titre}
-              </Button>
-            ))}
-          </Box>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 };
