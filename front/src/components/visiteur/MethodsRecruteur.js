@@ -18,7 +18,9 @@ export default function MethodsRecruteur() {
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: 'center',
+                    justifyContent: { xs: "center", md: "space-around" },
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: { xs: "center", md: "none" },
                 }}
             >
                 {MethodsList.map((index) => (

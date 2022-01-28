@@ -19,6 +19,14 @@ let theme = createTheme({
       textAlign: "center",
       marginBottom: 10,
     },
+    h6: {
+      textAlign: "center",
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    body1: {
+      textAlign: "justify",
+    },
   },
 });
 
