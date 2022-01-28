@@ -39,13 +39,12 @@ export default function BasicCard() {
       component="span"
       sx={{
         display: "flex",
-        justifyContent: "space-around",
-        p: 6,
-        flexDirection: { xs: "column", md: "row" },
+        justifyContent: "space-evenly",
+        p: 1,
+        m: 1,
         borderRadius: "12px",
-        fontWeight: "bold",
-        position: "relative",
-        alignItems: "stretch",
+        flexDirection: { xs: "column", md: "row" },
+        fontSize: "13px",
       }}
     >
       {array.map((item, index) => {
@@ -53,12 +52,6 @@ export default function BasicCard() {
           <Card
             key={index}
             sx={{
-              borderRadius: "12px",
-              fontSize: "13px",
-              boxSizing: "border-box",
-
-              // width: "539px",
-              // height: "449px",
               m: 1,
             }}
           >
