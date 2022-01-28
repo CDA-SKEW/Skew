@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/visitor/Home";
 import PresentationRecruteur from "./pages/visitor/PresentationRecruteur";
 import PresentationCandidat from "./pages/visitor/PresentationCandidat";
+import ContactezNous from "./pages/visitor/ContactezNous";
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
+        <Route path="/contactus" exact element={<ContactezNous />} />
         <Route path="/Employer/dashboard" exact element={<EmployerDashboard />}        />
         <Route
           path="/Employer/dashboard"
