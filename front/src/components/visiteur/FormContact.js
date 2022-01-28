@@ -15,7 +15,7 @@ export default function FormContact() {
     ]
 
     return (
-        <Box>
+        <Box sx={{ px: 5 }}>
             <Typography
                 variant="h2"
                 sx={{
@@ -38,7 +38,8 @@ export default function FormContact() {
                         fullWidth
                         sx={{
                             display: "block",
-                            width: '40%',
+                            width: '100%',
+                            maxWidth: 620,
                             mx: 'auto',
                             my: 2
                         }}
@@ -53,7 +54,8 @@ export default function FormContact() {
                     rows='10'
                     sx={{
                         display: "block",
-                        width: '40%',
+                        width: '100%',
+                        maxWidth: 620,
                         mx: 'auto',
                         my: 2
                     }}
@@ -65,7 +67,8 @@ export default function FormContact() {
                     size='large'
                     sx={{
                         display: "block",
-                        width: '40%',
+                        width: '100%',
+                        maxWidth: 620,
                         mx: 'auto',
                         my: 2,
                         fontSize: '20px'
