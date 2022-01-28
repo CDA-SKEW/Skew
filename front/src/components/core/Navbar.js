@@ -46,7 +46,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               <Avatar variant="square" src={Logo} sx={{ mx: 2 }} />
-              <Typography variant='h1'>
+              <Typography variant='h1' sx={{ width: '100%' }}>
                 SKEW
               </Typography>
             </Box>
@@ -57,13 +57,20 @@ const ResponsiveAppBar = () => {
             <Box
               sx={{
                 flexGrow: 1,
-                display: "flex"
+                display: "flex",
+                justifyContent: 'center',
               }}>
               {pages.map((page) => (
                 <Button
                   key={page.titre}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "black", display: "block" }}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    display: "block",
+                    width: { xs: '100%', md: 290 },
+                    p: 0
+                  }}
                 >
                   {page.titre}
                 </Button>
