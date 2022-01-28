@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Grid, Typography } from "@mui/material";
@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
+import { useDispatch } from "react-redux";
 
 const Img = styled("img")({
   margin: "auto",
@@ -15,6 +16,72 @@ const Img = styled("img")({
 });
 
 export default function FormProfilEmployer() {
+  // const dispatch = useDispatch()
+
+  const [imgUpload, setImgUpload] = useState(imageEmployer);
+  const [stateImgUpload, setStateImgUpload] = useState("")
+  const [siret, setSiret] = useState("1");
+  const [siren, setSiren] = useState("2");
+  const [name, setname] = useState("3");
+  const [adress, setAdress] = useState("4");
+  const [zipCode, setZipCode] = useState("5");
+  const [town, setTown] = useState("6");
+  const [category, setCategory] = useState("5");
+
+
+  const handleImageChange = (e) => {
+    // console.log("fct changeImage");
+
+    setStateImgUpload("Image non enregistrée")
+
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      setImgUpload(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const cancelFormProfil = () => {
+    // console.log("Cancel upload");
+    setImgUpload(imageEmployer);
+    setStateImgUpload("")
+    setSiret("1");
+    setSiren("2");
+    setname("3");
+    setAdress("4");
+    setZipCode("5");
+    setTown("6");
+    setCategory("5");
+  };
+
+  const sendFormProfil = async (e) => {
+    console.log("Form waitsend");
+    //empeche le formunliare d'etre submiter
+    // console.log("event", e)
+    e.preventDefault();
+
+    const dataFormProfilEmployer = {
+      siret,
+      siren,
+      name,
+      adress,
+      zipCode,
+      town,
+      category,
+      imgUpload,
+    };
+
+    setStateImgUpload("")
+
+    console.log("dataFormProfilEmployer", dataFormProfilEmployer);
+
+    // await dispatch(addPosts(dataFormProfilEmployer))
+  };
+
   return (
     <Grid
       container
@@ -41,7 +108,8 @@ export default function FormProfilEmployer() {
             alignItems="center"
           >
             <Grid item xs={12}>
-              <Img alt="imageEmployer" src={imageEmployer} />
+              <Img alt="imageEmployer" src={imgUpload} />
+              {{stateImgUpload} && (<Typography color={"red"}>{stateImgUpload}</Typography>)}
             </Grid>
 
             <Grid item xs={12}>
@@ -59,6 +127,7 @@ export default function FormProfilEmployer() {
                   id="upload-photo"
                   type="file"
                   accept="image/*"
+                  onChange={(e) => handleImageChange(e)}
                 />
               </Button>
             </Grid>
@@ -83,8 +152,9 @@ export default function FormProfilEmployer() {
               label="N° de Siret:"
               variant="outlined"
               size="small"
-              id="outlined-basic"
               sx={{ width: { xs: "100%", sm: "50%" } }}
+              value={siret}
+              onChange={(e) => setSiret(e.target.value)}
             />
 
             <Button
@@ -109,7 +179,8 @@ export default function FormProfilEmployer() {
               variant="outlined"
               fullWidth
               size="small"
-              id="outlined-basic"
+              value={siren}
+              onChange={(e) => setSiren(e.target.value)}
             />
           </Grid>
 
@@ -120,7 +191,8 @@ export default function FormProfilEmployer() {
               fullWidth
               variant="outlined"
               size="small"
-              id="outlined-basic"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
             />
           </Grid>
 
@@ -131,7 +203,8 @@ export default function FormProfilEmployer() {
               fullWidth
               variant="outlined"
               size="small"
-              id="outlined-basic"
+              value={adress}
+              onChange={(e) => setAdress(e.target.value)}
             />
           </Grid>
 
@@ -142,7 +215,8 @@ export default function FormProfilEmployer() {
               fullWidth
               variant="outlined"
               size="small"
-              id="outlined-basic"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
             />
           </Grid>
 
@@ -153,7 +227,8 @@ export default function FormProfilEmployer() {
               fullWidth
               variant="outlined"
               size="small"
-              id="outlined-basic"
+              value={town}
+              onChange={(e) => setTown(e.target.value)}
             />
           </Grid>
 
@@ -164,7 +239,8 @@ export default function FormProfilEmployer() {
               fullWidth
               variant="outlined"
               size="small"
-              id="outlined-basic"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             />
           </Grid>
 
@@ -182,6 +258,7 @@ export default function FormProfilEmployer() {
               size="small"
               sx={{ bgcolor: "#DC143C", color: "white", m: 1 }}
               type="submit"
+              onClick={(e) => sendFormProfil(e)}
             >
               Valider
             </Button>
@@ -190,7 +267,7 @@ export default function FormProfilEmployer() {
               variant="contained"
               size="small"
               sx={{ bgcolor: "gray", color: "white", m: 1 }}
-              type="submit"
+              onClick={(e) => cancelFormProfil()}
             >
               Annuler
             </Button>
