@@ -6,7 +6,7 @@ import Avatar2 from '../../assets/avatars/avatar2.jpg';
 import Avatar3 from '../../assets/avatars/avatar3.jpg';
 import CardUserIntervention from './CardUserIntervention';
 
-export default function CollaborationCandidat () {
+export default function MatchRecruteur () {
 
     const UsersList = [
         { key: 1, prenom: 'Bruno', nom: 'Bruno', img: Avatar2, alt: 'img1', message: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.' },
@@ -23,13 +23,14 @@ export default function CollaborationCandidat () {
                 textAlign: 'center',
                 py: 5
             }}>
-                Ils ont collaborés avec nous
+                Ils ont matchés
             </Typography>
             <Box
             align= 'center' 
             sx={{
                 display: 'flex',
                 pb: 5,
+                mb: 10,
                 justifyContent: { xs: "center", md: "space-around" },
                 flexDirection: { xs: "column", md: "row" },
                 alignItems: { xs: "center", md: "none" },
