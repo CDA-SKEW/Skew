@@ -42,8 +42,7 @@ export default function CandidatureList() {
               
               <AddCircleOutlineIcon
               sx={{position:"absolute",right:5,top:"10px",fontSize:"40px"}}/>
-              <Box
-              sx={{position:"absolute",right:350,top:"5px"}}>
+              
               <CheckCircleOutlineIcon
               sx={{color:"green", fontSize:30}}
               />
@@ -51,7 +50,7 @@ export default function CandidatureList() {
               sx={{position:"relative" ,color:"black"}}>
                   Candidature retenue
               </Typography>
-              </Box>
+              
              
             </React.Fragment>
           }
@@ -83,8 +82,7 @@ export default function CandidatureList() {
               </Typography>
               <AddCircleOutlineIcon
               sx={{position:"absolute",right:5,top:"10px",fontSize:"40px"}}/>
-              <Box
-              sx={{position:"absolute",right:320,top:"5px"}}>
+              
               <DoNotDisturbIcon
               sx={{color:"red", fontSize:30}}
               />
@@ -92,7 +90,7 @@ export default function CandidatureList() {
               sx={{position:"relative" ,color:"black"}}>
                   Candidature non retenue
               </Typography>
-              </Box>
+              
             </React.Fragment>
           }
         />
@@ -123,8 +121,7 @@ export default function CandidatureList() {
               </Typography>
               <AddCircleOutlineIcon
               sx={{position:"absolute",right:5,top:"10px",fontSize:"40px"}}/>
-               <Box
-              sx={{position:"absolute",right:270,top:"5px"}}>
+               
               <QueryBuilderIcon
               sx={{color:"black", fontSize:30}}
               />
@@ -132,7 +129,7 @@ export default function CandidatureList() {
               sx={{position:"relative" ,color:"black"}}>
                   Candidature en cours d'examen
               </Typography>
-              </Box>
+              
             </React.Fragment>
           }
         />
