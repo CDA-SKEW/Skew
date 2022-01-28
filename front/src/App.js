@@ -15,6 +15,7 @@ import CandidatDashboard from "pages/candidat/CandidatDashboard";
 import CandidatCandidature from "pages/candidat/CandidatCandidature";
 // import UsersTable from "components/admin/UsersTable";
 import AdminUsersTable from "pages/admin/AdminUsersTable";
+import OffresView from "pages/visitor/OffresView";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
         <Route path="/contactus" exact element={<ContactezNous />} />
-        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />}        />
+        <Route path="/offres" exact element={<OffresView />} />
+        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />} />
         <Route
           path="/Employer/dashboard"
           exact
