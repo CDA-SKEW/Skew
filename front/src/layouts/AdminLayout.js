@@ -18,7 +18,6 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeAdmin } from "../configs/theme";
 import GlobalStyles from "@mui/material/GlobalStyles";
-import { style } from "../configs/globalStyle";
 
 const drawerWidth = 240;
 
@@ -54,7 +53,7 @@ function ResponsiveDrawer({ children }) {
   return (
     <ThemeProvider theme={themeAdmin}>
       <CssBaseline />
-      <GlobalStyles styles={{ ...style }} />;
+      <GlobalStyles />;
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
