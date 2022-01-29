@@ -17,7 +17,7 @@ let theme = createTheme({
   typography: {
     h1: {
       textAlign: "center",
-      fontSize: 40
+      fontSize: 40,
     },
     h2: {
       textAlign: "center",
@@ -42,24 +42,41 @@ let theme = createTheme({
 // AdminLayout
 const themeAdmin = createTheme({
   palette: {
+    divider: "rgba(255,255,255,0.12)",
     type: "dark",
     primary: {
       main: "#33c863",
     },
     secondary: {
-      main: "#c1f8d2",
+      main: "#F50057",
     },
     background: {
-      default: "#161c24",
-      paper: "#212b36",
+      default: "#161C24",
+      paper: "#212B36",
     },
     text: {
       primary: "#ffffff",
     },
+    success: {
+      main: "#c7f1d1",
+    },
+    info: {
+      main: "#2196f3",
+    },
+    warning: {
+      main: "#ff9800",
+    },
+    error: {
+      main: "#f44336",
+    },
   },
-  typography: {
-    fontSize: 14,
-    fontWeightLight: 400,
+  props: {
+    MuiTooltip: {
+      arrow: true,
+    },
+    MuiAppBar: {
+      color: "transparent",
+    },
   },
   overrides: {
     MuiAppBar: {
@@ -69,12 +86,6 @@ const themeAdmin = createTheme({
       },
     },
   },
-  props: {
-    MuiAppBar: {
-      color: "transparent",
-    },
-  },
-  spacing: 8,
 });
 
 // User

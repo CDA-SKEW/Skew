@@ -1,8 +1,12 @@
 // Listing du nombre d'entreprises
 
+/*------------MUI Imports-------------*/
+
 import { styled } from "@mui/material/styles";
 import { Card, Stack, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+
+/*------------Styles-------------*/
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "none",
@@ -12,7 +16,9 @@ const RootStyle = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.primary.lighter,
 }));
 
-const { nbUser, name, email, title, avatarURL } = {
+/*------------Table-------------*/
+
+const { nbUser, name, email, title } = {
   nbUser: [0, 1, 2, 3, 4],
   title: "Listes des entreprises",
   name: "Connie Springer",
@@ -40,6 +46,8 @@ const array = [
     email: email,
   },
 ];
+
+/*------------Export function-------------*/
 
 export default function ListFactories() {
   return (

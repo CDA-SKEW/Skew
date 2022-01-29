@@ -52,8 +52,8 @@ function ResponsiveDrawer({ children }) {
 
   return (
     <ThemeProvider theme={themeAdmin}>
-      <CssBaseline />
-      <GlobalStyles />;
+      {/* <CssBaseline /> */}
+      {/* <GlobalStyles />; */}
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
@@ -63,19 +63,19 @@ function ResponsiveDrawer({ children }) {
             ml: { sm: `${drawerWidth}px` },
           }}
         >
-          <Toolbar>
+          <Toolbar sx={{ backgroundColor: "#161C24" }}>
             <IconButton
-              color="inherit"
+              color="primary"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{
+                mr: 2,
+                display: { sm: "none" },
+              }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Dashboard Admin
-            </Typography>
           </Toolbar>
         </AppBar>
         <Box

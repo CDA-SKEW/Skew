@@ -1,8 +1,12 @@
 // Nombre de messages reçus
 
+/*------------MUI Imports-------------*/
+
 import { Icon } from "@iconify/react";
 import { alpha, styled } from "@mui/material/styles";
 import { Card, Typography } from "@mui/material";
+
+/*------------Styles-------------*/
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "none",
@@ -19,12 +23,13 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
   height: theme.spacing(8),
   justifyContent: "center",
   marginBottom: theme.spacing(3),
-  color: theme.palette.primary.dark,
   backgroundImage: `linear-gradient(135deg, ${alpha(
     theme.palette.primary.dark,
     0
   )} 0%, ${alpha(theme.palette.primary.dark, 0.24)} 100%)`,
 }));
+
+/*------------Export function-------------*/
 
 export default function Factory() {
   return (

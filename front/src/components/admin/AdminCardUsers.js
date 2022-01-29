@@ -1,15 +1,19 @@
 // Component parent contenants tous les sous-components cards
 
+/*------------MUI Imports-------------*/
+
 import { Box, Grid, Container, Typography } from "@mui/material";
 import { Factory, Notif, Users } from "components/admin";
 import { ListFactories, ListUsers } from ".";
+
+/*------------Export function-------------*/
 
 export default function DashboardApp() {
   return (
     <Container maxWidth="xl">
       <Box sx={{ pb: 5 }}>
         <Typography variant="h4" sx={{ textAlign: "center" }}>
-          Espace Admin
+          Espace Admin | Skew.com
         </Typography>
       </Box>
       <Grid

@@ -1,4 +1,4 @@
-// Export des cards
+// Exports des list cards
 
 export { default as Users } from "../admin/Users";
 export { default as Factory } from "../admin/Factory";
