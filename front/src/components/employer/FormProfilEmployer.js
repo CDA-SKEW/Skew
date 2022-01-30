@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postFormProfilEmployer } from "store/actions/EmployerActions";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
@@ -18,17 +18,22 @@ const Img = styled("img")({
 });
 
 export default function FormProfilEmployer() {
+
+  const dataProfil = useSelector((state) => state.employer.dataProfil);
+  console.log("essai", dataProfil)
+
   const dispatch = useDispatch()
 
+  const [stateImgUpload, setStateImgUpload] = useState("");
+  // const [imgUpload, setImgUpload] = useState(dataProfil.imageEmployer);
   const [imgUpload, setImgUpload] = useState(imageEmployer);
-  const [stateImgUpload, setStateImgUpload] = useState("")
-  const [siret, setSiret] = useState("1");
-  const [siren, setSiren] = useState("2");
-  const [name, setname] = useState("3");
-  const [adress, setAdress] = useState("4");
-  const [zipCode, setZipCode] = useState("5");
-  const [town, setTown] = useState("6");
-  const [category, setCategory] = useState("5");
+  const [siret, setSiret] = useState(dataProfil.siret);
+  const [siren, setSiren] = useState(dataProfil.siren);
+  const [name, setname] = useState(dataProfil.name);
+  const [adress, setAdress] = useState(dataProfil.adress);
+  const [zipCode, setZipCode] = useState(dataProfil.zipCode);
+  const [town, setTown] = useState(dataProfil.town);
+  const [category, setCategory] = useState(dataProfil.category);
 
 
   const handleImageChange = (e) => {
@@ -49,15 +54,17 @@ export default function FormProfilEmployer() {
 
   const cancelFormProfil = () => {
     // console.log("Cancel upload");
-    setImgUpload(imageEmployer);
     setStateImgUpload("")
-    setSiret("1");
-    setSiren("2");
-    setname("3");
-    setAdress("4");
-    setZipCode("5");
-    setTown("6");
-    setCategory("5");
+    setImgUpload(imageEmployer);
+    // setImgUpload(dataProfil.imageEmployer);
+    setSiret(dataProfil.siret);
+    setSiren(dataProfil.siren);
+    setname(dataProfil.name);
+    setAdress(dataProfil.adress);
+    setZipCode(dataProfil.zipCode);
+    setTown(dataProfil.town);
+    setCategory(dataProfil.category);
+
   };
 
   const sendFormProfil = async (e) => {
@@ -85,197 +92,201 @@ export default function FormProfilEmployer() {
   };
 
   return (
-    <Grid
-      container
-      rowSpacing={1}
-      direction="row-reverse"
-      justifyContent="center"
-      alignItems="center"
-      textAlign="center"
-    >
-      <Grid item md={6} xs={12} sm={12}>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: { xs: "center", md: "space-around" },
-            flexDirection: { xs: "column", md: "row" },
-            alignItems: { xs: "center", md: "none" },
-          }}
-        >
-          <Grid
-            container
-            rowSpacing={1}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid item xs={12}>
-              <Img alt="imageEmployer" src={imgUpload} />
-              {{stateImgUpload} && (<Typography color={"red"}>{stateImgUpload}</Typography>)}
-            </Grid>
+    <form
+      onSubmit={(e) => sendFormProfil(e)}>
 
-            <Grid item xs={12}>
+      <Grid
+        container
+        rowSpacing={1}
+        direction="row-reverse"
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+      >
+        <Grid item md={6} xs={12} sm={12}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: { xs: "center", md: "space-around" },
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: { xs: "center", md: "none" },
+            }}
+          >
+            <Grid
+              container
+              rowSpacing={1}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item xs={12}>
+                <Img alt="imageEmployer" src={imgUpload} />
+                {{ stateImgUpload } && (<Typography color={"red"}>{stateImgUpload}</Typography>)}
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  component="label"
+                  size="small"
+                  sx={{ bgcolor: "#2B2E30" }}
+                >
+                  <Typography>Choisir une image</Typography>
+                  <TextField
+                    sx={{ display: "none" }}
+                    required
+                    size="small"
+                    id="upload-photo"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleImageChange(e)}
+                  />
+                </Button>
+                
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
+
+        <Grid item md={6} xs={12} sm={12}>
+          <Grid container justifyContent="center" alignItems="center" spacing={2}>
+            <Grid
+              item
+              xs={10}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                required
+                defaultValue={siret}
+                label="N° de Siret:"
+                variant="outlined"
+                size="small"
+                sx={{ width: { xs: "100%", sm: "50%" } }}
+                onChange={(e) => setSiret(e.target.value)}
+              />
+
               <Button
                 variant="contained"
-                component="label"
                 size="small"
-                sx={{ bgcolor: "#2B2E30" }}
+                sx={{
+                  bgcolor: "#DC143C",
+                  color: "white",
+                  ml: 2,
+                  my: 1,
+                }}
               >
-                <Typography>Choisir une image</Typography>
-                <TextField
-                  sx={{ display: "none" }}
-                  required
-                  size="small"
-                  id="upload-photo"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleImageChange(e)}
-                />
+                {" "}
+                Saisie par N° SIRET
+              </Button>
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="N° de Siren:"
+                variant="outlined"
+                fullWidth
+                size="small"
+                value={siren}
+                onChange={(e) => setSiren(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="Nom de l'entreprise:"
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="Adresse:"
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={adress}
+                onChange={(e) => setAdress(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="Code postal:"
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="Commune:"
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={town}
+                onChange={(e) => setTown(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="Categorie:"
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </Grid>
+
+            <Grid
+              item
+              xs={10}
+              sx={{
+                p: 1,
+                display: "flex",
+                justifyContent: { xs: "center", md: "end" },
+              }}
+            >
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ bgcolor: "#DC143C", color: "white", m: 1 }}
+                type="submit"
+              >
+                Valider
+              </Button>
+
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ bgcolor: "gray", color: "white", m: 1 }}
+                onClick={(e) => cancelFormProfil()}
+              >
+                Annuler
               </Button>
             </Grid>
           </Grid>
-        </Box>
-      </Grid>
-
-      <Grid item md={6} xs={12} sm={12}>
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
-          <Grid
-            item
-            xs={10}
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <TextField
-              required
-              label="N° de Siret:"
-              variant="outlined"
-              size="small"
-              sx={{ width: { xs: "100%", sm: "50%" } }}
-              value={siret}
-              onChange={(e) => setSiret(e.target.value)}
-            />
-
-            <Button
-              variant="contained"
-              size="small"
-              sx={{
-                bgcolor: "#DC143C",
-                color: "white",
-                ml: 2,
-                my: 1,
-              }}
-            >
-              {" "}
-              Saisie par N° SIRET
-            </Button>
-          </Grid>
-
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="N° de Siren:"
-              variant="outlined"
-              fullWidth
-              size="small"
-              value={siren}
-              onChange={(e) => setSiren(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="Nom de l'entreprise:"
-              fullWidth
-              variant="outlined"
-              size="small"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="Adresse:"
-              fullWidth
-              variant="outlined"
-              size="small"
-              value={adress}
-              onChange={(e) => setAdress(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="Code postal:"
-              fullWidth
-              variant="outlined"
-              size="small"
-              value={zipCode}
-              onChange={(e) => setZipCode(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="Commune:"
-              fullWidth
-              variant="outlined"
-              size="small"
-              value={town}
-              onChange={(e) => setTown(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={10}>
-            <TextField
-              required
-              label="Categorie:"
-              fullWidth
-              variant="outlined"
-              size="small"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={10}
-            sx={{
-              p: 1,
-              display: "flex",
-              justifyContent: { xs: "center", md: "end" },
-            }}
-          >
-            <Button
-              variant="contained"
-              size="small"
-              sx={{ bgcolor: "#DC143C", color: "white", m: 1 }}
-              type="submit"
-              onClick={(e) => sendFormProfil(e)}
-            >
-              Valider
-            </Button>
-
-            <Button
-              variant="contained"
-              size="small"
-              sx={{ bgcolor: "gray", color: "white", m: 1 }}
-              onClick={(e) => cancelFormProfil()}
-            >
-              Annuler
-            </Button>
-          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </form>
   );
 }
