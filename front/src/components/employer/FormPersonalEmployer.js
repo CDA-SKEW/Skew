@@ -12,9 +12,9 @@ const Img = styled("img")({
   maxHeight: "50%",
 });
 
-export default function FormPersonnalEmployer(editProfilPersonal) {
+export default function FormPersonalEmployer(editProfilPersonal) {
 
-  console.log("state button personam data", editProfilPersonal)
+  // console.log("state button personam data", editProfilPersonal)
 
   const dataProfil = useSelector((state) => state.employer.dataProfil);
   // console.log("essai", dataProfil)
@@ -22,15 +22,15 @@ export default function FormPersonnalEmployer(editProfilPersonal) {
   const dispatch = useDispatch()
   const [stateInputDisable, setStateInputDisable] = useState(true);
   const [stateButtonVisible, setStateButtonVisible] = useState(editProfilPersonal);
-  const [adressMail, setAdressMail] = useState(dataProfil.adressMail);
+  const [addressMail, setAddressMail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
 
 
-  const cancelFormPersonnalProfil = () => {
+  const cancelFormPersonalProfil = () => {
     // console.log("Cancel upload");
-    setAdressMail(dataProfil.adressMail);
+    setAddressMail(dataProfil.addressMail);
     setpassword("")
     setConfirmPassword("")
     // setStateButtonVisible("none")
@@ -38,17 +38,17 @@ export default function FormPersonnalEmployer(editProfilPersonal) {
 
   };
 
-  const sendFormPersonnalProfil = async (e) => {
+  const sendFormPersonalProfil = async (e) => {
     console.log("Form waitsend");
     //empeche le formunliare d'etre submiter
     // console.log("event", e)
     e.preventDefault();
 
-    const dataFormPersonnalEmployer = {
-      adressMail,
+    const dataFormPersonalEmployer = {
+      addressMail,
       password,
     };
-    console.log("dataFormPersonnalEmployer", dataFormPersonnalEmployer);
+    console.log("dataFormPersonalEmployer", dataFormPersonalEmployer);
 
     // await dispatch(postFormProfilEmployer(dataFormPersonnalEmployerr))
   };
@@ -56,7 +56,7 @@ export default function FormPersonnalEmployer(editProfilPersonal) {
   return (
 
     <form
-      onSubmit={(e) => sendFormPersonnalProfil(e)}
+      onSubmit={(e) => sendFormPersonalProfil(e)}
     >
 
       <Grid
@@ -85,8 +85,8 @@ export default function FormPersonnalEmployer(editProfilPersonal) {
                 size="small"
                 type="email"
                 disabled={stateInputDisable}
-                value={adressMail}
-                onChange={(e) => setAdressMail(e.target.value)}
+                value={addressMail}
+                onChange={(e) => setAddressMail(e.target.value)}
               />
             </Grid>
 
@@ -139,7 +139,7 @@ export default function FormPersonnalEmployer(editProfilPersonal) {
                 variant="contained"
                 size="small"
                 sx={{ bgcolor: "gray", color: "white", m: 1, display: editProfilPersonal }}
-                onClick={(e) => cancelFormPersonnalProfil()}
+                onClick={(e) => cancelFormPersonalProfil()}
               >
                 Annuler
               </Button>

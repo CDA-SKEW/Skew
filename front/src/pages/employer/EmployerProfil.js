@@ -3,8 +3,8 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { themeUser } from "configs/theme";
 import FormProfilEmployer from "components/employer/FormProfilEmployer";
-import FormPersonnalEmployer from "components/employer/FormPersonnalEmployer";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
+import FormPersonalEmployer from "components/employer/FormPersonalEmployer";
 
 const EmployerProfil = () => {
 
@@ -80,7 +80,7 @@ const EmployerProfil = () => {
               <CreateOutlinedIcon />
             </Button>
           </Typography >
-          <FormPersonnalEmployer editProfilPersonal={editProfilPersonal} />
+          <FormPersonalEmployer editProfilPersonal={editProfilPersonal} />
 
         </Box>
       </Container>
