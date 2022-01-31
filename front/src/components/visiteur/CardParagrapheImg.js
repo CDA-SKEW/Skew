@@ -40,7 +40,7 @@ export default function CardParagrapheImg ({ index }){
                     color="text.secondary"
                     align="justify"
                     sx={{
-                        fontSize: {sx: 10, md: 20}
+                        fontSize: {sx: '1rem', md: 20}
                     }}
                 >
                     {index.texte}

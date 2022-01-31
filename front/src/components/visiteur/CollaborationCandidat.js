@@ -19,7 +19,7 @@ export default function CollaborationCandidat () {
             bgcolor: '#FFD9B8',
             width: '100%'
         }}>
-            <Typography variant="h5" component="div" sx={{
+            <Typography variant="h2" component="div" sx={{
                 textAlign: 'center',
                 py: 5
             }}>

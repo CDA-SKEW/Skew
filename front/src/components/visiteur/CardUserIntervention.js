@@ -20,14 +20,14 @@ export default function CardUserIntervention({ index }) {
                 m: 'auto'
             }} />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" sx={{
+                <Typography gutterBottom variant="h3" component="div" sx={{
                     textAlign: 'center'
                 }}>
                     {index.prenom} {index.nom}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{
                     textAlign: 'justify',
-                    width: 200
+                    fontSize: {sx: 10, md: 20}
                 }}>
                     {index.message}
                 </Typography>
