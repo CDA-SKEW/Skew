@@ -3,15 +3,13 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Avatar from "@mui/material/Avatar";
-import Logo from "assets/logo/logo.png";
 import Button from '@mui/material/Button';
 import { List } from "@mui/material";
 import PropTypes from 'prop-types';
 import ListItemLink from "components/core/ListItemLink";
+import Titre from "./Titre";
 
 const pages = [
   { titre: "Accueil", lien: "/" },
@@ -19,7 +17,7 @@ const pages = [
   { titre: "Contactez-nous", lien: "/contactus" },
 ];
 
-<ListItemLink/>
+<ListItemLink />
 
 ListItemLink.propTypes = {
   primary: PropTypes.string.isRequired,
@@ -46,27 +44,7 @@ export default function ResponsiveAppBar() {
             display: { xs: "flex", md: "block" }
           }}
         >
-          {/* Logo */}
-          <Box sx={{ display: { xs: "flex", md: "block" } }}>
-            <Box
-              sx={{
-                flexGrow: 0,
-                display: 'flex'
-              }}
-            >
-              <Avatar
-                variant="square"
-                src={Logo}
-                sx={{
-                  mx: 2,
-                }}
-              />
-              <Typography variant='h1' sx={{ width: '100%' }}>
-                SKEW
-              </Typography>
-            </Box>
-          </Box>
-
+          <Titre />
           {/* Menu */}
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             <List
