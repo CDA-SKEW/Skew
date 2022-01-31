@@ -1,47 +1,58 @@
 /*------------MUI Imports-------------*/
 
 import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import IconChips from "./tables/Chips";
+import IconChips from "components/admin/tables/Chips";
 import { Typography } from "@mui/material";
 import Avatars from "components/admin/tables/Avatars";
 import Actions from "components/admin/tables/Actions";
+import { useSelector } from "react-redux";
+import { Box } from "@mui/system";
+// import { DataGrid, GridExpandMoreIcon } from "@mui/x-data-grid";
+import Dates from "components/admin/tables/Dates";
+import { DataGrid } from "@mui/x-data-grid";
+// import AccordionDetails from "@mui/material/AccordionDetails";
+// import AccordionSummary from "@mui/material/AccordionSummary";
 
-/*------------Export function-------------*/
+/*------------Export function + table header-------------*/
 
 export default function UsersTable() {
+  // const [expanded, setExpanded] = React.useState(false);
+
+  // const handleChange = (panel) => (event, isExpanded) => {
+  //   setExpanded(isExpanded ? panel : false);
+  // };
+
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     {
       field: "date",
       headerName: "Dates",
       width: 130,
-      type: "date",
-      editable: true,
+      // type: "date",
+      renderCell: () => {
+        return <Dates />;
+      },
+      editable: false,
     },
     {
       field: "avatar",
       headerName: "Avatars",
       width: 80,
       renderCell: () => {
-        return (
-          <>
-            <Avatars />
-          </>
-        );
+        return <Avatars />;
       },
     },
     {
       field: "lastName",
       headerName: "Noms",
       width: 150,
-      editable: true,
+      editable: false,
     },
     {
       field: "firstName",
       headerName: "Prénoms",
       width: 150,
-      editable: true,
+      editable: false,
     },
     {
       field: "fullName",
@@ -55,17 +66,13 @@ export default function UsersTable() {
     {
       field: "email",
       width: 190,
-      editable: true,
+      editable: false,
     },
     {
       field: "status",
       headerName: "Status",
-      renderCell: () => {
-        return (
-          <>
-            <IconChips />
-          </>
-        );
+      renderCell: (cell) => {
+        return <IconChips user={cell} />;
       },
       width: 150,
       editable: false,
@@ -74,121 +81,58 @@ export default function UsersTable() {
       field: "action",
       headerName: "Actions",
       renderCell: () => {
-        return (
-          <>
-            <Actions />
-          </>
-        );
+        return <Actions />;
       },
-      width: 210,
+      width: 190,
       editable: false,
     },
   ];
 
-  /*------------Table-------------*/
+  /*------------Table Users-------------*/
 
-  const rows = [
-    {
-      id: 1,
-      date: new Date(),
-      firstName: "Jean",
-      lastName: "Cuckstein",
-      isEmployer: true,
-      isCandidate: false,
-      email: "jean@gmail.com",
-    },
-    {
-      id: 2,
-      date: new Date(),
-      firstName: "Armong",
-      lastName: "Arlert",
-      isEmployer: false,
-      isCandidate: true,
-      email: "armong@gmail.com",
-    },
-    {
-      id: 3,
-      date: new Date(),
-      firstName: "Cuckren",
-      lastName: "Yoghurt",
-      isEmployer: true,
-      isCandidate: false,
-      email: "cuckren@gmail.com",
-    },
-    {
-      id: 4,
-      date: new Date(),
-      firstName: "Samy",
-      lastName: "Lynn Jackson",
-      isEmployer: true,
-      isCandidate: false,
-      email: "samy@gmail.com",
-    },
-    {
-      id: 5,
-      date: new Date(),
-      firstName: "Dot",
-      lastName: "Pixis",
-      isEmployer: false,
-      isCandidate: true,
-      email: "dot@gmail.com",
-    },
-    {
-      id: 6,
-      date: new Date(),
-      fistName: "Connie",
-      lastName: "Springer",
-      isEmployer: false,
-      isCandidate: true,
-      email: "springer@gmail.com",
-    },
-    {
-      id: 7,
-      date: new Date(),
-      fistName: "Mankasa",
-      lastName: "Crackerman",
-      isEmployer: false,
-      isCandidate: true,
-      email: "dogkasa@gmail.com",
-    },
-    {
-      id: 8,
-      date: new Date(),
-      fistName: "Berthy",
-      lastName: "Hoover",
-      isEmployer: false,
-      isCandidate: true,
-      email: "souka@gmail.com",
-    },
-    {
-      id: 9,
-      date: new Date(),
-      fistName: "Marie",
-      lastName: "Du Nile",
-      isEmployer: true,
-      isCandidate: false,
-      email: "marie@gmail.com",
-    },
-  ];
+  const listUsers = useSelector((state) => state.admin.listUsers);
 
   /*--------------Components------------*/
 
   return (
-    <div>
+    <Box>
       <Typography variant="h4" sx={{ textAlign: "center" }}>
         Admin gestion des utilisateurs | Skew.com
       </Typography>
+
       <br />
+
+      {/* <Accordion
+        expanded={expanded === "panel1"}
+        onChange={handleChange("panel1")}
+      >
+        <AccordionSummary
+          expandIcon={<GridExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+        ></AccordionSummary>
+        <AccordionDetails>
+          <Typography sx={{ textAlign: "center" }}>
+            <DataGrid
+              autoHeight
+              // rows={listUsers}
+              columns={columns}
+              // pageSize={10}
+              // rowsPerPageOptions={[5]}
+              // checkboxSelection
+            />
+          </Typography>
+        </AccordionDetails>
+      </Accordion> */}
 
       <DataGrid
         autoHeight
-        rows={rows}
+        rows={listUsers}
         columns={columns}
-        // sx={{ background: "#212B36", display: "flex" }}
         pageSize={10}
-        // rowsPerPageOptions={[5]}
+        rowsPerPageOptions={[5]}
         checkboxSelection
       />
-    </div>
+    </Box>
   );
 }

@@ -29,7 +29,7 @@ export default function DeletableChips() {
       />
 
       <Chip
-        label="validated"
+        label="check"
         color="primary"
         onClick={handleClick}
         onDelete={handleDelete}

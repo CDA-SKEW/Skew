@@ -1,14 +1,15 @@
 import React from "react";
 import AdminLayout from "layouts/AdminLayout";
 import AdminCardUsers from "components/admin/AdminCardUsers";
+import { Box } from "@mui/material";
 
 const AdminPage = () => {
   return (
-    <div>
+    <Box>
       <AdminLayout>
         <AdminCardUsers />
       </AdminLayout>
-    </div>
+    </Box>
   );
 };
 
