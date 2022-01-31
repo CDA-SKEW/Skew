@@ -2,9 +2,7 @@ import React from 'react'
 import { Button } from "@mui/material";
 import PropTypes from 'prop-types';
 import { StaticRouter } from 'react-router-dom/server';
-import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
-
-
+import { MemoryRouter } from 'react-router-dom';
 
 function Router(props) {
     const { children } = props;
@@ -26,11 +24,13 @@ export default function CardUser({ index }) {
             key={index.key}
             href={index.lien}
             variant='contained'
+            color={index.color}
             sx={{
                 width: "40%",
                 m: 'auto',
                 minWidth: 150,
-                maxWidth: 370
+                maxWidth: 370,
+                height: 400,
             }}
         >
             {index.titre}

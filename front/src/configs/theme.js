@@ -27,7 +27,10 @@ let theme = createTheme({
       main: "#FFD9B8",
     },
     secondary: {
-      main: orange[500],
+      main: "#ABC4FF",
+    },
+    tiers: {
+      main: "#C4FFE9",
     },
     background: {
       paper: "#ABC4FF",
