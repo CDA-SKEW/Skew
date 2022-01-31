@@ -12,7 +12,7 @@ export default function WhyCandidat() {
     ]
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
             {CardsContents.map((index) => (
                 <CardParagrapheImg key={index.key} index={index} />
             ))}
