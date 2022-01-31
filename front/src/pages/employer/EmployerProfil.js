@@ -1,10 +1,21 @@
-import { Container, CssBaseline, Typography } from "@mui/material";
+import { Button, Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { themeUser } from "configs/theme";
 import FormProfilEmployer from "components/employer/FormProfilEmployer";
+import FormPersonnalEmployer from "components/employer/FormPersonnalEmployer";
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 
 const EmployerProfil = () => {
+
+  const [editProfilPersonal, setEditProfilPersonal] = useState("none");
+
+  const handleEditProfilPersonal = (e) => {
+    // console.log("fct EditProfilPersonal");
+    setEditProfilPersonal("block")
+  };
+
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -35,15 +46,16 @@ const EmployerProfil = () => {
             }}
           >
             <Typography
-              variant="h5"
-              component="h5"
+              variant="h3"
+              component="h3"
               sx={{
                 px: 1,
                 bgcolor: themeUser.palette.primary.main,
                 color: themeUser.palette.text.primary,
                 borderRadius: 1,
                 position: "relative",
-                top: "-30px",
+                top: "-45px",
+                textAlign: "center"
               }}
             >
               Mon compte
@@ -51,14 +63,25 @@ const EmployerProfil = () => {
           </Box>
 
           <Typography
-            sx={{ textAlign: "center", position: "relative", top: "-20px" }}
-            variant="h6"
+            sx={{ textAlign: "center", mb: 4 }}
+            variant="h4"
           >
             Informations entreprise
           </Typography>
-      
-            <FormProfilEmployer />
-      
+
+          <FormProfilEmployer />
+
+          <Typography
+            sx={{ textAlign: "center", my: 4 }}
+            variant="h4"
+          >
+            Informations personnelles
+            <Button onClick={(e) => handleEditProfilPersonal(e)}>
+              <CreateOutlinedIcon />
+            </Button>
+          </Typography >
+          <FormPersonnalEmployer editProfilPersonal={editProfilPersonal} />
+
         </Box>
       </Container>
     </React.Fragment>
