@@ -25,13 +25,6 @@ export default function MenuList({ pages }) {
                         key={page.titre}
                         primary={page.titre}
                         to={page.lien}
-                        sx={{
-                            my: 2,
-                            color: "black",
-                            display: "block",
-                            width: { xs: '100%', md: 290 },
-                            p: 0
-                        }}
                     />
                 ))}
                 <Button
