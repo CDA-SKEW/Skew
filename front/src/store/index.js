@@ -8,7 +8,8 @@ import thunk from "redux-thunk";
 /*
  * Reducers
  * ******** */
-import { EmployerReducer  } from "./reducers/Employer";
+import { EmployerReducer } from "./reducers/Employer";
+import { CandidateReducer } from "./reducers/Candidate";
 
 
 /*
@@ -16,7 +17,7 @@ import { EmployerReducer  } from "./reducers/Employer";
  * ******************* */
 const rootReducer = combineReducers({
   employer: EmployerReducer,
-
+  candidate: CandidateReducer
 });
 
 /*

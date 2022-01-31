@@ -9,10 +9,10 @@ import TableInt from "components/candidat/TableInt";
 import TableFormation from "components/candidat/TableFormation";
 import Button from '@mui/material/Button';
 import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
 
 const CandidatProfilTest = () => {
-
-
+  const user = useSelector((state) => state.candidate.user)
   return (
     <React.Fragment>
       <CssBaseline />
@@ -39,14 +39,14 @@ const CandidatProfilTest = () => {
 
         {/* BOX COMPETENCE & INTERET */}
         <Masonry columns={2} spacing={2}>
-          <TableComp />
-          <TableInt />
+          <TableComp skill={user.skill} />
+          <TableInt interest={user.interest} />
         </Masonry>
 
         {/* BOX FORMATION*/}
         <TableFormation />
         {/* CV Checkbox*/}
-        <ChekboxCV />
+        <ChekboxCV listCv={user.cv} />
 
       </Container>
     </React.Fragment >

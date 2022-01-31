@@ -1,24 +1,16 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box } from "@mui/system";
-import { Checkbox, Typography } from "@mui/material";
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Typography } from "@mui/material";
 
 
-
-const rows = [
-  { id: 1, Cv: 'Dev-Web' },
-  { id: 2, Cv: 'Designer-web' },
-  { id: 3, Cv: 'Cuisinier' },
-
-
-];
 const columns = [
   { field: 'id', headerName: 'ID', width: 250 },
-  { field: 'Cv', headerName: 'CV', width: 250 }
+  { field: 'title', headerName: 'Name', width: 250 }
 ];
 
-export default function DataTable() {
+export default function DataTable(props) {
+  const { listCv } = props
   return (
     <Box
       sx={{
@@ -57,7 +49,7 @@ export default function DataTable() {
 
       </Box>
       <div style={{ height: 300, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} checkboxSelection />
+        <DataGrid rows={listCv} columns={columns} checkboxSelection />
       </div>
     </Box >
 
