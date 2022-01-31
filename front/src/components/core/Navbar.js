@@ -21,7 +21,7 @@ export default function ResponsiveAppBar() {
         <Toolbar
           disableGutters
           sx={{
-            display: { xs: "flex", md: "block" }
+            display: { xs: "flex", md: "block" },
           }}
         >
           <Titre />
