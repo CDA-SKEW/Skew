@@ -27,29 +27,12 @@ function App() {
         <Route path="/candidat" exact element={<PresentationCandidat />} />
         <Route path="/contactus" exact element={<ContactezNous />} />
         <Route path="/offres" exact element={<OffresView />} />
-        <Route
-          path="/Employer/dashboard"
-          exact
-          element={<EmployerDashboard />}
-        />
-        <Route
-          path="/Employer/dashboard"
-          exact
-          element={<EmployerDashboard />}
-        />
+        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />} />
         <Route path="/Employer/profil" exact element={<EmployerProfil />} />
         <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
-        <Route
-          path="/Candidat/dashboard"
-          exact
-          element={<CandidatDashboard />}
-        />
-        <Route
-          path="/Candidat/candidature"
-          exact
-          element={<CandidatCandidature />}
-        />
+        <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
+        <Route path="/Candidat/candidature" exact element={<CandidatCandidature />}/>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
