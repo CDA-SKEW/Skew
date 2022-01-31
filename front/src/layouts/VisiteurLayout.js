@@ -5,6 +5,7 @@ import { theme } from "../configs/theme";
 import { style } from '../configs/globalStyle';
 import Container from '@mui/material/Container';
 import Navbar from "../components/core/Navbar";
+import Footer from "components/core/Footer";
 
 export default function VisiteurLayout({ children }) {
   return (
@@ -19,6 +20,7 @@ export default function VisiteurLayout({ children }) {
       >
         {children}
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 };
