@@ -34,7 +34,7 @@ export default function FormContact() {
                     <TextField
                         key={index.key}
                         label={index.label}
-                        color='info'
+                        color='secondary'
                         variant="outlined"
                         fullWidth
                         sx={{
@@ -48,7 +48,7 @@ export default function FormContact() {
                 ))}
                 <TextField
                     label='Message'
-                    color='info'
+                    color='secondary'
                     variant="outlined"
                     fullWidth
                     multiline
@@ -63,7 +63,7 @@ export default function FormContact() {
                 />
                 <Button
                     variant="contained"
-                    color='info'
+                    color='secondary'
                     fullWidth
                     size='large'
                     sx={{
@@ -71,8 +71,10 @@ export default function FormContact() {
                         width: '100%',
                         maxWidth: 620,
                         mx: 'auto',
-                        my: 2,
-                        fontSize: '20px'
+                        mt: 2,
+                        mb: 10,
+                        fontSize: '20px',
+                        py: {xs: 1, md: 2}
                     }}
                 >
                     Envoyer
