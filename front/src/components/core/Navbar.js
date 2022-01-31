@@ -7,9 +7,8 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
-import MenuItem from "@mui/material/MenuItem";
 import Logo from "assets/logo/logo.png";
-import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
 import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
 import { List } from "@mui/material";
 import PropTypes from 'prop-types';
@@ -76,7 +75,13 @@ export default function ResponsiveAppBar() {
                 display: 'flex'
               }}
             >
-              <Avatar variant="square" src={Logo} sx={{ mx: 2 }} />
+              <Avatar
+                variant="square"
+                src={Logo}
+                sx={{
+                  mx: 2,
+                }}
+              />
               <Typography variant='h1' sx={{ width: '100%' }}>
                 SKEW
               </Typography>
@@ -105,6 +110,13 @@ export default function ResponsiveAppBar() {
                   }}
                 />
               ))}
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: '#ABC4FF',
+                  fontWeight: 'bold'
+                }}
+              >Log in / Sign in</Button>
             </List>
           </Box>
 
@@ -147,11 +159,16 @@ export default function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <List key={page.titre} onClick={handleCloseNavMenu}>
-                  <ListItemLink to={page.lien} primary={page.titre} textAlign="center"/>
-                </List>
-              ))}
+              <List onClick={handleCloseNavMenu}>
+                {pages.map((page) => (
+                  <ListItemLink
+                    key={page.titre}
+                    to={page.lien}
+                    primary={page.titre}
+                    textAlign="center" />
+                ))}
+                <Button variant="contained">Log in / Sign in</Button>
+              </List>
             </Menu>
           </Box>
         </Toolbar>
