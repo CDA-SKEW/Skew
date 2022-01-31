@@ -1,22 +1,17 @@
 import React from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
-import { Container } from '@mui/material';
 import WhyCandidat from 'components/visiteur/WhyCandidat';
 import CollaborationCandidat from 'components/visiteur/CollaborationCandidat';
 import ConfianceCandidat from 'components/visiteur/ConfianceCandidat';
 import LastOffres from 'components/visiteur/LastOffres';
 
-const PresentationCandidat = () => {
+export default function PresentationCandidat() {
     return (
         <VisiteurLayout>
-            <Container>
-                <WhyCandidat />
-                <CollaborationCandidat />
-                <ConfianceCandidat />
-                <LastOffres />
-            </Container>
+            <WhyCandidat />
+            <CollaborationCandidat />
+            <ConfianceCandidat />
+            <LastOffres />
         </VisiteurLayout>
     );
 };
-
-export default PresentationCandidat;

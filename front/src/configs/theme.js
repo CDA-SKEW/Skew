@@ -11,8 +11,14 @@ let theme = createTheme({
       main: orange[500],
     },
     background: {
-      paper: '#ABC4FF'
-    }
+      paper: "#ABC4FF",
+    },
+  },
+  typography: {
+    h5: {
+      textAlign: "center",
+      marginBottom: 10,
+    },
   },
 });
 
@@ -33,19 +39,49 @@ const themeAdmin = createTheme({
       paper: "#212b36",
     },
   },
-  shape: {
-    borderRadius: 4,
-  },
   overrides: {
     MuiAppBar: {
       colorInherit: {
-        backgroundColor: "#161C24",
+        backgroundColor: "#689f38",
         color: "#fff",
       },
+    },
+  },
+  spacing: 8,
+  shape: {
+    borderRadius: 4,
+  },
+  props: {
+    MuiAppBar: {
+      color: "transparent",
     },
   },
 });
 
 // themeAdmin = responsiveFontSizes(theme);
 
-export { theme, themeAdmin };
+// AdminLayout
+const themeUser = createTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: "#004F98",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+    background: {
+      default: "#E5E5E5",
+      paper: "#FF7F50",
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#004F98",
+    },
+  },
+  shape: {
+    borderRadius: 4,
+  },
+});
+
+export { theme, themeAdmin, themeUser };

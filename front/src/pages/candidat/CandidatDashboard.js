@@ -12,22 +12,22 @@ import { themeUser } from "configs/theme";
 import imageEmployer from "assets/images/imageEmployor.png";
 
 const EmployerDashboard = () => {
-  const { nbNotif, nbCandidateReceive, NbMyOffers } = {
+  const { nbNotif, nbProfilView, NbMyPost } = {
     nbNotif: [0, 1, 2, 3, 4, 5],
-    nbCandidateReceive: [0, 1, 2, 3],
-    NbMyOffers: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    nbProfilView: [0, 1, 2, 3],
+    NbMyPost: [0, 1, 2, 3, 4, 5, 6, 7, 8],
   };
 
   const arrayDash = [
     {
       icon: <LibraryBooksIcon sx={{ width: "45px", height: "45px" }} />,
-      number: NbMyOffers.length,
-      text: "Mes offres déposée",
+      number: NbMyPost.length,
+      text: "Candidatures",
     },
     {
       icon: <VisibilityIcon sx={{ width: "45px", height: "45px" }} />,
-      number: nbCandidateReceive.length,
-      text: "Candidatures reçues",
+      number: nbProfilView.length,
+      text: "Nombre de vue Profil",
     },
     {
       icon: <NotificationsActiveIcon sx={{ width: "45px", height: "45px" }} />,
@@ -164,7 +164,7 @@ const EmployerDashboard = () => {
                 top: "-30px",
               }}
             >
-              Dernieres offres postées
+              Dernieres offres postulés
             </Typography>
           </Box>
 

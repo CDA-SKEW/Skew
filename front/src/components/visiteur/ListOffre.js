@@ -3,7 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
-const ListOffre = ({ index }) => {
+export default function ListOffre ({ index }) {
 
     return (
         <ListItem alignItems="flex-start" sx={{
@@ -32,5 +32,3 @@ const ListOffre = ({ index }) => {
         </ListItem>
     );
 };
-
-export default ListOffre;

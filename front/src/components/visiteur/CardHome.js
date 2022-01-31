@@ -1,8 +1,6 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import Link from "@mui/material/Link";
-import { Box } from "@mui/system";
-import { Typography } from "@mui/material";
+import CardUser from 'components/visiteur/CardUser';
+import Container from '@mui/material/Container';
 
 export default function CardHome() {
 
@@ -12,36 +10,17 @@ export default function CardHome() {
     ]
 
     return (
-        <Box sx={{
-            display: 'flex',
-            width: 1000,
-            mx: 'auto',
-            my: 20
-        }}>
+        <Container
+            maxWidth='md'
+            disableGutters
+            sx={{
+                display: 'flex',
+                mx: 'auto',
+                my: 10
+            }}>
             {CardsList.map((index) => (
-                <Link
-                    key={index.key}
-                    href={index.lien}
-                    color="#000000"
-                    underline="none"
-                    sx={{
-                        width: 400,
-                        m: 'auto',
-                        minWidth: 180
-                    }}
-                >
-                    <Card sx={{
-                        height: 400,
-                    }}>
-                        <Typography sx={{
-                            textAlign: 'center',
-                            justifyContent: 'center'
-                        }}>
-                            {index.titre}
-                        </Typography>
-                    </Card>
-                </Link>
+                <CardUser key={index.key} index={index} />
             ))}
-        </Box>
+        </Container>
     );
 }

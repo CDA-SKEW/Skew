@@ -4,31 +4,45 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-const CardParagrapheImg = ({index}) => {
+export default function CardParagrapheImg ({ index }){
     return (
         <Card sx={{
-            Width: 1000,
             my: 20,
             display: "flex",
             bgcolor: "#fff",
-            boxShadow: "none"
+            boxShadow: "none",
+            justifyContent: { xs: "center", md: "space-around" },
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "center", md: "none" },
         }}>
             <CardMedia
                 component="img"
-                height="400"
                 image={index.image}
                 alt="Pourquoi-nous"
+                sx={{
+                    minWidth: 340,
+                    width: '90%'
+                }}
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+            <CardContent sx={{
+                pt: 0,
+                px: 2,
+                width: '90%',
+                verticalAlign: 'top'
+            }}>
+                <Typography
+                    variant="h5"
+                >
                     {index.titre}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    align="justify"
+                >
                     {index.texte}
                 </Typography>
             </CardContent>
         </Card>
     );
 };
-
-export default CardParagrapheImg;

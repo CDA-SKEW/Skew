@@ -1,20 +1,15 @@
 import React from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
-import { Container } from '@mui/material';
 import CardHome from 'components/visiteur/CardHome';
 import WhyHome from 'components/visiteur/WhyHome';
 import StatBarHome from 'components/visiteur/StatBarHome';
 
-const Home = () => {
+export default function Home() {
     return (
         <VisiteurLayout>
-            <Container>
-                <CardHome />
-                <WhyHome />
-                <StatBarHome />
-            </Container>
+            <CardHome />
+            <WhyHome />
+            <StatBarHome />
         </VisiteurLayout>
     );
 };
-
-export default Home;
