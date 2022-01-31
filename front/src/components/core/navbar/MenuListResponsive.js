@@ -4,11 +4,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import ListItemLink from "components/core/navbar/ListItemLink";
 import PropTypes from 'prop-types';
-import { grey } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
-import { Global } from '@emotion/react';
 
 <ListItemLink />
 
@@ -16,11 +13,6 @@ ListItemLink.propTypes = {
     primary: PropTypes.string.isRequired,
     to: PropTypes.string.isRequired,
 };
-
-const Root = styled('div')(({ theme }) => ({
-    backgroundColor:
-        theme.palette.mode === 'light' ? grey[100] : theme.palette.background.default,
-}));
 
 export default function MenuListResponsive({ pages }) {
 
@@ -31,9 +23,7 @@ export default function MenuListResponsive({ pages }) {
         setOpen(newOpen);
     };
 
-
     const container = window !== undefined ? () => window().document.body : undefined;
-
 
     return (
 
@@ -51,48 +41,43 @@ export default function MenuListResponsive({ pages }) {
             >
                 <MenuIcon />
             </IconButton>
-            <Root>
-                <Global
-                    styles={{
-                        '.MuiDrawer-root > .MuiPaper-root': {
-                            overflow: 'visible',
-                            backgroundColor: '#fff'
-                        },
-                    }}
-                />
-                <SwipeableDrawer
-                    container={container}
-                    anchor="top"
-                    open={open}
-                    onClose={toggleDrawer(false)}
-                    onOpen={toggleDrawer(true)}
-                    disableSwipeToOpen={false}
-                    ModalProps={{
-                        keepMounted: true,
+            <SwipeableDrawer
+                container={container}
+                anchor="top"
+                open={open}
+                onClose={toggleDrawer(false)}
+                onOpen={toggleDrawer(true)}
+                disableSwipeToOpen={false}
+                ModalProps={{
+                    keepMounted: true,
+                }}
+            >
+                <Box
+                    sx={{
+                        listStyleType: 'none',
+                        textAlign: 'center',
                     }}
                 >
-                    <Box sx={{ listStyleType: 'none' }}>
-                        {pages.map((page) => (
-                            <ListItemLink
-                                key={page.titre}
-                                primary={page.titre}
-                                to={page.lien}
-                            />
-                        ))}
-                        <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: '#ABC4FF',
-                                fontWeight: 'bold',
-                                py: 2,
-                                width: '80%',
-                                my: 2,
-                                mx: 'auto',
-                            }}
-                        >Log in / Sign in</Button>
-                    </Box>
-                </SwipeableDrawer>
-            </Root>
+                    {pages.map((page) => (
+                        <ListItemLink
+                            key={page.titre}
+                            primary={page.titre}
+                            to={page.lien}
+                        />
+                    ))}
+                    <Button
+                        variant="contained"
+                        sx={{
+                            bgcolor: '#ABC4FF',
+                            fontWeight: 'bold',
+                            py: 2,
+                            width: '80%',
+                            my: 2,
+                            mx: 'auto',
+                        }}
+                    >Log in / Sign in</Button>
+                </Box>
+            </SwipeableDrawer>
         </Box>
 
     )
