@@ -13,29 +13,28 @@ export default function StatBarHome() {
 
     return (
         <Box
+            maxWidth='xl'
             sx={{
-                maxWidth: '800px',
                 bgcolor: "#FFD9B8",
                 mx: 'auto',
-                mb: "30px",
-                height: 100,
-                borderRadius: 50
+                my: 10,
+                borderRadius: {sx: 0, md: 50}
             }}>
             <Stack direction="row" spacing={2} sx={{
-                mx: "75px",
+                mx: {xs: 0, xl: "75px"},
             }}>
                 {StatList.map((index) => (
                     <Typography
-                        variant='h5'
+                        variant='h3'
                         key={index.key}
                         align='center'
                         sx={{
                             bgcolor: "#FFD9B8",
                             color: '#000000',
                             boxShadow: "none",
-                            pt: 2,
+                            py: 3,
                             width: '33%',
-                            fontSize: {xs: 17, md: 25}
+                            fontSize: { xs: 17, md: 35 }
                         }}>
                         {index.nombre}
                         <br />
