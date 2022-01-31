@@ -7,17 +7,48 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "assets/logo/logo.png";
+import Link from '@mui/material/Link';
+import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
+import { List } from "@mui/material";
+import PropTypes from 'prop-types';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
 
 const pages = [
   { titre: "Accueil", lien: "/" },
   { titre: "Offres", lien: "/offres" },
-  { titre: "Contactez-nous", lien: "/contact" },
+  { titre: "Contactez-nous", lien: "/contactus" },
 ];
 
-const ResponsiveAppBar = () => {
+function ListItemLink(props) {
+  const { icon, primary, to } = props;
+
+  const renderLink = React.useMemo(
+    () =>
+      React.forwardRef(function Link(itemProps, ref) {
+        return <RouterLink to={to} ref={ref} {...itemProps} role={undefined} />;
+      }),
+    [to],
+  );
+
+  return (
+    <li>
+      <ListItem button component={renderLink}>
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+}
+
+ListItemLink.propTypes = {
+  icon: PropTypes.element,
+  primary: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+};
+
+export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -54,16 +85,17 @@ const ResponsiveAppBar = () => {
 
           {/* Menu */}
           <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <Box
+            <List
               sx={{
                 flexGrow: 1,
                 display: "flex",
                 justifyContent: 'center',
               }}>
               {pages.map((page) => (
-                <Button
+                <ListItemLink
                   key={page.titre}
-                  onClick={handleCloseNavMenu}
+                  primary={page.titre}
+                  to={page.lien}
                   sx={{
                     my: 2,
                     color: "black",
@@ -71,11 +103,9 @@ const ResponsiveAppBar = () => {
                     width: { xs: '100%', md: 290 },
                     p: 0
                   }}
-                >
-                  {page.titre}
-                </Button>
+                />
               ))}
-            </Box>
+            </List>
           </Box>
 
           {/* Menu burger responsive */}
@@ -118,9 +148,9 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.titre} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.titre}</Typography>
-                </MenuItem>
+                <List key={page.titre} onClick={handleCloseNavMenu}>
+                  <ListItemLink to={page.lien} primary={page.titre} textAlign="center"/>
+                </List>
               ))}
             </Menu>
           </Box>
@@ -129,4 +159,3 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
