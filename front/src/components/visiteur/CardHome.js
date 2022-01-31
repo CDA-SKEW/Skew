@@ -11,12 +11,12 @@ export default function CardHome() {
 
     return (
         <Box
-            maxWidth='md'
+            maxWidth='xl'
             disableGutters
             sx={{
                 display: 'flex',
                 mx: 'auto',
-                my: 25,
+                my: 10,
             }}>
             {CardsList.map((index) => (
                 <CardUser key={index.key} index={index} />

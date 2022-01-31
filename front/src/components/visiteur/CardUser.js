@@ -29,8 +29,8 @@ export default function CardUser({ index }) {
                 width: "45%",
                 m: 'auto',
                 minWidth: 150,
-                maxWidth: 400,
-                height: 500,
+                maxWidth: 600,
+                height: 600,
             }}
         >
             <Typography
