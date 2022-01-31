@@ -19,7 +19,7 @@ const pages = [
   { titre: "Contactez-nous", lien: "/contactus" },
 ];
 
-<ListItemLink />
+<ListItemLink/>
 
 ListItemLink.propTypes = {
   primary: PropTypes.string.isRequired,

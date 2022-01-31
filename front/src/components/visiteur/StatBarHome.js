@@ -34,7 +34,8 @@ export default function StatBarHome() {
                             color: '#000000',
                             boxShadow: "none",
                             pt: 2,
-                            width: '33%'
+                            width: '33%',
+                            fontSize: {xs: 17, md: 25}
                         }}>
                         {index.nombre}
                         <br />

@@ -23,10 +23,5 @@ function ListItemLink(props) {
       </li>
     );
   }
-  
-  ListItemLink.propTypes = {
-    primary: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
-  };
 
   export default ListItemLink

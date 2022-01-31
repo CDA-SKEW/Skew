@@ -26,11 +26,11 @@ export default function CardUser({ index }) {
             variant='contained'
             color={index.color}
             sx={{
-                width: "40%",
+                width: "45%",
                 m: 'auto',
                 minWidth: 150,
-                maxWidth: 370,
-                height: 400,
+                maxWidth: 400,
+                height: 500,
             }}
         >
             <Typography

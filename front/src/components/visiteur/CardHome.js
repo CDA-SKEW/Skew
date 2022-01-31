@@ -16,7 +16,7 @@ export default function CardHome() {
             sx={{
                 display: 'flex',
                 mx: 'auto',
-                my: 10,
+                my: 25,
             }}>
             {CardsList.map((index) => (
                 <CardUser key={index.key} index={index} />
