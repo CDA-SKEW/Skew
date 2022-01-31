@@ -29,10 +29,10 @@ export default function DirectionStack() {
 
     return (
         <Box sx={{
-            my:10,
+            my:20,
             width: '100%'
         }}>
-            <Typography variant="h5" component="div" sx={{
+            <Typography variant="h2" component="div" sx={{
                 textAlign: 'center',
                 my: 5
             }}>

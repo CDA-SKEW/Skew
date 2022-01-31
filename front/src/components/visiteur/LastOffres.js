@@ -13,11 +13,15 @@ export default function LastOffres() {
     ]
 
     return (
-        <Box sx={{ mb: 10, }}>
-            <Typography variant="h5" component="div" sx={{
-                textAlign: 'center',
-                my: 5,
-            }}>
+        <Box sx={{ mb: 10, my: 10 }}>
+            <Typography
+                variant="h2"
+                component="div"
+                sx={{
+                    textAlign: 'center',
+                    my: 2,
+                }}
+            >
                 Nos dernières offres
             </Typography>
             <Box sx={{
