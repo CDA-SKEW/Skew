@@ -17,7 +17,7 @@ export default function ResponsiveAppBar() {
 
   return (
     <AppBar position="static">
-      <Box maxWidth="xl">
+      <Box>
         <Toolbar
           disableGutters
           sx={{
