@@ -103,15 +103,16 @@ const EmployerDashboard = () => {
             }}
           >
             <Typography
-              variant="h5"
-              component="h5"
+              variant="h4"
+              component="h4"
               sx={{
                 px: 1,
                 bgcolor: themeUser.palette.primary.main,
                 color: themeUser.palette.text.primary,
                 borderRadius: 1,
                 position: "relative",
-                top: "-30px",
+                top: "-45px",
+                textAlign:"center"
               }}
             >
               Résumé
@@ -153,15 +154,16 @@ const EmployerDashboard = () => {
             }}
           >
             <Typography
-              variant="h5"
-              component="h5"
+              variant="h4"
+              component="h4"
               sx={{
                 px: 1,
                 bgcolor: themeUser.palette.primary.main,
                 color: themeUser.palette.text.primary,
                 borderRadius: 1,
                 position: "relative",
-                top: "-30px",
+                top: "-45px",
+                textAlign:"center"
               }}
             >
               Dernieres offres postées

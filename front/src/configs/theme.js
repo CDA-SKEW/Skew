@@ -15,28 +15,67 @@ let theme = createTheme({
     },
   },
   typography: {
+    h1: {
+      textAlign: "center",
+      fontSize: 40,
+    },
+    h2: {
+      textAlign: "center",
+      marginTop: 50,
+      marginBottom: 10,
+    },
     h5: {
       textAlign: "center",
       marginBottom: 10,
     },
+    h6: {
+      textAlign: "center",
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    body1: {
+      textAlign: "justify",
+    },
   },
 });
-
-// theme = responsiveFontSizes(theme);
 
 // AdminLayout
 const themeAdmin = createTheme({
   palette: {
+    divider: "rgba(255,255,255,0.12)",
     type: "dark",
     primary: {
       main: "#33c863",
     },
     secondary: {
-      main: "#c1f8d2",
+      main: "#F50057",
     },
     background: {
       default: "#161C24",
-      paper: "#212b36",
+      paper: "#212B36",
+    },
+    text: {
+      primary: "#ffffff",
+    },
+    success: {
+      main: "#c7f1d1",
+    },
+    info: {
+      main: "#2196f3",
+    },
+    warning: {
+      main: "#ff9800",
+    },
+    error: {
+      main: "#f44336",
+    },
+  },
+  props: {
+    MuiTooltip: {
+      arrow: true,
+    },
+    MuiAppBar: {
+      color: "transparent",
     },
   },
   overrides: {
@@ -47,20 +86,9 @@ const themeAdmin = createTheme({
       },
     },
   },
-  spacing: 8,
-  shape: {
-    borderRadius: 4,
-  },
-  props: {
-    MuiAppBar: {
-      color: "transparent",
-    },
-  },
 });
 
-// themeAdmin = responsiveFontSizes(theme);
-
-// AdminLayout
+// User
 const themeUser = createTheme({
   palette: {
     type: "dark",
@@ -78,9 +106,10 @@ const themeUser = createTheme({
       primary: "#ffffff",
       secondary: "#004F98",
     },
-  },
-  shape: {
-    borderRadius: 4,
+
+    shape: {
+      borderRadius: 4,
+    },
   },
 });
 

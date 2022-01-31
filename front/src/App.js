@@ -4,6 +4,7 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/visitor/Home";
 import PresentationRecruteur from "./pages/visitor/PresentationRecruteur";
 import PresentationCandidat from "./pages/visitor/PresentationCandidat";
+import ContactezNous from "./pages/visitor/ContactezNous";
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
@@ -12,22 +13,44 @@ import AdminPage from "pages/admin/AdminPage";
 import EmployerAddOffer from "pages/employer/EmployerAddOffer";
 import CandidatDashboard from "pages/candidat/CandidatDashboard";
 import CandidatCandidature from "pages/candidat/CandidatCandidature";
+import AdminUsersTable from "pages/admin/AdminUsersTable";
+import OffresView from "pages/visitor/OffresView";
 
 function App() {
   return (
     <HashRouter>
       <Routes>
+        <Route path="/admin" exact element={<AdminPage />} />
+        <Route path="/admin/users" exact element={<AdminUsersTable />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
-        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />}        />
+        <Route path="/contactus" exact element={<ContactezNous />} />
+        <Route path="/offres" exact element={<OffresView />} />
+        <Route
+          path="/Employer/dashboard"
+          exact
+          element={<EmployerDashboard />}
+        />
+        <Route
+          path="/Employer/dashboard"
+          exact
+          element={<EmployerDashboard />}
+        />
         <Route path="/Employer/profil" exact element={<EmployerProfil />} />
         <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
-        <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
-        <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />
+        <Route
+          path="/Candidat/dashboard"
+          exact
+          element={<CandidatDashboard />}
+        />
+        <Route
+          path="/Candidat/candidature"
+          exact
+          element={<CandidatCandidature />}
+        />
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/admin" exact element={<AdminPage />} />
       </Routes>
     </HashRouter>
   );
