@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import PropTypes from 'prop-types';
 import { StaticRouter } from 'react-router-dom/server';
 import { MemoryRouter } from 'react-router-dom';
@@ -33,7 +33,14 @@ export default function CardUser({ index }) {
                 height: 400,
             }}
         >
-            {index.titre}
+            <Typography
+                color="initial"
+                sx={{
+                    fontSize: {xs:20 , md: 45 }
+                }}
+            >
+                {index.titre}
+            </Typography>
         </Button>
     )
 }
