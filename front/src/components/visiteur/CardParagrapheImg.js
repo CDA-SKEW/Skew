@@ -28,17 +28,20 @@ export default function CardParagrapheImg ({ index }){
                 pt: 0,
                 px: 2,
                 width: '90%',
-                verticalAlign: 'top'
+                
             }}>
                 <Typography
-                    variant="h5"
+                    variant="h2"
                 >
                     {index.titre}
                 </Typography>
                 <Typography
-                    variant="body2"
+                    variant="body1"
                     color="text.secondary"
                     align="justify"
+                    sx={{
+                        fontSize: {sx: 10, md: 20}
+                    }}
                 >
                     {index.texte}
                 </Typography>
