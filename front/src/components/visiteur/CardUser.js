@@ -1,15 +1,31 @@
 import React from 'react'
-import Link from "@mui/material/Link";
-import { Typography } from "@mui/material";
-import Card from "@mui/material/Card";
+import { Button } from "@mui/material";
+import PropTypes from 'prop-types';
+import { StaticRouter } from 'react-router-dom/server';
+import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
 
-export default function CardUser({index}) {
+
+
+function Router(props) {
+    const { children } = props;
+    if (typeof window === 'undefined') {
+        return <StaticRouter location="/">{children}</StaticRouter>;
+    }
+
+    return <MemoryRouter>{children}</MemoryRouter>;
+}
+
+Router.propTypes = {
+    children: PropTypes.node,
+};
+
+export default function CardUser({ index }) {
+
     return (
-        <Link
+        <Button
             key={index.key}
             href={index.lien}
-            color="#000000"
-            underline="none"
+            variant='contained'
             sx={{
                 width: "40%",
                 m: 'auto',
@@ -17,19 +33,7 @@ export default function CardUser({index}) {
                 maxWidth: 370
             }}
         >
-            <Card sx={{
-                height: 400,
-            }}>
-                <Typography
-                    variant="h4"
-                    align="center"
-                    sx={{
-                        my: 18,
-                        justifyContent: 'center'
-                    }}>
-                    {index.titre}
-                </Typography>
-            </Card>
-        </Link>
+            {index.titre}
+        </Button>
     )
 }

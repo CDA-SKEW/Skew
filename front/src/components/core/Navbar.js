@@ -9,11 +9,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Logo from "assets/logo/logo.png";
 import Button from '@mui/material/Button';
-import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
 import { List } from "@mui/material";
 import PropTypes from 'prop-types';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
+import ListItemLink from "components/core/ListItemLink";
 
 const pages = [
   { titre: "Accueil", lien: "/" },
@@ -21,28 +19,9 @@ const pages = [
   { titre: "Contactez-nous", lien: "/contactus" },
 ];
 
-function ListItemLink(props) {
-  const { icon, primary, to } = props;
-
-  const renderLink = React.useMemo(
-    () =>
-      React.forwardRef(function Link(itemProps, ref) {
-        return <RouterLink to={to} ref={ref} {...itemProps} role={undefined} />;
-      }),
-    [to],
-  );
-
-  return (
-    <li>
-      <ListItem button component={renderLink}>
-        <ListItemText primary={primary} />
-      </ListItem>
-    </li>
-  );
-}
+<ListItemLink />
 
 ListItemLink.propTypes = {
-  icon: PropTypes.element,
   primary: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 };

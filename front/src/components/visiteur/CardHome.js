@@ -1,6 +1,6 @@
 import * as React from "react";
 import CardUser from 'components/visiteur/CardUser';
-import Container from '@mui/material/Container';
+import { Box } from "@mui/material";
 
 export default function CardHome() {
 
@@ -10,7 +10,7 @@ export default function CardHome() {
     ]
 
     return (
-        <Container
+        <Box
             maxWidth='md'
             disableGutters
             sx={{
@@ -21,6 +21,6 @@ export default function CardHome() {
             {CardsList.map((index) => (
                 <CardUser key={index.key} index={index} />
             ))}
-        </Container>
+        </Box>
     );
 }

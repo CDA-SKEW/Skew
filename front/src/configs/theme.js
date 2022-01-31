@@ -1,5 +1,24 @@
 import { createTheme } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
+import { Link as RouterLink } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const LinkBehavior = React.forwardRef((props, ref) => {
+  const { href, ...other } = props;
+  return <RouterLink data-testid="custom-link" ref={ref} to={href} {...other} />;
+});
+
+LinkBehavior.propTypes = {
+  href: PropTypes.oneOfType([
+    PropTypes.shape({
+      hash: PropTypes.string,
+      pathname: PropTypes.string,
+      search: PropTypes.string,
+    }),
+    PropTypes.string,
+  ]).isRequired,
+};
 
 // Main Layout
 let theme = createTheme({
@@ -35,6 +54,18 @@ let theme = createTheme({
     },
     body1: {
       textAlign: "justify",
+    },
+  },
+  components: {
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
     },
   },
 });
