@@ -30,7 +30,7 @@ function ListItemLink(props) {
               sx={{
                 textAlign: 'center',
                 fontWeight: 'bold',
-                fontSize: 25
+                fontSize: 25,
               }}
             >
               {primary}
