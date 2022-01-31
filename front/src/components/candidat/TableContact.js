@@ -6,18 +6,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Container, CssBaseline, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-function createData(Adresse, Téléphone, Mail) {
-  return { Adresse, Téléphone, Mail };
+
+
+function createData(key, Adresse, Téléphone, Mail) {
+  return { key, Adresse, Téléphone, Mail };
 }
 
 const rows = [
-  createData('10 rue du Skew 72000 Le Mans', '06 00 00 00 00', 'skew@skew.fr',)
+  createData('', '10 rue du Skew 72000 Le Mans', '06 00 00 00 00', 'skew@skew.fr',)
+
 ];
 
-export default function DenseTable() {
+export default function TableContact() {
   return (
     <Box
       sx={{
@@ -50,6 +53,7 @@ export default function DenseTable() {
           Contact
         </Typography>
       </Box>
+
       <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
         <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
@@ -60,14 +64,14 @@ export default function DenseTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
-                key={row.name}
+                key={index}
+
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.Adresse}
-                </TableCell>
+                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+                <TableCell >{row.Adresse}</TableCell>
                 <TableCell >{row.Téléphone}</TableCell>
                 <TableCell >{row.Mail}</TableCell>
               </TableRow>

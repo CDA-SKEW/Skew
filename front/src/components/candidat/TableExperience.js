@@ -9,15 +9,16 @@ import Paper from '@mui/material/Paper';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-function createData(Entreprise, Poste, Date_début, Date_fin) {
-  return { Entreprise, Poste, Date_début, Date_fin };
+function createData(key, Entreprise, Poste, Date_début, Date_fin) {
+  return { key, Entreprise, Poste, Date_début, Date_fin };
 }
 
 const rows = [
-  createData('Arinfo', 'Développeur', '30/02/2021', '31/02/2021')
+  createData('', 'Arinfo', 'Développeur', '30/02/2021', '31/02/2021'),
+  createData('', 'Arinfo', 'Développeur', '30/02/2021', '31/02/2021')
 ];
 
-export default function DenseTable() {
+export default function TableExperience() {
   return (
     <Box
       sx={{
@@ -54,6 +55,7 @@ export default function DenseTable() {
         <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
+              <TableCell sx={{ display: "none" }}>key</TableCell>
               <TableCell>Entreprise</TableCell>
               <TableCell >Poste</TableCell>
               <TableCell>Date de Début</TableCell>
@@ -61,14 +63,13 @@ export default function DenseTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
-                key={row.name}
+                key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.Entreprise}
-                </TableCell>
+                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+                <TableCell >{row.Entreprise}</TableCell>
                 <TableCell >{row.Poste}</TableCell>
                 <TableCell >{row.Date_début}</TableCell>
                 <TableCell >{row.Date_fin}</TableCell>
