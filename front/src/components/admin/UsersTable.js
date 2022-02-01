@@ -7,28 +7,62 @@ import Avatars from "components/admin/tables/Avatars";
 import Actions from "components/admin/tables/Actions";
 import { useSelector } from "react-redux";
 import { Box } from "@mui/system";
-// import { DataGrid, GridExpandMoreIcon } from "@mui/x-data-grid";
-import Dates from "components/admin/tables/Dates";
 import { DataGrid } from "@mui/x-data-grid";
-// import AccordionDetails from "@mui/material/AccordionDetails";
-// import AccordionSummary from "@mui/material/AccordionSummary";
+import Dates from "components/admin/tables/Dates";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled, alpha } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
 
 /*------------Export function + table header-------------*/
 
 export default function UsersTable() {
-  // const [expanded, setExpanded] = React.useState(false);
+  // Search Bar
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
+  }));
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }));
 
-  // const handleChange = (panel) => (event, isExpanded) => {
-  //   setExpanded(isExpanded ? panel : false);
-  // };
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "inherit",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("md")]: {
+        width: "20ch",
+      },
+    },
+  }));
 
+  // Table Head
   const columns = [
-    { field: "id", headerName: "ID", width: 50 },
+    { field: "id", headerName: "ID", width: 50, editable: false },
     {
       field: "date",
       headerName: "Dates",
       width: 130,
-      // type: "date",
       renderCell: () => {
         return <Dates />;
       },
@@ -38,8 +72,8 @@ export default function UsersTable() {
       field: "avatar",
       headerName: "Avatars",
       width: 80,
-      renderCell: () => {
-        return <Avatars />;
+      renderCell: (cell) => {
+        return <Avatars avatar={cell} />;
       },
     },
     {
@@ -80,15 +114,15 @@ export default function UsersTable() {
     {
       field: "action",
       headerName: "Actions",
-      renderCell: () => {
-        return <Actions />;
+      renderCell: (cell) => {
+        return <Actions user={cell} />;
       },
       width: 190,
       editable: false,
     },
   ];
 
-  /*------------Table Users-------------*/
+  /*------------Table listUsers import via Store-------------*/
 
   const listUsers = useSelector((state) => state.admin.listUsers);
 
@@ -102,28 +136,17 @@ export default function UsersTable() {
 
       <br />
 
-      {/* <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<GridExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        ></AccordionSummary>
-        <AccordionDetails>
-          <Typography sx={{ textAlign: "center" }}>
-            <DataGrid
-              autoHeight
-              // rows={listUsers}
-              columns={columns}
-              // pageSize={10}
-              // rowsPerPageOptions={[5]}
-              // checkboxSelection
-            />
-          </Typography>
-        </AccordionDetails>
-      </Accordion> */}
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+        />
+      </Search>
+
+      <br />
 
       <DataGrid
         autoHeight
@@ -132,6 +155,7 @@ export default function UsersTable() {
         pageSize={10}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        editMode="row"
       />
     </Box>
   );

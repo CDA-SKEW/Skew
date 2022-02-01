@@ -9,7 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function IconChips(props) {
   const { user } = props;
-  console.log("Chips Table users", user);
+  // console.log("Chips Table users", user);
   const checkStatus = () => {
     // Si l'user est un employeur
     if (user.row.isEmployer === 1) {
@@ -36,7 +36,7 @@ export default function IconChips(props) {
   };
 
   return (
-    // Afficher les datas
+    // Afficher la réponse
     <Stack direction="row" spacing={1}>
       {checkStatus()}
     </Stack>
