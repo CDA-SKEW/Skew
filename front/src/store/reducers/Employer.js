@@ -22,14 +22,14 @@ export function EmployerReducer(state = initialState, action) {
     case Actions.GET_PROFIL_EMPLOYER:
       console.log("GET_PROFIL_EMPLOYER Reducer", action.payload);
       return {
-        ...state,
+        // ...state,
         // flash: action.payload.flash,
-        dataProfil: action.payload,
+        ...state, dataProfil: action.payload,
       };
     case Actions.GET_API_SIRET:
       console.log("store reducer Api siret", action.payload);
       return {
-        ...state,
+        // ...state,
         // flash: action.payload.flash,
         dataSiretApi: action.payload,
       };

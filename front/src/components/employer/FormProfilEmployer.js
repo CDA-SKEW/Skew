@@ -3,16 +3,21 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useForm } from "react-hook-form";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  getApiSiret,
   getProfilEmployer,
   postFormProfilEmployer,
 } from "store/actions/EmployerActions";
+// import {
+//   getApiSiret,
+//   getProfilEmployer,
+//   postFormProfilEmployer,
+// } from "store/actions/EmployerActions";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
-import imageEmployer from "assets/images/imageEmployor.png";
+// import imageEmployer from "assets/images/imageEmployor.png";
 
 const Img = styled("img")({
   margin: "auto",
@@ -21,16 +26,12 @@ const Img = styled("img")({
   maxHeight: "50%",
 });
 
-export default function FormProfilEmployer() {
+export default function FormProfilEmployer(props) {
+  const { dataProfil } = props;
+  console.log("Component fromProfil--dataProfil", dataProfil);
+  // console.log("Component fromProfil--dataProfil-name", dataProfil.name);
+
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("effect getDataProfilEmployer");
-    dispatch(getProfilEmployer());
-  }, []);
-
-  const dataProfil = useSelector((state) => state.employer.dataProfil);
-  console.log("store dataProfil", dataProfil);
 
   // const dataSiretApi = useSelector((state) => state.employer.dataSiretApi);
   // console.log("store dataSiretApi", dataSiretApi);
@@ -44,18 +45,42 @@ export default function FormProfilEmployer() {
   // dataSiretApi.unite_legale.denomination
   // );
 
-  const [stateImgUpload, setStateImgUpload] = useState("");
+  // const [stateImgUpload, setStateImgUpload] = useState("");
   // const [imgUpload, setImgUpload] = useState(dataProfil.imageEmployer);
   // const [imgUpload, setImgUpload] = useState(imageEmployer);
   // const [siret, setSiret] = useState(dataProfil.siret || dataSiretApi.siret);
   // const [siren, setSiren] = useState(dataProfil.siren || dataSiretApi.siren);
-  // const [name, setname] = useState(dataProfil.name || "");
+  // const [name, setname] = useState(dataProfil? dataProfil.name : {});
+  // console.log("UseState-name", name);
+
   // const [address, setAddress] = useState(dataProfil.address || "");
   // const [zipCode, setZipCode] = useState(dataProfil.zipCode || "");
   // const [town, setTown] = useState(dataProfil.town || "");
   // const [category, setCategory] = useState(dataProfil.category || "");
-  const [profil, setProfil] = useState(dataProfil ? dataProfil : {});
-  console.log("useStateProfil", profil, "---");
+
+//   const validationSchema = Yup.object().shape({
+//     title: Yup.string()
+//         .required('Title is required'),
+//     firstName: Yup.string()
+//         .required('First Name is required'),
+//     lastName: Yup.string()
+//         .required('Last name is required')
+// });
+
+  // const formOptions = { resolver: yupResolver(validationSchema) };
+
+  const [profil, setProfil] = useState({});
+  console.log("useState Profil av useEffect", profil);
+
+  useEffect(() => {
+    console.log("effect setProfil", profil);
+    setProfil(dataProfil);
+  }, [profil]);
+
+  
+  // console.log("useStateProfil- profil.name", profil.name, "---");
+
+  // console.log("useStateProfil- profil", profiled, "---");
 
   // const handleImageChange = (e) => {
   //   // console.log("fct changeImage");
@@ -83,45 +108,53 @@ export default function FormProfilEmployer() {
 
   const handleProfil = (e) => {
     let p = profil;
-    console.log("e.target.name", e.target.id);
+    console.log("e.target.id", e.target.id);
 
     switch (e.target.id) {
-      // case "img":
-      //   console.log("fct changeImage");
-      //   setStateImgUpload("Image non enregistrée");
-      //   // e.preventDefault();
-      //   let reader = new FileReader();
-      //   let file = e.target.files[0];
+      //   //   // case "img":
+      //   //   //   console.log("fct changeImage");
+      //   //   //   setStateImgUpload("Image non enregistrée");
+      //   //   //   // e.preventDefault();
+      //   //   //   let reader = new FileReader();
+      //   //   //   let file = e.target.files[0];
 
-      //   reader.onloadend = () => {
-      //     p.imgUpload =e.target.files[0];
-      //   };
-      //   reader.readAsDataURL(file);
-      //   console.log("file", file);
-      //   break;
-      // case "siret":
-      //   // p.siret = e.target.value;
-      //   // setProfil(p);
-      //   break;
+      //   //   //   reader.onloadend = () => {
+      //   //   //     p.imgUpload =e.target.files[0];
+      //   //   //   };
+      //   //   //   reader.readAsDataURL(file);
+      //   //   //   console.log("file", file);
+      //   //   //   break;
+          case "siret":
+            p.siret = e.target.value;
+            setProfil({...p, siret: p.siret });
+
+            break;
       case "nameProfilEmployer":
         console.log("case name");
         p.name = e.target.value;
+        console.log("profil Change----", p.name);
+        setProfil({...p, name: p.name});
+        console.log("profil Change----", p);
+        console.log("dataprofil Change----", dataProfil);
         break;
-      case "zipCode":
-        // p.zipCode = e.target.value;
-        break;
+      //   //   // case "zipCode":
+      //   //   //   // p.zipCode = e.target.value;
+      //   //   //   break;
       default:
         break;
     }
-    // setProfil(p);
-    console.log("profil Change----", p);  
-    // console.log("profil----");
+    //   // setProfil(p);
+
+    //   // console.log("profil----");e
   };
 
-  const cancelFormProfil = () => {
-    console.log("Cancel upload", profil, dataProfil);
-    setProfil(dataProfil);
-  };
+  // const cancelFormProfil = () => {
+  //   // console.log("Cancel upload", profiled, dataProfil);
+  //   console.log("Cancel upload", dataProfil);
+  //   // setname(dataProfil.name);
+  //   //  setProfil(dataProfil)
+  //   //getProfilEmployer()
+  // };
 
   const handleSendFormProfil = async (e) => {
     console.log("Form waitsend");
@@ -141,12 +174,17 @@ export default function FormProfilEmployer() {
     // };
 
     const dataFormProfilEmployer = {
-      ...profil,
+      // name:profil.name
     };
 
+    // const dataFormProfilEmployer = {
+    //   ...profiled,
+    // };
+
     // setStateImgUpload("");
-    console.log("dataFormProfilEmployer", dataProfil, dataFormProfilEmployer);
-    // await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
+    // console.log("dataFormProfilEmployer", dataProfil, dataFormProfilEmployer);
+    console.log("dataFormProfilEmployer", dataFormProfilEmployer);
+    await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
   };
 
   const handleSendApiSiret = async (e) => {
@@ -164,8 +202,6 @@ export default function FormProfilEmployer() {
   return (
     <Box
       component="form"
-      noValidate
-      autoComplete="off"
       onSubmit={(e) => handleSendFormProfil(e)}
     >
       <Grid
@@ -217,7 +253,7 @@ export default function FormProfilEmployer() {
                     type="file"
                     accept="image/*"
                     name="img"
-                    onChange={(e) => handleProfil(e)}
+                    // onChange={(e) => handleProfil(e)}
                   />
                 </Button>
               </Grid>
@@ -232,7 +268,7 @@ export default function FormProfilEmployer() {
             alignItems="center"
             spacing={2}
           >
-            <Grid
+            {/* <Grid
               item
               xs={10}
               sx={{
@@ -241,18 +277,18 @@ export default function FormProfilEmployer() {
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
-            >
+            >*/}
               <TextField
                 required
                 label="N° de Siret:"
                 variant="outlined"
                 size="small"
                 sx={{ width: { xs: "100%", sm: "50%" } }}
-                name="siret"
-                defaultValue={profil.siret}
+                id="siret"
+                value={profil.siret}
                 onChange={(e) => handleProfil(e)}
               />
-
+{/*
               <Button
                 variant="contained"
                 size="small"
@@ -268,7 +304,7 @@ export default function FormProfilEmployer() {
                 Saisie par N° SIRET
               </Button>
             </Grid>
-
+{/*
             <Grid item xs={10}>
               <TextField
                 required
@@ -276,73 +312,72 @@ export default function FormProfilEmployer() {
                 variant="outlined"
                 fullWidth
                 size="small"
-                defaultValue={profil.siren}
+                value={profil.siren}
                 onChange={(e) => handleProfil(e)}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={10}>
               <TextField
-                required
+                // required
                 label="Nom de l'entreprise:"
                 fullWidth
                 variant="outlined"
                 size="small"
                 id="nameProfilEmployer"
-                defaultValue={profil.name}
-                // defaultValue={profil.name}
+                value={profil.name}
                 onChange={(e) => handleProfil(e)}
               />
             </Grid>
 
-            <Grid item xs={10}>
-              <TextField
-                required
-                label="Adresse:"
-                fullWidth
-                variant="outlined"
-                size="small"
-                defaultValue={profil.address}
-                onChange={(e) => handleProfil(e)}
-              />
-            </Grid>
+            {/* <Grid item xs={10}>
+                <TextField
+                  required
+                  label="Adresse:"
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  defaultValue={profiled.address}
+                  onChange={(e) => handleProfil(e)}
+                />
+              </Grid>
 
-            <Grid item xs={10}>
-              <TextField
-                required
-                label="Code postal:"
-                fullWidth
-                variant="outlined"
-                size="small"
-                name="zipCode"
-                defaultValue={profil.zipCode}
-                onChange={(e) => handleProfil(e)}
-              />
-            </Grid>
+              <Grid item xs={10}>
+                <TextField
+                  required
+                  label="Code postal:"
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  name="zipCode"
+                  defaultValue={profiled.zipCode}
+                  onChange={(e) => handleProfil(e)}
+                />
+              </Grid>
 
-            <Grid item xs={10}>
-              <TextField
-                required
-                label="Commune:"
-                fullWidth
-                variant="outlined"
-                size="small"
-                defaultValue={profil.town}
-                onChange={(e) => handleProfil(e)}
-              />
-            </Grid>
+              <Grid item xs={10}>
+                <TextField
+                  required
+                  label="Commune:"
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  defaultValue={profiled.town}
+                  onChange={(e) => handleProfil(e)}
+                />
+              </Grid>
 
-            <Grid item xs={10}>
-              <TextField
-                required
-                label="Categorie:"
-                fullWidth
-                variant="outlined"
-                size="small"
-                defaultValue={profil.category}
-                onChange={(e) => handleProfil(e)}
-              />
-            </Grid>
+              <Grid item xs={10}>
+                <TextField
+                  required
+                  label="Categorie:"
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  defaultValue={profiled.category}
+                  onChange={(e) => handleProfil(e)}
+                />
+              </Grid> */}
 
             <Grid
               item
@@ -366,7 +401,8 @@ export default function FormProfilEmployer() {
                 variant="contained"
                 size="small"
                 sx={{ bgcolor: "gray", color: "white", m: 1 }}
-                onClick={(e) => cancelFormProfil()}
+                // onClick={(e) => cancelFormProfil()}
+                onClick={() => reset()} 
               >
                 Annuler
               </Button>

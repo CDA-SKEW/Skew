@@ -48,6 +48,7 @@ export const getProfilEmployer = () => {
         town: "Bonnetable",
         imgUpload: imageEmployer,
       }
+    // const data ={}
       
     return (dispatch) => {
       console.log("GET_PROFIL_EMPLOYER action", data);
