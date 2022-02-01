@@ -58,7 +58,7 @@ export default function WhyCandidat() {
                     sx={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        py: 3,
+                        pt: 3,
                         width: '100%',
                         justifyContent: { xs: "center", md: "space-around" },
                     }}
