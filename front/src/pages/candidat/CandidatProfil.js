@@ -1,15 +1,18 @@
-import { Container, CssBaseline, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Container, CssBaseline } from "@mui/material";
 import React from "react";
 import ChekboxCV from "../../components/candidat/ChekboxCV";
 import Masonry from '@mui/lab/Masonry';
 import TableContact from "components/candidat/TableContact";
 import TableExperience from "components/candidat/TableExperience";
-
+import TableComp from "components/candidat/TableComp";
+import TableInt from "components/candidat/TableInt";
+import TableFormation from "components/candidat/TableFormation";
+import Button from '@mui/material/Button';
+import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
 
 const CandidatProfilTest = () => {
-
-
+  const user = useSelector((state) => state.candidate.user)
   return (
     <React.Fragment>
       <CssBaseline />
@@ -21,348 +24,33 @@ const CandidatProfilTest = () => {
           mt: 2,
         }}
       >
-        {/*   {/* BOX CONTACT*/} 
-       
-       
-       <Box
-          sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
-            borderRadius: 1,
-            my: 4,
-          }}
-        >
-          {/* Titre section Expériences */}
-            <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
-              sx={{
-                px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
-                borderRadius: 1,
-                position: "relative",
-                top: -15,
-              }}
-            >
-              Contact
-            </Typography>
-          </Box>
-          <TableContact/>
-         
-        </Box> 
-
-
-         {/* BOX Expérience*/}
-
         <Box
-          sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
-            borderRadius: 1,
-            my: 4,
-          }}
-        >
-          {/* Titre section Expériences */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
-              sx={{
-                px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
-                borderRadius: 1,
-                position: "relative",
-                top: -15,
-              }}
-            >
-              Expériences
-            </Typography>
-          </Box>
-          <TableExperience/>
-         
+          sx={{ position: "relative", display: "flex", justifyContent: "right" }}>
+          <Button
+            sx={{ color: "white", bgcolor: "red" }}>
+            Edit All
+          </Button>
         </Box>
+        {/*   {/* BOX CONTACT*/}
+        <TableContact ListUser={user.coord} />
 
-        {/* BOX COMPETENCE*/}
+        {/* BOX Expérience*/}
+        <TableExperience ListExp={user.exp} />
+
+
+        {/* BOX COMPETENCE & INTERET */}
         <Masonry columns={2} spacing={2}>
-        <Box
-          sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
-            borderRadius: 1,
-            my: 4,
-            
-          }}
-        >
-          {/* Titre section Compétences */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
-              sx={{
-                px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
-                borderRadius: 1,
-                position: "relative",
-                top: -15,
-              }}
-            >
-              Compétence
-            </Typography>
-          </Box>
-
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              HTML
-            </Typography>
-            <Typography>
-            CSS
-            </Typography>
-            <Typography>
-              JavaScript
-            </Typography>
-          </Box>
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              React
-            </Typography>
-            <Typography>
-            MUI
-            </Typography>
-            <Typography>
-              NodeJs
-            </Typography>
-          </Box>
-        </Box>
-
-        <Box
-          sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
-            borderRadius: 1,
-            my: 4,
-            
-            
-          }}
-        >
-          {/* Titre section Compétences */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
-              sx={{
-                px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
-                borderRadius: 1,
-                position: "relative",
-                top: -15,
-              }}
-            >
-              Interet
-            </Typography>
-          </Box>
-
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              Manga
-            </Typography>
-            <Typography>
-             Sport
-            </Typography>
-            <Typography>
-              Aqua-Poney
-            </Typography>
-          </Box>
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              Cuisiner
-            </Typography>
-            <Typography>
-            Coder
-            </Typography>
-            <Typography>
-              Cinéma
-            </Typography>
-          </Box>
-        </Box>
+          <TableComp ListSkill={user.skill} />
+          <TableInt ListInterest={user.interest} />
         </Masonry>
- {/* BOX FORMATION*/}
-        <Box
-          sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
-            borderRadius: 1,
-            my: 4,
-          }}
-        >
-          {/* Titre section Formation */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
-              sx={{
-                px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
-                borderRadius: 1,
-                position: "relative",
-                top: -15,
-              }}
-            >
-              Formation
-            </Typography>
-          </Box>
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          bgcolor:"#FF7F50",
 
-          }}>
-            <Typography>
-              Ecole/Centre
-            </Typography>
-            <Typography>
-              Intilulé
-            </Typography>
-            <Typography>
-             Année
-            </Typography>
-            <Typography>
-            Obtention
-            </Typography>
-          </Box> 
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              Arinfo
-            </Typography>
-            <Typography>
-              Titre Pro DWWM
-            </Typography>
-            <Typography>
-              2020
-            </Typography>
-            <Typography>
-              Oui            
-            </Typography>
-          </Box>
-          <Box
-          sx={{display:"flex",
-          justifyContent:"space-around",
-          mt:2
-          }}>
-            <Typography>
-              Arinfo
-            </Typography>
-            <Typography>
-              Designer Web
-            </Typography>
-            <Typography>
-              2020
-            </Typography>
-            <Typography>
-              Oui            
-            </Typography>
-          </Box>
-         
-        </Box>
-        {/* Mes CV */}
-        <Box
-          sx={{
-            bgcolor: "#FFFFFF",
-            height: "auto",
-            borderRadius: 1,
-            my: 4,
-            width:"auto"
-          }}
-        >
-          {/* Titre section CV */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              
-            }}
-          >
-            <Typography
-              variant="h5"
-              component="h5"
-              sx={{
-                px: 1,
-                bgcolor: "#004F98",
-                color: "#FFFFFF",
-                borderRadius: 1,
-                position: "relative",
-                top: -15,
-              }}
-            >
-              Mes CV
-            </Typography>
-          </Box>
-          <Box>
-            <ChekboxCV/>
-          </Box>
-         
-        </Box>
-        
+        {/* BOX FORMATION*/}
+        <TableFormation ListCertificate={user.certificate} />
+        {/* CV Checkbox*/}
+        <ChekboxCV listCv={user.cv} />
+
       </Container>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 

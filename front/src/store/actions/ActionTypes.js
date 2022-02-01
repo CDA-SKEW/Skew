@@ -10,3 +10,5 @@ export const GET_API_SIRET = "GET_API_SIRET";
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const POST_MESSAGES = 'POST_MESSAGES';
 export const DELETE_MESSAGES = 'DELETE_MESSAGES';
+// Candidate
+export const GET_CANDIDATE = "GET_CANDIDATE"

@@ -8,8 +8,10 @@ import thunk from "redux-thunk";
 /*
  * Reducers
  * ******** */
-import { EmployerReducer  } from "./reducers/Employer";
+import { EmployerReducer } from "./reducers/Employer";
 import { MessagesReducer } from "./reducers/Messages";
+import { CandidateReducer } from "./reducers/Candidate";
+
 
 /*
  * All (Root) Reducers
@@ -17,6 +19,7 @@ import { MessagesReducer } from "./reducers/Messages";
 const rootReducer = combineReducers({
   employer: EmployerReducer,
   messages: MessagesReducer,
+  candidate: CandidateReducer
 });
 
 /*

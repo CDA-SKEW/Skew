@@ -12,7 +12,8 @@ import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import { Box } from '@mui/material';
 
-export default function CandidatureList() {
+export default function CandidatureList(props) {
+  const { ListCandidature } = props
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
@@ -20,7 +21,7 @@ export default function CandidatureList() {
           <Avatar alt="Remy Sharp" src="" />
         </ListItemAvatar>
         <ListItemText
-          primary="Developpeur Web"
+          primary={ListCandidature.title}
           secondary={
             <React.Fragment>
               <Typography
@@ -29,29 +30,29 @@ export default function CandidatureList() {
                 variant="body2"
                 color="text.primary"
               >
-                SII
+
               </Typography>
-             
+
               {"— Lorem ipsum ..."}
               <Typography>
-                  Le Mans
+                {ListCandidature.ets}
               </Typography>
               <Typography>
-                  candidature envoyer le 31 février 2021
+                {ListCandidature.date}
               </Typography>
-              
+
               <AddCircleOutlineIcon
-              sx={{position:"absolute",right:5,top:"10px",fontSize:"40px"}}/>
-              
+                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
+
               <CheckCircleOutlineIcon
-              sx={{color:"green", fontSize:30}}
+                sx={{ color: "green", fontSize: 30 }}
               />
               <Typography
-              sx={{position:"relative" ,color:"black"}}>
-                  Candidature retenue
+                sx={{ position: "relative", color: "black" }}>
+                {ListCandidature.status}
               </Typography>
-              
-             
+
+
             </React.Fragment>
           }
         />
@@ -75,22 +76,22 @@ export default function CandidatureList() {
               </Typography>
               {" — Lorem ipsum ..."}
               <Typography>
-                  Nantes
+                Nantes
               </Typography>
               <Typography>
-                  candidature envoyer le 31 février 2021
+                candidature envoyer le 31 février 2021
               </Typography>
               <AddCircleOutlineIcon
-              sx={{position:"absolute",right:5,top:"10px",fontSize:"40px"}}/>
-              
+                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
+
               <DoNotDisturbIcon
-              sx={{color:"red", fontSize:30}}
+                sx={{ color: "red", fontSize: 30 }}
               />
               <Typography
-              sx={{position:"relative" ,color:"black"}}>
-                  Candidature non retenue
+                sx={{ position: "relative", color: "black" }}>
+                Candidature non retenue
               </Typography>
-              
+
             </React.Fragment>
           }
         />
@@ -114,22 +115,22 @@ export default function CandidatureList() {
               </Typography>
               {' — Lorem ipsum…'}
               <Typography>
-                  Paris 16eme
+                Paris 16eme
               </Typography>
               <Typography>
-                  candidature envoyer le 31 février 2021
+                candidature envoyer le 31 février 2021
               </Typography>
               <AddCircleOutlineIcon
-              sx={{position:"absolute",right:5,top:"10px",fontSize:"40px"}}/>
-               
+                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
+
               <QueryBuilderIcon
-              sx={{color:"black", fontSize:30}}
+                sx={{ color: "black", fontSize: 30 }}
               />
               <Typography
-              sx={{position:"relative" ,color:"black"}}>
-                  Candidature en cours d'examen
+                sx={{ position: "relative", color: "black" }}>
+                Candidature en cours d'examen
               </Typography>
-              
+
             </React.Fragment>
           }
         />
