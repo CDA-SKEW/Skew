@@ -8,14 +8,9 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 import { useDispatch } from "react-redux";
 import {
-  getProfilEmployer,
+  getApiSiret,
   postFormProfilEmployer,
 } from "store/actions/EmployerActions";
-// import {
-//   getApiSiret,
-//   getProfilEmployer,
-//   postFormProfilEmployer,
-// } from "store/actions/EmployerActions";
 
 const Img = styled("img")({
   margin: "auto",
@@ -25,45 +20,71 @@ const Img = styled("img")({
 });
 
 export default function FormProfilEmployer(props) {
-  const { dataProfil } = props;
-  // console.log("Component fromProfil--dataProfil", dataProfil);
-
+  const { dataProfilEmployer, dataApiSiret } = props;
   const dispatch = useDispatch();
 
+  // const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
+  // console.log("dataApiSiret",dataApiSiret)
+  // const [apiSiret, setApiSiret] = useState(dataApiSiret ? dataApiSiret : "");
+
+  // useEffect(() => {
+  //     console.log("Use effect dataApiSiret")
+  //     setApiSiret(dataApiSiret)
+  // }, []);
+
+
+  if({dataApiSiret}) {
+    console.log("use state dataApiSiret", dataApiSiret)
+    console.log("siren", dataApiSiret.siren)
+    const uniteLegales = dataApiSiret.unite_legale
+    console.log("uniteLegale", uniteLegales )
+
+  }
+
   const [stateImgUpload, setStateImgUpload] = useState(
-    dataProfil.imageEmployer ? dataProfil.imageEmployer : ""
+    dataProfilEmployer.imageEmployer ? dataProfilEmployer.imageEmployer : ""
   );
-  const [imageEmployer, setImageEmployer] = useState(dataProfil.ImageEmployer);
-  const [name, setName] = useState({});
-  const [siret, setSiret] = useState({});
-  const [siren, setSiren] = useState({});
-  const [address, setAddress] = useState({});
-  const [zipCode, setZipCode] = useState({});
-  const [town, setTown] = useState({});
-  const [category, setCategory] = useState({});
+  const [imageEmployer, setImageEmployer] = useState(dataProfilEmployer.ImageEmployer);
+  const [name, setName] = useState("");
+  const [siret, setSiret] = useState("");
+  const [siren, setSiren] = useState("");
+  const [address, setAddress] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [town, setTown] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     // console.log("effect for useState form employer");
+    if (!dataProfilEmployer.imageEmployer) {
+      setStateImgUpload("image obligatoire")
+    } else setStateImgUpload("")
+    setImageEmployer(dataProfilEmployer.imageEmployer);
+    setSiret(dataProfilEmployer.siret);
+    setSiren(dataProfilEmployer.siren);
+    setName(dataProfilEmployer.name);
+    setAddress(dataProfilEmployer.address);
+    setZipCode(dataProfilEmployer.zipCode);
+    setTown(dataProfilEmployer.town);
+    setCategory(dataProfilEmployer.category);
+  }, [dataProfilEmployer]);
 
-    if (!dataProfil.imageEmployer) {
-      setStateImgUpload("image obligatoire")    
-    } else setStateImgUpload("")    
-    setImageEmployer (dataProfil.imageEmployer);
-    setSiret(dataProfil.siret);
-    setSiren(dataProfil.siren);
-    setName(dataProfil.name);
-    setAddress(dataProfil.address);
-    setZipCode(dataProfil.zipCode);
-    setTown(dataProfil.town);
-    setCategory(dataProfil.category);
-  }, [dataProfil]);
+
+  const handleSendApiSiret = async (e) => {
+    console.log("Send Api Siret wait");
+    //empeche le formunliare d'etre submiter
+    // console.log("event", e)
+    e.preventDefault();
+
+    if (siret.length === 14) {
+      console.log("N° de siret", siret);
+      await dispatch(getApiSiret(siret));
+    }
+  };
 
   const handleImageChange = (e) => {
     // console.log("fct changeImage");
     setStateImgUpload("Image non enregistrée");
-
     e.preventDefault();
-
     let reader = new FileReader();
     let file = e.target.files[0];
 
@@ -73,18 +94,6 @@ export default function FormProfilEmployer(props) {
     reader.readAsDataURL(file);
   };
 
-  const cancelFormProfil = () => {
-    // console.log("Cancel upload", dataProfil);
-    setStateImgUpload("image obligatoire");
-    setImageEmployer (dataProfil.imageEmployer);
-    setSiret(dataProfil.siret);
-    setSiren(dataProfil.siren);
-    setName(dataProfil.name);
-    setAddress(dataProfil.address);
-    setZipCode(dataProfil.zipCode);
-    setTown(dataProfil.town);
-    setCategory(dataProfil.category);
-  };
 
   const handleSendFormProfil = async (e) => {
     // console.log("Form waitsend");
@@ -93,33 +102,38 @@ export default function FormProfilEmployer(props) {
     e.preventDefault();
 
     const dataFormProfilEmployer = {
-        siret,
-        siren,
-        name,
-        address,
-        zipCode,
-        town,
-        category,
-        imageEmployer,
+      siret,
+      siren,
+      name,
+      address,
+      zipCode,
+      town,
+      category,
+      imageEmployer,
     };
 
     setStateImgUpload("");
-    // console.log("dataFormProfilEmployer", dataProfil, dataFormProfilEmployer);
+    // console.log("dataFormProfilEmployer", dataProfilEmployer, dataFormProfilEmployer);
     // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
     await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
   };
 
-  const handleSendApiSiret = async (e) => {
-    console.log("Send Api Siret wait");
-    //empeche le formunliare d'etre submiter
-    // console.log("event", e)
-    // e.preventDefault();
 
-    // if (siret.lenght === 14) {
-    //   console.log("N° de siret", siret);
-    //   await dispatch(getApiSiret(siret));
-    // }
+  const cancelFormProfil = () => {
+    // console.log("Cancel upload", dataProfilEmployer);
+    if (!dataProfilEmployer.imageEmployer) {
+      setStateImgUpload("image obligatoire")
+    } else setStateImgUpload("")
+    setImageEmployer(dataProfilEmployer.imageEmployer);
+    setSiret(dataProfilEmployer.siret);
+    setSiren(dataProfilEmployer.siren);
+    setName(dataProfilEmployer.name);
+    setAddress(dataProfilEmployer.address);
+    setZipCode(dataProfilEmployer.zipCode);
+    setTown(dataProfilEmployer.town);
+    setCategory(dataProfilEmployer.category);
   };
+
 
   return (
     <Box component="form" onSubmit={(e) => handleSendFormProfil(e)}>
@@ -148,7 +162,7 @@ export default function FormProfilEmployer(props) {
               alignItems="center"
             >
               <Grid item xs={12}>
-                {imageEmployer  && <Img alt="imageEmployer" src={imageEmployer} />}
+                {imageEmployer && <Img alt="imageEmployer" src={imageEmployer} />}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
                 )}
@@ -231,7 +245,7 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 fullWidth
                 size="small"
-                value={siren  || ""}
+                value={siren || ""}
                 onChange={(e) => setSiren(e.target.value)}
               />
             </Grid>

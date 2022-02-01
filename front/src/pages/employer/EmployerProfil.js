@@ -1,10 +1,9 @@
 import { Button, Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { themeUser } from "configs/theme";
 import FormProfilEmployer from "components/employer/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-// import FormPersonalEmployer from "components/employer/FormPersonalEmployer";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 
@@ -12,14 +11,18 @@ const EmployerProfil = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log("effect getDataProfilEmployer");
+    // console.log("effect getDataProfilEmployerEmployer");
     dispatch(getProfilEmployer());
   }, []);
 
   //dispatch(getProfilEmployer());
 
-  const dataProfil = useSelector((state) => state.employer.dataProfil);
-  // console.log("store dataProfil page profil", dataProfil);
+  const dataProfilEmployer = useSelector((state) => state.employer.dataProfilEmployer);
+  // console.log("store dataProfilEmployer page profil", dataProfilEmployer);
+
+  const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
+  // console.log("store dataApiSiret",dataApiSiret)
+ 
 
   // const [editProfilPersonal, setEditProfilPersonal] = useState("none");
 
@@ -78,7 +81,7 @@ const EmployerProfil = () => {
             Informations entreprise
           </Typography>
 
-          <FormProfilEmployer dataProfil={dataProfil} />
+          <FormProfilEmployer dataProfilEmployer={dataProfilEmployer} dataApiSiret={dataApiSiret} />
 
           <Typography sx={{ textAlign: "center", my: 4 }} variant="h4">
             Informations personnelles
