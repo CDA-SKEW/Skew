@@ -9,14 +9,14 @@ import thunk from "redux-thunk";
  * Reducers
  * ******** */
 import { EmployerReducer  } from "./reducers/Employer";
-
+import { MessagesReducer } from "./reducers/Messages";
 
 /*
  * All (Root) Reducers
  * ******************* */
 const rootReducer = combineReducers({
   employer: EmployerReducer,
-
+  messages: MessagesReducer,
 });
 
 /*
