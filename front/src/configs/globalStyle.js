@@ -5,4 +5,7 @@ export const style = {
     backgroundColor: '#fff',
     marginTop: 55
   },
+  TextField: {
+    width: '100%'
+  }
 };
