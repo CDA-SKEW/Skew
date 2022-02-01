@@ -6,7 +6,7 @@ import { Typography } from '@mui/material';
 
 
 export default function ResponsiveGrid(props) {
-    const { skill } = props
+    const { ListSkill } = props
 
     return (
         <Box
@@ -45,9 +45,9 @@ export default function ResponsiveGrid(props) {
 
             <Box sx={{ flexGrow: 1, textAlign: "center" }}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {skill.map((comp, index) => (
+                    {ListSkill.map((skill, index) => (
                         <Grid item xs={2} sm={4} md={4} key={index}>
-                            <Typography>{comp}</Typography>
+                            <Typography>{skill}</Typography>
                         </Grid>
                     ))}
                 </Grid>

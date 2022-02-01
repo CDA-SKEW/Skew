@@ -11,16 +11,10 @@ import { Box } from "@mui/system";
 
 
 
-function createData(key, Adresse, Téléphone, Mail) {
-  return { key, Adresse, Téléphone, Mail };
-}
 
-const rows = [
-  createData('', '10 rue du Skew 72000 Le Mans', '06 00 00 00 00', 'skew@skew.fr',)
 
-];
-
-export default function TableContact() {
+export default function TableContact(props) {
+  const { ListUser } = props
   return (
     <Box
       sx={{
@@ -64,16 +58,16 @@ export default function TableContact() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
+            {ListUser.map((user, index) => (
               <TableRow
                 key={index}
 
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                <TableCell >{row.Adresse}</TableCell>
-                <TableCell >{row.Téléphone}</TableCell>
-                <TableCell >{row.Mail}</TableCell>
+                <TableCell >{user.adress}</TableCell>
+                <TableCell >{user.phone}</TableCell>
+                <TableCell >{user.mail}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -8,9 +8,13 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
   user: {
-    address: '22 rue la shmitrie',
-    mail: 'gogo@gadget.com',
-    phone: '02.02.02.02.02',
+    coord: [
+      {
+        adress: '22 rue la shmitrie 44250 un lieu perdu',
+        mail: 'gogo@gadget.com',
+        phone: '02.02.02.02.02'
+      }
+    ],
     exp: [
       { id: 1, company: 'comp', post: 'dev', start: '30/02/2018', end: '30/02/2019' },
       { id: 2, company: 'comp', post: 'dev', start: '30/02/2018', end: '30/02/2019' }
@@ -26,8 +30,18 @@ const initialState = {
       { id: 1, title: 'Dev-web' },
       { id: 2, title: 'CDA' },
     ]
+  },
+
+  candidatures: {
+    postul: [
+      { id: 1, title: 'Boucher', ets: 'Arinfo', city: 'lambé', date: '31/02/2022', status: 1 }
+    ]
   }
 };
+
+
+
+
 
 /*
  * Reducers

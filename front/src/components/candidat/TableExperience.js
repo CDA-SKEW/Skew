@@ -9,16 +9,9 @@ import Paper from '@mui/material/Paper';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-function createData(key, Entreprise, Poste, Date_début, Date_fin) {
-  return { key, Entreprise, Poste, Date_début, Date_fin };
-}
 
-const rows = [
-  createData('', 'Arinfo', 'Développeur', '30/02/2021', '31/02/2021'),
-  createData('', 'Arinfo', 'Développeur', '30/02/2021', '31/02/2021')
-];
-
-export default function TableExperience() {
+export default function TableExperience(props) {
+  const { ListExp } = props
   return (
     <Box
       sx={{
@@ -63,16 +56,16 @@ export default function TableExperience() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
+            {ListExp.map((exp, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                <TableCell >{row.Entreprise}</TableCell>
-                <TableCell >{row.Poste}</TableCell>
-                <TableCell >{row.Date_début}</TableCell>
-                <TableCell >{row.Date_fin}</TableCell>
+                <TableCell >{exp.company}</TableCell>
+                <TableCell >{exp.post}</TableCell>
+                <TableCell >{exp.start}</TableCell>
+                <TableCell >{exp.end}</TableCell>
               </TableRow>
             ))}
           </TableBody>

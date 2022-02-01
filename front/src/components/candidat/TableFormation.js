@@ -9,17 +9,10 @@ import Paper from '@mui/material/Paper';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-function createData(centre, intitule, date, obtention) {
-    return { centre, intitule, date, obtention };
-}
 
-const rows = [
-    createData('Arinfo', 'Desinger Web', '2020', 'Oui'),
-    createData('Arinfo', 'Développeur web', '2020', 'Oui'),
-    createData('Arinfo', `Concepteur développeur d'applcation`, '2022', '')
-];
 
-export default function TableFormation() {
+export default function TableFormation(props) {
+    const { ListCertificate } = props
     return (
         <Box
             sx={{
@@ -64,16 +57,16 @@ export default function TableFormation() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        {ListCertificate.map((certificate, index) => (
                             <TableRow
                                 key={index}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row" sx={{ display: "none" }} > {index}</TableCell>
-                                <TableCell >{row.centre}</TableCell>
-                                <TableCell >{row.intitule}</TableCell>
-                                <TableCell >{row.date}</TableCell>
-                                <TableCell >{row.obtention}</TableCell>
+                                <TableCell >{certificate.school}</TableCell>
+                                <TableCell >{certificate.title}</TableCell>
+                                <TableCell >{certificate.year}</TableCell>
+                                <TableCell >{certificate.validate}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

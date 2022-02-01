@@ -32,19 +32,20 @@ const CandidatProfilTest = () => {
           </Button>
         </Box>
         {/*   {/* BOX CONTACT*/}
-        <TableContact />
+        <TableContact ListUser={user.coord} />
 
         {/* BOX Expérience*/}
-        <TableExperience />
+        <TableExperience ListExp={user.exp} />
+
 
         {/* BOX COMPETENCE & INTERET */}
         <Masonry columns={2} spacing={2}>
-          <TableComp skill={user.skill} />
-          <TableInt interest={user.interest} />
+          <TableComp ListSkill={user.skill} />
+          <TableInt ListInterest={user.interest} />
         </Masonry>
 
         {/* BOX FORMATION*/}
-        <TableFormation />
+        <TableFormation ListCertificate={user.certificate} />
         {/* CV Checkbox*/}
         <ChekboxCV listCv={user.cv} />
 
