@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useForm } from "react-hook-form";
 
 import { useDispatch } from "react-redux";
 import {
@@ -402,7 +401,6 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 sx={{ bgcolor: "gray", color: "white", m: 1 }}
                 // onClick={(e) => cancelFormProfil()}
-                onClick={() => reset()} 
               >
                 Annuler
               </Button>
