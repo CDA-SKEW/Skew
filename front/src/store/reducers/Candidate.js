@@ -34,7 +34,9 @@ const initialState = {
 
   candidatures: {
     postul: [
-      { id: 1, title: 'Boucher', ets: 'Arinfo', city: 'lambé', date: '31/02/2022', status: 1 }
+      { id: 1, title: 'Boucher', ets: 'Arinfo', city: 'lambé', date: '31/02/2022', statusCheck: true, statusDist: false, statusQuery: false, statusValid: "Candidature Validé" },
+      { id: 2, title: 'Dev Web', ets: 'Arinfo', city: 'Le Mans', date: '31/02/2022', statusCheck: false, statusDist: true, statusQuery: false },
+      { id: 3, title: 'Tech-lead', ets: 'Arinfo', city: 'Paris 16eme', date: '31/02/2022', statusCheck: false, statusDist: false, statusQuery: true },
     ]
   }
 };

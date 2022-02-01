@@ -14,8 +14,15 @@ import { Box } from '@mui/material';
 
 export default function CandidatureList(props) {
   const { ListCandidature } = props
+  console.log('component list candidature', ListCandidature);
+  // console.log('gggg', ListCandidature[0].statusCheck);
+
+
   return (
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+
+
+
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="" />
@@ -38,103 +45,38 @@ export default function CandidatureList(props) {
                 {ListCandidature.ets}
               </Typography>
               <Typography>
+                {ListCandidature.city}
+              </Typography>
+
+              <AddCircleOutlineIcon
+                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
+
+              { /* ICON STATUS*/}
+              {ListCandidature.statusCheck && (
+                <CheckCircleOutlineIcon
+                  sx={{ color: "green", fontSize: 30 }}
+                />)}
+              {ListCandidature.statusDist && (
+                <DoNotDisturbIcon
+                  sx={{ color: "red", fontSize: 30 }}
+                />)}
+              {ListCandidature.statusQuery && (
+                <QueryBuilderIcon
+                  sx={{ color: "black", fontSize: 30 }}
+                />)}
+
+              <Typography
+                sx={{ position: "relative", color: "black" }}>
                 {ListCandidature.date}
               </Typography>
 
-              <AddCircleOutlineIcon
-                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
-
-              <CheckCircleOutlineIcon
-                sx={{ color: "green", fontSize: 30 }}
-              />
-              <Typography
-                sx={{ position: "relative", color: "black" }}>
-                {ListCandidature.status}
-              </Typography>
-
 
             </React.Fragment>
           }
         />
       </ListItem>
       <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Developpeur Front-end"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                EDF
-              </Typography>
-              {" — Lorem ipsum ..."}
-              <Typography>
-                Nantes
-              </Typography>
-              <Typography>
-                candidature envoyer le 31 février 2021
-              </Typography>
-              <AddCircleOutlineIcon
-                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
-
-              <DoNotDisturbIcon
-                sx={{ color: "red", fontSize: 30 }}
-              />
-              <Typography
-                sx={{ position: "relative", color: "black" }}>
-                Candidature non retenue
-              </Typography>
-
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Developpeur Backend"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                EDF
-              </Typography>
-              {' — Lorem ipsum…'}
-              <Typography>
-                Paris 16eme
-              </Typography>
-              <Typography>
-                candidature envoyer le 31 février 2021
-              </Typography>
-              <AddCircleOutlineIcon
-                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
-
-              <QueryBuilderIcon
-                sx={{ color: "black", fontSize: 30 }}
-              />
-              <Typography
-                sx={{ position: "relative", color: "black" }}>
-                Candidature en cours d'examen
-              </Typography>
-
-            </React.Fragment>
-          }
-        />
-      </ListItem>
     </List>
+
   );
 }
