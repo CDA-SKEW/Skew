@@ -11,7 +11,7 @@ import thunk from "redux-thunk";
 import { EmployerReducer } from "./reducers/Employer";
 import { MessagesReducer } from "./reducers/Messages";
 import { CandidateReducer } from "./reducers/Candidate";
-
+import { AdminReducer } from "./reducers/Admin";
 
 /*
  * All (Root) Reducers
@@ -19,11 +19,15 @@ import { CandidateReducer } from "./reducers/Candidate";
 const rootReducer = combineReducers({
   employer: EmployerReducer,
   messages: MessagesReducer,
-  candidate: CandidateReducer
+  candidate: CandidateReducer,
+  admin: AdminReducer,
 });
 
 /*
  * Store export
  * ************ */
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk))); // Dev
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+); // Dev
 // export const store = createStore(rootReducer); // Prod

@@ -14,7 +14,6 @@ import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeAdmin } from "../configs/theme";
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -52,8 +51,8 @@ function ResponsiveDrawer({ children }) {
 
   return (
     <ThemeProvider theme={themeAdmin}>
-      {/* <CssBaseline /> */}
-      {/* <GlobalStyles />; */}
+      <CssBaseline />
+      <GlobalStyles />;
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar

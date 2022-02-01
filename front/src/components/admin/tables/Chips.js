@@ -7,22 +7,38 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 /*------------Export function-------------*/
 
-export default function IconChips() {
-  return (
-    <Stack direction="row" spacing={1}>
-      {/* <Chip
-        label="candidate"
-        variant="outlined"
-        color="info"
-        icon={<AccountCircleIcon />}
-      /> */}
+export default function IconChips(props) {
+  const { user } = props;
+  // console.log("Chips Table users", user);
+  const checkStatus = () => {
+    // Si l'user est un employeur
+    if (user.row.isEmployer === 1) {
+      // tu me retourne ce component ci (employeur)
+      return (
+        <Chip
+          label="employer"
+          variant="outlined"
+          color="secondary"
+          icon={<AccountCircleIcon />}
+        />
+      );
+    } else {
+      // Sinon tu me retourne celui-là (candidat)
+      return (
+        <Chip
+          label="candidate"
+          variant="outlined"
+          color="info"
+          icon={<AccountCircleIcon />}
+        />
+      );
+    }
+  };
 
-      <Chip
-        label="employer"
-        variant="outlined"
-        color="secondary"
-        icon={<AccountCircleIcon />}
-      />
+  return (
+    // Afficher la réponse
+    <Stack direction="row" spacing={1}>
+      {checkStatus()}
     </Stack>
   );
 }

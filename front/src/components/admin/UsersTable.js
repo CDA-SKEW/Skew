@@ -1,47 +1,92 @@
 /*------------MUI Imports-------------*/
 
 import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import IconChips from "./tables/Chips";
+import IconChips from "components/admin/tables/Chips";
 import { Typography } from "@mui/material";
 import Avatars from "components/admin/tables/Avatars";
 import Actions from "components/admin/tables/Actions";
+import { useSelector } from "react-redux";
+import { Box } from "@mui/system";
+import { DataGrid } from "@mui/x-data-grid";
+import Dates from "components/admin/tables/Dates";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled, alpha } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
 
-/*------------Export function-------------*/
+/*------------Export function + table header-------------*/
 
 export default function UsersTable() {
+  // Search Bar
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
+  }));
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "inherit",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("md")]: {
+        width: "20ch",
+      },
+    },
+  }));
+
+  // Table Head
   const columns = [
-    { field: "id", headerName: "ID", width: 50 },
+    { field: "id", headerName: "ID", width: 50, editable: false },
     {
       field: "date",
       headerName: "Dates",
       width: 130,
-      type: "date",
-      editable: true,
+      renderCell: () => {
+        return <Dates />;
+      },
+      editable: false,
     },
     {
       field: "avatar",
       headerName: "Avatars",
       width: 80,
-      renderCell: () => {
-        return (
-          <>
-            <Avatars />
-          </>
-        );
+      renderCell: (cell) => {
+        return <Avatars avatar={cell} />;
       },
     },
     {
       field: "lastName",
       headerName: "Noms",
       width: 150,
-      editable: true,
+      editable: false,
     },
     {
       field: "firstName",
       headerName: "Prénoms",
       width: 150,
-      editable: true,
+      editable: false,
     },
     {
       field: "fullName",
@@ -55,17 +100,13 @@ export default function UsersTable() {
     {
       field: "email",
       width: 190,
-      editable: true,
+      editable: false,
     },
     {
       field: "status",
       headerName: "Status",
-      renderCell: () => {
-        return (
-          <>
-            <IconChips />
-          </>
-        );
+      renderCell: (cell) => {
+        return <IconChips user={cell} />;
       },
       width: 150,
       editable: false,
@@ -73,122 +114,49 @@ export default function UsersTable() {
     {
       field: "action",
       headerName: "Actions",
-      renderCell: () => {
-        return (
-          <>
-            <Actions />
-          </>
-        );
+      renderCell: (cell) => {
+        return <Actions user={cell} />;
       },
-      width: 210,
+      width: 190,
       editable: false,
     },
   ];
 
-  /*------------Table-------------*/
+  /*------------Table listUsers import via Store-------------*/
 
-  const rows = [
-    {
-      id: 1,
-      date: new Date(),
-      firstName: "Jean",
-      lastName: "Cuckstein",
-      isEmployer: true,
-      isCandidate: false,
-      email: "jean@gmail.com",
-    },
-    {
-      id: 2,
-      date: new Date(),
-      firstName: "Armong",
-      lastName: "Arlert",
-      isEmployer: false,
-      isCandidate: true,
-      email: "armong@gmail.com",
-    },
-    {
-      id: 3,
-      date: new Date(),
-      firstName: "Cuckren",
-      lastName: "Yoghurt",
-      isEmployer: true,
-      isCandidate: false,
-      email: "cuckren@gmail.com",
-    },
-    {
-      id: 4,
-      date: new Date(),
-      firstName: "Samy",
-      lastName: "Lynn Jackson",
-      isEmployer: true,
-      isCandidate: false,
-      email: "samy@gmail.com",
-    },
-    {
-      id: 5,
-      date: new Date(),
-      firstName: "Dot",
-      lastName: "Pixis",
-      isEmployer: false,
-      isCandidate: true,
-      email: "dot@gmail.com",
-    },
-    {
-      id: 6,
-      date: new Date(),
-      fistName: "Connie",
-      lastName: "Springer",
-      isEmployer: false,
-      isCandidate: true,
-      email: "springer@gmail.com",
-    },
-    {
-      id: 7,
-      date: new Date(),
-      fistName: "Mankasa",
-      lastName: "Crackerman",
-      isEmployer: false,
-      isCandidate: true,
-      email: "dogkasa@gmail.com",
-    },
-    {
-      id: 8,
-      date: new Date(),
-      fistName: "Berthy",
-      lastName: "Hoover",
-      isEmployer: false,
-      isCandidate: true,
-      email: "souka@gmail.com",
-    },
-    {
-      id: 9,
-      date: new Date(),
-      fistName: "Marie",
-      lastName: "Du Nile",
-      isEmployer: true,
-      isCandidate: false,
-      email: "marie@gmail.com",
-    },
-  ];
+  const listUsers = useSelector((state) => state.admin.listUsers);
 
   /*--------------Components------------*/
 
   return (
-    <div>
+    <Box>
       <Typography variant="h4" sx={{ textAlign: "center" }}>
         Admin gestion des utilisateurs | Skew.com
       </Typography>
+
+      <br />
+
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+        />
+      </Search>
+
       <br />
 
       <DataGrid
         autoHeight
-        rows={rows}
+        rows={listUsers}
         columns={columns}
-        // sx={{ background: "#212B36", display: "flex" }}
         pageSize={10}
-        // rowsPerPageOptions={[5]}
+        rowsPerPageOptions={[5]}
         checkboxSelection
+        editMode="row"
       />
-    </div>
+    </Box>
   );
 }

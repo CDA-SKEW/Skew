@@ -3,8 +3,13 @@
 /*------------MUI Imports-------------*/
 
 import { Box, Grid, Container, Typography } from "@mui/material";
-import { Factory, Notif, Users } from "components/admin";
-import { ListFactories, ListUsers } from ".";
+import {
+  Factory,
+  Notif,
+  Users,
+  ListFactories,
+  ListUsers,
+} from "components/admin";
 
 /*------------Export function-------------*/
 

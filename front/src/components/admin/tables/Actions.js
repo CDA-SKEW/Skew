@@ -9,7 +9,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 /*------------Export function-------------*/
 
 export default function DeletableChips() {
-  const handleDelete = () => {
+  const handleDelete = (id) => (event) => {
+    event.stopPropagation();
     console.info("Delete this user ?");
   };
   const handleClick = () => {
@@ -22,17 +23,17 @@ export default function DeletableChips() {
       <Chip
         label="delete"
         color="error"
-        onClick={handleClick}
+        // onClick={handleClick}
         onDelete={handleDelete}
         deleteIcon={<HighlightOffIcon />}
         variant="outlined"
       />
 
       <Chip
-        label="validated"
+        label="check"
         color="primary"
         onClick={handleClick}
-        onDelete={handleDelete}
+        // onDelete={handleDelete}
         deleteIcon={<CheckCircleIcon />}
         variant="outlined"
       />

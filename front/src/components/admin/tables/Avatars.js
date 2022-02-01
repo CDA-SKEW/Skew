@@ -6,13 +6,12 @@ import Stack from "@mui/material/Stack";
 
 /*------------Export function-------------*/
 
-export default function ImageAvatars() {
+export default function ImageAvatars(props) {
+  const { avatar } = props;
+  // console.log("image", avatar);
   return (
     <Stack direction="row" spacing={2}>
-      <Avatar
-        alt="avatar"
-        src="https://img.search.brave.com/YAChonmMV6YUIBHQOKsUE6JGVUHhfgyC1wKEpiygEdk/rs:fit:736:1200:1/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vNzM2/eC81Yi84NC9iNC81/Yjg0YjQyMmY5OTdl/OGZiNzVmZDdiZWI5/MTY5ZTYwMy5qcGc"
-      />
+      <Avatar alt="avatar" src={avatar.row.avatar} />
     </Stack>
   );
 }

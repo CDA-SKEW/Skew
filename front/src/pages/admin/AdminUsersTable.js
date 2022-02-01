@@ -2,14 +2,15 @@ import React from "react";
 // import UsersTable from "components/admin/UsersTable";
 import AdminLayout from "layouts/AdminLayout";
 import UsersTable from "components/admin/UsersTable";
+import { Box } from "@mui/system";
 
 const AdminUsersTable = () => {
   return (
-    <div>
+    <Box>
       <AdminLayout>
         <UsersTable />
       </AdminLayout>
-    </div>
+    </Box>
   );
 };
 
