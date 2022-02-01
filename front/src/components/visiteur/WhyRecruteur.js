@@ -17,7 +17,7 @@ export default function WhyCandidat() {
     return (
         <Box>
             <Card sx={{
-                my: 20,
+                my: 10,
                 display: "flex",
                 bgcolor: "#fff",
                 boxShadow: "none",
