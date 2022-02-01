@@ -2,19 +2,10 @@ import React from 'react'
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
-import ListItemLink from "components/core/navbar/ListItemLink";
-import PropTypes from 'prop-types';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
 
-<ListItemLink />
-
-ListItemLink.propTypes = {
-    primary: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
-};
-
-export default function MenuListResponsive({ pages }) {
+export default function MenuListResponsive({ pages, ListItemLink }) {
 
     const { window } = pages;
     const [open, setOpen] = React.useState(false);

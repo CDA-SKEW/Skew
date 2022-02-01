@@ -1,19 +1,10 @@
 import React from 'react'
 import Box from "@mui/material/Box";
 import { List } from "@mui/material";
-import ListItemLink from "components/core/navbar/ListItemLink";
-import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import ModalConnexionInscription from './ModalConnexionInscription';
 
-<ListItemLink />
-
-ListItemLink.propTypes = {
-    primary: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
-};
-
-export default function MenuList({ pages }) {
+export default function MenuList({ pages, ListItemLink }) {
 
     const [open, setOpen] = React.useState(false);
 
