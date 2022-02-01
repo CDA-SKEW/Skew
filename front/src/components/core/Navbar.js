@@ -25,7 +25,6 @@ export default function ResponsiveAppBar() {
           }}
         >
           <Titre />
-
           <MenuList pages={pages} />
           <MenuListResponsive pages={pages} />
         </Toolbar>

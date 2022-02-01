@@ -22,7 +22,11 @@ export default function MenuList({ pages }) {
     };
 
     return (
-        <Box sx={{ display: { xs: "none", md: "block" } }}>
+        <Box
+            sx={{
+                display: { xs: "none", md: "block" },
+            }}
+        >
             <List
                 sx={{
                     flexGrow: 1,
@@ -41,9 +45,8 @@ export default function MenuList({ pages }) {
                     onClick={handleOpen}
                     sx={{
                         bgcolor: '#ABC4FF',
-                        fontWeight: 'bold',
                         width: { md: 250, lg: 300, xl: 400 },
-                        fontSize: 20,
+                        fontSize: 17,
                     }}
                 >
                     Log in / Sign in

@@ -29,8 +29,7 @@ function ListItemLink(props) {
               variant='body1'
               sx={{
                 textAlign: 'center',
-                fontWeight: 'bold',
-                fontSize: 25,
+                fontSize: 20,
               }}
             >
               {primary}
