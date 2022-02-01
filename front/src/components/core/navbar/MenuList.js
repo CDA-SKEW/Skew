@@ -41,13 +41,15 @@ export default function MenuList({ pages }) {
                     onClick={handleOpen}
                     sx={{
                         bgcolor: '#ABC4FF',
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        width: { md: 250, lg: 300, xl: 400 },
+                        fontSize: 20,
                     }}
                 >
                     Log in / Sign in
                 </Button>
 
-                <ModalConnexionInscription setOpen={setOpen} open={open}/>
+                <ModalConnexionInscription setOpen={setOpen} open={open} />
 
             </List>
         </Box>

@@ -10,20 +10,24 @@ export default function Titre() {
             <Box
                 sx={{
                     flexGrow: 0,
-                    display: 'flex'
+                    display: 'flex',
                 }}
             >
                 <Avatar
                     variant="square"
                     src={Logo}
                     sx={{
-                        mx: 2,
+                        mx: 1,
+                        width: {md: 50},
+                        height: {md: 50},
+                        mt: {md: 1}
                     }}
                 />
                 <Typography
                     variant='h1'
                     sx={{
-                        width: '100%'
+                        width: '100%',
+                        mt: {md: 1}
                     }}
                 >
                     SKEW
