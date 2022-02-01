@@ -46,12 +46,12 @@ export const getProfilEmployer = () => {
         address: "21 fze fzefjzpej",
         category: "fvevfeqrg",
         town: "Bonnetable",
-        imgUpload: imageEmployer,
+        imageEmployer: imageEmployer,
       }
     // const data ={}
       
     return (dispatch) => {
-      console.log("GET_PROFIL_EMPLOYER action", data);
+      // console.log("GET_PROFIL_EMPLOYER action", data);
       dispatch({ type: GET_PROFIL_EMPLOYER, payload: data });
     };
   };

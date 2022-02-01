@@ -56,7 +56,7 @@ const EmployerDashboard = () => {
       titleOffer: "Assistante de direction et gestion de paye",
       nameEmployor: "Covea",
       dateOfferDays: "2",
-      badgeEmployor: false,
+      badgeEmployor: true,
     },
     {
       image: imageEmployer,

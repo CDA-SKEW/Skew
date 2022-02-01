@@ -3,32 +3,30 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { themeUser } from "configs/theme";
 import FormProfilEmployer from "components/employer/FormProfilEmployer";
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import FormPersonalEmployer from "components/employer/FormPersonalEmployer";
+import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
+// import FormPersonalEmployer from "components/employer/FormPersonalEmployer";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 
 const EmployerProfil = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("effect getDataProfilEmployer");
-    dispatch(getProfilEmployer());  
+    // console.log("effect getDataProfilEmployer");
+    dispatch(getProfilEmployer());
   }, []);
 
-   //dispatch(getProfilEmployer());
+  //dispatch(getProfilEmployer());
 
   const dataProfil = useSelector((state) => state.employer.dataProfil);
-   console.log("store dataProfil page profil", dataProfil);
+  // console.log("store dataProfil page profil", dataProfil);
 
-  const [editProfilPersonal, setEditProfilPersonal] = useState("none");
+  // const [editProfilPersonal, setEditProfilPersonal] = useState("none");
 
-  const handleEditProfilPersonal = (e) => {
-    // console.log("fct EditProfilPersonal");
-    setEditProfilPersonal("block")
-  };
-
+  // const handleEditProfilPersonal = (e) => {
+  //   // console.log("fct EditProfilPersonal");
+  //   setEditProfilPersonal("block")
+  // };
 
   return (
     <React.Fragment>
@@ -69,33 +67,28 @@ const EmployerProfil = () => {
                 borderRadius: 1,
                 position: "relative",
                 top: "-45px",
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               Mon compte
             </Typography>
           </Box>
 
-          <Typography
-            sx={{ textAlign: "center", mb: 4 }}
-            variant="h4"
-          >
+          <Typography sx={{ textAlign: "center", mb: 4 }} variant="h4">
             Informations entreprise
           </Typography>
 
-          <FormProfilEmployer dataProfil={dataProfil}/>
+          <FormProfilEmployer dataProfil={dataProfil} />
 
-          <Typography
-            sx={{ textAlign: "center", my: 4 }}
-            variant="h4"
-          >
+          <Typography sx={{ textAlign: "center", my: 4 }} variant="h4">
             Informations personnelles
-            <Button onClick={(e) => handleEditProfilPersonal(e)}>
+            <Button
+            // onClick={(e) => handleEditProfilPersonal(e)}
+            >
               <CreateOutlinedIcon />
             </Button>
-          </Typography >
+          </Typography>
           {/* <FormPersonalEmployer editProfilPersonal={editProfilPersonal} /> */}
-
         </Box>
       </Container>
     </React.Fragment>

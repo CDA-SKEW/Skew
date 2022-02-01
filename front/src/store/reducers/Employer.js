@@ -20,7 +20,7 @@ export function EmployerReducer(state = initialState, action) {
     default:
       return state;
     case Actions.GET_PROFIL_EMPLOYER:
-      console.log("GET_PROFIL_EMPLOYER Reducer", action.payload);
+      // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload);
       return {
         // ...state,
         // flash: action.payload.flash,
