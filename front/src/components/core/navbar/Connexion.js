@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import TempDirUser from './TempDirUser';
 
 export default function Connexion() {
 
@@ -63,6 +64,9 @@ export default function Connexion() {
             >
                 Envoyer
             </Button>
+
+            <TempDirUser />
+
         </Box>
     )
 }
