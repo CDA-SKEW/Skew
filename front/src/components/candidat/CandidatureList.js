@@ -52,18 +52,39 @@ export default function CandidatureList(props) {
                 sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
 
               { /* ICON STATUS*/}
+
+              {/* candidature validé icon+text */}
+              <Box
+              sx={{display:"flex" , flexDirection:"row"}}>
               {ListCandidature.statusCheck && (
                 <CheckCircleOutlineIcon
                   sx={{ color: "green", fontSize: 30 }}
                 />)}
+                {ListCandidature.statusCheck && (
+                <Typography
+                sx={{color:"black"}}> Candidature Validé</Typography>
+                )}
+
+              {/* candidature refusé icon+text */}
               {ListCandidature.statusDist && (
                 <DoNotDisturbIcon
                   sx={{ color: "red", fontSize: 30 }}
                 />)}
+                 {ListCandidature.statusDist && (
+                <Typography
+                sx={{color:"black"}}> Candidature Refusé</Typography>
+                )}
+
+              {/* candidature en cours  icon+text */}
               {ListCandidature.statusQuery && (
                 <QueryBuilderIcon
                   sx={{ color: "black", fontSize: 30 }}
                 />)}
+                {ListCandidature.statusQuery && (
+                <Typography
+                sx={{color:"black"}}> Candidature en cours d'examen</Typography>
+                )}
+               </Box>
 
               <Typography
                 sx={{ position: "relative", color: "black" }}>
