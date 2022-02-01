@@ -128,6 +128,9 @@ export function AdminReducer(state = initialState, action) {
     case Actions.GET_LIST_USERS:
       console.log("LIST_USERS", action.payload);
       return { ...state, listUsers: action.payload };
+    case Actions.DELETE_USER:
+      console.log("DELETE_USER", action.payload);
+      return { ...state, listUsers: action.payload };
   }
 }
 

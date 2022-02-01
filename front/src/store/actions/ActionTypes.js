@@ -16,3 +16,4 @@ export const GET_CANDIDATE = "GET_CANDIDATE";
 
 // Admin
 export const GET_LIST_USERS = "GET_LIST_USERS";
+export const DELETE_USER = "DELETE_USER";

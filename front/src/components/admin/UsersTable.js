@@ -114,8 +114,8 @@ export default function UsersTable() {
     {
       field: "action",
       headerName: "Actions",
-      renderCell: (cell) => {
-        return <Actions user={cell} />;
+      renderCell: (user) => {
+        return <Actions user={user._id} />;
       },
       width: 190,
       editable: false,
@@ -155,7 +155,6 @@ export default function UsersTable() {
         pageSize={10}
         rowsPerPageOptions={[5]}
         checkboxSelection
-        editMode="row"
       />
     </Box>
   );
