@@ -1,5 +1,5 @@
 import { Container, CssBaseline } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChekboxCV from "../../components/candidat/profil/ChekboxCV";
 import Masonry from '@mui/lab/Masonry';
 import TableContact from "components/candidat/profil/TableContact";
@@ -9,14 +9,29 @@ import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
 import Button from '@mui/material/Button';
 import { Box } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfilCandidate } from "store/actions/CandidateActions";
 
 
 
 const CandidatProfil = () => {
 
-  const dataProfilCandidate = useSelector((state) => state.candidate.dataProfilCandidate)
+  const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   console.log("effect getDataProfilCandidate");
+  dispatch(getProfilCandidate());
+  // }, []);
+
+
+  const [editProfilCandidate, setEditProfilCandidate] = useState("none");
+
+  const handleEditProfilCandidate = (e) => {
+    // console.log("fct EditProfilPersonal");
+    setEditProfilCandidate("block")
+  };
+  const dataProfilCandidate = useSelector((state) => state.candidate.dataProfilCandidate)
+  console.log("store dataProfil page profil", dataProfilCandidate);
   return (
     <React.Fragment>
       <CssBaseline />
