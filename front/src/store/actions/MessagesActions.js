@@ -2,6 +2,7 @@
  * Import - Module
  * *************** */
 // import axios from "axios";
+import { GET_MESSAGES} from "./ActionTypes";
 
 /*
  * Import types { ... }
