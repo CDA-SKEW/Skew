@@ -7,7 +7,7 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-  user: {
+  dataProfilCandidate: {
     coord: [
       {
         adress: '22 rue la shmitrie 44250 un lieu perdu',

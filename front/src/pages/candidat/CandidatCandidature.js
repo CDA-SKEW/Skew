@@ -1,7 +1,6 @@
-import { Container, Divider, List } from "@mui/material";
-import { Box } from "@mui/system";
+import { Container } from "@mui/material";
 import React from "react";
-import CandidatureList from "components/candidat/CandidatureList";
+import CandidatureList from "components/candidat/listOffer/CandidatureList";
 import { useSelector } from "react-redux";
 
 const CandidatCandidature = () => {

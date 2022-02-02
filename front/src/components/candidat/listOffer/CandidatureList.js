@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
-import BtnOption from 'components/candidat/BtnOption'
+import BtnOption from 'components/candidat/listOffer/BtnOption'
 import { Box } from '@mui/material';
 
 export default function CandidatureList(props) {
