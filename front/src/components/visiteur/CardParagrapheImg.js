@@ -4,7 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export default function CardParagrapheImg ({ index }){
+export default function CardParagrapheImg({ index }) {
     return (
         <Card sx={{
             my: 20,
@@ -28,7 +28,6 @@ export default function CardParagrapheImg ({ index }){
                 pt: 0,
                 px: 2,
                 width: '90%',
-                
             }}>
                 <Typography
                     variant="h2"
@@ -40,7 +39,7 @@ export default function CardParagrapheImg ({ index }){
                     color="text.secondary"
                     align="justify"
                     sx={{
-                        fontSize: {sx: '1rem', md: 20}
+                        fontSize: { sx: '1rem', md: 20 }
                     }}
                 >
                     {index.texte}

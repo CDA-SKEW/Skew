@@ -12,7 +12,7 @@ export default function MethodsRecruteur() {
 
     return (
         <Box>
-            <Typography variant="h5" color="initial">
+            <Typography variant="h2" color="initial">
                 Nos méthodes
             </Typography>
             <Box

@@ -22,11 +22,15 @@ function ContactButton() {
                     variant="contained"
                     sx={{
                         bgcolor: '#ABC4FF',
-                        width: 250,
                         py: 3,
-                        my: 2,
-                    }}
-                >{index.text}</Button>
+                        mb: 10,
+                        mx: 'auto',
+                        width: 350,
+                        display: 'flex',
+                        justifyContent: "center",
+                        fontSize: 20
+                    }}>
+                {index.text}</Button>
             ))}
         </Box>
     )
