@@ -40,6 +40,7 @@ export const postFormProfilEmployer = (data) => {
 export const getProfilEmployer = () => {
     const data = {
         user_id: 1,
+        mail: "wilfried.cda@gmail.com",
         name: "Buno & Co",
         zipCode: "85600",
         siren: "356454356",

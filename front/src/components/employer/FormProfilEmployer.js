@@ -94,14 +94,14 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
 // Fonction formulaire FormProfilEmployer
 export default function FormProfilEmployer(props) {
   //declaration des constantes passées par les props
-  const { dataProfilEmployer, dataApiSiret, profilEditabled } = props;
+  const { dataProfilEmployer, dataApiSiret, profilEditabled, buttonVisible } = props;
   const dispatch = useDispatch();
 
   // Declaration des constantes pour le formulaire
   const [stateImgUpload, setStateImgUpload] = useState(
     dataProfilEmployer.avatar ? dataProfilEmployer.avatar : ""
   );
-  const [avatar, setAvatar] = useState(dataProfilEmployer.avatar);
+  const [avatar, setAvatar] = useState("");
   const [name, setFactoryName] = useState("");
   const [siret, setSiret] = useState("");
   const [siren, setSiren] = useState("");
@@ -138,10 +138,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-          " " +
-          dataApiSiret.type_voie +
-          " " +
-          dataApiSiret.libelle_voie
+        " " +
+        dataApiSiret.type_voie +
+        " " +
+        dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -214,12 +214,22 @@ export default function FormProfilEmployer(props) {
     setUseState();
   };
 
+  //constante pour mettre les input soit readOnly soit editable
   const inputProps = {
     readOnly: profilEditabled,
-    disabled: profilEditabled,
+    disabled: profilEditabled
   };
-  const displayButton = "none";
-  // const displayButton = ""
+
+  // constante pour affiche les boutons si form editable
+  const displayProps = buttonVisible;
+  let displayButton
+
+  if (displayProps === true) {
+    displayButton = ""
+  }
+  else {
+    displayButton = "none"
+  }
 
   return (
     <Box component="form" onSubmit={(e) => handleSendFormProfil(e)}>
@@ -239,6 +249,7 @@ export default function FormProfilEmployer(props) {
               justifyContent: { xs: "center", md: "space-around" },
               flexDirection: { xs: "column", md: "row" },
               alignItems: { xs: "center", md: "none" },
+              mb:2
             }}
           >
             <Grid
@@ -295,21 +306,22 @@ export default function FormProfilEmployer(props) {
                 alignItems: "center",
               }}
             >
-              <TextField
-                required
-                fullWidth
-                label="N° de Siret:"
-                variant="outlined"
-                size="small"
-                sx={{ width: { xs: "100%", sm: "50%" } }}
-                id="siret"
-                value={siret || ""}
-                name="siret"
-                InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
-                onChange={(e) => {
-                  setSiret(e.target.value);
-                }}
-              />
+
+                <TextField
+                  required
+                  fullWidth
+                  label="N° de Siret:"
+                  variant="outlined"
+                  size="small"
+                  sx={{ width: { xs: "100%", sm: "100%" } }}
+                  id="siret"
+                  value={siret || ""}
+                  name="siret"
+                  InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
+                  onChange={(e) => {
+                    setSiret(e.target.value);
+                  }}
+                />
 
               <Button
                 variant="contained"
@@ -317,13 +329,14 @@ export default function FormProfilEmployer(props) {
                 sx={{
                   bgcolor: "#DC143C",
                   color: "white",
-                  ml: 2,
+                  ml: 1,
                   my: 1,
                   display: displayButton,
+                  width:"160px"
                 }}
                 onClick={(e) => handleSendApiSiret(e)}
               >
-                Saisie par N° SIRET
+                Saisie Auto.
               </Button>
             </Grid>
 

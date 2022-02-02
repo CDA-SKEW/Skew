@@ -22,7 +22,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
   const dispatch = useDispatch()
   const [stateInputDisable, setStateInputDisable] = useState(true);
   const [stateButtonVisible, setStateButtonVisible] = useState(editProfilPersonal);
-  const [addressMail, setAddressMail] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setpassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -30,7 +30,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
 
   const cancelFormPersonalProfil = () => {
     // console.log("Cancel upload");
-    setAddressMail(dataProfil.addressMail);
+    setMail(dataProfil.mail);
     setpassword("")
     setConfirmPassword("")
     // setStateButtonVisible("none")
@@ -45,7 +45,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
     e.preventDefault();
 
     const dataFormPersonalEmployer = {
-      addressMail,
+      mail,
       password,
     };
     console.log("dataFormPersonalEmployer", dataFormPersonalEmployer);
@@ -84,20 +84,18 @@ export default function FormPersonalEmployer(editProfilPersonal) {
                 variant="outlined"
                 size="small"
                 type="email"
-                disabled={stateInputDisable}
-                value={addressMail}
-                onChange={(e) => setAddressMail(e.target.value)}
+                value={mail}
+                onChange={(e) => setMail(e.target.value)}
               />
             </Grid>
 
             <Grid item xs={10}>
               <TextField
                 required
-                label="mot de passe"
+                label="Ancien mot de passe"
                 fullWidth
                 variant="outlined"
                 size="small"
-                disabled={stateInputDisable}
                 value={password}
                 onChange={(e) => setpassword(e.target.value)}
               />
@@ -106,11 +104,22 @@ export default function FormPersonalEmployer(editProfilPersonal) {
             <Grid item xs={10}>
               <TextField
                 required
-                label="Confirm mot de passe"
+                label="Nouveau mot passe"
                 fullWidth
                 variant="outlined"
                 size="small"
-                disabled={stateInputDisable}
+                value={password}
+                // onChange={(e) => setpassword(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={10}>
+              <TextField
+                required
+                label="Confirme nouveau mot passe"
+                fullWidth
+                variant="outlined"
+                size="small"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
