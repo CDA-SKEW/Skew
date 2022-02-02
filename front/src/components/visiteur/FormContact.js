@@ -1,27 +1,60 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-// import { useDispatch, useSelector } from "react-redux";
-// import { post } from "store/actions/MessagesActions";
+import { useDispatch, useSelector } from "react-redux";
+import { postMessages } from "store/actions/MessagesActions";
 
 export default function FormContact() {
 
-    // const [nom, setNom] = useState(dataProfil.nom);
-    // const [prenom, setPrenom] = useState(dataProfil.prenom);
-    // const [tel, setTel] = useState(dataProfil.tel);
-    // const [mail, setMail] = useState(dataProfil.mail);
-    // const [sujet, setSujet] = useState(dataProfil.sujet);
+    const Message = useSelector((state) => state.messages.listMessage)
+
+    const [nom, setNom] = useState();
+    const [prenom, setPrenom] = useState();
+    const [tel, setTel] = useState();
+    const [mail, setMail] = useState();
+    const [sujet, setSujet] = useState();
+    const [message, setMessage] = useState();
 
     const InputList = [
-        { key: 1, label: "Nom", change: 'setNom' },
-        { key: 2, label: "Prenom", change: 'setPrenom' },
-        { key: 3, label: "Tel", change: 'setTel' },
-        { key: 4, label: "Mail", change: 'setMail' },
-        { key: 5, label: "Sujet", change: 'setSujet' },
+        { key: 1, label: "Nom" },
+        { key: 2, label: "Prenom" },
+        { key: 3, label: "Tel" },
+        { key: 4, label: "Mail" },
+        { key: 5, label: "Sujet" },
     ]
+
+    const handleForm = (e) => {
+        console.log('target', e.target.value, e.target.name)
+        switch (e.target.name) {
+            case 'Nom':
+                setNom(e.target.value)
+                break;
+            case 'Prenom':
+                setPrenom(e.target.value)
+                break;
+            case 'Tel':
+                setTel(e.target.value)
+                break;
+            case 'Mail':
+                setMail(e.target.value)
+                break;
+            case 'Sujet':
+                setSujet(e.target.value)
+                break;
+            case 'Message':
+                setMessage(e.target.value)
+                break;
+            default:
+            // code block
+        }
+    }
+
+    const submitForm = () => {
+        console.log('submitForm', nom, prenom, tel, mail, sujet, message)
+    }
 
     return (
         <Box sx={{ px: 5 }}>
@@ -43,10 +76,11 @@ export default function FormContact() {
                     <TextField
                         key={index.key}
                         label={index.label}
+                        name={index.label}
                         color='secondary'
                         variant="outlined"
                         fullWidth
-                        // onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => handleForm(e)}
                         sx={{
                             display: "block",
                             width: '100%',
@@ -58,11 +92,13 @@ export default function FormContact() {
                 ))}
                 <TextField
                     label='Message'
+                    name='Message'
                     color='secondary'
                     variant="outlined"
                     fullWidth
                     multiline
                     rows='10'
+                    onChange={(e) => handleForm(e)}
                     sx={{
                         display: "block",
                         width: '100%',
@@ -76,6 +112,7 @@ export default function FormContact() {
                     color='secondary'
                     fullWidth
                     size='large'
+                    onClick={() => submitForm()}
                     sx={{
                         display: "block",
                         width: '100%',

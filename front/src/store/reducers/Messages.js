@@ -7,7 +7,7 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-  dataMessage: [],
+  listMessage: [],
 };
 
 /*
