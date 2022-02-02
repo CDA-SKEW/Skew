@@ -19,5 +19,11 @@
 // Get messages
 
 // Post messages
+export const postMessages = (data) => {
+    return (dispatch) => {
+      console.log("POST_MESSAGES action", data);
+      dispatch({ type: GET_MESSAGES, payload: data });
+    };
+  };
 
 // Delete messages
