@@ -10,7 +10,7 @@ import TableFormation from "components/candidat/TableFormation";
 import Button from '@mui/material/Button';
 import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
-
+import FooterEtienne from "components/core/FooterEtienne"
 const CandidatProfilTest = () => {
   const user = useSelector((state) => state.candidate.user)
   return (
@@ -51,6 +51,7 @@ const CandidatProfilTest = () => {
 
       </Container>
     </React.Fragment >
+
   );
 };
 

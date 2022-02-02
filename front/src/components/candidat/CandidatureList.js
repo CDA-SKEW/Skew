@@ -6,10 +6,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
+import BtnOption from 'components/candidat/BtnOption'
 import { Box } from '@mui/material';
 
 export default function CandidatureList(props) {
@@ -48,43 +48,45 @@ export default function CandidatureList(props) {
                 {ListCandidature.city}
               </Typography>
 
-              <AddCircleOutlineIcon
-                sx={{ position: "absolute", right: 5, top: "10px", fontSize: "40px" }} />
+              {/* BTN OPTION */}
 
+
+
+              <BtnOption />
               { /* ICON STATUS*/}
 
               {/* candidature validé icon+text */}
               <Box
-              sx={{display:"flex" , flexDirection:"row"}}>
-              {ListCandidature.statusCheck && (
-                <CheckCircleOutlineIcon
-                  sx={{ color: "green", fontSize: 30 }}
-                />)}
+                sx={{ display: "flex", flexDirection: "row" }}>
                 {ListCandidature.statusCheck && (
-                <Typography
-                sx={{color:"black"}}> Candidature Validé</Typography>
+                  <CheckCircleOutlineIcon
+                    sx={{ color: "green", fontSize: 30 }}
+                  />)}
+                {ListCandidature.statusCheck && (
+                  <Typography
+                    sx={{ color: "black" }}> Candidature Validé</Typography>
                 )}
 
-              {/* candidature refusé icon+text */}
-              {ListCandidature.statusDist && (
-                <DoNotDisturbIcon
-                  sx={{ color: "red", fontSize: 30 }}
-                />)}
-                 {ListCandidature.statusDist && (
-                <Typography
-                sx={{color:"black"}}> Candidature Refusé</Typography>
+                {/* candidature refusé icon+text */}
+                {ListCandidature.statusDist && (
+                  <DoNotDisturbIcon
+                    sx={{ color: "red", fontSize: 30 }}
+                  />)}
+                {ListCandidature.statusDist && (
+                  <Typography
+                    sx={{ color: "black" }}> Candidature Refusé</Typography>
                 )}
 
-              {/* candidature en cours  icon+text */}
-              {ListCandidature.statusQuery && (
-                <QueryBuilderIcon
-                  sx={{ color: "black", fontSize: 30 }}
-                />)}
+                {/* candidature en cours  icon+text */}
                 {ListCandidature.statusQuery && (
-                <Typography
-                sx={{color:"black"}}> Candidature en cours d'examen</Typography>
+                  <QueryBuilderIcon
+                    sx={{ color: "black", fontSize: 30 }}
+                  />)}
+                {ListCandidature.statusQuery && (
+                  <Typography
+                    sx={{ color: "black" }}> Candidature en cours d'examen</Typography>
                 )}
-               </Box>
+              </Box>
 
               <Typography
                 sx={{ position: "relative", color: "black" }}>
