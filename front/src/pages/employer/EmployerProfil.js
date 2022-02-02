@@ -1,6 +1,6 @@
 import { Button, Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { themeUser } from "configs/theme";
 import FormProfilEmployer from "components/employer/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
@@ -11,8 +11,8 @@ const EmployerProfil = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      // console.log("effect getDataProfilEmployerEmployer");
-      dispatch(getProfilEmployer());
+    // console.log("effect getDataProfilEmployerEmployer");
+    dispatch(getProfilEmployer());
   }, []);
 
   //dispatch(getProfilEmployer());
@@ -26,6 +26,8 @@ const EmployerProfil = () => {
   // console.log("store dataApiSiret",dataApiSiret)
 
   // const [editProfilPersonal, setEditProfilPersonal] = useState("none");
+
+  const [profilEditabled, setProfilEditabled] = useState(true);
 
   // const handleEditProfilPersonal = (e) => {
   //   // console.log("fct EditProfilPersonal");
@@ -80,17 +82,26 @@ const EmployerProfil = () => {
 
           <Typography sx={{ textAlign: "center", mb: 4 }} variant="h4">
             Informations entreprise
+            <Button
+              onClick={(e) => {
+                setProfilEditabled(!profilEditabled);
+                // setEditToggle(!editToggle);
+              }}
+            >
+              <CreateOutlinedIcon />
+            </Button>
           </Typography>
 
           <FormProfilEmployer
             dataProfilEmployer={dataProfilEmployer}
             dataApiSiret={dataApiSiret}
+            profilEditabled={profilEditabled}
           />
 
           <Typography sx={{ textAlign: "center", my: 4 }} variant="h4">
             Informations personnelles
             <Button
-            // onClick={(e) => handleEditProfilPersonal(e)}
+            // onClick={(e) => setProfilEditabled(false)}
             >
               <CreateOutlinedIcon />
             </Button>

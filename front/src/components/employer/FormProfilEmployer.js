@@ -53,7 +53,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
         />
       )}
 
-{siren && (
+      {siren && (
         <NumberFormat
           {...other}
           getInputRef={ref}
@@ -94,7 +94,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
 // Fonction formulaire FormProfilEmployer
 export default function FormProfilEmployer(props) {
   //declaration des constantes passées par les props
-  const { dataProfilEmployer, dataApiSiret } = props;
+  const { dataProfilEmployer, dataApiSiret, profilEditabled } = props;
   const dispatch = useDispatch();
 
   // Declaration des constantes pour le formulaire
@@ -110,9 +110,8 @@ export default function FormProfilEmployer(props) {
   const [town, setTown] = useState("");
   const [category, setCategory] = useState("");
 
-  // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
-  useEffect(() => {
-    // console.log("effect for useState form employer");
+  // fonction set des useState
+  const setUseState = () => {
     setAvatar(dataProfilEmployer.avatar);
     setSiret(dataProfilEmployer.siret);
     setSiren(dataProfilEmployer.siren);
@@ -121,6 +120,12 @@ export default function FormProfilEmployer(props) {
     setZipCode(dataProfilEmployer.zipCode);
     setTown(dataProfilEmployer.town);
     setCategory(dataProfilEmployer.category);
+  };
+
+  // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
+  useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
   }, [dataProfilEmployer]);
 
   // useEffect pour api Siret qui est à l'écoute du state du store dataApiSiret
@@ -146,13 +151,13 @@ export default function FormProfilEmployer(props) {
 
   // fonction get pour envoyer requete api pour saisie par n° de Siret
   const handleSendApiSiret = async (e) => {
-    console.log("Send Api Siret wait");
+    // console.log("Send Api Siret wait");
     //empeche le formunliare d'etre submiter
     // console.log("e", e)
     e.preventDefault();
 
     if (siret.length === 14) {
-      console.log("N° de siret", siret);
+      // console.log("N° de siret", siret);
       await dispatch(getApiSiret(siret));
     }
   };
@@ -206,15 +211,15 @@ export default function FormProfilEmployer(props) {
     if (!dataProfilEmployer.avatar) {
       setStateImgUpload("image obligatoire");
     } else setStateImgUpload("");
-    setAvatar(dataProfilEmployer.avatar);
-    setSiret(dataProfilEmployer.siret);
-    setSiren(dataProfilEmployer.siren);
-    setFactoryName(dataProfilEmployer.name);
-    setAddress(dataProfilEmployer.address);
-    setZipCode(dataProfilEmployer.zipCode);
-    setTown(dataProfilEmployer.town);
-    setCategory(dataProfilEmployer.category);
+    setUseState();
   };
+
+  const inputProps = {
+    readOnly: profilEditabled,
+    disabled: profilEditabled,
+  };
+  const displayButton = "none";
+  // const displayButton = ""
 
   return (
     <Box component="form" onSubmit={(e) => handleSendFormProfil(e)}>
@@ -255,7 +260,7 @@ export default function FormProfilEmployer(props) {
                   required
                   component="label"
                   size="small"
-                  sx={{ bgcolor: "#2B2E30" }}
+                  sx={{ bgcolor: "#2B2E30", display: displayButton }}
                 >
                   <Typography>Choisir une image</Typography>
                   <TextField
@@ -292,6 +297,7 @@ export default function FormProfilEmployer(props) {
             >
               <TextField
                 required
+                fullWidth
                 label="N° de Siret:"
                 variant="outlined"
                 size="small"
@@ -299,7 +305,7 @@ export default function FormProfilEmployer(props) {
                 id="siret"
                 value={siret || ""}
                 name="siret"
-                InputProps={{ inputComponent: NumberFormatCustom }}
+                InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
                 onChange={(e) => {
                   setSiret(e.target.value);
                 }}
@@ -313,10 +319,10 @@ export default function FormProfilEmployer(props) {
                   color: "white",
                   ml: 2,
                   my: 1,
+                  display: displayButton,
                 }}
                 onClick={(e) => handleSendApiSiret(e)}
               >
-                {" "}
                 Saisie par N° SIRET
               </Button>
             </Grid>
@@ -329,7 +335,7 @@ export default function FormProfilEmployer(props) {
                 fullWidth
                 size="small"
                 name="siren"
-                InputProps={{ inputComponent: NumberFormatCustom }}
+                InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
                 value={siren || ""}
                 onChange={(e) => setSiren(e.target.value)}
               />
@@ -343,6 +349,7 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 size="small"
                 value={name || ""}
+                InputProps={{ inputProps }}
                 inputProps={{ style: { textTransform: "uppercase" } }}
                 onChange={(e) => setFactoryName(e.target.value)}
               />
@@ -356,6 +363,7 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 size="small"
                 value={address || ""}
+                InputProps={{ inputProps }}
                 inputProps={{ style: { textTransform: "uppercase" } }}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -370,7 +378,7 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 name="zipCode"
                 value={zipCode || ""}
-                InputProps={{ inputComponent: NumberFormatCustom }}
+                InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
                 onChange={(e) => setZipCode(e.target.value)}
               />
             </Grid>
@@ -383,6 +391,7 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 size="small"
                 value={town || ""}
+                InputProps={{ inputProps }}
                 inputProps={{ style: { textTransform: "uppercase" } }}
                 onChange={(e) => setTown(e.target.value)}
               />
@@ -396,7 +405,11 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 size="small"
                 value={category || ""}
-                inputProps={{ style: { textTransform: "uppercase" } }}
+                InputProps={{ inputProps }}
+                inputProps={{
+                  style: { textTransform: "uppercase" },
+                  inputProps,
+                }}
                 onChange={(e) => setCategory(e.target.value)}
               />
             </Grid>
@@ -413,7 +426,12 @@ export default function FormProfilEmployer(props) {
               <Button
                 variant="contained"
                 size="small"
-                sx={{ bgcolor: "#DC143C", color: "white", m: 1 }}
+                sx={{
+                  bgcolor: "#DC143C",
+                  color: "white",
+                  m: 1,
+                  display: displayButton,
+                }}
                 startIcon={<TaskAltIcon />}
                 type="submit"
               >
@@ -423,7 +441,12 @@ export default function FormProfilEmployer(props) {
               <Button
                 variant="contained"
                 size="small"
-                sx={{ bgcolor: "gray", color: "white", m: 1 }}
+                sx={{
+                  bgcolor: "gray",
+                  color: "white",
+                  m: 1,
+                  display: displayButton,
+                }}
                 startIcon={<HighlightOffIcon />}
                 onClick={(e) => cancelFormProfil()}
               >
