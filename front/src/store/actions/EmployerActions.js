@@ -31,24 +31,27 @@ export const getApiSiret = (siretNumber) => {
 // Post profil employer
 export const postFormProfilEmployer = (data) => {
   return (dispatch) => {
-    console.log("POST_PROFIL_EMPLOYER action", data);
+    // console.log("POST_PROFIL_EMPLOYER action", data);
     dispatch({ type: GET_PROFIL_EMPLOYER, payload: data });
   };
 };
 
 // get profil employer
 export const getProfilEmployer = () => {
-    const data = {
-        name: "Buno & Co",
-        zipCode: "85600",
-        siren: "356454356",
-        siret: "40976852000135",
-        address: "21 fze fzefjzpej",
-        category: "fvevfeqrg",
-        town: "Bonnetable",
-        imageEmployer: imageEmployer,
+    // const data = {
+    //     user_id: 1,
+    //     name: "Buno & Co",
+    //     zipCode: "85600",
+    //     siren: "356454356",
+    //     siret: "40976852000135",
+    //     address: "21 fze fzefjzpej",
+    //     category: "fvevfeqrg",
+    //     town: "Bonnetable",
+    //     avatar: imageEmployer,
+    //   }
+
+      const data = {
       }
-    // const data ={}
       
     return (dispatch) => {
       // console.log("GET_PROFIL_EMPLOYER action", data);

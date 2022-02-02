@@ -11,18 +11,19 @@ const EmployerProfil = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer");
-    dispatch(getProfilEmployer());
+      // console.log("effect getDataProfilEmployerEmployer");
+      dispatch(getProfilEmployer());
   }, []);
 
   //dispatch(getProfilEmployer());
 
-  const dataProfilEmployer = useSelector((state) => state.employer.dataProfilEmployer);
+  const dataProfilEmployer = useSelector(
+    (state) => state.employer.dataProfilEmployer
+  );
   // console.log("store dataProfilEmployer page profil", dataProfilEmployer);
 
   const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
   // console.log("store dataApiSiret",dataApiSiret)
- 
 
   // const [editProfilPersonal, setEditProfilPersonal] = useState("none");
 
@@ -81,7 +82,10 @@ const EmployerProfil = () => {
             Informations entreprise
           </Typography>
 
-          <FormProfilEmployer dataProfilEmployer={dataProfilEmployer} dataApiSiret={dataApiSiret} />
+          <FormProfilEmployer
+            dataProfilEmployer={dataProfilEmployer}
+            dataApiSiret={dataApiSiret}
+          />
 
           <Typography sx={{ textAlign: "center", my: 4 }} variant="h4">
             Informations personnelles

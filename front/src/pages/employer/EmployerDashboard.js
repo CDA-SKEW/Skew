@@ -12,6 +12,7 @@ import { themeUser } from "configs/theme";
 import imageEmployer from "assets/images/imageEmployor.png";
 
 const EmployerDashboard = () => {
+  
   const { nbNotif, nbCandidateReceive, NbMyOffers } = {
     nbNotif: [0, 1, 2, 3, 4, 5],
     nbCandidateReceive: [0, 1, 2, 3],

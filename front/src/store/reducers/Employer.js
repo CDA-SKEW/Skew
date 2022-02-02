@@ -2,7 +2,6 @@
  * Import Actions { ... }
  * ********************** */
 import * as Actions from "../actions/ActionTypes";
-import imageEmployer from "assets/images/imageEmployor.png";
 
 /*
  * Selector
