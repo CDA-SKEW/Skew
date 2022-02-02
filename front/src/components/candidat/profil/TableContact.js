@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 
@@ -15,6 +15,60 @@ import { Box } from "@mui/system";
 
 export default function TableContact(props) {
   const { ListUser } = props
+  const [edit, setEdit] = React.useState(false);
+  const data = {
+    address: "",
+    phone: "",
+    mail: "",
+  };
+
+  function ModeText(props) {
+    return (
+      <TableBody>
+      {ListUser.map((user, index) => (
+        <TableRow
+          key={index}
+
+          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        >
+          <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+          <TableCell editable="true" >{user.address}<br />{user.zipCode}<br />{user.town}</TableCell>
+          <TableCell >{user.phone}</TableCell>
+          <TableCell >{user.mail}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+      
+    );
+  }
+  function ModeEdit(props) {
+    return (
+      <Stack direction="row" spacing={2}>
+        <TextField
+          required
+          id="outlined-required"
+          label="address"
+          defaultValue={data.address}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="phone"
+          defaultValue={data.phone}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="mail"
+          defaultValue={data.mail}
+        />
+      </Stack>
+    );
+  }
+  const checkEdit = () => {
+    if (edit === true) return <ModeEdit />;
+    else return <ModeText />;
+  };
   return (
     <Box
       sx={{
@@ -57,22 +111,18 @@ export default function TableContact(props) {
               <TableCell>Mail</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {ListUser.map((user, index) => (
-              <TableRow
-                key={index}
-
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                <TableCell editable="true" >{user.address}<br />{user.zipCode}<br />{user.town}</TableCell>
-                <TableCell >{user.phone}</TableCell>
-                <TableCell >{user.mail}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+         {/* <ModeText/> */}
+         {checkEdit()}
         </Table>
       </TableContainer>
+      <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+        Edit
+      </Button>
+
+      {/* <p> {edit}</p> */}
+
+      
+
 
     </Box>
 
