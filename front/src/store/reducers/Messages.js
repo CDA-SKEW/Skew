@@ -18,8 +18,9 @@ export function MessagesReducer(state = initialState, action) {
     default:
       return state;
     case Actions.POST_MESSAGES:
-      console.log("POST_MESSAGES Reducer", action.payload )      
-      return { dataProfil: action.payload };
+      return {
+       ...state, dataProfil: action.payload
+      };
   }
 }
 

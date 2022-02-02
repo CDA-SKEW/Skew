@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { postMessages } from "store/actions/MessagesActions";
+import { store } from 'store';
 
 export default function FormContact() {
 
@@ -27,7 +28,7 @@ export default function FormContact() {
     ]
 
     const handleForm = (e) => {
-        console.log('target', e.target.value, e.target.name)
+        // console.log('target', e.target.value, e.target.name)
         switch (e.target.name) {
             case 'Nom':
                 setNom(e.target.value)
@@ -54,6 +55,22 @@ export default function FormContact() {
 
     const submitForm = () => {
         console.log('submitForm', nom, prenom, tel, mail, sujet, message)
+        if (nom & prenom & tel & mail & sujet & message) {
+            store.dispatch(postMessages({
+                nom,
+                prenom,
+                tel,
+                mail,
+                message,
+                sujet
+            }))
+            setNom('')
+            setPrenom('')
+            setTel('')
+            setMail('')
+            setSujet('')
+            setMessage('')
+        }
     }
 
     return (

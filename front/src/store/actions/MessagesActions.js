@@ -2,7 +2,7 @@
  * Import - Module
  * *************** */
 // import axios from "axios";
-import { GET_MESSAGES} from "./ActionTypes";
+import { POST_MESSAGES} from "./ActionTypes";
 
 /*
  * Import types { ... }
@@ -23,7 +23,7 @@ import { GET_MESSAGES} from "./ActionTypes";
 export const postMessages = (data) => {
     return (dispatch) => {
       console.log("POST_MESSAGES action", data);
-      dispatch({ type: GET_MESSAGES, payload: data });
+      dispatch({ type: POST_MESSAGES, payload: data });
     };
   };
 
