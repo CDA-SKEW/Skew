@@ -53,6 +53,28 @@ export default function FormPersonalEmployer(editProfilPersonal) {
     // await dispatch(postFormProfilEmployer(dataFormPersonnalEmployerr))
   };
 
+
+  const buttonVisible = false
+  const profilEditabled = true
+
+    //constante pour mettre les input soit readOnly soit editable
+    const inputProps = {
+      readOnly: profilEditabled,
+      disabled: profilEditabled
+    };
+
+
+    // constante pour affiche les boutons si form editable
+    const displayProps = buttonVisible;
+    let displayButton
+  
+    if (displayProps === true) {
+      displayButton = ""
+    }
+    else {
+      displayButton = "none"
+    }
+
   return (
 
     <form
@@ -85,6 +107,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
                 size="small"
                 type="email"
                 value={mail}
+                InputProps={{ inputProps }}
                 onChange={(e) => setMail(e.target.value)}
               />
             </Grid>
@@ -97,6 +120,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
                 variant="outlined"
                 size="small"
                 value={password}
+                sx={{ display: displayButton }}
                 onChange={(e) => setpassword(e.target.value)}
               />
             </Grid>
@@ -109,6 +133,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
                 variant="outlined"
                 size="small"
                 value={password}
+                sx={{ display: displayButton }}
                 // onChange={(e) => setpassword(e.target.value)}
               />
             </Grid>
@@ -121,6 +146,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
                 variant="outlined"
                 size="small"
                 value={confirmPassword}
+                sx={{ display: displayButton }}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </Grid>
@@ -138,7 +164,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
               <Button
                 variant="contained"
                 size="small"
-                sx={{ bgcolor: "#DC143C", color: "white", m: 1, display: editProfilPersonal }}
+                sx={{ bgcolor: "#DC143C", color: "white", m: 1, display: displayButton }}
                 type="submit"
               >
                 Valider
@@ -147,7 +173,7 @@ export default function FormPersonalEmployer(editProfilPersonal) {
               <Button
                 variant="contained"
                 size="small"
-                sx={{ bgcolor: "gray", color: "white", m: 1, display: editProfilPersonal }}
+                sx={{ bgcolor: "gray", color: "white", m: 1, display: displayButton, }}
                 onClick={(e) => cancelFormPersonalProfil()}
               >
                 Annuler
