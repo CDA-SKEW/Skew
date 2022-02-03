@@ -8,13 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import TextField from '@mui/material/TextField';
 
 
-
-
-
-export default function TableContact(props) {
-  const { ListUser } = props
+export default function TableExperience(props) {
+  const { ListExp } = props
   return (
     <Box
       sx={{
@@ -24,7 +22,7 @@ export default function TableContact(props) {
         my: 4,
       }}
     >
-      {/* Titre section Contact */}
+      {/* Titre section Expériences */}
       <Box
         sx={{
           display: "flex",
@@ -44,32 +42,33 @@ export default function TableContact(props) {
             top: -15,
           }}
         >
-          Contact
+          Expériences
         </Typography>
       </Box>
-
       <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
         <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell>Adresse postal</TableCell>
-              <TableCell >Téléphone</TableCell>
-              <TableCell>Mail</TableCell>
+              <TableCell sx={{ display: "none" }}>key</TableCell>
+              <TableCell>Entreprise</TableCell>
+              <TableCell >Poste</TableCell>
+              <TableCell>Date de Début</TableCell>
+              <TableCell>Date de Fin</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {ListUser.map((user, index) => (
-              <TableRow
-                key={index}
 
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                <TableCell >{user.adress}</TableCell>
-                <TableCell >{user.phone}</TableCell>
-                <TableCell >{user.mail}</TableCell>
-              </TableRow>
-            ))}
+            <TableRow
+
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row"><TextField id="outlined-basic" label="Outlined" variant="outlined" /></TableCell>
+              <TableCell ><TextField id="outlined-basic" label="Outlined" variant="outlined" sx={{ enable: "false" }} /></TableCell>
+              <TableCell ><TextField id="outlined-basic" label="Outlined" variant="outlined" sx={{ disable: "true" }} /></TableCell>
+              <TableCell ><TextField id="outlined-basic" label="Outlined" variant="outlined" /></TableCell>
+
+            </TableRow>
+
           </TableBody>
         </Table>
       </TableContainer>

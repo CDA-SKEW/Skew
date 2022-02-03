@@ -8,10 +8,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import TextField from '@mui/material/TextField';
 
 
-export default function TableExperience(props) {
-  const { ListExp } = props
+
+
+
+export default function TableContact(props) {
+  const { ListUser } = props
   return (
     <Box
       sx={{
@@ -21,7 +25,7 @@ export default function TableExperience(props) {
         my: 4,
       }}
     >
-      {/* Titre section Expériences */}
+      {/* Titre section Contact */}
       <Box
         sx={{
           display: "flex",
@@ -41,33 +45,37 @@ export default function TableExperience(props) {
             top: -15,
           }}
         >
-          Expériences
+          Contact
         </Typography>
       </Box>
+
       <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
         <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell sx={{ display: "none" }}>key</TableCell>
-              <TableCell>Entreprise</TableCell>
-              <TableCell >Poste</TableCell>
-              <TableCell>Date de Début</TableCell>
-              <TableCell>Date de Fin</TableCell>
+              <TableCell>Adresse postal</TableCell>
+              <TableCell >Téléphone</TableCell>
+              <TableCell>Mail</TableCell>
             </TableRow>
           </TableHead>
+
+
           <TableBody>
-            {ListExp.map((exp, index) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                <TableCell >{exp.company}</TableCell>
-                <TableCell >{exp.post}</TableCell>
-                <TableCell >{exp.start}</TableCell>
-                <TableCell >{exp.end}</TableCell>
-              </TableRow>
-            ))}
+
+            <TableRow
+
+
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+
+              <TableCell >
+                <TextField id="outlined-basic" label="Adress" variant="outlined" />
+                <TextField id="outlined-basic" label="ZIP" variant="outlined" />
+                <TextField id="outlined-basic" label="City" variant="outlined" /></TableCell>
+              <TableCell ><TextField id="outlined-basic" label="Phone" variant="outlined" /></TableCell>
+              <TableCell ><TextField id="outlined-basic" label="Mail" variant="outlined" /></TableCell>
+            </TableRow>
+
           </TableBody>
         </Table>
       </TableContainer>
