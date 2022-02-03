@@ -21,7 +21,7 @@ export const getApiSiret = (siretNumber) => {
     return apiSiret
       .get(siretNumber)
       .then((res) => {
-        console.log("resApi action store", res.data.etablissement);
+        // console.log("resApi action store", res.data.etablissement);
         dispatch({ type: GET_API_SIRET, payload: res.data.etablissement});
       })
       .catch((err) => console.log(err));
@@ -31,7 +31,7 @@ export const getApiSiret = (siretNumber) => {
 // Post profil employer
 export const postFormProfilEmployer = (data) => {
   return (dispatch) => {
-    console.log("POST_PROFIL_EMPLOYER action", data);
+    // console.log("POST_PROFIL_EMPLOYER action", data);
     dispatch({ type: GET_PROFIL_EMPLOYER, payload: data });
   };
 };
@@ -39,19 +39,23 @@ export const postFormProfilEmployer = (data) => {
 // get profil employer
 export const getProfilEmployer = () => {
     const data = {
+        user_id: 1,
+        mail: "wilfried.cda@gmail.com",
         name: "Buno & Co",
         zipCode: "85600",
         siren: "356454356",
-        siret: "5456435466",
+        siret: "40976852000135",
         address: "21 fze fzefjzpej",
         category: "fvevfeqrg",
         town: "Bonnetable",
-        imgUpload: imageEmployer,
+        avatar: imageEmployer,
       }
-    // const data ={}
+
+      // const data = {
+      // }
       
     return (dispatch) => {
-      console.log("GET_PROFIL_EMPLOYER action", data);
+      // console.log("GET_PROFIL_EMPLOYER action", data);
       dispatch({ type: GET_PROFIL_EMPLOYER, payload: data });
     };
   };
