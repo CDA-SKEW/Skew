@@ -22,7 +22,7 @@ const dataDefault = {
   address: "21 fze fzefjzpej",
   category: "fvevfeqrg",
   town: "Bonnetable",
-  avatar: imageEmployer,
+  avatar: "",
 };
 
 // const dataDefault = {

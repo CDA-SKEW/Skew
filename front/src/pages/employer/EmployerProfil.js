@@ -2,7 +2,6 @@ import {
   Button,
   Container,
   createTheme,
-  CssBaseline,
   Popover,
   responsiveFontSizes,
   Typography,
@@ -56,7 +55,6 @@ const EmployerProfil = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
       <Container
         sx={{
           bgcolor: themeUser.palette.background.default,
@@ -147,8 +145,8 @@ const EmployerProfil = () => {
             buttonProfilVisible={buttonProfilVisible}
           />
 
-          <Typography sx={{ textAlign: "center", my: 2 }} variant="h5">
-            Informations personnelles
+          <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
+            Informations du compte
             <Button
               onClick={(e) => {
                 setProfilPersonnalNotEditabled(!profilPersonnalNotEditabled);

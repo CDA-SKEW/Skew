@@ -21,7 +21,7 @@ const Img = styled("img")({
 });
 
 //----------------------
-// Fonction pour formater les input siret siren et zipcode avec InputProps={{ inputComponent: NumberFormatCustom }}
+// // Fonction pour formater les input siret siren et zipcode avec InputProps={{ inputComponent: NumberFormatCustom }}
 const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
   props,
   ref
@@ -89,7 +89,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
     </div>
   );
 });
-//----------------------
+// //----------------------
 
 // Fonction formulaire FormProfilEmployer
 export default function FormProfilEmployer(props) {
@@ -100,6 +100,7 @@ export default function FormProfilEmployer(props) {
     profilNotEditabled,
     buttonProfilVisible,
   } = props;
+
   const dispatch = useDispatch();
 
   //constante pour mettre les input soit readOnly soit editable
@@ -119,9 +120,7 @@ export default function FormProfilEmployer(props) {
   }
 
   // Declaration des constantes pour le formulaire
-  const [stateImgUpload, setStateImgUpload] = useState(
-    dataProfilEmployer.avatar ? dataProfilEmployer.avatar : ""
-  );
+  const [stateImgUpload, setStateImgUpload] = useState(false);
   const [avatar, setAvatar] = useState("");
   const [name, setFactoryName] = useState("");
   const [siret, setSiret] = useState("");
@@ -143,11 +142,18 @@ export default function FormProfilEmployer(props) {
     setCategory(dataProfilEmployer.category);
   };
 
+  // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
+  useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
+  }, [profilNotEditabled]);
+
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
     // console.log("effect for useState form employer");
     setUseState();
   }, [dataProfilEmployer]);
+
 
   // useEffect pour api Siret qui est à l'écoute du state du store dataApiSiret
   useEffect(() => {
@@ -159,10 +165,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-          " " +
-          dataApiSiret.type_voie +
-          " " +
-          dataApiSiret.libelle_voie
+        " " +
+        dataApiSiret.type_voie +
+        " " +
+        dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -177,10 +183,8 @@ export default function FormProfilEmployer(props) {
     // console.log("e", e)
     e.preventDefault();
 
-    if (siret.length === 14) {
-      // console.log("N° de siret", siret);
-      await dispatch(getApiSiret(siret));
-    }
+    // console.log("N° de siret", siret);
+    await dispatch(getApiSiret(siret));
   };
 
   // fonction pour la previsualisation de l'image
@@ -232,7 +236,7 @@ export default function FormProfilEmployer(props) {
     if (!dataProfilEmployer.avatar) {
       setStateImgUpload("image obligatoire");
     } else setStateImgUpload("");
-    setUseState();
+    setUseState()
   };
 
   return (
@@ -263,7 +267,7 @@ export default function FormProfilEmployer(props) {
               alignItems="center"
             >
               <Grid item xs={12}>
-                {avatar && <Img alt="imageEmployer" src={avatar} />}
+                {avatar ? (<Img alt="imageEmployer" src={avatar} />) : (<Img />)} 
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
                 )}
@@ -272,7 +276,6 @@ export default function FormProfilEmployer(props) {
               <Grid item xs={12}>
                 <Button
                   variant="contained"
-                  required
                   component="label"
                   size="small"
                   sx={{ bgcolor: "#2B2E30", display: displayButton }}
@@ -281,10 +284,8 @@ export default function FormProfilEmployer(props) {
                   <TextField
                     sx={{ display: "none" }}
                     size="small"
-                    id="upload-photo"
                     type="file"
-                    accept="image/*"
-                    name="img"
+                    inputProps={{ accept: 'image/*' }}
                     onChange={(e) => handleImageChange(e)}
                   />
                 </Button>
@@ -316,7 +317,6 @@ export default function FormProfilEmployer(props) {
                 label="N° de Siret:"
                 variant="outlined"
                 size="small"
-                sx={{ width: { xs: "100%", sm: "100%" } }}
                 id="siret"
                 value={siret || ""}
                 name="siret"
@@ -357,7 +357,7 @@ export default function FormProfilEmployer(props) {
               />
             </Grid>
 
-            <Grid item xs={10}>
+            <Grid item xs={10} >
               <TextField
                 required
                 label="Nom de l'entreprise:"
@@ -366,8 +366,7 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 value={name || ""}
                 InputProps={{ inputProps }}
-                inputProps={{ style: { textTransform: "uppercase" } }}
-                onChange={(e) => setFactoryName(e.target.value)}
+                onChange={(e) => setFactoryName((e.target.value).toUpperCase())}
               />
             </Grid>
 
@@ -380,14 +379,13 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 value={address || ""}
                 InputProps={{ inputProps }}
-                inputProps={{ style: { textTransform: "uppercase" } }}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => setAddress((e.target.value.toUpperCase()))}
               />
             </Grid>
 
             <Grid item xs={10}>
               <TextField
-                // required
+                required
                 label="Code postal:"
                 fullWidth
                 variant="outlined"
@@ -407,9 +405,8 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 size="small"
                 value={town || ""}
-                InputProps={{ inputProps }}
-                inputProps={{ style: { textTransform: "uppercase" } }}
-                onChange={(e) => setTown(e.target.value)}
+                InputProps={{ inputProps, }}
+                onChange={(e) => setTown((e.target.value).toUpperCase())}
               />
             </Grid>
 
@@ -422,11 +419,7 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 value={category || ""}
                 InputProps={{ inputProps }}
-                inputProps={{
-                  style: { textTransform: "uppercase" },
-                  inputProps,
-                }}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => setCategory((e.target.value).toUpperCase())}
               />
             </Grid>
 

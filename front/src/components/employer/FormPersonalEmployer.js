@@ -33,6 +33,23 @@ export default function FormPersonalEmployer(props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [checkpassword, setCheckpassword] = useState(false);
 
+
+  // fonction set des useState
+  const setUseState = () => {
+    setEditPassword(false);
+    setMail(dataProfilEmployer.mail);
+    setOldPassword("");
+    setPassword("");
+    setConfirmPassword("");
+    setCheckpassword(false);
+  };
+
+   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
+   useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
+  }, [profilPersonnalNotEditabled]);
+
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
     // console.log("effect for useState form personnal employer");
@@ -72,12 +89,7 @@ export default function FormPersonalEmployer(props) {
   // fonction pour remettre le formulaire par défaut
   const cancelFormPersonalProfil = () => {
     // console.log("Cancel upload");
-    setEditPassword(false);
-    setMail(dataProfilEmployer.mail);
-    setOldPassword("");
-    setPassword("");
-    setConfirmPassword("");
-    setCheckpassword(false);
+    setUseState();
   };
 
   // Fonction pour l'envoi du formulaire
@@ -177,7 +189,6 @@ export default function FormPersonalEmployer(props) {
                   fullWidth
                   variant="outlined"
                   size="small"
-                  // value={oldPassword}
                   type={showOldPassword ? "text" : "password"}
                   value={oldPassword}
                   InputProps={{

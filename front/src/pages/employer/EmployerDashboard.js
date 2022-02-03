@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
@@ -76,8 +76,6 @@ const EmployerDashboard = () => {
   ];
 
   return (
-    <React.Fragment>
-      <CssBaseline />
       <Container
         sx={{
           bgcolor: themeUser.palette.background.default,
@@ -189,7 +187,6 @@ const EmployerDashboard = () => {
           </Box>
         </Box>
       </Container>
-    </React.Fragment>
   );
 };
 
