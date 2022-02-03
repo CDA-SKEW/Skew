@@ -1,4 +1,12 @@
-import { Button, Container, createTheme, CssBaseline, Popover, responsiveFontSizes, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  createTheme,
+  CssBaseline,
+  Popover,
+  responsiveFontSizes,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { themeUser } from "configs/theme";
@@ -27,12 +35,15 @@ const EmployerProfil = () => {
   const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
   // console.log("store dataApiSiret",dataApiSiret)
 
+  //Constante pour editer le formulaire entreprise
+  const [profilNotEditabled, setProfilNotEditabled] = useState(true);
+  const [buttonProfilVisible, setButtonProfilVisibled] = useState(false);
 
-
-  //Constante pour editer le formulaire
-  const [profilEditabled, setProfilEditabled] = useState(true);
-  const [buttonVisible, setButtonVisibled] = useState(false);
-
+  //Constante pour editer le formulaire entreprise
+  const [profilPersonnalNotEditabled, setProfilPersonnalNotEditabled] =
+    useState(true);
+  const [buttonProfilPersonnalVisible, setButtonProfilPersonnalVisible] =
+    useState(false);
 
   // Pour responsive Typography
   let theme = createTheme();
@@ -40,8 +51,8 @@ const EmployerProfil = () => {
 
   // Pour popover bouton edit entreprise
   const [anchorEl, setAnchorEl] = React.useState(null);
-    // Pour popover bouton edit data personnelle
-    const [anchorElDataPerso, setAnchorElDataPerso] = React.useState(null);
+  // Pour popover bouton edit data personnelle
+  const [anchorElDataPerso, setAnchorElDataPerso] = React.useState(null);
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,8 +68,8 @@ const EmployerProfil = () => {
             bgcolor: themeUser.palette.text.primary,
             borderRadius: 1,
             pt: 2,
-            pb: 8,
-            mt: 8,
+            pb: 4,
+            mt: 4,
           }}
         >
           <Box
@@ -84,15 +95,14 @@ const EmployerProfil = () => {
             </Typography>
           </Box>
 
-          <Typography sx={{ textAlign: "center", mb: 4 }} variant="h5">
+          <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
             Informations entreprise
             <Button
               onClick={(e) => {
-                setProfilEditabled(!profilEditabled);
-                setButtonVisibled(!buttonVisible)
+                setProfilNotEditabled(!profilNotEditabled);
+                setButtonProfilVisibled(!buttonProfilVisible);
               }}
             >
-
               {/* //icone avec popover */}
               <CreateOutlinedIcon
                 aria-owns={"editFormFactoty"}
@@ -102,22 +112,22 @@ const EmployerProfil = () => {
                 }}
                 onMouseLeave={(e) => {
                   setAnchorEl(null);
-                }} />
-
+                }}
+              />
               <Popover
                 id="editFormFactoty"
                 sx={{
-                  pointerEvents: "none"
+                  pointerEvents: "none",
                 }}
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: "bottom",
-                  horizontal: "left"
+                  horizontal: "left",
                 }}
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "left"
+                  horizontal: "left",
                 }}
                 onClose={(e) => {
                   setAnchorEl(null);
@@ -127,21 +137,23 @@ const EmployerProfil = () => {
                 <Typography sx={{ p: 1 }}>Editer votre profil</Typography>
               </Popover>
               {/* End icone avec popover */}
-
             </Button>
           </Typography>
 
           <FormProfilEmployer
             dataProfilEmployer={dataProfilEmployer}
             dataApiSiret={dataApiSiret}
-            profilEditabled={profilEditabled}
-            buttonVisible={buttonVisible}
+            profilNotEditabled={profilNotEditabled}
+            buttonProfilVisible={buttonProfilVisible}
           />
 
-          <Typography sx={{ textAlign: "center", my: 4 }} variant="h5">
+          <Typography sx={{ textAlign: "center", my: 2 }} variant="h5">
             Informations personnelles
             <Button
-            // onClick={(e) => setProfilEditabled(false)}
+              onClick={(e) => {
+                setProfilPersonnalNotEditabled(!profilPersonnalNotEditabled);
+                setButtonProfilPersonnalVisible(!buttonProfilPersonnalVisible);
+              }}
             >
               <CreateOutlinedIcon
                 aria-owns={"editFormPersonalData"}
@@ -151,34 +163,41 @@ const EmployerProfil = () => {
                 }}
                 onMouseLeave={(e) => {
                   setAnchorElDataPerso(null);
-                }} />
+                }}
+              />
 
               <Popover
                 id="editFormPersonalData"
                 sx={{
-                  pointerEvents: "none"
+                  pointerEvents: "none",
                 }}
                 open={Boolean(anchorElDataPerso)}
                 anchorEl={anchorElDataPerso}
                 anchorOrigin={{
                   vertical: "bottom",
-                  horizontal: "left"
+                  horizontal: "left",
                 }}
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "left"
+                  horizontal: "left",
                 }}
                 onClose={(e) => {
                   setAnchorElDataPerso(null);
                 }}
                 disableRestoreFocus
               >
-                <Typography sx={{ p: 1 }}>Editer votre Email et/ou mot de passe</Typography>
+                <Typography sx={{ p: 1 }}>
+                  Editer votre Email et/ou mot de passe
+                </Typography>
               </Popover>
               {/* End icone avec popover */}
             </Button>
           </Typography>
-          <FormPersonalEmployer />
+          <FormPersonalEmployer
+            dataProfilEmployer={dataProfilEmployer}
+            profilPersonnalNotEditabled={profilPersonnalNotEditabled}
+            buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
+          />
         </Box>
       </Container>
     </ThemeProvider>
