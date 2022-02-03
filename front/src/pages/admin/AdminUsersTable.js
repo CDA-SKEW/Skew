@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AdminLayout from "layouts/AdminLayout";
 import UsersTable from "components/admin/UsersTable";
-import { getListUsers } from "store/actions/UsersActions";
+import { getListUsers } from "store/actions/AdminActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const AdminUsersTable = () => {

@@ -4,7 +4,7 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useDispatch } from "react-redux";
-import { deleteUser } from "store/actions/UsersActions";
+import { deleteUser } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 
