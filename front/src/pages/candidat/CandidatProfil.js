@@ -51,7 +51,7 @@ const CandidatProfil = () => {
             Edit All
           </Button>
         </Box>
-        {/* <TEST/> */}
+        
         {/*   {/* BOX CONTACT*/}
         <TableContact ListUser={dataProfilCandidate.coord} />
 

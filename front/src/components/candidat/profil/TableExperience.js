@@ -6,12 +6,73 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from "@mui/material";
+import { Typography,Button, Stack, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 
 
 export default function TableExperience(props) {
   const { ListExp } = props
+  const [edit, setEdit] = React.useState(false);
+  const data = {
+    company:"",
+    post: "",
+    start: "",
+    end:"",
+  };
+  function ModeText(props) {
+    return (
+      <TableBody>
+            {ListExp.map((exp, index) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+                <TableCell >{exp.company}</TableCell>
+                <TableCell >{exp.post}</TableCell>
+                <TableCell >{exp.start}</TableCell>
+                <TableCell >{exp.end}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+     
+      
+    );
+  }
+  function ModeEdit(props) {
+    return (
+      <Stack direction="row" spacing={2}>
+        <TextField
+          required
+          id="outlined-required"
+          label="compagny"
+          defaultValue={data.company}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="post"
+          defaultValue={data.post}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="start"
+          defaultValue={data.start}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="end"
+          defaultValue={data.end}
+        />
+      </Stack>
+    );
+  }
+  const checkEdit = () => {
+    if (edit === true) return <ModeEdit />;
+    else return <ModeText />;
+  };
   return (
     <Box
       sx={{
@@ -55,22 +116,14 @@ export default function TableExperience(props) {
               <TableCell>Date de Fin</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {ListExp.map((exp, index) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                <TableCell >{exp.company}</TableCell>
-                <TableCell >{exp.post}</TableCell>
-                <TableCell >{exp.start}</TableCell>
-                <TableCell >{exp.end}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          {checkEdit()}
+          {/* <ModeText/> */}
         </Table>
       </TableContainer>
+      <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+        Edit
+      </Button>
+
 
     </Box>
 
