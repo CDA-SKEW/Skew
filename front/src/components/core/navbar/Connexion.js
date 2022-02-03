@@ -6,13 +6,17 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
 import { getAuth } from "store/actions/AuthActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 export default function Connexion() {
 
-    const [mail, setMail] = useState()
-    const [pass, setPass] = useState()
-    const dispatch = useDispatch();
+    const [mail, setMail] = useState('');
+    const [pass, setPass] = useState('');
+    const dispatch = getAuth();
+    const navigate = useNavigate();
+
+    const authData = useSelector((state) => state.admin.authData);
 
     const ConnexionList = [
         { key: 1, titre: 'Mail', name: 'mail', type: 'text' },
@@ -35,14 +39,13 @@ export default function Connexion() {
     const SubmitFormId = async () => {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
-            // await dispatch(auth({ mail, pass }));
-            // setMail("");
-            // setPass("");
-            // dispatch(checkUx());
-            // navigate('/Admin')
+            await dispatch(authData);
+            setMail("");
+            setPass("");
+            // if (role = 'candidat') {
+            navigate('/candidat/dashboard')
         }
     };
-
 
     return (
         <Box
@@ -105,4 +108,3 @@ export default function Connexion() {
         </Box>
     )
 }
-
