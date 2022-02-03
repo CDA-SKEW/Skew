@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import AdminLayout from "layouts/AdminLayout";
-import UsersTable from "components/admin/UsersTable";
-import { getListUsers } from "store/actions/UsersActions";
+import JobsTable from "components/admin/JobsTable";
+import { getListJobs } from "store/actions/JobsActions";
 import { useDispatch, useSelector } from "react-redux";
 
-const AdminUsersTable = () => {
+const AdminJobs = () => {
   /*------------ listUsers import via Store-------------*/
-  const listUsers = useSelector((state) => state.admin.listUsers);
+  const listJobs = useSelector((state) => state.admin.listJobs);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getListUsers());
+    dispatch(getListJobs());
   }, []);
 
   return (
     <AdminLayout>
-      <UsersTable listUsers={listUsers} />
+      <JobsTable listJobs={listJobs} />
     </AdminLayout>
   );
 };
 
-export default AdminUsersTable;
+export default AdminJobs;
