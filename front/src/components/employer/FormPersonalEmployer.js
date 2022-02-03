@@ -82,7 +82,7 @@ export default function FormPersonalEmployer(props) {
 
   // Fonction pour l'envoi du formulaire
   const sendFormPersonalProfil = async (e) => {
-    console.log("Form waitsend");
+    // console.log("Form waitsend");
     //empeche le formunliare d'etre submiter
     // console.log("event", e)
     e.preventDefault();
