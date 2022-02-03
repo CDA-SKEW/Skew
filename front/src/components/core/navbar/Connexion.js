@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
 import { getAuth } from "store/actions/AuthActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 export default function Connexion() {
@@ -16,7 +16,7 @@ export default function Connexion() {
     const dispatch = getAuth();
     const navigate = useNavigate();
 
-    const authData = useSelector((state) => state.admin.authData);
+    const authData = useSelector((state) => state.auth.authData);
 
     const ConnexionList = [
         { key: 1, titre: 'Mail', name: 'mail', type: 'text' },
@@ -39,11 +39,14 @@ export default function Connexion() {
     const SubmitFormId = async () => {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
-            await dispatch(authData);
-            setMail("");
-            setPass("");
-            // if (role = 'candidat') {
-            navigate('/candidat/dashboard')
+            await dispatch(getAuth)
+            console.log('auth.mail', authData)
+            // if (authData.role = 'candidat') {
+                // navigate('/candidat/dashboard')
+            //     console.log('oui')
+            // } else {
+            //     console.log("non")
+            // }
         }
     };
 

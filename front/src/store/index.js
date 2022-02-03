@@ -12,6 +12,7 @@ import { EmployerReducer } from "./reducers/Employer";
 import { MessagesReducer } from "./reducers/Messages";
 import { CandidateReducer } from "./reducers/Candidate";
 import { AdminReducer } from "./reducers/Admin";
+import { AuthReducer } from "./reducers/Auth";
 
 /*
  * All (Root) Reducers
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   messages: MessagesReducer,
   candidate: CandidateReducer,
   admin: AdminReducer,
+  auth: AuthReducer,
 });
 
 /*

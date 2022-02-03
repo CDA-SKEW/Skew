@@ -18,7 +18,6 @@ export function AuthReducer(state = initialState, action) {
         default:
             return state;
         case Actions.GET_AUTH:
-            console.log("AUTH", action.payload);
             return { ...state, authData: action.payload };
     }
 }

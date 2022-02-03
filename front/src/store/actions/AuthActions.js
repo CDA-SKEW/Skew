@@ -18,25 +18,25 @@ export const getAuth = () => {
     const authData = [
         {
             id: 1,
-            mail: 'candidat@gmail.com',
+            mail: 'candidat',
             role: 'candidat',
             pass: 'candidat',
         },
         {
             id: 2,
-            mail: 'recruteur@gmail.com',
+            mail: 'recruteur',
             role: 'recruteur',
             pass: 'recruteur',
         },
         {
             id: 3,
-            mail: 'admin@gmail.com',
+            mail: 'admin',
             role: 'admin',
             pass: 'admin',
         },
     ];
     return (dispatch) => {
-        console.log("get:auth");
+        console.log("getAuth", authData);
         dispatch({ type: GET_AUTH, payload: authData });
     };
 };
