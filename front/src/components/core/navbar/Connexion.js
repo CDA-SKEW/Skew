@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
-import { getListUsers } from "store/actions/UsersActions";
-import { useDispatch, useSelector } from "react-redux";
+import { getAuth } from "store/actions/AuthActions";
+import { useDispatch } from "react-redux";
 
 export default function Connexion() {
 
-    const listUsers = useSelector((state) => state.admin.listUsers);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getListUsers());
-    }, []);
-
     const [mail, setMail] = useState()
     const [pass, setPass] = useState()
+    const dispatch = useDispatch();
 
     const ConnexionList = [
         { key: 1, titre: 'Mail', name: 'mail', type: 'text' },
@@ -41,9 +35,9 @@ export default function Connexion() {
     const SubmitFormId = async () => {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
-            await dispatch(listUsers({ mail, pass }));
-            setMail("");
-            setPass("");
+            // await dispatch(auth({ mail, pass }));
+            // setMail("");
+            // setPass("");
             // dispatch(checkUx());
             // navigate('/Admin')
         }

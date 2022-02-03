@@ -19,7 +19,7 @@ export function MessagesReducer(state = initialState, action) {
       return state;
     case Actions.POST_MESSAGES:
       return {
-       ...state, dataProfil: action.payload
+       ...state, listMessage: action.payload
       };
   }
 }

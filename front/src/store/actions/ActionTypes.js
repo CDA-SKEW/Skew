@@ -19,3 +19,6 @@ export const GET_LIST_USERS = "GET_LIST_USERS";
 export const PUT_USER = "PUT_USER";
 export const DELETE_USER = "DELETE_USER";
 export const GET_LIST_JOBS = "GET_LIST_JOBS";
+
+//Auth
+export const GET_AUTH = 'GET_AUTH';
