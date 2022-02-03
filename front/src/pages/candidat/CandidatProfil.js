@@ -69,7 +69,10 @@ const CandidatProfil = () => {
         <TableFormation ListCertificate={dataProfilCandidate.certificate} />
         {/* CV Checkbox*/}
         <ChekboxCV listCv={dataProfilCandidate.cv} />
-
+        <Box sx={{display:"flex", justifyContent:"center",bgcolor:"white"}}>
+        <TEST/>
+        </Box>
+   
       </Container>
     </React.Fragment >
 
