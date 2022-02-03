@@ -10,11 +10,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Actions from "components/admin/tables/Actions";
-import Badges from "components/admin/tables/Badges";
+import Avatars from "components/admin/tables/Avatars";
+import IconChips from "./tables/Chips";
 /*------------Export function + table header-------------*/
 
-export default function JobsTable(props) {
-  const { listJobs } = props;
+export default function MessagesTable(props) {
+  const { listMessages } = props;
 
   // Search Bar
   const Search = styled("div")(({ theme }) => ({
@@ -69,41 +70,63 @@ export default function JobsTable(props) {
       editable: false,
     },
     {
-      field: "title",
-      headerName: "Titre",
+      field: "avatar",
+      headerName: "Avatars",
+      width: 80,
+      renderCell: (cell) => {
+        return <Avatars avatar={cell} />;
+      },
+    },
+    {
+      field: "name",
+      headerName: "Noms",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "firstName",
+      headerName: "Prénoms",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "fullName",
+      headerName: "Nom complet",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      width: 160,
+      valueGetter: (params) =>
+        `${params.row.firstName || ""} ${params.row.name || ""}`,
+    },
+    {
+      field: "phone",
+      headerName: "Téléphone",
+      type: "number",
+      width: 120,
+      editable: true,
+    },
+    {
+      field: "email",
       width: 190,
       editable: true,
     },
     {
-      field: "type",
-      headerName: "Type",
+      field: "subject",
+      headerName: "Objet",
       width: 150,
       editable: true,
     },
     {
-      field: "period",
-      headerName: "Période",
+      field: "message",
+      headerName: "Messages",
       width: 150,
       editable: true,
     },
     {
-      field: "description",
-      headerName: "Description",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "profile",
-      headerName: "Profil",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "checking",
-      headerName: "Vérifier",
+      field: "status",
+      headerName: "Status",
       renderCell: (cell) => {
-        // console.log(id);
-        return <Badges user={cell} />;
+        return <IconChips user={cell} />;
       },
       width: 150,
       editable: false,
@@ -125,7 +148,7 @@ export default function JobsTable(props) {
   return (
     <Box>
       <Typography variant="h4" sx={{ textAlign: "center", mb: "20px" }}>
-        Admin gestion des offres d'emploi | Skew.com
+        Admin gestion de la messagerie | Skew.com
       </Typography>
 
       <Search sx={{ mb: "40px" }}>
@@ -141,7 +164,7 @@ export default function JobsTable(props) {
       <DataGrid
         autoHeight
         rowHeight={80}
-        rows={listJobs}
+        rows={listMessages}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

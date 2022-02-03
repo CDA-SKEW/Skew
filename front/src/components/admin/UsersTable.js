@@ -60,7 +60,7 @@ export default function UsersTable(props) {
 
   // Table Head
   const columns = [
-    { field: "user_id", headerName: "ID", width: 50, editable: true },
+    { field: "id", headerName: "ID", width: 50, editable: true },
     {
       field: "date",
       headerName: "Dates",
@@ -117,7 +117,7 @@ export default function UsersTable(props) {
       field: "checking",
       headerName: "Vérifier",
       renderCell: (cell) => {
-        // console.log(id);
+        // console.log(user);
         return <Badges user={cell} />;
       },
       width: 150,
@@ -128,7 +128,16 @@ export default function UsersTable(props) {
       headerName: "Actions",
       renderCell: (id) => {
         // console.log(id);
-        return <Actions key={id} id={id} />;
+        return (
+          <Actions
+            columnsBan={true}
+            columnsDeleteUser={true}
+            columnsDeleteJob={false}
+            columnsDeleteMessage={false}
+            key={id}
+            id={id}
+          />
+        );
       },
       width: 190,
       editable: false,

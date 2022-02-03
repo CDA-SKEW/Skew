@@ -17,6 +17,8 @@ import CandidatCandidature from "pages/candidat/CandidatCandidature";
 import AdminUsersTable from "pages/admin/AdminUsersTable";
 import OffresView from "pages/visitor/OffresView";
 import AdminJobs from "pages/admin/AdminJobs";
+import AdminMessages from "pages/admin/AdminMessages";
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
         <Route path="/admin" exact element={<AdminPage />} />
         <Route path="/admin/users" exact element={<AdminUsersTable />} />
         <Route path="/admin/jobs" exact element={<AdminJobs />} />
+        <Route path="/admin/messages" exact element={<AdminMessages />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />

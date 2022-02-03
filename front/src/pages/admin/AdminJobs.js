@@ -5,7 +5,7 @@ import { getListJobs } from "store/actions/AdminActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const AdminJobs = () => {
-  /*------------ listUsers import via Store-------------*/
+  /*------------ listJobs import via Store-------------*/
   const listJobs = useSelector((state) => state.admin.listJobs);
   const dispatch = useDispatch();
 
