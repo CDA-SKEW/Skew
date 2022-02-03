@@ -94,8 +94,29 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
 // Fonction formulaire FormProfilEmployer
 export default function FormProfilEmployer(props) {
   //declaration des constantes passées par les props
-  const { dataProfilEmployer, dataApiSiret, profilEditabled, buttonVisible } = props;
+  const {
+    dataProfilEmployer,
+    dataApiSiret,
+    profilNotEditabled,
+    buttonProfilVisible,
+  } = props;
   const dispatch = useDispatch();
+
+  //constante pour mettre les input soit readOnly soit editable
+  const inputProps = {
+    readOnly: profilNotEditabled,
+    disabled: profilNotEditabled,
+  };
+
+  // constante pour affiche les boutons si form editable
+  const displayProps = buttonProfilVisible;
+  let displayButton;
+
+  if (displayProps === true) {
+    displayButton = "";
+  } else {
+    displayButton = "none";
+  }
 
   // Declaration des constantes pour le formulaire
   const [stateImgUpload, setStateImgUpload] = useState(
@@ -138,10 +159,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-        " " +
-        dataApiSiret.type_voie +
-        " " +
-        dataApiSiret.libelle_voie
+          " " +
+          dataApiSiret.type_voie +
+          " " +
+          dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -214,23 +235,6 @@ export default function FormProfilEmployer(props) {
     setUseState();
   };
 
-  //constante pour mettre les input soit readOnly soit editable
-  const inputProps = {
-    readOnly: profilEditabled,
-    disabled: profilEditabled
-  };
-
-  // constante pour affiche les boutons si form editable
-  const displayProps = buttonVisible;
-  let displayButton
-
-  if (displayProps === true) {
-    displayButton = ""
-  }
-  else {
-    displayButton = "none"
-  }
-
   return (
     <Box component="form" onSubmit={(e) => handleSendFormProfil(e)}>
       <Grid
@@ -249,7 +253,7 @@ export default function FormProfilEmployer(props) {
               justifyContent: { xs: "center", md: "space-around" },
               flexDirection: { xs: "column", md: "row" },
               alignItems: { xs: "center", md: "none" },
-              mb:2
+              mb: 2,
             }}
           >
             <Grid
@@ -306,22 +310,21 @@ export default function FormProfilEmployer(props) {
                 alignItems: "center",
               }}
             >
-
-                <TextField
-                  required
-                  fullWidth
-                  label="N° de Siret:"
-                  variant="outlined"
-                  size="small"
-                  sx={{ width: { xs: "100%", sm: "100%" } }}
-                  id="siret"
-                  value={siret || ""}
-                  name="siret"
-                  InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
-                  onChange={(e) => {
-                    setSiret(e.target.value);
-                  }}
-                />
+              <TextField
+                required
+                fullWidth
+                label="N° de Siret:"
+                variant="outlined"
+                size="small"
+                sx={{ width: { xs: "100%", sm: "100%" } }}
+                id="siret"
+                value={siret || ""}
+                name="siret"
+                InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
+                onChange={(e) => {
+                  setSiret(e.target.value);
+                }}
+              />
 
               <Button
                 variant="contained"
@@ -332,7 +335,7 @@ export default function FormProfilEmployer(props) {
                   ml: 1,
                   my: 1,
                   display: displayButton,
-                  width:"160px"
+                  width: "160px",
                 }}
                 onClick={(e) => handleSendApiSiret(e)}
               >
