@@ -15,6 +15,7 @@ import CandidatDashboard from "pages/candidat/CandidatDashboard";
 import CandidatCandidature from "pages/candidat/CandidatCandidature";
 import AdminUsersTable from "pages/admin/AdminUsersTable";
 import OffresView from "pages/visitor/OffresView";
+import AdminJobs from "pages/admin/AdminJobs";
 
 function App() {
   return (
@@ -22,17 +23,30 @@ function App() {
       <Routes>
         <Route path="/admin" exact element={<AdminPage />} />
         <Route path="/admin/users" exact element={<AdminUsersTable />} />
+        <Route path="/admin/jobs" exact element={<AdminJobs />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
         <Route path="/contactus" exact element={<ContactezNous />} />
         <Route path="/offres" exact element={<OffresView />} />
-        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />} />
+        <Route
+          path="/Employer/dashboard"
+          exact
+          element={<EmployerDashboard />}
+        />
         <Route path="/Employer/profil" exact element={<EmployerProfil />} />
         <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
-        <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
-        <Route path="/Candidat/candidature" exact element={<CandidatCandidature />}/>
+        <Route
+          path="/Candidat/dashboard"
+          exact
+          element={<CandidatDashboard />}
+        />
+        <Route
+          path="/Candidat/candidature"
+          exact
+          element={<CandidatCandidature />}
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>

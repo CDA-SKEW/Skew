@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AdminLayout from "layouts/AdminLayout";
 import JobsTable from "components/admin/JobsTable";
-import { getListJobs } from "store/actions/AdminActions";
+import { getListJobs } from "store/actions/JobsActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const AdminJobs = () => {

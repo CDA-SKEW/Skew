@@ -10,6 +10,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 export default function IconChips(props) {
   const { user } = props;
+  const handleClick = () => {};
 
   const checkStatus = () => {
     if (user.row.isChecked === 1) {
@@ -18,6 +19,11 @@ export default function IconChips(props) {
           label="check"
           variant="outlined"
           color="primary"
+          onClick={() => {
+            if (window.confirm("Voulez-vous checker cet user ?")) {
+              handleClick();
+            }
+          }}
           icon={<CheckIcon />}
         />
       );
@@ -27,6 +33,7 @@ export default function IconChips(props) {
           label="not check"
           variant="outlined"
           color="error"
+          onClick={handleClick}
           icon={<ClearIcon />}
         />
       );

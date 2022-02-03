@@ -130,7 +130,7 @@ export default function UsersTable(props) {
         // console.log(id);
         return <Actions key={id} id={id} />;
       },
-      width: 100,
+      width: 190,
       editable: false,
     },
   ];
