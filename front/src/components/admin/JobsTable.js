@@ -71,35 +71,26 @@ export default function UsersTable(props) {
       editable: false,
     },
     {
-      field: "avatar",
-      headerName: "Avatars",
-      width: 80,
-      renderCell: (cell) => {
-        return <Avatars avatar={cell} />;
-      },
-    },
-    {
-      field: "job_number",
-      headerName: "Numéro d'offre",
-      type: "number",
+      field: "Title",
+      headerName: "Titre",
       width: 150,
       editable: true,
     },
     {
-      field: "name",
-      headerName: "Nom de l'entreprise",
-      width: 190,
+      field: "type",
+      headerName: "Type",
+      width: 150,
       editable: true,
     },
     {
-      field: "content",
+      field: "period",
+      headerName: "Période",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "description",
       headerName: "Description",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "contract",
-      headerName: "Contrat",
       width: 150,
       editable: true,
     },
