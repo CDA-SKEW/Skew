@@ -14,7 +14,7 @@ export default function TableExperience(props) {
   const { ListExp } = props
   const [edit, setEdit] = React.useState(false);
   const data = {
-    company:"",
+    company: "",
     post: "",
     start: "",
     end:"",
@@ -51,19 +51,19 @@ export default function TableExperience(props) {
         <TextField
           required
           id="outlined-required"
-          label="post"
+          label="phone"
           defaultValue={data.post}
         />
         <TextField
           required
           id="outlined-required"
-          label="start"
+          label="mail"
           defaultValue={data.start}
         />
         <TextField
           required
           id="outlined-required"
-          label="end"
+          label="mail"
           defaultValue={data.end}
         />
       </Stack>
@@ -117,7 +117,6 @@ export default function TableExperience(props) {
             </TableRow>
           </TableHead>
           {checkEdit()}
-          {/* <ModeText/> */}
         </Table>
       </TableContainer>
       <Button onClick={(e) => setEdit(edit === true ? false : true)}>
