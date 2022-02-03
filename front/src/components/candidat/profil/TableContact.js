@@ -32,7 +32,7 @@ export default function TableContact(props) {
           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
           <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-          <TableCell editable="true" >{user.address}<br />{user.zipCode}<br />{user.town}</TableCell>
+          <TableCell  >{user.address}<br />{user.zipCode}<br />{user.town}</TableCell>
           <TableCell >{user.phone}</TableCell>
           <TableCell >{user.mail}</TableCell>
         </TableRow>
