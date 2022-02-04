@@ -173,11 +173,9 @@ export default function FormPasswordChange(props) {
           <Grid
             item
             xs={10}
-            sx={{
-              p: 1,
-              display: "flex",
-              justifyContent: { xs: "center", md: "end" },
-            }}
+            padding={1}
+            display={"flex"}
+            justifyContent={{ xs: "center", md: "end" }}
           >
             <Button
               variant="contained"

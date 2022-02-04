@@ -1,9 +1,14 @@
-import { Box, Container, Grid, TextField, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import {
+  Box,
+  Container,
+  Typography,
+} from "@mui/material";
+import React, { useEffect} from "react";
 import { themeUser } from "configs/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import OfferDataFactory from "components/employer/OfferDataFactory";
+import OfferForm from "components/employer/OfferForm";
 
 const EmployerAddOffer = () => {
   const dispatch = useDispatch();
@@ -32,8 +37,8 @@ const EmployerAddOffer = () => {
           bgcolor: themeUser.palette.text.primary,
           borderRadius: 1,
           pt: 2,
-          pb: 8,
-          mt: 8,
+          pb: 2,
+          mt: 2,
         }}
       >
         <Box
@@ -70,6 +75,7 @@ const EmployerAddOffer = () => {
           Informations entreprise
         </Typography>
 
+        {/* component data entreprise */}
         <OfferDataFactory dataProfilEmployer={dataProfilEmployer} />
       </Box>
 
@@ -79,214 +85,15 @@ const EmployerAddOffer = () => {
           bgcolor: themeUser.palette.text.primary,
           borderRadius: 1,
           pt: 2,
-          pb: 8,
-          mt: 8,
+          mt: 2,
         }}
       >
         <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
           Informations de l'offre
         </Typography>
 
-        <Grid
-          container
-          rowSpacing={1}
-          justifyContent="center"
-          alignItems="center"
-          textAlign="center"
-        >
-          <Grid item xs={12} sm={12} md={12} sx={{ px: 2 }}>
-            <TextField
-              required
-              fullWidth
-              label="titre de l'offre:"
-              variant="outlined"
-              size="small"
-              // value={title || ""}
-              // onChange={(e) => {
-              //   setTitle(e.target.value);
-              // }}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={12} sx={{ px: 2 }}>
-            <TextField
-              required
-              fullWidth
-              label="titre de l'offre:"
-              variant="outlined"
-              size="small"
-              multiline
-              rows={5}
-              // value={title || ""}
-              // onChange={(e) => {
-              //   setTitle(e.target.value);
-              // }}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={12} sx={{ px: 2 }}>
-            <TextField
-              required
-              fullWidth
-              label="titre de l'offre:"
-              variant="outlined"
-              size="small"
-              multiline
-              rows={5}
-              // value={title || ""}
-              // onChange={(e) => {
-              //   setTitle(e.target.value);
-              // }}
-            />
-          </Grid>
-
-          {/* <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "center" },
-              mb: 2,
-            }}
-          >
-      </Box> */}
-
-          {/* <Grid item md={6} xs={12} sm={12}>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "none" },
-              mb: 2,
-            }}
-          >
-            <Grid
-              container
-              rowSpacing={1}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Grid item xs={12}>
-                {avatar ? (<Img alt="imageEmployer" src={avatar} />) : (<Img />)} 
-                {{ stateImgUpload } && (
-                  <Typography color={"red"}>{stateImgUpload}</Typography>
-                )}
-              </Grid>
-
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  component="label"
-                  size="small"
-                  sx={{ bgcolor: "#2B2E30", display: displayButton }}
-                >
-                  <Typography>Choisir une image</Typography>
-                  <TextField
-                    sx={{ display: "none" }}
-                    size="small"
-                    type="file"
-                    inputProps={{ accept: 'image/*' }}
-                    onChange={(e) => handleImageChange(e)}
-                  />
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </Grid>
-
-        <Grid item md={6} xs={12} sm={12}>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            spacing={2}
-          >
-            <Grid
-              item
-              xs={10}
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <TextField
-                required
-                fullWidth
-                label="N° de Siret:"
-                variant="outlined"
-                size="small"
-                id="siret"
-                value={siret || ""}
-                name="siret"
-                InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
-                onChange={(e) => {
-                  setSiret(e.target.value);
-                }}
-              />
-
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  bgcolor: "#DC143C",
-                  color: "white",
-                  ml: 1,
-                  my: 1,
-                  display: displayButton,
-                  width: "160px",
-                }}
-                onClick={(e) => handleSendApiSiret(e)}
-              >
-                Saisie Auto.
-              </Button>
-            </Grid>
-
-
-            <Grid
-              item
-              xs={10}
-              sx={{
-                p: 1,
-                display: "flex",
-                justifyContent: { xs: "center", md: "end" },
-              }}
-            >
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  bgcolor: "#DC143C",
-                  color: "white",
-                  m: 1,
-                }}
-                startIcon={<TaskAltIcon />}
-                type="submit"
-              >
-                Publier
-              </Button>
-
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  m: 1,
-                }}
-                startIcon={<HighlightOffIcon />}
-                onClick={(e) => cancelFormAddOffer()}
-              >
-                Annuler
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid> */}
-        </Grid>
+        {/* component formulaire offre */}
+        <OfferForm />
       </Box>
     </Container>
   );

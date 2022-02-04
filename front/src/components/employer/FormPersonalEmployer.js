@@ -104,7 +104,7 @@ export default function FormPersonalEmployer(props) {
               alignItems="center"
               spacing={2}
             >
-              <Grid item xs={10} sx={{ mb: 1 }}>
+              <Grid item xs={10} marginBottom={1}>
                 <TextField
                   required
                   label="Adresse mail:"
@@ -128,11 +128,9 @@ export default function FormPersonalEmployer(props) {
               <Grid
                 item
                 xs={10}
-                sx={{
-                  p: 1,
-                  display: "flex",
-                  justifyContent: { xs: "center", md: "end" },
-                }}
+                display={"flex"}
+                justifyContent={ { xs: "center", md: "end" }}
+                padding={2}
               >
                 <Button
                   variant="contained"
@@ -170,7 +168,10 @@ export default function FormPersonalEmployer(props) {
       </Box>
 
       <Grid item md={6} xs={12} sm={12}>
-        <Box sx={{display:"flex" ,justifyContent:"center"}}>
+        <Box
+        display={"flex"} 
+        justifyContent={"center"}
+        >
           <Button
             variant="contained"
             size="small"
