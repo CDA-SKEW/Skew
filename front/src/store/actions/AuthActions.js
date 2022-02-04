@@ -3,7 +3,7 @@
  * *************** */
 // import axios from "axios";
 
-import { GET_AUTH } from "./ActionTypes";
+import { GET_AUTH, POST_AUTH } from "./ActionTypes";
 
 /*
  * Import types { ... }
@@ -15,6 +15,16 @@ import { GET_AUTH } from "./ActionTypes";
 
 // GET AUTH
 export const getAuth = () => {
+    // return (dispatch) => {
+    //     return axios
+    //       .post("adresse API")
+    //       .then((res) => {
+    //         if (res.data.token) localStorage.setItem("user_token", res.data.token);
+    //         dispatch({ type: GET_AUTH, payload: res.data });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   };
+    
     const authData = [
         {
             id: 1,
@@ -39,4 +49,16 @@ export const getAuth = () => {
         console.log("getAuth", authData);
         dispatch({ type: GET_AUTH, payload: authData });
     };
+};
+
+// POST AUTH
+export const postAuth = () => {
+    // return (dispatch) => {
+    //     return axios
+    //         .post("adresse API")
+    //         .then((res) => {
+    //             dispatch({ type: POST_AUTH, payload: res.data });
+    //         })
+    //         .catch((err) => console.log(err));
+    // };
 };

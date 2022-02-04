@@ -40,7 +40,7 @@ export default function Connexion() {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
             await dispatch(getAuth({ mail, pass }))
-            console.log('getAuth', mail)
+            // console.log('getAuth')
             // setMail("");
             // setPass("");
             // if (authData.role = 'candidat') {
