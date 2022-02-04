@@ -45,13 +45,13 @@ const CandidatProfil = () => {
           mt: 2,
         }}
       >
-        <Box
+        {/* <Box
           sx={{ position: "relative", display: "flex", justifyContent: "right" }}>
           <Button
             sx={{ color: "white", bgcolor: "red" }}>
             Edit All
           </Button>
-        </Box>
+        </Box> */}
 
         {/*   {/* BOX CONTACT*/}
         <TableContact ListUser={dataProfilCandidate.coord} />

@@ -1,4 +1,4 @@
-
+import React, { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -164,20 +163,10 @@ export default function TableContact(props) {
               <TableCell>Mail</TableCell>
             </TableRow>
           </TableHead>
-          {/* <ModeText/> */}
           {checkEdit()}
-
         </Table>
       </TableContainer>
-
-
-      {/* <p> {edit}</p> */}
-
-
-
-
     </Box>
-
   );
 }
 
