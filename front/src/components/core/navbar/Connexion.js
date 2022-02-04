@@ -40,16 +40,17 @@ export default function Connexion() {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
             await dispatch(getAuth({ mail, pass }))
-            // console.log('getAuth')
-            // setMail("");
-            // setPass("");
-            // if (authData.role = 'candidat') {
-            // navigate('/candidat/dashboard')
-            //     console.log('oui')
-        } else {
-            console.log("non")
-        }
-    };
+            if (mail === 'candidat') {
+                navigate('/candidat/dashboard')
+            }
+            if (mail === 'recruteur') {
+                navigate('/employer/dashboard')
+            }
+            if (mail === 'admin') {
+                navigate('/admin')
+            };
+        };
+    }
 
     return (
         <Box
