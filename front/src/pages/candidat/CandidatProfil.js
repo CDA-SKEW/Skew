@@ -7,11 +7,11 @@ import TableExperience from "components/candidat/profil/TableExperience";
 import TableComp from "components/candidat/profil/TableComp";
 import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
-import TEST from "components/candidat/profil/TEST"
 import Button from '@mui/material/Button';
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilCandidate } from "store/actions/CandidateActions";
+
 
 
 
@@ -33,6 +33,7 @@ const CandidatProfil = () => {
   };
   const dataProfilCandidate = useSelector((state) => state.candidate.dataProfilCandidate)
   console.log("store dataProfil page profil", dataProfilCandidate);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -51,7 +52,7 @@ const CandidatProfil = () => {
             Edit All
           </Button>
         </Box>
-        
+
         {/*   {/* BOX CONTACT*/}
         <TableContact ListUser={dataProfilCandidate.coord} />
 
@@ -69,7 +70,6 @@ const CandidatProfil = () => {
         <TableFormation ListCertificate={dataProfilCandidate.certificate} />
         {/* CV Checkbox*/}
         <ChekboxCV listCv={dataProfilCandidate.cv} />
-
       </Container>
     </React.Fragment >
 

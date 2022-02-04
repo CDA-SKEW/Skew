@@ -24,15 +24,15 @@ import { GET_PROFIL_CANDIDATE } from "./ActionTypes";
 export const getProfilCandidate = () => {
     const data = {
         dataProfilCandidate: {
-            coord: [
-                {
-                    address: '22 rue la shmitrie',
-                    zipCode: '44520',
-                    town: 'Trou perdu',
-                    mail: 'gogo@gadget.com',
-                    phone: '02.02.02.02.02'
-                }
-            ],
+            coord:
+            {
+                address: '22 rue la shmitrie',
+                zipCode: '44520',
+                town: 'Trou perdu',
+                mail: 'gogo@gadget.com',
+                phone: '02.02.02.02.02'
+            }
+            ,
             exp: [
                 { id: 1, company: 'comp', post: 'dev', start: '30/02/2018', end: '30/02/2019' },
                 { id: 2, company: 'EDF', post: 'dev-front', start: '30/08/2016', end: '30/02/2018' }

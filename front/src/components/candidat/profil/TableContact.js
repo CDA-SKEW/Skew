@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,59 +8,100 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
 
 
 export default function TableContact(props) {
-  const { ListUser } = props
+  const { ListUser,
+    dataProfilCandidate } = props
   const [edit, setEdit] = React.useState(false);
-  const data = {
-    address: "",
-    phone: "",
-    mail: "",
+  // const data = {
+
+  //   address: ListUser.address,
+  //   phone: "truc",
+  //   mail: "",
+  // };
+
+  // Declaration des constantes pour le formulaire
+
+  const [address, setAddress] = useState("");
+  const [zipCode, setzipCode] = useState("");
+  const [town, setTown] = useState("");
+  const [phone, setPhone] = useState("");
+  const [mail, setMail] = useState("");
+
+  const setUseState = () => {
+
+    setAddress(ListUser.address);
+    setzipCode(ListUser.zipCode);
+    setTown(ListUser.town);
+    setPhone(ListUser.phone);
+    setMail(ListUser.mail);
+
   };
+  useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
+  }, [dataProfilCandidate]);
+
 
   function ModeText(props) {
     return (
       <TableBody>
-      {ListUser.map((user, index) => (
-        <TableRow
-          key={index}
 
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-          <TableCell editable="true" >{user.address}<br />{user.zipCode}<br />{user.town}</TableCell>
-          <TableCell >{user.phone}</TableCell>
-          <TableCell >{user.mail}</TableCell>
+        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+          <TableCell>{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
+          <TableCell>{ListUser.phone}</TableCell>
+          <TableCell>{ListUser.mail}</TableCell>
         </TableRow>
-      ))}
-    </TableBody>
-      
+
+      </TableBody>
+
     );
   }
   function ModeEdit(props) {
     return (
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} marginTop={2}>
+        <Stack direction="column" spacing={2}>
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            label="address"
+            defaultValue={address}
+          />
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            label="zipCode"
+            defaultValue={zipCode}
+          />
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            label="Town"
+            defaultValue={town}
+          />
+        </Stack>
         <TextField
           required
-          id="outlined-required"
-          label="address"
-          defaultValue={data.address}
-        />
-        <TextField
-          required
+          size="small"
           id="outlined-required"
           label="phone"
-          defaultValue={data.phone}
+          defaultValue={phone}
         />
         <TextField
           required
+          size="small"
           id="outlined-required"
           label="mail"
-          defaultValue={data.mail}
+          defaultValue={mail}
         />
       </Stack>
     );
@@ -78,6 +119,18 @@ export default function TableContact(props) {
         my: 4,
       }}
     >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+        }}>
+
+
+        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+          <DeleteIcon />
+        </Button>
+      </Box>
       {/* Titre section Contact */}
       <Box
         sx={{
@@ -111,17 +164,16 @@ export default function TableContact(props) {
               <TableCell>Mail</TableCell>
             </TableRow>
           </TableHead>
-         {/* <ModeText/> */}
-         {checkEdit()}
+          {/* <ModeText/> */}
+          {checkEdit()}
+
         </Table>
       </TableContainer>
-      <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-        Edit
-      </Button>
+
 
       {/* <p> {edit}</p> */}
 
-      
+
 
 
     </Box>

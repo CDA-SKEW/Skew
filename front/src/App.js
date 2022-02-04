@@ -8,7 +8,6 @@ import ContactezNous from "./pages/visitor/ContactezNous";
 import EmployerDashboard from "pages/employer/EmployerDashboard";
 import EmployerProfil from "pages/employer/EmployerProfil";
 import CandidatProfil from "pages/candidat/CandidatProfil";
-import CandidatProfilEdit from "pages/candidat/CandidatProfilEdit";
 import PageNotFound from "pages/PageNotFound";
 import AdminPage from "pages/admin/AdminPage";
 import EmployerAddOffer from "pages/employer/EmployerAddOffer";
@@ -38,7 +37,6 @@ function App() {
         <Route path="/Employer/profil" exact element={<EmployerProfil />} />
         <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
-        <Route path="/Candidat/profil/edit" exact element={<CandidatProfilEdit />} />
         <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
         <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />
         <Route path="*" element={<PageNotFound />} />
