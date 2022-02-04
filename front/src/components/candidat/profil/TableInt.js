@@ -1,13 +1,73 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
+import { Typography, Button, Stack, TextField } from '@mui/material';
 
 
 
 export default function ResponsiveGrid(props) {
-    const { ListInterest } = props
-    console.log('proppss interest', props)
+    const { ListInterest,
+        dataProfilCandidat } = props
+    const [edit, setEdit] = React.useState(false);
+
+
+    const [interest, setInterest] = useState("");
+
+
+
+    const setUseState = () => {
+        setInterest(ListInterest.intetest);
+    };
+    useEffect(() => {
+        // console.log("effect for useState form employer");
+        setUseState();
+    }, [dataProfilCandidat]);
+
+
+
+    function ModeText(props) {
+        return (
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                {ListInterest.map((interest, index) => (
+                    <Grid item xs={2} sm={4} md={4} key={index}>
+                        <Typography>{interest}</Typography>
+                    </Grid>
+                ))}
+            </Grid>
+
+        );
+    }
+
+    function ModeEdit(props) {
+        return (
+            <Stack direction="column" spacing={2}>
+                {ListInterest.map((interest, index) => (
+
+                    <TextField
+                        key={index}
+                        size="small"
+                        required
+                        id="outlined-required"
+                        label="Interest"
+                        defaultValue={interest}
+                    />
+                ))}
+                <Button >
+                    VALID
+                </Button>
+                <Button >
+                    ANNULER
+                </Button>
+            </Stack>
+
+
+        );
+    }
+
+    const checkEdit = () => {
+        if (edit === true) return <ModeEdit />;
+        else return <ModeText />;
+    };
     return (
         <Box
             sx={{
@@ -43,14 +103,11 @@ export default function ResponsiveGrid(props) {
                 </Typography>
             </Box>
             <Box sx={{ flexGrow: 1, textAlign: "center" }}>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {ListInterest.map((interest, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index}>
-                            <Typography>{interest}</Typography>
-                        </Grid>
-                    ))}
-                </Grid>
+                {checkEdit()}
             </Box>
+            <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+                Edit
+            </Button>
         </Box>
     );
 }

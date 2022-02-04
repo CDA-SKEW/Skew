@@ -30,7 +30,7 @@ export const getProfilCandidate = () => {
                     zipCode: '44520',
                     town: 'Trou perdu',
                     mail: 'gogo@gadget.com',
-                    phone: '02.02.02.02.02'
+                    phone: '0202020202'
                 }
             ],
             exp: [

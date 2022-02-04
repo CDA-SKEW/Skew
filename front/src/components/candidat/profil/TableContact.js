@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,67 +8,129 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Column } from "devextreme-react/data-grid";
+import { Mode } from "@mui/icons-material";
 
 
 
 export default function TableContact(props) {
-  const { ListUser } = props
+  const { ListUser,
+    dataProfilCandidate
+  } = props
   const [edit, setEdit] = React.useState(false);
-  const data = {
-    address: "",
-    phone: "",
-    mail: "",
-  };
 
-  function ModeText(props) {
+
+  // Declaration des constantes pour le formulaire
+
+  const [address, setAdress] = useState("");
+  const [codeZip, setCodeZip] = useState("");
+  const [town, setTown] = useState("");
+  const [phone, setPhone] = useState("");
+  const [mail, setMail] = useState("");
+
+
+
+  const setUseState = () => {
+
+    setAdress(ListUser.address);
+    setCodeZip(ListUser.zipCode);
+    setTown(ListUser.town);
+    setPhone(ListUser.phone);
+    setMail(ListUser.mail)
+  };
+  useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
+  }, [dataProfilCandidate]);
+
+
+  function ModeText() {
     return (
       <TableBody>
-      {ListUser.map((user, index) => (
-        <TableRow
-          key={index}
-
-          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-          <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-          <TableCell editable="true" >{user.address}<br />{user.zipCode}<br />{user.town}</TableCell>
-          <TableCell >{user.phone}</TableCell>
-          <TableCell >{user.mail}</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-      
+        {ListUser.map((ListUser, index) => (
+          <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+            <TableCell >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
+            <TableCell>{ListUser.phone}</TableCell>
+            <TableCell>{ListUser.mail}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
     );
   }
-  function ModeEdit(props) {
+  function ModeEdit() {
     return (
-      <Stack direction="row" spacing={2}>
-        <TextField
-          required
-          id="outlined-required"
-          label="address"
-          defaultValue={data.address}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="phone"
-          defaultValue={data.phone}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="mail"
-          defaultValue={data.mail}
-        />
+
+      <Stack direction="row" spacing={2} marginTop={2}>
+        <TableBody>
+          <TableRow>
+            <Stack direction="column" spacing={2} >
+              <TableCell>
+
+                <TextField
+                  required
+                  size="small"
+                  id="outlined-required"
+                  label="address"
+                  defaultValue={ModeText(ListUser)}
+                />
+                <TextField
+                  required
+                  size="small"
+                  id="outlined-required"
+                  label="zipCode"
+                  defaultValue={codeZip}
+                />
+                <TextField
+                  required
+                  size="small"
+                  id="outlined-required"
+                  label="Town"
+                  defaultValue={town}
+                />
+              </TableCell>
+            </Stack>
+
+            <TableCell>
+
+              <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="phone"
+                defaultValue={phone}
+              />
+            </TableCell>
+            <TableCell>
+
+              <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="mail"
+                defaultValue={mail}
+              />
+            </TableCell>
+          </TableRow>
+        </TableBody>
+        <Box direction="column">
+          <Button >
+            VALID
+          </Button>
+          <Button >
+            ANNULER
+          </Button>
+        </Box>
       </Stack>
+
     );
   }
   const checkEdit = () => {
     if (edit === true) return <ModeEdit />;
     else return <ModeText />;
   };
+
   return (
     <Box
       sx={{
@@ -78,7 +140,19 @@ export default function TableContact(props) {
         my: 4,
       }}
     >
-      {/* Titre section Contact */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+        }}>
+
+
+        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+          <DeleteIcon />
+        </Button>
+      </Box>
+      {/* Titre section Formation */}
       <Box
         sx={{
           display: "flex",
@@ -106,27 +180,14 @@ export default function TableContact(props) {
         <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell>Adresse postal</TableCell>
-              <TableCell >Téléphone</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell >Phone</TableCell>
               <TableCell>Mail</TableCell>
             </TableRow>
           </TableHead>
-         {/* <ModeText/> */}
-         {checkEdit()}
+          {checkEdit()}
         </Table>
       </TableContainer>
-      <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-        Edit
-      </Button>
-
-      {/* <p> {edit}</p> */}
-
-      
-
-
     </Box>
-
   );
 }
-
-
