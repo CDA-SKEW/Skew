@@ -251,14 +251,12 @@ export default function FormProfilEmployer(props) {
       >
         <Grid item md={6} xs={12} sm={12}>
           <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "none" },
-              mb: 2,
-            }}
+          width={"100%"}
+          display={"flex"}
+          justifyContent={{ xs: "center", md: "space-around" }}
+          flexDirection={{ xs: "column", md: "row" }}
+          alignItems={{ xs: "center", md: "none" }}
+          marginBottom={2}
           >
             <Grid
               container
@@ -304,12 +302,9 @@ export default function FormProfilEmployer(props) {
             <Grid
               item
               xs={10}
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
+              display={"flex"}
+              flexDirection={{ xs: "column", md: "row" }}
+              alignItems={"center"}  
             >
               <TextField
                 required
@@ -426,11 +421,9 @@ export default function FormProfilEmployer(props) {
             <Grid
               item
               xs={10}
-              sx={{
-                p: 1,
-                display: "flex",
-                justifyContent: { xs: "center", md: "end" },
-              }}
+              padding={1}
+              display={"flex"}
+              justifyContent={{xs: "center", md: "end"}}
             >
               <Button
                 variant="contained"
