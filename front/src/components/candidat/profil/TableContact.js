@@ -9,38 +9,35 @@ import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from '@mui/icons-material/Delete';
-
-
+import { Column } from "devextreme-react/data-grid";
+import { Mode } from "@mui/icons-material";
 
 
 
 export default function TableContact(props) {
   const { ListUser,
-    dataProfilCandidate } = props
+    dataProfilCandidate
+  } = props
   const [edit, setEdit] = React.useState(false);
-  // const data = {
 
-  //   address: ListUser.address,
-  //   phone: "truc",
-  //   mail: "",
-  // };
 
   // Declaration des constantes pour le formulaire
 
-  const [address, setAddress] = useState("");
-  const [zipCode, setzipCode] = useState("");
+  const [address, setAdress] = useState("");
+  const [codeZip, setCodeZip] = useState("");
   const [town, setTown] = useState("");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("");
 
+
+
   const setUseState = () => {
 
-    setAddress(ListUser.address);
-    setzipCode(ListUser.zipCode);
+    setAdress(ListUser.address);
+    setCodeZip(ListUser.zipCode);
     setTown(ListUser.town);
     setPhone(ListUser.phone);
-    setMail(ListUser.mail);
-
+    setMail(ListUser.mail)
   };
   useEffect(() => {
     // console.log("effect for useState form employer");
@@ -48,67 +45,92 @@ export default function TableContact(props) {
   }, [dataProfilCandidate]);
 
 
-  function ModeText(props) {
+  function ModeText() {
     return (
       <TableBody>
-
-        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-          <TableCell>{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
-          <TableCell>{ListUser.phone}</TableCell>
-          <TableCell>{ListUser.mail}</TableCell>
-        </TableRow>
-
+        {ListUser.map((ListUser, index) => (
+          <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+            <TableCell >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
+            <TableCell>{ListUser.phone}</TableCell>
+            <TableCell>{ListUser.mail}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
-
     );
   }
-  function ModeEdit(props) {
+  function ModeEdit() {
     return (
+
       <Stack direction="row" spacing={2} marginTop={2}>
-        <Stack direction="column" spacing={2}>
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="address"
-            defaultValue={address}
-          />
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="zipCode"
-            defaultValue={zipCode}
-          />
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Town"
-            defaultValue={town}
-          />
-        </Stack>
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="phone"
-          defaultValue={phone}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="mail"
-          defaultValue={mail}
-        />
+        <TableBody>
+          <TableRow>
+            <Stack direction="column" spacing={2} >
+              <TableCell>
+
+                <TextField
+                  required
+                  size="small"
+                  id="outlined-required"
+                  label="address"
+                  defaultValue={ModeText(ListUser)}
+                />
+                <TextField
+                  required
+                  size="small"
+                  id="outlined-required"
+                  label="zipCode"
+                  defaultValue={codeZip}
+                />
+                <TextField
+                  required
+                  size="small"
+                  id="outlined-required"
+                  label="Town"
+                  defaultValue={town}
+                />
+              </TableCell>
+            </Stack>
+
+            <TableCell>
+
+              <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="phone"
+                defaultValue={phone}
+              />
+            </TableCell>
+            <TableCell>
+
+              <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="mail"
+                defaultValue={mail}
+              />
+            </TableCell>
+          </TableRow>
+        </TableBody>
+        <Box direction="column">
+          <Button >
+            VALID
+          </Button>
+          <Button >
+            ANNULER
+          </Button>
+        </Box>
       </Stack>
+
     );
   }
   const checkEdit = () => {
     if (edit === true) return <ModeEdit />;
     else return <ModeText />;
   };
+
   return (
     <Box
       sx={{
@@ -130,7 +152,7 @@ export default function TableContact(props) {
           <DeleteIcon />
         </Button>
       </Box>
-      {/* Titre section Contact */}
+      {/* Titre section Formation */}
       <Box
         sx={{
           display: "flex",
@@ -158,8 +180,8 @@ export default function TableContact(props) {
         <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell>Adresse postal</TableCell>
-              <TableCell >Téléphone</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell >Phone</TableCell>
               <TableCell>Mail</TableCell>
             </TableRow>
           </TableHead>
@@ -169,5 +191,3 @@ export default function TableContact(props) {
     </Box>
   );
 }
-
-

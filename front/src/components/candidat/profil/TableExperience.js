@@ -17,12 +17,7 @@ export default function TableExperience(props) {
     dataProfilCandidate
   } = props
   const [edit, setEdit] = React.useState(false);
-  // const data = {
 
-  //   address: ListUser.address,
-  //   phone: "truc",
-  //   mail: "",
-  // };
 
   // Declaration des constantes pour le formulaire
 
