@@ -8,10 +8,12 @@ import {
   deleteJob,
   deleteUser,
   deleteMessage,
+  addMessage,
   putUser,
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
+import ReplyIcon from "@mui/icons-material/Reply";
 
 /*------------Export function-------------*/
 
@@ -21,19 +23,12 @@ export default function DeletableChips(props) {
     columnsDeleteUser,
     columnsDeleteJob,
     columnsDeleteMessage,
+    columnsAddMessage,
     id,
   } = props;
   // console.log(columnsBan);
   // Transmettre les données du STORE avec dispatch (crud)
   const dispatch = useDispatch();
-  // const handleClick = () => {
-  //   dispatch(putUser(id));
-  // };
-  // const handleDelete = () => {
-  //   // dispatch(deleteUser(id));
-  //   // dispatch(deleteJob(id));
-  //   // dispatch(deleteMessage(id));
-  // };
 
   /*--------------Components------------*/
   return (
@@ -44,7 +39,7 @@ export default function DeletableChips(props) {
           color="warning"
           variant="outlined"
           icon={<BlockIcon />}
-          onClick={() => dispatch(putUser(id))}
+          onClick={() => dispatch(putUser(id.row.id))}
         />
       )}
       {columnsDeleteUser && (
@@ -53,7 +48,7 @@ export default function DeletableChips(props) {
           color="error"
           variant="outlined"
           icon={<DeleteIcon />}
-          onClick={() => dispatch(deleteUser(id))}
+          onClick={() => dispatch(deleteUser(id.row.id))}
         />
       )}
       {columnsDeleteJob && (
@@ -62,7 +57,16 @@ export default function DeletableChips(props) {
           color="error"
           variant="outlined"
           icon={<DeleteIcon />}
-          onClick={() => dispatch(deleteJob(id))}
+          onClick={() => dispatch(deleteJob(id.row.id))}
+        />
+      )}
+      {columnsAddMessage && (
+        <Chip
+          label="reply"
+          color="success"
+          variant="outlined"
+          icon={<ReplyIcon />}
+          onClick={() => dispatch(addMessage(id.row.id))}
         />
       )}
       {columnsDeleteMessage && (
@@ -71,7 +75,7 @@ export default function DeletableChips(props) {
           color="error"
           variant="outlined"
           icon={<DeleteIcon />}
-          onClick={() => dispatch(deleteMessage(id))}
+          onClick={() => dispatch(deleteMessage(id.row.id))}
         />
       )}
     </Stack>
