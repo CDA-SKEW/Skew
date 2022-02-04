@@ -3,7 +3,7 @@
  * *************** */
 // import axios from "axios";
 
-import { GET_AUTH } from "./ActionTypes";
+import { GET_AUTH, POST_AUTH } from "./ActionTypes";
 
 /*
  * Import types { ... }
@@ -39,4 +39,11 @@ export const getAuth = () => {
         console.log("getAuth", authData);
         dispatch({ type: GET_AUTH, payload: authData });
     };
+};
+
+// POST AUTH
+export const postAuth = () => {
+    // return (dispatch) => {
+    //     dispatch({ type: POST_AUTH, payload: res.data });
+    // };
 };

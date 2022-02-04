@@ -19,6 +19,8 @@ export function AuthReducer(state = initialState, action) {
             return state;
         case Actions.GET_AUTH:
             return { ...state, authData: action.payload };
+            case Actions.POST_AUTH:
+                return { ...state, authData: action.payload }
     }
 }
 

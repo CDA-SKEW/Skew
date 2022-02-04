@@ -23,3 +23,4 @@ export const GET_LIST_JOBS = "GET_LIST_JOBS";
 
 //Auth
 export const GET_AUTH = 'GET_AUTH';
+export const POST_AUTH = 'POST_AUTH';

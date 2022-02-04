@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
+import { useDispatch } from "react-redux";
+import { postAuth } from 'store/actions/AuthActions';
 
 export default function Inscription() {
 
@@ -14,11 +16,10 @@ export default function Inscription() {
     const [pass1, setPass1] = useState('');
     const [pass2, setPass2] = useState('');
     const [toggle, setToggle] = useState('');
+    const dispatch = useDispatch();
 
-    const [alignment, setAlignment] = React.useState('web');
-
-    const handleChange = (event, newAlignment) => {
-        setToggle(newAlignment);
+    const handleChange = (e, newToggle) => {
+        setToggle(newToggle);
     };
 
     const InscriptionList = [
@@ -50,8 +51,21 @@ export default function Inscription() {
         }
     }
 
-    const SubmitFormIdInscription = async () => {
-        console.log('submitFormId', mail, pass1)
+    const SubmitFormIdInscription = async (e) => {
+        // e.preventDefault();
+
+        console.log('submitFormId', prenom, nom, mail, pass1, pass2, toggle)
+
+        if (prenom && nom && mail && toggle && pass1 === pass2) {
+              await dispatch(postAuth({ prenom, nom, mail, pass1, toggle }));
+            console.log('ok')
+            setPrenom("");
+            setNom("");
+            setMail("");
+            setPass1("");
+            setPass2("");
+            setToggle("");
+        };
     };
 
     return (
@@ -82,10 +96,9 @@ export default function Inscription() {
             ))}
             <ToggleButtonGroup
                 color="info"
-                value={alignment}
-                name='toggle'
+                value={toggle}
                 exclusive
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 fullWidth
                 sx={{
                     my: 1
