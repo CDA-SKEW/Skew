@@ -20,6 +20,9 @@ export const GET_LIST_USERS = "GET_LIST_USERS";
 export const PUT_USER = "PUT_USER";
 export const DELETE_USER = "DELETE_USER";
 export const GET_LIST_JOBS = "GET_LIST_JOBS";
+export const DELETE_JOB = "DELETE_JOB";
+export const GET_LIST_MESSAGES = "GET_LIST_MESSAGES";
+export const DELETE_MESSAGE = "DELETE_MESSAGE";
 
 //Auth
-export const GET_AUTH = 'GET_AUTH';
+export const GET_AUTH = "GET_AUTH";
