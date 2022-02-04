@@ -40,12 +40,15 @@ export default function Connexion() {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
             await dispatch(getAuth({ mail, pass }))
+
             if (mail === 'candidat') {
                 navigate('/candidat/dashboard')
             }
+
             if (mail === 'recruteur') {
                 navigate('/employer/dashboard')
             }
+            
             if (mail === 'admin') {
                 navigate('/admin')
             };
