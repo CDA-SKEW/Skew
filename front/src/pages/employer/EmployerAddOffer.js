@@ -1,10 +1,24 @@
 import { Box, Container, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import React, { useEffect } from "react";
 import { themeUser } from "configs/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfilEmployer } from "store/actions/EmployerActions";
+import OfferDataFactory from "components/employer/OfferDataFactory";
 
 const EmployerAddOffer = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // console.log("effect getDataProfilEmployerEmployer");
+    dispatch(getProfilEmployer());
+  }, []);
+
+  //dispatch(getProfilEmployer());
+
+  const dataProfilEmployer = useSelector(
+    (state) => state.employer.dataProfilEmployer
+  );
+
   return (
     <Container
       sx={{
@@ -12,7 +26,6 @@ const EmployerAddOffer = () => {
         p: 2,
       }}
     >
-
       {/* partie information entreprise */}
       <Box
         sx={{
@@ -23,9 +36,6 @@ const EmployerAddOffer = () => {
           mt: 8,
         }}
       >
-
-
-        {/* Titre section deposé une offre */}
         <Box
           sx={{
             display: "flex",
@@ -49,28 +59,19 @@ const EmployerAddOffer = () => {
           </Typography>
         </Box>
 
-        <Typography sx={{
-          position: "relative",
-          top: "-30px",
-          textAlign: "center", mb: 2
-        }} variant="h5">
+        <Typography
+          sx={{
+            position: "relative",
+            top: "-30px",
+            textAlign: "center",
+          }}
+          variant="h5"
+        >
           Informations entreprise
         </Typography>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: { xs: "center", md: "space-around" },
-            flexDirection: { xs: "column", md: "row" },
-            alignItems: { xs: "center", md: "none" },
-          }}
-        >
-
-
-        </Box>
+        <OfferDataFactory dataProfilEmployer={dataProfilEmployer} />
       </Box>
-
-
 
       {/* partie sur l'offre */}
       <Box
@@ -82,7 +83,6 @@ const EmployerAddOffer = () => {
           mt: 8,
         }}
       >
-
         <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
           Informations de l'offre
         </Typography>
@@ -94,7 +94,6 @@ const EmployerAddOffer = () => {
           alignItems="center"
           textAlign="center"
         >
-
           <Grid item xs={12} sm={12} md={12} sx={{ px: 2 }}>
             <TextField
               required
@@ -102,40 +101,10 @@ const EmployerAddOffer = () => {
               label="titre de l'offre:"
               variant="outlined"
               size="small"
-            // value={title || ""}
-            // onChange={(e) => {
-            //   setTitle(e.target.value);
-            // }}
-            />
-          </Grid>
-
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "center" },
-            }}
-          >
-
-
-            
-          </Box>
-
-          <Grid item xs={12} sm={12} md={12} sx={{ px: 2 }}>
-            <TextField
-              required
-              fullWidth
-              label="titre de l'offre:"
-              variant="outlined"
-              size="small"
-              multiline
-              rows={5}
-            // value={title || ""}
-            // onChange={(e) => {
-            //   setTitle(e.target.value);
-            // }}
+              // value={title || ""}
+              // onChange={(e) => {
+              //   setTitle(e.target.value);
+              // }}
             />
           </Grid>
 
@@ -148,13 +117,28 @@ const EmployerAddOffer = () => {
               size="small"
               multiline
               rows={5}
-            // value={title || ""}
-            // onChange={(e) => {
-            //   setTitle(e.target.value);
-            // }}
+              // value={title || ""}
+              // onChange={(e) => {
+              //   setTitle(e.target.value);
+              // }}
             />
           </Grid>
 
+          <Grid item xs={12} sm={12} md={12} sx={{ px: 2 }}>
+            <TextField
+              required
+              fullWidth
+              label="titre de l'offre:"
+              variant="outlined"
+              size="small"
+              multiline
+              rows={5}
+              // value={title || ""}
+              // onChange={(e) => {
+              //   setTitle(e.target.value);
+              // }}
+            />
+          </Grid>
 
           {/* <Box
             sx={{
@@ -302,13 +286,9 @@ const EmployerAddOffer = () => {
             </Grid>
           </Grid>
         </Grid> */}
-
-
         </Grid>
-
-      </Box >
-
-    </Container >
+      </Box>
+    </Container>
   );
 };
 
