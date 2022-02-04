@@ -15,6 +15,16 @@ import { GET_AUTH, POST_AUTH } from "./ActionTypes";
 
 // GET AUTH
 export const getAuth = () => {
+    // return (dispatch) => {
+    //     return axios
+    //       .post("adresse API")
+    //       .then((res) => {
+    //         if (res.data.token) localStorage.setItem("user_token", res.data.token);
+    //         dispatch({ type: GET_AUTH, payload: res.data });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   };
+    
     const authData = [
         {
             id: 1,
@@ -44,6 +54,11 @@ export const getAuth = () => {
 // POST AUTH
 export const postAuth = () => {
     // return (dispatch) => {
-    //     dispatch({ type: POST_AUTH, payload: res.data });
+    //     return axios
+    //         .post("adresse API")
+    //         .then((res) => {
+    //             dispatch({ type: POST_AUTH, payload: res.data });
+    //         })
+    //         .catch((err) => console.log(err));
     // };
 };

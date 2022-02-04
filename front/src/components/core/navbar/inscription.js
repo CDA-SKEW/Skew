@@ -57,7 +57,7 @@ export default function Inscription() {
         console.log('submitFormId', prenom, nom, mail, pass1, pass2, toggle)
 
         if (prenom && nom && mail && toggle && pass1 === pass2) {
-              await dispatch(postAuth({ prenom, nom, mail, pass1, toggle }));
+            //   await dispatch(postAuth({ prenom, nom, mail, pass1, toggle }));
             console.log('ok')
             setPrenom("");
             setNom("");
