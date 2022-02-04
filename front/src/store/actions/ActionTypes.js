@@ -7,6 +7,7 @@ export const GET_PROFIL_EMPLOYER = "GET_PROFIL_EMPLOYER ";
 export const POST_PROFIL_EMPLOYER = "POST_PROFIL_EMPLOYER ";
 export const PUT_PROFIL_EMPLOYER = "PUT_PROFIL_EMPLOYER";
 export const GET_API_SIRET = "GET_API_SIRET";
+export const POST_OFFER = "POST_OFFER ";
 
 // Messages
 export const GET_MESSAGES = "GET_MESSAGES";

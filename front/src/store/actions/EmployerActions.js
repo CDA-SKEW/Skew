@@ -5,6 +5,7 @@ import { apiSiret } from "configs/axios";
 import {
   GET_API_SIRET,
   GET_PROFIL_EMPLOYER,
+  POST_OFFER,
   POST_PROFIL_EMPLOYER,
   PUT_PROFIL_EMPLOYER,
 } from "./ActionTypes";
@@ -27,6 +28,7 @@ const dataDefault = {
 
 // const dataDefault = {
 // }
+const message ="Votre offre a bien été publiée !"
 /*
  * Import types { ... }
  * ******************** */
@@ -69,5 +71,13 @@ export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_EMPLOYER action", data);
     dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data});
+  };
+};
+
+// Post add offer
+export const postFormAddOffer = (data) => {
+  return (dispatch) => {
+    // console.log("POST_OFFER action", data, message);
+    dispatch({ type: POST_OFFER, payload: {data, message}});
   };
 };
