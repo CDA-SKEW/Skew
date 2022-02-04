@@ -25,4 +25,5 @@ export const GET_LIST_MESSAGES = "GET_LIST_MESSAGES";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 
 //Auth
-export const GET_AUTH = "GET_AUTH";
+export const GET_AUTH = 'GET_AUTH';
+export const POST_AUTH = 'POST_AUTH';
