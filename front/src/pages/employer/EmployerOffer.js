@@ -11,39 +11,110 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
-function createData(name, lastName, email, tel, statut) {
-    return {
-        name,
-        lastName,
-        email,
-        tel,
-        statut,
+// function createData(name, lastName, email, tel, statut) {
+//     return {
+//         name,
+//         lastName,
+//         email,
+//         tel,
+//         statut,
+//         profilCandidat: [
+//             {
+//                 entreprise: "Arinfo",
+//                 job: "stagière",
+//                 dateStart: "30/011/2021",
+//                 descriptif: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.hy do we use it.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the lik",
+//                 dateEnd: "30/04/2022",
+//             },
+//             {
+//                 entreprise: "Arinfo",
+//                 job: "stagière",
+//                 dateStart: "30/011/2021",
+//                 descriptif: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.hy do we use it.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the lik",
+//                 dateEnd: "30/04/2022",
+//             },
+//         ],
+//     };
+// }
+
+
+
+// const rows = [
+//     createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
+//     createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
+//     createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
+//     createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
+//     createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
+// ];
+
+const rows = [
+    {
+        name: "tassin",
+        lastName: "jean",
+        email: "jean.tassin@orange.fr",
+        tel: "02 32 32 32 45",
+        address:"rue de bidule",
+        zipcCode:"72400",
+        town: "Allonnes",
+        statut: "retenu",
         profilCandidat: [
             {
-                date: '2020-01-05',
-                customerId: '11091700',
-                amount: 3,
+                entreprise: "Arinfo",
+                job: "stagière",
+                dateStart: "30/011/2021",
+                descriptif: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.hy do we use it.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the lik",
+                dateEnd: "30/04/2022",
             },
             {
-                date: '2020-01-02',
-                customerId: 'Anonymous',
-                amount: 1,
+                entreprise: "Arinfo",
+                job: "stagière",
+                dateStart: "30/011/2021",
+                descriptif: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.hy do we use it.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the lik",
+                dateEnd: "30/04/2022",
             },
         ],
-    };
-}
+    },
+    {
+        name: "tassin",
+        lastName: "jean",
+        email: "jean.tassin@orange.fr",
+        tel: "02 32 32 32 45",
+        address:"rue paoo",
+        zipcCode:"72900",
+        town: "Le Mans",
+        statut: "retenu",
+        profilCandidat: [
+            {
+                entreprise: "Arinfo",
+                job: "stagière",
+                dateStart: "30/011/2021",
+                descriptif: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.hy do we use it.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the lik",
+                dateEnd: "30/04/2022",
+            },
+            {
+                entreprise: "Arinfo",
+                job: "stagière",
+                dateStart: "30/011/2021",
+                descriptif: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.hy do we use it.It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the lik",
+                dateEnd: "30/04/2022",
+            },
+        ],
+        skill: [    
+        ],
+    }
+]
 
 function Row(props) {
 
     // console.log(props)
-    const { numberCandidat,row } = props;
+    const { numberCandidat, row } = props;
     const [open, setOpen] = React.useState(false);
 
     return (
         <React.Fragment>
 
             <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell align="center" >{numberCandidat+1}</TableCell>
+                <TableCell align="center" >{numberCandidat + 1}</TableCell>
                 <TableCell align="center">{row.name}</TableCell>
                 <TableCell align="center">{row.lastName}</TableCell>
                 <TableCell align="center">{row.email}</TableCell>
@@ -75,8 +146,8 @@ function Row(props) {
                                         justifyContent: { sm: "flex-start", md: "center" },
                                     }}
                                 >
-                                    <Typography>N° de siret: </Typography>
-                                    <Typography paddingLeft={1}>{ }</Typography>
+                                    <Typography>Adresse: </Typography>
+                                    <Typography paddingLeft={1}>{row.address}</Typography>
                                 </Box>
 
 
@@ -86,8 +157,8 @@ function Row(props) {
                                         justifyContent: { sm: "flex-start", md: "center" },
                                     }}
                                 >
-                                    <Typography>N° de siret: </Typography>
-                                    <Typography paddingLeft={1}>{ }</Typography>
+                                    <Typography>Code Postal: </Typography>
+                                    <Typography paddingLeft={1}>{row.zipcCode}</Typography>
                                 </Box>
 
 
@@ -97,8 +168,8 @@ function Row(props) {
                                         justifyContent: { sm: "flex-start", md: "center" },
                                     }}
                                 >
-                                    <Typography>N° de siret: </Typography>
-                                    <Typography paddingLeft={1}>{ }</Typography>
+                                    <Typography>Commune: </Typography>
+                                    <Typography paddingLeft={1}>{row.town}</Typography>
                                 </Box>
 
                             </Box>
@@ -108,29 +179,26 @@ function Row(props) {
                                 <Table size="small" aria-label="purchases">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Date</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Customer</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Amount</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Total price ($)</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Entreprise</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Poste</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Date de début</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Description</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>Date de fin</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {row.profilCandidat.map((candidatRow) => (
-                                            <TableRow hover key={candidatRow.date}>
-                                                <TableCell component="th" scope="row" align="center">
-                                                    {candidatRow.date}
-                                                </TableCell>
-                                                <TableCell align="center">{candidatRow.customerId}</TableCell>
-                                                <TableCell align="center">{candidatRow.amount}</TableCell>
-                                                <TableCell align="center">
-                                                    {candidatRow.amount}
-                                                </TableCell>
+                                        {row.profilCandidat.map((candidatRow, index) => (
+                                            <TableRow hover key={index}>
+                                                <TableCell align="center">{candidatRow.entreprise}</TableCell>
+                                                <TableCell align="center">{candidatRow.job}</TableCell>
+                                                <TableCell align="center">{candidatRow.dateStart}</TableCell>
+                                                <TableCell sx={{ minWidth: { xs: "500px", sm: "500px" } }} align="center">{candidatRow.descriptif}</TableCell>
+                                                <TableCell align="center">{candidatRow.dateEnd}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
                                 </Table>
                             </Box>
-
 
                             <Box
                                 border={1} marginBottom={2}>
@@ -170,7 +238,7 @@ function Row(props) {
                                         fontSize: { xs: "65%", sm: "75%", md: "100%" }
                                     }}
                                     startIcon={<ForwardToInboxIcon sx={{
-                                        display: { xs: "none", sm: "none",md: "block" } 
+                                        display: { xs: "none", sm: "none", md: "block" }
                                     }} />}
                                 >
                                     Contacter
@@ -188,7 +256,7 @@ function Row(props) {
                                         fontSize: { xs: "65%", sm: "75%", md: "100%" }
                                     }}
                                     startIcon={<VisibilityIcon sx={{
-                                        display: { xs: "none", sm: "none",md: "block" }
+                                        display: { xs: "none", sm: "none", md: "block" }
                                     }} />}
                                 >
                                     Voir candidat
@@ -205,7 +273,7 @@ function Row(props) {
                                         fontSize: { xs: "65%", sm: "75%", md: "100%" }
                                     }}
                                     startIcon={<DoDisturbIcon sx={{
-                                        display: { xs: "none", sm: "none",md: "block" }
+                                        display: { xs: "none", sm: "none", md: "block" }
                                     }} />}
                                 >
                                     Non retenu
@@ -215,14 +283,14 @@ function Row(props) {
                                 <Button
                                     variant="contained"
                                     size="small"
-                                     sx={{
+                                    sx={{
                                         bgcolor: "#16B84E",
                                         color: "black",
                                         m: 1,
                                         fontSize: { xs: "65%", sm: "75%", md: "100%" }
                                     }}
                                     startIcon={<CheckCircleOutlineIcon sx={{
-                                        display: { xs: "none", sm: "none",md: "block" }
+                                        display: { xs: "none", sm: "none", md: "block" }
                                     }} />}
                                 >
                                     Retenu
@@ -238,14 +306,6 @@ function Row(props) {
     );
 }
 
-
-const rows = [
-   createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
-   createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
-   createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
-   createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
-   createData("Tassin", "jean", "jean.tassin@orange.fr", "02 32 32 32 45", "retenu"),
-];
 
 const EmployerOffer = () => {
     return (
@@ -349,6 +409,7 @@ const EmployerOffer = () => {
                             </TableHead>
                             <TableBody >
                                 {rows.map((row, index) => (
+                                    // console.log("index, row", row, index)
                                     <Row key={index} numberCandidat={index} row={row} />
                                 ))}
                             </TableBody>
