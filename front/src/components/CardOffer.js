@@ -23,6 +23,7 @@ export default function CardOffer(props) {
         borderRadius: 1,
         mb: 1,
         mx: 1,
+        bgcolor: '#fff'
       }}
     >
       <CardActionArea>
