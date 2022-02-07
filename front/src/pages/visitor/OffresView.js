@@ -15,32 +15,6 @@ export default function OffresView() {
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
 
-    const handleSearch = (e) => {
-        console.log('target', e.target.value, e.target.name)
-        switch (e.target.name) {
-            case 'job':
-                setJob(e.target.value)
-                break;
-            case 'type':
-                setType(e.target.value)
-                break;
-            case 'location':
-                setLocation(e.target.value)
-                break;
-            default:
-            // code block
-        }
-    }
-
-    const submitFormSearch = () => {
-        console.log('submitFormSearch', job, type, location,)
-        if (job || type || location) {
-            setJob('')
-            setType('')
-            setLocation('')
-        }
-    }
-
     const listOffer = [
         { image: Logo1, titleOffer: 'Maçon', nameEmployor: 'Maconnerie', dateOfferDays: '01/01/2021', badgeEmployor: true },
         { image: Logo2, titleOffer: 'Developpeur', nameEmployor: 'Google', dateOfferDays: '01/01/2021', badgeEmployor: true },
@@ -50,10 +24,29 @@ export default function OffresView() {
         { image: Logo1, titleOffer: 'Maçon', nameEmployor: 'Ecole', dateOfferDays: '01/01/2021', badgeEmployor: true },
         { image: Logo2, titleOffer: 'Maçon', nameEmployor: 'Mc Donald', dateOfferDays: '01/01/2021', badgeEmployor: true },
         { image: Logo3, titleOffer: 'Developpeur', nameEmployor: 'Vinci', dateOfferDays: '01/01/2021', badgeEmployor: true },
-        { image: Logo4, titleOffer: 'Developpeur', nameEmployor: 'Faceboock', dateOfferDays: '20/06/2021', badgeEmployor: false },
+        { image: Logo4, titleOffer: 'Developpeur', nameEmployor: 'Faceboock', dateOfferDays: '22/06/2021', badgeEmployor: false },
         { image: Logo5, titleOffer: 'Developpeur', nameEmployor: 'MaLiterie', dateOfferDays: '20/06/2021', badgeEmployor: true },
         { image: Logo1, titleOffer: 'Developpeur', nameEmployor: 'Faceboock', dateOfferDays: '20/06/2021', badgeEmployor: true },
     ]
+
+    const handleSearchJob = (value) => {
+        setJob(value)
+    }
+    const handleSearchType = (value) => {
+        setType(value)
+    }
+    const handleSearchLocation = (value) => {
+        setLocation(value)
+    }
+
+    // const submitFormSearch = () => {
+    //     console.log('submitFormSearch', job, type, location,)
+    //     if (job || type || location) {
+    //         setJob('')
+    //         setType('')
+    //         setLocation('')
+    //     }
+    // }
 
     return (
         <VisiteurLayout>
@@ -61,9 +54,9 @@ export default function OffresView() {
                 Plus de 10 000 offres d'emplois sur notre site
             </Typography>
             <MoteurRechercheOffres
-                handleSearch={handleSearch}
-                submitFormSearch= {submitFormSearch}
-                setJob={setJob}
+                handleSearchJob={handleSearchJob}
+                handleSearchType={handleSearchType}
+                handleSearchLocation={handleSearchLocation}
             />
             <ListAllOffres
                 listOffer={listOffer}

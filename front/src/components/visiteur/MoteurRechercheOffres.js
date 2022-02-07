@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { TextField } from '@material-ui/core';
 
-export default function MoteurRechercheOffres({ handleSearch, submitFormSearch }) {
+export default function MoteurRechercheOffres({ handleSearchJob, handleSearchType, handleSearchLocation }) {
 
     return (
 
@@ -24,10 +24,9 @@ export default function MoteurRechercheOffres({ handleSearch, submitFormSearch }
             }}
         >
             <TextField
-                multiple
                 placeholder="Job"
                 name='job'
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => handleSearchJob(e.target.value)}
                 sx={{
                     width: 250,
                 }}
@@ -40,10 +39,9 @@ export default function MoteurRechercheOffres({ handleSearch, submitFormSearch }
                 orientation="vertical"
             />
             <TextField
-                multiple
                 placeholder="Type"
                 name='type'
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => handleSearchType(e.target.value)}
                 sx={{
                     width: 250,
                 }}
@@ -56,10 +54,9 @@ export default function MoteurRechercheOffres({ handleSearch, submitFormSearch }
                 orientation="vertical"
             />
             <TextField
-                multiple
                 placeholder="Localisation"
                 name='location'
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => handleSearchLocation(e.target.value)}
                 sx={{
                     width: 250,
                 }}
@@ -79,7 +76,7 @@ export default function MoteurRechercheOffres({ handleSearch, submitFormSearch }
                     width: 75,
                 }}
                 aria-label="search"
-                onClick={() => submitFormSearch()}
+                // onClick={() => submitFormSearch()}
             >
                 <SearchIcon />
             </IconButton>

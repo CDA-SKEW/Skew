@@ -4,9 +4,16 @@ import React from 'react';
 
 export default function ListAllOffres({ listOffer, job, type, location }) {
 
-    const title = (item1) =>
-        item1.titleOffer.toLowerCase().includes(job.toLowerCase());
-    const filterList = listOffer.filter((item1) => title(item1))
+    const title = (item) =>
+        item.titleOffer.toLowerCase().includes(job.toLowerCase());
+    const types = (item2) =>
+        item2.nameEmployor.toLowerCase().includes(type.toLowerCase());
+    const locations = (item3) =>
+        item3.dateOfferDays.toLowerCase().includes(location.toLowerCase());
+    const filterList = listOffer
+        .filter((item) => title(item))
+        .filter((item2) => types(item2))
+        .filter((item3) => locations(item3))
 
     return (
         <Box
