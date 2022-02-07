@@ -17,16 +17,20 @@ export default function ListAllOffres({ listOffer, job, type, location }) {
 
     return (
         <Box
-            maxWidth="lg"
+            maxWidth="xl"
             sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
                 m: 'auto',
                 justifyContent: { xs: "center", md: "space-around" },
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: { xs: "center", md: "none" }
             }}
         >
             {filterList.map((listOffer, index) => (
-                <Box my={5}>
+                <Box
+                    my={5}
+                >
                     <CardOffer key={index} listOffer={listOffer} />
                 </Box>
             ))}
