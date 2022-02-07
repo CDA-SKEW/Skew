@@ -76,7 +76,6 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                     width: 75,
                 }}
                 aria-label="search"
-                // onClick={() => submitFormSearch()}
             >
                 <SearchIcon />
             </IconButton>

@@ -39,15 +39,6 @@ export default function OffresView() {
         setLocation(value)
     }
 
-    // const submitFormSearch = () => {
-    //     console.log('submitFormSearch', job, type, location,)
-    //     if (job || type || location) {
-    //         setJob('')
-    //         setType('')
-    //         setLocation('')
-    //     }
-    // }
-
     return (
         <VisiteurLayout>
             <Typography variant="h2">
