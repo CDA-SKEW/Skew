@@ -8,8 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import Grid from '@mui/material/Grid';
 
 
 export default function TableExperience(props) {
@@ -55,6 +58,7 @@ export default function TableExperience(props) {
             <TableCell align='center' sx={{ minWidth: { xs: '500px', sm: '500px' } }}>{exp.desc}</TableCell>
             <TableCell align='center'>{exp.start}</TableCell>
             <TableCell align='center'>{exp.end}</TableCell>
+            {BtnDelete()}
           </TableRow>
         ))}
       </TableBody>
@@ -63,50 +67,102 @@ export default function TableExperience(props) {
   }
   function ModeEdit() {
     return (
-      <Stack direction="row" spacing={2} marginTop={2}>
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="address"
-          defaultValue={company}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="zipCode"
-          defaultValue={post}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="Town"
-          defaultValue={start}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="phone"
-          defaultValue={end}
-        />
-        <Button >
-          VALID
-        </Button>
-        <Button >
-          ANNULER
-        </Button>
-      </Stack>
+      <TableBody>
+        {ListExp.map((exp) => (
+          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableCell align='center' >
+              <TextField
+                fullWidth
+                required
+                size="small"
+                id="outlined-required"
+                label="Comp"
+                defaultValue={exp.company}
+              />
+              <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="Post"
+                defaultValue={exp.post}
+              />
+            </TableCell>
+            <TableCell align='center' >
+              {/* <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="Post"
+                defaultValue={exp.post}
+              /> */}
+            </TableCell>
+            <TableCell align='center' >
+              <TextField
+                fullWidth
+                multiline
+                maxRows={4}
+                ma
+                required
+                size="small"
+                id="outlined-required"
+                label="Description"
+                defaultValue={exp.desc}
+              />
+            </TableCell>
+            <TableCell align='center' >
+              <BasicDatePicker />
+              <BasicDatePicker />
+            </TableCell>
+            <TableCell align='center' >
+              {/* <BasicDatePicker /> */}
+            </TableCell>
+
+            <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
+                VALID
+              </Button>
+              <Button sx={{ bgcolor: "red", color: "white", m: 2 }}>
+                ANNULER
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+
+      </TableBody>
     );
   };
+  function BasicDatePicker() {
+    const [value, setValue] = React.useState(null);
+
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label=""
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
+    );
+  }
 
   const checkEdit = () => {
-    if (edit === true) return <ModeEdit />;
+    if (edit === true) return [<ModeText />, <ModeEdit />]
     else return <ModeText />;
-  };
-
+  }
+  // Constante pour check si le mode edit est actif afficher la colonne action
+  const checkViewAction = () => {
+    if (edit === true) return <TableCell align='center' >Actions </TableCell>
+    else return;
+  }
+  const BtnDelete = () => {
+    if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
+      DELETE
+    </Button>
+    else return;
+  }
 
 
   return (
@@ -127,7 +183,7 @@ export default function TableExperience(props) {
 
 
         <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-          <DeleteIcon />
+          <BorderColorIcon />
         </Button>
       </Box>
       {/* Titre section Formation */}
@@ -163,10 +219,15 @@ export default function TableExperience(props) {
               <TableCell align='center'>Description</TableCell>
               <TableCell align='center'>Start-Year</TableCell>
               <TableCell align='center'>End-Year</TableCell>
+              {checkViewAction()}
+
             </TableRow>
           </TableHead>
+
           {checkEdit()}
+
         </Table>
+
       </TableContainer>
     </Box>
   );

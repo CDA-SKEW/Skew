@@ -47,8 +47,10 @@ export default function TableContact(props) {
   function ModeText() {
     return (
       <TableBody>
+
         {ListUser.map((ListUser, index) => (
           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
             <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
             <TableCell align='center' >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
             <TableCell align='center' >{ListUser.phone}</TableCell>
@@ -122,7 +124,7 @@ export default function TableContact(props) {
     )
 
   };
-  console.log('CONTACT', ListUser);
+
   //     Constante pour check si le mode edit est actif 
   const checkEdit = () => {
     if (edit === true) return [<ModeText />, <ModeEdit />]
