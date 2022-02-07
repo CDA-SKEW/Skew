@@ -9,12 +9,12 @@ import {
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { themeUser } from "configs/theme";
-import FormProfilEmployer from "components/employer/FormProfilEmployer";
+import FormProfilEmployer from "components/employer/profil/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import { ThemeProvider } from "@emotion/react";
-import FormPersonalEmployer from "components/employer/FormPersonalEmployer";
+import FormPersonalEmployer from "components/employer/profil/FormPersonalEmployer";
 
 const EmployerProfil = () => {
   const dispatch = useDispatch();
@@ -68,13 +68,8 @@ const EmployerProfil = () => {
           paddingBottom={4}
           marginTop={4}
         >
-          <Box
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Typography
-              variant="h4"
               variant="h4"
               paddingX={1}
               bgcolor={themeUser.palette.primary.main}
@@ -133,12 +128,14 @@ const EmployerProfil = () => {
             </Button>
           </Typography>
 
-          <FormProfilEmployer
-            dataProfilEmployer={dataProfilEmployer}
-            dataApiSiret={dataApiSiret}
-            profilNotEditabled={profilNotEditabled}
-            buttonProfilVisible={buttonProfilVisible}
-          />
+          {dataProfilEmployer && (
+            <FormProfilEmployer
+              dataProfilEmployer={dataProfilEmployer}
+              dataApiSiret={dataApiSiret}
+              profilNotEditabled={profilNotEditabled}
+              buttonProfilVisible={buttonProfilVisible}
+            />
+          )}
 
           <Typography textAlign={"center"} marginBottom={2} variant="h5">
             Informations du compte
@@ -186,11 +183,13 @@ const EmployerProfil = () => {
               {/* End icone avec popover */}
             </Button>
           </Typography>
-          <FormPersonalEmployer
-            dataProfilEmployer={dataProfilEmployer}
-            profilPersonnalNotEditabled={profilPersonnalNotEditabled}
-            buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
-          />
+          {dataProfilEmployer && (
+            <FormPersonalEmployer
+              dataProfilEmployer={dataProfilEmployer}
+              profilPersonnalNotEditabled={profilPersonnalNotEditabled}
+              buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
+            />
+          )}
         </Box>
       </Container>
     </ThemeProvider>
