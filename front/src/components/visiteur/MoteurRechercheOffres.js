@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import { TextField } from '@material-ui/core';
 
 export default function MoteurRechercheOffres() {
     return (
@@ -20,7 +21,7 @@ export default function MoteurRechercheOffres() {
                 border: 3,
                 mb: 10,
                 mx: "auto",
-                borderRadius: '35px'
+                borderRadius: '25px'
             }}
         >
             <Autocomplete
@@ -31,11 +32,8 @@ export default function MoteurRechercheOffres() {
                     width: 250,
                 }}
                 renderInput={(params) => (
-                    <InputBase
+                    <TextField
                         {...params}
-                        sx={{
-                            pl: 1
-                        }}
                         placeholder="Job"
                     />
                 )}
@@ -55,7 +53,7 @@ export default function MoteurRechercheOffres() {
                     width: 250,
                 }}
                 renderInput={(params) => (
-                    <InputBase
+                    <TextField
                         {...params}
                         placeholder="Type"
                     />
@@ -76,7 +74,7 @@ export default function MoteurRechercheOffres() {
                     width: 250,
                 }}
                 renderInput={(params) => (
-                    <InputBase
+                    <TextField
                         {...params}
                         placeholder="Localisation"
                     />
@@ -92,8 +90,7 @@ export default function MoteurRechercheOffres() {
             <IconButton
                 type="submit"
                 sx={{
-                    // bgcolor: '#ABC4FF',
-                    borderRadius: "0 35px 35px 0",
+                    borderRadius: "0 25px 25px 0",
                     height: '100%',
                     width: 75,
                 }}
