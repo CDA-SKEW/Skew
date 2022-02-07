@@ -67,6 +67,7 @@ export default function TableExperience(props) {
   }
   function ModeEdit() {
     return (
+
       <TableBody>
         {ListExp.map((exp) => (
           <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>

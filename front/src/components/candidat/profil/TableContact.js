@@ -196,7 +196,7 @@ export default function TableContact(props) {
 
         </Table>
 
-        {/* <SimpleAccordion /> */}
+
       </TableContainer>
     </Box>
   );

@@ -43,7 +43,7 @@ export const getProfilCandidate = () => {
                     start: '30/08/2016', end: '30/02/2018'
                 }
             ],
-            skill: ['HTML', 'CSS', 'VUEJS', 'REACTJS', 'FAIRE LE CAFE'],
+            skill: ['HTML', 'CSS', 'VUEJS', 'REACTJS', 'FAIRE LE CAFE', 'DU BON', 'TEST'],
             interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
             certificate: [
                 { id: 1, school: 'Arinfo', title: 'Dev Web', year: 2020, validate: 0 },
