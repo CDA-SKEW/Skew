@@ -7,8 +7,8 @@ import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
 import { getAuth } from "store/actions/AuthActions";
 import { useNavigate } from "react-router";
-import { getListUsers } from "store/actions/AdminActions";
-import { useDispatch, useSelector } from "react-redux";
+// import { getListUsers } from "store/actions/AdminActions";
+import { useDispatch } from "react-redux";
 
 export default function Connexion() {
 
@@ -43,15 +43,19 @@ export default function Connexion() {
             await dispatch(getAuth({ mail, pass }))
 
             if (mail === 'candidat') {
-                navigate('/candidat/dashboard')
+                if (pass === 'candidat') {
+                    navigate('/candidat/dashboard')
+                }
             }
-
             if (mail === 'recruteur') {
-                navigate('/employer/dashboard')
+                if (pass === 'recruteur') {
+                    navigate('/employer/dashboard')
+                }
             }
-            
             if (mail === 'admin') {
-                navigate('/admin')
+                if (pass === 'admin') {
+                    navigate('/admin')
+                }
             };
         };
     }
