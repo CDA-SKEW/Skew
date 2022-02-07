@@ -1,23 +1,27 @@
+import { Dialog } from "@material-ui/core";
 import { Modal, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 
 export default function ModalOfferPublished(props) {
-  const { open } = props;
+  const { open, messageEmployer } = props;
 
   console.log("je suis dans le modal", open);
 
-  const [close, setClose] = useState(open);
 
-  useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer");
-    setClose(open);
-    setTimeout(function () {
-      setClose(false);
-    }, 2000);
-  }, []);
 
-  console.log("usesate", close);
+  // const [close, setClose] = useState(open);
+
+  // useEffect(() => {
+  //   // console.log("effect getDataProfilEmployerEmployer");
+  //   setClose(open);
+  // }, [messageEmployer]);
+
+  // setTimeout(function () {
+  //   setClose(false);
+  // }, 2000);
+
+  // console.log("usesate", close);
 
   const style = {
     position: "absolute",
@@ -33,9 +37,10 @@ export default function ModalOfferPublished(props) {
   };
 
   return (
-    <Modal
+    <Dialog
+      modalTransition={{ timeout: 2000 }}
       hideBackdrop
-      open={close}
+      open={open}
       // onClose={handleClose}
       aria-labelledby="child-modal-title"
       aria-describedby="child-modal-description"
@@ -52,6 +57,6 @@ export default function ModalOfferPublished(props) {
       >
         <Typography variant="h5">Votre offre a bien été publiée !</Typography>
       </Box>
-    </Modal>
+    </Dialog>
   );
 }
