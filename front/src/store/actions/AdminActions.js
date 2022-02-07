@@ -152,7 +152,7 @@ export const getListUsers = () => {
 // PUT User
 export const putUser = (id) => {
   return (dispatch) => {
-    // console.log("put action", id);
+    console.log("put user action", id);
     // console.log("const putUser");
     dispatch({ type: PUT_USER, payload: listUsers });
   };
@@ -161,7 +161,7 @@ export const putUser = (id) => {
 // DELETE User
 export const deleteUser = (id) => {
   return (dispatch) => {
-    // console.log("delete action", id);
+    console.log("delete user action", id);
     // console.log("const deleteUser");
     dispatch({ type: DELETE_USER, payload: listUsers });
   };
@@ -265,8 +265,7 @@ export const getListJobs = () => {
 // DELETE Job
 export const deleteJob = (id) => {
   return (dispatch) => {
-    // console.log("delete action", id);
-    // console.log("const deleteJob");
+    console.log("delete job action", id);
     // console.log("DELETE JOB (store)", id);
     dispatch({ type: DELETE_JOB, payload: listJobs });
   };
@@ -431,7 +430,7 @@ export const getListMessages = () => {
 // ADD Message (POST)
 export const addMessage = (id) => {
   return (dispatch) => {
-    // console.log("reply message action", id);
+    console.log("reply message action", id);
     // console.log("const replyMessage");
     dispatch({ type: ADD_MESSAGE, payload: listMessages });
   };
