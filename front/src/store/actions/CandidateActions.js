@@ -34,8 +34,14 @@ export const getProfilCandidate = () => {
                 }
             ],
             exp: [
-                { id: 1, company: 'comp', post: 'dev', start: '30/02/2018', end: '30/02/2019' },
-                { id: 2, company: 'EDF', post: 'dev-front', start: '30/08/2016', end: '30/02/2018' }
+                {
+                    id: 1, company: 'comp', post: 'dev', desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+                    start: '30/02/2018', end: '30/02/2019'
+                },
+                {
+                    id: 2, company: 'EDF', post: 'dev-front', desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+                    start: '30/08/2016', end: '30/02/2018'
+                }
             ],
             skill: ['HTML', 'CSS', 'VUEJS', 'REACTJS', 'FAIRE LE CAFE'],
             interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],

@@ -50,10 +50,11 @@ export default function TableExperience(props) {
           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
             <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-            <TableCell>{exp.company}</TableCell>
-            <TableCell>{exp.post}</TableCell>
-            <TableCell>{exp.start}</TableCell>
-            <TableCell>{exp.end}</TableCell>
+            <TableCell align='center'>{exp.company}</TableCell>
+            <TableCell align='center'>{exp.post}</TableCell>
+            <TableCell align='center' sx={{ minWidth: { xs: '500px', sm: '500px' } }}>{exp.desc}</TableCell>
+            <TableCell align='center'>{exp.start}</TableCell>
+            <TableCell align='center'>{exp.end}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -99,11 +100,14 @@ export default function TableExperience(props) {
         </Button>
       </Stack>
     );
-  }
+  };
+
   const checkEdit = () => {
     if (edit === true) return <ModeEdit />;
     else return <ModeText />;
   };
+
+
 
   return (
     <Box
@@ -150,14 +154,15 @@ export default function TableExperience(props) {
         </Typography>
       </Box>
 
-      <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
-        <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
+      <TableContainer sx={{ px: "50px" }} component={Paper}>
+        <Table sx={{ width: "100%" }}>
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell>Company</TableCell>
-              <TableCell >Job</TableCell>
-              <TableCell>Start-Year</TableCell>
-              <TableCell>End-Year</TableCell>
+              <TableCell align='center'>Company</TableCell>
+              <TableCell align='center' >Job</TableCell>
+              <TableCell align='center'>Description</TableCell>
+              <TableCell align='center'>Start-Year</TableCell>
+              <TableCell align='center'>End-Year</TableCell>
             </TableRow>
           </TableHead>
           {checkEdit()}

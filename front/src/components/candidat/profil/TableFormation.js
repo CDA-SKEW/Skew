@@ -55,10 +55,10 @@ export default function TableFormation(props) {
                     <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
                         <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                        <TableCell>{certificate.school}</TableCell>
-                        <TableCell>{certificate.title}</TableCell>
-                        <TableCell>{certificate.year}</TableCell>
-                        <TableCell>{certificate.validate}</TableCell>
+                        <TableCell align='center'>{certificate.school}</TableCell>
+                        <TableCell align='center'>{certificate.title}</TableCell>
+                        <TableCell align='center'>{certificate.year}</TableCell>
+                        <TableCell align='center'>{certificate.validate}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
@@ -155,14 +155,14 @@ export default function TableFormation(props) {
                 </Typography>
             </Box>
 
-            <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
-                <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
+            <TableContainer sx={{ px: "50px" }} component={Paper}>
+                <Table sx={{ width: "100%" }} >
                     <TableHead sx={{ bgcolor: "#FF7F50" }}>
                         <TableRow>
-                            <TableCell>Centre/Ecole</TableCell>
-                            <TableCell >Intitulé</TableCell>
-                            <TableCell>Année</TableCell>
-                            <TableCell>Obtention</TableCell>
+                            <TableCell align='center'>Centre/Ecole</TableCell>
+                            <TableCell align='center'>Intitulé</TableCell>
+                            <TableCell align='center'>Année</TableCell>
+                            <TableCell align='center'>Obtention</TableCell>
                         </TableRow>
                     </TableHead>
                     {checkEdit()}
