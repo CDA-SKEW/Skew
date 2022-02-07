@@ -6,7 +6,7 @@ import Slide from '@mui/material/Slide';
 export default function ModalOfferPublished(props) {
   const { open, messageEmployer } = props;
 
-  // console.log("je suis dans le modal", open, messageEmployer);
+  //  console.log("je suis dans le modal", open, messageEmployer);
 
   const [alertOpen, setAlertOpen] = useState(open);
 
@@ -29,7 +29,7 @@ export default function ModalOfferPublished(props) {
           borderRadius: "10px",
         }}
       >
-          <Typography variant="span">{messageEmployer}</Typography>
+        <Typography variant="span">{messageEmployer}</Typography>
       </Alert>
     </Snackbar>
   );

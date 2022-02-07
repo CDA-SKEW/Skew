@@ -1,14 +1,10 @@
-import {
-  Box,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { themeUser } from "configs/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
-import OfferDataFactory from "components/employer/OfferDataFactory";
-import OfferForm from "components/employer/OfferForm";
+import OfferDataFactory from "components/employer/addOffer/OfferDataFactory";
+import OfferForm from "components/employer/addOffer/OfferForm";
 
 const EmployerAddOffer = () => {
   const dispatch = useDispatch();
@@ -70,7 +66,9 @@ const EmployerAddOffer = () => {
         </Typography>
 
         {/* component data entreprise */}
-        <OfferDataFactory dataProfilEmployer={dataProfilEmployer} />
+        {dataProfilEmployer && (
+          <OfferDataFactory dataProfilEmployer={dataProfilEmployer} />
+        )}
       </Box>
 
       {/* partie sur l'offre */}
@@ -85,7 +83,7 @@ const EmployerAddOffer = () => {
         </Typography>
 
         {/* component formulaire offre */}
-        <OfferForm />
+        {dataProfilEmployer && <OfferForm />}
       </Box>
     </Container>
   );

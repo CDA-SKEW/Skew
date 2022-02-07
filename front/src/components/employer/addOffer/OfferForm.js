@@ -194,7 +194,8 @@ export default function OfferForm() {
         </Grid>
       </Grid>
 
-      <ModalOfferPublished messageEmployer={messageEmployer} open={openModal} />
+      {openModal && (
+      <ModalOfferPublished messageEmployer={messageEmployer} open={openModal} />)}
     </Box>
   );
 }
