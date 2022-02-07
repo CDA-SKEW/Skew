@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
-import { Button, Grid, MenuItem, Modal, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { postFormAddOffer } from "store/actions/EmployerActions";
 import ModalOfferPublished from "./ModalOfferPublished";
 
-
 export default function OfferForm() {
   const dispatch = useDispatch();
 
-  const messageEmployer = useSelector((state) => state.employer.flashs
-  );
+  const messageEmployer = useSelector((state) => state.employer.flashs);
 
-  console.log("messageEmployer ", messageEmployer);
+  // console.log("messageEmployer ", messageEmployer);
 
   // declaration du tableau pour le select
   const types = [
@@ -35,9 +38,8 @@ export default function OfferForm() {
     },
   ];
 
-    // declaration des constantes pour le modal
-    const [openModal, setOpenModal] = useState(false);
-
+  // declaration des constantes pour le modal
+  const [openModal, setOpenModal] = useState(false);
 
   // declaration des constantes pour le formulaire
   const [title, setTitle] = useState("");
@@ -65,16 +67,20 @@ export default function OfferForm() {
       profile,
     };
 
-    console.log("dataFormAddOffer", dataFormAddOffer);
+    //passage de la varaible openModal à false apres 2 secondes
+    setOpenModal(true)
+    setTimeout(function () {
+      setOpenModal(false);
+    }, 2000);
+
+    // console.log("dataFormAddOffer", dataFormAddOffer);
     await dispatch(postFormAddOffer(dataFormAddOffer));
 
-    setOpenModal(true)
-    // setTitle("");
-    // setType("");
-    // setPeriod("");
-    // setDescription("");
-    // setProfile("");
-
+    setTitle("");
+    setType("");
+    setPeriod("");
+    setDescription("");
+    setProfile("");
   };
 
   return (
@@ -188,9 +194,7 @@ export default function OfferForm() {
         </Grid>
       </Grid>
 
-
-<ModalOfferPublished messageEmployer={messageEmployer} open={openModal}/>
-
+      <ModalOfferPublished messageEmployer={messageEmployer} open={openModal} />
     </Box>
   );
 }

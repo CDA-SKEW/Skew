@@ -1,62 +1,36 @@
-import { Dialog } from "@material-ui/core";
-import { Modal, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+
+import { Alert, Snackbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import Slide from '@mui/material/Slide';
 
 export default function ModalOfferPublished(props) {
   const { open, messageEmployer } = props;
 
-  console.log("je suis dans le modal", open);
+  // console.log("je suis dans le modal", open, messageEmployer);
 
+  const [alertOpen, setAlertOpen] = useState(open);
 
-
-  // const [close, setClose] = useState(open);
-
-  // useEffect(() => {
-  //   // console.log("effect getDataProfilEmployerEmployer");
-  //   setClose(open);
-  // }, [messageEmployer]);
-
-  // setTimeout(function () {
-  //   setClose(false);
-  // }, 2000);
-
-  // console.log("usesate", close);
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    bgcolor: "#ABC4FF",
-    borderRadius: "10px",
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
-  };
+  useEffect(() => {
+    // console.log("effect getDataProfilEmployerEmployer");
+    setAlertOpen(open);
+  }, [open]);
 
   return (
-    <Dialog
-      modalTransition={{ timeout: 2000 }}
-      hideBackdrop
-      open={open}
-      // onClose={handleClose}
-      aria-labelledby="child-modal-title"
-      aria-describedby="child-modal-description"
+    <Snackbar
+      open={alertOpen}
+      autoHideDuration={2000}
+      anchorOrigin={{ horizontal: "center", vertical: "top" }}
+      TransitionComponent={Slide}
     >
-      <Box
+      <Alert
+        severity="success"
         sx={{
-          ...style,
-          width: 400,
-          height: 200,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          bgcolor: "#ABC4FF",
+          borderRadius: "10px",
         }}
       >
-        <Typography variant="h5">Votre offre a bien été publiée !</Typography>
-      </Box>
-    </Dialog>
+          <Typography variant="span">{messageEmployer}</Typography>
+      </Alert>
+    </Snackbar>
   );
 }
