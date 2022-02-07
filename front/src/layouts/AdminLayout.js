@@ -47,7 +47,6 @@ function ResponsiveDrawer({ children }) {
     <Box>
       <Toolbar />
       <Divider />
-
       <List>
         {ItemNav.map((item, index) => {
           return (
@@ -56,21 +55,22 @@ function ResponsiveDrawer({ children }) {
               key={item.name}
               onClick={(e) => navigate(item.path)}
             >
-              <ListItemIcon sx={{ color: "#fff" }}>{item.icon}</ListItemIcon>
+              <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItem>
           );
         })}
       </List>
       <Divider />
+      {/* Deconnexion button  */}
       <Button
         onClick={() => navigate("/")}
         sx={{
           width: 120,
           background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
           display: "flex",
-          alignItems: "center",
           mb: "100px",
+          alignItems: "flex-start",
         }}
         endIcon={<ExitToAppIcon />}
       >

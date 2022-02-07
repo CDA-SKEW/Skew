@@ -1,12 +1,13 @@
 import { createTheme } from "@mui/material/styles";
-import { orange } from "@mui/material/colors";
-import { Link as RouterLink } from 'react-router-dom';
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Link as RouterLink } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
 
 const LinkBehavior = React.forwardRef((props, ref) => {
   const { href, ...other } = props;
-  return <RouterLink data-testid="custom-link" ref={ref} to={href} {...other} />;
+  return (
+    <RouterLink data-testid="custom-link" ref={ref} to={href} {...other} />
+  );
 });
 
 LinkBehavior.propTypes = {
@@ -82,7 +83,7 @@ let theme = createTheme({
 const themeAdmin = createTheme({
   palette: {
     divider: "rgba(255,255,255,0.12)",
-    type: "dark",
+    mode: "dark",
     primary: {
       main: "#33c863",
     },
@@ -115,14 +116,6 @@ const themeAdmin = createTheme({
     },
     MuiAppBar: {
       color: "transparent",
-    },
-  },
-  overrides: {
-    MuiAppBar: {
-      colorInherit: {
-        backgroundColor: "#689f38",
-        color: "#fff",
-      },
     },
   },
 });

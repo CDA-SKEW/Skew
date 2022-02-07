@@ -43,9 +43,9 @@ export function AdminReducer(state = initialState, action) {
     case Actions.DELETE_MESSAGE:
       console.log("DELETE_MESSAGE", action.payload);
       return { ...state, listMessages: action.payload };
-      case Actions.ADD_MESSAGE:
-        console.log("ADD_MESSAGE", action.payload);
-        return { ...state, listMessages: action.payload };
+    case Actions.ADD_MESSAGE:
+      console.log("ADD_MESSAGE", action.payload);
+      return { ...state, listMessages: action.payload };
   }
 }
 
