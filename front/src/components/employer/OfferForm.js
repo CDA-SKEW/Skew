@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import { Button, Grid, MenuItem, Modal, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postFormAddOffer } from "store/actions/EmployerActions";
 import ModalOfferPublished from "./ModalOfferPublished";
-
-
 
 
 export default function OfferForm() {
   const dispatch = useDispatch();
 
+  const messageEmployer = useSelector((state) => state.employer.flashs
+  );
+
+  console.log("messageEmployer ", messageEmployer);
 
   // declaration du tableau pour le select
   const types = [
@@ -186,7 +188,8 @@ export default function OfferForm() {
         </Grid>
       </Grid>
 
-<ModalOfferPublished open={openModal}/>
+
+<ModalOfferPublished messageEmployer={messageEmployer} open={openModal}/>
 
     </Box>
   );
