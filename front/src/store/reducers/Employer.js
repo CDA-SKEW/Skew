@@ -8,7 +8,9 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
   dataProfilEmployer: {},
+  dataOffer: {},
   dataSiretApi: {},
+  flashs: {},
 };
 
 /*
@@ -45,6 +47,14 @@ export function EmployerReducer(state = initialState, action) {
         // flash: action.payload.flash,
         ...state,
         dataProfilEmployer: action.payload,
+      };
+    case Actions.POST_OFFER:
+      // console.log("POST_OFFER", action.payload);
+      return {
+        // flash: action.payload.flash,
+        ...state,
+        dataOffer: action.payload.data,
+        flashs: action.payload.message,
       };
   }
 }
