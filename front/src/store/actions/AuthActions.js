@@ -3,7 +3,10 @@
  * *************** */
 // import axios from "axios";
 
-import { GET_AUTH, POST_AUTH } from "./ActionTypes";
+import {
+    GET_AUTH,
+    // POST_AUTH,
+} from "./ActionTypes";
 
 /*
  * Import types { ... }
@@ -24,7 +27,7 @@ export const getAuth = () => {
     //       })
     //       .catch((err) => console.log(err));
     //   };
-    
+
     const authData = [
         {
             id: 1,
@@ -53,12 +56,12 @@ export const getAuth = () => {
 
 // POST AUTH
 export const postAuth = () => {
-    // return (dispatch) => {
-    //     return axios
-    //         .post("adresse API")
-    //         .then((res) => {
-    //             dispatch({ type: POST_AUTH, payload: res.data });
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
+    return (dispatch) => {
+        //     return axios
+        //         .post("adresse API")
+        //         .then((res) => {
+        // dispatch({ type: POST_AUTH, payload: res.data });
+        //         })
+        //         .catch((err) => console.log(err));
+    };
 };

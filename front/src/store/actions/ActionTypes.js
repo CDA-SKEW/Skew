@@ -26,6 +26,9 @@ export const GET_LIST_MESSAGES = "GET_LIST_MESSAGES";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 
-//Auth
+// Auth
 export const GET_AUTH = 'GET_AUTH';
 export const POST_AUTH = 'POST_AUTH';
+
+// Offres visiteur
+export const GET_OFFRES_VISITEUR = 'GET_OFFRES_VISITEUR';

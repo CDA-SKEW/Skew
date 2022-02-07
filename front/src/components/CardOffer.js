@@ -23,6 +23,7 @@ export default function CardOffer(props) {
         borderRadius: 1,
         mb: 1,
         mx: 1,
+        bgcolor: '#fff'
       }}
     >
       <CardActionArea>
@@ -60,6 +61,34 @@ export default function CardOffer(props) {
           >
             {listOffer.titleOffer}
           </Typography>
+          {listOffer.typeContrat && (
+            <Typography
+              gutterBottom
+              variant='body1'
+              sx={{
+                position: 'absolute',
+                right: 5,
+                top: 150,
+                color: '#808080',
+              }}
+            >
+              {listOffer.typeContrat}
+            </Typography>
+          )}
+          {listOffer.localisation && (
+            <Typography
+              gutterBottom
+              variant='body1'
+              sx={{
+                position: 'absolute',
+                left: 5,
+                top: 150,
+                color: '#808080',
+              }}
+            >
+              {listOffer.localisation}
+            </Typography>
+          )}
           <Typography
             gutterBottom
             component="div"
