@@ -1,13 +1,12 @@
 import * as React from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { TextField } from '@material-ui/core';
 
-export default function MoteurRechercheOffres() {
+export default function MoteurRechercheOffres({ handleSearch, submitFormSearch }) {
+
     return (
 
         <Paper
@@ -24,19 +23,14 @@ export default function MoteurRechercheOffres() {
                 borderRadius: '25px'
             }}
         >
-            <Autocomplete
+            <TextField
                 multiple
-                options={Job.map((option) => option.job)}
-                freeSolo
+                placeholder="Job"
+                name='job'
+                onChange={(e) => handleSearch(e.target.value)}
                 sx={{
                     width: 250,
                 }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        placeholder="Job"
-                    />
-                )}
             />
             <Divider
                 variant='fullWidth'
@@ -45,19 +39,14 @@ export default function MoteurRechercheOffres() {
                 }}
                 orientation="vertical"
             />
-            <Autocomplete
+            <TextField
                 multiple
-                options={Job.map((option) => option.job)}
-                freeSolo
+                placeholder="Type"
+                name='type'
+                onChange={(e) => handleSearch(e.target.value)}
                 sx={{
                     width: 250,
                 }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        placeholder="Type"
-                    />
-                )}
             />
             <Divider
                 variant='fullWidth'
@@ -66,19 +55,14 @@ export default function MoteurRechercheOffres() {
                 }}
                 orientation="vertical"
             />
-            <Autocomplete
+            <TextField
                 multiple
-                options={Job.map((option) => option.job)}
-                freeSolo
+                placeholder="Localisation"
+                name='location'
+                onChange={(e) => handleSearch(e.target.value)}
                 sx={{
                     width: 250,
                 }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        placeholder="Localisation"
-                    />
-                )}
             />
             <Divider
                 variant='fullWidth'
@@ -95,16 +79,10 @@ export default function MoteurRechercheOffres() {
                     width: 75,
                 }}
                 aria-label="search"
+                onClick={() => submitFormSearch()}
             >
                 <SearchIcon />
             </IconButton>
         </Paper>
     )
 }
-
-
-const Job = [
-    { job: 'Developpeur', lieu: 'Lyon', type: 'CDD' },
-    { job: 'Maçon', lieu: 'Paris', type: 'CDI' },
-    { job: 'Peintre', lieu: 'Marseille', type: 'Interim' },
-];
