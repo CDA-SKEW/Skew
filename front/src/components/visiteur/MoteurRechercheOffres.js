@@ -10,15 +10,15 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
         <Paper
             component="form"
             sx={{
-                display: "flex",
+                display: {xs: 'block', md: "flex"},
                 alignItems: "center",
-                width: '900px',
-                height: 75,
+                width: {xs: 350, md: 600, lg: 900},
+                height: { md: 75},
                 bgcolor: '#fff',
-                border: 3,
                 mb: 10,
                 mx: "auto",
-                borderRadius: '25px'
+                p: 3,
+                boxShadow: '0 0 25px #1e90ff',
             }}
         >
             <TextField
@@ -27,7 +27,8 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                 fullWidth
                 onChange={(e) => handleSearchJob(e.target.value)}
                 sx={{
-                    width: '300px',
+                    width: 300,
+                    height: 100
                 }}
             />
             <Divider
@@ -43,7 +44,7 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                 fullWidth
                 onChange={(e) => handleSearchType(e.target.value)}
                 sx={{
-                    width: '300px',
+                    width: 300,
                 }}
             />
             <Divider
@@ -59,7 +60,7 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                 fullWidth
                 onChange={(e) => handleSearchLocation(e.target.value)}
                 sx={{
-                    width: '300px',
+                    width: 300,
                 }}
             />
         </Paper>
