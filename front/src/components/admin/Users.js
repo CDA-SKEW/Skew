@@ -31,15 +31,15 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 /*------------Export function-------------*/
 
-export default function Users() {
+export default function Users(props) {
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon="mdi:account-supervisor" width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">100</Typography>
+      <Typography variant="h3"> 100</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        utilisateurs
+        Utilisateurs
       </Typography>
     </RootStyle>
   );
