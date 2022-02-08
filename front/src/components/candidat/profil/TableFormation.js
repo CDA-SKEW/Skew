@@ -9,6 +9,14 @@ import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from '@mui/icons-material/Delete';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 
@@ -47,6 +55,76 @@ export default function TableFormation(props) {
     }, [dataProfilCandidate]);
 
 
+    //Constante de Condition
+
+    const checkEdit = () => {
+        if (edit === true) return [<ModeText />, <ModeEdit />]
+        else return <ModeText />;
+    }
+
+    // Constante pour check si le mode edit est actif afficher la colonne action
+    const checkViewAction = () => {
+        if (edit === true) return <TableCell align='center' >Actions </TableCell>
+        else return;
+    }
+    const BtnDelete = () => {
+        if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
+            DELETE
+        </Button>
+        else return;
+    }
+
+    // Function  Component MUI Select and DatePicker "Year Only"//
+
+    // Date Picker Year Only//
+    function ViewsDatePicker() {
+        const [value, setValue] = React.useState(new Date());
+
+        return (
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Stack spacing={3}>
+                    <DatePicker
+
+                        views={['year']}
+                        label="Year only"
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} helperText={null} />}
+                    />
+                </Stack>
+            </LocalizationProvider>
+        );
+    }
+
+    // Select Yes/No //
+    function BasicSelect() {
+        const [age, setAge] = React.useState('');
+
+        const handleChange = (event) => {
+            setAge(event.target.value);
+        };
+
+        return (
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="simple-select">Obtain</InputLabel>
+                    <Select
+                        labelId="Obtain"
+                        id="simple-select"
+                        onChange={handleChange}
+                        size="small"
+                    >
+                        <MenuItem value={"Yes"}>Yes</MenuItem>
+                        <MenuItem value={"No"}>No</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
+        );
+    }
+
+    // Function Text and Edit Mode //
     function ModeText() {
         return (
             <TableBody>
@@ -57,8 +135,9 @@ export default function TableFormation(props) {
                         <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
                         <TableCell align='center'>{certificate.school}</TableCell>
                         <TableCell align='center'>{certificate.title}</TableCell>
-                        <TableCell align='center'>{certificate.year}</TableCell>
+                        <TableCell align='center' minWidth='100px'>{certificate.year}</TableCell>
                         <TableCell align='center'>{certificate.validate}</TableCell>
+                        {BtnDelete()}
                     </TableRow>
                 ))}
             </TableBody>
@@ -67,48 +146,54 @@ export default function TableFormation(props) {
     }
     function ModeEdit() {
         return (
-            <Stack direction="row" spacing={2} marginTop={2}>
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="address"
-                    defaultValue={school}
-                />
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="zipCode"
-                    defaultValue={title}
-                />
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="Town"
-                    defaultValue={year}
-                />
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="phone"
-                    defaultValue={validate}
-                />
-                <Button >
-                    VALID
-                </Button>
-                <Button >
-                    ANNULER
-                </Button>
-            </Stack>
+            <TableBody>
+                {ListCertificate.map((certificate, index) => (
+                    <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align='center' >
+                            <TextField
+                                sx={{ minWidth: 100 }}
+                                required
+                                size="small"
+                                id="outlined-required"
+                                label="School"
+                                defaultValue={certificate.school}
+                            />
+                        </TableCell>
+                        <TableCell align='center' >
+                            <TextField
+                                sx={{ minWidth: 100 }}
+                                required
+                                size="small"
+                                id="outlined-required"
+                                label="Title"
+                                defaultValue={certificate.title}
+                            />
+                        </TableCell>
+
+                        <TableCell align='center' >
+                            <ViewsDatePicker />
+                        </TableCell>
+
+                        <TableCell align='center' >
+                            <BasicSelect />
+                        </TableCell>
+
+
+                        <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
+                                VALID
+                            </Button>
+                            <Button sx={{ bgcolor: "red", color: "white", m: 2 }}>
+                                ANNULER
+                            </Button>
+                        </TableCell>
+
+                    </TableRow>
+                ))}
+            </TableBody>
         );
     }
-    const checkEdit = () => {
-        if (edit === true) return <ModeEdit />;
-        else return <ModeText />;
-    };
+
 
     return (
         <Box
@@ -128,7 +213,7 @@ export default function TableFormation(props) {
 
 
                 <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-                    <DeleteIcon />
+                    <BorderColorIcon />
                 </Button>
             </Box>
             {/* Titre section Formation */}
@@ -163,6 +248,7 @@ export default function TableFormation(props) {
                             <TableCell align='center'>Intitulé</TableCell>
                             <TableCell align='center'>Année</TableCell>
                             <TableCell align='center'>Obtention</TableCell>
+                            {checkViewAction()}
                         </TableRow>
                     </TableHead>
                     {checkEdit()}

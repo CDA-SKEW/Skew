@@ -12,6 +12,7 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+// import DateRangePicker from '@mui/lab/DateRangePicker';
 import Grid from '@mui/material/Grid';
 
 
@@ -44,6 +45,45 @@ export default function TableExperience(props) {
     setUseState();
   }, [dataProfilCandidate]);
 
+  // Constante de Condition
+
+  const checkEdit = () => {
+    if (edit === true) return [<ModeText />, <ModeEdit />]
+    else return <ModeText />;
+  }
+  // Constante pour check si le mode edit est actif afficher la colonne action
+  const checkViewAction = () => {
+    if (edit === true) return <TableCell align='center' >Actions </TableCell>
+    else return;
+  }
+  const BtnDelete = () => {
+    if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
+      DELETE
+    </Button>
+    else return;
+  }
+
+
+
+  function BasicDatePicker() {
+    const [value, setValue] = React.useState(null);
+
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label=""
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
+    );
+  }
+
+
+
 
   function ModeText() {
     return (
@@ -74,6 +114,7 @@ export default function TableExperience(props) {
             <TableCell align='center' >
               <TextField
                 fullWidth
+
                 required
                 size="small"
                 id="outlined-required"
@@ -111,11 +152,13 @@ export default function TableExperience(props) {
               />
             </TableCell>
             <TableCell align='center' >
+              <Typography>Start</Typography>
               <BasicDatePicker />
-              <BasicDatePicker />
+
             </TableCell>
             <TableCell align='center' >
-              {/* <BasicDatePicker /> */}
+              <Typography>End</Typography>
+              <BasicDatePicker />
             </TableCell>
 
             <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -132,38 +175,6 @@ export default function TableExperience(props) {
       </TableBody>
     );
   };
-  function BasicDatePicker() {
-    const [value, setValue] = React.useState(null);
-
-    return (
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          label=""
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </LocalizationProvider>
-    );
-  }
-
-  const checkEdit = () => {
-    if (edit === true) return [<ModeText />, <ModeEdit />]
-    else return <ModeText />;
-  }
-  // Constante pour check si le mode edit est actif afficher la colonne action
-  const checkViewAction = () => {
-    if (edit === true) return <TableCell align='center' >Actions </TableCell>
-    else return;
-  }
-  const BtnDelete = () => {
-    if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
-      DELETE
-    </Button>
-    else return;
-  }
 
 
   return (
