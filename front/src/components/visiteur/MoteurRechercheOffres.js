@@ -1,8 +1,6 @@
 import * as React from 'react';
-import SearchIcon from '@mui/icons-material/Search';
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import { TextField } from '@material-ui/core';
 
 export default function MoteurRechercheOffres({ handleSearchJob, handleSearchType, handleSearchLocation }) {
@@ -14,7 +12,7 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
             sx={{
                 display: "flex",
                 alignItems: "center",
-                width: 800,
+                width: '900px',
                 height: 75,
                 bgcolor: '#fff',
                 border: 3,
@@ -26,9 +24,10 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
             <TextField
                 placeholder="Job"
                 name='job'
+                fullWidth
                 onChange={(e) => handleSearchJob(e.target.value)}
                 sx={{
-                    width: 250,
+                    width: '300px',
                 }}
             />
             <Divider
@@ -41,9 +40,10 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
             <TextField
                 placeholder="Type"
                 name='type'
+                fullWidth
                 onChange={(e) => handleSearchType(e.target.value)}
                 sx={{
-                    width: 250,
+                    width: '300px',
                 }}
             />
             <Divider
@@ -56,29 +56,12 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
             <TextField
                 placeholder="Localisation"
                 name='location'
+                fullWidth
                 onChange={(e) => handleSearchLocation(e.target.value)}
                 sx={{
-                    width: 250,
+                    width: '300px',
                 }}
             />
-            <Divider
-                variant='fullWidth'
-                sx={{
-                    ml: 0.5
-                }}
-                orientation="vertical"
-            />
-            <IconButton
-                type="submit"
-                sx={{
-                    borderRadius: "0 25px 25px 0",
-                    height: '100%',
-                    width: 75,
-                }}
-                aria-label="search"
-            >
-                <SearchIcon />
-            </IconButton>
         </Paper>
     )
 }

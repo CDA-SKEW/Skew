@@ -4,9 +4,7 @@ import React from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 
-export default function ListAllOffres({ listOffer, job, type, location }) {
-
-    const [page, setPage] = React.useState(1);
+export default function ListAllOffres({ listOffer, job, type, location, page, setPage }) {
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -35,12 +33,7 @@ export default function ListAllOffres({ listOffer, job, type, location }) {
 
     const SplitList = splitArray(filterList, 4)
 
-    const pages = Math.ceil(SplitList.length)
-
-    console.log('filterList', filterList)
-    console.log('splitlist', SplitList)
-    console.log('pages', pages)
-
+    const pages = SplitList.length
 
     return (
         <Box
