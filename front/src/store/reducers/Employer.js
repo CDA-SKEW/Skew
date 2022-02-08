@@ -56,6 +56,12 @@ export function EmployerReducer(state = initialState, action) {
         dataOffer: action.payload.data,
         flashs: action.payload.message,
       };
+      case Actions.POST_MESSAGE_CANDIDATE:
+        // console.log("POST_MESSAGE_CANDIDATE reduceur", action.payload);
+        return {
+          ...state,
+          flashs: action.payload.messagePostCandidate,
+        };
   }
 }
 
