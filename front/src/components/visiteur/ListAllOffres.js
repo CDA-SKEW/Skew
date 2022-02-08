@@ -2,8 +2,7 @@ import { Box } from '@mui/system';
 import CardOffreUnique from 'components/visiteur/CardOffreUnique';
 import React from 'react';
 import Pagination from '@mui/material/Pagination';
-import { List } from '@mui/icons-material';
-import CardOffer from 'components/CardOffer';
+import { Typography } from '@mui/material';
 
 export default function ListAllOffres({ listOffer, job, type, location }) {
 
@@ -36,7 +35,7 @@ export default function ListAllOffres({ listOffer, job, type, location }) {
 
     const SplitList = splitArray(filterList, 4)
 
-    const pages = Math.ceil(((filterList.length) / 4) + 1)
+    const pages = Math.ceil(SplitList.length)
 
     console.log('filterList', filterList)
     console.log('splitlist', SplitList)
@@ -47,27 +46,47 @@ export default function ListAllOffres({ listOffer, job, type, location }) {
         <Box
             maxWidth="xl"
             sx={{
-                flexWrap: 'wrap',
                 m: 'auto',
-                justifyContent: { xs: "center", md: "space-around" },
-                flexDirection: { xs: "column", md: "row" },
-                alignItems: { xs: "center", md: "none" }
             }}
         >
-            <Box
-                sx={{
-                    display: 'flex',
-                    m: 'auto',
-                    justifyContent: { xs: "center", md: "space-around" },
-                    flexDirection: { xs: "column", md: "row" },
-                    alignItems: { xs: "center", md: "none" },
-                }}
-            >
-                {SplitList[(page - 1)].map((listOffer, index) => (
-                    <CardOffreUnique key={index} listOffer={listOffer} />
-                ))}
-            </Box>
-            <Pagination count={pages} page={page} onChange={handleChange} />
+            {SplitList.length > 0 && (
+                <Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            m: 'auto',
+                            justifyContent: { xs: "center", md: "space-around" },
+                            flexDirection: { xs: "column", md: "row" },
+                            alignItems: { xs: "center", md: "none" },
+                        }}
+                    >
+                        {SplitList[(page - 1)].map((listOffer, index) => (
+                            <CardOffreUnique key={index} listOffer={listOffer} />
+                        ))}
+                    </Box>
+                    <Pagination
+                        count={pages}
+                        page={page}
+                        onChange={handleChange}
+                        sx={{
+                            margin: "auto",
+                            maxWidth: '345px'
+                        }}
+                    />
+                </Box>
+            )}
+            {!SplitList.length && (
+                <Typography
+                    variant='body1'
+                    sx={{
+                        textAlign: 'center',
+                        color: '#808080'
+                    }}
+                >
+                    Aucun résultat ne correspond à votre recherche
+                </Typography>
+            )}
         </Box>
     );
 };
