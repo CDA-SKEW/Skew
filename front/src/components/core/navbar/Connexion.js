@@ -7,8 +7,8 @@ import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
 import { getAuth } from "store/actions/AuthActions";
 import { useNavigate } from "react-router";
-import { getListUsers } from "store/actions/AdminActions";
-import { useDispatch, useSelector } from "react-redux";
+// import { getListUsers } from "store/actions/AdminActions";
+import { useDispatch } from "react-redux";
 
 export default function Connexion() {
 
@@ -41,16 +41,24 @@ export default function Connexion() {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
             await dispatch(getAuth({ mail, pass }))
-            // console.log('getAuth')
-            // setMail("");
-            // setPass("");
-            // if (authData.role = 'candidat') {
-            // navigate('/candidat/dashboard')
-            //     console.log('oui')
-        } else {
-            console.log("non")
-        }
-    };
+
+            if (mail === 'candidat') {
+                if (pass === 'candidat') {
+                    navigate('/candidat/dashboard')
+                }
+            }
+            if (mail === 'recruteur') {
+                if (pass === 'recruteur') {
+                    navigate('/employer/dashboard')
+                }
+            }
+            if (mail === 'admin') {
+                if (pass === 'admin') {
+                    navigate('/admin')
+                }
+            };
+        };
+    }
 
     return (
         <Box

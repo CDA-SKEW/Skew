@@ -9,12 +9,12 @@ import {
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { themeUser } from "configs/theme";
-import FormProfilEmployer from "components/employer/FormProfilEmployer";
+import FormProfilEmployer from "components/employer/profil/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import { ThemeProvider } from "@emotion/react";
-import FormPersonalEmployer from "components/employer/FormPersonalEmployer";
+import FormPersonalEmployer from "components/employer/profil/FormPersonalEmployer";
 
 const EmployerProfil = () => {
   const dispatch = useDispatch();
@@ -62,38 +62,28 @@ const EmployerProfil = () => {
         }}
       >
         <Box
-          sx={{
-            bgcolor: themeUser.palette.text.primary,
-            borderRadius: 1,
-            pt: 2,
-            pb: 4,
-            mt: 4,
-          }}
+          bgcolor={themeUser.palette.text.primary}
+          borderRadius={3}
+          paddingTop={2}
+          paddingBottom={4}
+          marginTop={4}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Typography
-              variant="h3"
-              sx={{
-                px: 1,
-                bgcolor: themeUser.palette.primary.main,
-                color: themeUser.palette.text.primary,
-                borderRadius: 1,
-                position: "relative",
-                top: "-45px",
-                textAlign: "center",
-              }}
+              variant="h4"
+              paddingX={1}
+              bgcolor={themeUser.palette.primary.main}
+              color={themeUser.palette.text.primary}
+              borderRadius={1}
+              position={"relative"}
+              top={"-45px"}
+              textAlign={"center"}
             >
               Mon compte
             </Typography>
           </Box>
 
-          <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
+          <Typography textAlign={"center"} marginBottom={2} variant="h5">
             Informations entreprise
             <Button
               onClick={(e) => {
@@ -138,14 +128,16 @@ const EmployerProfil = () => {
             </Button>
           </Typography>
 
-          <FormProfilEmployer
-            dataProfilEmployer={dataProfilEmployer}
-            dataApiSiret={dataApiSiret}
-            profilNotEditabled={profilNotEditabled}
-            buttonProfilVisible={buttonProfilVisible}
-          />
+          {dataProfilEmployer && (
+            <FormProfilEmployer
+              dataProfilEmployer={dataProfilEmployer}
+              dataApiSiret={dataApiSiret}
+              profilNotEditabled={profilNotEditabled}
+              buttonProfilVisible={buttonProfilVisible}
+            />
+          )}
 
-          <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
+          <Typography textAlign={"center"} marginBottom={2} variant="h5">
             Informations du compte
             <Button
               onClick={(e) => {
@@ -184,18 +176,20 @@ const EmployerProfil = () => {
                 }}
                 disableRestoreFocus
               >
-                <Typography sx={{ p: 1 }}>
+                <Typography padding={1}>
                   Editer votre Email et/ou mot de passe
                 </Typography>
               </Popover>
               {/* End icone avec popover */}
             </Button>
           </Typography>
-          <FormPersonalEmployer
-            dataProfilEmployer={dataProfilEmployer}
-            profilPersonnalNotEditabled={profilPersonnalNotEditabled}
-            buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
-          />
+          {dataProfilEmployer && (
+            <FormPersonalEmployer
+              dataProfilEmployer={dataProfilEmployer}
+              profilPersonnalNotEditabled={profilPersonnalNotEditabled}
+              buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
+            />
+          )}
         </Box>
       </Container>
     </ThemeProvider>
