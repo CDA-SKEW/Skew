@@ -3,7 +3,7 @@ import { Alert, Snackbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Slide from '@mui/material/Slide';
 
-export default function ModalOfferPublished(props) {
+export default function SnackbarMessage(props) {
   const { open, messageEmployer } = props;
 
   //  console.log("je suis dans le modal", open, messageEmployer);
