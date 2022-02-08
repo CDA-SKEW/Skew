@@ -14,6 +14,7 @@ export default function OffresView() {
     const [job, setJob] = useState("");
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
+    let n = 0;
 
     const listOffer = [
         { image: Logo1, titleOffer: 'Maçon', nameEmployor: 'Maconnerie', dateOfferDays: '01/01/2021', badgeEmployor: true, typeContrat: 'CDI', localisation: "Rouen" },
