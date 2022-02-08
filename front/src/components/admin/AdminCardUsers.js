@@ -10,15 +10,26 @@ import {
   ListFactories,
   ListUsers,
 } from "components/admin";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 /*------------Export function-------------*/
 
-export default function DashboardApp() {
+export default function DashboardApp(props) {
+
   return (
     <Container maxWidth="xl">
       <Box sx={{ pb: 5 }}>
-        <Typography variant="h4" sx={{ textAlign: "center" }}>
-          Espace Admin | Skew.com
+        <Typography
+          variant="h4"
+          color="primary"
+          sx={{
+            textAlign: "center",
+            mb: "50px",
+            background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+            borderRadius: 2,
+          }}
+        >
+          <DashboardIcon /> Espace Admin | Skew.com
         </Typography>
       </Box>
       <Grid

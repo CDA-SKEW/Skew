@@ -23,7 +23,6 @@ export default function DeletableChips(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   // Modal Style
   const style = {
     position: "absolute",
@@ -38,7 +37,7 @@ export default function DeletableChips(props) {
     borderRadius: 12,
   };
 
-  // Boolean action operators
+  // Boolean actions operators
   const {
     columnsBan,
     columnsDeleteUser,
@@ -51,7 +50,8 @@ export default function DeletableChips(props) {
   // Transmettre les données du STORE avec dispatch (crud)
   const dispatch = useDispatch();
 
-  /*--------------Components------------*/
+  /*--------------Components Chips------------*/
+
   return (
     <Stack direction="row" spacing={1}>
       {columnsBan && (
@@ -83,7 +83,7 @@ export default function DeletableChips(props) {
       )}
       {columnsAddMessage && (
         <>
-          {/* Modal open via Chip */}
+          {/* MODAL open via Chip */}
           <Chip
             label="reply"
             color="success"
@@ -108,7 +108,7 @@ export default function DeletableChips(props) {
                   required
                   id="outlined-required"
                   label="To"
-                  defaultValue="Nom complet"
+                  defaultValue={id.row.fullName}
                 />
                 <TextField
                   fullWidth
@@ -116,7 +116,7 @@ export default function DeletableChips(props) {
                   required
                   id="outlined-required"
                   label="subject"
-                  defaultValue="Object"
+                  defaultValue={id.row.subject}
                 />
                 <TextField
                   fullWidth
@@ -126,7 +126,7 @@ export default function DeletableChips(props) {
                   label="Message"
                   multiline
                   rows={4}
-                  defaultValue="Ton message"
+                  defaultValue=""
                 />
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>

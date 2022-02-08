@@ -8,6 +8,8 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
 import Badges from "components/admin/tables/Badges";
+import WorkIcon from "@mui/icons-material/Work";
+
 /*------------Export function + table header-------------*/
 
 export default function JobsTable(props) {
@@ -69,7 +71,6 @@ export default function JobsTable(props) {
       field: "action",
       headerName: "Actions",
       renderCell: (id) => {
-        // columnsBan => pour ne pas afficher l'action bannir
         return <Actions columnsDeleteJob={true} key={id} id={id} />;
       },
       width: 200,
@@ -81,8 +82,17 @@ export default function JobsTable(props) {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ textAlign: "center", mb: "50px" }}>
-        Admin gestion des offres d'emploi | Skew.com
+      <Typography
+        variant="h4"
+        color="primary"
+        sx={{
+          textAlign: "center",
+          mb: "50px",
+          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+          borderRadius: 2,
+        }}
+      >
+        <WorkIcon /> Admin gestion des offres d'emploi | Skew.com
       </Typography>
 
       <DataGrid

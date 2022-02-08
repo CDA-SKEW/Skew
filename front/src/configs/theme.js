@@ -98,7 +98,7 @@ const themeAdmin = createTheme({
       primary: "#ffffff",
     },
     success: {
-      main: "#c7f1d1",
+      main: "#A1AF4C",
     },
     info: {
       main: "#2196f3",
@@ -108,6 +108,16 @@ const themeAdmin = createTheme({
     },
     error: {
       main: "#f44336",
+    },
+  },
+  typography: {
+    fontWeightLight: 400,
+    fontSize: 13,
+    "@media (min-width:600px)": {
+      fontSize: "1.5rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "2.4rem",
     },
   },
   props: {

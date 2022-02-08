@@ -69,8 +69,11 @@ function ResponsiveDrawer({ children }) {
           width: 120,
           background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
           display: "flex",
-          mb: "100px",
+          flexDirection: "row",
           alignItems: "flex-start",
+          mt: 50,
+          position: "absolute",
+          left: 55,
         }}
         endIcon={<ExitToAppIcon />}
       >
