@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Stack, TextField } from '@mui/material';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 
 
@@ -27,7 +28,7 @@ export default function ResponsiveGrid(props) {
 
     function ModeText(props) {
         return (
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 8 }}>
                 {ListInterest.map((interest, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
                         <Typography>{interest}</Typography>
@@ -52,12 +53,21 @@ export default function ResponsiveGrid(props) {
                         defaultValue={interest}
                     />
                 ))}
-                <Button >
-                    VALID
-                </Button>
-                <Button >
-                    ANNULER
-                </Button>
+                <TextField
+
+                    size="small"
+                    required
+                    id="outlined-required"
+                    label="Add Interest"
+                />
+                <Box>
+                    <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
+                        VALID
+                    </Button >
+                    <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
+                        ANNULER
+                    </Button>
+                </Box>
             </Stack>
 
 
@@ -102,12 +112,22 @@ export default function ResponsiveGrid(props) {
                     Interet
                 </Typography>
             </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "right",
+                    alignItems: "center",
+                }}>
+
+
+                <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+                    <BorderColorIcon />
+                </Button>
+            </Box>
             <Box sx={{ flexGrow: 1, textAlign: "center" }}>
                 {checkEdit()}
             </Box>
-            <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-                Edit
-            </Button>
+
         </Box>
     );
 }

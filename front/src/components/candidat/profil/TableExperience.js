@@ -8,8 +8,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+// import DateRangePicker from '@mui/lab/DateRangePicker';
+import Grid from '@mui/material/Grid';
 
 
 export default function TableExperience(props) {
@@ -41,6 +45,45 @@ export default function TableExperience(props) {
     setUseState();
   }, [dataProfilCandidate]);
 
+  // Constante de Condition
+
+  const checkEdit = () => {
+    if (edit === true) return [<ModeText />, <ModeEdit />]
+    else return <ModeText />;
+  }
+  // Constante pour check si le mode edit est actif afficher la colonne action
+  const checkViewAction = () => {
+    if (edit === true) return <TableCell align='center' >Actions </TableCell>
+    else return;
+  }
+  const BtnDelete = () => {
+    if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
+      DELETE
+    </Button>
+    else return;
+  }
+
+
+
+  function BasicDatePicker() {
+    const [value, setValue] = React.useState(null);
+
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label=""
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
+    );
+  }
+
+
+
 
   function ModeText() {
     return (
@@ -50,10 +93,12 @@ export default function TableExperience(props) {
           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
             <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-            <TableCell>{exp.company}</TableCell>
-            <TableCell>{exp.post}</TableCell>
-            <TableCell>{exp.start}</TableCell>
-            <TableCell>{exp.end}</TableCell>
+            <TableCell align='center'>{exp.company}</TableCell>
+            <TableCell align='center'>{exp.post}</TableCell>
+            <TableCell align='center' sx={{ minWidth: { xs: '500px', sm: '500px' } }}>{exp.desc}</TableCell>
+            <TableCell align='center'>{exp.start}</TableCell>
+            <TableCell align='center'>{exp.end}</TableCell>
+            {BtnDelete()}
           </TableRow>
         ))}
       </TableBody>
@@ -62,48 +107,75 @@ export default function TableExperience(props) {
   }
   function ModeEdit() {
     return (
-      <Stack direction="row" spacing={2} marginTop={2}>
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="address"
-          defaultValue={company}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="zipCode"
-          defaultValue={post}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="Town"
-          defaultValue={start}
-        />
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="phone"
-          defaultValue={end}
-        />
-        <Button >
-          VALID
-        </Button>
-        <Button >
-          ANNULER
-        </Button>
-      </Stack>
+
+      <TableBody>
+        {ListExp.map((exp) => (
+          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableCell align='center' >
+              <TextField
+                fullWidth
+
+                required
+                size="small"
+                id="outlined-required"
+                label="Comp"
+                defaultValue={exp.company}
+              />
+              <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="Post"
+                defaultValue={exp.post}
+              />
+            </TableCell>
+            <TableCell align='center' >
+              {/* <TextField
+                required
+                size="small"
+                id="outlined-required"
+                label="Post"
+                defaultValue={exp.post}
+              /> */}
+            </TableCell>
+            <TableCell align='center' >
+              <TextField
+                fullWidth
+                multiline
+                maxRows={4}
+                ma
+                required
+                size="small"
+                id="outlined-required"
+                label="Description"
+                defaultValue={exp.desc}
+              />
+            </TableCell>
+            <TableCell align='center' >
+              <Typography>Start</Typography>
+              <BasicDatePicker />
+
+            </TableCell>
+            <TableCell align='center' >
+              <Typography>End</Typography>
+              <BasicDatePicker />
+            </TableCell>
+
+            <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
+                VALID
+              </Button>
+              <Button sx={{ bgcolor: "red", color: "white", m: 2 }}>
+                ANNULER
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+
+      </TableBody>
     );
-  }
-  const checkEdit = () => {
-    if (edit === true) return <ModeEdit />;
-    else return <ModeText />;
   };
+
 
   return (
     <Box
@@ -123,7 +195,7 @@ export default function TableExperience(props) {
 
 
         <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-          <DeleteIcon />
+          <BorderColorIcon />
         </Button>
       </Box>
       {/* Titre section Formation */}
@@ -150,18 +222,24 @@ export default function TableExperience(props) {
         </Typography>
       </Box>
 
-      <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
-        <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
+      <TableContainer sx={{ px: "50px" }} component={Paper}>
+        <Table sx={{ width: "100%" }}>
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell>Company</TableCell>
-              <TableCell >Job</TableCell>
-              <TableCell>Start-Year</TableCell>
-              <TableCell>End-Year</TableCell>
+              <TableCell align='center'>Company</TableCell>
+              <TableCell align='center' >Job</TableCell>
+              <TableCell align='center'>Description</TableCell>
+              <TableCell align='center'>Start-Year</TableCell>
+              <TableCell align='center'>End-Year</TableCell>
+              {checkViewAction()}
+
             </TableRow>
           </TableHead>
+
           {checkEdit()}
+
         </Table>
+
       </TableContainer>
     </Box>
   );

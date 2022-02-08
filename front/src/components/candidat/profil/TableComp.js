@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Stack, TextField } from '@mui/material';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 
 
@@ -27,9 +28,9 @@ export default function ResponsiveGrid(props) {
 
   function ModeText(props) {
     return (
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 8 }}>
         {ListSkill.map((skill, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index}>
+          <Grid item xs={2} sm={4} md={3} key={index}>
             <Typography>{skill}</Typography>
           </Grid>
         ))}
@@ -48,25 +49,41 @@ export default function ResponsiveGrid(props) {
             size="small"
             required
             id="outlined-required"
-            label="Skill"
+            label="Interest"
             defaultValue={skill}
           />
         ))}
-        <Button >
-          VALID
-        </Button>
-        <Button >
-          ANNULER
-        </Button>
+        <TextField
+
+          size="small"
+          required
+          id="outlined-required"
+          label="Add Skill"
+        />
+        <Box>
+          <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
+            VALID
+          </Button >
+          <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
+            ANNULER
+          </Button>
+        </Box>
       </Stack>
+
 
     );
   }
 
+  //     Constante pour check si le mode edit est actif 
   const checkEdit = () => {
     if (edit === true) return <ModeEdit />;
     else return <ModeText />;
   };
+  // Constante pour check si le mode edit est actif afficher la colonne action
+  // const checkViewAction = () => {
+  //   if (edit === true) return <TextField />
+  //   else return;
+  // }
 
   return (
     <Box
@@ -102,13 +119,23 @@ export default function ResponsiveGrid(props) {
           Compétence
         </Typography>
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+        }}>
+
+
+        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+          <BorderColorIcon />
+        </Button>
+      </Box>
 
       <Box sx={{ flexGrow: 1, textAlign: "center" }}>
         {checkEdit()}
+        {/* {checkViewAction()} */}
       </Box>
-      <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-        Edit
-      </Button>
     </Box>
 
   );
