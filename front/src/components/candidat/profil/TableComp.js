@@ -3,6 +3,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Stack, TextField } from '@mui/material';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { display } from "@mui/system";
 
 
 
@@ -10,8 +15,6 @@ export default function ResponsiveGrid(props) {
   const { ListSkill,
     dataProfilCandidat } = props
   const [edit, setEdit] = React.useState(false);
-
-
   const [skill, setSkill] = useState("");
 
 
@@ -24,14 +27,58 @@ export default function ResponsiveGrid(props) {
     setUseState();
   }, [dataProfilCandidat]);
 
+  const BtnDelete = () => {
+    if (edit === true) return <Button sx={{ color: "red" }} >
+      <DeleteIcon />
+    </Button>
+    else return;
+  };
+
+  // ##################################################
+  // Bouton ADD Interest ,Open textfield on click
+  const [addSkill, setAddSkill] = useState("");
+
+  const BtnAddSkill = () => {
+    if (addSkill === true) return <AddSkill />
+    else return;
+  }
+
+  function AddSkill() {
+    return (
+      <Box>
+        <Box>
+          <TextField
+
+            size="small"
+            required
+            id="outlined-required"
+            label="Add Skill"
+          />
+          <Button sx={{ color: "black" }} >
+            <CheckCircleOutlineIcon />
+          </Button>
+        </Box>
+        <Box>
+          <Button sx={{ color: "green" }} >
+            <CheckCircleOutlineIcon />
+          </Button>
+          <Button sx={{ color: "red" }}>
+            < KeyboardReturnIcon />
+          </Button>
+
+        </Box>
+      </Box>
+    )
+  }
+  // ####################################
 
 
   function ModeText(props) {
     return (
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 8 }}>
-        {ListSkill.map((skill, index) => (
-          <Grid item xs={2} sm={4} md={3} key={index}>
-            <Typography>{skill}</Typography>
+        {ListSkill.map((Skill, index) => (
+          <Grid item xs={2} sm={4} md={4} key={index}>
+            <Typography>{Skill}</Typography>
           </Grid>
         ))}
       </Grid>
@@ -43,30 +90,25 @@ export default function ResponsiveGrid(props) {
     return (
       <Stack direction="column" spacing={2}>
         {ListSkill.map((skill, index) => (
-
-          <TextField
-            key={index}
-            size="small"
-            required
-            id="outlined-required"
-            label="Interest"
-            defaultValue={skill}
-          />
+          <Box>
+            <TextField
+              keyskill
+              size="small"
+              required
+              id="outlined-required"
+              label="Skill"
+              defaultValue={skill}
+            />
+            {BtnDelete()}
+          </Box>
         ))}
-        <TextField
-
-          size="small"
-          required
-          id="outlined-required"
-          label="Add Skill"
-        />
-        <Box>
-          <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
-            VALID
-          </Button >
-          <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
-            ANNULER
+        <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+          <Button onClick={(e) => setAddSkill(addSkill === true ? false : true)} sx={{ color: "#004F98", px: 8.5 }} >
+            <AddCircleOutlineIcon /><Typography>Add Skill</Typography>
           </Button>
+        </Box>
+        <Box>
+          {BtnAddSkill()}
         </Box>
       </Stack>
 
@@ -74,17 +116,10 @@ export default function ResponsiveGrid(props) {
     );
   }
 
-  //     Constante pour check si le mode edit est actif 
   const checkEdit = () => {
     if (edit === true) return <ModeEdit />;
     else return <ModeText />;
   };
-  // Constante pour check si le mode edit est actif afficher la colonne action
-  // const checkViewAction = () => {
-  //   if (edit === true) return <TextField />
-  //   else return;
-  // }
-
   return (
     <Box
       sx={{
@@ -116,7 +151,7 @@ export default function ResponsiveGrid(props) {
             top: -15,
           }}
         >
-          Compétence
+          Compétences
         </Typography>
       </Box>
       <Box
@@ -125,21 +160,13 @@ export default function ResponsiveGrid(props) {
           justifyContent: "right",
           alignItems: "center",
         }}>
-
-
         <Button onClick={(e) => setEdit(edit === true ? false : true)}>
           <BorderColorIcon />
         </Button>
       </Box>
-
       <Box sx={{ flexGrow: 1, textAlign: "center" }}>
         {checkEdit()}
-        {/* {checkViewAction()} */}
       </Box>
     </Box>
-
   );
 }
-
-
-

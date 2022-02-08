@@ -17,6 +17,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 
 
@@ -68,8 +70,8 @@ export default function TableFormation(props) {
         else return;
     }
     const BtnDelete = () => {
-        if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
-            DELETE
+        if (edit === true) return <Button sx={{ color: "red", }} >
+            <DeleteIcon />
         </Button>
         else return;
     }
@@ -135,7 +137,7 @@ export default function TableFormation(props) {
                         <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
                         <TableCell align='center'>{certificate.school}</TableCell>
                         <TableCell align='center'>{certificate.title}</TableCell>
-                        <TableCell align='center' minWidth='100px'>{certificate.year}</TableCell>
+                        <TableCell align='center' >{certificate.year}</TableCell>
                         <TableCell align='center'>{certificate.validate}</TableCell>
                         {BtnDelete()}
                     </TableRow>
@@ -149,9 +151,9 @@ export default function TableFormation(props) {
             <TableBody>
                 {ListCertificate.map((certificate, index) => (
                     <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell align='center' >
+                        <TableCell align='center' sx={{ minWidth: 140 }}>
                             <TextField
-                                sx={{ minWidth: 100 }}
+
                                 required
                                 size="small"
                                 id="outlined-required"
@@ -159,9 +161,9 @@ export default function TableFormation(props) {
                                 defaultValue={certificate.school}
                             />
                         </TableCell>
-                        <TableCell align='center' >
+                        <TableCell align='center' sx={{ minWidth: 140 }} >
                             <TextField
-                                sx={{ minWidth: 100 }}
+
                                 required
                                 size="small"
                                 id="outlined-required"
@@ -170,21 +172,21 @@ export default function TableFormation(props) {
                             />
                         </TableCell>
 
-                        <TableCell align='center' >
+                        <TableCell align='center' sx={{ minWidth: 140 }} >
                             <ViewsDatePicker />
                         </TableCell>
 
-                        <TableCell align='center' >
+                        <TableCell align='center' sx={{ minWidth: 140 }} >
                             <BasicSelect />
                         </TableCell>
 
 
                         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
-                            <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
-                                VALID
+                            <Button sx={{ color: "green", m: 2 }} >
+                                <CheckCircleOutlineIcon />
                             </Button>
-                            <Button sx={{ bgcolor: "red", color: "white", m: 2 }}>
-                                ANNULER
+                            <Button sx={{ color: "red", m: 2 }}>
+                                < KeyboardReturnIcon />
                             </Button>
                         </TableCell>
 

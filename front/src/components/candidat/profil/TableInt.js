@@ -3,6 +3,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Stack, TextField } from '@mui/material';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { display } from "@mui/system";
 
 
 
@@ -10,8 +15,6 @@ export default function ResponsiveGrid(props) {
     const { ListInterest,
         dataProfilCandidat } = props
     const [edit, setEdit] = React.useState(false);
-
-
     const [interest, setInterest] = useState("");
 
 
@@ -24,6 +27,50 @@ export default function ResponsiveGrid(props) {
         setUseState();
     }, [dataProfilCandidat]);
 
+    const BtnDelete = () => {
+        if (edit === true) return <Button sx={{ color: "red" }} >
+            <DeleteIcon />
+        </Button>
+        else return;
+    };
+
+    // ##################################################
+    // Bouton ADD Interest ,Open textfield on click
+    const [addInterest, setAddInterest] = useState("");
+
+    const BtnAddInterest = () => {
+        if (addInterest === true) return <AddInterest />
+        else return;
+    }
+
+    function AddInterest() {
+        return (
+            <Box>
+                <Box>
+                    <TextField
+
+                        size="small"
+                        required
+                        id="outlined-required"
+                        label="Add Interest"
+                    />
+                    <Button sx={{ color: "black" }} >
+                        <CheckCircleOutlineIcon />
+                    </Button>
+                </Box>
+                <Box>
+                    <Button sx={{ color: "green" }} >
+                        <CheckCircleOutlineIcon />
+                    </Button>
+                    <Button sx={{ color: "red" }}>
+                        < KeyboardReturnIcon />
+                    </Button>
+
+                </Box>
+            </Box>
+        )
+    }
+    // ####################################
 
 
     function ModeText(props) {
@@ -43,30 +90,25 @@ export default function ResponsiveGrid(props) {
         return (
             <Stack direction="column" spacing={2}>
                 {ListInterest.map((interest, index) => (
-
-                    <TextField
-                        key={index}
-                        size="small"
-                        required
-                        id="outlined-required"
-                        label="Interest"
-                        defaultValue={interest}
-                    />
+                    <Box>
+                        <TextField
+                            key={index}
+                            size="small"
+                            required
+                            id="outlined-required"
+                            label="Interest"
+                            defaultValue={interest}
+                        />
+                        {BtnDelete()}
+                    </Box>
                 ))}
-                <TextField
-
-                    size="small"
-                    required
-                    id="outlined-required"
-                    label="Add Interest"
-                />
-                <Box>
-                    <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
-                        VALID
-                    </Button >
-                    <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
-                        ANNULER
+                <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+                    <Button onClick={(e) => setAddInterest(addInterest === true ? false : true)} sx={{ color: "#004F98", px: 4 }} >
+                        <AddCircleOutlineIcon /><Typography>Add Interest</Typography>
                     </Button>
+                </Box>
+                <Box>
+                    {BtnAddInterest()}
                 </Box>
             </Stack>
 
@@ -118,8 +160,6 @@ export default function ResponsiveGrid(props) {
                     justifyContent: "right",
                     alignItems: "center",
                 }}>
-
-
                 <Button onClick={(e) => setEdit(edit === true ? false : true)}>
                     <BorderColorIcon />
                 </Button>
@@ -127,7 +167,6 @@ export default function ResponsiveGrid(props) {
             <Box sx={{ flexGrow: 1, textAlign: "center" }}>
                 {checkEdit()}
             </Box>
-
         </Box>
     );
 }

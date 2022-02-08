@@ -7,7 +7,11 @@
  * Import types { ... }
  * ******************** */
 
-import { GET_PROFIL_CANDIDATE } from "./ActionTypes";
+import {
+    GET_PROFIL_CANDIDATE,
+    POST_PROFIL_CANDIDATE,
+    PUT_PROFIL_CANDIDATE,
+} from "./ActionTypes";
 
 /*
  * Actions
@@ -67,5 +71,23 @@ export const getProfilCandidate = () => {
     return (dispatch) => {
         console.log("GET_PROFIL_CANDIDATE action", data);
         dispatch({ type: GET_PROFIL_CANDIDATE, payload: data.dataProfilCandidate });
+    };
+};
+
+
+// Post profil Candidate
+export const postFormProfilCandidate = (data) => {
+    return (dispatch) => {
+        // console.log("POST_PROFIL_EMPLOYER action", data);
+        dispatch({ type: POST_PROFIL_CANDIDATE, payload: data });
+    };
+};
+
+
+// Put profil Candidate
+export const putFormProfilCandidate = (data) => {
+    return (dispatch) => {
+        // console.log("PUT_PROFIL_EMPLOYER action", data);
+        dispatch({ type: PUT_PROFIL_CANDIDATE, payload: data });
     };
 };

@@ -9,7 +9,8 @@ import Paper from '@mui/material/Paper';
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 
 
@@ -67,7 +68,7 @@ export default function TableContact(props) {
     return (
       <TableBody>
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-          <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }} >
+          <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column', minWidth: 200 }} >
             <TextField
               required
               size="small"
@@ -89,8 +90,8 @@ export default function TableContact(props) {
               label="Town"
               defaultValue={ListUser[0].town}
             />
-          </TableCell>
-          <TableCell align='center' >
+          </TableCell >
+          <TableCell align='center' sx={{ minWidth: 140 }} >
             <TextField
               required
               size="small"
@@ -99,7 +100,7 @@ export default function TableContact(props) {
               defaultValue={ListUser[0].phone}
             />
           </TableCell>
-          <TableCell align='center' >
+          <TableCell align='center' sx={{ minWidth: 200 }} >
             <TextField
               required
               size="small"
@@ -109,11 +110,11 @@ export default function TableContact(props) {
             />
           </TableCell>
           <TableCell align='center' scope="column" sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
-              VALID
+            <Button sx={{ color: "green", m: 2 }} >
+              <CheckCircleOutlineIcon />
             </Button>
-            <Button sx={{ bgcolor: "red", color: "white", }}>
-              ANNULER
+            <Button sx={{ color: "red", m: 2 }}>
+              < KeyboardReturnIcon />
             </Button>
           </TableCell>
 

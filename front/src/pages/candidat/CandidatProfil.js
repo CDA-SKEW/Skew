@@ -62,7 +62,7 @@ const CandidatProfil = () => {
 
 
         {/* BOX COMPETENCE & INTERET */}
-        <Masonry columns={2} spacing={2}>
+        <Masonry columns={2} spacing={2} >
           <TableComp ListSkill={dataProfilCandidate.skill} />
           <TableInt ListInterest={dataProfilCandidate.interest} />
         </Masonry>

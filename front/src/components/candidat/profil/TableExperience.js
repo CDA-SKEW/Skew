@@ -14,7 +14,9 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 // import DateRangePicker from '@mui/lab/DateRangePicker';
 import Grid from '@mui/material/Grid';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export default function TableExperience(props) {
   const { ListExp,
@@ -57,8 +59,8 @@ export default function TableExperience(props) {
     else return;
   }
   const BtnDelete = () => {
-    if (edit === true) return <Button sx={{ bgcolor: "red", color: "white", m: 2 }} >
-      DELETE
+    if (edit === true) return <Button sx={{ color: "red", }} >
+      <DeleteIcon />
     </Button>
     else return;
   }
@@ -95,7 +97,7 @@ export default function TableExperience(props) {
             <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
             <TableCell align='center'>{exp.company}</TableCell>
             <TableCell align='center'>{exp.post}</TableCell>
-            <TableCell align='center' sx={{ minWidth: { xs: '500px', sm: '500px' } }}>{exp.desc}</TableCell>
+            <TableCell align='center' sx={{ minWidth: { xs: '400px', sm: '400px', md: '400px' } }}>{exp.desc}</TableCell>
             <TableCell align='center'>{exp.start}</TableCell>
             <TableCell align='center'>{exp.end}</TableCell>
             {BtnDelete()}
@@ -111,7 +113,7 @@ export default function TableExperience(props) {
       <TableBody>
         {ListExp.map((exp) => (
           <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell align='center' >
+            <TableCell align='center' sx={{ minWidth: 140 }} >
               <TextField
                 fullWidth
 
@@ -138,7 +140,7 @@ export default function TableExperience(props) {
                 defaultValue={exp.post}
               /> */}
             </TableCell>
-            <TableCell align='center' >
+            <TableCell align='center' sx={{ minWidth: 140 }} >
               <TextField
                 fullWidth
                 multiline
@@ -151,22 +153,22 @@ export default function TableExperience(props) {
                 defaultValue={exp.desc}
               />
             </TableCell>
-            <TableCell align='center' >
+            <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
               <Typography>Start</Typography>
               <BasicDatePicker />
 
             </TableCell>
-            <TableCell align='center' >
+            <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
               <Typography>End</Typography>
               <BasicDatePicker />
             </TableCell>
 
             <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Button sx={{ bgcolor: "green", color: "white", m: 2 }} >
-                VALID
+              <Button sx={{ color: "green", m: 2 }} >
+                <CheckCircleOutlineIcon />
               </Button>
-              <Button sx={{ bgcolor: "red", color: "white", m: 2 }}>
-                ANNULER
+              <Button sx={{ color: "red", m: 2 }}>
+                < KeyboardReturnIcon />
               </Button>
             </TableCell>
           </TableRow>
