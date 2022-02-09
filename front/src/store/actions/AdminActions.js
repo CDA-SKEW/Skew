@@ -104,7 +104,8 @@ const listUsers = [
   },
   {
     id: 7,
-    avatar: "",
+    avatar:
+      "https://img.search.brave.com/y-aEGID_4WS4-73TLmjjFsNa9h1wvB1rph7C1lvQHZQ/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/c2VhdHRsZWh1bWFu/ZS5vcmcvd3AtY29u/dGVudC91cGxvYWRz/LzIwMjAvMDUvVU5J/UEVSXzEtc2NhbGVk/LmpwZw",
     firstName: "Mankasa",
     name: "Crackerman",
     isEmployer: 1,
@@ -140,6 +141,18 @@ const listUsers = [
     isChecked: 1,
     email: "marie@gmail.com",
   },
+  {
+    id: 10,
+    avatar: "",
+    firstName: "Petra",
+    name: "Dupont",
+    isEmployer: 0,
+    isCandidate: 1,
+    isAdmin: 0,
+    isBan: 0,
+    isChecked: 1,
+    email: "petra@gmail.com",
+  },
 ];
 
 export const getListUsers = () => {
@@ -149,10 +162,10 @@ export const getListUsers = () => {
   };
 };
 
-// PUT User (checker un user)
+// PUT User (checker/ban un user)
 export const putUser = (id) => {
   return (dispatch) => {
-    console.log("put (check) user action", id);
+    console.log("put user action", id);
     // console.log("const putUser");
     dispatch({ type: PUT_USER, payload: listUsers });
   };

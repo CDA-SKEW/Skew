@@ -32,12 +32,14 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 /*------------Export function-------------*/
 
 export default function Users(props) {
+  const { listUsers } = props
+  // console.log(listUsers.length);
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon="mdi:account-supervisor" width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3"> 100</Typography>
+      <Typography variant="h3">{listUsers.length}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Utilisateurs
       </Typography>
