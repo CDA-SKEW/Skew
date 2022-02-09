@@ -16,7 +16,6 @@ export default function Footer() {
         <Box
             sx={{
                 bgcolor: '#696969',
-                // display: 'flex'
             }}>
             <Typography
                 variant="body2"
@@ -33,6 +32,7 @@ export default function Footer() {
                     <Button
                         key={index}
                         color={list.color}
+                        href={list.link}
                         sx={{
                             mx: 2,
                             display: 'flex'
