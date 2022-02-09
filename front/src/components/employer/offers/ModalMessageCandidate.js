@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField } from "@mui/material";
+import { Button, createTheme, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
 import SendIcon from '@mui/icons-material/Send';
@@ -6,6 +6,7 @@ import { Box } from "@mui/system";
 import { postMessageCandidate } from "store/actions/EmployerActions";
 import { useDispatch, useSelector } from "react-redux";
 import SnackbarMessage from "components/SnackbarMessage";
+
 
 export default function ModalMessageCandidate(props) {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ export default function ModalMessageCandidate(props) {
   const [openModal, setOpenModal] = useState(false);
 
   const { onClose, open, offer, row } = props;
-  // console.log("row, offer", row, offer)
+  // console.log("row, offer", row, offer)  
 
-  const [form, setForm] = useState({ ...row });
+  const [form, setForm] = useState({ ...row }); 
   // console.log("form", form)
 
   const [textMessage, setTextMessage] = useState();
@@ -130,7 +131,6 @@ export default function ModalMessageCandidate(props) {
       {openModal && (
         <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />)}
     </Dialog>
-
 
   );
 }

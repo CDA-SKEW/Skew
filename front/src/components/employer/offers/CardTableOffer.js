@@ -1,14 +1,26 @@
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { themeUser } from "configs/theme";
-import React from "react";
+import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RowTableCandidateOffer from "./RowTableCandidateOffer";
+import ModalConfimation from "components/ModalConfimation"
 
 
 export default function CardTableOffer(props) {
   const { offer } = props
+
+  //constante pour le modal contact
+  const [openModalConfirmation, setOpenModalConfirmation] = useState(false);
+  const handleClickOpenModalConfirmation = () => {
+    setOpenModalConfirmation(true);
+  };
+  const handleCloseModalConfirmation = () => {
+    setOpenModalConfirmation(false);
+  };
+
+  const id= "252"
 
   // console.log("offer", offer)
 
@@ -63,9 +75,23 @@ export default function CardTableOffer(props) {
           startIcon={
             <DeleteIcon sx={{ display: { xs: "none", sm: "block" } }} />
           }
+          onClick={handleClickOpenModalConfirmation}
         >
           Supprimer l'offre
         </Button>
+
+        <ModalConfimation
+          keepMounted
+          open={openModalConfirmation}
+          onClose={handleCloseModalConfirmation}
+          titleModal="Suppression d'une offre"
+          textModal="Êtes-vous sûr de vouloir supprimer cet offre ?"
+          colorBgModal="#ABC4FF"
+          colorTextModal="#000000"
+          action="deleteOffer"
+          param={id}
+        />
+
       </Box>
 
       <Box paddingX={2} paddingTop={1}>
@@ -101,7 +127,7 @@ export default function CardTableOffer(props) {
               {offer &&
                 offer.profilCandidate.map((row, index) => (
                   // console.log("row",row)
-                  <RowTableCandidateOffer key={index} numberCandidat={index} row={row} offer={offer}/>
+                  <RowTableCandidateOffer key={index} numberCandidat={index} row={row} offer={offer} />
                 ))}
             </TableBody>
           </Table>
