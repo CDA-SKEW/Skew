@@ -48,6 +48,7 @@ export default function OffresView() {
         setProfil(data.profil);
         setDate(data.dateOfferDays);
         setType(data.typeContrat);
+        setLocation(data.localisation)
     };
     const handleClose = () => {
         setOpen(false);
@@ -57,6 +58,7 @@ export default function OffresView() {
         setProfil('');
         setDate('');
         setType('');
+        setLocation('');
     };
 
     return (
@@ -93,6 +95,7 @@ export default function OffresView() {
                 profil={profil}
                 date={date}
                 type={type}
+                location={location}
             />
         </VisiteurLayout>
     );
