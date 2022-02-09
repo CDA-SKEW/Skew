@@ -11,13 +11,17 @@ import { Box } from "@mui/system";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-
+import { useDispatch } from "react-redux";
+import { postFormProfilCandidate } from "store/actions/CandidateActions";
 
 
 export default function TableContact(props) {
+
   const { ListUser,
     dataProfilCandidate
   } = props
+
+  const dispatch = useDispatch();
   const [edit, setEdit] = React.useState(false);
 
 
@@ -45,6 +49,31 @@ export default function TableContact(props) {
   }, [dataProfilCandidate]);
 
 
+  const handleSendFormProfil = async (e) => {
+    // console.log("Form waitsend");
+    //empeche le formunliare d'etre submiter
+    // console.log("e", e)
+    e.preventDefault();
+
+
+
+    const dataFormProfilCandidate = {
+
+
+      address,
+      zipCode,
+      phone,
+      town,
+
+
+    };
+
+    // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
+    await dispatch(postFormProfilCandidate(dataFormProfilCandidate));
+  }
+
+
+
   function ModeText() {
     return (
       <TableBody>
@@ -53,9 +82,9 @@ export default function TableContact(props) {
           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
             <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-            <TableCell align='center' >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
-            <TableCell align='center' >{ListUser.phone}</TableCell>
-            <TableCell align='center' >{ListUser.mail}</TableCell>
+            <TableCell align='center'  >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
+            <TableCell align='center'  >{ListUser.phone}</TableCell>
+            <TableCell align='center'  >{ListUser.mail}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -139,6 +168,7 @@ export default function TableContact(props) {
 
   return (
     <Box
+      // component="form" onSubmit={(e) => handleSendFormProfil(e)}
       sx={{
         bgcolor: "#FFFFFF",
         height: "auto",
@@ -182,7 +212,7 @@ export default function TableContact(props) {
         </Typography>
       </Box>
 
-      <TableContainer sx={{ px: "50px" }} component={Paper}>
+      <TableContainer sx={{ px: "50px" }}>
         <Table sx={{ width: "100%" }} >
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>

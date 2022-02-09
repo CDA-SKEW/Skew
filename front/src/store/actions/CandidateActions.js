@@ -11,6 +11,7 @@ import {
     GET_PROFIL_CANDIDATE,
     POST_PROFIL_CANDIDATE,
     PUT_PROFIL_CANDIDATE,
+    DELETE_PROFIL_CANDIDATE,
 } from "./ActionTypes";
 
 /*
@@ -89,5 +90,12 @@ export const putFormProfilCandidate = (data) => {
     return (dispatch) => {
         // console.log("PUT_PROFIL_EMPLOYER action", data);
         dispatch({ type: PUT_PROFIL_CANDIDATE, payload: data });
+    };
+};
+// Delete profil Candidate
+export const deleteFormProfilCandidate = (data) => {
+    return (dispatch) => {
+        // console.log("DELETE_PROFIL_EMPLOYER action", data);
+        dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: data });
     };
 };
