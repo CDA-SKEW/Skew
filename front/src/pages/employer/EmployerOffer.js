@@ -246,7 +246,7 @@ const EmployerOffer = () => {
     >
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Typography
-          variant="h4"
+          variant="h5"
           paddingX={1}
           bgcolor={themeUser.palette.primary.main}
           color={themeUser.palette.text.primary}
@@ -255,7 +255,7 @@ const EmployerOffer = () => {
           top={"15px"}
           textAlign={"center"}
         >
-          Mes offfres
+          Mes offres
         </Typography>
       </Box>
       {/* {/* partie mes offres/} */}

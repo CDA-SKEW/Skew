@@ -9,6 +9,7 @@ import {
   POST_MESSAGE_CANDIDATE,
   POST_OFFER,
   POST_PROFIL_EMPLOYER,
+  PUT_ACTION_CANDIDATE,
   PUT_PROFIL_EMPLOYER,
 } from "./ActionTypes";
 
@@ -90,6 +91,14 @@ export const deleteOffer = (id) => {
   return (dispatch) => {
   console.log("DELETE_OFFER action", id);
     // dispatch({ type: DELETE_OFFER, payload: {data, messagePostCandidate}});
+  };
+};
+
+//  Delete offer
+export const putActionCandidate = (data) => {
+  return (dispatch) => {
+  // console.log("PUT_ACTION_CANDIDATE", data);
+    // dispatch({ type: PUT_ACTION_CANDIDATE, payload: {data, messagePostCandidate}});
   };
 };
 
