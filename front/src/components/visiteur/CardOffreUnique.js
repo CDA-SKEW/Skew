@@ -1,6 +1,4 @@
-import {
-    Card, CardActionArea, CardContent, CardMedia, Typography,
-} from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 
@@ -16,11 +14,10 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                 mb: 5,
                 mx: 5,
                 bgcolor: '#fff'
-            }
-            }
+            }}
         >
             <CardActionArea
-                onClick={handleClickOpen}
+                onClick={() => handleClickOpen(listOffer)}
             >
                 {listOffer.badgeEmployor && (
                     <VerifiedUserIcon

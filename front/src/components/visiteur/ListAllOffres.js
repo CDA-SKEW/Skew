@@ -55,7 +55,11 @@ export default function ListAllOffres({ listOffer, job, type, location, page, se
                         }}
                     >
                         {SplitList[(page - 1)].map((listOffer, index) => (
-                            <CardOffreUnique handleClickOpen={handleClickOpen} key={index} listOffer={listOffer} />
+                            <CardOffreUnique
+                                handleClickOpen={handleClickOpen}
+                                key={index}
+                                listOffer={listOffer}
+                            />
                         ))}
                     </Box>
                     <Pagination
