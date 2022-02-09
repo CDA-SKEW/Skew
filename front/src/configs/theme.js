@@ -36,6 +36,18 @@ let theme = createTheme({
     background: {
       paper: "#ABC4FF",
     },
+    souka: {
+      main: '#FFC300'
+    },
+    etienne: {
+      main: '#C70039'
+    },
+    kevin: {
+      main: '#15D04B'
+    },
+    wil: {
+      main: '#15BFD0'
+    },
   },
   typography: {
     h1: {
