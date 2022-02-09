@@ -8,13 +8,21 @@ import Logo2 from 'assets/images/WhyCandidat01.jpg';
 import Logo3 from 'assets/images/WhyCandidat02.jpg';
 import Logo4 from 'assets/images/WhyHome01.jpg';
 import Logo5 from 'assets/images/WhyHome02.jpg';
+import LastAllOffres from 'components/visiteur/LastAllOffres';
+import Slide from '@mui/material/Slide';
+import DialogCardOffreId from 'components/visiteur/DialogCardOffreId';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function OffresView() {
 
     const [job, setJob] = useState("");
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = useState(1);
+    const [open, setOpen] = useState(false);
 
     const listOffer = [
         { image: Logo1, titleOffer: 'Maçon', nameEmployor: 'Maconnerie', dateOfferDays: '01/01/2021', badgeEmployor: true, typeContrat: 'CDI', localisation: "Rouen" },
@@ -43,24 +51,43 @@ export default function OffresView() {
         setPage(1)
     }
 
-        return (
-            <VisiteurLayout>
-                <Typography variant="h2">
-                    Plus de 10 000 offres d'emplois sur notre site
-                </Typography>
-                <MoteurRechercheOffres
-                    handleSearchJob={handleSearchJob}
-                    handleSearchType={handleSearchType}
-                    handleSearchLocation={handleSearchLocation}
-                />
-                <ListAllOffres
-                    listOffer={listOffer}
-                    job={job}
-                    type={type}
-                    location={location}
-                    page={page}
-                    setPage={setPage}
-                />
-            </VisiteurLayout>
-        );
+    const handleClickOpen = () => {
+        setOpen(true);
     };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    return (
+        <VisiteurLayout>
+            <Typography variant="h2">
+                Plus de 10 000 offres d'emplois sur notre site
+            </Typography>
+            <MoteurRechercheOffres
+                handleSearchJob={handleSearchJob}
+                handleSearchType={handleSearchType}
+                handleSearchLocation={handleSearchLocation}
+            />
+            <ListAllOffres
+                listOffer={listOffer}
+                job={job}
+                type={type}
+                location={location}
+                page={page}
+                setPage={setPage}
+                handleClickOpen={handleClickOpen}
+            />
+            <LastAllOffres
+                listOffer={listOffer}
+                handleClickOpen={handleClickOpen}
+            />
+            <DialogCardOffreId
+                open={open}
+                handleClose={handleClose}
+                Transition={Transition}
+                listOffer={listOffer}
+            />
+        </VisiteurLayout>
+    );
+};

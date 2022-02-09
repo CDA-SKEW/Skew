@@ -1,10 +1,10 @@
-import {Card, CardActionArea, CardContent, CardMedia, Typography,
+import {
+    Card, CardActionArea, CardContent, CardMedia, Typography,
 } from "@mui/material";
 import React from "react";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 
-export default function CardOffreUnique(props) {
-    const { listOffer } = props;
+export default function CardOffreUnique({ listOffer, handleClickOpen }) {
 
     return (
         <Card
@@ -19,7 +19,9 @@ export default function CardOffreUnique(props) {
             }
             }
         >
-            <CardActionArea>
+            <CardActionArea
+                onClick={handleClickOpen}
+            >
                 {listOffer.badgeEmployor && (
                     <VerifiedUserIcon
                         sx={{

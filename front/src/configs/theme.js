@@ -47,6 +47,9 @@ let theme = createTheme({
       marginTop: 50,
       marginBottom: 50,
     },
+    h3: {
+      textAlign: 'center'
+    },
     h4: {
       textAlign: "center",
       marginTop: 20,
