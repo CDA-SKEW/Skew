@@ -50,19 +50,18 @@ export default function ModalMessageCandidate(props) {
     await dispatch(postMessageCandidate(dataFormMessageCandidate));
   
   };
-  // 
+  //  
   return (
 
     <Dialog
-      sx={{ "& .MuiDialog-paper": { width: "100%", maxHeight: "100%" } }}
-      maxWidth="xs"
+      maxWidth="sm"
       open={open}
     >
 
       <Box component="form"
         onSubmit={(e) => handleSendMessage(e)}
       >
-        <DialogTitle sx={{ bgcolor: "#004F98", textAlign: "center", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
+        <DialogTitle sx={{ bgcolor: "#004F98", color: "white", textAlign: "center", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
           Message au candidat <CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }} onClick={handleCancel} />
         </DialogTitle>
         <DialogContent dividers>

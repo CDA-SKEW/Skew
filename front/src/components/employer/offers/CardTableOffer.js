@@ -20,6 +20,7 @@ export default function CardTableOffer(props) {
     setOpenModalConfirmation(false);
   };
 
+  //constante provisoire pour l'id
   const id= "252"
 
   // console.log("offer", offer)

@@ -3,8 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Box } from "@mui/system";
 import Slide from '@mui/material/Slide';
-import { deleteOffer } from "store/actions/EmployerActions";
-import { id } from "date-fns/esm/locale";
+import { deleteOffer, putActionCandidate } from "store/actions/EmployerActions";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
@@ -21,11 +20,27 @@ export default function ModalConfimation(props) {
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
-        console.log("envoi formulaire action", action, id)
+        // console.log("envoi formulaire action", action, id)
 
         switch (action) {
             case "deleteOffer":
                 await dispatch(deleteOffer(param));
+                break;
+
+            case "candidateRetain":
+                const dataRetain = {
+                    id: param,
+                    isRetain: true
+                }
+                await dispatch(putActionCandidate(dataRetain));
+                break;
+
+            case "candidateNoRetain":
+                const dataNoRetain = {
+                    id: param,
+                    isRetain: false
+                }
+                await dispatch(putActionCandidate(dataNoRetain));
                 break;
 
             default:
@@ -54,7 +69,7 @@ export default function ModalConfimation(props) {
                         <Typography
                             fontWeight={"bold"}
                             color={colorTextModal}
-                            variant="h6" component="h2"
+                            variant="h6" component="span"
                         >
                             {titleModal}
                         </Typography>
@@ -62,7 +77,7 @@ export default function ModalConfimation(props) {
                     </DialogTitle>
                     <DialogContent sx={{ textAlign: "center", alignItems: "center" }}>
                         <Typography color={colorTextModal}
-                            variant="body1" component="h2"
+                            variant="body1" component="span"
                         >
                             {textModal}
                         </Typography>

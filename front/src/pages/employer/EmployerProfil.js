@@ -70,13 +70,13 @@ const EmployerProfil = () => {
         >
           <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Typography
-              variant="h4"
+              variant="h5"
               paddingX={1}
               bgcolor={themeUser.palette.primary.main}
               color={themeUser.palette.text.primary}
               borderRadius={1}
               position={"relative"}
-              top={"-45px"}
+              top={"-35px"}
               textAlign={"center"}
             >
               Mon compte
