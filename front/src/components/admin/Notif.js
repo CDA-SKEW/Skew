@@ -31,13 +31,15 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 /*------------Export function-------------*/
 
-export default function Factory() {
+export default function Factory(props) {
+  const { listMessages } = props;
+  // console.log(listMessages.length);
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon="mdi:bell" width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">65</Typography>
+      <Typography variant="h3">{listMessages.length}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Notifications
       </Typography>
