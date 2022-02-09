@@ -9,7 +9,8 @@ import {
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { postFormAddOffer } from "store/actions/EmployerActions";
-import ModalOfferPublished from "./ModalOfferPublished";
+import ModalOfferPublished from "../../SnackbarMessage";
+import SnackbarMessage from "../../SnackbarMessage";
 
 export default function OfferForm() {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function OfferForm() {
     },
   ];
 
-  // declaration des constantes pour le modal
+  // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);
 
   // declaration des constantes pour le formulaire
@@ -67,7 +68,7 @@ export default function OfferForm() {
       profile,
     };
 
-    //passage de la varaible openModal à false apres 2 secondes
+    //passage de la varaiblesecondesSnackbarMessage à false apres 2 
     setOpenModal(true)
     setTimeout(function () {
       setOpenModal(false);
@@ -195,7 +196,7 @@ export default function OfferForm() {
       </Grid>
 
       {openModal && (
-      <ModalOfferPublished messageEmployer={messageEmployer} open={openModal} />)}
+      <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />)}
     </Box>
   );
 }

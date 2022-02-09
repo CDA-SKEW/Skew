@@ -5,6 +5,7 @@ import { apiSiret } from "configs/axios";
 import {
   GET_API_SIRET,
   GET_PROFIL_EMPLOYER,
+  POST_MESSAGE_CANDIDATE,
   POST_OFFER,
   POST_PROFIL_EMPLOYER,
   PUT_PROFIL_EMPLOYER,
@@ -29,6 +30,7 @@ const dataDefault = {
 // const dataDefault = {
 // }
 const message ="Votre offre a bien été publiée !"
+const messagePostCandidate = "Votre mail a bien été envoyé !"
 /*
  * Import types { ... }
  * ******************** */
@@ -79,5 +81,13 @@ export const postFormAddOffer = (data) => {
   return (dispatch) => {
     // console.log("POST_OFFER action", data, message);
     dispatch({ type: POST_OFFER, payload: {data, message}});
+  };
+};
+
+// Post message candidate
+export const postMessageCandidate = (data) => {
+  return (dispatch) => {
+  // console.log("POST_MESSAGE_CANDIDATE action", data, messagePostCandidate);
+    dispatch({ type: POST_MESSAGE_CANDIDATE, payload: {data, messagePostCandidate}});
   };
 };

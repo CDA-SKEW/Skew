@@ -9,6 +9,7 @@ import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
 import Avatars from "components/admin/tables/Avatars";
 import IconChips from "./tables/Chips";
+import MailIcon from "@mui/icons-material/Mail";
 
 /*------------Export function + table header-------------*/
 
@@ -39,11 +40,7 @@ export default function MessagesTable(props) {
     {
       field: "fullName",
       headerName: "Nom complet",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
       width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.name || ""}`,
     },
     {
       field: "phone",
@@ -94,8 +91,17 @@ export default function MessagesTable(props) {
 
   return (
     <Box>
-      <Typography variant="h4" sx={{ textAlign: "center", mb: "50px" }}>
-        Admin gestion de la messagerie | Skew.com
+      <Typography
+        variant="h4"
+        color="primary"
+        sx={{
+          textAlign: "center",
+          mb: "50px",
+          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+          borderRadius: 2,
+        }}
+      >
+        <MailIcon /> Admin gestion de la messagerie | Skew.com
       </Typography>
       <DataGrid
         autoHeight

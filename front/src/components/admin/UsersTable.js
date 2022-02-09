@@ -9,6 +9,7 @@ import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
 import Badges from "components/admin/tables/Badges";
+import PeopleIcon from "@mui/icons-material/People";
 
 /*------------Export function + table header-------------*/
 
@@ -102,9 +103,18 @@ export default function UsersTable(props) {
   /*--------------Components------------*/
 
   return (
-    <Box>
-      <Typography variant="h4" sx={{ textAlign: "center", mb: "50px" }}>
-        Admin gestion des utilisateurs | Skew.com
+    <Box sx={{ pb: 5 }}>
+      <Typography
+        variant="h4"
+        color="primary"
+        sx={{
+          textAlign: "center",
+          mb: "50px",
+          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+          borderRadius: 2,
+        }}
+      >
+        <PeopleIcon /> Admin gestion des utilisateurs | Skew.com
       </Typography>
       <DataGrid
         autoHeight

@@ -14,6 +14,7 @@ export default function OffresView() {
     const [job, setJob] = useState("");
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
+    const [page, setPage] = React.useState(1);
 
     const listOffer = [
         { image: Logo1, titleOffer: 'Maçon', nameEmployor: 'Maconnerie', dateOfferDays: '01/01/2021', badgeEmployor: true, typeContrat: 'CDI', localisation: "Rouen" },
@@ -31,30 +32,35 @@ export default function OffresView() {
 
     const handleSearchJob = (value) => {
         setJob(value)
+        setPage(1)
     }
     const handleSearchType = (value) => {
         setType(value)
+        setPage(1)
     }
     const handleSearchLocation = (value) => {
         setLocation(value)
+        setPage(1)
     }
 
-    return (
-        <VisiteurLayout>
-            <Typography variant="h2">
-                Plus de 10 000 offres d'emplois sur notre site
-            </Typography>
-            <MoteurRechercheOffres
-                handleSearchJob={handleSearchJob}
-                handleSearchType={handleSearchType}
-                handleSearchLocation={handleSearchLocation}
-            />
-            <ListAllOffres
-                listOffer={listOffer}
-                job={job}
-                type={type}
-                location={location}
-            />
-        </VisiteurLayout>
-    );
-};
+        return (
+            <VisiteurLayout>
+                <Typography variant="h2">
+                    Plus de 10 000 offres d'emplois sur notre site
+                </Typography>
+                <MoteurRechercheOffres
+                    handleSearchJob={handleSearchJob}
+                    handleSearchType={handleSearchType}
+                    handleSearchLocation={handleSearchLocation}
+                />
+                <ListAllOffres
+                    listOffer={listOffer}
+                    job={job}
+                    type={type}
+                    location={location}
+                    page={page}
+                    setPage={setPage}
+                />
+            </VisiteurLayout>
+        );
+    };
