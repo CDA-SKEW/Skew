@@ -1,6 +1,6 @@
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { themeUser } from "configs/theme";
+import { themeEmployer } from "configs/theme";
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -31,9 +31,7 @@ export default function CardTableOffer(props) {
       paddingTop={3}
       paddingBottom={3}
       marginBottom={3}
-      bgcolor={themeUser.palette.text.primary}
-
-    // bgcolor: themeUser.palette.text.primary,
+      bgcolor={themeEmployer.palette.bgBox.main}
     >
       <Typography textAlign={"center"} marginBottom={2} variant="h5">
         Offres n°{offer.number} - {offer.title}

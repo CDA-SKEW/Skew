@@ -3,7 +3,6 @@ import React from 'react';
 
 import pdf1 from "assets/documents/Cours_SQL.pdf";
 import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
-import { themeUser } from 'configs/theme';
 import CandidateContact from "components/employer/candidate/CandidateContact"
 import CandidateExperience from "components/employer/candidate/CandidateExperience"
 import CandidateSkill from "components/employer/candidate/CandidateSkill"

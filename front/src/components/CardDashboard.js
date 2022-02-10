@@ -1,13 +1,13 @@
 // material
 import { styled } from "@mui/material/styles";
 import { Card, Grid, Typography } from "@mui/material";
-import { themeUser } from "configs/theme";
+import { themeEmployer } from "configs/theme";
 // ----------------------------------------------------------------------
 
 const CardDashboardStyle = styled(Card)(() => ({
   textAlign: "center",
-  color: themeUser.palette.text.primary,
-  backgroundColor: themeUser.palette.background.paper,
+  color: themeEmployer.palette.textTitleItems.main,
+  backgroundColor: themeEmployer.palette. bgCardDashboard.main,
   height: "250px",
   width: "250px",
   marginTop: 8,

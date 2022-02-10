@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import { themeUser } from 'configs/theme';
+import { themeEmployer} from 'configs/theme';
 
 
 export default function CandidateContact(props) {
@@ -13,8 +13,8 @@ export default function CandidateContact(props) {
                 <Typography
                     variant="h5"
                     paddingX={1}
-                    bgcolor={themeUser.palette.primary.main}
-                    color={themeUser.palette.text.primary}
+                    bgcolor={themeEmployer.palette.bgTitleItems.main}
+                    color={themeEmployer.palette.textTitleItems.main}
                     borderRadius={1}
                     position={"relative"}
                     top={"15px"}
@@ -31,7 +31,7 @@ export default function CandidateContact(props) {
                 paddingTop={3}
                 paddingBottom={3}
                 marginBottom={3}
-                bgcolor={themeUser.palette.text.primary}>
+                bgcolor={themeEmployer.palette.bgBox.main}>
                 <TableContainer sx={{ borderRadius: 2 }}>
                     <Table >
                         <TableHead sx={{ bgcolor: "#FF7F50" }}>

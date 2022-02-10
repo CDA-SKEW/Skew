@@ -1,23 +1,25 @@
 import { Box, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import GlobalStyles from '@mui/material/GlobalStyles';
-import { theme, themeUser } from "configs/theme";
-import Container from '@mui/material/Container';
+import { theme, themeEmployer} from "configs/theme";
 import Navbar from "../components/core/Navbar";
 import Footer from "components/core/Footer";
 
 export default function VisiteurLayout({ children }) {
+
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} >
             <CssBaseline />
             <Navbar />
+            <ThemeProvider theme={themeEmployer} >
             <Box
-                bgcolor={themeUser.palette.background.default}
+            component={"main"}
+                bgcolor={themeEmployer.palette.bgPage.main}
                 maxWidth="100%"
-            // disableGutters
+               disableGutters
             >
                 {children}
             </Box>
+            </ThemeProvider>
             <Footer />
         </ThemeProvider>
     )

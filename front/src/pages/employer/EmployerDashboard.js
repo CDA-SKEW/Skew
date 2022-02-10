@@ -6,7 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
 import CardOffer from "components/CardOffer";
-import { themeUser } from "configs/theme";
+import { themeEmployer} from "configs/theme";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
@@ -82,7 +82,7 @@ const EmployerDashboard = () => {
       {/* Card résumé dashboard */}
 
       <Box
-        bgcolor={themeUser.palette.text.primary}
+        bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
         paddingTop={2}
         paddingBottom={2}
@@ -98,8 +98,8 @@ const EmployerDashboard = () => {
             variant="h5"
             component="h5"
             paddingX={1}
-            bgcolor={themeUser.palette.primary.main}
-            color={themeUser.palette.text.primary}
+            bgcolor={themeEmployer.palette.bgTitleItems.main}
+            color={themeEmployer.palette.textTitleItems.main}
             borderRadius={1}
             position={"relative"}
             top={"-35px"}
@@ -127,7 +127,7 @@ const EmployerDashboard = () => {
       {/* Card Dernieres offres postées dashboard */}
 
       <Box
-        bgcolor={themeUser.palette.text.primary}
+        bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
         paddingTop={2}
         paddingBottom={8}
@@ -140,17 +140,15 @@ const EmployerDashboard = () => {
           alignItems={"center"}
         >
           <Typography
-            variant="h5"
-            component="h5"
-            sx={{
-              px: 1,
-              bgcolor: themeUser.palette.primary.main,
-              color: themeUser.palette.text.primary,
-              borderRadius: 1,
-              position: "relative",
-              top: "-35px",
-              textAlign: "center"
-            }}
+             variant="h5"
+             component="h5"
+             paddingX={1}
+             bgcolor={themeEmployer.palette.bgTitleItems.main}
+             color={themeEmployer.palette.textTitleItems.main}
+             borderRadius={1}
+             position={"relative"}
+             top={"-35px"}
+             textAlign={"center"}
           >
             Dernieres offres postées
           </Typography>
