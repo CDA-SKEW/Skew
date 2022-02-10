@@ -56,11 +56,7 @@ const EmployerCandidateId = () => {
 
     return (
         <Container
-            sx={{
-                bgcolor: themeUser.palette.background.default,
-                p: 2,
-            }}
-        >
+            sx={{ py: 2 }}  >
 
             {/* {/* partie contact/} */}
             <CandidateContact profilCandidate={profilCandidate} />

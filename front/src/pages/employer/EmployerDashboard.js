@@ -77,19 +77,16 @@ const EmployerDashboard = () => {
 
   return (
     <Container
-      sx={{
-        bgcolor: themeUser.palette.background.default,
-        p: 2,
-      }}
-    >
+    sx={{ py: 4 }}
+  >
       {/* Card résumé dashboard */}
 
       <Box
         bgcolor={themeUser.palette.text.primary}
         borderRadius={3}
         paddingTop={2}
-        paddingBottom={8}
-        marginTop={8}
+        paddingBottom={2}
+        marginTop={2}
       >
         {/* Titre section Résumé dashboard */}
         <Box
