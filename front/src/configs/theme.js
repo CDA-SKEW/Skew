@@ -109,8 +109,13 @@ const themeAdmin = createTheme({
       default: "#161C24",
       paper: "#212B36",
     },
+    background2: {
+      default: "#E5E5E5",
+      paper: "#FF7F50",
+    },
     text: {
       primary: "#ffffff",
+      secondary: "#004F98",
     },
     success: {
       main: "#A1AF4C",
@@ -123,6 +128,9 @@ const themeAdmin = createTheme({
     },
     error: {
       main: "#f44336",
+    },
+    shape: {
+      borderRadius: 4,
     },
   },
   typography: {
