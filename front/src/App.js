@@ -21,6 +21,23 @@ import EmployerOffer from "pages/employer/EmployerOffer";
 import EmployerOfferId from "pages/employer/EmployerOfferId";
 import EmployerCandidateId from "pages/employer/EmployerCandidateId";
 
+import EmployerLayout from "layouts/EmployerLayout";
+
+
+const EmployerRoutes = () => (
+  <EmployerLayout>
+    <Routes>
+      <Route path="dashboard" exact element={<EmployerDashboard />} />
+      <Route path="profil" exact element={<EmployerProfil />} />
+      <Route path="addOffer" exact element={<EmployerAddOffer />} />
+      <Route path="offer" exact element={<EmployerOffer />} />
+      <Route path="offer:id" exact element={<EmployerOfferId />} />
+      <Route path="candidate:id" exact element={<EmployerCandidateId />} />
+    </Routes>
+  </EmployerLayout>
+  
+);
+
 
 function App() {
   return (
@@ -35,12 +52,7 @@ function App() {
         <Route path="/candidat" exact element={<PresentationCandidat />} />
         <Route path="/contactus" exact element={<ContactezNous />} />
         <Route path="/offres" exact element={<OffresView />} />
-        <Route path="/Employer/dashboard" exact element={<EmployerDashboard />}/>
-        <Route path="/Employer/profil" exact element={<EmployerProfil />} />
-        <Route path="/Employer/addOffer" exact element={<EmployerAddOffer />} />
-        <Route path="/Employer/offer" exact element={<EmployerOffer />} />
-        <Route path="/Employer/offer:id" exact element={<EmployerOfferId />} />
-        <Route path="/Employer/candidate:id" exact element={<EmployerCandidateId />} />
+        <Route path="/Employer/*" element={<EmployerRoutes />} />
         <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
         <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
         <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />

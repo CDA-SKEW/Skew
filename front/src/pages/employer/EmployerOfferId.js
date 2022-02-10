@@ -27,13 +27,8 @@ const EmployerOfferId = () => {
     );
 
     return (
-        <Box
-            bgcolor={themeUser.palette.background.default}
-            height={"100vh"}>
-            <Container
-                sx={{
-                    px: 2
-                }}
+           <Container
+             sx={{ py: 4 }}
             >
                 <Box bgcolor={"whitesmoke"}>
                     {/* Title and bouton close */}
@@ -54,7 +49,7 @@ const EmployerOfferId = () => {
                             alignContent: "end",
                             position: 'relative',
                             left: 10,
-                            top: 1, fontSize: 30, color: "white", p: 1
+                            top: 1, fontSize: 50, color: "white", p: 1
                         }}
                         //  onClick={} 
                         />
@@ -71,7 +66,6 @@ const EmployerOfferId = () => {
 
                 </Box>
             </Container >
-        </Box >
     );
 };
 

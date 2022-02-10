@@ -22,10 +22,7 @@ const EmployerAddOffer = () => {
 
   return (
     <Container
-      sx={{
-        bgcolor: themeUser.palette.background.default,
-        p: 2,
-      }}
+    sx={{ py: 4 }}
     >
       {/* partie information entreprise */}
       <Box

@@ -239,10 +239,7 @@ const offers = [
 const EmployerOffer = () => {
   return (
     <Container
-      sx={{
-        bgcolor: themeUser.palette.background.default,
-        p: 2,
-      }}
+    sx={{ pb: 3 }}
     >
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Typography
@@ -252,7 +249,7 @@ const EmployerOffer = () => {
           color={themeUser.palette.text.primary}
           borderRadius={1}
           position={"relative"}
-          top={"15px"}
+          top={"25px"}
           textAlign={"center"}
         >
           Mes offres
