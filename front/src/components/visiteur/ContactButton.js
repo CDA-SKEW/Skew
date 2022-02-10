@@ -21,7 +21,7 @@ function ContactButton() {
                     key={index.key}
                     variant="contained"
                     sx={{
-                        bgcolor: '#ABC4FF',
+                        bgcolor: 'secondary.main',
                         py: 3,
                         mb: 10,
                         mx: 'auto',

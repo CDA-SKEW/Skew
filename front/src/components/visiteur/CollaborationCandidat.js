@@ -16,7 +16,7 @@ export default function CollaborationCandidat () {
     
     return (
         <Box sx={{
-            bgcolor: '#FFD9B8',
+            bgcolor: 'primary.main',
             width: '100%'
         }}>
             <Typography variant="h2" component="div" sx={{

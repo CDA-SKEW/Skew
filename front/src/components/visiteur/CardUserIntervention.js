@@ -11,7 +11,7 @@ export default function CardUserIntervention({ index }) {
                 // width: '30%',
                 mx: 5,
                 textAlign: 'center',
-                bgcolor: '#FFD9B8',
+                bgcolor: 'primary.main',
                 boxShadow: 'none',
             }}>
             <Avatar alt={index.alt} src={index.img} sx={{

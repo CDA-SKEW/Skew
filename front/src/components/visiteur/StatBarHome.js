@@ -15,7 +15,7 @@ export default function StatBarHome() {
         <Box
             maxWidth='xl'
             sx={{
-                bgcolor: "#FFD9B8",
+                bgcolor: "primary.main",
                 mx: 'auto',
                 my: 10,
                 borderRadius: {sx: 0, md: 50}
@@ -29,8 +29,6 @@ export default function StatBarHome() {
                         key={index.key}
                         align='center'
                         sx={{
-                            bgcolor: "#FFD9B8",
-                            color: '#000000',
                             boxShadow: "none",
                             py: 3,
                             width: '33%',

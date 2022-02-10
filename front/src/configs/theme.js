@@ -33,6 +33,9 @@ let theme = createTheme({
     tiers: {
       main: "#C4FFE9",
     },
+    offre: {
+      main: "#E6C3A5",
+    },
     background: {
       paper: "#ABC4FF",
     },

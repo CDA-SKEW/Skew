@@ -70,7 +70,7 @@ export default function WhyCandidat() {
                             <Box
                                 key={index.key}
                                 sx={{
-                                    bgcolor: "#FFD9B8",
+                                    bgcolor: "primary.main",
                                     py: 3,
                                     my: 2,
                                     mx: 'auto',
