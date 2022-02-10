@@ -6,7 +6,7 @@ export default function CardMethodRecruteur({ index }) {
     return (
         <Card
             sx={{
-                bgcolor: "#FFD9B8",
+                bgcolor: "primary.main",
                 width: 300,
                 m: 5,
             }}
