@@ -18,11 +18,11 @@ export default function UsersTable(props) {
 
   // Table Head
   const columns = [
-    { field: "id", headerName: "ID", width: 50, editable: true },
+    { field: "id", headerName: "ID", editable: true },
     {
       field: "date",
       headerName: "Dates",
-      width: 130,
+      width: 150,
       renderCell: () => {
         return <Dates />;
       },
@@ -31,7 +31,7 @@ export default function UsersTable(props) {
     {
       field: "avatar",
       headerName: "Avatars",
-      width: 80,
+      width: 100,
       renderCell: (cell) => {
         return <Avatars avatar={cell} />;
       },
@@ -39,28 +39,32 @@ export default function UsersTable(props) {
     {
       field: "name",
       headerName: "Noms",
-      width: 150,
       editable: true,
+      minWidth: 100,
+      flex: 1,
     },
     {
       field: "firstName",
       headerName: "Prénoms",
-      width: 150,
       editable: true,
+      minWidth: 100,
+      flex: 1,
     },
     {
       field: "fullName",
       headerName: "Nom complet",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 160,
+      minWidth: 200,
+      flex: 1,
       valueGetter: (params) =>
         `${params.row.firstName || ""} ${params.row.name || ""}`,
     },
     {
       field: "email",
-      width: 190,
       editable: false,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "status",
@@ -68,24 +72,24 @@ export default function UsersTable(props) {
       renderCell: (cell) => {
         return <IconChips user={cell} />;
       },
-      width: 150,
       editable: false,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "checking",
       headerName: "Vérifier",
       renderCell: (cell) => {
-        // console.log(user);
         return <Badges user={cell} />;
       },
-      width: 150,
       editable: false,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "action",
       headerName: "Actions",
       renderCell: (id) => {
-        // console.log(id);
         return (
           <Actions
             columnsBan={true}
@@ -95,8 +99,9 @@ export default function UsersTable(props) {
           />
         );
       },
-      width: 190,
       editable: false,
+      minWidth: 200,
+      flex: 1,
     },
   ];
 

@@ -18,11 +18,11 @@ export default function MessagesTable(props) {
 
   // Table Head
   const columns = [
-    { field: "id", headerName: "ID", width: 50, editable: true },
+    { field: "id", headerName: "ID", editable: true },
     {
       field: "date",
       headerName: "Dates",
-      width: 130,
+      width: 150,
       renderCell: () => {
         return <Dates />;
       },
@@ -31,7 +31,7 @@ export default function MessagesTable(props) {
     {
       field: "avatar",
       headerName: "Avatars",
-      width: 80,
+      width: 100,
       renderCell: (cell) => {
         return <Avatars avatar={cell} />;
       },
@@ -40,24 +40,28 @@ export default function MessagesTable(props) {
     {
       field: "fullName",
       headerName: "Nom complet",
-      width: 160,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "phone",
       headerName: "Téléphone",
-      width: 120,
       editable: true,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "email",
-      width: 150,
       editable: true,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "subject",
       headerName: "Objet",
-      width: 100,
       editable: true,
+      minWidth: 200,
+      flex: 1,
     },
 
     {
@@ -66,8 +70,9 @@ export default function MessagesTable(props) {
       renderCell: (cell) => {
         return <IconChips user={cell} />;
       },
-      width: 150,
       editable: false,
+      minWidth: 200,
+      flex: 1,
     },
     {
       field: "action",
@@ -82,8 +87,9 @@ export default function MessagesTable(props) {
           />
         );
       },
-      width: 190,
       editable: false,
+      minWidth: 200,
+      flex: 1,
     },
   ];
 
@@ -104,6 +110,7 @@ export default function MessagesTable(props) {
         <MailIcon /> Admin gestion de la messagerie | Skew.com
       </Typography>
       <DataGrid
+        sx={{ width: "100%" }}
         autoHeight
         rowHeight={80}
         enableCellSelect={false}
