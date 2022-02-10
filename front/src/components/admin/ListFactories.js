@@ -9,6 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { alpha } from "@mui/material/styles";
+import Masonry from "@mui/lab/Masonry";
 /*------------Styles-------------*/
 
 // Style Card
@@ -40,52 +41,54 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 export default function ListFactories(props) {
   const { listJobs } = props;
-  const SliceJobs = listJobs.slice(0, 4);
+  // Afficher uniquement les 4 derniers offres
+  const SliceJobs = listJobs.slice(0, 5);
 
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon="mdi:offer" width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h4" component="div">
+      <Typography variant="h4">
         Dernières offres ajoutées
       </Typography>
-      {SliceJobs.map((job, index) => {
-        // console.log("ListFactories", job);
-        return (
-          <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
-            <ListItem>
-              <ListItemText
-                disableTypography={false}
-                inset={true}
-                primary={job.title}
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      {job.type}
-                    </Typography>
-                    <Typography
-                      sx={{ display: "inline", m: 1 }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      {job.period}
-                    </Typography>
-                    <Divider />
-                    {job.description}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-          </List>
-        );
-      })}
+      <Masonry columns={2} spacing={1}>
+        {SliceJobs.map((job, index) => {
+          // console.log("ListFactories", job);
+          return (
+            <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
+              <ListItem>
+                <ListItemText
+                  inset={false}
+                  primary={job.title}
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {job.type}
+                      </Typography>
+                      <Typography
+                        sx={{ display: "inline", m: 1 }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {job.period}
+                      </Typography>
+                      <Divider />
+                      {job.description}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+            </List>
+          );
+        })}
+      </Masonry>
     </RootStyle>
   );
 }

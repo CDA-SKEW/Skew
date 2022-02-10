@@ -1,4 +1,4 @@
-// Listing du nombre d'utilisateurs
+// Listing du nombre d'utilisateurs inscrits
 
 /*------------MUI Imports-------------*/
 
@@ -42,32 +42,27 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 export default function ListUsers(props) {
   const { listUsers } = props;
-  const SliceUsers = listUsers.slice(0, 5);
+  // Afficher uniquement les 6 derniers users
+  const SliceUsers = listUsers.slice(0, 4);
 
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon="mdi:account-multiple-plus" width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h4" component="div">
-        Derniers utilisateurs inscrits
-      </Typography>
+      <Typography variant="h4">Derniers utilisateurs inscrits</Typography>
       {SliceUsers.map((user, index) => {
         // console.log("ListUsers", user);
         return (
           <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
-            <ListItem>
+            <ListItem alignItems="flex-start">
               <ListItemAvatar>
                 <Avatar alt="avatar" src={user.avatar} />
               </ListItemAvatar>
-
               <ListItemText
-                disableTypography={false}
-                inset={false}
                 primary={user.fullName}
                 secondary={
                   <React.Fragment>
-                    <Divider />
                     <Typography
                       sx={{ display: "inline" }}
                       component="span"
@@ -80,6 +75,7 @@ export default function ListUsers(props) {
                 }
               />
             </ListItem>
+            <Divider variant="inset" component="li" />
           </List>
         );
       })}
