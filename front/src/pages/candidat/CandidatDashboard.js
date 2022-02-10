@@ -6,7 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
 import CardOffer from "components/CardOffer";
-import { themeUser } from "configs/theme";
+import { themeCandidate } from "configs/theme";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
@@ -79,7 +79,7 @@ const EmployerDashboard = () => {
       <CssBaseline />
       <Container
         sx={{
-          bgcolor: themeUser.palette.background.default,
+          bgcolor: themeCandidate.palette.bgPage.main,
           p: 2,
         }}
       >
@@ -87,7 +87,7 @@ const EmployerDashboard = () => {
 
         <Box
           sx={{
-            bgcolor: themeUser.palette.text.primary,
+            bgcolor: themeCandidate.palette.bgBox.main,
             borderRadius: 1,
             pt: 2,
             pb: 8,
@@ -107,8 +107,8 @@ const EmployerDashboard = () => {
               component="h5"
               sx={{
                 px: 1,
-                bgcolor: themeUser.palette.primary.main,
-                color: themeUser.palette.text.primary,
+                bgcolor: themeCandidate.palette.bgTitleItems.main,
+                color: themeCandidate.palette.textTitleItems.main,
                 borderRadius: 1,
                 position: "relative",
                 top: "-30px",
@@ -137,7 +137,7 @@ const EmployerDashboard = () => {
 
         <Box
           sx={{
-            bgcolor: themeUser.palette.secondary.main,
+            bgcolor: themeCandidate.palette.bgBox.main,
             borderRadius: 1,
             pt: 2,
             pb: 8,
@@ -157,8 +157,8 @@ const EmployerDashboard = () => {
               component="h5"
               sx={{
                 px: 1,
-                bgcolor: themeUser.palette.primary.main,
-                color: themeUser.palette.text.primary,
+                bgcolor: themeCandidate.palette.bgTitleItems.main,
+                color: themeCandidate.palette.textTitleItems.main,
                 borderRadius: 1,
                 position: "relative",
                 top: "-30px",
