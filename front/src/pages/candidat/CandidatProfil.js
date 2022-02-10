@@ -7,10 +7,8 @@ import TableExperience from "components/candidat/profil/TableExperience";
 import TableComp from "components/candidat/profil/TableComp";
 import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
-import Button from '@mui/material/Button';
-import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfilCandidate } from "store/actions/CandidateActions";
+import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
 
 
 
@@ -18,19 +16,11 @@ import { getProfilCandidate } from "store/actions/CandidateActions";
 const CandidatProfil = () => {
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   console.log("effect getDataProfilCandidate");
   dispatch(getProfilCandidate());
-  // }, []);
+  // dispatch(postFormProfilCandidate());
+  // dispatch(putFormProfilCandidate());
+  // dispatch(deleteFormProfilCandidate());
 
-
-  const [editProfilCandidate, setEditProfilCandidate] = useState("none");
-
-  const handleEditProfilCandidate = (e) => {
-    // console.log("fct EditProfilPersonal");
-    setEditProfilCandidate("block")
-  };
   const dataProfilCandidate = useSelector((state) => state.candidate.dataProfilCandidate)
   console.log("store dataProfil page profil", dataProfilCandidate);
 
@@ -52,7 +42,6 @@ const CandidatProfil = () => {
             Edit All
           </Button>
         </Box> */}
-
         {/*   {/* BOX CONTACT*/}
         <TableContact ListUser={dataProfilCandidate.coord} />
 
@@ -61,7 +50,7 @@ const CandidatProfil = () => {
 
 
         {/* BOX COMPETENCE & INTERET */}
-        <Masonry columns={2} spacing={2}>
+        <Masonry columns={2} spacing={2} >
           <TableComp ListSkill={dataProfilCandidate.skill} />
           <TableInt ListInterest={dataProfilCandidate.interest} />
         </Masonry>
@@ -70,6 +59,7 @@ const CandidatProfil = () => {
         <TableFormation ListCertificate={dataProfilCandidate.certificate} />
         {/* CV Checkbox*/}
         <ChekboxCV listCv={dataProfilCandidate.cv} />
+
       </Container>
     </React.Fragment >
 

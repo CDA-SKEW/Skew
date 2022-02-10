@@ -12,7 +12,7 @@ import { themeUser } from "configs/theme";
 import imageEmployer from "assets/images/imageEmployor.png";
 
 const EmployerDashboard = () => {
-  
+
   const { nbNotif, nbCandidateReceive, NbMyOffers } = {
     nbNotif: [0, 1, 2, 3, 4, 5],
     nbCandidateReceive: [0, 1, 2, 3],
@@ -76,117 +76,107 @@ const EmployerDashboard = () => {
   ];
 
   return (
-      <Container
-        sx={{
-          bgcolor: themeUser.palette.background.default,
-          p: 2,
-        }}
+    <Container
+      sx={{
+        bgcolor: themeUser.palette.background.default,
+        p: 2,
+      }}
+    >
+      {/* Card résumé dashboard */}
+
+      <Box
+        bgcolor={themeUser.palette.text.primary}
+        borderRadius={3}
+        paddingTop={2}
+        paddingBottom={8}
+        marginTop={8}
       >
-        {/* Card résumé dashboard */}
+        {/* Titre section Résumé dashboard */}
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Typography
+            variant="h5"
+            component="h5"
+            paddingX={1}
+            bgcolor={themeUser.palette.primary.main}
+            color={themeUser.palette.text.primary}
+            borderRadius={1}
+            position={"relative"}
+            top={"-35px"}
+            textAlign={"center"}
+          >
+            Résumé
+          </Typography>
+        </Box>
 
         <Box
+          display={"flex"}
           sx={{
-            bgcolor: themeUser.palette.text.primary,
-            borderRadius: 1,
-            pt: 2,
-            pb: 8,
-            mt: 8,
+            justifyContent: { xs: "center", md: "space-around" },
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "center", md: "none" }
           }}
         >
-          {/* Titre section Résumé dashboard */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="h4"
-              component="h4"
-              sx={{
-                px: 1,
-                bgcolor: themeUser.palette.primary.main,
-                color: themeUser.palette.text.primary,
-                borderRadius: 1,
-                position: "relative",
-                top: "-45px",
-                textAlign:"center"
-              }}
-            >
-              Résumé
-            </Typography>
-          </Box>
+          {arrayDash.length > 0 &&
+            arrayDash.map((list, index) => (
+              <CardDashboard key={index} list={list} />
+            ))}
+        </Box>
+      </Box>
 
-          <Box
+      {/* Card Dernieres offres postées dashboard */}
+
+      <Box
+        bgcolor={themeUser.palette.text.primary}
+        borderRadius={3}
+        paddingTop={2}
+        paddingBottom={8}
+        marginTop={8}
+      >
+        {/* Titre section Dernieres offres postées dashboard */}
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Typography
+            variant="h5"
+            component="h5"
             sx={{
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "none" },
+              px: 1,
+              bgcolor: themeUser.palette.primary.main,
+              color: themeUser.palette.text.primary,
+              borderRadius: 1,
+              position: "relative",
+              top: "-35px",
+              textAlign: "center"
             }}
           >
-            {arrayDash.length > 0 &&
-              arrayDash.map((list, index) => (
-                <CardDashboard key={index} list={list} />
+            Dernieres offres postées
+          </Typography>
+        </Box>
+
+        <Box
+          display={"flex"}
+          sx={{
+            justifyContent: { xs: "center", md: "space-around" },
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: { xs: "center", md: "none" }
+          }}
+        >
+          {arrayOffer.length > 0 &&
+            arrayOffer
+              .slice(-3)
+              .reverse()
+              .map((listOffer, index) => (
+                <CardOffer key={index} listOffer={listOffer} />
               ))}
-          </Box>
         </Box>
-
-        {/* Card Dernieres offres postées dashboard */}
-
-        <Box
-          sx={{
-            bgcolor: themeUser.palette.secondary.main,
-            borderRadius: 1,
-            pt: 2,
-            pb: 8,
-            my: 8,
-          }}
-        >
-          {/* Titre section Dernieres offres postées dashboard */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="h4"
-              component="h4"
-              sx={{
-                px: 1,
-                bgcolor: themeUser.palette.primary.main,
-                color: themeUser.palette.text.primary,
-                borderRadius: 1,
-                position: "relative",
-                top: "-45px",
-                textAlign:"center"
-              }}
-            >
-              Dernieres offres postées
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: { xs: "center", md: "space-around" },
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: { xs: "center", md: "none" },
-            }}
-          >
-            {arrayOffer.length > 0 &&
-              arrayOffer
-                .slice(-3)
-                .reverse()
-                .map((listOffer, index) => (
-                  <CardOffer key={index} listOffer={listOffer} />
-                ))}
-          </Box>
-        </Box>
-      </Container>
+      </Box>
+    </Container>
   );
 };
 

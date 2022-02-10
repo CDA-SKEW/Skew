@@ -10,7 +10,7 @@ import { store } from 'store';
 
 export default function FormContact() {
 
-    const Message = useSelector((state) => state.messages.listMessage)
+    // const Message = useSelector((state) => state.messages.listMessage)
 
     const [nom, setNom] = useState();
     const [prenom, setPrenom] = useState();
@@ -88,7 +88,11 @@ export default function FormContact() {
             >
                 Contactez-nous
             </Typography>
-            <Box>
+            <Box sx={{
+                maxWidth: 620,
+                mx: 'auto'
+            }}
+            >
                 {InputList.map((index) => (
                     <TextField
                         key={index.key}
@@ -100,10 +104,7 @@ export default function FormContact() {
                         onChange={(e) => handleForm(e)}
                         sx={{
                             display: "block",
-                            width: '100%',
-                            maxWidth: 620,
-                            mx: 'auto',
-                            my: 2
+                            my: 2,
                         }}
                     />
                 ))}
@@ -119,8 +120,6 @@ export default function FormContact() {
                     sx={{
                         display: "block",
                         width: '100%',
-                        maxWidth: 620,
-                        mx: 'auto',
                         my: 2
                     }}
                 />
@@ -133,8 +132,6 @@ export default function FormContact() {
                     sx={{
                         display: "block",
                         width: '100%',
-                        maxWidth: 620,
-                        mx: 'auto',
                         mt: 2,
                         mb: 10,
                         fontSize: '20px',

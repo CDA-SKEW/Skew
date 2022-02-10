@@ -6,7 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -17,6 +16,12 @@ import Toolbar from "@mui/material/Toolbar";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeAdmin } from "../configs/theme";
 import GlobalStyles from "@mui/material/GlobalStyles";
+import PeopleIcon from "@mui/icons-material/People";
+import WorkIcon from "@mui/icons-material/Work";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import Button from "@mui/material/Button";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useNavigate } from "react-router";
 
 const drawerWidth = 240;
 
@@ -28,22 +33,53 @@ function ResponsiveDrawer({ children }) {
     setMobileOpen(!mobileOpen);
   };
 
+  // Navigation Links
+  const navigate = useNavigate();
+
+  const ItemNav = [
+    { id: 1, name: "Dashboard", icon: <DashboardIcon />, path: "/admin" },
+    { id: 2, name: "Utilisateurs", icon: <PeopleIcon />, path: "/admin/users" },
+    { id: 3, name: "Emplois", icon: <WorkIcon />, path: "/admin/jobs" },
+    { id: 4, name: "Messagerie", icon: <MailIcon />, path: "/admin/messages" },
+  ];
+
   const drawer = (
-    <div>
+    <Box>
       <Toolbar />
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        {ItemNav.map((item, index) => {
+          return (
+            <ListItem
+              button
+              key={item.name}
+              onClick={(e) => navigate(item.path)}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name} />
+            </ListItem>
+          );
+        })}
       </List>
       <Divider />
-    </div>
+      {/* Deconnexion button  */}
+      <Button
+        onClick={() => navigate("/")}
+        sx={{
+          width: 120,
+          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-start",
+          mt: 50,
+          position: "absolute",
+          left: 55,
+        }}
+        endIcon={<ExitToAppIcon />}
+      >
+        Exit
+      </Button>
+    </Box>
   );
 
   const container =

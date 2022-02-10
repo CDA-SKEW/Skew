@@ -9,6 +9,16 @@ import Paper from '@mui/material/Paper';
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from '@mui/icons-material/Delete';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 
 
@@ -47,6 +57,76 @@ export default function TableFormation(props) {
     }, [dataProfilCandidate]);
 
 
+    //Constante de Condition
+
+    const checkEdit = () => {
+        if (edit === true) return [<ModeText />, <ModeEdit />]
+        else return <ModeText />;
+    }
+
+    // Constante pour check si le mode edit est actif afficher la colonne action
+    const checkViewAction = () => {
+        if (edit === true) return <TableCell align='center' >Actions </TableCell>
+        else return;
+    }
+    const BtnDelete = () => {
+        if (edit === true) return <Button sx={{ color: "red", }} >
+            <DeleteIcon />
+        </Button>
+        else return;
+    }
+
+    // Function  Component MUI Select and DatePicker "Year Only"//
+
+    // Date Picker Year Only//
+    function ViewsDatePicker() {
+        const [value, setValue] = React.useState(new Date());
+
+        return (
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Stack spacing={3}>
+                    <DatePicker
+
+                        views={['year']}
+                        label="Year only"
+                        value={value}
+                        onChange={(newValue) => {
+                            setValue(newValue);
+                        }}
+                        renderInput={(params) => <TextField {...params} helperText={null} />}
+                    />
+                </Stack>
+            </LocalizationProvider>
+        );
+    }
+
+    // Select Yes/No //
+    function BasicSelect() {
+        const [age, setAge] = React.useState('');
+
+        const handleChange = (event) => {
+            setAge(event.target.value);
+        };
+
+        return (
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="simple-select">Obtain</InputLabel>
+                    <Select
+                        labelId="Obtain"
+                        id="simple-select"
+                        onChange={handleChange}
+                        size="small"
+                    >
+                        <MenuItem value={"Yes"}>Yes</MenuItem>
+                        <MenuItem value={"No"}>No</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
+        );
+    }
+
+    // Function Text and Edit Mode //
     function ModeText() {
         return (
             <TableBody>
@@ -55,10 +135,11 @@ export default function TableFormation(props) {
                     <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
                         <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-                        <TableCell>{certificate.school}</TableCell>
-                        <TableCell>{certificate.title}</TableCell>
-                        <TableCell>{certificate.year}</TableCell>
-                        <TableCell>{certificate.validate}</TableCell>
+                        <TableCell align='center'>{certificate.school}</TableCell>
+                        <TableCell align='center'>{certificate.title}</TableCell>
+                        <TableCell align='center' >{certificate.year}</TableCell>
+                        <TableCell align='center'>{certificate.validate}</TableCell>
+                        {BtnDelete()}
                     </TableRow>
                 ))}
             </TableBody>
@@ -67,48 +148,54 @@ export default function TableFormation(props) {
     }
     function ModeEdit() {
         return (
-            <Stack direction="row" spacing={2} marginTop={2}>
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="address"
-                    defaultValue={school}
-                />
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="zipCode"
-                    defaultValue={title}
-                />
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="Town"
-                    defaultValue={year}
-                />
-                <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="phone"
-                    defaultValue={validate}
-                />
-                <Button >
-                    VALID
-                </Button>
-                <Button >
-                    ANNULER
-                </Button>
-            </Stack>
+            <TableBody>
+                {ListCertificate.map((certificate, index) => (
+                    <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align='center' sx={{ minWidth: 140 }}>
+                            <TextField
+
+                                required
+                                size="small"
+                                id="outlined-required"
+                                label="School"
+                                defaultValue={certificate.school}
+                            />
+                        </TableCell>
+                        <TableCell align='center' sx={{ minWidth: 140 }} >
+                            <TextField
+
+                                required
+                                size="small"
+                                id="outlined-required"
+                                label="Title"
+                                defaultValue={certificate.title}
+                            />
+                        </TableCell>
+
+                        <TableCell align='center' sx={{ minWidth: 140 }} >
+                            <ViewsDatePicker />
+                        </TableCell>
+
+                        <TableCell align='center' sx={{ minWidth: 140 }} >
+                            <BasicSelect />
+                        </TableCell>
+
+
+                        <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Button sx={{ color: "green", m: 2 }} >
+                                <CheckCircleOutlineIcon />
+                            </Button>
+                            <Button sx={{ color: "red", m: 2 }}>
+                                < KeyboardReturnIcon />
+                            </Button>
+                        </TableCell>
+
+                    </TableRow>
+                ))}
+            </TableBody>
         );
     }
-    const checkEdit = () => {
-        if (edit === true) return <ModeEdit />;
-        else return <ModeText />;
-    };
+
 
     return (
         <Box
@@ -128,7 +215,7 @@ export default function TableFormation(props) {
 
 
                 <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-                    <DeleteIcon />
+                    <BorderColorIcon />
                 </Button>
             </Box>
             {/* Titre section Formation */}
@@ -155,14 +242,15 @@ export default function TableFormation(props) {
                 </Typography>
             </Box>
 
-            <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
-                <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
+            <TableContainer sx={{ px: "50px" }} component={Paper}>
+                <Table sx={{ width: "100%" }} >
                     <TableHead sx={{ bgcolor: "#FF7F50" }}>
                         <TableRow>
-                            <TableCell>Centre/Ecole</TableCell>
-                            <TableCell >Intitulé</TableCell>
-                            <TableCell>Année</TableCell>
-                            <TableCell>Obtention</TableCell>
+                            <TableCell align='center'>Centre/Ecole</TableCell>
+                            <TableCell align='center'>Intitulé</TableCell>
+                            <TableCell align='center'>Année</TableCell>
+                            <TableCell align='center'>Obtention</TableCell>
+                            {checkViewAction()}
                         </TableRow>
                     </TableHead>
                     {checkEdit()}

@@ -6,25 +6,29 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Column } from "devextreme-react/data-grid";
-import { Mode } from "@mui/icons-material";
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { useDispatch } from "react-redux";
+import { postFormProfilCandidate } from "store/actions/CandidateActions";
 
 
 export default function TableContact(props) {
+
   const { ListUser,
     dataProfilCandidate
   } = props
+
+  const dispatch = useDispatch();
   const [edit, setEdit] = React.useState(false);
 
 
   // Declaration des constantes pour le formulaire
 
   const [address, setAdress] = useState("");
-  const [codeZip, setCodeZip] = useState("");
+  const [zipCode, setZipCode] = useState("");
   const [town, setTown] = useState("");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("");
@@ -34,7 +38,7 @@ export default function TableContact(props) {
   const setUseState = () => {
 
     setAdress(ListUser.address);
-    setCodeZip(ListUser.zipCode);
+    setZipCode(ListUser.zipCode);
     setTown(ListUser.town);
     setPhone(ListUser.phone);
     setMail(ListUser.mail)
@@ -45,94 +49,126 @@ export default function TableContact(props) {
   }, [dataProfilCandidate]);
 
 
+  const handleSendFormProfil = async (e) => {
+    // console.log("Form waitsend");
+    //empeche le formunliare d'etre submiter
+    // console.log("e", e)
+    e.preventDefault();
+
+
+
+    const dataFormProfilCandidate = {
+
+
+      address,
+      zipCode,
+      phone,
+      town,
+
+
+    };
+
+    // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
+    await dispatch(postFormProfilCandidate(dataFormProfilCandidate));
+  }
+
+
+
   function ModeText() {
     return (
       <TableBody>
+
         {ListUser.map((ListUser, index) => (
           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-            <TableCell >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
-            <TableCell>{ListUser.phone}</TableCell>
-            <TableCell>{ListUser.mail}</TableCell>
+
+            <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
+            <TableCell align='center'  >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
+            <TableCell align='center'  >{ListUser.phone}</TableCell>
+            <TableCell align='center'  >{ListUser.mail}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     );
-  }
+  };
+
+
+
   function ModeEdit() {
     return (
+      <TableBody>
+        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+          <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column', minWidth: 200 }} >
+            <TextField
+              required
+              size="small"
+              id="outlined-required"
+              label="address"
+              defaultValue={ListUser[0].address}
+            />
+            <TextField
+              required
+              size="small"
+              id="outlined-required"
+              label="zipCode"
+              defaultValue={ListUser[0].zipCode}
+            />
+            <TextField
+              required
+              size="small"
+              id="outlined-required"
+              label="Town"
+              defaultValue={ListUser[0].town}
+            />
+          </TableCell >
+          <TableCell align='center' sx={{ minWidth: 140 }} >
+            <TextField
+              required
+              size="small"
+              id="outlined-required"
+              label="phone"
+              defaultValue={ListUser[0].phone}
+            />
+          </TableCell>
+          <TableCell align='center' sx={{ minWidth: 200 }} >
+            <TextField
+              required
+              size="small"
+              id="outlined-required"
+              label="mail"
+              defaultValue={ListUser[0].mail}
+            />
+          </TableCell>
+          <TableCell align='center' scope="column" sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Button sx={{ color: "green", m: 2 }} >
+              <CheckCircleOutlineIcon />
+            </Button>
+            <Button sx={{ color: "red", m: 2 }}>
+              < KeyboardReturnIcon />
+            </Button>
+          </TableCell>
 
-      <Stack direction="row" spacing={2} marginTop={2}>
-        <TableBody>
-          <TableRow>
-            <Stack direction="column" spacing={2} >
-              <TableCell>
+        </TableRow>
 
-                <TextField
-                  required
-                  size="small"
-                  id="outlined-required"
-                  label="address"
-                  defaultValue={ModeText(ListUser)}
-                />
-                <TextField
-                  required
-                  size="small"
-                  id="outlined-required"
-                  label="zipCode"
-                  defaultValue={codeZip}
-                />
-                <TextField
-                  required
-                  size="small"
-                  id="outlined-required"
-                  label="Town"
-                  defaultValue={town}
-                />
-              </TableCell>
-            </Stack>
 
-            <TableCell>
+      </TableBody>
+    )
 
-              <TextField
-                required
-                size="small"
-                id="outlined-required"
-                label="phone"
-                defaultValue={phone}
-              />
-            </TableCell>
-            <TableCell>
-
-              <TextField
-                required
-                size="small"
-                id="outlined-required"
-                label="mail"
-                defaultValue={mail}
-              />
-            </TableCell>
-          </TableRow>
-        </TableBody>
-        <Box direction="column">
-          <Button >
-            VALID
-          </Button>
-          <Button >
-            ANNULER
-          </Button>
-        </Box>
-      </Stack>
-
-    );
-  }
-  const checkEdit = () => {
-    if (edit === true) return <ModeEdit />;
-    else return <ModeText />;
   };
+
+  //     Constante pour check si le mode edit est actif 
+  const checkEdit = () => {
+    if (edit === true) return [<ModeText />, <ModeEdit />]
+    else return <ModeText />;
+  }
+  // Constante pour check si le mode edit est actif afficher la colonne action
+  const checkViewAction = () => {
+    if (edit === true) return <TableCell align='center' >Actions</TableCell>
+    else return;
+  }
 
   return (
     <Box
+      // component="form" onSubmit={(e) => handleSendFormProfil(e)}
       sx={{
         bgcolor: "#FFFFFF",
         height: "auto",
@@ -149,7 +185,7 @@ export default function TableContact(props) {
 
 
         <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-          <DeleteIcon />
+          <BorderColorIcon />
         </Button>
       </Box>
       {/* Titre section Formation */}
@@ -176,17 +212,22 @@ export default function TableContact(props) {
         </Typography>
       </Box>
 
-      <TableContainer sx={{ display: "flex", justifyContent: "center" }} component={Paper}>
-        <Table sx={{ width: "75%" }} size="small" aria-label="a dense table">
+      <TableContainer sx={{ px: "50px" }}>
+        <Table sx={{ width: "100%" }} >
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell>Address</TableCell>
-              <TableCell >Phone</TableCell>
-              <TableCell>Mail</TableCell>
+              <TableCell align='center'>Address</TableCell>
+              <TableCell align='center' >Phone</TableCell>
+              <TableCell align='center' >Mail</TableCell>
+              {checkViewAction()}
+
             </TableRow>
           </TableHead>
           {checkEdit()}
+
         </Table>
+
+
       </TableContainer>
     </Box>
   );

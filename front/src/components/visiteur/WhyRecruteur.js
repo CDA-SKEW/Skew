@@ -15,7 +15,10 @@ export default function WhyCandidat() {
     ]
 
     return (
-        <Box>
+        <Box
+            maxWidth='xl'
+            mx={'auto'}
+        >
             <Card sx={{
                 my: 10,
                 display: "flex",
@@ -55,13 +58,13 @@ export default function WhyCandidat() {
                         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                     </Typography>
                     <Box
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        pt: 3,
-                        width: '100%',
-                        justifyContent: { xs: "center", md: "space-around" },
-                    }}
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            pt: 3,
+                            width: '100%',
+                            justifyContent: { xs: "center", md: "space-around" },
+                        }}
                     >
                         {BaliseList.map((index) => (
                             <Box
@@ -71,7 +74,7 @@ export default function WhyCandidat() {
                                     py: 3,
                                     my: 2,
                                     mx: 'auto',
-                                    width: 350,
+                                    width: 250,
                                     display: 'flex',
                                     justifyContent: "center",
                                 }}>

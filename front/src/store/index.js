@@ -13,6 +13,7 @@ import { MessagesReducer } from "./reducers/Messages";
 import { CandidateReducer } from "./reducers/Candidate";
 import { AdminReducer } from "./reducers/Admin";
 import { AuthReducer } from "./reducers/Auth";
+import { OffresVisiteurReducer } from "./reducers/OffresVisiteur";
 
 /*
  * All (Root) Reducers
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   candidate: CandidateReducer,
   admin: AdminReducer,
   auth: AuthReducer,
+  offresVisiteur: OffresVisiteurReducer,
 });
 
 /*

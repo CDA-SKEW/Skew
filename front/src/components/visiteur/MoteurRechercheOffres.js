@@ -1,65 +1,68 @@
 import * as React from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import { TextField } from '@material-ui/core';
 
-export default function MoteurRechercheOffres() {
+export default function MoteurRechercheOffres({ handleSearchJob, handleSearchType, handleSearchLocation }) {
+
     return (
-        <Stack
+
+        <Paper
+            component="form"
             sx={{
-                width: '80%',
-                display: { sx: 'block', md: 'flex' }
+                display: {xs: 'block', md: "flex"},
+                alignItems: "center",
+                width: {xs: 350, md: 600, lg: 900},
+                height: { md: 75},
+                bgcolor: '#fff',
+                mb: 10,
+                mx: "auto",
+                p: 3,
+                boxShadow: '0 0 25px #1e90ff',
             }}
         >
-            <Autocomplete
-                multiple
-                options={top100Films.map((option) => option.job)}
-                freeSolo
+            <TextField
+                placeholder="Job"
+                name='job'
+                fullWidth
+                onChange={(e) => handleSearchJob(e.target.value)}
                 sx={{
-                    width: 250
+                    width: 300,
+                    height: 100
                 }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        placeholder="Job"
-                    />
-                )}
             />
-            <Autocomplete
-                multiple
-                options={top100Films.map((option) => option.type)}
-                freeSolo
+            <Divider
+                variant='fullWidth'
                 sx={{
-                    width: 250
+                    m: 0.5,
                 }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        placeholder="Type"
-                    />
-                )}
+                orientation="vertical"
             />
-            <Autocomplete
-                multiple
-                options={top100Films.map((option) => option.lieu)}
-                freeSolo
+            <TextField
+                placeholder="Type"
+                name='type'
+                fullWidth
+                onChange={(e) => handleSearchType(e.target.value)}
                 sx={{
-                    width: 250
+                    width: 300,
                 }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        placeholder="Localisation"
-                    />
-                )}
             />
-        </Stack>
+            <Divider
+                variant='fullWidth'
+                sx={{
+                    m: 0.5
+                }}
+                orientation="vertical"
+            />
+            <TextField
+                placeholder="Localisation"
+                name='location'
+                fullWidth
+                onChange={(e) => handleSearchLocation(e.target.value)}
+                sx={{
+                    width: 300,
+                }}
+            />
+        </Paper>
     )
 }
-
-
-const top100Films = [
-    { job: 'Developpeur', lieu: 'Lyon', type: 'CDD' },
-    { job: 'Maçon', lieu: 'Paris', type: 'CDI' },
-    { job: 'Peintre', lieu: 'Marseille', type: 'Interim' },
-];
