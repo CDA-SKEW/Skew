@@ -12,14 +12,13 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
-import { postFormProfilCandidate } from "store/actions/CandidateActions";
+import { getProfilCandidate, postFormProfilCandidate } from "store/actions/CandidateActions";
+
 
 
 export default function TableContact(props) {
 
-  const { ListUser,
-    dataProfilCandidate
-  } = props
+  const { ListUser, dataProfilCandidate } = props
 
   const dispatch = useDispatch();
   const [edit, setEdit] = React.useState(false);
@@ -49,44 +48,20 @@ export default function TableContact(props) {
   }, [dataProfilCandidate]);
 
 
-  const handleSendFormProfil = async (e) => {
-    // console.log("Form waitsend");
-    //empeche le formunliare d'etre submiter
-    // console.log("e", e)
-    e.preventDefault();
-
-
-
-    const dataFormProfilCandidate = {
-
-
-      address,
-      zipCode,
-      phone,
-      town,
-
-
-    };
-
-    // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
-    await dispatch(postFormProfilCandidate(dataFormProfilCandidate));
-  }
-
-
-
   function ModeText() {
     return (
       <TableBody>
 
-        {ListUser.map((ListUser, index) => (
-          <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        {/* {ListUser.map((ListUser, index) => ( */}
 
-            <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-            <TableCell align='center'  >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
-            <TableCell align='center'  >{ListUser.phone}</TableCell>
-            <TableCell align='center'  >{ListUser.mail}</TableCell>
-          </TableRow>
-        ))}
+        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
+          <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{ListUser.id}</TableCell>
+          <TableCell align='center'  >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
+          <TableCell align='center'  >{ListUser.phone}</TableCell>
+          <TableCell align='center'  >{ListUser.mail}</TableCell>
+        </TableRow>
+        {/* ))} */}
       </TableBody>
     );
   };
@@ -94,6 +69,21 @@ export default function TableContact(props) {
 
 
   function ModeEdit() {
+    const [form, setForm] = useState({ ...ListUser })
+
+    const handleChange = (prop) => (event) => {
+      // console.log('change form', prop, event.target.value)
+      setForm({ ...form, [prop]: event.target.value })
+      // console.log('end form', form)
+    }
+
+    const submitForm = () => {
+      // console.log('SUBMIT', form)
+      dispatch(postFormProfilCandidate({ ...form }))
+      setTimeout(() => dispatch(getProfilCandidate()), 777)
+      setEdit(false) // close editMode
+    }
+
     return (
       <TableBody>
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -101,58 +91,61 @@ export default function TableContact(props) {
             <TextField
               required
               size="small"
-              id="outlined-required"
               label="address"
-              defaultValue={ListUser[0].address}
+              onChange={handleChange('address')}
+              id="outlined-adornment-address"
+              value={form['address']}
             />
             <TextField
               required
               size="small"
-              id="outlined-required"
               label="zipCode"
-              defaultValue={ListUser[0].zipCode}
+              onChange={handleChange('zipCode')}
+              id="outlined-adornment-zipCode"
+              value={form['zipCode']}
             />
             <TextField
               required
               size="small"
-              id="outlined-required"
-              label="Town"
-              defaultValue={ListUser[0].town}
+              label="town"
+              onChange={handleChange('town')}
+              id="outlined-adornment-town"
+              value={form['town']}
             />
           </TableCell >
           <TableCell align='center' sx={{ minWidth: 140 }} >
             <TextField
               required
               size="small"
-              id="outlined-required"
               label="phone"
-              defaultValue={ListUser[0].phone}
+              onChange={handleChange('phone')}
+              id="outlined-adornment-phone"
+              value={form['phone']}
             />
           </TableCell>
           <TableCell align='center' sx={{ minWidth: 200 }} >
             <TextField
               required
               size="small"
-              id="outlined-required"
               label="mail"
-              defaultValue={ListUser[0].mail}
+              onChange={handleChange('mail')}
+              id="outlined-adornment-mail"
+              value={form['mail']}
             />
           </TableCell>
           <TableCell align='center' scope="column" sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Button sx={{ color: "green", m: 2 }} >
+            <Button sx={{ color: "green", m: 2 }}
+              onClick={() => submitForm()}
+            >
               <CheckCircleOutlineIcon />
             </Button>
             <Button sx={{ color: "red", m: 2 }}>
               < KeyboardReturnIcon />
             </Button>
           </TableCell>
-
         </TableRow>
-
-
       </TableBody>
     )
-
   };
 
   //     Constante pour check si le mode edit est actif 
@@ -176,18 +169,7 @@ export default function TableContact(props) {
         my: 4,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "right",
-          alignItems: "center",
-        }}>
 
-
-        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-          <BorderColorIcon />
-        </Button>
-      </Box>
       {/* Titre section Formation */}
       <Box
         sx={{
@@ -211,7 +193,18 @@ export default function TableContact(props) {
           Contact
         </Typography>
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+        }}>
 
+
+        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+          Mode Edit
+        </Button>
+      </Box>
       <TableContainer sx={{ px: "50px" }}>
         <Table sx={{ width: "100%" }} >
           <TableHead sx={{ bgcolor: "#FF7F50" }}>

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
+import Collapse from "@mui/material/Collapse";
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { BottomNavigationAction, Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -17,56 +18,22 @@ import Grid from '@mui/material/Grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { useDispatch } from "react-redux";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { postFormProfilCandidate, getProfilCandidate } from "store/actions/CandidateActions";
+
+
+
+
+
 
 export default function TableExperience(props) {
   const { ListExp,
     dataProfilCandidate
   } = props
   const [edit, setEdit] = React.useState(false);
-
-
-  // Declaration des constantes pour le formulaire
-
-  const [company, setCompany] = useState("");
-  const [post, setPost] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
-
-
-  const setUseState = () => {
-
-    setCompany(ListExp.company);
-    setPost(ListExp.post);
-    setStart(ListExp.start);
-    setEnd(ListExp.end);
-
-
-  };
-  useEffect(() => {
-    // console.log("effect for useState form employer");
-    setUseState();
-  }, [dataProfilCandidate]);
-
-  // Constante de Condition
-
-  const checkEdit = () => {
-    if (edit === true) return [<ModeText />, <ModeEdit />]
-    else return <ModeText />;
-  }
-  // Constante pour check si le mode edit est actif afficher la colonne action
-  const checkViewAction = () => {
-    if (edit === true) return <TableCell align='center' >Actions </TableCell>
-    else return;
-  }
-  const BtnDelete = () => {
-    if (edit === true) return <Button sx={{ color: "red", }} >
-      <DeleteIcon />
-    </Button>
-    else return;
-  }
-
-
-
+  const [add, setAdd] = React.useState(false);
+  const [openAdd, setOpenAdd] = React.useState(false);
   function BasicDatePicker() {
     const [value, setValue] = React.useState(null);
 
@@ -84,99 +51,253 @@ export default function TableExperience(props) {
     );
   }
 
+  //MODE EDIT
+  function ModeEdit(props) {
+    const { data } = props
+    const dispatch = useDispatch()
+    const [form, setForm] = useState({})
 
+    const changeForm = (prop) => (event) => {
+      setForm({ ...form, [prop]: event.target.value })
+    }
 
+    const submitForm = () => {
+      dispatch(postFormProfilCandidate(form))
+    }
 
-  function ModeText() {
+    console.log('mode edit comp', data)
+
     return (
-      <TableBody>
+      <TableRow>
 
-        {ListExp.map((exp, index) => (
-          <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell align='center' sx={{ minWidth: 200 }} >
 
-            <TableCell component="th" scope="row" sx={{ display: "none" }}>{index}</TableCell>
-            <TableCell align='center'>{exp.company}</TableCell>
-            <TableCell align='center'>{exp.post}</TableCell>
-            <TableCell align='center' sx={{ minWidth: { xs: '400px', sm: '400px', md: '400px' } }}>{exp.desc}</TableCell>
-            <TableCell align='center'>{exp.start}</TableCell>
-            <TableCell align='center'>{exp.end}</TableCell>
-            {BtnDelete()}
-          </TableRow>
-        ))}
-      </TableBody>
+          <TextField
+            fullWidth
+            required
+            size="small"
+            id="outlined-required"
+            label="Comp"
+            onChange={() => changeForm('company')}
+            defaultValue={data.company}
+          />
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            onChange={() => changeForm('company')}
+            label="Post"
+            defaultValue={data.post}
+          />
+        </TableCell>
 
-    );
-  }
-  function ModeEdit() {
-    return (
+        <TableCell align='center' >
+        </TableCell>
 
-      <TableBody>
-        {ListExp.map((exp) => (
-          <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell align='center' sx={{ minWidth: 140 }} >
-              <TextField
-                fullWidth
+        <TableCell align='center' sx={{ minWidth: 200 }} >
+          <TextField
+            fullWidth
+            multiline
+            onChange={() => changeForm('company')}
+            maxRows={4}
+            required
+            size="small"
+            id="outlined-required"
+            label="Description"
+            defaultValue={data.desc}
+          />
+        </TableCell>
 
-                required
-                size="small"
-                id="outlined-required"
-                label="Comp"
-                defaultValue={exp.company}
-              />
-              <TextField
-                required
-                size="small"
-                id="outlined-required"
-                label="Post"
-                defaultValue={exp.post}
-              />
-            </TableCell>
-            <TableCell align='center' >
-              {/* <TextField
-                required
-                size="small"
-                id="outlined-required"
-                label="Post"
-                defaultValue={exp.post}
-              /> */}
-            </TableCell>
-            <TableCell align='center' sx={{ minWidth: 140 }} >
-              <TextField
-                fullWidth
-                multiline
-                maxRows={4}
-                ma
-                required
-                size="small"
-                id="outlined-required"
-                label="Description"
-                defaultValue={exp.desc}
-              />
-            </TableCell>
-            <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-              <Typography>Start</Typography>
-              <BasicDatePicker />
+        <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
+          <Typography>Start</Typography>
+          <BasicDatePicker />
 
-            </TableCell>
-            <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-              <Typography>End</Typography>
-              <BasicDatePicker />
-            </TableCell>
+        </TableCell>
 
-            <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Button sx={{ color: "green", m: 2 }} >
-                <CheckCircleOutlineIcon />
-              </Button>
-              <Button sx={{ color: "red", m: 2 }}>
-                < KeyboardReturnIcon />
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
+        <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
+          <Typography>End</Typography>
+          <BasicDatePicker />
+        </TableCell>
 
-      </TableBody>
+        <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Button sx={{ color: "green", m: 2 }} onClick={() => submitForm()}>
+            <CheckCircleOutlineIcon />
+            Submit
+          </Button>
+          <Button sx={{ color: "red", m: 2 }}>
+            <KeyboardReturnIcon />
+            Cancel
+          </Button>
+        </TableCell>
+      </TableRow>
     );
   };
+
+  //MODE ADD EXPERIENCE
+  function ModeAdd(props) {
+    const { data } = props
+    const dispatch = useDispatch()
+    const [form, setForm] = useState({})
+
+    const changeForm = (prop) => (event) => {
+      setForm({ ...form, [prop]: event.target.value })
+    }
+
+    const submitForm = () => {
+      dispatch(postFormProfilCandidate(form))
+    }
+
+    // console.log('mode edit comp', data)
+
+    return (
+      <TableRow>
+
+        <TableCell align='center' sx={{ minWidth: 200 }} >
+
+          <TextField
+            fullWidth
+            required
+            size="small"
+            id="outlined-required"
+            label="Comp"
+            // onChange={() => changeForm('company')}
+            defaultValue={""}
+          />
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            // onChange={() => changeForm('company')}
+            label="Post"
+            defaultValue={""}
+          />
+        </TableCell>
+
+        <TableCell align='center' >
+        </TableCell>
+
+        <TableCell align='center' sx={{ minWidth: 200 }} >
+          <TextField
+            fullWidth
+            multiline
+            // onChange={() => changeForm('company')}
+            maxRows={4}
+            required
+            size="small"
+            id="outlined-required"
+            label="Description"
+            defaultValue={""}
+          />
+        </TableCell>
+
+        <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
+          <Typography>Start</Typography>
+          <BasicDatePicker />
+
+        </TableCell>
+
+        <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
+          <Typography>End</Typography>
+          <BasicDatePicker />
+        </TableCell>
+
+        <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Button sx={{ color: "green", m: 2 }} onClick={() => submitForm()}>
+            <CheckCircleOutlineIcon />
+            Submit
+          </Button>
+          <Button sx={{ color: "red", m: 2 }}>
+            <KeyboardReturnIcon />
+            Cancel
+          </Button>
+        </TableCell>
+      </TableRow>
+    );
+  };
+
+  const CheckModeEdit = (props) => {
+    const { status, row } = props
+    console.log('props mode edit', props)
+    if (status === true) return <ModeEdit data={row} />
+    return <div></div>
+  }
+
+  const CheckModeAdd = (props) => {
+    const { status, row } = props
+    console.log('props mode edit', props)
+    if (status === true) return <ModeAdd data={row} />
+    return <div></div>
+  }
+
+  function Row(props) {
+    const { row, str } = props
+    const [open, setOpen] = React.useState(false);
+    // const dispatch = useDispatch()
+
+    // console.log('rowwww', row)
+
+    const ActionBTN = () => {
+      console.log('ACTION BTN', edit)
+      if (edit === true) return <Box sx={{ flexDirection: 'column' }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
+        <BorderColorIcon />
+      </Button>
+
+        <Button sx={{ color: "red", }} >
+          <DeleteIcon />
+        </Button>
+      </Box>
+      else <div></div>
+    }
+
+
+    return (
+      <React.Fragment>
+        <TableRow sx={{ "&:last-child td,&:last-child th": { border: 0 } }}>
+          <TableCell component="th" scope="row" sx={{ display: "none" }}>0</TableCell>
+
+          <TableCell align='center'>{row.company}</TableCell>
+          <TableCell align='center'>{row.post}</TableCell>
+          <TableCell align='center' sx={{ minWidth: { xs: 400, sm: 400, md: 400 } }}>{row.desc}</TableCell>
+          <TableCell align='center'>{row.start}</TableCell>
+          <TableCell align='center'>{row.end}</TableCell>
+          {ActionBTN()}
+        </TableRow>
+
+        <CheckModeEdit status={open} row={row} />
+      </React.Fragment>
+
+    )
+
+  }
+
+
+  // Declaration des constantes pour le formulaire
+  const [company, setCompany] = useState("");
+  const [post, setPost] = useState("");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+
+
+  const setUseState = () => {
+    setCompany(ListExp.company);
+    setPost(ListExp.post);
+    setStart(ListExp.start);
+    setEnd(ListExp.end);
+  };
+
+  useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
+  }, [dataProfilCandidate]);
+
+  // Constante pour check si le mode edit est actif afficher la colonne action
+
+  const checkViewAction = () => {
+    if (edit === true) return <TableCell align='center'>Action
+    </TableCell>
+    else return <div></div>;
+  }
+
 
 
   return (
@@ -188,18 +309,7 @@ export default function TableExperience(props) {
         my: 4,
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "right",
-          alignItems: "center",
-        }}>
 
-
-        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-          <BorderColorIcon />
-        </Button>
-      </Box>
       {/* Titre section Formation */}
       <Box
         sx={{
@@ -223,25 +333,50 @@ export default function TableExperience(props) {
           Experience
         </Typography>
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+        }}>
+
+
+        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+          Mode Edit
+        </Button>
+        <Button onClick={(e) => setOpenAdd(openAdd === true ? false : true)}>
+          <AddCircleOutlineIcon />
+          Add Exp
+        </Button>
+      </Box>
+
+
+
+
 
       <TableContainer sx={{ px: "50px" }} component={Paper}>
         <Table sx={{ width: "100%" }}>
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell align='center'>Company</TableCell>
-              <TableCell align='center' >Job</TableCell>
-              <TableCell align='center'>Description</TableCell>
-              <TableCell align='center'>Start-Year</TableCell>
-              <TableCell align='center'>End-Year</TableCell>
+
+              <TableCell align='left'>Company</TableCell>
+              <TableCell align='left' >Job</TableCell>
+              <TableCell align='left'>Description</TableCell>
+              <TableCell align='left'>Start-Year</TableCell>
+              <TableCell align='left'>End-Year</TableCell>
               {checkViewAction()}
 
+              {/* <TableCell align='left'>Actions</TableCell> */}
             </TableRow>
           </TableHead>
 
-          {checkEdit()}
+          <TableBody>
+            <CheckModeAdd status={openAdd} />
+            {ListExp.length > 0 &&
+              ListExp.map((row, index) => <Row key={index} row={row} />)}
 
+          </TableBody>
         </Table>
-
       </TableContainer>
     </Box>
   );

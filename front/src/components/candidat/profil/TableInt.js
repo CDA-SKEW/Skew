@@ -61,9 +61,11 @@ export default function ResponsiveGrid(props) {
                 <Box>
                     <Button sx={{ color: "green" }} >
                         <CheckCircleOutlineIcon />
+                        Submit
                     </Button>
                     <Button sx={{ color: "red" }}>
                         < KeyboardReturnIcon />
+                        Cancel
                     </Button>
 
                 </Box>
