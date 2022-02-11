@@ -121,7 +121,7 @@ const themeAdmin = createTheme({
       secondary: "#004F98",
     },
     success: {
-      main: "#A1AF4C",
+      main: "#4caf50",
     },
     info: {
       main: "#2196f3",
