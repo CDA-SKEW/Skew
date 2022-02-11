@@ -27,7 +27,6 @@ const EmployerOfferId = () => {
 
     return (
            <Container
-             sx={{ py: 4 }}
             >
                 <Box bgcolor={"whitesmoke"}>
                     {/* Title and bouton close */}
@@ -38,7 +37,6 @@ const EmployerOfferId = () => {
                         bgcolor={"#FF7F50"}
                         color={"white"}
                         px={2}
-                        mb={2}
                     >
                         <Typography justifyContent={"center"} variant='h5'>
                             Offre n°45445 - Developpeur web

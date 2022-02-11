@@ -21,25 +21,23 @@ export default function Footer() {
                 variant="body2"
                 color="#fff"
                 align='center'
-                sx={{
-                    py: 1,
-                }}
+                paddingY={1}
+
             >
                 copiright@2022 SKEW
             </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box
+            display={"flex"}
+            flexDirection={{xs:"column", sm:"row"}}
+            justifyContent={"center"}>
                 {UserList.map((list, index) => (
                     <Button
                     size='small'
                         key={index}
                         color={list.color}
-                        href={list.link}
-                        sx={{
-                            mx: 2,
-                            display: 'flex'
-                        }}>
+                        href={list.link}>
                         <LinkedInIcon />
-                        <Typography variant="body2" sx={{ verticalAlign: 'center' }}>
+                        <Typography variant="body2" alignItems={"center"}>
                             {list.user}
                         </Typography>
                     </Button>

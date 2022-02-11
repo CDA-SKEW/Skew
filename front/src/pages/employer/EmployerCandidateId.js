@@ -54,8 +54,7 @@ const EmployerCandidateId = () => {
     };
 
     return (
-        <Container
-            sx={{ py: 2 }}  >
+        <Container  >
 
             {/* {/* partie contact/} */}
             <CandidateContact profilCandidate={profilCandidate} />
