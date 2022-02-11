@@ -40,16 +40,16 @@ let theme = createTheme({
       paper: "#ABC4FF",
     },
     souka: {
-      main: '#FFC300'
+      main: "#FFC300",
     },
     etienne: {
-      main: '#C70039'
+      main: "#C70039",
     },
     kevin: {
-      main: '#15D04B'
+      main: "#15D04B",
     },
     wil: {
-      main: '#15BFD0'
+      main: "#15BFD0",
     },
   },
   typography: {
@@ -63,7 +63,7 @@ let theme = createTheme({
       marginBottom: 50,
     },
     h3: {
-      textAlign: 'center'
+      textAlign: "center",
     },
     h4: {
       textAlign: "center",
@@ -118,7 +118,6 @@ const themeAdmin = createTheme({
     },
     text: {
       primary: "#ffffff",
-      secondary: "#004F98",
     },
     success: {
       main: "#4caf50",
@@ -159,41 +158,41 @@ const themeAdmin = createTheme({
 // User
 const themeCandidate = createTheme({
   palette: {
-    bgPage:{
-      main: '#E5E5E5',
+    bgPage: {
+      main: "#E5E5E5",
     },
-    bgTitleItems:{
-      main: '#004F98',
+    bgTitleItems: {
+      main: "#004F98",
     },
-    textTitleItems:{
-      main: '#ffffff',
+    textTitleItems: {
+      main: "#ffffff",
     },
-    bgBox:{
-      main: '#ffffff',
+    bgBox: {
+      main: "#ffffff",
     },
-    bgCardDashboard:{
-      main: '#FF7F50',
+    bgCardDashboard: {
+      main: "#FF7F50",
     },
   },
 });
 
 // User
-const themeEmployer= createTheme({
+const themeEmployer = createTheme({
   palette: {
-    bgPage:{
-      main: '#E5E5E5',
+    bgPage: {
+      main: "#E5E5E5",
     },
-    bgTitleItems:{
-      main: '#004F98',
+    bgTitleItems: {
+      main: "#004F98",
     },
-    textTitleItems:{
-      main: '#ffffff',
+    textTitleItems: {
+      main: "#ffffff",
     },
-    bgBox:{
-      main: '#ffffff',
+    bgBox: {
+      main: "#ffffff",
     },
-    bgCardDashboard:{
-      main: '#FF7F50',
+    bgCardDashboard: {
+      main: "#FF7F50",
     },
   },
 });
