@@ -8,7 +8,7 @@ export default function ListOffre({ index }) {
 
     return (
         <ListItem sx={{
-            bgcolor: "#E6C3A5",
+            bgcolor: "offre.main",
             width: '80%',
             maxWidth: 1200,
             mx: "auto",

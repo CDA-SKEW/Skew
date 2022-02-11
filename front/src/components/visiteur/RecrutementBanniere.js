@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 export default function RecrutementBanniere() {
     return (
         <Box sx={{
-            bgcolor: '#FFD9B8',
+            bgcolor: 'primary.main',
             width: '100%',
             my: 3
         }}>
