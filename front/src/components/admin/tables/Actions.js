@@ -13,7 +13,6 @@ import {
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
-import ReplyIcon from "@mui/icons-material/Reply";
 import SendIcon from "@mui/icons-material/Send";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
@@ -47,29 +46,15 @@ export default function DeletableChips(props) {
 
   /*------------MODALS-------------*/
 
-  // Modal Style Messages
-  // const style = {
-  //   position: "absolute",
-  //   top: "50%",
-  //   left: "50%",
-  //   transform: "translate(-50%, -50%)",
-  //   width: 400,
-  //   bgcolor: "background.paper",
-  //   border: "1px solid #161C24",
-  //   boxShadow: 24,
-  //   p: 4,
-  //   borderRadius: 12,
-  // };
-
   // Modal Style General
-  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    "& .MuiDialogContent-root": {
-      padding: theme.spacing(2),
-    },
-    "& .MuiDialogActions-root": {
-      padding: theme.spacing(1),
-    },
-  }));
+  // const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  //   "& .MuiDialogContent-root": {
+  //     padding: theme.spacing(2),
+  //   },
+  //   "& .MuiDialogActions-root": {
+  //     padding: theme.spacing(1),
+  //   },
+  // }));
 
   // Modal Style Messages
   const style = {
@@ -119,7 +104,7 @@ export default function DeletableChips(props) {
   // Boolean actions operators
   const {
     columnsBan,
-    columnsDeleteUser,
+    // columnsDeleteUser,
     columnsDeleteJob,
     // columnsDeleteMessage,
     columnsAddMessage,
@@ -308,7 +293,6 @@ export default function DeletableChips(props) {
       {columnsDeleteJob && (
         // Supprimer un emploi
         <div>
-          {/* MODAL open via Chip */}
           <Chip
             label="delete"
             color="error"
@@ -316,44 +300,55 @@ export default function DeletableChips(props) {
             icon={<DeleteIcon />}
             onClick={handleOpen}
           ></Chip>
-          {/* Modal DELETE JOB */}
-          <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
+          <Modal
             open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <BootstrapDialogTitle
-              id="customized-dialog-title"
-              onClose={handleClose}
-            >
-              VOULEZ-VOUS SUPPRIMER CET EMPLOI ?
-            </BootstrapDialogTitle>
-            <DialogContent dividers>
-              <Typography gutterBottom>
-                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-                cursus magna, vel scelerisque nisl consectetur et. Donec sed
-                odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{ mb: 2, textAlign: "center" }}
+                variant="h6"
+                component="h2"
+              >
+                VOULEZ-VOUS SUPPRIMER CET EMPLOI ?
               </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                autoFocus
-                variant="outlined"
-                color="warning"
-                onClick={() => dispatch(deleteJob(id.row.id))}
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
               >
-                OUI
-              </Button>
-              <Button
-                autoFocus
-                variant="outlined"
-                color="success"
-                onClick={handleClose}
-              >
-                NON
-              </Button>
-            </DialogActions>
-          </BootstrapDialog>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {/* Reply action Button */}
+                <Stack spacing={2} direction="row" sx={{ m: 8 }}>
+                  <Button
+                    autoFocus
+                    variant="outlined"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => dispatch(deleteJob(id.row.id))}
+                  >
+                    OUI
+                  </Button>
+                  <Button
+                    autoFocus
+                    variant="outlined"
+                    color="success"
+                    onClick={handleClose}
+                  >
+                    NON
+                  </Button>
+                </Stack>
+              </Typography>
+            </Box>
+          </Modal>
         </div>
       )}
 
@@ -376,7 +371,7 @@ export default function DeletableChips(props) {
           >
             <Box sx={style}>
               {/* Form */}
-              <Typography  variant="h5" component="h2">
+              <Typography variant="h5" component="h2">
                 REPONDRE A UN MESSAGE
                 <TextField
                   fullWidth
