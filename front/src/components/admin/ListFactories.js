@@ -42,16 +42,14 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 export default function ListFactories(props) {
   const { listJobs } = props;
   // Afficher uniquement les 4 derniers offres
-  const SliceJobs = listJobs.slice(0, 5);
+  const SliceJobs = listJobs.slice(0, 4);
 
   return (
     <RootStyle>
       <IconWrapperStyle>
         <Icon icon="mdi:offer" width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h4">
-        Dernières offres ajoutées
-      </Typography>
+      <Typography variant="h4">Dernières offres ajoutées</Typography>
       <Masonry columns={2} spacing={1}>
         {SliceJobs.map((job, index) => {
           // console.log("ListFactories", job);
@@ -79,7 +77,7 @@ export default function ListFactories(props) {
                       >
                         {job.period}
                       </Typography>
-                      <Divider />
+                      <Divider component="li" />
                       {job.description}
                     </React.Fragment>
                   }
