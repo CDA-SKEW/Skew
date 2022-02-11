@@ -202,7 +202,7 @@ export default function TableContact(props) {
 
 
         <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-          <BorderColorIcon />
+          Mode Edit
         </Button>
       </Box>
       <TableContainer sx={{ px: "50px" }}>
