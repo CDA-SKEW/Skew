@@ -21,7 +21,7 @@ import Navigation from "components/home/Navigation";
 import { ThemeProvider } from "@emotion/react";
 import { theme, themeEmployer } from "configs/theme";
 import Navbar from "../components/core/Navbar";
-import { Avatar, Container, Zoom } from '@mui/material';
+import { AppBar, Avatar, Container, Zoom } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -34,6 +34,7 @@ import ListItemLink from "components/core/navbar/ListItemLink";
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { maxWidth } from "@mui/system";
 
 
 
@@ -63,7 +64,7 @@ function ScrollTop(props) {
             <Box
                 onClick={(e) => handleClick(e)}
                 role="presentation"
-                sx={{ position: 'fixed', bottom: 80, right: 16 }}
+                sx={{ position: 'fixed', bottom: 200, right: 16 }}
             >
                 {children}
             </Box>
@@ -74,56 +75,6 @@ function ScrollTop(props) {
 
 // {/*Constante pour largeur slideBar*/ }
 const drawerWidth = 250;
-
-
-// {/*Style NavBar Layout*/ }
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-    transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
-
-
-// {/* Style SlideBar */ }
-const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    justifyContent: "flex-end"
-}));
-
-
-// {/* Style pour le boby */ }
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create("margin", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: `-${drawerWidth}px`,
-        ...(open && {
-            transition: theme.transitions.create("margin", {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: 0,
-        }),
-    })
-);
-
 
 // code temporaire
 // {/* <ListItemLink /> */ }
@@ -157,79 +108,56 @@ export default function EmployerLayout({ children }) {
 
 
     // code temporairk
-    const pages = [
-        { titre: "Accueil", lien: "/" },
-        { titre: "Offres", lien: "/offres" },
-        { titre: "Contactez-nous", lien: "/contactus" },
-    ];
+    // const pages = [
+    //     { titre: "Accueil", lien: "/" },
+    //     { titre: "Offres", lien: "/offres" },
+    //     { titre: "Contactez-nous", lien: "/contactus" },
+    // ];
 
 
     return (
         <Box>
             <CssBaseline />
-
             <ThemeProvider theme={theme}>
-
                 <Box display={"flex"}>
-
                     {/*NavBar Layout*/}
-                    <AppBar position="fixed" open={open} >
+                    <AppBar
+                        position="fixed"
+                        sx={{
+                            width: { xs: '100%', sm: '100%', md: `calc(100% - ${drawerWidth}px)` },
+                            ml: { xs: 0, sm: 0, md: `${drawerWidth}px` }
+                        }}
+                    >
                         <Toolbar>
-                            <IconButton
-                                color="inherit"
-                                aria-label="open drawer"
-                                onClick={handleDrawerOpen}
-                                edge="start"
-                                sx={{ mr: 4, ...(open && { display: "none" }), display: { xs: 'none', sm: 'none', md: "block" } }}
-
-                            >
-                                <MenuIcon />
-                            </IconButton>
                             <Typography variant="h6" noWrap component="div">
                                 {/* <Navigation title={title} link={navlink} /> */}
                                 {/*NavBar du site*/}
                                 <Titre />
                                 {/* <MenuList pages={pages} ListItemLink={ListItemLink} /> */}
                                 {/* <MenuListResponsive pages={pages} ListItemLink={ListItemLink} /> */}
-
                             </Typography>
-                        </Toolbar >
+                        </Toolbar>
                     </AppBar>
 
-
-                    {/* SlideBar */}
+                    {/*sidebar Layout*/}
                     <Drawer
                         sx={{
                             width: drawerWidth,
                             flexShrink: 0,
-                            "& .MuiDrawer-paper": {
+                            '& .MuiDrawer-paper': {
                                 width: drawerWidth,
-                                height: "100%",
-                                boxSizing: "border-box",
-                                bgcolor: theme.palette.primary.main
+                                boxSizing: 'border-box',
+                                bgcolor: theme.palette.primary.main,
                             },
+                            display: { xs: 'none', sm: 'none', md: "block" }
+
                         }}
-                        variant="persistent"
+                        variant="permanent"
                         anchor="left"
-                        open={open}
                     >
 
-                        <DrawerHeader >
-                            Masquer le menu
-                            <IconButton onClick={handleDrawerClose} >
-                                {theme.direction === "ltr" ? (
-                                    <ChevronLeftIcon />
-                                ) : (
-                                    <ChevronRightIcon />
-                                )}
-                            </IconButton>
-
-                        </DrawerHeader>
-                        <Divider />
-
-
                         <Box
-                            display={"flex"} justifyContent='start' paddingX={2} paddingTop={2}>
+                            display={"flex"} justifyContent='start' paddingTop={4} paddingX={2}>
                             <Avatar alt="" srcSet="https://thiscatdoesnotexist.com/" sx={{ width: 90, height: 90 }} />
                         </Box>
 
@@ -274,9 +202,6 @@ export default function EmployerLayout({ children }) {
                             ))}
                         </List>
 
-
-
-
                         <Box display={"flex"} justifyContent={"center"} marginTop={"auto"} marginBottom={4}>
                             <Button
                                 variant="contained"
@@ -291,40 +216,41 @@ export default function EmployerLayout({ children }) {
                             </Button>
                         </Box>
 
+
                     </Drawer>
 
                     {/* Body*/}
-                    <Main open={open}
-                        disableGutters
-                        sx={{
-                            bgcolor: themeEmployer.palette.bgPage.main, minHeight: "100vh", pt: 8
-                        }}
+                    <ThemeProvider theme={themeEmployer} >
+                        <Box
+                           
+                            component={"main"}
+                            sx={{ flexGrow: 1, bgcolor: themeEmployer.palette.bgPage.main, p:4 ,minHeight: "100vh" }}
+                        >
 
-                    >
-                        <DrawerHeader id="back-to-top-anchor" />
+                            <Toolbar  id="back-to-top-anchor"/>
+                            {children}
 
-
-                        <ThemeProvider theme={themeEmployer} >
-                            <Box >
-                                {children}
-                            </Box>
-                        </ThemeProvider>
-
-                    </Main>
+                        </Box>
+                    </ThemeProvider>
 
                     <ScrollTop >
                         <Fab color="secondary" size="small" aria-label="scroll back to top">
                             <KeyboardArrowUpIcon />
                         </Fab>
                     </ScrollTop>
-
                 </Box>
 
-                <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
+                <Box
+                    sx={{
+                        width: { xs: '100%', sm: '100%', md: `calc(100% - ${drawerWidth}px)` },
+                        ml: { xs: 0, sm: 0, md: `${drawerWidth}px` }
+                    }}
+                >
                     <Footer />
-                </AppBar>
+                </Box>
+
 
             </ThemeProvider >
-        </Box>
+        </Box >
     );
 }

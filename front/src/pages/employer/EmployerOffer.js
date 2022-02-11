@@ -239,7 +239,6 @@ const offers = [
 const EmployerOffer = () => {
   return (
     <Container
-    sx={{ pb: 3 }}
     >
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Typography
