@@ -6,12 +6,13 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import { themeUser } from "configs/theme";
+
 import FormProfilEmployer from "components/employer/profil/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import FormPersonalEmployer from "components/employer/profil/FormPersonalEmployer";
+import { themeEmployer } from "configs/theme";
 
 const EmployerProfil = () => {
   const dispatch = useDispatch();
@@ -46,12 +47,14 @@ const EmployerProfil = () => {
   // Pour popover bouton edit data personnelle
   const [anchorElDataPerso, setAnchorElDataPerso] = useState(null);
 
+  // console.log(themeEmployer)
+
   return (
     <Container
       sx={{ py: 4 }}
     >
       <Box
-              bgcolor={themeUser.palette.text.primary}
+              bgcolor={themeEmployer.palette.bgBox.main}
               borderRadius={3}
               paddingTop={2}
               paddingBottom={2}
@@ -61,8 +64,8 @@ const EmployerProfil = () => {
           <Typography
             variant="h5"
             paddingX={1}
-            bgcolor={themeUser.palette.primary.main}
-            color={themeUser.palette.text.primary}
+            bgcolor={themeEmployer.palette.bgTitleItems.main}
+            color={themeEmployer.palette.textTitleItems.main}
             borderRadius={1}
             position={"relative"}
             top={"-35px"}

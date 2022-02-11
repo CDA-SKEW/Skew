@@ -1,6 +1,6 @@
 import { Box, Collapse, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React from 'react';
-import { themeUser } from 'configs/theme';
+import { themeEmployer } from 'configs/theme';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
@@ -17,8 +17,8 @@ export default function CandidateCertificate(props) {
                 <Typography
                     variant="h5"
                     paddingX={1}
-                    bgcolor={themeUser.palette.primary.main}
-                    color={themeUser.palette.text.primary}
+                    bgcolor={themeEmployer.palette.bgTitleItems.main}
+                    color={themeEmployer.palette.textTitleItems.main}
                     borderRadius={1}
                     position={"relative"}
                     top={"15px"}
@@ -27,14 +27,13 @@ export default function CandidateCertificate(props) {
                     Diplomes et/ou formations
                 </Typography>
             </Box>
-
             <Box
                 paddingX={2}
                 borderRadius={3}
                 paddingTop={1}
                 paddingBottom={3}
                 marginBottom={3}
-                bgcolor={themeUser.palette.text.primary}>
+                bgcolor={themeEmployer.palette.bgBox.main}>
 
                 {/* Bouton collpase */}
                 <Box display={"flex"} justifyContent={"end"}>
@@ -42,7 +41,7 @@ export default function CandidateCertificate(props) {
                         aria-label="expand row"
                         size="small"
                         onClick={() => setOpenCertificate(!openCertificate)}
-                        sx={{ color: themeUser.palette.primary.main }}
+                        sx={{ color: themeEmployer.palette.bgTitleItems.main }}
                     >{openCertificate ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </Box>

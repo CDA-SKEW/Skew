@@ -30,6 +30,7 @@ export default function Footer() {
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 {UserList.map((list, index) => (
                     <Button
+                    size='small'
                         key={index}
                         color={list.color}
                         href={list.link}

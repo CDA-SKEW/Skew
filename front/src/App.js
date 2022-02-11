@@ -20,6 +20,7 @@ import AdminMessages from "pages/admin/AdminMessages";
 import EmployerOffer from "pages/employer/EmployerOffer";
 import EmployerOfferId from "pages/employer/EmployerOfferId";
 import EmployerCandidateId from "pages/employer/EmployerCandidateId";
+import ChangePassword from "pages/employer/ChangePassword"
 
 import EmployerLayout from "layouts/EmployerLayout";
 
@@ -33,6 +34,7 @@ const EmployerRoutes = () => (
       <Route path="offer" exact element={<EmployerOffer />} />
       <Route path="offer:id" exact element={<EmployerOfferId />} />
       <Route path="candidate:id" exact element={<EmployerCandidateId />} />
+      <Route path="profilPw" exact element={<ChangePassword />} />
     </Routes>
   </EmployerLayout>
   

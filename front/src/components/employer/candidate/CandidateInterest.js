@@ -1,7 +1,7 @@
 import { Box, Collapse, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-import { themeUser } from 'configs/theme';
+import { themeEmployer} from 'configs/theme';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
@@ -18,8 +18,8 @@ export default function CandidateInterest(props) {
                 <Typography
                     variant="h5"
                     paddingX={1}
-                    bgcolor={themeUser.palette.primary.main}
-                    color={themeUser.palette.text.primary}
+                    bgcolor={themeEmployer.palette.bgTitleItems.main}
+                    color={themeEmployer.palette.textTitleItems.main}
                     borderRadius={1}
                     position={"relative"}
                     top={"15px"}
@@ -35,7 +35,7 @@ export default function CandidateInterest(props) {
                 borderRadius={3}
                 paddingBottom={3}
                 marginBottom={3}
-                bgcolor={themeUser.palette.text.primary}>
+                bgcolor={themeEmployer.palette.bgBox.main}>
 
                 {/* Bouton collpase */}
                 <Box display={"flex"} justifyContent={"end"}>
@@ -43,7 +43,7 @@ export default function CandidateInterest(props) {
                         aria-label="expand row"
                         size="small"
                         onClick={() => setOpenInterest(!openInterest)}
-                        sx={{ color: themeUser.palette.primary.main }}
+                        sx={{ color: themeEmployer.palette.bgTitleItems.main }}
                     >{openInterest ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </Box>

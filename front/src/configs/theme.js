@@ -157,28 +157,45 @@ const themeAdmin = createTheme({
 });
 
 // User
-const themeUser = createTheme({
+const themeCandidate = createTheme({
   palette: {
-    type: "dark",
-    primary: {
-      main: "#004F98",
+    bgPage:{
+      main: '#E5E5E5',
     },
-    secondary: {
-      main: "#ffffff",
+    bgTitleItems:{
+      main: '#004F98',
     },
-    background: {
-      default: "#E5E5E5",
-      paper: "#FF7F50",
+    textTitleItems:{
+      main: '#ffffff',
     },
-    text: {
-      primary: "#ffffff",
-      secondary: "#004F98",
+    bgBox:{
+      main: '#ffffff',
     },
-
-    shape: {
-      borderRadius: 4,
+    bgCardDashboard:{
+      main: '#FF7F50',
     },
   },
 });
 
-export { theme, themeAdmin, themeUser };
+// User
+const themeEmployer= createTheme({
+  palette: {
+    bgPage:{
+      main: '#E5E5E5',
+    },
+    bgTitleItems:{
+      main: '#004F98',
+    },
+    textTitleItems:{
+      main: '#ffffff',
+    },
+    bgBox:{
+      main: '#ffffff',
+    },
+    bgCardDashboard:{
+      main: '#FF7F50',
+    },
+  },
+});
+
+export { theme, themeAdmin, themeCandidate, themeEmployer };

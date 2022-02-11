@@ -1,7 +1,6 @@
 
 import React, { useEffect } from "react";
 import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
-import { themeUser } from 'configs/theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box} from '@mui/system';
 import { Container, Divider, Typography } from "@mui/material";
