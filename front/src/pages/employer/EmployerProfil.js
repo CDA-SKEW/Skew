@@ -50,14 +50,11 @@ const EmployerProfil = () => {
   // console.log(themeEmployer)
 
   return (
-    <Container
-      sx={{ py: 4 }}
-    >
+    <Container>
       <Box
               bgcolor={themeEmployer.palette.bgBox.main}
               borderRadius={3}
               paddingTop={2}
-              paddingBottom={2}
               marginTop={2}
       >
         <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>

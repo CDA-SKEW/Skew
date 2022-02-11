@@ -77,7 +77,6 @@ const EmployerDashboard = () => {
 
   return (
     <Container
-    sx={{ py: 4 }}
   >
       {/* Card résumé dashboard */}
 
@@ -85,7 +84,7 @@ const EmployerDashboard = () => {
         bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
         paddingTop={2}
-        paddingBottom={2}
+        paddingBottom={4}
         marginTop={2}
       >
         {/* Titre section Résumé dashboard */}
@@ -130,7 +129,7 @@ const EmployerDashboard = () => {
         bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
         paddingTop={2}
-        paddingBottom={8}
+        paddingBottom={4}
         marginTop={8}
       >
         {/* Titre section Dernieres offres postées dashboard */}

@@ -185,7 +185,7 @@ export const putUser = (id) => {
 // DELETE User
 export const deleteUser = (id) => {
   return (dispatch) => {
-    console.log("delete (or ban) user action", id);
+    console.log("delete user action", id);
     // console.log("const deleteUser");
     dispatch({ type: DELETE_USER, payload: listUsers });
   };

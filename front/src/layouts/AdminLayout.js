@@ -86,10 +86,10 @@ function ResponsiveDrawer({ children }) {
         sx={{
           width: 120,
           background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
-          display: "flex",
+          // display: "flex",
           flexDirection: "row",
           alignItems: "flex-start",
-          mt: 50,
+          mt: 30,
           position: "absolute",
           left: 55,
         }}

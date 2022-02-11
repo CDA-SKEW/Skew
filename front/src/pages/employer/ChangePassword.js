@@ -13,7 +13,6 @@ const ChangePassword = (props) => {
 
     return (
         <Container
-            sx={{ py: 4 , height:"100vh"}}
         >
             <Box
                 bgcolor={themeEmployer.palette.bgBox.main}
@@ -43,7 +42,7 @@ const ChangePassword = (props) => {
                     alignItems="center"
                     spacing={2}
                 >
-                    <Grid item md={6} xs={12} sm={12}>
+                    <Grid item xs={12} sm={12} md={9} xl={6}>
                         <FormPasswordChange mail={mail} />
                     </Grid>
                 </Grid>
