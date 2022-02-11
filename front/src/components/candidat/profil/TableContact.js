@@ -201,7 +201,7 @@ export default function TableContact(props) {
         }}>
 
 
-        <Button onClick={(e) => setEdit(edit === true ? false : true)}>
+        <Button sx={{ m: 2, mr: 6 }} variant="outlined" size="small" onClick={(e) => setEdit(edit === true ? false : true)}>
           Mode Edit
         </Button>
       </Box>

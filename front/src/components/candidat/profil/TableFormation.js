@@ -214,8 +214,8 @@ export default function TableFormation(props) {
                 }}>
 
 
-                <Button onClick={(e) => setEdit(edit === true ? false : true)}>
-                    <BorderColorIcon />
+                <Button sx={{ m: 2, mr: 6 }} variant="outlined" size="small" onClick={(e) => setEdit(edit === true ? false : true)}>
+                    Mode edit
                 </Button>
             </Box>
             {/* Titre section Formation */}
