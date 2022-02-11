@@ -25,7 +25,7 @@ export default function LastOffres() {
                 Nos dernières offres
             </Typography>
             <Box sx={{
-                bgcolor: '#FFD9B8'
+                bgcolor: 'primary.main'
             }}>
                 <List>
                     {OffresList.map((index) => (

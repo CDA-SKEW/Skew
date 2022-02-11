@@ -15,7 +15,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 /*------------Export function-------------*/
 
 export default function DashboardApp(props) {
-
+  const { listUsers, listJobs, listMessages } = props;
   return (
     <Container maxWidth="xl">
       <Box sx={{ pb: 5 }}>
@@ -38,19 +38,19 @@ export default function DashboardApp(props) {
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         <Grid item xs={2} sm={4} md={4}>
-          <Users />
+          <Users listUsers={listUsers} />
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Factory />
+          <Factory listJobs={listJobs} />
         </Grid>
         <Grid item xs={6} sm={4} md={4}>
-          <Notif />
+          <Notif listMessages={listMessages} />
         </Grid>
         <Grid item xs={6}>
-          <ListUsers />
+          <ListUsers listUsers={listUsers} />
         </Grid>
         <Grid item xs={6}>
-          <ListFactories />
+          <ListFactories listJobs={listJobs} />
         </Grid>
       </Grid>
     </Container>

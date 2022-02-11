@@ -9,7 +9,7 @@ import {
 import pdf1 from "assets/documents/Cours_SQL.pdf";
 import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
 import CardTableOffer from "components/employer/offers/CardTableOffer";
-import { themeUser } from "configs/theme";
+import { themeEmployer } from "configs/theme";
 
 const offers = [
   {
@@ -239,23 +239,20 @@ const offers = [
 const EmployerOffer = () => {
   return (
     <Container
-      sx={{
-        bgcolor: themeUser.palette.background.default,
-        p: 2,
-      }}
+    sx={{ pb: 3 }}
     >
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <Typography
-          variant="h4"
+          variant="h5"
           paddingX={1}
-          bgcolor={themeUser.palette.primary.main}
-          color={themeUser.palette.text.primary}
+          bgcolor={themeEmployer.palette.bgTitleItems.main}
+          color={themeEmployer.palette.textTitleItems.main}
           borderRadius={1}
           position={"relative"}
           top={"15px"}
           textAlign={"center"}
         >
-          Mes offfres
+          Mes offres
         </Typography>
       </Box>
       {/* {/* partie mes offres/} */}

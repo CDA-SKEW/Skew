@@ -33,8 +33,23 @@ let theme = createTheme({
     tiers: {
       main: "#C4FFE9",
     },
+    offre: {
+      main: "#E6C3A5",
+    },
     background: {
       paper: "#ABC4FF",
+    },
+    souka: {
+      main: '#FFC300'
+    },
+    etienne: {
+      main: '#C70039'
+    },
+    kevin: {
+      main: '#15D04B'
+    },
+    wil: {
+      main: '#15BFD0'
     },
   },
   typography: {
@@ -46,6 +61,9 @@ let theme = createTheme({
       textAlign: "center",
       marginTop: 50,
       marginBottom: 50,
+    },
+    h3: {
+      textAlign: 'center'
     },
     h4: {
       textAlign: "center",
@@ -94,8 +112,13 @@ const themeAdmin = createTheme({
       default: "#161C24",
       paper: "#212B36",
     },
+    background2: {
+      default: "#E5E5E5",
+      paper: "#FF7F50",
+    },
     text: {
       primary: "#ffffff",
+      secondary: "#004F98",
     },
     success: {
       main: "#A1AF4C",
@@ -108,6 +131,9 @@ const themeAdmin = createTheme({
     },
     error: {
       main: "#f44336",
+    },
+    shape: {
+      borderRadius: 4,
     },
   },
   typography: {
@@ -131,28 +157,45 @@ const themeAdmin = createTheme({
 });
 
 // User
-const themeUser = createTheme({
+const themeCandidate = createTheme({
   palette: {
-    type: "dark",
-    primary: {
-      main: "#004F98",
+    bgPage:{
+      main: '#E5E5E5',
     },
-    secondary: {
-      main: "#ffffff",
+    bgTitleItems:{
+      main: '#004F98',
     },
-    background: {
-      default: "#E5E5E5",
-      paper: "#FF7F50",
+    textTitleItems:{
+      main: '#ffffff',
     },
-    text: {
-      primary: "#ffffff",
-      secondary: "#004F98",
+    bgBox:{
+      main: '#ffffff',
     },
-
-    shape: {
-      borderRadius: 4,
+    bgCardDashboard:{
+      main: '#FF7F50',
     },
   },
 });
 
-export { theme, themeAdmin, themeUser };
+// User
+const themeEmployer= createTheme({
+  palette: {
+    bgPage:{
+      main: '#E5E5E5',
+    },
+    bgTitleItems:{
+      main: '#004F98',
+    },
+    textTitleItems:{
+      main: '#ffffff',
+    },
+    bgBox:{
+      main: '#ffffff',
+    },
+    bgCardDashboard:{
+      main: '#FF7F50',
+    },
+  },
+});
+
+export { theme, themeAdmin, themeCandidate, themeEmployer };

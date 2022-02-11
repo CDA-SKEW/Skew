@@ -1,13 +1,18 @@
-// Listing du nombre d'entreprises
+// Les dernières offres publiées
 
 /*------------MUI Imports-------------*/
 
 import { styled } from "@mui/material/styles";
-import { Card, Stack, Typography } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-
+import { Card, Divider, List, Typography } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import React from "react";
+import { Icon } from "@iconify/react";
+import { alpha } from "@mui/material/styles";
+import Masonry from "@mui/lab/Masonry";
 /*------------Styles-------------*/
 
+// Style Card
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "none",
   textAlign: "center",
@@ -16,54 +21,74 @@ const RootStyle = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.primary.lighter,
 }));
 
-/*------------Table-------------*/
-
-const { nbUser, name, email, title } = {
-  nbUser: [0, 1, 2, 3, 4],
-  title: "Listes des entreprises",
-  name: "Connie Springer",
-  email: "connie@gmail.com",
-};
-const array = [
-  {
-    id: 0,
-    avatarURL: (
-      <Avatar src="https://img.search.brave.com/NYf6DicQtR8p1KhluC_artVZDP9IngN0vRp9Ho-8zMU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9pMi53/cC5jb20vd3d3LmJ1/YmJsZWJsYWJiZXIu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDE3LzA0L0FvdEVw/MjZiLnBuZw" />
-    ),
-    title: "Liste des utilisateurs",
-    nb: nbUser.length,
-    name: name,
-    email: email,
-  },
-  {
-    id: 2,
-    avatarURL: (
-      <Avatar src="https://img.search.brave.com/d1t6rBE3zz7PYwjblR7BI5VBbJ9tALr0QcxX6vsg2w0/rs:fit:988:898:1/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzc5L2Ew/LzBkLzc5YTAwZGUy/ZWM4NWRmZmRiYjNm/NTAzZDRlZGFkNmFk/LmpwZw" />
-    ),
-    title: "Liste des utilisateurs",
-    nb: nbUser.length,
-    name: name,
-    email: email,
-  },
-];
+// Style Icon
+const IconWrapperStyle = styled("div")(({ theme }) => ({
+  margin: "auto",
+  display: "flex",
+  borderRadius: "50%",
+  alignItems: "center",
+  width: theme.spacing(8),
+  height: theme.spacing(8),
+  justifyContent: "center",
+  marginBottom: theme.spacing(3),
+  backgroundImage: `linear-gradient(135deg, ${alpha(
+    theme.palette.primary.dark,
+    0
+  )} 0%, ${alpha(theme.palette.primary.dark, 0.24)} 100%)`,
+}));
 
 /*------------Export function-------------*/
 
-export default function ListFactories() {
+export default function ListFactories(props) {
+  const { listJobs } = props;
+  // Afficher uniquement les 4 derniers offres
+  const SliceJobs = listJobs.slice(0, 5);
+
   return (
     <RootStyle>
-      <Typography component="h1">{title}</Typography>
-      <Stack direction="row" justifyContent="left" spacing={2}>
-        <Avatar
-          src="https://img.search.brave.com/NYf6DicQtR8p1KhluC_artVZDP9IngN0vRp9Ho-8zMU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9pMi53/cC5jb20vd3d3LmJ1/YmJsZWJsYWJiZXIu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy8y/MDE3LzA0L0FvdEVw/MjZiLnBuZw"
-          sx={{ width: 56, height: 56, m: 2 }}
-        />
-        <Typography variant="subtitle2" sx={{ pt: 3 }}>
-          {name}
-          <br />
-          {email}
-        </Typography>
-      </Stack>
+      <IconWrapperStyle>
+        <Icon icon="mdi:offer" width={24} height={24} />
+      </IconWrapperStyle>
+      <Typography variant="h4">
+        Dernières offres ajoutées
+      </Typography>
+      <Masonry columns={2} spacing={1}>
+        {SliceJobs.map((job, index) => {
+          // console.log("ListFactories", job);
+          return (
+            <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
+              <ListItem>
+                <ListItemText
+                  inset={false}
+                  primary={job.title}
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {job.type}
+                      </Typography>
+                      <Typography
+                        sx={{ display: "inline", m: 1 }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {job.period}
+                      </Typography>
+                      <Divider />
+                      {job.description}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+            </List>
+          );
+        })}
+      </Masonry>
     </RootStyle>
   );
 }

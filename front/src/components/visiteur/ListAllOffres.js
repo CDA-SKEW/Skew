@@ -4,7 +4,7 @@ import React from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 
-export default function ListAllOffres({ listOffer, job, type, location, page, setPage }) {
+export default function ListAllOffres({ listOffer, job, type, location, page, setPage, handleClickOpen }) {
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -55,7 +55,11 @@ export default function ListAllOffres({ listOffer, job, type, location, page, se
                         }}
                     >
                         {SplitList[(page - 1)].map((listOffer, index) => (
-                            <CardOffreUnique key={index} listOffer={listOffer} />
+                            <CardOffreUnique
+                                handleClickOpen={handleClickOpen}
+                                key={index}
+                                listOffer={listOffer}
+                            />
                         ))}
                     </Box>
                     <Pagination

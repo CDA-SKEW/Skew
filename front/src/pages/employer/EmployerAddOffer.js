@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { themeUser } from "configs/theme";
+import { themeEmployer } from "configs/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import OfferDataFactory from "components/employer/addOffer/OfferDataFactory";
@@ -22,14 +22,11 @@ const EmployerAddOffer = () => {
 
   return (
     <Container
-      sx={{
-        bgcolor: themeUser.palette.background.default,
-        p: 2,
-      }}
+      sx={{ py: 4 }}
     >
       {/* partie information entreprise */}
       <Box
-        bgcolor={themeUser.palette.text.primary}
+        bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
         paddingTop={2}
         paddingBottom={2}
@@ -43,13 +40,13 @@ const EmployerAddOffer = () => {
           }}
         >
           <Typography
-            variant="h4"
+            variant="h5"
             paddingX={1}
-            bgcolor={themeUser.palette.primary.main}
-            color={themeUser.palette.text.primary}
+            bgcolor={themeEmployer.palette.bgTitleItems.main}
+            color={themeEmployer.palette.textTitleItems.main}
             borderRadius={1}
             position={"relative"}
-            top={"-45px"}
+            top={"-35px"}
             textAlign={"center"}
           >
             Déposer une offre
@@ -73,7 +70,7 @@ const EmployerAddOffer = () => {
 
       {/* partie sur l'offre */}
       <Box
-        bgcolor={themeUser.palette.text.primary}
+        bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
         paddingTop={2}
         marginTop={2}

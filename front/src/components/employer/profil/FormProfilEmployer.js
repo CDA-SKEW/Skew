@@ -120,7 +120,7 @@ export default function FormProfilEmployer(props) {
   }
 
   // Declaration des constantes pour le formulaire
-  const [stateImgUpload, setStateImgUpload] = useState(false);
+  const [stateImgUpload, setStateImgUpload] = useState("");
   const [avatar, setAvatar] = useState("");
   const [name, setFactoryName] = useState("");
   const [siret, setSiret] = useState("");
@@ -132,6 +132,7 @@ export default function FormProfilEmployer(props) {
 
   // fonction set des useState
   const setUseState = () => {
+    setStateImgUpload("")
     setAvatar(dataProfilEmployer.avatar);
     setSiret(dataProfilEmployer.siret);
     setSiren(dataProfilEmployer.siren);

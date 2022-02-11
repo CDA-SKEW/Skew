@@ -3,11 +3,13 @@
  * *************** */
 import { apiSiret } from "configs/axios";
 import {
+  DELETE_OFFER,
   GET_API_SIRET,
   GET_PROFIL_EMPLOYER,
   POST_MESSAGE_CANDIDATE,
   POST_OFFER,
   POST_PROFIL_EMPLOYER,
+  PUT_ACTION_CANDIDATE,
   PUT_PROFIL_EMPLOYER,
 } from "./ActionTypes";
 
@@ -81,6 +83,22 @@ export const postFormAddOffer = (data) => {
   return (dispatch) => {
     // console.log("POST_OFFER action", data, message);
     dispatch({ type: POST_OFFER, payload: {data, message}});
+  };
+};
+
+//  Delete offer
+export const deleteOffer = (id) => {
+  return (dispatch) => {
+  console.log("DELETE_OFFER action", id);
+    // dispatch({ type: DELETE_OFFER, payload: {data, messagePostCandidate}});
+  };
+};
+
+//  Delete offer
+export const putActionCandidate = (data) => {
+  return (dispatch) => {
+  // console.log("PUT_ACTION_CANDIDATE", data);
+    // dispatch({ type: PUT_ACTION_CANDIDATE, payload: {data, messagePostCandidate}});
   };
 };
 

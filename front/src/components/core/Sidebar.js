@@ -19,7 +19,7 @@ import { Avatar } from '@mui/material';
 import { Stack } from '@mui/material';
 const drawerWidth = 240;
 
-function ResponsiveDrawer(props) {
+export default function Sidebar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -95,12 +95,12 @@ function ResponsiveDrawer(props) {
     );
 }
 
-ResponsiveDrawer.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-};
+// ResponsiveDrawer.propTypes = {
+//     /**
+//      * Injected by the documentation to work in an iframe.
+//      * You won't need it on your project.
+//      */
+//     window: PropTypes.func,
+// };
 
-export default ResponsiveDrawer;
+// export default ResponsiveDrawer;

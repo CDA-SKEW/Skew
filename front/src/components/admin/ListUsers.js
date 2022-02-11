@@ -1,13 +1,19 @@
-// Listing du nombre d'utilisateurs
+// Listing du nombre d'utilisateurs inscrits
 
 /*------------MUI Imports-------------*/
 
 import { styled } from "@mui/material/styles";
-import { Card, Stack, Typography } from "@mui/material";
+import { Card, Divider, List, ListItemAvatar, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import React from "react";
+import { Icon } from "@iconify/react";
+import { alpha } from "@mui/material/styles";
 
 /*------------Styles-------------*/
 
+// Style Card
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: "none",
   textAlign: "center",
@@ -16,46 +22,63 @@ const RootStyle = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.primary.lighter,
 }));
 
-/*------------Table-------------*/
-
-// const { nbUser, name, email, title } = {
-//   nbUser: [0, 1, 2, 3, 4],
-//   title: "Liste des Utilisateurs",
-//   name: "Jean Cuckstein",
-//   email: "jean@gmail.com",
-// };
-// const array = [
-//   {
-//     id: 2,
-//     avatarURL: (
-//       <Avatar src="https://img.search.brave.com/Lp6ZQFnezOaFMCfZBmwf4KDHYIRMT_UO3gntRYZM47A/rs:fit:569:720:1/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzg1L2Rl/LzIwLzg1ZGUyMDMx/ODdjZGM2MzBkNzhm/OGRmMDRkMDI2M2Nm/LmpwZw" />
-//     ),
-//     title: title,
-//     nb: nbUser.length,
-//     name: name,
-//     email: email,
-//   },
-// ];
+// Style Icon
+const IconWrapperStyle = styled("div")(({ theme }) => ({
+  margin: "auto",
+  display: "flex",
+  borderRadius: "50%",
+  alignItems: "center",
+  width: theme.spacing(8),
+  height: theme.spacing(8),
+  justifyContent: "center",
+  marginBottom: theme.spacing(3),
+  backgroundImage: `linear-gradient(135deg, ${alpha(
+    theme.palette.primary.dark,
+    0
+  )} 0%, ${alpha(theme.palette.primary.dark, 0.24)} 100%)`,
+}));
 
 /*------------Export function-------------*/
 
 export default function ListUsers(props) {
   const { listUsers } = props;
+  // Afficher uniquement les 6 derniers users
+  const SliceUsers = listUsers.slice(0, 4);
+
   return (
     <RootStyle>
-      <Typography component="h1">Liste des Utilisateurs</Typography>
-      <Stack direction="row" justifyContent="left" spacing={2}>
-        <Avatar
-          src="https://img.search.brave.com/Lp6ZQFnezOaFMCfZBmwf4KDHYIRMT_UO3gntRYZM47A/rs:fit:569:720:1/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzg1L2Rl/LzIwLzg1ZGUyMDMx/ODdjZGM2MzBkNzhm/OGRmMDRkMDI2M2Nm/LmpwZw"
-          sx={{ width: 56, height: 56, m: 2 }}
-        />
-        <Typography variant="subtitle2" sx={{ pt: 3 }}>
-          {listUsers}
-          {/* {name}
-          <br />
-          {email} */}
-        </Typography>
-      </Stack>
+      <IconWrapperStyle>
+        <Icon icon="mdi:account-multiple-plus" width={24} height={24} />
+      </IconWrapperStyle>
+      <Typography variant="h4">Derniers utilisateurs inscrits</Typography>
+      {SliceUsers.map((user, index) => {
+        // console.log("ListUsers", user);
+        return (
+          <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar alt="avatar" src={user.avatar} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={user.fullName}
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      {user.email}
+                    </Typography>
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </List>
+        );
+      })}
     </RootStyle>
   );
 }

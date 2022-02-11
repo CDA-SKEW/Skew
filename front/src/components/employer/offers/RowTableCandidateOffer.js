@@ -9,14 +9,37 @@ import ForwardToInboxIcon from "@mui/icons-material/ForwardToInbox";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import ModalMessageCandidate from "./ModalMessageCandidate";
+import ModalConfimation from "components/ModalConfimation";
 
 
 export default function RowTableCandidateOffer(props) {
 
     // console.log(props)
-    const { numberCandidat, row, offer} = props;
+    const { numberCandidat, row, offer } = props;
     const [open, setOpen] = useState(false);
     // console.log("offer", offer)
+
+    //constante pour les modals confirmation
+    const [openModalConfirmationRetain, setOpenModalConfirmationRetain] = useState(false);
+    const handleClickOpenModalConfirmationRetain = () => {
+        setOpenModalConfirmationRetain(true);
+    };
+    const handleCloseModalConfirmationRetain = () => {
+        setOpenModalConfirmationRetain(false);
+    };
+
+    const [openModalConfirmationNoRetain, setOpenModalConfirmationNoRetain] = useState(false);
+    const handleClickOpenModalConfirmationNoRetain = () => {
+        setOpenModalConfirmationNoRetain(true);
+    };
+    const handleCloseModalConfirmationNoRetain = () => {
+        setOpenModalConfirmationNoRetain(false);
+    };
+
+
+    //constante provisoire pour l'id
+    const id = "192"
+
 
     //constante pour le modal contact
     const [openContact, setOpenContact] = useState(false);
@@ -252,9 +275,23 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
+                                    onClick={handleClickOpenModalConfirmationNoRetain}
                                 >
                                     Non retenu
                                 </Button>
+
+                                <ModalConfimation
+                                    keepMounted
+                                    open={openModalConfirmationNoRetain}
+                                    onClose={handleCloseModalConfirmationNoRetain}
+                                    titleModal="Réponse au candidat"
+                                    textModal="Êtes-vous sûr de ne pas vouloir retenir ce candidat?"
+                                    colorBgModal="#ABC4FF"
+                                    colorTextModal="#000000"
+                                    action="candidateNoRetain"
+                                    param={id}
+                                />
+
 
                                 {/* Retenu */}
                                 <Button
@@ -273,9 +310,23 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
+                                    onClick={handleClickOpenModalConfirmationRetain}
                                 >
                                     Retenu
                                 </Button>
+
+                                <ModalConfimation
+                                    keepMounted
+                                    open={openModalConfirmationRetain}
+                                    onClose={handleCloseModalConfirmationRetain}
+                                    titleModal="Réponse au candidat"
+                                    textModal="Êtes-vous sûr de vouloir retenir ce candidat?"
+                                    colorBgModal="#ABC4FF"
+                                    colorTextModal="#000000"
+                                    action="candidateRetain"
+                                    param={id}
+                                />
+
                             </Box>
                         </Box>
                     </Collapse>
