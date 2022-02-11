@@ -37,7 +37,7 @@ export default function Users(props) {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon="mdi:account-supervisor" width={24} height={24} />
+        <Icon icon="mdi:account-group" width={24} height={24} />
       </IconWrapperStyle>
       <Typography variant="h3">{listUsers.length}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>

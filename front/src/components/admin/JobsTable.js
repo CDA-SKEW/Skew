@@ -17,11 +17,11 @@ export default function JobsTable(props) {
 
   // Table Head
   const columns = [
-    { field: "id", headerName: "ID", width: 50, editable: true },
+    { field: "id", headerName: "ID", editable: true },
     {
       field: "date",
       headerName: "Dates",
-      width: 130,
+      width: 150,
       renderCell: () => {
         return <Dates />;
       },
@@ -30,32 +30,35 @@ export default function JobsTable(props) {
     {
       field: "title",
       headerName: "Titre",
-      width: 190,
+      minWidth: 200,
       editable: true,
+      flex: 1,
     },
     {
       field: "type",
       headerName: "Type",
-      width: 150,
+      wminWidth: 200,
       editable: true,
     },
     {
       field: "period",
       headerName: "Période",
-      width: 150,
+      minWidth: 200,
       editable: true,
     },
     {
       field: "description",
       headerName: "Description",
-      width: 150,
+      minWidth: 200,
       editable: true,
+      flex: 1,
     },
     {
       field: "profile",
       headerName: "Profil",
-      width: 150,
+      minWidth: 200,
       editable: true,
+      flex: 1,
     },
     {
       field: "checking",
@@ -64,8 +67,9 @@ export default function JobsTable(props) {
         // console.log(id);
         return <Badges user={cell} />;
       },
-      width: 150,
+      minWidth: 200,
       editable: false,
+      flex: 1,
     },
     {
       field: "action",
@@ -73,8 +77,9 @@ export default function JobsTable(props) {
       renderCell: (id) => {
         return <Actions columnsDeleteJob={true} key={id} id={id} />;
       },
-      width: 200,
+      minWidth: 100,
       editable: false,
+      flex: 1,
     },
   ];
 

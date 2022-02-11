@@ -1,3 +1,5 @@
+// Import MUI
+
 import * as React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
@@ -22,6 +24,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Button from "@mui/material/Button";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate } from "react-router";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 
 const drawerWidth = 240;
 
@@ -46,7 +50,21 @@ function ResponsiveDrawer({ children }) {
   const drawer = (
     <Box>
       <Toolbar />
-      <Divider />
+      <Stack direction="row" spacing={2}>
+        <Avatar
+          variant="circular"
+          alt="lion"
+          src="https://img.search.brave.com/LrKqU6BWC79-nwQs5lTk_I__cKE7HsWCSu2a01dMZ7A/rs:fit:780:520:1/g:ce/aHR0cHM6Ly93d3cu/em9vLXBhbG15cmUu/ZnIvc2l0ZXMvZGVm/YXVsdC9maWxlcy9z/dHlsZXMvc2Fuc19j/YWRyZS9wdWJsaWMv/Y291dmVydHVyZV9h/bmltYXV4L2NfbWdf/MDA5MC5qcGc_aXRv/az16MFZjcW5uVA"
+          sx={{
+            width: 70,
+            height: 70,
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+            left: 85,
+          }}
+        />
+      </Stack>
       <List>
         {ItemNav.map((item, index) => {
           return (
