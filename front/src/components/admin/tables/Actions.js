@@ -19,6 +19,7 @@ import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import MessageIcon from "@mui/icons-material/Message";
+import PersonIcon from "@mui/icons-material/Person";
 import {
   Box,
   Button,
@@ -26,6 +27,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   IconButton,
   Modal,
   TextField,
@@ -38,7 +40,8 @@ export default function DeletableChips(props) {
   // Transmettre les données du STORE avec dispatch (crud)
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [more, setMore] = React.useState(false);
+  const [msg, setMsg] = React.useState(false);
+  const [user, setUser] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -126,7 +129,12 @@ export default function DeletableChips(props) {
   /* Condition de la fonction: si more est = à true alors 
   retourner le component DeleteForm sinon retourner div vide */
   const CheckDelete = () => {
-    if (more === true) return <DeleteForm />;
+    if (msg === true) return <DeleteForm />;
+    else return <div></div>;
+  };
+
+  const UserDeleteButton = () => {
+    if (user === true) return <DeleteUser />;
     else return <div></div>;
   };
 
@@ -134,7 +142,8 @@ export default function DeletableChips(props) {
   elle s'affiche sous une certaine consition*/
   function DeleteForm() {
     return (
-      <Box>
+      <div>
+        <Divider sx={{ mb: 2 }} />
         <Typography
           sx={{ mb: 2, textAlign: "center" }}
           variant="h6"
@@ -142,32 +151,86 @@ export default function DeletableChips(props) {
         >
           OU ALORS VOULEZ-VOUS SUPPRIMER CE MESSAGE ?
         </Typography>
-        <Typography gutterBottom>
+        <Typography
+          gutterBottom
+          component="span"
+          variant="body2"
+          color="text.primary"
+        >
           Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
           magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
           ullamcorper nulla non metus auctor fringilla.
         </Typography>
         <Typography>
           <DialogActions>
-            <Button
-              autoFocus
-              variant="outlined"
-              color="warning"
-              onClick={() => dispatch(deleteMessage(id.row.id))}
-            >
-              OUI
-            </Button>
-            <Button
-              autoFocus
-              variant="outlined"
-              color="success"
-              onClick={handleClose}
-            >
-              NON
-            </Button>
+            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+              <Button
+                autoFocus
+                variant="outlined"
+                color="error"
+                onClick={() => dispatch(deleteMessage(id.row.id))}
+              >
+                OUI
+              </Button>
+              <Button
+                autoFocus
+                variant="outlined"
+                color="success"
+                onClick={handleClose}
+              >
+                NON
+              </Button>
+            </Stack>
           </DialogActions>
         </Typography>
-      </Box>
+      </div>
+    );
+  }
+
+  function DeleteUser() {
+    return (
+      <div>
+        <Divider sx={{ mb: 2 }} />
+        <Typography
+          sx={{ mb: 2, textAlign: "center" }}
+          variant="h6"
+          component="h2"
+        >
+          OU ALORS VOULEZ-VOUS SUPPRIMER CET UTILISATEUR ?
+        </Typography>
+        <Typography
+          gutterBottom
+          component="span"
+          variant="body2"
+          color="text.primary"
+        >
+          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
+          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
+          ullamcorper nulla non metus auctor fringilla.
+        </Typography>
+        <Typography>
+          <DialogActions>
+            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+              <Button
+                autoFocus
+                variant="outlined"
+                color="error"
+                onClick={() => dispatch(deleteUser(id.row.id))}
+              >
+                OUI
+              </Button>
+              <Button
+                autoFocus
+                variant="outlined"
+                color="success"
+                onClick={handleClose}
+              >
+                NON
+              </Button>
+            </Stack>
+          </DialogActions>
+        </Typography>
+      </div>
     );
   }
 
@@ -176,112 +239,75 @@ export default function DeletableChips(props) {
   return (
     <Stack direction="row" spacing={1}>
       {columnsBan && (
-        // Bannir un utilisateur
-        <Box>
-          {/* MODAL open via Chip */}
+        // Bannir et supprimer un utilisateur
+        <div>
           <Chip
-            label="ban"
-            color="warning"
-            variant="outlined"
-            icon={<BlockIcon />}
-            onClick={handleOpen}
-          ></Chip>
-          {/* Modal BAN USER*/}
-          <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
-            open={open}
-          >
-            <BootstrapDialogTitle
-              id="customized-dialog-title"
-              onClose={handleClose}
-            >
-              VOULEZ-VOUS BANNIR CET UTILISATEUR ?
-            </BootstrapDialogTitle>
-            <DialogContent dividers>
-              <Typography gutterBottom>
-                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-                cursus magna, vel scelerisque nisl consectetur et. Donec sed
-                odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-              </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                autoFocus
-                variant="contained"
-                color="warning"
-                onClick={() => dispatch(putUser(id.row.id))}
-              >
-                OUI
-              </Button>
-              <Button
-                autoFocus
-                variant="contained"
-                color="success"
-                onClick={handleClose}
-              >
-                NON
-              </Button>
-            </DialogActions>
-          </BootstrapDialog>
-        </Box>
-      )}
-
-      {columnsDeleteUser && (
-        // Supprimer un utilisateur
-        <Box>
-          {/* MODAL open via Chip */}
-          <Chip
-            label="delete"
+            label="ban or delete user"
             color="error"
+            sx={{ color: "#E57373" }}
             variant="outlined"
-            icon={<DeleteIcon />}
+            // icon={<BlockIcon />}
             onClick={handleOpen}
           ></Chip>
-          {/* Modal DELETE USER */}
-          <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
+          <Modal
             open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <BootstrapDialogTitle
-              id="customized-dialog-title"
-              onClose={handleClose}
-            >
-              VOULEZ-VOUS SUPPRIMER CET UTILISATEUR ?
-            </BootstrapDialogTitle>
-            <DialogContent dividers>
-              <Typography gutterBottom>
-                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-                cursus magna, vel scelerisque nisl consectetur et. Donec sed
-                odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{ mb: 2, textAlign: "center" }}
+                variant="h6"
+                component="h2"
+              >
+                VOULEZ-VOUS BANNIR CET UTILISATEUR ?
               </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                autoFocus
-                variant="contained"
-                color="warning"
-                onClick={() => dispatch(deleteUser(id.row.id))}
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
               >
-                OUI
-              </Button>
-              <Button
-                autoFocus
-                variant="contained"
-                color="success"
-                onClick={handleClose}
-              >
-                NON
-              </Button>
-            </DialogActions>
-          </BootstrapDialog>
-        </Box>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {/* Reply action Button */}
+                <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+                  <Button
+                    startIcon={<BlockIcon />}
+                    autoFocus
+                    variant="outlined"
+                    color="warning"
+                    onClick={() => dispatch(putUser(id.row.id))}
+                  >
+                    Bannir
+                  </Button>
+                  <Button
+                    startIcon={<PersonIcon />}
+                    autoFocus
+                    variant="outlined"
+                    color="error"
+                    // Déclenche l'action de la constante CheckDelete
+                    onClick={(e) => setUser(user === true ? false : true)}
+                  >
+                    Supprimer
+                  </Button>
+                </Stack>
+                {/* Appel de la condition */}
+                {UserDeleteButton()}
+              </Typography>
+            </Box>
+          </Modal>
+        </div>
       )}
 
       {columnsDeleteJob && (
         // Supprimer un emploi
-        <Box>
+        <div>
           {/* MODAL open via Chip */}
           <Chip
             label="delete"
@@ -328,16 +354,18 @@ export default function DeletableChips(props) {
               </Button>
             </DialogActions>
           </BootstrapDialog>
-        </Box>
+        </div>
       )}
+
       {columnsAddMessage && (
-        //  Répondre à un message
-        <Box>
+        //  Répondre à un message ou le supprimer
+        <div>
           <Chip
-            label="reply"
-            color="success"
+            label="reply or delete message"
+            color="error"
+            sx={{ color: "#E57373" }}
             variant="outlined"
-            icon={<ReplyIcon />}
+            // icon={<ReplyIcon />}
             onClick={handleOpen}
           ></Chip>
           <Modal
@@ -348,7 +376,7 @@ export default function DeletableChips(props) {
           >
             <Box sx={style}>
               {/* Form */}
-              <Typography id="modal-modal-title" variant="h5" component="h2">
+              <Typography  variant="h5" component="h2">
                 REPONDRE A UN MESSAGE
                 <TextField
                   fullWidth
@@ -389,12 +417,12 @@ export default function DeletableChips(props) {
                     Envoyer
                   </Button>
                   <Button
-                    endIcon={<MessageIcon />}
+                    startIcon={<MessageIcon />}
                     autoFocus
                     variant="outlined"
-                    color="warning"
+                    color="error"
                     // Déclenche l'action de la constante CheckDelete
-                    onClick={(e) => setMore(more === true ? false : true)}
+                    onClick={(e) => setMsg(msg === true ? false : true)}
                   >
                     Supprimer
                   </Button>
@@ -404,7 +432,7 @@ export default function DeletableChips(props) {
               </Typography>
             </Box>
           </Modal>
-        </Box>
+        </div>
       )}
     </Stack>
   );
