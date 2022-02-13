@@ -15,16 +15,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import SendIcon from "@mui/icons-material/Send";
 import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
+
 import {
   Box,
   Button,
-  Dialog,
   DialogActions,
-  DialogContent,
   DialogTitle,
   Divider,
   IconButton,
@@ -45,16 +43,6 @@ export default function DeletableChips(props) {
   const handleClose = () => setOpen(false);
 
   /*------------MODALS-------------*/
-
-  // Modal Style General
-  // const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  //   "& .MuiDialogContent-root": {
-  //     padding: theme.spacing(2),
-  //   },
-  //   "& .MuiDialogActions-root": {
-  //     padding: theme.spacing(1),
-  //   },
-  // }));
 
   // Modal Style Messages
   const style = {
@@ -102,14 +90,7 @@ export default function DeletableChips(props) {
   /*---------------------------------------------*/
 
   // Boolean actions operators
-  const {
-    columnsBan,
-    // columnsDeleteUser,
-    columnsDeleteJob,
-    // columnsDeleteMessage,
-    columnsAddMessage,
-    id,
-  } = props;
+  const { columnsBan, columnsDeleteJob, columnsAddMessage, id } = props;
 
   /* Condition de la fonction: si more est = à true alors 
   retourner le component DeleteForm sinon retourner div vide */
@@ -283,6 +264,7 @@ export default function DeletableChips(props) {
                   </Button>
                 </Stack>
                 {/* Appel de la condition */}
+
                 {UserDeleteButton()}
               </Typography>
             </Box>
