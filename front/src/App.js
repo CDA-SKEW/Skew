@@ -43,9 +43,9 @@ const EmployerRoutes = () => (
 const CandidatRoutes = () => (
   <CandidatLayout >
     <Routes>
-      <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
-      <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
-      <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />
+      <Route path="profil" exact element={<CandidatProfil />} />
+      <Route path="dashboard" exact element={<CandidatDashboard />} />
+      <Route path="candidature" exact element={<CandidatCandidature />} />
     </Routes>
   </CandidatLayout>
 );
