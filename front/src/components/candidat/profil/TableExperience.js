@@ -80,12 +80,19 @@ export default function TableExperience(props) {
     const dispatch = useDispatch()
     const [form, setForm] = useState({})
 
-    const changeForm = (prop) => (event) => {
+    const handleChange = (prop) => (event) => {
+      // console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
+      // console.log('end form', form)
     }
 
+
+
     const submitForm = () => {
-      dispatch(postFormProfilCandidate(form))
+      // console.log('SUBMIT', form)
+      dispatch(postFormProfilCandidate({ ...form }))
+      setTimeout(() => dispatch(getProfilCandidate()), 777)
+      setEdit(false) // close editMode
     }
 
     console.log('mode edit comp', data)
@@ -98,19 +105,23 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             required
-            size="small"
+            size="large"
             id="outlined-required"
-            label="Comp"
-            onChange={() => changeForm('company')}
+            label="Company"
+            onChange={() => handleChange('company')}
             defaultValue={data.company}
+            value={form.company}
+            sx={{ my: 2 }}
           />
           <TextField
             required
-            size="small"
+            size="large"
             id="outlined-required"
-            onChange={() => changeForm('company')}
+            onChange={() => handleChange('post')}
             label="Post"
             defaultValue={data.post}
+            value={form.post}
+            sx={{ my: 2 }}
           />
         </TableCell>
 
@@ -121,13 +132,14 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             multiline
-            onChange={() => changeForm('company')}
+            onChange={() => handleChange('description')}
             maxRows={4}
             required
-            size="small"
+            size="large"
             id="outlined-required"
             label="Description"
             defaultValue={data.desc}
+            value={form.desc}
           />
         </TableCell>
 
@@ -147,7 +159,7 @@ export default function TableExperience(props) {
             <CheckCircleOutlineIcon />
             Submit
           </Button>
-          <Button sx={{ color: "red", m: 2 }}>
+          <Button sx={{ color: "red", my: 2 }}>
             <KeyboardReturnIcon />
             Cancel
           </Button>
@@ -196,19 +208,22 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             required
-            size="small"
+            size="large"
             id="outlined-required"
             label="Comp"
             // onChange={() => changeForm('company')}
             defaultValue={""}
+            sx={{ my: 2 }}
           />
+
           <TextField
             required
-            size="small"
+            size="large"
             id="outlined-required"
             // onChange={() => changeForm('company')}
             label="Post"
             defaultValue={""}
+
           />
         </TableCell>
 
@@ -219,10 +234,10 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             multiline
-            // onChange={() => changeForm('company')}
+            // onChange={() => changeForm('description')}
             maxRows={4}
             required
-            size="small"
+            size="large"
             id="outlined-required"
             label="Description"
             defaultValue={""}
@@ -230,13 +245,13 @@ export default function TableExperience(props) {
         </TableCell>
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-          <Typography>Start</Typography>
+
           <BasicDatePicker />
 
         </TableCell>
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-          <Typography>End</Typography>
+
           <BasicDatePicker />
         </TableCell>
 
@@ -270,11 +285,11 @@ export default function TableExperience(props) {
 
     const ActionBTN = () => {
       console.log('ACTION BTN', edit)
-      if (edit === true) return <Box sx={{ flexDirection: 'column' }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
+      if (edit === true) return <Box sx={{ display: "flex", flexDirection: 'column', m: 2 }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
         <BorderColorIcon />
       </Button>
 
-        <Button sx={{ color: "red", }} >
+        <Button sx={{ color: "red", m: 2 }} >
           <DeleteIcon />
         </Button>
       </Box>
@@ -340,7 +355,7 @@ export default function TableExperience(props) {
   // condition check mode edit is activ add new column in tableHead "column action"
   // Constante pour check si le mode edit est actif afficher la colonne action
   const checkViewAction = () => {
-    if (edit === true) return <TableCell align='center'>Action
+    if (edit || openAdd === true) return <TableCell align='center'>Action
     </TableCell>
     else return <div></div>;
   }

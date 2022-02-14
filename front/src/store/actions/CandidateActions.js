@@ -72,33 +72,34 @@ let data = {
 export const getProfilCandidate = () => {
     return (dispatch) => {
         console.log("GET_PROFIL_CANDIDATE action", data);
-        dispatch({ type: GET_PROFIL_CANDIDATE, payload: data.dataProfilCandidate });
+        dispatch({ type: GET_PROFIL_CANDIDATE, payload: data });
     };
 };
 
 
 // Post profil Candidate
 export const postFormProfilCandidate = (form) => {
-    console.log('form ezfihjroh', form)
+    console.log('form PROFIL CANDIDATE POST', form)
     // data.dataProfilCandidate.coord = form
     // data.dataProfilCandidate.exp = formExp
     // data.dataProfilCandidate.skill = formComp
     return (dispatch) => {
         console.log("POST_PROFIL_CANDIDATE action", data);
-        dispatch({ type: POST_PROFIL_CANDIDATE, payload: data.dataProfilCandidate });
+        dispatch({ type: POST_PROFIL_CANDIDATE, payload: data });
     };
 };
 
-
 // Put profil Candidate
-export const putFormProfilCandidate = (data) => {
+export const putFormProfilCandidate = (form) => {
+    console.log('form PROFIL CANDIDATE PUT', form)
     return (dispatch) => {
         // console.log("PUT_PROFIL_EMPLOYER action", data);
         dispatch({ type: PUT_PROFIL_CANDIDATE, payload: data });
     };
 };
 // Delete profil Candidate
-export const deleteFormProfilCandidate = (data) => {
+export const deleteFormProfilCandidate = (form) => {
+    console.log('form PROFIL CANDIDATE DELETE', form)
     return (dispatch) => {
         // console.log("DELETE_PROFIL_EMPLOYER action", data);
         dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: data });
