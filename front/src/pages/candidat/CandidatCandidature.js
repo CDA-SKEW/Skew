@@ -1,10 +1,15 @@
 import { Container } from "@mui/material";
 import React from "react";
 import CandidatureList from "components/candidat/listOffer/CandidatureList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProfilCandidate } from "store/actions/CandidateActions";
 
 const CandidatCandidature = () => {
-  const candidatures = useSelector((state) => state.candidate.candidatures.postul)
+  const dispatch = useDispatch()
+  const candidatures = useSelector(state => state.candidate.candidatures)
+
+  useEffect(() => dispatch(getProfilCandidate(), []))
   console.log('candidature', candidatures);
   return (
     <Container

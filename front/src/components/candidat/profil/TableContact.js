@@ -90,33 +90,36 @@ export default function TableContact(props) {
           <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column', minWidth: 200 }} >
             <TextField
               required
-              size="small"
+              size="large"
               label="address"
               onChange={handleChange('address')}
               id="outlined-adornment-address"
               value={form['address']}
+              sx={{ my: 2 }}
             />
             <TextField
               required
-              size="small"
+              size="large"
               label="zipCode"
               onChange={handleChange('zipCode')}
               id="outlined-adornment-zipCode"
               value={form['zipCode']}
+              sx={{ my: 2 }}
             />
             <TextField
               required
-              size="small"
+              size="large"
               label="town"
               onChange={handleChange('town')}
               id="outlined-adornment-town"
               value={form['town']}
+              sx={{ my: 2 }}
             />
           </TableCell >
           <TableCell align='center' sx={{ minWidth: 140 }} >
             <TextField
               required
-              size="small"
+              size="large"
               label="phone"
               onChange={handleChange('phone')}
               id="outlined-adornment-phone"
@@ -126,7 +129,7 @@ export default function TableContact(props) {
           <TableCell align='center' sx={{ minWidth: 200 }} >
             <TextField
               required
-              size="small"
+              size="large"
               label="mail"
               onChange={handleChange('mail')}
               id="outlined-adornment-mail"
