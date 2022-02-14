@@ -5,7 +5,8 @@
   "main": "apiskew.js",
   "scripts": {
     "start": "node apiskew.js",
-    "dev": "nodemon apiskew.js"
+    "dev": "nodemon apiskew.js",
+    "connectDb": "nodemon --exec 'mocha -R landing ./test/testConnectDbMocha.js'"
   },
   "author": "skew",
   "license": "ISC",
