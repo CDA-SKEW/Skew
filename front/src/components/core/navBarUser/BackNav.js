@@ -25,6 +25,7 @@ export default function BackNav(props) {
     };
     const handleCloseModalConfirmation = () => {
         setOpenModalConfirmation(false);
+        setAnchorElNav(null)
     };
 
 
@@ -67,14 +68,14 @@ export default function BackNav(props) {
                         display: { xs: 'block', md: 'none' },
                     }}
                 >
-                    {pages.map((page, index) => (
+                    {pages && pages.map((page, index) => (
                         <MenuItem key={index} onClick={() => navigate({ pathname: `/${page.link}` }, setAnchorElNav(null))}>
                             <Typography textAlign="center">{page.name}</Typography>
                         </MenuItem >
                     ))}
                     <Divider />
 
-                    {pagesReponsive.map((pagesReponsive, index) => (
+                    {pagesReponsive && pagesReponsive.map((pagesReponsive, index) => (
                         <MenuItem key={index} onClick={
                             () => navigate({ pathname: `/${pagesReponsive.link}` }, setAnchorElNav(null))
                         }>
@@ -82,6 +83,20 @@ export default function BackNav(props) {
                         </MenuItem >
                     ))}
 
+                    <MenuItem onClick={handleClickOpenModalConfirmation}>
+                        <Typography textAlign="center"> Déconnexion</Typography>
+                    </MenuItem >
+
+                    <ModalConfimation
+                        keepMounted
+                        open={openModalConfirmation}
+                        onClose={handleCloseModalConfirmation}
+                        titleModal="Déconnexion"
+                        textModal="Êtes-vous sûr de vouloir vous deconnecter?"
+                        colorBgModal="#ABC4FF"
+                        colorTextModal="#000000"
+                        action="disconnect"
+                    />
 
                 </Menu>
             </Box>
@@ -107,7 +122,7 @@ export default function BackNav(props) {
             </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "space-around" }}>
-                {pages.map((page, index) => (
+                {pages && pages.map((page, index) => (
                     <Button
                         size="small"
                         key={index}
@@ -121,7 +136,6 @@ export default function BackNav(props) {
                 <Button
                     size="small"
                     variant="contained"
-                    onClick={() => navigate({ pathname: `` })}
                     sx={{ bgcolor: '#ABC4FF', color: "black" }}
                     onClick={handleClickOpenModalConfirmation}
                 >
@@ -133,7 +147,7 @@ export default function BackNav(props) {
                     open={openModalConfirmation}
                     onClose={handleCloseModalConfirmation}
                     titleModal="Déconnexion"
-                    textModal="Êtes-vous sûr de vouloir vous deconnectez?"
+                    textModal="Êtes-vous sûr de vouloir vous deconnecter?"
                     colorBgModal="#ABC4FF"
                     colorTextModal="#000000"
                     action="disconnect"

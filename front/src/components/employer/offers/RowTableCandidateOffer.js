@@ -169,7 +169,7 @@ export default function RowTableCandidateOffer(props) {
                                 <Divider sx={{ mx: 2 }} />
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
-                                    {row.cvCandidat.skill.map((skilltable, index) => (
+                                    {row.cvCandidat.skill && row.cvCandidat.skill.map((skilltable, index) => (
                                         // console.log(skilltable, index)
                                         <Typography padding={1} key={index}>
                                             {skilltable}
@@ -185,7 +185,7 @@ export default function RowTableCandidateOffer(props) {
                                 <Divider sx={{ mx: 2 }} />
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
-                                    {row.cvCandidat.document.map((doctable, index) => (
+                                    {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (
                                         //   console.log("value",{doctable})
                                         <Button
                                             key={index}

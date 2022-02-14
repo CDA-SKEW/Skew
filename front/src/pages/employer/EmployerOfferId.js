@@ -59,12 +59,19 @@ const EmployerOfferId = () => {
                 </Box>
 
                 {/* Information entreprise */}
-                <OfferIdDataFactory dataProfilEmployer={dataProfilEmployer} />
+                {dataProfilEmployer &&
+                    <OfferIdDataFactory dataProfilEmployer={dataProfilEmployer} />
+                }
 
-                <Divider sx={{ mx: 4, mb: 2 }} />
+                {dataProfilEmployer &&
+                    <Divider sx={{ mx: 4, mb: 2 }} />
+                }
+
 
                 {/* Information offre*/}
-                <OfferIdDataOffer offer={state && state.offer} />
+                {state &&
+                    <OfferIdDataOffer offer={state.offer} />
+                }
 
 
             </Box>

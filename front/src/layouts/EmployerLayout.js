@@ -21,7 +21,7 @@ import { useLocation } from "react-router-dom";
 export default function EmployerLayout({ children }) {
 
     const dispatch = useDispatch();
-  const location = useLocation();
+    const location = useLocation();
 
     // {/*Constante pour largeur slideBar*/ }
     const drawerWidth = 230;
@@ -40,8 +40,7 @@ export default function EmployerLayout({ children }) {
         { name: 'Mon compte', link: 'Employer/profil' },
         { name: 'Changer Mot de passe', link: 'Employer/profilPw' },
         { name: 'Déposer une offre', link: 'Employer/addOffer' },
-        { name: 'Mes offres', link: 'Employer/offer' },
-        { name: 'Déconnexion', link: '' }
+        { name: 'Mes offres', link: 'Employer/offer' }
     ]
 
     //   Définir les liens employeur pour la slideBar
@@ -61,10 +60,10 @@ export default function EmployerLayout({ children }) {
     }, []);
 
 
-//   ici à chaque chargement de la page, on revie t en haut de page
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
+    //   ici à chaque chargement de la page, on revie t en haut de page
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
 
 
     //dispatch(getProfilEmployer());
@@ -98,9 +97,9 @@ export default function EmployerLayout({ children }) {
 
                 {/*sidebar Layout*/}
                 <SlideBarUser drawerWidth={drawerWidth}
-                 listItems={listItems} 
-                 listItemGeneral={listItemGeneral}
-                 dataProfilEmployer ={dataProfilEmployer } />
+                    listItems={listItems}
+                    listItemGeneral={listItemGeneral}
+                    dataProfilEmployer={dataProfilEmployer} />
 
                 {/* Body*/}
                 <ThemeProvider theme={themeEmployer} >
@@ -109,7 +108,7 @@ export default function EmployerLayout({ children }) {
                         //permet d'enlever les padding left et right
                         disableGutters
 
-                        sx={{ flexGrow: 1, bgcolor: themeEmployer.palette.bgPage.main, p: 4, minHeight: "100vh" }}
+                        sx={{ flexGrow: 1, bgcolor: themeEmployer.palette.bgPage.main, p: 4, minHeight: "100vh", width: "100%" }}
                     >
 
                         <Toolbar id="back-to-top-anchor" />
@@ -132,16 +131,16 @@ export default function EmployerLayout({ children }) {
 
             </Box >
 
-            {/* Footer*/}
-            <Box
+            {/* Le Footer ne sera pas utiliser dans mon layout si utilisateur est connecté*/}
+            {/* <Box
                 sx={{
-                    display: { xs: 'none', md: 'block' },
-                    width: { md: `calc(100% - ${drawerWidth}px)` },
+                    display: { xs: 'none', sm: 'none', md: 'block' },
+                    width: { xs: '100%', sm: '100%', md: `calc(100% - ${drawerWidth}px)` },
                     ml: { xs: 0, sm: 0, md: `${drawerWidth}px` }
                 }}
             >
                 <Footer />
-            </Box>
+            </Box> */}
         </ThemeProvider >
     );
 }

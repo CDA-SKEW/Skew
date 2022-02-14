@@ -735,6 +735,9 @@ const offers = [
     ]
   },
 ];
+
+// const offers = []
+
 /*
  * Actions
  * ******* */

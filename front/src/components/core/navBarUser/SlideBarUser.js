@@ -58,14 +58,14 @@ export default function SlideBarUser(props) {
             <Box
                 display={"flex"} justifyContent='start' flexWrap={"wrap"} paddingX={3} marginY={2}>
                 <Typography variant="body1">
-                    {dataProfilEmployer.name}
+                    {dataProfilEmployer.name? dataProfilEmployer.name: "John Doe"}
                 </Typography>
             </Box>
 
             <Divider />
 
             <List>
-                {listItemGeneral.map((listItemGen, index) => (
+                {listItemGeneral && listItemGeneral.map((listItemGen, index) => (
                     <ListItem button key={index} onClick={() => navigate({ pathname: `/${listItemGen.link}` })}>
                         <ListItemIcon>
                             {index % 2 === 0 ? <SettingsIcon /> : <VpnKeyIcon />}
@@ -79,7 +79,7 @@ export default function SlideBarUser(props) {
 
 
             <List>
-                {listItems.map((text, index) => (
+                {listItems && listItems.map((text, index) => (
                     <ListItem button key={index} onClick={() => navigate({ pathname: `/${text.link}` })}>
                         <ListItemIcon>
                             {index % 2 === 0 ? <LocalOfferIcon /> : <ManageSearchIcon />}
@@ -109,7 +109,7 @@ export default function SlideBarUser(props) {
                     open={openModalConfirmation}
                     onClose={handleCloseModalConfirmation}
                     titleModal="Déconnexion"
-                    textModal="Êtes-vous sûr de vouloir vous deconnectez?"
+                    textModal="Êtes-vous sûr de vouloir vous deconnecter?"
                     colorBgModal="#ABC4FF"
                     colorTextModal="#000000"
                     action="disconnect"

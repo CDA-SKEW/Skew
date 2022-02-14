@@ -26,9 +26,8 @@ const EmployerAddOffer = () => {
       <Box
         bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
-        paddingTop={2}
-        paddingBottom={2}
-        marginTop={2}
+        paddingBottom={1}
+        marginTop={1}
       >
         <Box
           sx={{
@@ -44,7 +43,7 @@ const EmployerAddOffer = () => {
             color={themeEmployer.palette.textTitleItems.main}
             borderRadius={1}
             position={"relative"}
-            top={"-35px"}
+            top={"-20px"}
             textAlign={"center"}
           >
             Déposer une offre
@@ -53,7 +52,7 @@ const EmployerAddOffer = () => {
 
         <Typography
           position={"relative"}
-          top={"-30px"}
+          top={"-10px"}
           textAlign={"center"}
           variant="h5"
         >
@@ -70,15 +69,19 @@ const EmployerAddOffer = () => {
       <Box
         bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
-        paddingTop={2}
-        marginTop={2}
+        paddingTop={1}
+        marginTop={1}
       >
         <Typography sx={{ textAlign: "center", mb: 2 }} variant="h5">
           Informations de l'offre
         </Typography>
 
         {/* component formulaire offre */}
-        {dataProfilEmployer && <OfferForm />}
+        {dataProfilEmployer && (dataProfilEmployer.siret 
+          ? <OfferForm />
+          : <Typography sx={{ color: "red",textAlign: "center", Py: 2 }} variant="body1">
+          Pour déposer une offre, veuillez remplir votre profil !
+        </Typography>)}
       </Box>
     </Container>
   );
