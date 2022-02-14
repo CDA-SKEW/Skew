@@ -11,7 +11,7 @@ import { themeCandidate } from "configs/theme";
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
 
-const EmployerDashboard = () => {
+const CandidatDashboard = () => {
   const { nbNotif, nbProfilView, NbMyPost } = {
     nbNotif: [0, 1, 2, 3, 4, 5],
     nbProfilView: [0, 1, 2, 3],
@@ -190,4 +190,4 @@ const EmployerDashboard = () => {
   );
 };
 
-export default EmployerDashboard;
+export default CandidatDashboard;

@@ -30,7 +30,7 @@ export default function SlideBarUser(props) {
         setOpenModalConfirmation(false);
     };
 
-    const { drawerWidth, listItems, listItemGeneral, dataProfilEmployer } = props
+    const { drawerWidth, listItems, listItemGeneral, dataProfilEmployer, dataProfilCandidate } = props
 
     return (
         <Drawer
@@ -58,7 +58,7 @@ export default function SlideBarUser(props) {
             <Box
                 display={"flex"} justifyContent='start' flexWrap={"wrap"} paddingX={3} marginY={2}>
                 <Typography variant="body1">
-                    {dataProfilEmployer.name? dataProfilEmployer.name: "John Doe"}
+                    {dataProfilEmployer.name ? dataProfilEmployer.name : "John Doe"}
                 </Typography>
             </Box>
 

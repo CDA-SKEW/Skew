@@ -175,7 +175,7 @@ export default function TableExperience(props) {
   //Condition Trigger mode Add 
   const CheckModeAdd = (props) => {
     const { status, row } = props
-    console.log('props mode edit', props)
+    // console.log('props mode edit', props)
     if (status === true) return <ModeAdd data={row} />
     return <div></div>
   }

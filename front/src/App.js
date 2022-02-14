@@ -23,7 +23,7 @@ import EmployerCandidateId from "pages/employer/EmployerCandidateId";
 import ChangePassword from "pages/employer/ChangePassword"
 
 import EmployerLayout from "layouts/EmployerLayout";
-
+import CandidatLayout from "layouts/CandidatLayout";
 
 const EmployerRoutes = () => (
   <EmployerLayout>
@@ -37,7 +37,17 @@ const EmployerRoutes = () => (
       <Route path="profilPw" exact element={<ChangePassword />} />
     </Routes>
   </EmployerLayout>
-  
+
+);
+
+const CandidatRoutes = () => (
+  <CandidatLayout >
+    <Routes>
+      <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
+      <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
+      <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />
+    </Routes>
+  </CandidatLayout>
 );
 
 
@@ -55,9 +65,7 @@ function App() {
         <Route path="/contactus" exact element={<ContactezNous />} />
         <Route path="/offres" exact element={<OffresView />} />
         <Route path="/Employer/*" element={<EmployerRoutes />} />
-        <Route path="/Candidat/profil" exact element={<CandidatProfil />} />
-        <Route path="/Candidat/dashboard" exact element={<CandidatDashboard />} />
-        <Route path="/Candidat/candidature" exact element={<CandidatCandidature />} />
+        <Route path="/Candidat/*" element={<CandidatRoutes />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
