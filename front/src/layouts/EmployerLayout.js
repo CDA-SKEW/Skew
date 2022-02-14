@@ -99,7 +99,7 @@ export default function EmployerLayout({ children }) {
                 <SlideBarUser drawerWidth={drawerWidth}
                     listItems={listItems}
                     listItemGeneral={listItemGeneral}
-                    dataProfilEmployer={dataProfilEmployer} />
+                    dataProfilUser={dataProfilEmployer} />
 
                 {/* Body*/}
                 <ThemeProvider theme={themeEmployer} >
