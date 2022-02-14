@@ -54,10 +54,10 @@ export default function CandidatLayout({ children }) {
         // { name: 'Mot de passe', link: 'Employer/profilPw' }
     ]
 
-    // React.useEffect(() => {
-    //     // console.log("effect getDataProfilEmployerEmployer");
-    //     dispatch(getProfilCandidate());
-    // }, []);
+    React.useEffect(() => {
+        // console.log("effect getDataProfilEmployerEmployer");
+        dispatch(getProfilCandidate());
+    }, []);
 
 
     //   ici à chaque chargement de la page, on revie t en haut de page
@@ -66,11 +66,11 @@ export default function CandidatLayout({ children }) {
     }, [location]);
 
 
-    //dispatch(getProfilEmployer());
+    dispatch(getProfilCandidate());
 
-    // const dataProfilCandidate = useSelector(
-    //     (state) => state.candidate.dataProfilCandidate
-    // );
+    const dataProfilCandidate = useSelector(
+        (state) => state.candidate.dataProfilCandidate
+    );
 
     return (
         <ThemeProvider theme={theme}>

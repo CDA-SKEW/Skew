@@ -50,7 +50,7 @@ export default function SlideBarUser(props) {
             anchor="left"
         >
 
-            <Box
+            {/* <Box
                 display={"flex"} justifyContent='start' paddingTop={4} paddingX={2}>
                 <Avatar alt="" srcSet={dataProfilEmployer.avatar} sx={{ width: 90, height: 90 }} />
             </Box>
@@ -60,7 +60,7 @@ export default function SlideBarUser(props) {
                 <Typography variant="body1">
                     {dataProfilEmployer.name ? dataProfilEmployer.name : "John Doe"}
                 </Typography>
-            </Box>
+            </Box> */}
 
             <Divider />
 
