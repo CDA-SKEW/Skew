@@ -30,7 +30,11 @@ export default function SlideBarUser(props) {
         setOpenModalConfirmation(false);
     };
 
+<<<<<<< HEAD
     const { drawerWidth, listItems, listItemGeneral, dataProfilEmployer, dataProfilCandidate } = props
+=======
+    const { drawerWidth, listItems, listItemGeneral, dataProfilUser } = props
+>>>>>>> origin/wil
 
     return (
         <Drawer
@@ -52,13 +56,13 @@ export default function SlideBarUser(props) {
 
             <Box
                 display={"flex"} justifyContent='start' paddingTop={4} paddingX={2}>
-                <Avatar alt="" srcSet={dataProfilEmployer.avatar} sx={{ width: 90, height: 90 }} />
+                <Avatar alt="" srcSet={dataProfilUser.avatar} sx={{ width: 90, height: 90 }} />
             </Box>
 
             <Box
                 display={"flex"} justifyContent='start' flexWrap={"wrap"} paddingX={3} marginY={2}>
                 <Typography variant="body1">
-                    {dataProfilEmployer.name ? dataProfilEmployer.name : "John Doe"}
+                    {dataProfilUser.name? dataProfilUser.name: "John Doe"}
                 </Typography>
             </Box>
 
