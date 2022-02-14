@@ -1,15 +1,18 @@
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
 import CardOffer from "components/CardOffer";
-import { themeEmployer} from "configs/theme";
+import { themeEmployer } from "configs/theme";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getOffer } from "store/actions/EmployerActions";
+import { useNavigate } from "react-router-dom";
 
 const EmployerDashboard = () => {
 
@@ -21,71 +24,43 @@ const EmployerDashboard = () => {
 
   const arrayDash = [
     {
-      icon: <LibraryBooksIcon sx={{ width: "45px", height: "45px" }} />,
+      icon: <LibraryBooksIcon sx={{ width: "35px", height: "35px" }} />,
       number: NbMyOffers.length,
       text: "Mes offres déposée",
     },
     {
-      icon: <VisibilityIcon sx={{ width: "45px", height: "45px" }} />,
+      icon: <VisibilityIcon sx={{ width: "35px", height: "35px" }} />,
       number: nbCandidateReceive.length,
       text: "Candidatures reçues",
     },
     {
-      icon: <NotificationsActiveIcon sx={{ width: "45px", height: "45px" }} />,
+      icon: <NotificationsActiveIcon sx={{ width: "35px", height: "35px" }} />,
       number: nbNotif.length,
       text: "Notifications",
     },
   ];
 
-  const arrayOffer = [
-    {
-      image: imageEmployer,
-      titleOffer: "Devellopeur Application",
-      nameEmployor: "arinfo",
-      dateOfferDays: "10",
-      badgeEmployor: true,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Développeur web",
-      nameEmployor: "SII",
-      dateOfferDays: "20",
-      badgeEmployor: true,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Assistante de direction et gestion de paye",
-      nameEmployor: "Covea",
-      dateOfferDays: "2",
-      badgeEmployor: true,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Chauffeur Routier",
-      nameEmployor: "ST micro electronique",
-      dateOfferDays: "1",
-      badgeEmployor: false,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Cuisinier",
-      nameEmployor: "pole emploi",
-      dateOfferDays: "15",
-      badgeEmployor: true,
-    },
-  ];
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getOffer());
+  }, []);
+
+
+  const offers = useSelector(
+    (state) => state.employer.dataOffers
+  );
 
   return (
     <Container
-  >
+    >
       {/* Card résumé dashboard */}
 
       <Box
         bgcolor={themeEmployer.palette.bgBox.main}
         borderRadius={3}
-        paddingTop={2}
-        paddingBottom={4}
-        marginTop={2}
+        paddingBottom={2}
       >
         {/* Titre section Résumé dashboard */}
         <Box
@@ -101,7 +76,7 @@ const EmployerDashboard = () => {
             color={themeEmployer.palette.textTitleItems.main}
             borderRadius={1}
             position={"relative"}
-            top={"-35px"}
+            top={"-20px"}
             textAlign={"center"}
           >
             Résumé
@@ -130,7 +105,7 @@ const EmployerDashboard = () => {
         borderRadius={3}
         paddingTop={2}
         paddingBottom={4}
-        marginTop={8}
+        marginTop={4}
       >
         {/* Titre section Dernieres offres postées dashboard */}
         <Box
@@ -139,15 +114,15 @@ const EmployerDashboard = () => {
           alignItems={"center"}
         >
           <Typography
-             variant="h5"
-             component="h5"
-             paddingX={1}
-             bgcolor={themeEmployer.palette.bgTitleItems.main}
-             color={themeEmployer.palette.textTitleItems.main}
-             borderRadius={1}
-             position={"relative"}
-             top={"-35px"}
-             textAlign={"center"}
+            variant="h5"
+            component="h5"
+            paddingX={1}
+            bgcolor={themeEmployer.palette.bgTitleItems.main}
+            color={themeEmployer.palette.textTitleItems.main}
+            borderRadius={1}
+            position={"relative"}
+            top={"-35px"}
+            textAlign={"center"}
           >
             Dernieres offres postées
           </Typography>
@@ -161,8 +136,8 @@ const EmployerDashboard = () => {
             alignItems: { xs: "center", md: "none" }
           }}
         >
-          {arrayOffer.length > 0 &&
-            arrayOffer
+          {offers.length > 0 &&
+            offers
               .slice(-3)
               .reverse()
               .map((listOffer, index) => (
@@ -175,3 +150,4 @@ const EmployerDashboard = () => {
 };
 
 export default EmployerDashboard;
+//  

@@ -66,7 +66,7 @@ export default function CandidateExperience(props) {
                             </TableHead>
 
                             <TableBody>
-                                {profilCandidate.cvCandidat.experience.map((experience, index) => (
+                                {profilCandidate.cvCandidat.experience && (profilCandidate.cvCandidat.experience.map((experience, index) => (
                                     <TableRow hover key={index}>
                                         <TableCell align="center">
                                             {experience.entreprise}
@@ -85,7 +85,7 @@ export default function CandidateExperience(props) {
                                             {experience.dateEnd}
                                         </TableCell>
                                     </TableRow>
-                                ))}
+                                )))}
                             </TableBody>
                         </Table>
 

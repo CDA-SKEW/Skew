@@ -12,21 +12,66 @@ import BackNav from "components/core/navBarUser/BackNav";
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ScrollTop from "components/ScrollTop";
-import SlideBarUser from "components/core/SlideBarUser";
+import SlideBarUser from "components/core/navBarUser/SlideBarUser";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfilEmployer } from "store/actions/EmployerActions";
+import { useLocation } from "react-router-dom";
 
 
 export default function EmployerLayout({ children }) {
 
+    const dispatch = useDispatch();
+  const location = useLocation();
+
     // {/*Constante pour largeur slideBar*/ }
     const drawerWidth = 230;
 
-    //   Définir les liens de la navbar
-    // const title = "PAGE HOME <<";
-    // const navlink = ["article", "contact", "candidat", "recruteur", "admin"];
+
+    //Définir les liens pour navBar
+    const pages = [
+        { name: 'Accueil', link: '' },
+        { name: 'Contactez-nous', link: 'contactus' },
+        { name: 'Recherchez une offre', link: 'offres' },
+        { name: 'profil', link: 'Employer/dashBoard' }
+    ]
+
+    //Définir les liens pour navBar version mobile
+    const pagesReponsive = [
+        { name: 'Mon compte', link: 'Employer/profil' },
+        { name: 'Changer Mot de passe', link: 'Employer/profilPw' },
+        { name: 'Déposer une offre', link: 'Employer/addOffer' },
+        { name: 'Mes offres', link: 'Employer/offer' },
+        { name: 'Déconnexion', link: '' }
+    ]
 
     //   Définir les liens employeur pour la slideBar
-    const listItems = ["Déposer une offre", "Mes offres"];
-    const pages = ['Accueil', 'Contactez-nous', 'Recherchez une offre', 'profil'];
+    const listItems = [
+        { name: 'Déposer une offre', link: 'Employer/addOffer' },
+        { name: 'Mes offres', link: 'Employer/offer' }
+    ]
+
+    const listItemGeneral = [
+        { name: 'Mon compte', link: 'Employer/profil' },
+        { name: 'Mot de passe', link: 'Employer/profilPw' }
+    ]
+
+    React.useEffect(() => {
+        // console.log("effect getDataProfilEmployerEmployer");
+        dispatch(getProfilEmployer());
+    }, []);
+
+
+//   ici à chaque chargement de la page, on revie t en haut de page
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+
+    //dispatch(getProfilEmployer());
+
+    const dataProfilEmployer = useSelector(
+        (state) => state.employer.dataProfilEmployer
+    );
 
     return (
         <ThemeProvider theme={theme}>
@@ -47,21 +92,22 @@ export default function EmployerLayout({ children }) {
                     </Box>
 
                     {/* Partie haute de la navBar */}
-                    <BackNav  pages={pages}/>
+                    <BackNav pages={pages} pagesReponsive={pagesReponsive} />
 
                 </AppBar>
 
                 {/*sidebar Layout*/}
-                <SlideBarUser  drawerWidth={drawerWidth} listItems={listItems} />
+                <SlideBarUser drawerWidth={drawerWidth}
+                 listItems={listItems} 
+                 listItemGeneral={listItemGeneral}
+                 dataProfilEmployer ={dataProfilEmployer } />
 
                 {/* Body*/}
                 <ThemeProvider theme={themeEmployer} >
                     <Box
-
                         component="main"
                         //permet d'enlever les padding left et right
                         disableGutters
-                        fixed="true"
 
                         sx={{ flexGrow: 1, bgcolor: themeEmployer.palette.bgPage.main, p: 4, minHeight: "100vh" }}
                     >
@@ -89,7 +135,8 @@ export default function EmployerLayout({ children }) {
             {/* Footer*/}
             <Box
                 sx={{
-                    width: { xs: '100%', sm: '100%', md: `calc(100% - ${drawerWidth}px)` },
+                    display: { xs: 'none', md: 'block' },
+                    width: { md: `calc(100% - ${drawerWidth}px)` },
                     ml: { xs: 0, sm: 0, md: `${drawerWidth}px` }
                 }}
             >

@@ -10,8 +10,8 @@ export default function LogoSkew() {
                 variant="square"
                 src={Logo}
                 sx={{
-                    width: { xs: 40, md: 60 },
-                    height: { xs: 40, md: 60 },
+                    width:  60,
+                    height: 60, 
                 }}
             />
         </Box>

@@ -32,8 +32,8 @@ const EmployerRoutes = () => (
       <Route path="profil" exact element={<EmployerProfil />} />
       <Route path="addOffer" exact element={<EmployerAddOffer />} />
       <Route path="offer" exact element={<EmployerOffer />} />
-      <Route path="offer:id" exact element={<EmployerOfferId />} />
-      <Route path="candidate:id" exact element={<EmployerCandidateId />} />
+      <Route path="offer/:id" exact element={<EmployerOfferId />} />
+      <Route path="candidate/:id" exact element={<EmployerCandidateId />} />
       <Route path="profilPw" exact element={<ChangePassword />} />
     </Routes>
   </EmployerLayout>
