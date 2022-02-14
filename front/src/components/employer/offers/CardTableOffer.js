@@ -6,10 +6,12 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RowTableCandidateOffer from "./RowTableCandidateOffer";
 import ModalConfimation from "components/ModalConfimation"
+import { useNavigate } from "react-router-dom";
 
 
 export default function CardTableOffer(props) {
   const { offer } = props
+  const navigate = useNavigate();
 
   //constante pour le modal contact
   const [openModalConfirmation, setOpenModalConfirmation] = useState(false);
@@ -19,9 +21,6 @@ export default function CardTableOffer(props) {
   const handleCloseModalConfirmation = () => {
     setOpenModalConfirmation(false);
   };
-
-  //constante provisoire pour l'id
-  const id= "252"
 
   // console.log("offer", offer)
 
@@ -33,8 +32,11 @@ export default function CardTableOffer(props) {
       marginBottom={3}
       bgcolor={themeEmployer.palette.bgBox.main}
     >
+
       <Typography textAlign={"center"} marginBottom={2} variant="h5">
-        Offres n°{offer.number} - {offer.title}
+        <Button sx={{fontWeight:"bold", fontSize:"20px"}} variant="string" onClick={e => navigate("/Employer/offer/" + offer.offer_id, { state: { offer: offer } })} >
+          Offres n°{offer.number} - {offer.title}
+        </Button>
       </Typography>
 
       <Box
@@ -56,6 +58,7 @@ export default function CardTableOffer(props) {
           startIcon={
             <VisibilityIcon sx={{ display: { xs: "none", sm: "block" } }} />
           }
+          onClick={e => navigate("/Employer/offer/" + offer.offer_id, { state: { offer: offer } })}
         >
           Voir l'offre
         </Button>
@@ -88,7 +91,7 @@ export default function CardTableOffer(props) {
           colorBgModal="#ABC4FF"
           colorTextModal="#000000"
           action="deleteOffer"
-          param={id}
+          param={offer.offer_id}
         />
 
       </Box>

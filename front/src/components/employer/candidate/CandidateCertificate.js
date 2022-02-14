@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 export default function CandidateCertificate(props) {
     const { profilCandidate } = props
     const [openCertificate, setOpenCertificate] = React.useState(false);
-  
+
     return (
         <Box>
             <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
@@ -63,7 +63,7 @@ export default function CandidateCertificate(props) {
                             </TableHead>
 
                             <TableBody>
-                                {profilCandidate.cvCandidat.certificate.map((certificate, index) => (
+                                { profilCandidate.cvCandidat.certificate && (profilCandidate.cvCandidat.certificate.map((certificate, index) => (
                                     <TableRow hover key={index}>
                                         <TableCell align="center">
                                             {certificate.school}
@@ -78,7 +78,7 @@ export default function CandidateCertificate(props) {
                                         <TableCell align="center">{certificate.validate === 0 ? "Non" : "Oui"}
                                         </TableCell>
                                     </TableRow>
-                                ))}
+                                )))}
                             </TableBody>
                         </Table>
 
@@ -87,4 +87,5 @@ export default function CandidateCertificate(props) {
 
             </Box>
         </Box>
-    )}
+    )
+}

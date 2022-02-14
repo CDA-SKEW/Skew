@@ -10,14 +10,18 @@ import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import ModalMessageCandidate from "./ModalMessageCandidate";
 import ModalConfimation from "components/ModalConfimation";
+import { useNavigate } from "react-router-dom";
 
 
 export default function RowTableCandidateOffer(props) {
+
+    const navigate = useNavigate();
 
     // console.log(props)
     const { numberCandidat, row, offer } = props;
     const [open, setOpen] = useState(false);
     // console.log("offer", offer)
+    //   console.log("row", row)
 
     //constante pour les modals confirmation
     const [openModalConfirmationRetain, setOpenModalConfirmationRetain] = useState(false);
@@ -37,11 +41,7 @@ export default function RowTableCandidateOffer(props) {
     };
 
 
-    //constante provisoire pour l'id
-    const id = "192"
-
-
-    //constante pour le modal contact
+     //constante pour le modal contact
     const [openContact, setOpenContact] = useState(false);
     const handleClickModalContact = () => {
         setOpenContact(true);
@@ -254,6 +254,8 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
+                                    onClick={e => navigate("/Employer/candidate/" + row.candidate_id ,{ state: { profilCandidate: row} })}
+
                                 >
                                     Voir candidat
                                 </Button>
@@ -289,7 +291,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateNoRetain"
-                                    param={id}
+                                    param={row.candidate_id}
                                 />
 
 
@@ -324,7 +326,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateRetain"
-                                    param={id}
+                                    param={row.candidate_id}
                                 />
 
                             </Box>

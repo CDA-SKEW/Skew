@@ -12,6 +12,8 @@ export default function CandidateInterest(props) {
     const { profilCandidate } = props
     const [openInterest, setOpenInterest] = useState(false);
 
+    // console.log("profilCandidate", profilCandidate)
+
     return (
         <Box>
             <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
@@ -51,12 +53,12 @@ export default function CandidateInterest(props) {
                 <Collapse in={openInterest} timeout="auto" unmountOnExit>
 
                     <Box display={"flex"} justifyContent={"space-around"} flexWrap="wrap">
-                        {profilCandidate.cvCandidat.interest.map((interestTable, index) => (
+                        {profilCandidate.cvCandidat.interest && (profilCandidate.cvCandidat.interest.map((interestTable, index) => (
                             // console.log(skilltable, index)
                             <Typography variant="body2" component="span" padding={1} key={index}>
                                 {interestTable}
                             </Typography>
-                        ))}
+                        )))}
                     </Box>
                 </Collapse>
 

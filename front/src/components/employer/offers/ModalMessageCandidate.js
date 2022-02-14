@@ -62,13 +62,14 @@ export default function ModalMessageCandidate(props) {
         onSubmit={(e) => handleSendMessage(e)}
       >
         <DialogTitle sx={{ bgcolor: "#004F98", color: "white", textAlign: "center", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
-          Message au candidat <CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }} onClick={handleCancel} />
+          Message au candidat <Button onClick={handleCancel} ><CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }}  /></Button>
         </DialogTitle>
         <DialogContent dividers>
           <Grid container rowSpacing={2}>
 
             {Object.entries(row).map((arr, index) => {
               const key = arr[0]
+              if (key === "candidate_id") return;
               if (key === "address") return;
               if (key === "zipCode") return;
               if (key === "town") return;

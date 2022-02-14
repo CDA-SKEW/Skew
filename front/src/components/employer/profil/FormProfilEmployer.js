@@ -331,7 +331,8 @@ export default function FormProfilEmployer(props) {
                   ml: 1,
                   my: 1,
                   display: displayButton,
-                  width: "160px",
+                  width: {sm: "140px", md:"160px"},
+                  height: "40px",
                 }}
                 onClick={(e) => handleSendApiSiret(e)}
               >

@@ -8,9 +8,10 @@ const CardDashboardStyle = styled(Card)(() => ({
   textAlign: "center",
   color: themeEmployer.palette.textTitleItems.main,
   backgroundColor: themeEmployer.palette. bgCardDashboard.main,
-  height: "250px",
-  width: "250px",
+  height: "150px",
+  width: "150px",
   marginTop: 8,
+  paddingTop:4
 }));
 
 // ----------------------------------------------------------------------
@@ -22,13 +23,13 @@ export default function CardDashboard(props) {
   const { list } = props;
 
   return (
-    <CardDashboardStyle>
-      <Grid sx={{ mt: 8 }}>{list.icon}</Grid>
-      <Grid sx={{ my: 1 }}>
-        <Typography variant="h6">{list.number}</Typography>
+    <CardDashboardStyle sx={{display:"flex", flexDirection:"column", justifyContent:"space-around"}}>
+      <Grid >{list.icon}</Grid>
+      <Grid>
+        <Typography variant="h5">{list.number}</Typography>
       </Grid>
-      <Grid sx={{ mb: 8 }}>
-        <Typography variant="h6">{list.text}</Typography>
+      <Grid >
+        <Typography variant="body2">{list.text}</Typography>
       </Grid>
     </CardDashboardStyle>
   );
