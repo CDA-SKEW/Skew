@@ -23,12 +23,16 @@ router
 
 // Employeur profil
 router
-.route("/api/employer/profil")
-  .get(new EmployerProfilControllers().getProfil);
+  .route("/api/employer/profil")
+  .get(new EmployerProfilControllers().getProfil)
+  .post(new EmployerProfilControllers().createProfil)
+
+router
+  .route("/api/employer/profil/:id")
+  .put(new EmployerProfilControllers().updateProfil)
 
 
 
-  
 
 // Authentification
 

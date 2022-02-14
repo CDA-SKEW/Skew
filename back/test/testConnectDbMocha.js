@@ -7,12 +7,6 @@ const expect = chai.expect;
 
 connectionPool = MySQL.createPool({ ...dbOptions });
 
-// var getConnection = function (done) {
-//   console.log("connection pool");
-//   connectionPool.getConnection(done);
-// };
-
-// module.exports = { getConnection: getConnection };
 
 it('db.connection.connect...', function (done) {
   connectionPool.getConnection(function (err, result) {
@@ -22,6 +16,6 @@ it('db.connection.connect...', function (done) {
     // console.log(result)
     expect(result.state).to.equal("connected")
     done();
-
   });
+  
 });
