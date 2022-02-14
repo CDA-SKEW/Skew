@@ -33,8 +33,8 @@ export default function CardTableOffer(props) {
       bgcolor={themeEmployer.palette.bgBox.main}
     >
 
-      <Typography textAlign={"center"} marginBottom={2} variant="h5">
-        <Button sx={{fontWeight:"bold", fontSize:"20px"}} variant="string" onClick={e => navigate("/Employer/offer/" + offer.offer_id, { state: { offer: offer } })} >
+      <Typography textAlign={"center"} marginBottom={2} variant="h6">
+        <Button sx={{fontWeight:"bold", fontSize:"18px"}} variant="string" onClick={e => navigate("/Employer/offer/" + offer.offer_id, { state: { offer: offer } })} >
           Offres n°{offer.number} - {offer.title}
         </Button>
       </Typography>

@@ -46,8 +46,8 @@ const EmployerOfferId = () => {
                     color={"white"}
                     px={2}
                 >
-                    <Typography justifyContent={"center"} variant='h5'>
-                        {state && "Offres n°" + state.offer.number + " - " + state.offer.title}
+                    <Typography variant='h6' align="center">
+                        {state && "Offres n°"+ state.offer.number +" - "+ state.offer.title}
                     </Typography>
 
                     <Button onClick={e => navigate(-1)}>
