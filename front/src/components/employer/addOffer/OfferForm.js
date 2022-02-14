@@ -86,7 +86,7 @@ export default function OfferForm() {
 
   return (
     <Box component="form" onSubmit={(e) => handleSendAddOffer(e)}>
-      <Grid container rowSpacing={2} paddingX={2}>
+      <Grid container rowSpacing={1} paddingX={2}>
         <Grid item xs={12} sm={12} md={12}>
           <TextField
             required

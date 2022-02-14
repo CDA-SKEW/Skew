@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Box } from "@mui/system";
 import Slide from '@mui/material/Slide';
 import { deleteOffer, putActionCandidate } from "store/actions/EmployerActions";
+import { useNavigate } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
@@ -13,6 +14,7 @@ export default function ModalConfimation(props) {
     const { colorBgModal, colorTextModal, titleModal, textModal, action, param, onClose, open, } = props
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleCancel = () => {
         onClose();
@@ -43,6 +45,9 @@ export default function ModalConfimation(props) {
                 await dispatch(putActionCandidate(dataNoRetain));
                 break;
 
+                case "disconnect":
+                    navigate("/")
+                    break;
             default:
                 break;
         }

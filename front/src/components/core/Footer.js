@@ -28,7 +28,7 @@ export default function Footer() {
             </Typography>
             <Box
             display={"flex"}
-            flexDirection={{xs:"column", sm:"row"}}
+            flexDirection={{xs:"column", sm:"row", md:"row"}}
             justifyContent={"center"}>
                 {UserList.map((list, index) => (
                     <Button

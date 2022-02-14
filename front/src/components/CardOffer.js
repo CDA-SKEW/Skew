@@ -10,9 +10,11 @@ import React from "react";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import { useNavigate } from "react-router-dom";
 
 export default function CardOffer(props) {
   const { listOffer } = props;
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -25,6 +27,7 @@ export default function CardOffer(props) {
         mx: 1,
         bgcolor: '#fff'
       }}
+      onClick={e => navigate("/Employer/offer/" + listOffer.offer_id, { state: { offer: listOffer } })}
     >
       <CardActionArea>
         {listOffer.badgeEmployor && (
@@ -59,7 +62,10 @@ export default function CardOffer(props) {
               alignItems: "center",
             }}
           >
-            {listOffer.titleOffer}
+
+            {listOffer.titleOffer ? listOffer.titleOffer: listOffer.title}
+
+
           </Typography>
           {listOffer.typeContrat && (
             <Typography
