@@ -779,7 +779,6 @@ export const putFormProfilEmployer = (data) => {
   };
 };
 
-
 // get offer
 export const getOffer = () => {
   return (dispatch) => {
@@ -787,7 +786,6 @@ export const getOffer = () => {
     dispatch({ type: GET_OFFER, payload: offers });
   };
 };
-
 
 // Post add offer
 export const postFormAddOffer = (data) => {
@@ -805,7 +803,7 @@ export const deleteOffer = (id) => {
   };
 };
 
-//  Delete offer
+//  Action candidate
 export const putActionCandidate = (data) => {
   return (dispatch) => {
   // console.log("PUT_ACTION_CANDIDATE", data);
