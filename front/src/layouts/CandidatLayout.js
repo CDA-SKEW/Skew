@@ -68,9 +68,11 @@ export default function CandidatLayout({ children }) {
 
     dispatch(getProfilCandidate());
 
-    const dataProfilCandidate = useSelector(
-        (state) => state.candidate.dataProfilCandidate
-    );
+    // const dataProfilCandidate = useSelector(
+    //     (state) => state.candidate.dataProfilCandidate
+    // );
+
+    const dataProfilCandidate = { name: "Toto", avatar: "" }
 
     return (
         <ThemeProvider theme={theme}>
@@ -99,7 +101,7 @@ export default function CandidatLayout({ children }) {
                 <SlideBarUser drawerWidth={drawerWidth}
                     listItems={listItems}
                     listItemGeneral={listItemGeneral}
-                // dataProfilCandidate={dataProfilCandidate} 
+                    dataProfilUser={dataProfilCandidate}
                 />
 
                 {/* Body*/}
