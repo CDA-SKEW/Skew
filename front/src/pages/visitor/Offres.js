@@ -1,24 +1,25 @@
-import { Typography } from '@mui/material';
-import MoteurRechercheOffres from 'components/visiteur/MoteurRechercheOffres';
-import VisiteurLayout from 'layouts/VisiteurLayout';
-import ListAllOffres from 'components/visiteur/ListAllOffres';
 import React, { useState } from 'react';
+import { Typography } from '@mui/material';
+import VisiteurLayout from 'layouts/VisiteurLayout';
 import Logo1 from 'assets/images/imageEmployor.png';
 import Logo2 from 'assets/images/WhyCandidat01.jpg';
 import Logo3 from 'assets/images/WhyCandidat02.jpg';
 import Logo4 from 'assets/images/WhyHome01.jpg';
 import Logo5 from 'assets/images/WhyHome02.jpg';
-import LastAllOffres from 'components/visiteur/LastAllOffres';
 import Slide from '@mui/material/Slide';
-import DialogCardOffreId from 'components/visiteur/DialogCardOffreId';
+
+import MoteurRechercheOffres from 'components/visiteur/offres/MoteurRechercheOffres';
+import ListOffresFiltrees from 'components/visiteur/offres/ListOffresFiltrees';
+import LastOffres from 'components/visiteur/offres/LastOffres';
+import DialogCardOffreId from 'components/visiteur/offres/DialogCardOffreId';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function OffresView() {
+export default function Offres() {
 
-    const[date, setDate] = useState("");
+    const [date, setDate] = useState("");
     const [job, setJob] = useState("");
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("")
@@ -71,7 +72,7 @@ export default function OffresView() {
                 handleSearchType={handleSearchType}
                 handleSearchLocation={handleSearchLocation}
             />
-            <ListAllOffres
+            <ListOffresFiltrees
                 listOffer={listOffer}
                 job={job}
                 type={type}
@@ -80,7 +81,7 @@ export default function OffresView() {
                 setPage={setPage}
                 handleClickOpen={handleClickOpen}
             />
-            <LastAllOffres
+            <LastOffres
                 listOffer={listOffer}
                 handleClickOpen={handleClickOpen}
             />
@@ -107,7 +108,7 @@ const listOffer = [
         titleOffer: 'Maçon',
         nameEmployor: 'Maconnerie',
         dateOfferDays: '01/01/2021',
-        badgeEmployor: true, 
+        badgeEmployor: true,
         typeContrat: 'CDI',
         localisation: "Rouen",
         descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',

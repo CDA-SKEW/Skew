@@ -1,11 +1,9 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import Navigation from "components/home/Navigation";
 import { ThemeProvider } from "@emotion/react";
 import { theme, themeEmployer } from "configs/theme";
-import { AppBar } from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 import Footer from "components/core/Footer";
 import TopNav from "components/core/navBarUser/TopNav";
 import BackNav from "components/core/navBarUser/BackNav";

@@ -1,8 +1,8 @@
 import React from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
-import CardHome from 'components/visiteur/CardHome';
-import WhyHome from 'components/visiteur/WhyHome';
-import StatBarHome from 'components/visiteur/StatBarHome';
+import CardHome from 'components/visiteur/home/CardHome';
+import WhyHome from 'components/visiteur/home/WhyHome';
+import StatBarHome from 'components/visiteur/home/StatBarHome';
 
 export default function Home() {
     return (

@@ -14,7 +14,7 @@ import EmployerAddOffer from "pages/employer/EmployerAddOffer";
 import CandidatDashboard from "pages/candidat/CandidatDashboard";
 import CandidatCandidature from "pages/candidat/CandidatCandidature";
 import AdminUsersTable from "pages/admin/AdminUsersTable";
-import OffresView from "pages/visitor/OffresView";
+import Offres from "pages/visitor/Offres";
 import AdminJobs from "pages/admin/AdminJobs";
 import AdminMessages from "pages/admin/AdminMessages";
 import EmployerOffer from "pages/employer/EmployerOffer";
@@ -63,7 +63,7 @@ function App() {
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
         <Route path="/contactus" exact element={<ContactezNous />} />
-        <Route path="/offres" exact element={<OffresView />} />
+        <Route path="/offres" exact element={<Offres />} />
         <Route path="/Employer/*" element={<EmployerRoutes />} />
         <Route path="/Candidat/*" element={<CandidatRoutes />} />
         <Route path="*" element={<PageNotFound />} />

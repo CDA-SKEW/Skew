@@ -1,17 +1,23 @@
 import * as React from 'react';
-import WhyCandidat1 from '../../assets/images/WhyCandidat01.jpg';
+import WhyCandidat1 from '../../../assets/images/WhyCandidat01.jpg';
 import { Box } from '@mui/system';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 export default function WhyCandidat() {
 
     const BaliseList = [
-        { key: 1, titre: "20 000 Candidats" },
-        { key: 2, titre: "10 000 Recrutements" },
-        { key: 3, titre: "4 consultants" },
+        { titre: "20 000 Candidats" },
+        { titre: "10 000 Recrutements" },
+        { titre: "4 consultants" },
+    ]
+
+    const ContactList = [
+        { text: "Contactez-nous" },
+        { text: "06 06 06 06 06" },
     ]
 
     return (
@@ -32,16 +38,9 @@ export default function WhyCandidat() {
                     component="img"
                     image={WhyCandidat1}
                     alt="Pourquoi-nous"
-                    sx={{
-                        minWidth: 340,
-                        width: '90%'
-                    }}
+                    sx={{ minWidth: 340, width: '90%' }}
                 />
-                <CardContent sx={{
-                    pt: 0,
-                    px: 2,
-                    width: '90%',
-                }}>
+                <CardContent sx={{ pt: 0, px: 2, width: '90%', }}>
                     <Typography
                         variant="h2"
                     >
@@ -51,9 +50,7 @@ export default function WhyCandidat() {
                         variant="body2"
                         color="text.secondary"
                         align="justify"
-                        sx={{
-                            fontSize: { sx: '1rem', md: 20 }
-                        }}
+                        sx={{ fontSize: { sx: '1rem', md: 20 } }}
                     >
                         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                     </Typography>
@@ -66,9 +63,9 @@ export default function WhyCandidat() {
                             justifyContent: { xs: "center", md: "space-around" },
                         }}
                     >
-                        {BaliseList.map((index) => (
+                        {BaliseList.map((list, index) => (
                             <Box
-                                key={index.key}
+                                key={index}
                                 sx={{
                                     bgcolor: "primary.main",
                                     py: 3,
@@ -79,14 +76,39 @@ export default function WhyCandidat() {
                                     justifyContent: "center",
                                 }}>
                                 <Typography variant="h6" color="initial">
-                                    {index.titre}
+                                    {list.titre}
                                 </Typography>
                             </Box>
                         ))}
                     </Box>
                 </CardContent>
             </Card>
-
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: { xs: "center", md: "space-around" },
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: { xs: "center", md: "none" },
+                }}
+            >
+                {ContactList.map((contactList, index) => (
+                    <Button
+                        key={index}
+                        variant="contained"
+                        sx={{
+                            bgcolor: 'secondary.main',
+                            py: 3,
+                            mb: 10,
+                            mx: 'auto',
+                            width: 350,
+                            display: 'flex',
+                            justifyContent: "center",
+                            fontSize: 20
+                        }}>
+                        {contactList.text}
+                    </Button>
+                ))}
+            </Box>
         </Box>
     );
 }

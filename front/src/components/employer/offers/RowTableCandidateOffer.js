@@ -59,7 +59,7 @@ export default function RowTableCandidateOffer(props) {
                 <TableCell align="center">{row.name}</TableCell>
                 <TableCell align="center">{row.lastName}</TableCell>
                 <TableCell align="center">{row.mail}</TableCell>
-                <TableCell align="center">{row.tel}</TableCell>
+                <TableCell align="center">{row.phone}</TableCell>
                 <TableCell align="center">{row.statut}</TableCell>
                 <TableCell align="center">
                     <IconButton
@@ -102,7 +102,7 @@ export default function RowTableCandidateOffer(props) {
                                     }}
                                 >
                                     <Typography>Code Postal: </Typography>
-                                    <Typography paddingLeft={1}>{row.zipcCode}</Typography>
+                                    <Typography paddingLeft={1}>{row.zipCode}</Typography>
                                 </Box>
 
                                 <Box
@@ -141,7 +141,7 @@ export default function RowTableCandidateOffer(props) {
                                         {row.cvCandidat.experience.map((candidatRow, index) => (
                                             <TableRow hover key={index}>
                                                 <TableCell align="center">
-                                                    {candidatRow.entreprise}
+                                                    {candidatRow.compagny}
                                                 </TableCell>
                                                 <TableCell align="center">{candidatRow.job}</TableCell>
                                                 <TableCell align="center">
@@ -151,7 +151,7 @@ export default function RowTableCandidateOffer(props) {
                                                     sx={{ minWidth: { xs: "500px", sm: "500px" } }}
                                                     align="center"
                                                 >
-                                                    {candidatRow.descriptif}
+                                                    {candidatRow.description}
                                                 </TableCell>
                                                 <TableCell align="center">
                                                     {candidatRow.dateEnd}
@@ -254,7 +254,7 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
-                                    onClick={e => navigate("/Employer/candidate/" + row.candidate_id ,{ state: { profilCandidate: row} })}
+                                    onClick={e => navigate("/Employer/candidate/" + row.user_id ,{ state: { profilCandidate: row} })}
 
                                 >
                                     Voir candidat
@@ -291,7 +291,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateNoRetain"
-                                    param={row.candidate_id}
+                                    param={row.user_id}
                                 />
 
 
@@ -326,7 +326,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateRetain"
-                                    param={row.candidate_id}
+                                    param={row.user_id}
                                 />
 
                             </Box>

@@ -9,6 +9,10 @@ class UserControllers {
     console.log("controller getAll");
     res.send({ message: "controller User getall" });
   }
+  async post(req, res) {
+    console.log("controller post");
+    res.send({ message: "controller User post" });
+  }
 }
 
 module.exports = UserControllers;

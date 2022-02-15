@@ -1,6 +1,6 @@
 import React from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
-import FormContact from 'components/visiteur/FormContact'
+import FormContact from 'components/visiteur/contactezNous/FormContact'
 
 export default function ContactezNous () {
     return (
