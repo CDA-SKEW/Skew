@@ -34,7 +34,7 @@ export default function ModalMessageCandidate(props) {
     const dataFormMessageCandidate = {
       name: form.name,
       lastName: form.lastName,
-      tel: form.tel,
+      phone: form.phone,
       mail: form.mail,
       textMessage
     };
