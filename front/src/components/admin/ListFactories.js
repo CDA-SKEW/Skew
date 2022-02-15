@@ -55,7 +55,7 @@ export default function ListFactories(props) {
           // console.log("ListFactories", job);
           return (
             <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
-              <ListItem>
+              <ListItem component="div">
                 <ListItemText
                   inset={false}
                   primary={job.title}

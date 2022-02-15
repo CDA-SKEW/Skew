@@ -108,7 +108,7 @@ export default function DeletableChips(props) {
   elle s'affiche sous une certaine consition*/
   function DeleteForm() {
     return (
-      <div>
+      <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
           sx={{ mb: 2, textAlign: "center" }}
@@ -127,7 +127,7 @@ export default function DeletableChips(props) {
           magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
           ullamcorper nulla non metus auctor fringilla.
         </Typography>
-        <Typography>
+        <Typography component="span">
           <DialogActions>
             <Stack spacing={2} direction="row" sx={{ m: 4 }}>
               <Button
@@ -149,13 +149,13 @@ export default function DeletableChips(props) {
             </Stack>
           </DialogActions>
         </Typography>
-      </div>
+      </Box>
     );
   }
 
   function DeleteUser() {
     return (
-      <div>
+      <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
           sx={{ mb: 2, textAlign: "center" }}
@@ -174,7 +174,7 @@ export default function DeletableChips(props) {
           magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
           ullamcorper nulla non metus auctor fringilla.
         </Typography>
-        <Typography>
+        <Typography component="span">
           <DialogActions>
             <Stack spacing={2} direction="row" sx={{ m: 4 }}>
               <Button
@@ -196,7 +196,7 @@ export default function DeletableChips(props) {
             </Stack>
           </DialogActions>
         </Typography>
-      </div>
+      </Box>
     );
   }
 
@@ -206,7 +206,7 @@ export default function DeletableChips(props) {
     <Stack direction="row" spacing={1}>
       {columnsBan && (
         // Bannir et supprimer un utilisateur
-        <div>
+        <Box>
           <Chip
             label="ban or delete user"
             color="error"
@@ -240,7 +240,11 @@ export default function DeletableChips(props) {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
                 {/* Reply action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
@@ -269,12 +273,12 @@ export default function DeletableChips(props) {
               </Typography>
             </Box>
           </Modal>
-        </div>
+        </Box>
       )}
 
       {columnsDeleteJob && (
         // Supprimer un emploi
-        <div>
+        <Box>
           <Chip
             label="delete"
             color="error"
@@ -307,7 +311,11 @@ export default function DeletableChips(props) {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
                 {/* Reply action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 8 }}>
                   <Button
@@ -331,12 +339,12 @@ export default function DeletableChips(props) {
               </Typography>
             </Box>
           </Modal>
-        </div>
+        </Box>
       )}
 
       {columnsAddMessage && (
         //  Répondre à un message ou le supprimer
-        <div>
+        <Box>
           <Chip
             label="reply or delete message"
             color="error"
@@ -382,7 +390,11 @@ export default function DeletableChips(props) {
                   defaultValue=""
                 />
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
                 {/* Reply action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
@@ -409,7 +421,7 @@ export default function DeletableChips(props) {
               </Typography>
             </Box>
           </Modal>
-        </div>
+        </Box>
       )}
     </Stack>
   );
