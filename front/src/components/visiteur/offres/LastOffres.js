@@ -1,5 +1,5 @@
 import { Box } from '@mui/system';
-import CardOffreUnique from 'components/visiteur/CardOffreUnique';
+import CardOffreUnique from './CardOffreUnique';
 import React from 'react';
 import { Typography } from '@mui/material';
 
