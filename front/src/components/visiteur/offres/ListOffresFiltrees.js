@@ -4,7 +4,7 @@ import React from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Typography } from '@mui/material';
 
-export default function ListAllOffres({ listOffer, job, type, location, page, setPage, handleClickOpen }) {
+export default function ListOffresFiltrees({ listOffer, job, type, location, page, setPage, handleClickOpen }) {
 
     const handleChange = (event, value) => {
         setPage(value);

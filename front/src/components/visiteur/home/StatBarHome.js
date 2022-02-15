@@ -6,9 +6,9 @@ import { Typography } from '@mui/material';
 export default function StatBarHome() {
 
     const StatList = [
-        { key: 1, nombre: "2500", titre: "Candidats" },
-        { key: 2, nombre: "500", titre: "Entreprises" },
-        { key: 3, nombre: "25000", titre: "Offres" }
+        { nombre: "2500", titre: "Candidats" },
+        { nombre: "500", titre: "Entreprises" },
+        { nombre: "25000", titre: "Offres" }
     ]
 
     return (
@@ -23,10 +23,10 @@ export default function StatBarHome() {
             <Stack direction="row" spacing={2} sx={{
                 mx: {xs: 0, xl: "75px"},
             }}>
-                {StatList.map((index) => (
+                {StatList.map((stat, index) => (
                     <Typography
                         variant='h3'
-                        key={index.key}
+                        key={index}
                         align='center'
                         sx={{
                             boxShadow: "none",
@@ -34,9 +34,9 @@ export default function StatBarHome() {
                             width: '33%',
                             fontSize: { xs: 17, md: 35 }
                         }}>
-                        {index.nombre}
+                        {stat.nombre}
                         <br />
-                        {index.titre}
+                        {stat.titre}
                     </Typography>
                 ))}
             </Stack>
