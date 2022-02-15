@@ -254,7 +254,7 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
-                                    onClick={e => navigate("/Employer/candidate/" + row.candidate_id ,{ state: { profilCandidate: row} })}
+                                    onClick={e => navigate("/Employer/candidate/" + row.user_id ,{ state: { profilCandidate: row} })}
 
                                 >
                                     Voir candidat
@@ -291,7 +291,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateNoRetain"
-                                    param={row.candidate_id}
+                                    param={row.user_id}
                                 />
 
 
@@ -326,7 +326,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateRetain"
-                                    param={row.candidate_id}
+                                    param={row.user_id}
                                 />
 
                             </Box>

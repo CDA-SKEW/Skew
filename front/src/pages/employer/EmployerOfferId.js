@@ -47,7 +47,7 @@ const EmployerOfferId = () => {
                     px={2}
                 >
                     <Typography variant='h6' align="center">
-                        {state && "Offres n°"+ state.offer.number +" - "+ state.offer.title}
+                        {state && "Offres n°"+ state.offer.offer_id +" - "+ state.offer.title}
                     </Typography>
 
                     <Button onClick={e => navigate(-1)}>
