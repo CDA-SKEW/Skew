@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
-import { TextField } from '@material-ui/core';
+import TextField from '@mui/material/TextField';
 
 export default function MoteurRechercheOffres({ handleSearchJob, handleSearchType, handleSearchLocation }) {
 
@@ -10,10 +10,10 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
         <Paper
             component="form"
             sx={{
-                display: {xs: 'block', md: "flex"},
+                display: { xs: 'block', md: "flex" },
                 alignItems: "center",
-                width: {xs: 350, md: 600, lg: 900},
-                height: { md: 75},
+                width: { xs: 350, md: 600, lg: 900 },
+                height: { md: 75 },
                 bgcolor: '#fff',
                 mb: 10,
                 mx: "auto",
@@ -25,10 +25,10 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                 placeholder="Job"
                 name='job'
                 fullWidth
+                variant='standard'
                 onChange={(e) => handleSearchJob(e.target.value)}
                 sx={{
                     width: 300,
-                    height: 100
                 }}
             />
             <Divider
@@ -42,6 +42,7 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                 placeholder="Type"
                 name='type'
                 fullWidth
+                variant='standard'
                 onChange={(e) => handleSearchType(e.target.value)}
                 sx={{
                     width: 300,
@@ -58,6 +59,7 @@ export default function MoteurRechercheOffres({ handleSearchJob, handleSearchTyp
                 placeholder="Localisation"
                 name='location'
                 fullWidth
+                variant='standard'
                 onChange={(e) => handleSearchLocation(e.target.value)}
                 sx={{
                     width: 300,

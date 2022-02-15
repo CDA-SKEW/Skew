@@ -10,8 +10,6 @@ import { postAuth } from 'store/actions/AuthActions';
 
 export default function Inscription() {
 
-    const [prenom, setPrenom] = useState('');
-    const [nom, setNom] = useState('');
     const [mail, setMail] = useState('');
     const [pass1, setPass1] = useState('');
     const [pass2, setPass2] = useState('');
@@ -23,21 +21,13 @@ export default function Inscription() {
     };
 
     const InscriptionList = [
-        { key: 1, titre: 'Prénom', type: 'text', name: 'prenom' },
-        { key: 2, titre: 'Nom', type: 'text', name: 'nom' },
-        { key: 3, titre: 'Mail', type: 'text', name: 'mail' },
-        { key: 4, titre: 'Mot de passe', type: 'password', name: 'pass1' },
-        { key: 5, titre: 'Confirmation mot de passe', type: 'password', name: 'pass2' },
+        { titre: 'Mail', type: 'text', name: 'mail' },
+        { titre: 'Mot de passe', type: 'password', name: 'pass1' },
+        { titre: 'Confirmation mot de passe', type: 'password', name: 'pass2' },
     ]
 
     const handleFormId = (e) => {
         switch (e.target.name) {
-            case 'prenom':
-                setPrenom(e.target.value)
-                break;
-            case 'nom':
-                setNom(e.target.value)
-                break;
             case 'mail':
                 setMail(e.target.value)
                 break;
@@ -54,13 +44,11 @@ export default function Inscription() {
     const SubmitFormIdInscription = async (e) => {
         // e.preventDefault();
 
-        console.log('submitFormId', prenom, nom, mail, pass1, pass2, toggle)
+        console.log('submitFormId', mail, pass1, pass2, toggle)
 
-        if (prenom && nom && mail && toggle && pass1 === pass2) {
+        if ( mail && toggle && pass1 === pass2) {
             //   await dispatch(postAuth({ prenom, nom, mail, pass1, toggle }));
             console.log('ok')
-            setPrenom("");
-            setNom("");
             setMail("");
             setPass1("");
             setPass2("");
@@ -80,12 +68,12 @@ export default function Inscription() {
             >
                 Inscription
             </Typography>
-            {InscriptionList.map((index2) => (
+            {InscriptionList.map((InscriptionList, index) => (
                 <TextField
-                    key={index2.key}
-                    label={index2.titre}
-                    name={index2.name}
-                    type={index2.type}
+                    key={index}
+                    label={InscriptionList.titre}
+                    name={InscriptionList.name}
+                    type={InscriptionList.type}
                     variant="outlined"
                     fullWidth
                     onChange={(e) => handleFormId(e)}
