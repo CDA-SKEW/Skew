@@ -14,17 +14,17 @@ import Logo6 from '../../assets/societesImgs/logo6.jpg';
 import Logo7 from '../../assets/societesImgs/logo7.jpg';
 import Logo8 from '../../assets/societesImgs/logo8.jpg';
 
-export default function DirectionStack() {
+export default function ConfianceEntreprise() {
 
     const ImgList = [
-        { img: Logo1, alt: 'img1', key: 1 },
-        { img: Logo2, alt: 'img2', key: 2 },
-        { img: Logo3, alt: 'img3', key: 3 },
-        { img: Logo4, alt: 'img4', key: 4 },
-        { img: Logo5, alt: 'img5', key: 5 },
-        { img: Logo6, alt: 'img6', key: 6 },
-        { img: Logo7, alt: 'img7', key: 7 },
-        { img: Logo8, alt: 'img8', key: 8 },
+        { img: Logo1, alt: 'img1'},
+        { img: Logo2, alt: 'img2'},
+        { img: Logo3, alt: 'img3'},
+        { img: Logo4, alt: 'img4'},
+        { img: Logo5, alt: 'img5'},
+        { img: Logo6, alt: 'img6'},
+        { img: Logo7, alt: 'img7'},
+        { img: Logo8, alt: 'img8'},
     ]
 
     return (
@@ -49,11 +49,11 @@ export default function DirectionStack() {
                     justifyContent: { xs: "center", md: "space-around" },
                     alignItems: "center",
                 }}>
-                    {ImgList.map((index) => (
+                    {ImgList.map((list, index) => (
                         <Avatar
-                            key={index.key}
-                            alt={index.alt}
-                            src={index.img}
+                            key={index}
+                            alt={list.alt}
+                            src={list.img}
                             sx={{
                                 m: 3
                             }}

@@ -4,7 +4,7 @@ import WhyRecruteur from 'components/visiteur/WhyRecruteur';
 import ContactButton from 'components/visiteur/ContactButton';
 import RecrutementBanniere from 'components/visiteur/RecrutementBanniere';
 import MethodsRecruteur from 'components/visiteur/MethodsRecruteur';
-import ConfianceCandidat from 'components/visiteur/ConfianceCandidat';
+import ConfianceEntreprise from 'components/visiteur/ConfianceEntreprise';
 import MatchRecruteur from 'components/visiteur/MatchRecruteur';
 
 export default function PresentationRecruteur() {
@@ -14,7 +14,7 @@ export default function PresentationRecruteur() {
             <ContactButton />
             <RecrutementBanniere />
             <MethodsRecruteur />
-            <ConfianceCandidat />
+            <ConfianceEntreprise />
             <MatchRecruteur />
         </VisiteurLayout>
     );
