@@ -43,7 +43,6 @@ const offers = [
   {
     offer_id: 1,
     title: "developpeur web",
-    number: 42524,
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
@@ -54,7 +53,7 @@ const offers = [
     image: imageEmployer,
     profilCandidate: [
       {
-        candidate_id: 1,
+        user_id: 1,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -95,7 +94,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 2,
+        user_id: 2,
         name: "wilou",
         lastName: "polo",
         mail: "ess@gmail.fr",
@@ -136,7 +135,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 5,
+        user_id: 5,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -182,7 +181,6 @@ const offers = [
   {
     offer_id: 2,
     title: "Cuisinier",
-    number: 43523,
     type: "CDD",
     period: 12,
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
@@ -193,7 +191,7 @@ const offers = [
     image: imageEmployer,
     profilCandidate: [
       {
-        candidate_id: 3,
+        user_id: 3,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -234,7 +232,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 4,
+        user_id: 4,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -275,7 +273,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 3,
+        user_id: 3,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -320,7 +318,6 @@ const offers = [
   {
     offer_id: 3,
     title: "developpeur web",
-    number: 42524,
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
@@ -331,7 +328,7 @@ const offers = [
     image: imageEmployer,
     profilCandidate: [
       {
-        candidate_id: 1,
+        user_id: 1,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -372,7 +369,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 2,
+        user_id: 2,
         name: "wilou",
         lastName: "polo",
         mail: "ess@gmail.fr",
@@ -413,7 +410,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 5,
+        user_id: 5,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -459,7 +456,6 @@ const offers = [
   {
     offer_id: 4,
     title: "developpeur web",
-    number: 42524,
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
@@ -470,7 +466,7 @@ const offers = [
     image: imageEmployer,
     profilCandidate: [
       {
-        candidate_id: 1,
+        user_id: 1,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -511,7 +507,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 2,
+        user_id: 2,
         name: "wilou",
         lastName: "polo",
         mail: "ess@gmail.fr",
@@ -552,7 +548,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 5,
+        user_id: 5,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -598,7 +594,6 @@ const offers = [
   {
     offer_id: 5,
     title: "developpeur web",
-    number: 42524,
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
@@ -609,7 +604,7 @@ const offers = [
     image: imageEmployer,
     profilCandidate: [
       {
-        candidate_id: 1,
+        user_id: 1,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",
@@ -650,7 +645,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 2,
+        user_id: 2,
         name: "wilou",
         lastName: "polo",
         mail: "ess@gmail.fr",
@@ -691,7 +686,7 @@ const offers = [
         },
       },
       {
-        candidate_id: 5,
+        user_id: 5,
         name: "tassin",
         lastName: "jean",
         mail: "jean.tassin@orange.fr",

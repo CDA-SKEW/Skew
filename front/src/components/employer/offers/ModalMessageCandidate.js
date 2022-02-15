@@ -69,7 +69,7 @@ export default function ModalMessageCandidate(props) {
 
             {Object.entries(row).map((arr, index) => {
               const key = arr[0]
-              if (key === "candidate_id") return;
+              if (key === "user_id") return;
               if (key === "address") return;
               if (key === "zipCode") return;
               if (key === "town") return;
@@ -100,7 +100,7 @@ export default function ModalMessageCandidate(props) {
                 label="Objet"
                 variant="outlined"
                 size="small"
-                value={"Offres n°" + offer.number + " - " + offer.title}
+                value={"Offres n°" + offer.offer_id + " - " + offer.title}
               />
             </Grid>
 
