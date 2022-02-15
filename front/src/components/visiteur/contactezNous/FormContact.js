@@ -20,12 +20,12 @@ export default function FormContact() {
     const [message, setMessage] = useState();
 
     const InputList = [
-        { label: "Nom", multiline: false, rows:'1' },
-        { label: "Prenom", multiline: false, rows:'1' },
-        { label: "Tel", multiline: false, rows:'1' },
-        { label: "Mail", multiline: false, rows:'1' },
-        { label: "Sujet", multiline: false, rows:'1' },
-        {label: "Message", multiline: true, rows: '10'},
+        { label: "Nom", multiline: false, rows: '1' },
+        { label: "Prenom", multiline: false, rows: '1' },
+        { label: "Tel", multiline: false, rows: '1' },
+        { label: "Mail", multiline: false, rows: '1' },
+        { label: "Sujet", multiline: false, rows: '1' },
+        { label: "Message", multiline: true, rows: '10' },
     ]
 
     const handleForm = (e) => {
@@ -98,8 +98,8 @@ export default function FormContact() {
                         key={index}
                         label={input.label}
                         name={input.label}
-                        multiline= {input.multiline}
-                        rows= {input.rows}
+                        multiline={input.multiline}
+                        rows={input.rows}
                         color='secondary'
                         variant="outlined"
                         fullWidth
