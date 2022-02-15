@@ -58,7 +58,7 @@ export default function CandidateContact(props) {
                                 <TableCell align="center">{profilCandidate.name}</TableCell>
                                 <TableCell align="center">{profilCandidate.lastName}</TableCell>
                                 <TableCell sx={{ minWidth: { xs: "150px", sm: "150px" } }} align="center">{profilCandidate.address + " " + profilCandidate.zipCode + " " + profilCandidate.town}</TableCell>
-                                <TableCell align="center">{profilCandidate.tel}</TableCell>
+                                <TableCell align="center">{profilCandidate.phone}</TableCell>
                                 <TableCell align="center">{profilCandidate.mail}</TableCell>
                             </TableRow>
                         </TableBody>
