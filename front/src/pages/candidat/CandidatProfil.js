@@ -30,9 +30,7 @@ const CandidatProfil = () => {
       <Container
         sx={{
           bgcolor: "#E5E5E5",
-          p: 2,
-          height: "auto",
-          mt: 2,
+          height: "auto"
         }}
       >
         {/* <Box
@@ -46,7 +44,7 @@ const CandidatProfil = () => {
         <TableContact ListUser={dataProfilCandidate.coord} />
 
         {/* BOX Expérience*/}
-        <TableExperience ListExp={dataProfilCandidate.exp} />
+        <TableExperience ListExp={dataProfilCandidate.experience} />
 
 
         {/* BOX COMPETENCE & INTERET */}

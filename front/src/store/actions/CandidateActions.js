@@ -30,20 +30,22 @@ let data = {
         coord:
         {
             id: 1,
+            name: 'Sairien',
+            lastName: 'Jean',
             address: '22 rue la shmitrie',
             zipCode: '44520',
             town: 'Trou perdu',
             mail: 'gogo@gadget.com',
             phone: '0202020202'
         },
-        exp: [
+        experience: [
             {
-                id: 1, company: 'comp', post: 'dev', desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-                start: '30/02/2018', end: '30/02/2019'
+                id: 1, company: 'comp', job: 'dev', description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+                dateStart: '30/02/2018', dateEnd: '30/02/2019'
             },
             {
-                id: 2, company: 'EDF', post: 'dev-front', desc: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-                start: '30/08/2016', end: '30/02/2018'
+                id: 2, company: 'EDF', job: 'dev-front', description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+                dateStart: '30/08/2016', dateEnd: '30/02/2018'
             }
         ],
         skill: ['HTML', 'CSS', 'VUEJS', 'REACTJS', 'FAIRE LE CAFE', 'DU BON', 'TEST'],
