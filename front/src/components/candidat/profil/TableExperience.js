@@ -105,7 +105,7 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             required
-            size="large"
+            size="small"
             id="outlined-required"
             label="Company"
             onChange={() => handleChange('company')}
@@ -115,13 +115,13 @@ export default function TableExperience(props) {
           />
           <TextField
             required
-            size="large"
+            size="small"
             id="outlined-required"
             onChange={() => handleChange('post')}
             label="Post"
             defaultValue={data.post}
             value={form.post}
-            sx={{ my: 2 }}
+          // sx={{ my: 2 }}
           />
         </TableCell>
 
@@ -208,7 +208,7 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             required
-            size="large"
+            size="small"
             id="outlined-required"
             label="Comp"
             // onChange={() => changeForm('company')}
@@ -218,7 +218,7 @@ export default function TableExperience(props) {
 
           <TextField
             required
-            size="large"
+            size="small"
             id="outlined-required"
             // onChange={() => changeForm('company')}
             label="Post"
@@ -237,7 +237,7 @@ export default function TableExperience(props) {
             // onChange={() => changeForm('description')}
             maxRows={4}
             required
-            size="large"
+            size="small"
             id="outlined-required"
             label="Description"
             defaultValue={""}
@@ -285,7 +285,7 @@ export default function TableExperience(props) {
 
     const ActionBTN = () => {
       console.log('ACTION BTN', edit)
-      if (edit === true) return <Box sx={{ display: "flex", flexDirection: 'column', m: 2 }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
+      if (edit === true) return <Box sx={{ display: "flex", flexDirection: "column", m: 2 }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
         <BorderColorIcon />
       </Button>
 
@@ -430,11 +430,11 @@ export default function TableExperience(props) {
         <Table sx={{ width: "100%" }}>
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell align='left'>Company</TableCell>
-              <TableCell align='left' >Job</TableCell>
-              <TableCell align='left'>Description</TableCell>
-              <TableCell align='left'>Start-Year</TableCell>
-              <TableCell align='left'>End-Year</TableCell>
+              <TableCell align='center'>Company</TableCell>
+              <TableCell align='center' >Job</TableCell>
+              <TableCell align='center'>Description</TableCell>
+              <TableCell align='center'>Start-Year</TableCell>
+              <TableCell align='center'>End-Year</TableCell>
               {checkViewAction()}
               {/* {checkViewAction()} = <TableCell align='left'>Action</TableCell>
               but appear only if mode edit is trigger */}

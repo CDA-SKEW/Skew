@@ -66,7 +66,7 @@ export default function TableFormation(props) {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Stack spacing={3}>
                     <DatePicker
-
+                        size="small"
                         views={['year']}
                         label="Year only"
                         value={value}
@@ -96,7 +96,7 @@ export default function TableFormation(props) {
                         labelId="Obtain"
                         id="simple-select"
                         onChange={handleChange}
-                        size="large"
+                        size="small"
                     >
                         <MenuItem value={"Yes"}>Yes</MenuItem>
                         <MenuItem value={"No"}>No</MenuItem>
@@ -143,9 +143,9 @@ export default function TableFormation(props) {
                     <TextField
                         fullWidth
                         required
-                        size="large"
+                        size="small"
                         id="outlined-required"
-                        label="Comp"
+                        label="School"
                         onChange={() => changeForm('school')}
                         defaultValue={data.school}
                     />
@@ -158,9 +158,9 @@ export default function TableFormation(props) {
                         onChange={() => changeForm('title')}
                         maxRows={4}
                         required
-                        size="large"
+                        size="small"
                         id="outlined-required"
-                        label="Description"
+                        label="Title"
                         defaultValue={data.title}
                     />
                 </TableCell>
@@ -228,7 +228,7 @@ export default function TableFormation(props) {
                     <TextField
                         fullWidth
                         required
-                        size="large"
+                        size="small"
                         id="outlined-required"
                         label="School"
                         // onChange={() => changeForm('company')}
@@ -241,7 +241,7 @@ export default function TableFormation(props) {
 
                     <TextField
                         required
-                        size="large"
+                        size="small"
                         id="outlined-required"
                         // onChange={() => changeForm('company')}
                         label="Title"
