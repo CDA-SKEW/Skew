@@ -55,7 +55,7 @@ export default function ListUsers(props) {
         // console.log("ListUsers", user);
         return (
           <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
-            <ListItem alignItems="flex-start">
+            <ListItem alignItems="flex-start" component="div">
               <ListItemAvatar>
                 <Avatar alt="avatar" src={user.avatar} />
               </ListItemAvatar>

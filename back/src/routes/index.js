@@ -5,7 +5,7 @@
 const router = require("express").Router();
 
 // Controllers
-const AuthControllers = require('../controllers/AuthControllers')
+const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
 const EmployerProfilControllers = require("../controllers/EmployerProfilControllers")
 
@@ -16,7 +16,7 @@ const TestMD = require("../middlewares/Test_md");
  * Routes
  * ****** */
 
-// User
+// Users
 router
   .route("/api/user")
   .get(new TestMD().firstMD, new UserControllers().getAll)
