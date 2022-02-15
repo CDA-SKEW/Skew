@@ -20,15 +20,15 @@ export default function FormContact() {
     const [message, setMessage] = useState();
 
     const InputList = [
-        { key: 1, label: "Nom" },
-        { key: 2, label: "Prenom" },
-        { key: 3, label: "Tel" },
-        { key: 4, label: "Mail" },
-        { key: 5, label: "Sujet" },
+        { label: "Nom", multiline: false, rows:'1' },
+        { label: "Prenom", multiline: false, rows:'1' },
+        { label: "Tel", multiline: false, rows:'1' },
+        { label: "Mail", multiline: false, rows:'1' },
+        { label: "Sujet", multiline: false, rows:'1' },
+        {label: "Message", multiline: true, rows: '10'},
     ]
 
     const handleForm = (e) => {
-        // console.log('target', e.target.value, e.target.name)
         switch (e.target.name) {
             case 'Nom':
                 setNom(e.target.value)
@@ -93,11 +93,13 @@ export default function FormContact() {
                 mx: 'auto'
             }}
             >
-                {InputList.map((index) => (
+                {InputList.map((input, index) => (
                     <TextField
-                        key={index.key}
-                        label={index.label}
-                        name={index.label}
+                        key={index}
+                        label={input.label}
+                        name={input.label}
+                        multiline= {input.multiline}
+                        rows= {input.rows}
                         color='secondary'
                         variant="outlined"
                         fullWidth
@@ -108,21 +110,6 @@ export default function FormContact() {
                         }}
                     />
                 ))}
-                <TextField
-                    label='Message'
-                    name='Message'
-                    color='secondary'
-                    variant="outlined"
-                    fullWidth
-                    multiline
-                    rows='10'
-                    onChange={(e) => handleForm(e)}
-                    sx={{
-                        display: "block",
-                        width: '100%',
-                        my: 2
-                    }}
-                />
                 <Button
                     variant="contained"
                     color='secondary'
