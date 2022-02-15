@@ -19,7 +19,8 @@ const TestMD = require("../middlewares/Test_md");
 // User
 router
   .route("/api/user")
-  .get(new TestMD().firstMD, new UserControllers().getAll);
+  .get(new TestMD().firstMD, new UserControllers().getAll)
+  .post(new TestMD().firstMD, new UserControllers().post)
 
 // Employeur profil
 router

@@ -19,15 +19,14 @@ class AuthControllers {
             });
         } else {
           let token = "visitor";
-          if (data.name && data.email) {
+          if (data.mail) {
             token = jwt.sign(
               {
                 id: data.id,
-                name: data.name,
-                email: data.email,
-                authenticate: data.isVerified ? true : false,
-                isVerified: data.isVerified === 1 ? true : false,
-                isAdmin: data.isAdmin === 1 ? true : false,
+                mail: data.mail,
+                // authenticate: data.isVerified ? true : false,
+                // isVerified: data.isVerified === 1 ? true : false,
+                // isAdmin: data.isAdmin === 1 ? true : false,
               },
               process.env.SIGN_JWT,
               { expiresIn: "1h" }
@@ -49,9 +48,8 @@ class AuthControllers {
 
   async register(req, res) {
     let newUser = new User({
-      name: String(req.body.name),
-      email: String(req.body.email),
-      password: String(req.body.password), // 1234
+      mail: String(req.body.mail),
+      pass: String(req.body.pass), // 1234
     });
     try {
       User.register(newUser, (err, data) => {
@@ -89,11 +87,10 @@ class AuthControllers {
         status: "success",
         flash: "Login Auth Success !",
         user: {
-          name: user.name,
-          email: user.email,
-          authenticate: user.authenticate,
-          isVerified: user.isVerified,
-          isAdmin: user.isAdmin
+          mail: user.mail,
+          // authenticate: user.authenticate,
+          // isVerified: user.isVerified,
+          // isAdmin: user.isAdmin
         }
       });
     } catch (error) {
