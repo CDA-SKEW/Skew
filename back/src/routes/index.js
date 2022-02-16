@@ -7,9 +7,10 @@ const router = require("express").Router();
 // Controllers
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
-const EmployerProfilControllers = require("../controllers/EmployerProfilControllers");
+const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
+const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
 const UsersControllers = require("../controllers/admin/UsersController");
-const CandidatProfilControllers = ("../controllers/CandidatProfilControllers.js")
+const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
 
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
@@ -20,7 +21,7 @@ const TestMD = require("../middlewares/Test_md");
 
 // Authentification
 router.route("/api/login").post(new AuthControllers().login);
-router.route("/api/register").post(new AuthControllers().register);
+// router.route("/api/register").post(new AuthControllers().register);
 
 // Users
 router
@@ -28,35 +29,49 @@ router
   .get(new UserControllers().getAll)
   .post(new UserControllers().post);
 
+//------------------------------------------------------------
+// Employeur
+
 // Employeur profil
 router
   .route("/api/employer/profil")
   .get(new EmployerProfilControllers().getProfil)
   .post(new EmployerProfilControllers().createProfil);
 
+// Employeur profil Id
 router
   .route("/api/employer/profil/:id")
   .put(new EmployerProfilControllers().updateProfil);
 
-// Candidat profil
+// Employeur offer
+router
+  .route("/api/employer/offer")
+  .get(new EmployerOfferControllers().getOffer)
+  .post(new EmployerOfferControllers().createOffer);
+
+// Employeur offerid
+router
+  .route("/api/employer/offer/:id")
+  .put(new EmployerOfferControllers().updateOffer)
+  .delete(new EmployerOfferControllers().delOffer);
+
+//------------------------------------------------------------
+
+// CAndidat profil
 router
   .route("/api/candidat/profil")
   .get(new CandidatProfilControllers().getProfil)
-  .post(new CandidatProfilControllers().createProfil)
-
+  .post(new CandidatProfilControllers().createProfil);
 
 router
   .route("/api/candidat/profil/:id")
-  .put(new CandidatProfilControllers().updateProfil);
+  .put(new CandidatProfilControllers().updateProfil)
+  .delete(new CandidatProfilControllers().deleteProfil);
 
 // Admin
-router
-  .route("/api/admin")
-  .get(new UsersControllers().getAll)
+router.route("/api/admin").get(new UsersControllers().getAll);
 
-router
-  .route("/api/admin/:id")
-  .get(new UsersControllers().getId)
+router.route("/api/admin/:id").get(new UsersControllers().getId);
 
 // Authentification
 
