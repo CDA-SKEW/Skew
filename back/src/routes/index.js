@@ -11,7 +11,7 @@ const router = require("express").Router();
 //User
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
-const UsersControllers = require("../controllers/admin/UsersController");
+const UsersController = require("../controllers/admin/UsersController");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
@@ -181,9 +181,13 @@ router
 //------------------------------------------------------------
 
 // Admin
-router.route("/api/admin").get(new UsersControllers().getAll);
+router
+.route("/api/admin")
+.get(new UsersController().getAll);
 
-router.route("/api/admin/:id").get(new UsersControllers().getId);
+router
+.route("/api/admin/:id")
+.get(new UsersController().getId);
 
 // Authentification
 

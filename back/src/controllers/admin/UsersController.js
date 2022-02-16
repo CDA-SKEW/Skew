@@ -6,7 +6,7 @@ require("dotenv").config();
 class UsersControllers {
   // GET ALL USERS
   // Récupération de la route "usersAll"
-  async usersAll(req, res) {
+  async getAll(req, res) {
     // Essayes cette fonction
     try {
       /* SQL récupération de tous les users
@@ -30,7 +30,7 @@ class UsersControllers {
 
   // GET USER ID
   // Récupération de la route "userID"
-  async userID(req, res) {
+  async getId(req, res) {
     // Essayes cette fonction
     try {
       console.log('req.params', {...req.params});
