@@ -1,7 +1,5 @@
-/*
- * Model de 'User'
- ******************************/
-const connection = require("../config/ConnectionDB");
+// Import Model
+const User = require("../models/UserModel");
 
 // Import Module
 // const jwt = require("jsonwebtoken");
@@ -14,35 +12,35 @@ class AuthControllers {
     try {
       User.login({ ...req.body }, (err, data) => {
         console.log("data res", data);
-        if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
-            });
-        } else {
-          let token = "visitor";
-          if (data.mail) {
+        // if (err) {
+        //   console.log("err", err),
+        //     res.status(500).send({
+        //       message: err.message || "Une erreur est survenue",
+        //     });
+        // } else {
+          // let token = "visitor";
+          // if (data.mail) {
             // token = jwt.sign(
-            token = (
-              {
-                id: data.id,
-                mail: data.mail,
-                authenticate: data.isVerified ? true : false,
-                isVerified: data.isVerified === 1 ? true : false,
-                isAdmin: data.isAdmin === 1 ? true : false,
-              }
+            // token = (
+            //   {
+            //     id: data.id,
+            //     mail: data.mail,
+                // authenticate: data.isVerified ? true : false,
+                // isVerified: data.isVerified === 1 ? true : false,
+                // isAdmin: data.isAdmin === 1 ? true : false,
+              // }
               // process.env.SIGN_JWT,
               // { expiresIn: "1h" }
-            );
-          }
+            // );
+          // }
 
-          return res.send({
-            method: req.method,
-            status: "success",
-            flash: "Login Success !",
-            token: token,
-          });
-        }
+          // return res.send({
+          //   method: req.method,
+          //   status: "success",
+          //   flash: "Login Success !",
+          //   token: token,
+          // });
+        // }
       });
     } catch (error) {
       throw error;
