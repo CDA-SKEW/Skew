@@ -20,7 +20,13 @@ export function AuthReducer(state = initialState, action) {
         case Actions.LOGIN:
             return { ...state, flash: action.payload.flash };
         case Actions.REGISTER:
-            return { ...state, flash: action.payload.flash }
+            return { ...state, flash: action.payload.flash };
+        case Actions.CHECK:
+            return {
+                ...state,
+                flash: action.payload.flash,
+                user: action.payload.user,
+            };
     }
 }
 

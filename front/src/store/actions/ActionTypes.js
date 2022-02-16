@@ -38,6 +38,7 @@ export const DELETE_MESSAGE = "DELETE_MESSAGE";
 
 // Auth
 export const LOGIN = 'LOGIN';
+export const CHECK = 'CHECK';
 export const REGISTER = 'REGISTER';
 
 // Offres visiteur

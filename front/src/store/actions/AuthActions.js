@@ -5,6 +5,7 @@ import axios from "axios";
 
 import {
     LOGIN,
+    CHECK,
     // REGISTER,
 } from "./ActionTypes";
 
@@ -16,7 +17,7 @@ import {
  * Actions
  * ******* */
 
-// GET AUTH
+// Login
 export const login = (data) => {
     return (dispatch) => {
         return axios
@@ -32,6 +33,34 @@ export const login = (data) => {
             .catch((err) => console.log(err));
     };
 };
+
+// Check User
+export const check = (id) => {
+    console.log("check");
+    return (dispatch) => {
+        return axios
+            .get(
+                `http://localhost:3030/api/auth/${id}`
+            )
+            .then((res) => {
+                console.log("check", res.data);
+                if (res.data.user) {
+                    dispatch({ type: CHECK, payload: res.data });
+                    if (res.data.user.isVerified === true)
+                        localStorage.setItem(
+                            "user_verified",
+                            localStorage.getItem("user_token")
+                        );
+                    if (res.data.user.isAdmin === true)
+                        localStorage.setItem(
+                            "user_admin",
+                            localStorage.getItem("user_token")
+                        );
+                }
+            })
+            .catch((err) => console.log(err));
+    };
+}
 
 // POST AUTH
 export const register = () => {
