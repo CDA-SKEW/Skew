@@ -253,5 +253,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
-INSERT INTO user(mail,pass) 
-VALUES ("admin@gmail.com", "admin"), ("candidat@gmail.com", "candidat"), ("recruteur@gmail.com", "recruteur");
+INSERT INTO user(mail, pass, isAdmin) 
+VALUES ("admin@gmail.com", "admin", 1);
+
+INSERT INTO user(mail, pass, isCandidat) 
+VALUES ("candidat@gmail.com", "candidat", 1);
+
+INSERT INTO user(mail, pass, isRecruteur) 
+VALUES ("recruteur@gmail.com", "recruteur", 1);
