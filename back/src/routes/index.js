@@ -7,7 +7,8 @@ const router = require("express").Router();
 // Controllers
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
-const EmployerProfilControllers = require("../controllers/EmployerProfilControllers")
+const EmployerProfilControllers = require("../controllers/EmployerProfilControllers");
+const UsersControllers = require("../controllers/admin/UsersController");
 
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
@@ -24,20 +25,26 @@ router.route("/api/register").post(new AuthControllers().register);
 router
   .route("/api/user")
   .get(new UserControllers().getAll)
-  .post(new UserControllers().post)
+  .post(new UserControllers().post);
 
 // Employeur profil
 router
   .route("/api/employer/profil")
   .get(new EmployerProfilControllers().getProfil)
-  .post(new EmployerProfilControllers().createProfil)
+  .post(new EmployerProfilControllers().createProfil);
 
 router
   .route("/api/employer/profil/:id")
-  .put(new EmployerProfilControllers().updateProfil)
+  .put(new EmployerProfilControllers().updateProfil);
 
+// Admin
+router
+  .route("/api/admin")
+  .get(new UsersControllers().getAll)
 
-
+router  
+  .route("/api/admin/:id")
+  .get(new UsersControllers().getId)
 
 // Authentification
 
