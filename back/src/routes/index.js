@@ -11,7 +11,6 @@ const router = require("express").Router();
 //User
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
-const UsersController = require("../controllers/admin/UsersController");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
@@ -29,6 +28,11 @@ const CandidatProfilControllersInterest = require("../controllers/candidate/Cand
 const CandidatProfilControllersCertificate = require("../controllers/candidate/CandidatProfilControllersCertificate");
 const CandidatProfilControllersDocument = require("../controllers/candidate/CandidatProfilControllersDocument");
 
+// Admin
+const UsersController = require("../controllers/admin/UsersController");
+const JobsController = require("../controllers/admin/JobsController");
+const MessagesController = require("../controllers/admin/MessagesController");
+
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
 
@@ -37,8 +41,7 @@ const TestMD = require("../middlewares/Test_md");
  * ****** */
 //------------------------------------------------------------
 // Authentification
-router.route("/api/login")
-  .post(new AuthControllers().login);
+router.route("/api/login").post(new AuthControllers().login);
 // router.route("/api/register").post(new AuthControllers().register);
 
 // Users
@@ -53,7 +56,7 @@ router
 // Employeur user profil
 router
   .route("/api/employer/profilUser/:id")
-  .get(new EmployerProfilUserControllers().getProfilUser)
+  .get(new EmployerProfilUserControllers().getProfilUser);
 
 // Employeur user profil Id
 router
@@ -99,67 +102,67 @@ router
 //###################
 router
   .route("/api/candidat/profil")
-  .get(new CandidatProfilControllers().getProfil)
+  .get(new CandidatProfilControllers().getProfil);
 
 //#########################################
 //# Candidat profil-Contact Table-CONTACT #
 //#########################################
 router
   .route("/api/candidat/profil/contact")
-  .post(new CandidatProfilControllersContact().createProfilContact)
+  .post(new CandidatProfilControllersContact().createProfilContact);
 
 router
   .route("/api/candidat/profil/contact/:id")
   .put(new CandidatProfilControllersContact().updateProfilContact)
-  .delete(new CandidatProfilControllersContact().deleteProfilContact)
+  .delete(new CandidatProfilControllersContact().deleteProfilContact);
 
 // ############################################
 // #CandidatProfilExperience Table-EXPERIENCE #
 // ############################################
 router
   .route("/api/candidat/profil/experience")
-  .post(new CandidatProfilControllersExperience().createProfilExperience)
+  .post(new CandidatProfilControllersExperience().createProfilExperience);
 
 router
   .route("/api/candidat/profil/experience/:id")
   .put(new CandidatProfilControllersExperience().updateProfilExperience)
-  .delete(new CandidatProfilControllersExperience().deleteProfilExperience)
+  .delete(new CandidatProfilControllersExperience().deleteProfilExperience);
 
 // ##################################
 // #CandidatProfilSkill Table-SKILL #
 // ##################################
 router
   .route("/api/candidat/profil/skill")
-  .post(new CandidatProfilControllersSkill().createProfilSkill)
+  .post(new CandidatProfilControllersSkill().createProfilSkill);
 
 router
   .route("/api/candidat/profil/skill/:id")
   .put(new CandidatProfilControllersSkill().updateProfilSkill)
-  .delete(new CandidatProfilControllersSkill().deleteProfilSkill)
+  .delete(new CandidatProfilControllersSkill().deleteProfilSkill);
 
 // ########################################
 // #CandidatProfilInterest Table-INTEREST #
 // ########################################
 router
   .route("/api/candidat/profil/interest")
-  .post(new CandidatProfilControllersInterest().createProfilInterest)
+  .post(new CandidatProfilControllersInterest().createProfilInterest);
 
 router
   .route("/api/candidat/profil/interest/:id")
   .put(new CandidatProfilControllersInterest().updateProfilInterest)
-  .delete(new CandidatProfilControllersInterest().deleteProfilInterest)
+  .delete(new CandidatProfilControllersInterest().deleteProfilInterest);
 
 // ##############################################
 // #CandidatProfilCertificate Table-CERTIFICATE #
 // ##############################################
 router
   .route("/api/candidat/profil/certificate")
-  .post(new CandidatProfilControllersCertificate().createProfilCertificate)
+  .post(new CandidatProfilControllersCertificate().createProfilCertificate);
 
 router
   .route("/api/candidat/profil/certificate/:id")
   .put(new CandidatProfilControllersCertificate().updateProfilCertificate)
-  .delete(new CandidatProfilControllersCertificate().deleteProfilCertificate)
+  .delete(new CandidatProfilControllersCertificate().deleteProfilCertificate);
 
 // ######################################
 // #CandidatProfilDocument Table-DOCUMENT #
@@ -167,27 +170,29 @@ router
 router
   .route("/api/candidat/profil/document")
   .get(new CandidatProfilControllersDocument().getProfilDocument)
-  .post(new CandidatProfilControllersDocument().createProfilDocument)
+  .post(new CandidatProfilControllersDocument().createProfilDocument);
 
 router
   .route("/api/candidat/profil/document/:id")
   .put(new CandidatProfilControllersDocument().updateProfilDocument)
-  .delete(new CandidatProfilControllersDocument().deleteProfilDocument)
+  .delete(new CandidatProfilControllersDocument().deleteProfilDocument);
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #
-//############################################################ 
+//############################################################
 
 //------------------------------------------------------------
 
 // Admin
-router
-.route("/api/admin")
-.get(new UsersController().getAll);
 
-router
-.route("/api/admin/:id")
-.get(new UsersController().getId);
+// GET
+router.route("/api/admin").get(new UsersController().getUserAll);
+router.route("/api/admin/jobs").get(new JobsController().getJobAll);
+router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
+// GET ID
+router.route("/api/admin/:id").get(new UsersController().getUserId);
+router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
+router.route("/api/admin/messages/:id").get(new MessagesController().getMessageId);
 
 // Authentification
 

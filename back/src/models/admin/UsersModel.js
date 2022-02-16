@@ -22,7 +22,7 @@ const User = function (user) {
 };
 
 // Get All Users
-User.getAll = function (result) {
+User.getUserAll = function (result) {
   console.log('Method getAll Model User');
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
@@ -40,7 +40,7 @@ User.getAll = function (result) {
 }
 
 // Get One User
-User.getId = function (user, result) {
+User.getUserId = function (user, result) {
   console.log('Method getID Model User', user);
   connection.getConnection(function (error, conn) {
     conn.query(` SELECT * FROM user WHERE id = "${user.id}"`, (error, data) => {
