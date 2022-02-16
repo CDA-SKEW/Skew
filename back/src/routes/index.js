@@ -39,7 +39,8 @@ const TestMD = require("../middlewares/Test_md");
 // Authentification
 router.route("/api/login")
   .post(new AuthControllers().login);
-// router.route("/api/register").post(new AuthControllers().register);
+router.route("/api/register")
+  .post(new AuthControllers().register);
 
 // Check
 // router.route("/api/auth/:id")
