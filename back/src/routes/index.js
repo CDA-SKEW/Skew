@@ -41,6 +41,9 @@ router
 router
   .route("/api/admin")
   .get(new UsersControllers().getAll)
+
+router  
+  .route("/api/admin/:id")
   .get(new UsersControllers().getId)
 
 // Authentification
