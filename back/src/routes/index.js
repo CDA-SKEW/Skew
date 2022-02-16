@@ -16,11 +16,15 @@ const TestMD = require("../middlewares/Test_md");
  * Routes
  * ****** */
 
+// Authentification
+router.route("/api/login").post(new AuthControllers().login);
+router.route("/api/register").post(new AuthControllers().register);
+
 // Users
 router
   .route("/api/user")
-  .get(new TestMD().firstMD, new UserControllers().getAll)
-  .post(new TestMD().firstMD, new UserControllers().post)
+  .get(new UserControllers().getAll)
+  .post(new UserControllers().post)
 
 // Employeur profil
 router
