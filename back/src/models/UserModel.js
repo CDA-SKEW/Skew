@@ -8,26 +8,26 @@ const connection = require("../config/ConnectionDB");
 
 // Model
 const User = function (user) {
-    this.id = user.id,
+  this.id = user.id,
     this.mail = user.mail,
     this.pass = user.pass,
     this.isAdmin = user.isAdmin,
     this.isCandidat = user.isCandidat,
     this.isRecruteur = user.isRecruteur,
-    this.isBanned = user.isBanned,
     this.isVerified = user.isVerified,
-    this.date_create = user.date_create
+    this.isBanned = user.isBanned,
+    this.date_update = user.date_update
+  this.date_create = user.date_create
 };
 
-// Get User ID
+// Get All
 User.login = function (user, result) {
   console.log("Login controllers", user);
   connection.getConnection(function (error, conn) {
     if (error) throw error;
     // check user if exist
     conn.query(
-      `SELECT id, mail, pass, isAdmin, isCandidat, isRecruteur, isBanned, isVerified, date_create
-       FROM users where mail = "${user.mail}"`,
+      `SELECT * FROM users where mail = "${user.mail}"`,
       (error, data) => {
         if (error) throw error;
         console.log("User Model login", data[0], user);
@@ -46,26 +46,26 @@ User.login = function (user, result) {
   });
 };
 
-// Post user
-User.register = function (newUser, result) {
-  console.log("Register controllers");
-  connection.getConnection(function (error, conn) {
-    if (error) throw error;
-    // bcrypt
-    bcrypt.hash(newUser.pass, 10).then(function (hash) {
-      // Store hash in your password DB.
-      conn.query(
-        `INSERT INTO users (mail, pass, isAdmin, isCandidat, isRecruteur)
-        VALUES ("${newUser.mail}", "${newUser.pass}", 0, "${newUser.isCandidat}", "${newUser.isRecruteur}")`,
-        (error, data) => {
-          if (error) throw error;
-          result(null, data);
-          conn.release();
-        }
-      );
-    });
-  });
-};
+// Get ID
+// User.register = function (newUser, result) {
+//   console.log("Register controllers");
+//   connection.getConnection(function (error, conn) {
+//     if (error) throw error;
+//     // bcrypt
+//     bcrypt.hash(newUser.pass, 10).then(function (hash) {
+//       // Store hash in your password DB.
+//       conn.query(
+//         `INSERT INTO users (mail, pass, isAdmin, isCandidat, isRecruteur)
+//         VALUES ("${newUser.mail}", "${newUser.pass}", 0, "${newUser.isCandidat}", "${newUser.isRecruteur}")`,
+//         (error, data) => {
+//           if (error) throw error;
+//           result(null, data);
+//           conn.release();
+//         }
+//       );
+//     });
+//   });
+// };
 
 // User
 // Et l'on export notre model grace à la passerelle Mongoose
