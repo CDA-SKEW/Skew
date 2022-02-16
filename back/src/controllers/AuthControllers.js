@@ -18,20 +18,20 @@ class AuthControllers {
               message: err.message || "Une erreur est survenue",
             });
         } else {
-            // let token = "visitor";
+          // let token = "visitor";
           // if (data.mail) {
-            // token = jwt.sign(
-            // token = (
-            //   {
-            //     id: data.id,
-            //     mail: data.mail,
-            //     authenticate: data.isVerified ? true : false,
-            //     isVerified: data.isVerified === 1 ? true : false,
-            //     isAdmin: data.isAdmin === 1 ? true : false,
-            //   }
-              // process.env.SIGN_JWT,
-              // { expiresIn: "1h" }
-            // );
+          // token = jwt.sign(
+          // token = (
+          //   {
+          //     id: data.id,
+          //     mail: data.mail,
+          //     authenticate: data.isVerified ? true : false,
+          //     isVerified: data.isVerified === 1 ? true : false,
+          //     isAdmin: data.isAdmin === 1 ? true : false,
+          //   }
+          // process.env.SIGN_JWT,
+          // { expiresIn: "1h" }
+          // );
           // }
 
           return res.send({
@@ -46,6 +46,32 @@ class AuthControllers {
       throw error;
     }
   }
+
+  // async check(req, res) {
+  //   console.log("check", ...req.params.id);
+  //   //   const user = jwt.verify(req.params.token, process.env.SIGN_JWT, (err, decoded) => {
+  //   const user = ({ ...req.params.id }, (err, decoded) => {
+  //     if (err) return;
+  //     //     return decoded;
+  //   });
+  //   try {
+  //     // JWT
+  //     return res.send({
+  //       // method: req.method,
+  //       status: "success",
+  //       flash: "Login Auth Success !",
+  //       user: {
+  //         id: user.id,
+  //         mail: user.mail,
+  //         isRecruteur: user.isRecruteur,
+  //         isCandidat: user.isCandidat,
+  //         isAdmin: user.isAdmin
+  //       }
+  //     });
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   // async register(req, res) {
   //   let newUser = new User({

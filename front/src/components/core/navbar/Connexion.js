@@ -5,13 +5,11 @@ import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
 import Modal from '@mui/material/Modal';
 
-
-// import { useSelector } from "react-redux";
 import { login } from "store/actions/AuthActions";
 // import { getListUsers } from "store/actions/AdminActions";
 
@@ -19,7 +17,6 @@ export default function Connexion() {
 
     const [open, setOpen] = React.useState(false);
     const handleClose = () => setOpen(false);
-
 
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
@@ -48,8 +45,8 @@ export default function Connexion() {
         if (mail && pass) {
             await dispatch(login({ mail, pass }))
             setOpen(true)
-            // setMail('')
-            // setPass('')
+            setMail('')
+            setPass('')
             // navigate("/Admin");
         };
     };

@@ -41,6 +41,10 @@ router.route("/api/login")
   .post(new AuthControllers().login);
 // router.route("/api/register").post(new AuthControllers().register);
 
+// Check
+// router.route("/api/auth/:id")
+//   .get(new AuthControllers().check);
+
 // Users
 router
   .route("/api/user")
