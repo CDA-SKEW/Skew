@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import {
   getApiSiret,
   postFormProfilEmployer,
+  putFormProfilEmployer,
 } from "store/actions/EmployerActions";
 import NumberFormat from "react-number-format";
 
@@ -129,10 +130,11 @@ export default function FormProfilEmployer(props) {
   const [zipCode, setZipCode] = useState("");
   const [town, setTown] = useState("");
   const [category, setCategory] = useState("");
+  const [formSubmit, setFormSubmit] = useState("");
 
   // fonction set des useState
   const setUseState = () => {
-    setStateImgUpload("")
+    setStateImgUpload("");
     setAvatar(dataProfilEmployer.avatar);
     setSiret(dataProfilEmployer.siret);
     setSiren(dataProfilEmployer.siren);
@@ -155,7 +157,6 @@ export default function FormProfilEmployer(props) {
     setUseState();
   }, [dataProfilEmployer]);
 
-
   // useEffect pour api Siret qui est à l'écoute du state du store dataApiSiret
   useEffect(() => {
     // console.log("use state dataApiSiret", dataApiSiret);
@@ -166,10 +167,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-        " " +
-        dataApiSiret.type_voie +
-        " " +
-        dataApiSiret.libelle_voie
+          " " +
+          dataApiSiret.type_voie +
+          " " +
+          dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -209,6 +210,8 @@ export default function FormProfilEmployer(props) {
     // console.log("e", e)
     e.preventDefault();
 
+    // console.log("formSubmit", formSubmit);
+
     if (!avatar) {
       setStateImgUpload("image obligatoire");
     } else {
@@ -227,7 +230,10 @@ export default function FormProfilEmployer(props) {
 
       setStateImgUpload("");
       // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
-      await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
+      if (formSubmit === "modified")
+        await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
+      if (formSubmit === "create")
+        await dispatch(putFormProfilEmployer(dataFormProfilEmployer));
     }
   };
 
@@ -237,7 +243,7 @@ export default function FormProfilEmployer(props) {
     if (!dataProfilEmployer.avatar) {
       setStateImgUpload("image obligatoire");
     } else setStateImgUpload("");
-    setUseState()
+    setUseState();
   };
 
   return (
@@ -252,12 +258,12 @@ export default function FormProfilEmployer(props) {
       >
         <Grid item md={6} xs={12} sm={12}>
           <Box
-          width={"100%"}
-          display={"flex"}
-          justifyContent={{ xs: "center", md: "space-around" }}
-          flexDirection={{ xs: "column", md: "row" }}
-          alignItems={{ xs: "center", md: "none" }}
-          marginBottom={2}
+            width={"100%"}
+            display={"flex"}
+            justifyContent={{ xs: "center", md: "space-around" }}
+            flexDirection={{ xs: "column", md: "row" }}
+            alignItems={{ xs: "center", md: "none" }}
+            marginBottom={2}
           >
             <Grid
               container
@@ -266,7 +272,7 @@ export default function FormProfilEmployer(props) {
               alignItems="center"
             >
               <Grid item xs={12}>
-                {avatar ? (<Img alt="imageEmployer" src={avatar} />) : (<Img />)} 
+                {avatar ? <Img alt="imageEmployer" src={avatar} /> : <Img />}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
                 )}
@@ -284,7 +290,7 @@ export default function FormProfilEmployer(props) {
                     sx={{ display: "none" }}
                     size="small"
                     type="file"
-                    inputProps={{ accept: 'image/*' }}
+                    inputProps={{ accept: "image/*" }}
                     onChange={(e) => handleImageChange(e)}
                   />
                 </Button>
@@ -305,7 +311,7 @@ export default function FormProfilEmployer(props) {
               xs={10}
               display={"flex"}
               flexDirection={{ xs: "column", md: "row" }}
-              alignItems={"center"}  
+              alignItems={"center"}
             >
               <TextField
                 required
@@ -331,7 +337,7 @@ export default function FormProfilEmployer(props) {
                   ml: 1,
                   my: 1,
                   display: displayButton,
-                  width: {sm: "140px", md:"160px"},
+                  width: { sm: "140px", md: "160px" },
                   height: "40px",
                 }}
                 onClick={(e) => handleSendApiSiret(e)}
@@ -354,7 +360,7 @@ export default function FormProfilEmployer(props) {
               />
             </Grid>
 
-            <Grid item xs={10} >
+            <Grid item xs={10}>
               <TextField
                 required
                 label="Nom de l'entreprise:"
@@ -363,7 +369,7 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 value={name || ""}
                 InputProps={{ inputProps }}
-                onChange={(e) => setFactoryName((e.target.value).toUpperCase())}
+                onChange={(e) => setFactoryName(e.target.value.toUpperCase())}
               />
             </Grid>
 
@@ -376,7 +382,7 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 value={address || ""}
                 InputProps={{ inputProps }}
-                onChange={(e) => setAddress((e.target.value.toUpperCase()))}
+                onChange={(e) => setAddress(e.target.value.toUpperCase())}
               />
             </Grid>
 
@@ -402,8 +408,8 @@ export default function FormProfilEmployer(props) {
                 variant="outlined"
                 size="small"
                 value={town || ""}
-                InputProps={{ inputProps, }}
-                onChange={(e) => setTown((e.target.value).toUpperCase())}
+                InputProps={{ inputProps }}
+                onChange={(e) => setTown(e.target.value.toUpperCase())}
               />
             </Grid>
 
@@ -416,47 +422,89 @@ export default function FormProfilEmployer(props) {
                 size="small"
                 value={category || ""}
                 InputProps={{ inputProps }}
-                onChange={(e) => setCategory((e.target.value).toUpperCase())}
+                onChange={(e) => setCategory(e.target.value.toUpperCase())}
               />
             </Grid>
 
-            <Grid
-              item
-              xs={10}
-              padding={1}
-              display={"flex"}
-              justifyContent={{xs: "center", md: "end"}}
-            >
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  bgcolor: "#DC143C",
-                  color: "white",
-                  m: 1,
-                  display: displayButton,
-                }}
-                startIcon={<TaskAltIcon />}
-                type="submit"
+            {dataProfilEmployer ? (
+              <Grid
+                item
+                xs={10}
+                padding={1}
+                display={"flex"}
+                justifyContent={{ xs: "center", md: "end" }}
               >
-                Valider
-              </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    bgcolor: "#DC143C",
+                    color: "white",
+                    m: 1,
+                    display: displayButton,
+                  }}
+                  startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+                  type="submit"
+                  onClick={() => setFormSubmit("modified")}
+                >
+                  Modifier
+                </Button>
 
-              <Button
-                variant="contained"
-                size="small"
-                sx={{
-                  bgcolor: "gray",
-                  color: "white",
-                  m: 1,
-                  display: displayButton,
-                }}
-                startIcon={<HighlightOffIcon />}
-                onClick={(e) => cancelFormProfil()}
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    bgcolor: "gray",
+                    color: "white",
+                    m: 1,
+                    display: displayButton,
+                  }}
+                  startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}} />}
+                  onClick={(e) => cancelFormProfil()}
+                >
+                  Annuler
+                </Button>
+              </Grid>
+            ) : (
+              <Grid
+                item
+                xs={10}
+                padding={1}
+                display={"flex"}
+                justifyContent={{ xs: "center", md: "end" }}
               >
-                Annuler
-              </Button>
-            </Grid>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    bgcolor: "#DC143C",
+                    color: "white",
+                    m: 1,
+                    display: displayButton,
+                  }}
+                  startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+                  onClick={() => setFormSubmit("create")}
+                  type="submit"
+                >
+                  Valider
+                </Button>
+
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    bgcolor: "gray",
+                    color: "white",
+                    m: 1,
+                    display: displayButton,
+                  }}
+                  startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+                  onClick={(e) => cancelFormProfil()}
+                >
+                  Annuler
+                </Button>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>

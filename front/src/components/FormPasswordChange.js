@@ -10,12 +10,14 @@ import {
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+
 import { Box } from "@mui/system";
 import { useDispatch } from "react-redux";
-import { putFormProfilEmployer } from "store/actions/EmployerActions";
+import { putFormProfilUserPw } from "store/actions/EmployerActions";
 
 export default function FormPasswordChange(props) {
-  const { displayButton, mail } = props;
+  const { displayButton, dataProfilUser} = props;
 
   const dispatch = useDispatch();
 
@@ -48,7 +50,8 @@ export default function FormPasswordChange(props) {
     // check si mot de passe correspondent
     if (password === confirmPassword) {
       const dataFormPersonalEmployer = {
-        mail,
+        user_id:dataProfilUser.user_id,
+        mail:dataProfilUser.mail,
         oldPassword,  
         password,
       };
@@ -56,7 +59,7 @@ export default function FormPasswordChange(props) {
       //   "dataFormPersonalEmployer change password",
       //   dataFormPersonalEmployer
       // );
-      await dispatch(putFormProfilEmployer(dataFormPersonalEmployer));
+      await dispatch(putFormProfilUserPw(dataFormPersonalEmployer));
 
       setOldPassword("");
       setPassword("");
@@ -172,7 +175,7 @@ export default function FormPasswordChange(props) {
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid
             item
-            xs={10}
+           xs={10}
             padding={1}
             display={"flex"}
             justifyContent={{ xs: "center", md: "end" }}
@@ -185,9 +188,9 @@ export default function FormPasswordChange(props) {
                 color: "white",
                 m: 1,
                 display: displayButton,
-                width: "100px",
               }}
               type="submit"
+              startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}}/>}
             >
               Modifier
             </Button>
@@ -201,7 +204,7 @@ export default function FormPasswordChange(props) {
                 m: 1,
                 display: displayButton,
               }}
-              startIcon={<HighlightOffIcon />}
+              startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}} />}
               onClick={(e) => cancelFormPassword()}
             >
               Annuler

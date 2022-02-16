@@ -18,7 +18,7 @@ export default function RowTableCandidateOffer(props) {
     const navigate = useNavigate();
 
     // console.log(props)
-    const { numberCandidat, row, offer } = props;
+    const { numberCandidat, row, offer, dataProfilUser } = props;
     const [open, setOpen] = useState(false);
     // console.log("offer", offer)
     //   console.log("row", row)
@@ -235,6 +235,7 @@ export default function RowTableCandidateOffer(props) {
                                     onClose={handleCloseContact}
                                     row={row}
                                     offer={offer}
+                                    dataProfilUser={dataProfilUser}
                                 />
 
                                 {/* vor candidat */}

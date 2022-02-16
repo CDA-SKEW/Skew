@@ -8,6 +8,7 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
   dataProfilEmployer: {},
+  dataProfilUser: {},
   dataOffers: [],
   dataSiretApi: {},
   flashs: {},
@@ -48,6 +49,27 @@ export function EmployerReducer(state = initialState, action) {
         ...state,
         dataProfilEmployer: action.payload,
       };
+      case Actions.GET_PROFIL_USER:
+        // console.log("GET_PROFIL_USER Reducer", action.payload);
+        return {
+          // flash: action.payload.flash,
+          ...state,
+          dataProfilUser: action.payload,
+        };
+      case Actions.PUT_PROFIL_USER:
+        // console.log("GET_PROFIL_USER Reducer", action.payload);
+        return {
+          // flash: action.payload.flash,
+          ...state,
+          dataProfilUser: action.payload,
+        };
+        case Actions.PUT_PROFIL_USER_PW:
+          // console.log("GET_PROFIL_USER PW Reducer", action.payload);
+          return {
+            // flash: action.payload.flash,
+            ...state,
+            dataProfilUser: action.payload,
+          };
     case Actions.GET_OFFER:
       // console.log("GET_OFFER reducer", action.payload);
       return {

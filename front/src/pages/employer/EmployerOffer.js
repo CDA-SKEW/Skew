@@ -7,7 +7,7 @@ import {
 
 import CardTableOffer from "components/employer/offers/CardTableOffer";
 import { themeEmployer } from "configs/theme";
-import { getOffer } from "store/actions/EmployerActions";
+import { getOffer, getProfilUser } from "store/actions/EmployerActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const EmployerOffer = () => {
@@ -16,9 +16,12 @@ const EmployerOffer = () => {
 
   useEffect(() => {
     dispatch(getOffer());
+    dispatch(getProfilUser());
   }, []);
 
-  //dispatch(getProfilEmployer());
+  const dataProfilUser = useSelector(
+    (state) => state.employer.dataProfilUser
+  );
 
   const offers = useSelector(
     (state) => state.employer.dataOffers
@@ -46,7 +49,7 @@ const EmployerOffer = () => {
       </Box>
       {/* {/* partie mes offres/} */}
       {/* {console.log(offers)} */}
-      {offers && offers.map((offer, index) => <CardTableOffer key={index} offer={offer} />)}
+      {offers && offers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />)}
     </Container>
   );
 };

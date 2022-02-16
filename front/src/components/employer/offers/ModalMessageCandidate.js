@@ -1,12 +1,19 @@
-import { Button, createTheme, Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField,
+} from "@mui/material";
 import React, { useState } from "react";
-import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
-import SendIcon from '@mui/icons-material/Send';
+import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
+import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
 import { postMessageCandidate } from "store/actions/EmployerActions";
 import { useDispatch, useSelector } from "react-redux";
 import SnackbarMessage from "components/SnackbarMessage";
-
 
 export default function ModalMessageCandidate(props) {
   const dispatch = useDispatch();
@@ -15,16 +22,16 @@ export default function ModalMessageCandidate(props) {
   // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);
 
-  const { onClose, open, offer, row } = props;
-  // console.log("row, offer", row, offer)  
+  const { onClose, open, offer, row, dataProfilUser } = props;
+  // console.log("row, offer", row, offer)
 
-  const [form, setForm] = useState({ ...row }); 
+  const [form, setForm] = useState({ ...row });
   // console.log("form", form)
 
   const [textMessage, setTextMessage] = useState();
 
   const handleCancel = () => {
-    setTextMessage("")
+    setTextMessage("");
     onClose();
   };
 
@@ -32,43 +39,48 @@ export default function ModalMessageCandidate(props) {
     e.preventDefault();
 
     const dataFormMessageCandidate = {
+      user_id: dataProfilUser.user_id,
+      mailEmployeur: dataProfilUser.mail,
       name: form.name,
       lastName: form.lastName,
       phone: form.phone,
       mail: form.mail,
-      textMessage
+      textMessage,
     };
-    setTextMessage("")
+    setTextMessage("");
 
-    //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue 
-    setOpenModal(true)
+    //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue
+    setOpenModal(true);
     setTimeout(function () {
       setOpenModal(false);
       onClose();
     }, 2000);
     // console.log(dataFormMessageCandidate)
     await dispatch(postMessageCandidate(dataFormMessageCandidate));
-  
   };
-  //  
+  //
   return (
-
-    <Dialog
-      maxWidth="sm"
-      open={open}
-    >
-
-      <Box component="form"
-        onSubmit={(e) => handleSendMessage(e)}
-      >
-        <DialogTitle sx={{ bgcolor: "#004F98", color: "white", textAlign: "center", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
-          Message au candidat <Button onClick={handleCancel} ><CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }}  /></Button>
+    <Dialog maxWidth="sm" open={open}>
+      <Box component="form" onSubmit={(e) => handleSendMessage(e)}>
+        <DialogTitle
+          sx={{
+            bgcolor: "#004F98",
+            color: "white",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          Message au candidat{" "}
+          <Button onClick={handleCancel}>
+            <CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }} />
+          </Button>
         </DialogTitle>
         <DialogContent dividers>
           <Grid container rowSpacing={2}>
-
             {Object.entries(row).map((arr, index) => {
-              const key = arr[0]
+              const key = arr[0];
               if (key === "user_id") return;
               if (key === "address") return;
               if (key === "zipCode") return;
@@ -88,9 +100,8 @@ export default function ModalMessageCandidate(props) {
                       label={key}
                     />
                   </Grid>
-                )
+                );
               }
-
             })}
 
             <Grid item xs={12} sm={12} md={12}>
@@ -120,17 +131,23 @@ export default function ModalMessageCandidate(props) {
               />
             </Grid>
           </Grid>
-
         </DialogContent>
 
         <DialogActions>
-          <Button variant="outlined" endIcon={<SendIcon />} sx={{ bgcolor: "#ABC4FF", color: "black" }} type="submit">Envoyer</Button>
+          <Button
+            variant="outlined"
+            endIcon={<SendIcon />}
+            sx={{ bgcolor: "#ABC4FF", color: "black" }}
+            type="submit"
+          >
+            Envoyer
+          </Button>
         </DialogActions>
       </Box>
 
       {openModal && (
-        <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />)}
+        <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />
+      )}
     </Dialog>
-
   );
 }

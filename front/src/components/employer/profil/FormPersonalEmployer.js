@@ -5,19 +5,20 @@ import {
   Grid,
 } from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 import { useDispatch } from "react-redux";
 import { Box } from "@mui/system";
-import { putFormProfilEmployer } from "store/actions/EmployerActions";
+import { putFormProfilUser } from "store/actions/EmployerActions";
 import FormPasswordChange from "components/FormPasswordChange";
 
 export default function FormPersonalEmployer(props) {
   const {
-    dataProfilEmployer,
+    dataProfilUser,
     profilPersonnalNotEditabled,
     buttonProfilPersonnalVisible,
   } = props;
-  // console.log("dataProfilEmployer", dataProfilEmployer);
+  // console.log("dataProfilUser", dataProfilUser);
 
   const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ export default function FormPersonalEmployer(props) {
   // fonction set des useState
   const setUseState = () => {
     setEditPassword(false);
-    setMail(dataProfilEmployer.mail);
+    setMail(dataProfilUser.mail);
   };
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
@@ -38,11 +39,11 @@ export default function FormPersonalEmployer(props) {
     setUseState();
   }, [profilPersonnalNotEditabled]);
 
-  // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
+  // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilUser
   useEffect(() => {
     // console.log("effect for useState form personnal employer");
-    setMail(dataProfilEmployer.mail);
-  }, [dataProfilEmployer]);
+    setMail(dataProfilUser.mail);
+  }, [dataProfilUser]);
 
   //constante pour mettre les input soit readOnly soit editable
   const inputProps = {
@@ -74,13 +75,14 @@ export default function FormPersonalEmployer(props) {
     e.preventDefault();
 
       const dataFormPersonalEmployer = {
+        user_id:dataProfilUser.user_id,
         mail,
       };
       // console.log(
       //   "dataFormPersonalEmployer change mail only",
       //   dataFormPersonalEmployer
       // );
-      await dispatch(putFormProfilEmployer(dataFormPersonalEmployer));
+      await dispatch(putFormProfilUser(dataFormPersonalEmployer));
 
   };
 
@@ -140,8 +142,8 @@ export default function FormPersonalEmployer(props) {
                     color: "white",
                     m: 1,
                     display: displayButton,
-                    width: "100px",
                   }}
+                  startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}} />}
                   type="submit"
                 >
                   Modifier
@@ -156,7 +158,7 @@ export default function FormPersonalEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<HighlightOffIcon />}
+                  startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}} />}
                   onClick={(e) => cancelFormPersonalProfil()}
                 >
                   Annuler
@@ -184,7 +186,7 @@ export default function FormPersonalEmployer(props) {
             Edit password
           </Button>
         </Box>
-        {editPassword && <FormPasswordChange displayButton={displayButton} mail={mail} />}
+        {editPassword && <FormPasswordChange displayButton={true} dataProfilUser={dataProfilUser} />}
       </Grid>
     </Box>
   );
