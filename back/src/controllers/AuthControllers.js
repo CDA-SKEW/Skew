@@ -1,8 +1,10 @@
-// Import Model
-const User = require("../models/UserModel");
+/*
+ * Model de 'User'
+ ******************************/
+const connection = require("../config/ConnectionDB");
 
 // Import Module
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
