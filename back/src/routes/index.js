@@ -9,6 +9,8 @@ const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
+const EmployerCandidateStatutControllers = require("../controllers/employer/EmployerCandidateStatutControllers");
+const EmployerMessageCandidateControllers = require("../controllers/employer/EmployerMessageCandidateControllers");
 const UsersControllers = require("../controllers/admin/UsersController");
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
 
@@ -54,6 +56,16 @@ router
   .route("/api/employer/offer/:id")
   .put(new EmployerOfferControllers().updateOffer)
   .delete(new EmployerOfferControllers().delOffer);
+
+// Employeur statut candidat offer
+router
+  .route("/api/employer/offer/candidat/:id")
+  .put(new EmployerCandidateStatutControllers().updateCandidate);
+
+// Employeur send message candidate
+router
+  .route("/api/employer/candidat/message/")
+  .post(new EmployerMessageCandidateControllers().createMessage);
 
 //------------------------------------------------------------
 

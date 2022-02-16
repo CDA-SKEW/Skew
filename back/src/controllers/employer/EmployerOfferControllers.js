@@ -4,7 +4,7 @@
 
 require("dotenv").config();
 
-class EmployerOfferControllers {
+class EmployerCandidateStatutController {
   async getOffer(req, res) {
     console.log("controller get Offer Employeur");
     res.json({ message: "controller get Offer employer" });
@@ -26,4 +26,4 @@ class EmployerOfferControllers {
   }
 }
 
-module.exports = EmployerOfferControllers;
+module.exports = EmployerCandidateStatutController;
