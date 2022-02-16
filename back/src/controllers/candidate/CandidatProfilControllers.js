@@ -16,12 +16,16 @@ class CandidatProfilControllers {
     }
 
     async updateProfil(req, res) {
-        console.log("controller get Profil Candidat");
+        console.log("controller update Profil Candidat");
         res.send({ message: "controller update profil candidat" });
     }
 
+    async    deleteProfil(req, res) {
+        console.log("controller del Profil Candidat");
+        res.send({ message: "controller del profil candidat" });
+    }
 
-
+ 
 
 
 }
