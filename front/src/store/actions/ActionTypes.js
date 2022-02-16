@@ -33,8 +33,8 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 
 // Auth
-export const GET_AUTH = 'GET_AUTH';
-export const POST_AUTH = 'POST_AUTH';
+export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';
 
 // Offres visiteur
 export const GET_OFFRES_VISITEUR = 'GET_OFFRES_VISITEUR';
