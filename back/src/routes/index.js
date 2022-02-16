@@ -40,11 +40,11 @@ router
 // Admin
 router
   .route("/api/admin")
-  .get(new UsersControllers().getAll)
+  .get(new UsersControllers().usersAll)
 
 router  
   .route("/api/admin/:id")
-  .get(new UsersControllers().getId)
+  .get(new UsersControllers().userID)
 
 // Authentification
 
