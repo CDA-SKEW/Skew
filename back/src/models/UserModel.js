@@ -8,7 +8,7 @@ const connection = require("../config/ConnectionDB");
 
 // Model
 const User = function (user) {
-  this.id = user.id,
+    this.id = user.id,
     this.mail = user.mail,
     this.pass = user.pass,
     this.isAdmin = user.isAdmin,
