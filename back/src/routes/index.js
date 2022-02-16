@@ -79,6 +79,7 @@ router
 
 // Employeur offerid
 router
+<<<<<<< HEAD
   .route("/api/employer/offer/:id")
   .delete(new EmployerOfferControllers().delOffer);
 
@@ -184,6 +185,14 @@ router
 router.route("/api/admin").get(new UsersControllers().getAll);
 
 router.route("/api/admin/:id").get(new UsersControllers().getId);
+=======
+  .route("/api/admin")
+  .get(new UsersControllers().usersAll)
+
+router  
+  .route("/api/admin/:id")
+  .get(new UsersControllers().userID)
+>>>>>>> origin/souka
 
 // Authentification
 
