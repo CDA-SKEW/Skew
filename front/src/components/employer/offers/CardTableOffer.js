@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function CardTableOffer(props) {
-  const { offer } = props
+  const { offer, dataProfilUser } = props
   const navigate = useNavigate();
 
   //constante pour le modal contact
@@ -129,7 +129,7 @@ export default function CardTableOffer(props) {
               {offer &&
                 offer.profilCandidate.map((row, index) => (
                   // console.log("row",row)
-                  <RowTableCandidateOffer key={index} numberCandidat={index} row={row} offer={offer} />
+                  <RowTableCandidateOffer key={index} numberCandidat={index} row={row} offer={offer} dataProfilUser={dataProfilUser} />
                 ))}
             </TableBody>
           </Table>

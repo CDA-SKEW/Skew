@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import FormProfilEmployer from "components/employer/profil/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfilEmployer } from "store/actions/EmployerActions";
+import { getProfilEmployer, getProfilUser } from "store/actions/EmployerActions";
 import FormPersonalEmployer from "components/employer/profil/FormPersonalEmployer";
 import { themeEmployer } from "configs/theme";
 
@@ -20,6 +20,7 @@ const EmployerProfil = () => {
   useEffect(() => {
     // console.log("effect getDataProfilEmployerEmployer");
     dispatch(getProfilEmployer());
+    dispatch(getProfilUser());
   }, []);
 
   //dispatch(getProfilEmployer());
@@ -28,6 +29,11 @@ const EmployerProfil = () => {
     (state) => state.employer.dataProfilEmployer
   );
   // console.log("store dataProfilEmployer page profil", dataProfilEmployer);
+
+  const dataProfilUser = useSelector(
+    (state) => state.employer.dataProfilUser
+  );
+  // console.log("store dataProfilUser", dataProfilUser);
 
   const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
   // console.log("store dataApiSiret",dataApiSiret)
@@ -172,9 +178,9 @@ const EmployerProfil = () => {
             {/* End icone avec popover */}
           </Button>
         </Typography>
-        {dataProfilEmployer && (
+        {dataProfilUser && (
           <FormPersonalEmployer
-            dataProfilEmployer={dataProfilEmployer}
+            dataProfilUser ={dataProfilUser}
             profilPersonnalNotEditabled={profilPersonnalNotEditabled}
             buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
           />

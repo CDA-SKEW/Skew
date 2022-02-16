@@ -7,11 +7,14 @@ import {
   GET_API_SIRET,
   GET_OFFER,
   GET_PROFIL_EMPLOYER,
+  GET_PROFIL_USER,
   POST_MESSAGE_CANDIDATE,
   POST_OFFER,
   POST_PROFIL_EMPLOYER,
   PUT_ACTION_CANDIDATE,
   PUT_PROFIL_EMPLOYER,
+  PUT_PROFIL_USER,
+  PUT_PROFIL_USER_PW,
 } from "./ActionTypes";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
@@ -23,7 +26,6 @@ import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
 
 const dataDefault = {
   user_id: 1,
-  mail: "wilfried.cda@gmail.com",
   name: "Buno & Co",
   zipCode: "85600",
   siren: "356454356",
@@ -38,6 +40,10 @@ const dataDefault = {
 const message ="Votre offre a bien été publiée !"
 const messagePostCandidate = "Votre mail a bien été envoyé !"
 
+const dataDefaultID = {
+  user_id: 1,
+  mail: "wilfried.cda@gmail.com",
+};
 
 const offers = [
   {
@@ -771,6 +777,28 @@ export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_EMPLOYER action", data);
     dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data});
+  };
+};
+
+export const getProfilUser = () => {
+  return (dispatch) => {
+    // console.log("GET_PROFIL_USER action");
+    dispatch({ type: GET_PROFIL_USER, payload: dataDefaultID });
+  };
+};
+// Put profil User
+export const putFormProfilUser = (data) => {
+  return (dispatch) => {
+    // console.log("PUT_PROFIL_USER action", data);
+    dispatch({ type: PUT_PROFIL_USER, payload: data});
+  };
+};
+
+// Put profil User password
+export const putFormProfilUserPw = (data) => {
+  return (dispatch) => {
+    // console.log("PUT_PROFIL_USER PW action", data);
+    dispatch({ type: PUT_PROFIL_USER_PW, payload: data});
   };
 };
 
