@@ -27,7 +27,7 @@ User.login = function (user, result) {
     if (error) throw error;
     // check user if exist
     conn.query(
-      `SELECT * FROM users where mail = "${user.mail}"`,
+      `SELECT * FROM user where mail = "${user.mail}"`,
       (error, data) => {
         if (error) throw error;
         console.log("User Model login", data[0], user);
