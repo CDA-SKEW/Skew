@@ -119,8 +119,8 @@ export default function TableExperience(props) {
             id="outlined-required"
             onChange={() => handleChange('post')}
             label="Post"
-            defaultValue={data.post}
-            value={form.post}
+            defaultValue={data.job}
+            value={form.job}
           // sx={{ my: 2 }}
           />
         </TableCell>
@@ -138,8 +138,8 @@ export default function TableExperience(props) {
             size="large"
             id="outlined-required"
             label="Description"
-            defaultValue={data.desc}
-            value={form.desc}
+            defaultValue={data.description}
+            value={form.description}
           />
         </TableCell>
 
@@ -306,10 +306,10 @@ export default function TableExperience(props) {
         <TableRow sx={{ "&:last-child td,&:last-child th": { border: 0 } }}>
           <TableCell component="th" scope="row" sx={{ display: "none" }}>0</TableCell>
           <TableCell align='center'>{row.company}</TableCell>
-          <TableCell align='center'>{row.post}</TableCell>
-          <TableCell align='center' sx={{ minWidth: { xs: 400, sm: 400, md: 400 } }}>{row.desc}</TableCell>
-          <TableCell align='center'>{row.start}</TableCell>
-          <TableCell align='center'>{row.end}</TableCell>
+          <TableCell align='center'>{row.job}</TableCell>
+          <TableCell align='center' sx={{ minWidth: { xs: 400, sm: 400, md: 400 } }}>{row.description}</TableCell>
+          <TableCell align='center'>{row.dateStart}</TableCell>
+          <TableCell align='center'>{row.dateEnd}</TableCell>
           {ActionBTN()}
         </TableRow>
         <CheckModeEdit status={open} row={row} />
@@ -325,18 +325,18 @@ export default function TableExperience(props) {
   // Declare Const used for the Form
 
   const [company, setCompany] = useState("");
-  const [post, setPost] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [job, setJob] = useState("");
+  const [dateStart, setDateStart] = useState("");
+  const [dateEnd, setDateEnd] = useState("");
 
 
 
 
   const setUseState = () => {
     setCompany(ListExp.company);
-    setPost(ListExp.post);
-    setStart(ListExp.start);
-    setEnd(ListExp.end);
+    setJob(ListExp.job);
+    setDateStart(ListExp.dateStart);
+    setDateEnd(ListExp.dateEnd);
   };
 
   useEffect(() => {
