@@ -6,23 +6,23 @@ require("dotenv").config();
 
 class CandidatProfilControllers {
   async getProfil(req, res) {
-    console.log("controller get Profil candidat");
-    candidat({ message: "controller get profil candidat" });
+    console.log("controller READ Profil candidat");
+    res.json({ message: "controller READ profil candidat" });
   }
 
   async createProfil(req, res) {
-    console.log("controller create Profil candidat");
-    candidat({ message: "controller Create profil candidat" });
+    console.log("controller CREATE Profil candidat");
+    res.json({ message: "controller CREATE profil candidat" });
   }
 
   async updateProfil(req, res) {
-    console.log("controller update Profil Candidat");
-    res.send({ message: "controller update profil candidat" });
+    console.log("controller UPDATE Profil Candidat");
+    res.json({ message: "controller UPDATE profil candidat" });
   }
 
   async deleteProfil(req, res) {
-    console.log("controller del Profil Candidat");
-    res.send({ message: "controller del profil candidat" });
+    console.log("controller DELETE Profil Candidat");
+    res.json({ message: "controller DELETE profil candidat" });
   }
 
 
