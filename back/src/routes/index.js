@@ -45,8 +45,8 @@ router
   // .post(new CandidatProfilControllers().createProfil)
   // .delete(new CandidatProfilControllers().deleteProfil);
 
-router
-  .route("/api/candidat/profil/:id")
+// router
+//   .route("/api/candidat/profil/:id")
   // .put(new CandidatProfilControllers().updateProfil);
 
 // Admin
