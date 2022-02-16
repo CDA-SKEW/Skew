@@ -35,7 +35,7 @@ User.login = function (user, result) {
         // bcrypt (Compare hash.body with hash.db)
         else if (user.pass === data[0].pass) {
           // bcrypt.compare(user.pass, data[0].pass, function (err, check) {
-            result(null, data[0])
+          result(null, data[0])
           console.log('mail et pass ok');
         };
         conn.release();
