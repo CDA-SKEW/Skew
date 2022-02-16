@@ -20,12 +20,11 @@ const User = function (user) {
     this.date_create = user.date_create;
 };
 
-// Get All
+// Verif login
 User.login = function (user, result) {
   console.log("Login controllers", user);
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    // check user if exist
     conn.query(
       `SELECT * FROM user where mail = "${user.mail}"`,
       (error, data) => {
@@ -64,7 +63,4 @@ User.register = function (newUser, result) {
   });
 };
 
-// User
-// Et l'on export notre model grace à la passerelle Mongoose
-// Ce qui nous permettra de pouvoir l'utiliser sur d'autre page
 module.exports = User;
