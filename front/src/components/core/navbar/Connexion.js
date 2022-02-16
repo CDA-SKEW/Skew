@@ -5,23 +5,30 @@ import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
-import { getAuth } from "store/actions/AuthActions";
 import { useNavigate } from "react-router";
-// import { getListUsers } from "store/actions/AdminActions";
 import { useDispatch } from "react-redux";
 
+import Modal from '@mui/material/Modal';
+
+
+// import { useSelector } from "react-redux";
+import { login } from "store/actions/AuthActions";
+// import { getListUsers } from "store/actions/AdminActions";
+
 export default function Connexion() {
+
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => setOpen(false);
+
 
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    // const authData = useSelector((state) => state.auth.authData);
+    // const navigate = useNavigate();
 
     const ConnexionList = [
-        { key: 1, titre: 'Mail', name: 'mail', type: 'text' },
-        { key: 2, titre: 'Mot de passe', name: 'pass', type: 'password' },
+        { titre: 'Mail', name: 'mail', type: 'text' },
+        { titre: 'Mot de passe', name: 'pass', type: 'password' },
     ]
 
     const handleFormId = (e) => {
@@ -36,29 +43,16 @@ export default function Connexion() {
         }
     }
 
-
     const SubmitFormId = async () => {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
-            await dispatch(getAuth({ mail, pass }))
-
-            if (mail === 'candidat') {
-                if (pass === 'candidat') {
-                    navigate('/candidat/dashboard')
-                }
-            }
-            if (mail === 'recruteur') {
-                if (pass === 'recruteur') {
-                    navigate('/employer/dashboard')
-                }
-            }
-            if (mail === 'admin') {
-                if (pass === 'admin') {
-                    navigate('/admin')
-                }
-            };
+            await dispatch(login({ mail, pass }))
+            setOpen(true)
+            // setMail('')
+            // setPass('')
+            // navigate("/Admin");
         };
-    }
+    };
 
     return (
         <Box
@@ -74,12 +68,12 @@ export default function Connexion() {
             >
                 Connexion
             </Typography>
-            {ConnexionList.map((index1) => (
+            {ConnexionList.map((connexion, index) => (
                 <TextField
-                    key={index1.key}
-                    label={index1.titre}
-                    name={index1.name}
-                    type={index1.type}
+                    key={index}
+                    label={connexion.titre}
+                    name={connexion.name}
+                    type={connexion.type}
                     variant="outlined"
                     fullWidth
                     onChange={(e) => handleFormId(e)}
@@ -117,6 +111,36 @@ export default function Connexion() {
             </Button>
 
             <TempDirUser />
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 400,
+                        bgcolor: 'background.paper',
+                        border: '2px solid #000',
+                        boxShadow: 24,
+                        p: 4,
+                    }}
+                >
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Hello
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {mail}
+                    </Typography>
+                </Box>
+            </Modal>
+
+
 
         </Box>
     )

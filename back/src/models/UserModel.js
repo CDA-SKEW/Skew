@@ -16,8 +16,8 @@ const User = function (user) {
     this.isRecruteur = user.isRecruteur,
     this.isVerified = user.isVerified,
     this.isBanned = user.isBanned,
-    this.date_update = user.date_update
-  this.date_create = user.date_create
+    this.date_update = user.date_update,
+    this.date_create = user.date_create;
 };
 
 // Get All
@@ -30,16 +30,14 @@ User.login = function (user, result) {
       `SELECT * FROM user where mail = "${user.mail}"`,
       (error, data) => {
         if (error) throw error;
-        console.log("User Model login", data[0], user);
+        console.log("User Model login", data[0], user)
         if (data.length <= 0) result(null, { message: 'error' });
         // bcrypt (Compare hash.body with hash.db)
-        else ((user.pass === data[0].pass), function (err, check) {
+        else if (user.pass === data[0].pass) {
           // bcrypt.compare(user.pass, data[0].pass, function (err, check) {
-          if (err) throw err;
-          console.log('check compare hash', check)
-          if (check) result(null, data[0]);
-          else result(null, { message: 'error' });
-        });
+          result(null, data[0])
+          console.log('mail et pass ok');
+        };
         conn.release();
       }
     );
