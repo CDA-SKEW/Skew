@@ -52,7 +52,7 @@ router
 
 // Employeur user profil
 router
-  .route("/api/employer/profilUser")
+  .route("/api/employer/profilUser/:id")
   .get(new EmployerProfilUserControllers().getProfilUser)
 
 // Employeur user profil Id

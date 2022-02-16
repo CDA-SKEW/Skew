@@ -4,7 +4,7 @@ const dbOptions = require("./db");
 connectionPool = MySQL.createPool({ ...dbOptions });
 
 var getConnection = function (done) {
-  console.log("connection pool");
+  // console.log("connection pool");
   connectionPool.getConnection(done);
 };
 
