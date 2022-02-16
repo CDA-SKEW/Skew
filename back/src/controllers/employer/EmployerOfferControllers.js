@@ -15,11 +15,6 @@ class EmployerCandidateStatutController {
     res.json({ message: "controller Create offer employer" });
   }
 
-  async updateOffer(req, res) {
-    console.log("controller update offer Employeur");
-    res.json({ message: "controller update offer employer" });
-  }
-
   async delOffer(req, res) {
     console.log("controller del offer Employeur");
     res.json({ message: "controller del offer employer" });

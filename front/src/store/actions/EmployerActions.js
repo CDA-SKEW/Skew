@@ -830,7 +830,7 @@ export const deleteOffer = (id) => {
 export const putActionCandidate = (data) => {
   return (dispatch) => {
   // console.log("PUT_ACTION_CANDIDATE", data);
-    // dispatch({ type: PUT_ACTION_CANDIDATE, payload: {data, messagePostCandidate}});
+    dispatch({ type: PUT_ACTION_CANDIDATE, payload: {data, messagePostCandidate}});
   };
 };
 
