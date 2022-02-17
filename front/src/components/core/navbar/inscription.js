@@ -1,38 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Button from '@mui/material/Button';
+
 import { useDispatch } from "react-redux";
-import { postAuth } from 'store/actions/AuthActions';
+import { register } from 'store/actions/AuthActions';
 
 export default function Inscription() {
 
     const [mail, setMail] = useState('');
-    const [pass1, setPass1] = useState('');
+    const [pass, setPass] = useState('');
     const [pass2, setPass2] = useState('');
     const [toggle, setToggle] = useState('');
+    const [candidat, setCandidat] = useState(0);
+    const [recruteur, setRecruteur] = useState(0);
     const dispatch = useDispatch();
-
-    const handleChange = (e, newToggle) => {
-        setToggle(newToggle);
-    };
 
     const InscriptionList = [
         { titre: 'Mail', type: 'text', name: 'mail' },
-        { titre: 'Mot de passe', type: 'password', name: 'pass1' },
+        { titre: 'Mot de passe', type: 'password', name: 'pass' },
         { titre: 'Confirmation mot de passe', type: 'password', name: 'pass2' },
     ]
+
+    const handleChange = (e, newToggle) => {
+        setToggle(newToggle)
+    };
+
+    useEffect(() => {
+        if (toggle === 'candidat') {
+            setCandidat(1)
+            setRecruteur(0)
+        }
+        if (toggle === 'recruteur') {
+            setCandidat(0)
+            setRecruteur(1)
+        }
+    }, [toggle]);
 
     const handleFormId = (e) => {
         switch (e.target.name) {
             case 'mail':
                 setMail(e.target.value)
                 break;
-            case 'pass1':
-                setPass1(e.target.value)
+            case 'pass':
+                setPass(e.target.value)
                 break;
             case 'pass2':
                 setPass2(e.target.value)
@@ -43,17 +58,21 @@ export default function Inscription() {
 
     const SubmitFormIdInscription = async (e) => {
         // e.preventDefault();
+        console.log('SubmitFormIdInscription', mail, pass, pass2, toggle, candidat, recruteur)
+        if (mail && toggle && pass && pass2) {
+            if (pass === pass2) {
+                await dispatch(register({ mail, pass, candidat, recruteur }));
+                setMail("");
+                setPass("");
+                setPass2("");
+                setToggle("");
+                setCandidat();
+                setRecruteur()
+            } else {
+                console.log('non')
+            }
+        }
 
-        console.log('submitFormId', mail, pass1, pass2, toggle)
-
-        if ( mail && toggle && pass1 === pass2) {
-            //   await dispatch(postAuth({ prenom, nom, mail, pass1, toggle }));
-            console.log('ok')
-            setMail("");
-            setPass1("");
-            setPass2("");
-            setToggle("");
-        };
     };
 
     return (

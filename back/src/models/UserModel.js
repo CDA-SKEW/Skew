@@ -42,15 +42,21 @@ User.login = function (user, result) {
 };
 
 // Register
-User.register = function (newUser, result) {
+User.register = function (body, result) {
   connection.getConnection(async function (error, conn) {
     if (error) throw error;
     conn.query(
       `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
-            VALUES ("${newUser.mail}", "${await bcrypt.hash(newUser.pass, 10)}", 0, "${newUser.isCandidat}", "${newUser.isRecruteur}")`,
-      (error, data) => {
+            VALUES ("${body.mail}", "${await bcrypt.hash(body.pass, 10)}", 0, "${body.isCandidat}", "${body.isRecruteur}")`,
+      (error, newUser) => {
         if (error) throw error;
-        result(null, data);
+        conn.query(`insert into contactProfil (user_id) values (${newUser.insertId})`, (err, profilUser) => {
+          if (err) throw err
+          console.log('data res model test create user', profilUser)
+
+          result(null, newUser);
+
+        })
         conn.release();
       }
     );
