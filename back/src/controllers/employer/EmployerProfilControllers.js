@@ -2,8 +2,6 @@
 
 // Import Module
 
-require("dotenv").config();
-
 class EmployerProfilControllers  {
   async getProfil(req, res) {
     console.log("controller get Profil Employeur");
