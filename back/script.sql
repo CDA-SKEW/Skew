@@ -23,7 +23,7 @@ USE `Skew` ;
 CREATE TABLE IF NOT EXISTS `Skew`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `mail` VARCHAR(45) NULL,
-  `pass` VARCHAR(45) NULL,
+  `pass` VARCHAR(255) NULL,
   `isAdmin` TINYINT NULL DEFAULT 0,
   `isCandidat` TINYINT NULL DEFAULT 0,
   `isRecruteur` TINYINT NULL DEFAULT 0,

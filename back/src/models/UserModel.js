@@ -33,8 +33,9 @@ User.login = function (user, result) {
         if (data.length <= 0) result(null, { message: 'error' });
         // bcrypt (Compare hash.body with hash.db)
         else bcrypt.compare(user.pass, data[0].pass, function (err, check) {
-          result(null, data[0])
-          console.log('mail et pass ok');
+          if (err) throw err;
+          if (check) result(null, data[0]);
+          else result(null, { message: 'error' });
         });
         conn.release();
       }
@@ -45,21 +46,19 @@ User.login = function (user, result) {
 // Register
 User.register = function (newUser, result) {
   console.log("Register controllers");
-  connection.getConnection(function (error, conn) {
+  connection.getConnection(async function (error, conn) {
     if (error) throw error;
     // bcrypt
-    bcrypt.hash(newUser.pass, 10).then(function (hash) {
-      // Store hash in your password DB.
-      conn.query(
-        `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
-            VALUES ("${newUser.mail}", "${newUser.pass}", 0, "${newUser.isCandidat}", "${newUser.isRecruteur}")`,
-        (error, data) => {
-          if (error) throw error;
-          result(null, data);
-          conn.release();
-        }
-      );
-    });
+    // Store hash in your password DB.
+    conn.query(
+      `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
+            VALUES ("${newUser.mail}", "${await bcrypt.hash(newUser.pass, 10)}", 0, "${newUser.isCandidat}", "${newUser.isRecruteur}")`,
+      (error, data) => {
+        if (error) throw error;
+        result(null, data);
+        conn.release();
+      }
+    );
   });
 };
 
