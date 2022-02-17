@@ -35,6 +35,7 @@ const MessagesController = require("../controllers/admin/MessagesController");
 
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
+const TokenJWT = require("../middlewares/Token_jwt")
 
 /*
  * Routes
@@ -47,8 +48,8 @@ router.route("/api/register")
   .post(new AuthControllers().register);
 
 // Check
-// router.route("/api/auth/:id")
-//   .get(new AuthControllers().check);
+router.route("/api/auth/:token")
+  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
 
 // Users
 router
