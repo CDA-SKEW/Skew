@@ -9,7 +9,7 @@ const dbOptions = {
   password: process.env.PASSWORD,
   port: process.env.PORT_MYSQL,
   database: process.env.DATABASE,
-  debug: true,
+  debug: false,
 };
 
 module.exports = dbOptions;
