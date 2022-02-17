@@ -8,6 +8,7 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
     user: {},
+    flash: "",
 };
 
 /*
@@ -18,10 +19,16 @@ export function AuthReducer(state = initialState, action) {
         default:
             return state;
         case Actions.LOGIN:
-            return { ...state, flash: action.payload.flash };
+            return {
+                ...state,
+                flash: action.payload.flash
+            };
         case Actions.REGISTER:
-            return { ...state, flash: action.payload.flash };
-        case Actions.CHECK:
+            return {
+                ...state,
+                flash: action.payload.flash
+            };
+        case Actions.CHECKTOKEN:
             return {
                 ...state,
                 flash: action.payload.flash,

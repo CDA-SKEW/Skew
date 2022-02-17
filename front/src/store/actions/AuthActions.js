@@ -5,8 +5,8 @@ import axios from "axios";
 
 import {
     LOGIN,
-    CHECK,
-    // REGISTER,
+    CHECKTOKEN,
+    REGISTER,
 } from "./ActionTypes";
 
 /*
@@ -24,7 +24,7 @@ export const login = (data) => {
             .post("http://localhost:3033/api/login", data)
             .then((res) => {
                 console.log("res login", res.data);
-                //         if (res.data.token) localStorage.setItem("user_token", res.data.token);
+                if (res.data.token) localStorage.setItem("user_token", res.data.token);
                 dispatch({
                     type: LOGIN,
                     payload: res.data
@@ -35,25 +35,35 @@ export const login = (data) => {
 };
 
 // Check User
-export const check = (id) => {
-    console.log("check");
+export const checkToken = (id) => {
+    console.log("checkToken");
     return (dispatch) => {
         return axios
             .get(
-                `http://localhost:3030/api/auth/${id}`
+                `http://localhost:3033/api/auth/${localStorage.getItem("user_token")}`
             )
             .then((res) => {
                 console.log("check", res.data);
                 if (res.data.user) {
-                    dispatch({ type: CHECK, payload: res.data });
-                    if (res.data.user.isVerified === true)
-                        localStorage.setItem(
-                            "user_verified",
-                            localStorage.getItem("user_token")
-                        );
-                    if (res.data.user.isAdmin === true)
+                    dispatch({ type: CHECKTOKEN, payload: res.data });
+                    // if (res.data.user.isVerified === 0)
+                    //     localStorage.setItem(
+                    //         "user_verified",
+                    //         localStorage.getItem("user_token")
+                    //     );
+                    if (res.data.user.isAdmin === 1)
                         localStorage.setItem(
                             "user_admin",
+                            localStorage.getItem("user_token")
+                        );
+                    if (res.data.user.isCandidat === 1)
+                        localStorage.setItem(
+                            "user_candidat",
+                            localStorage.getItem("user_token")
+                        );
+                    if (res.data.user.isRecruteur === 1)
+                        localStorage.setItem(
+                            "user_recruteur",
                             localStorage.getItem("user_token")
                         );
                 }
@@ -62,14 +72,14 @@ export const check = (id) => {
     };
 }
 
-// POST AUTH
-export const register = () => {
+// REGISTER
+export const register = (data) => {
     return (dispatch) => {
-        //     return axios
-        //         .post("adresse API")
-        //         .then((res) => {
-        // dispatch({ type: POST_AUTH, payload: res.data });
-        //         })
-        //         .catch((err) => console.log(err));
+        return axios
+            .post("http://localhost:3033/api/register", data)
+            .then((res) => {
+                dispatch({ type: REGISTER, payload: res.data });
+            })
+            .catch((err) => console.log(err));
     };
 };

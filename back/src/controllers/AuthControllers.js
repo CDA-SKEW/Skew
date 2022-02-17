@@ -48,9 +48,10 @@ class AuthControllers {
     let newUser = new User({
       mail: String(req.body.mail),
       pass: String(req.body.pass),
-      isCandidat: Number(req.body.isCandidat),
-      isRecruteur: Number(req.body.isRecruteur),
+      isCandidat: Number(req.body.candidat),
+      isRecruteur: Number(req.body.recruteur),
     });
+    console.log('regitser user', newUser)
     try {
       User.register(newUser, (err, data) => {
         console.log("data res", data);
