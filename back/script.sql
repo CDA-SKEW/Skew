@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`contactProfil` (
   `phone` VARCHAR(20) NULL DEFAULT '06 06 06 06 06',
   `siret` INT NULL DEFAULT NULL,
   `siren` INT NULL DEFAULT NULL,
+  `category` VARCHAR(45) NULL,
   `badge` TINYINT NULL DEFAULT 0,
   INDEX `fk_contact_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_contact_user1`
