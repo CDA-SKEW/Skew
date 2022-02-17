@@ -33,7 +33,6 @@ class EmployerProfilControllers {
       throw error;
     }
   }
-
   //action get Update mail ProfilUser
   async updateProfilUser(req, res) {
     // console.log(
@@ -146,8 +145,45 @@ class EmployerProfilControllers {
   }
 
   async updateProfilCompagny(req, res) {
-    console.log("controller get Profil Employeur");
-    res.json({ message: "controller update profil employer" });
+    //   console.log(
+    //   "controller update Profil Employeur",
+    //   req.body, "req.params",req.params.id
+    // );
+
+    if (req.params.id) {
+      // console.log("post Profil Compagny Employeur", req.body);
+      let profilUserCompagnyObj = new ProfilUserCompagny({
+        user_id: Number(req.params.id),
+        ...req.body
+      });
+      // console.log("post Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
+      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
+      try {
+        ProfilUserCompagny.updateProfilCompagny(
+          profilUserCompagnyObj,
+          (err, data) => {
+            //Si erreur alors affiche console log erreur et res.status
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+              return res.json({
+                method: req.method,
+                status: "success",
+                flash: "controller update profil compagny !",
+                message: "controller update profil compagny",
+                dataProfilEmployer: data,
+              });
+            }
+          }
+        );
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
   }
 }
 
