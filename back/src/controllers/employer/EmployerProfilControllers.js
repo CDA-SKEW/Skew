@@ -1,9 +1,10 @@
 // Import Model
-const ProfilUser = require("../../models/employer/ProfilUser");
-const ProfilUserCompagny = require("../../models/employer/ProfilUser");
+const { ProfilUser, ProfilUserCompagny } = require("../../models/employer/ProfilUser");
+// const ProfilUserCompagny = require("../../models/employer/ProfilUser");
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
+  //action get ProfilUser
   async getProfilUser(req, res) {
     // console.log("controller get Profil user Employeur");
 
@@ -74,8 +75,9 @@ class EmployerProfilControllers {
     } else res.json("Error Request");
   }
 
+  //action get profil entreprise
   async getProfilCompagny(req, res) {
-    console.log("controller get profil Compagny");
+    // console.log("controller get profil Compagny");
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
       //ici String est une coercion qui permet de typer la variable
@@ -103,6 +105,7 @@ class EmployerProfilControllers {
     }
   }
 
+  //action creation profil entreprise
   async createProfilCompagny(req, res) {
     // console.log(
     //   "controller post Profil Compagny Employeur",
@@ -144,6 +147,7 @@ class EmployerProfilControllers {
     } else res.json("Error Request");
   }
 
+  //action modifier profil entreprise
   async updateProfilCompagny(req, res) {
     //   console.log(
     //   "controller update Profil Employeur",
@@ -153,10 +157,10 @@ class EmployerProfilControllers {
     if (req.params.id) {
       // console.log("post Profil Compagny Employeur", req.body);
       let profilUserCompagnyObj = new ProfilUserCompagny({
-        user_id: Number(req.params.id),
+        user_id: req.params.id,
         ...req.body
       });
-      // console.log("post Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
+      console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
         ProfilUserCompagny.updateProfilCompagny(

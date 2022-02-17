@@ -9,21 +9,20 @@ const ProfilUser = function (profilUser) {
 
 //Creation du constructeur profilUserCompagny pour exporter les fonctions dans ce model model
 const ProfilUserCompagny = function (profilUserCompagny) {
-  (this.user_id = Number(profilUserCompagny.user_id)),
-    (this.name = String(profilUserCompagny.name)),
-    (this.address = String(profilUserCompagny.address)),
-    (this.town = String(profilUserCompagny.town)),
-    (this.zipCode = Number(profilUserCompagny.zipCode)),
-    (this.avatar = String(profilUserCompagny.avatar)),
-    (this.siret = Number(profilUserCompagny.siret)),
-    (this.siren = Number(profilUserCompagny.siren)),
-    (this.category = String(profilUserCompagny.category));
+  this.user_id = Number(profilUserCompagny.user_id),
+    this.name = String(profilUserCompagny.name),
+    this.address = String(profilUserCompagny.address),
+    this.town = String(profilUserCompagny.town),
+    this.zipCode = Number(profilUserCompagny.zipCode),
+    this.avatar = String(profilUserCompagny.avatar),
+    this.siret = Number(profilUserCompagny.siret)
+  this.siren = Number(profilUserCompagny.siren),
+    this.category = String(profilUserCompagny.category);
 };
 
 // Get profil employer User (by id)
 ProfilUser.getById = function (id, result) {
-  // console.log("model Profiluser", id, result)
-
+  // console.log("model Profiluser", id, result)  
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     if (error) throw error;
@@ -103,6 +102,7 @@ ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
   });
 };
 
+// Creation profil employer User
 ProfilUserCompagny.createProfilCompagny = function (
   profilUserCompagny,
   result
@@ -148,6 +148,7 @@ ProfilUserCompagny.createProfilCompagny = function (
   });
 };
 
+// Update profil employer User
 ProfilUserCompagny.updateProfilCompagny = function (
   profilUserCompagnyObj,
   result
@@ -156,15 +157,16 @@ ProfilUserCompagny.updateProfilCompagny = function (
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     conn.query(
-      `UPDATE contactProfil
+      `
+      UPDATE contactProfil
           SET name = '${profilUserCompagnyObj.name}',
-          address = '${profilUserCompagnyObj.address}',
+          address = \"${profilUserCompagnyObj.address}"\,
           town = '${profilUserCompagnyObj.town}',
           zipCode = '${profilUserCompagnyObj.zipCode}',
           avatar = '${profilUserCompagnyObj.avatar}',
           siret = '${profilUserCompagnyObj.siret}',
           siren = '${profilUserCompagnyObj.siren}',
-          category = '${profilUserCompagnyObj.category}'   
+          category = '${profilUserCompagnyObj.category}' 
           WHERE user_id = ${profilUserCompagnyObj.user_id}
     `,
       (error, data) => {
@@ -186,4 +188,13 @@ ProfilUserCompagny.updateProfilCompagny = function (
   });
 };
 
-module.exports = (ProfilUser, ProfilUserCompagny);
+module.exports = { ProfilUser, ProfilUserCompagny }
+
+// name = '${profilUserCompagnyObj.name}'
+// address = '${profilUserCompagnyObj.address}',
+//   town = '${profilUserCompagnyObj.town}',
+//   zipCode = '${profilUserCompagnyObj.zipCode}',
+//   avatar = '${profilUserCompagnyObj.avatar}',
+//   siret = '${profilUserCompagnyObj.siret}',
+//   siren = '${profilUserCompagnyObj.siren}',
+//   category = '${profilUserCompagnyObj.category}'   
