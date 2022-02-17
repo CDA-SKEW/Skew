@@ -19,7 +19,7 @@ class UsersControllers {
         else
           return res.json({
             users: data,
-            message: "All userS has been successfully GETTED. !!!",
+            message: "All users has been successfully GETTED. !!!",
           });
       });
     } catch (error) {
@@ -51,11 +51,11 @@ class UsersControllers {
 
   // BAN USER
   async banUser(req, res) {
-    const { id } = req.params;
+    const { id, name } = req.params;
     // Essayes cette fonction
     try {
       // console.log(id, mail, { ... req.body });
-      User.banUser({ id }, (err, data) => {
+      User.banUser({ id, name }, (err, data) => {
         // console.log('response controller user ban', data);
         if (err) res.send({ message: "error in request db" });
         // Sinon retourner cette réponse avec les data

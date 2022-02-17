@@ -58,7 +58,7 @@ User.banUser = function (user, result) {
   // console.log("Method BAN Model User", user);
   connection.getConnection(function (error, conn) {
     conn.query(
-      `SELECT id FROM user WHERE isBanned IS TRUE`,
+      `SELECT id, name FROM user WHERE isBanned IS TRUE`,
       (error, data) => {
         if (error) throw error;
         result(null, data);
