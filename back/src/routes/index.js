@@ -72,12 +72,12 @@ router
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
-  .get(new EmployerProfilControllers().getProfilCompagny)
   .post(new EmployerProfilControllers().createProfilCompagny);
 
 // Employeur entreprise profil Id
 router
   .route("/api/employer/profil/:id")
+  .get(new EmployerProfilControllers().getProfilCompagny)
   .put(new EmployerProfilControllers().updateProfilCompagny);
 
 // Employeur offer
