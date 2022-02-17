@@ -14,7 +14,6 @@ const UserControllers = require("../controllers/UserControllers");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
-const EmployerProfilUserControllers = require("../controllers/employer/EmployerProfilUserControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
 const EmployerCandidateStatutControllers = require("../controllers/employer/EmployerCandidateStatutControllers");
 const EmployerMessageCandidateControllers = require("../controllers/employer/EmployerMessageCandidateControllers");
@@ -63,23 +62,23 @@ router
 // Employeur user profil
 router
   .route("/api/employer/profilUser/:id")
-  .get(new EmployerProfilUserControllers().getProfilUser);
+  .get(new EmployerProfilControllers().getProfilUser);
 
 // Employeur user profil Id
 router
   .route("/api/employer/profilUser/:id")
-  .put(new EmployerProfilUserControllers().updateProfilUser);
+  .put(new EmployerProfilControllers().updateProfilUser);
 
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
-  .get(new EmployerProfilControllers().getProfil)
-  .post(new EmployerProfilControllers().createProfil);
+  .get(new EmployerProfilControllers().getProfilCompagny)
+  .post(new EmployerProfilControllers().createProfilCompagny);
 
 // Employeur entreprise profil Id
 router
   .route("/api/employer/profil/:id")
-  .put(new EmployerProfilControllers().updateProfil);
+  .put(new EmployerProfilControllers().updateProfilCompagny);
 
 // Employeur offer
 router
