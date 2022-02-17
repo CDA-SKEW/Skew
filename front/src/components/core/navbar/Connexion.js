@@ -5,13 +5,16 @@ import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
-// import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import Modal from '@mui/material/Modal';
 
-import { login } from "store/actions/AuthActions";
+import { store } from 'store';
+import { checkToken, login } from "store/actions/AuthActions";
 // import { getListUsers } from "store/actions/AdminActions";
+
+store.dispatch(checkToken())
 
 export default function Connexion() {
 
@@ -21,12 +24,14 @@ export default function Connexion() {
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const ConnexionList = [
         { titre: 'Mail', name: 'mail', type: 'text' },
         { titre: 'Mot de passe', name: 'pass', type: 'password' },
     ]
+
+    const dataUser = useSelector(state => state.auth.user)
 
     const handleFormId = (e) => {
         switch (e.target.name) {
@@ -47,7 +52,16 @@ export default function Connexion() {
             setOpen(true)
             setMail('')
             setPass('')
-            // navigate("/Admin");
+            dispatch(checkToken())
+            if (dataUser.isAdmin === 1) {
+                navigate("/Admin");
+            }
+            if (dataUser.isRecruteur === 1) {
+                navigate("/employer/dashboard");
+            }
+            if (dataUser.isCandidat === 1) {
+                navigate("/candidat/dashboard");
+            }
         };
     };
 

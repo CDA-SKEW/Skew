@@ -66,8 +66,8 @@ export default function Inscription() {
                 setPass("");
                 setPass2("");
                 setToggle("");
-                setCandidat();
-                setRecruteur()
+                setCandidat(0);
+                setRecruteur(0)
             } else {
                 console.log('non')
             }
