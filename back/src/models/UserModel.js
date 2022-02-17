@@ -22,16 +22,14 @@ const User = function (user) {
 
 // Verif login
 User.login = function (user, result) {
-  console.log("Login controllers", user);
   connection.getConnection(function (error, conn) {
     if (error) throw error;
     conn.query(
       `SELECT * FROM user where mail = "${user.mail}"`,
       (error, data) => {
         if (error) throw error;
-        console.log("User Model login", data[0], user)
         if (data.length <= 0) result(null, { message: 'error' });
-        // bcrypt (Compare hash.body with hash.db)
+        // Compare les pass hachés
         else bcrypt.compare(user.pass, data[0].pass, function (err, check) {
           if (err) throw err;
           if (check) result(null, data[0]);
@@ -45,11 +43,8 @@ User.login = function (user, result) {
 
 // Register
 User.register = function (newUser, result) {
-  console.log("Register controllers");
   connection.getConnection(async function (error, conn) {
     if (error) throw error;
-    // bcrypt
-    // Store hash in your password DB.
     conn.query(
       `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
             VALUES ("${newUser.mail}", "${await bcrypt.hash(newUser.pass, 10)}", 0, "${newUser.isCandidat}", "${newUser.isRecruteur}")`,
