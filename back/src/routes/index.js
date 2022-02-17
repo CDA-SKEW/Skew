@@ -191,16 +191,26 @@ router
 
 // Users
 router.route("/api/admin").get(new UsersController().getUserAll);
-router.route("/api/admin/:id").get(new UsersController().getUserId);
+
+router
+  .route("/api/admin/:id")
+  .get(new UsersController().getUserId)
+  .put(new UsersController().banUser)
+  .delete(new UsersController().deleteUser);
+
 // Jobs
 router.route("/api/admin/jobs").get(new JobsController().getJobAll);
 router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
+// .delete(new JobsController().deleteJob);
+
 // Messages
 router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
+// .post(new MessagesController().getMessagePost);
+
 router
   .route("/api/admin/messages/:id")
   .get(new MessagesController().getMessageId);
-// .post(new MessagesController().getMessagePost)
+// .delete(new MessagesController().deleteMessage);
 
 // Authentification
 
