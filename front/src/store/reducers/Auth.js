@@ -9,6 +9,7 @@ import * as Actions from "../actions/ActionTypes";
 const initialState = {
     user: {},
     flash: "",
+    authenticate: null
 };
 
 /*
@@ -21,7 +22,8 @@ export function AuthReducer(state = initialState, action) {
         case Actions.LOGIN:
             return {
                 ...state,
-                flash: action.payload.flash
+                flash: action.payload.flash,
+                authenticate: action.payload.authenticate
             };
         case Actions.REGISTER:
             return {

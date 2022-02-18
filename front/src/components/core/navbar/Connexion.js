@@ -13,8 +13,6 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import TempDirUser from './TempDirUser';
-
 import { useNavigate } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +25,11 @@ export default function Connexion() {
 
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
+    const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     };
@@ -54,8 +53,8 @@ export default function Connexion() {
     }
 
     const SubmitFormId = async () => {
-        console.log('submitFormId', mail, pass)
         if (mail && pass) {
+            // console.log('submit', mail, pass)
             await dispatch(login({ mail, pass }))
             setMail('')
             setPass('')
@@ -72,9 +71,11 @@ export default function Connexion() {
                 navigate("/candidat/dashboard");
             }
             else {
-                navigate("/")
+                navigate("/");
             }
-        };
+        } else {
+            setError('Le mail ou le mot de passe est incorrect!');
+        }
     };
 
     return (
@@ -91,16 +92,16 @@ export default function Connexion() {
             >
                 Connexion
             </Typography>
-                <TextField
-                    label='Mail'
-                    name='mail'
-                    variant="outlined"
-                    fullWidth
-                    onChange={(e) => handleFormId(e)}
-                    sx={{
-                        my: 1
-                    }}
-                />
+            <TextField
+                label='Mail'
+                name='mail'
+                variant="outlined"
+                fullWidth
+                onChange={(e) => handleFormId(e)}
+                sx={{
+                    my: 1
+                }}
+            />
             <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
                 <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                 <OutlinedInput
@@ -150,8 +151,13 @@ export default function Connexion() {
             >
                 Envoyer
             </Button>
-
-            <TempDirUser />
+            {error.length > 0 &&
+                <Box sx={{ my: 3, color: '#ff0000' }} >
+                    <Typography variant='body1' >
+                        {error}
+                    </Typography>
+                </Box>
+            }
         </Box>
     )
 }
