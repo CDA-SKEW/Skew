@@ -33,6 +33,7 @@ function PassInput({ values, handleFormId }) {
             <OutlinedInput
                 name={values.name}
                 type={showPassword ? 'text' : 'password'}
+                value={values.value}
                 onChange={(e) => handleFormId(e)}
                 endAdornment={
                     <InputAdornment position="end">
@@ -65,8 +66,8 @@ export default function Inscription() {
     const dispatch = useDispatch();
 
     const passList = [
-        { titre: 'Mot de passe', name: 'pass' },
-        { titre: 'Confirmer mot de passe', name: 'pass2' },
+        { titre: 'Mot de passe', name: 'pass', value: pass },
+        { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 },
     ]
 
     const handleChange = (e, newToggle) => {
@@ -109,7 +110,7 @@ export default function Inscription() {
                 setToggle("");
                 setCandidat(0);
                 setRecruteur(0);
-                setSuccess('L\'utilisateur a bien été créé, veuillez valider par mail pour pouvoir vous connecter!');
+                setSuccess('L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
                 setError('')
             } else {
                 setError('Les mots de passe ne coîncident pas!')
@@ -133,6 +134,7 @@ export default function Inscription() {
             <TextField
                 label='Mail'
                 name='mail'
+                value={mail}
                 variant="outlined"
                 fullWidth
                 onChange={(e) => handleFormId(e)}
@@ -147,9 +149,7 @@ export default function Inscription() {
                 exclusive
                 onChange={handleChange}
                 fullWidth
-                sx={{
-                    my: 1
-                }}
+                sx={{ my: 1 }}
             >
                 <ToggleButton value="candidat">Candidat</ToggleButton>
                 <ToggleButton value="recruteur">Recruteur</ToggleButton>
