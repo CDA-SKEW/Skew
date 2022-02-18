@@ -54,9 +54,9 @@ class AuthControllers {
     try {
       User.register(newUser, (err, data) => {
         if (err) {
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
-            });
+          res.status(500).send({
+            message: err.message || "Une erreur est survenue",
+          });
         } else {
           // JWT
           return res.send({

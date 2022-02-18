@@ -47,7 +47,7 @@ router.route("/api/register").post(new AuthControllers().register);
 // Check
 router.route("/api/auth/:token")
   .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
-
+  
 // Users
 router
   .route("/api/user")
