@@ -9,20 +9,20 @@ const ProfilUser = function (profilUser) {
 
 //Creation du constructeur profilUserCompagny pour exporter les fonctions dans ce model model
 const ProfilUserCompagny = function (profilUserCompagny) {
-  this.user_id = Number(profilUserCompagny.user_id),
-    this.name = String(profilUserCompagny.name),
-    this.address = String(profilUserCompagny.address),
-    this.town = String(profilUserCompagny.town),
-    this.zipCode = Number(profilUserCompagny.zipCode),
-    this.avatar = String(profilUserCompagny.avatar),
-    this.siret = Number(profilUserCompagny.siret)
-  this.siren = Number(profilUserCompagny.siren),
-    this.category = String(profilUserCompagny.category);
+  (this.user_id = Number(profilUserCompagny.user_id)),
+    (this.name = String(profilUserCompagny.name)),
+    (this.address = String(profilUserCompagny.address)),
+    (this.town = String(profilUserCompagny.town)),
+    (this.zipCode = Number(profilUserCompagny.zipCode)),
+    (this.avatar = String(profilUserCompagny.avatar)),
+    (this.siret = Number(profilUserCompagny.siret));
+  (this.siren = Number(profilUserCompagny.siren)),
+    (this.category = String(profilUserCompagny.category));
 };
 
 // Get profil employer User (by id)
 ProfilUser.getById = function (id, result) {
-  // console.log("model Profiluser", id, result)  
+  // console.log("model Profiluser", id, result)
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     if (error) throw error;
@@ -104,37 +104,44 @@ ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
 
 // Creation profil employer User
 ProfilUserCompagny.createProfilCompagny = function (
-  profilUserCompagny,
+  profilUserCompagnyObj,
   result
 ) {
+  //Declarations des constantes de profilUserCompagnyObj pour mysql
+  const {
+    name,
+    town,
+    address,
+    zipCode,
+    avatar,
+    siren,
+    siret,
+    category,
+    user_id,
+  } = profilUserCompagnyObj;
   // console.log("Model for create profil entreprise", profilUserCompagny);
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     conn.query(
-      `INSERT INTO contactProfil (
-      user_id,name,
-      address,town,
-      zipCode,avatar,
-      siret,
-      siren,
-      category)
-      VALUES (
-        ${profilUserCompagny.user_id},
-        "${profilUserCompagny.name}",
-        "${profilUserCompagny.address}",
-        "${profilUserCompagny.town}",
-        ${profilUserCompagny.zipCode},
-        "${profilUserCompagny.avatar}",
-        ${profilUserCompagny.siret},
-        ${profilUserCompagny.siren},
-        "${profilUserCompagny.category}")
+      `INSERT INTO contactProfil SET
+      user_id=:user_id,
+      name=:name,
+      address=:address,
+      town=:town,
+      zipCode=:zipCode,
+      avatar=:avatar,
+      siret=:siret,
+      siren=:siren,
+      category=:siren
         `,
+      { user_id, name, address, town, zipCode, avatar, siret, siren, category },
       (error, data) => {
         if (error) throw error;
         // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
           `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
-         FROM contactProfil WHERE user_id = ${profilUserCompagny.user_id}`,
+         FROM contactProfil WHERE user_id = :user_id`,
+          { user_id },
           (error, data) => {
             if (error) throw error;
             result(null, data);
@@ -153,28 +160,45 @@ ProfilUserCompagny.updateProfilCompagny = function (
   profilUserCompagnyObj,
   result
 ) {
+  //Declarations des constantes de profilUserCompagnyObj pour mysql
+  const {
+    name,
+    town,
+    address,
+    zipCode,
+    avatar,
+    siren,
+    siret,
+    category,
+    user_id,
+  } = profilUserCompagnyObj;
   console.log("Model for update profil entreprise", profilUserCompagnyObj);
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
+    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `
       UPDATE contactProfil
-          SET name = '${profilUserCompagnyObj.name}',
-          address = \"${profilUserCompagnyObj.address}"\,
-          town = '${profilUserCompagnyObj.town}',
-          zipCode = '${profilUserCompagnyObj.zipCode}',
-          avatar = '${profilUserCompagnyObj.avatar}',
-          siret = '${profilUserCompagnyObj.siret}',
-          siren = '${profilUserCompagnyObj.siren}',
-          category = '${profilUserCompagnyObj.category}' 
-          WHERE user_id = ${profilUserCompagnyObj.user_id}
+      SET name = :name,
+      address =:address,
+      town = :town,
+      zipCode = :zipCode,
+      avatar = :avatar,
+      siret = :siret,
+      siren = :siren,
+      category =:category
+      WHERE user_id = :user_id;
     `,
+      //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
+      // situé dans ConnectionDb.js dans dossier config
+      { name, address, town, zipCode, avatar, siret, siren, category, user_id },
       (error, data) => {
         if (error) throw error;
         // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
           `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
-         FROM contactProfil WHERE user_id = ${profilUserCompagnyObj.user_id}`,
+         FROM contactProfil WHERE user_id = :user_id`,
+          { user_id },
           (error, data) => {
             if (error) throw error;
             result(null, data);
@@ -188,13 +212,4 @@ ProfilUserCompagny.updateProfilCompagny = function (
   });
 };
 
-module.exports = { ProfilUser, ProfilUserCompagny }
-
-// name = '${profilUserCompagnyObj.name}'
-// address = '${profilUserCompagnyObj.address}',
-//   town = '${profilUserCompagnyObj.town}',
-//   zipCode = '${profilUserCompagnyObj.zipCode}',
-//   avatar = '${profilUserCompagnyObj.avatar}',
-//   siret = '${profilUserCompagnyObj.siret}',
-//   siren = '${profilUserCompagnyObj.siren}',
-//   category = '${profilUserCompagnyObj.category}'   
+module.exports = { ProfilUser, ProfilUserCompagny };
