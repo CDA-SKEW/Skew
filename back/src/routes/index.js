@@ -22,15 +22,11 @@ const EmployerMessageCandidateControllers = require("../controllers/employer/Emp
 
 //Candidat
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
-const CandidatProfilControllersContact = require("../controllers/candidate/CandidatProfilControllersContact");
-const CandidatProfilControllersExperience = require("../controllers/candidate/CandidatProfilControllersExperience");
-const CandidatProfilControllersSkill = require("../controllers/candidate/CandidatProfilControllersSkill");
-const CandidatProfilControllersInterest = require("../controllers/candidate/CandidatProfilControllersInterest");
-const CandidatProfilControllersCertificate = require("../controllers/candidate/CandidatProfilControllersCertificate");
-const CandidatProfilControllersDocument = require("../controllers/candidate/CandidatProfilControllersDocument");
 
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
+
+// router.route('/api/testUser').post(new CandidatProfilControllers().testUser)
 
 /*
  * Routes
@@ -93,9 +89,9 @@ router
 
 //------------------------------------------------------------
 
-//###################
-//# Candidat profil #
-//###################
+//#####################################
+//# Candidat profil GET PROFIL COMPLET#
+//#####################################
 router
   .route("/api/candidat/profil")
   .get(new CandidatProfilControllers().getProfil)
@@ -103,75 +99,75 @@ router
 //#########################################
 //# Candidat profil-Contact Table-CONTACT #
 //#########################################
-router
-  .route("/api/candidat/profil/contact")
-  .post(new CandidatProfilControllersContact().createProfilContact)
 
 router
   .route("/api/candidat/profil/contact/:id")
-  .put(new CandidatProfilControllersContact().updateProfilContact)
-  .delete(new CandidatProfilControllersContact().deleteProfilContact)
+  .get(new CandidatProfilControllers().getContactProfil)
+  .put(new CandidatProfilControllers().updateContactProfil)
 
 // ############################################
 // #CandidatProfilExperience Table-EXPERIENCE #
 // ############################################
+
 router
   .route("/api/candidat/profil/experience")
-  .post(new CandidatProfilControllersExperience().createProfilExperience)
+  .get(new CandidatProfilControllers().getExperienceProfil)
+  .post(new CandidatProfilControllers().createExperienceProfil)
 
 router
   .route("/api/candidat/profil/experience/:id")
-  .put(new CandidatProfilControllersExperience().updateProfilExperience)
-  .delete(new CandidatProfilControllersExperience().deleteProfilExperience)
+  .put(new CandidatProfilControllers().updateExperienceProfil)
+  .delete(new CandidatProfilControllers().deleteExperienceProfil)
 
 // ##################################
 // #CandidatProfilSkill Table-SKILL #
 // ##################################
 router
   .route("/api/candidat/profil/skill")
-  .post(new CandidatProfilControllersSkill().createProfilSkill)
+  .get(new CandidatProfilControllers().getSkillProfil)
+  .post(new CandidatProfilControllers().createSkillProfil)
 
 router
   .route("/api/candidat/profil/skill/:id")
-  .put(new CandidatProfilControllersSkill().updateProfilSkill)
-  .delete(new CandidatProfilControllersSkill().deleteProfilSkill)
+  .put(new CandidatProfilControllers().updateSkillProfil)
+  .delete(new CandidatProfilControllers().deleteSkillProfil)
 
 // ########################################
 // #CandidatProfilInterest Table-INTEREST #
-// ########################################
+// ################################
 router
   .route("/api/candidat/profil/interest")
-  .post(new CandidatProfilControllersInterest().createProfilInterest)
 
 router
   .route("/api/candidat/profil/interest/:id")
-  .put(new CandidatProfilControllersInterest().updateProfilInterest)
-  .delete(new CandidatProfilControllersInterest().deleteProfilInterest)
+  .put(new CandidatProfilControllers().updateInterestProfil)
+  .delete(new CandidatProfilControllers().deleteInterestProfil)
 
 // ##############################################
 // #CandidatProfilCertificate Table-CERTIFICATE #
 // ##############################################
 router
   .route("/api/candidat/profil/certificate")
-  .post(new CandidatProfilControllersCertificate().createProfilCertificate)
+  .get(new CandidatProfilControllers().getCertificateProfil)
+  .post(new CandidatProfilControllers().createCertificateProfil)
 
 router
   .route("/api/candidat/profil/certificate/:id")
-  .put(new CandidatProfilControllersCertificate().updateProfilCertificate)
-  .delete(new CandidatProfilControllersCertificate().deleteProfilCertificate)
+  .put(new CandidatProfilControllers().updateCertificateProfil)
+  .delete(new CandidatProfilControllers().deleteCertificateProfil)
 
-// ######################################
+// ########################################
 // #CandidatProfilDocument Table-DOCUMENT #
 // ########################################
 router
   .route("/api/candidat/profil/document")
-  .get(new CandidatProfilControllersDocument().getProfilDocument)
-  .post(new CandidatProfilControllersDocument().createProfilDocument)
+  .get(new CandidatProfilControllers().getDocumentProfil)
+  .post(new CandidatProfilControllers().createDocumentProfil)
 
 router
   .route("/api/candidat/profil/document/:id")
-  .put(new CandidatProfilControllersDocument().updateProfilDocument)
-  .delete(new CandidatProfilControllersDocument().deleteProfilDocument)
+  .put(new CandidatProfilControllers().updateDocumentProfil)
+  .delete(new CandidatProfilControllers().deleteDocumentProfil)
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #
