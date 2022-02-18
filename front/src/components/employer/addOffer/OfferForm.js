@@ -9,7 +9,6 @@ import {
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { postFormAddOffer } from "store/actions/EmployerActions";
-import ModalOfferPublished from "../../SnackbarMessage";
 import SnackbarMessage from "../../SnackbarMessage";
 
 export default function OfferForm() {
@@ -61,6 +60,7 @@ export default function OfferForm() {
     e.preventDefault();
 
     const dataFormAddOffer = {
+      user_id:4,
       title,
       type,
       period,
