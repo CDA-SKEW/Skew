@@ -51,15 +51,12 @@ class AuthControllers {
       isCandidat: Number(req.body.candidat),
       isRecruteur: Number(req.body.recruteur),
     });
-    console.log('regitser user', newUser)
     try {
       User.register(newUser, (err, data) => {
-        console.log("data res", data);
         if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
-            });
+          res.status(500).send({
+            message: err.message || "Une erreur est survenue",
+          });
         } else {
           // JWT
           return res.send({

@@ -5,28 +5,28 @@ import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
-// import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
-import Modal from '@mui/material/Modal';
-
-import { login } from "store/actions/AuthActions";
+import { store } from 'store';
+import { checkToken, login } from "store/actions/AuthActions";
 // import { getListUsers } from "store/actions/AdminActions";
 
-export default function Connexion() {
+store.dispatch(checkToken())
 
-    const [open, setOpen] = React.useState(false);
-    const handleClose = () => setOpen(false);
+export default function Connexion() {
 
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const ConnexionList = [
         { titre: 'Mail', name: 'mail', type: 'text' },
         { titre: 'Mot de passe', name: 'pass', type: 'password' },
     ]
+
+    const dataUser = useSelector(state => state.auth.user)
 
     const handleFormId = (e) => {
         switch (e.target.name) {
@@ -44,10 +44,23 @@ export default function Connexion() {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
             await dispatch(login({ mail, pass }))
-            setOpen(true)
             setMail('')
             setPass('')
-            // navigate("/Admin");
+             setTimeout(() => {
+                dispatch(checkToken())
+             }, 777); 
+            if (dataUser.isAdmin === 1) {
+                navigate("/Admin");
+            }
+            else if (dataUser.isRecruteur === 1) {
+                navigate("/employer/dashboard");
+            }
+            else if (dataUser.isCandidat === 1) {
+                navigate("/candidat/dashboard");
+            }
+            else {
+                navigate("/")
+            }
         };
     };
 
@@ -108,37 +121,6 @@ export default function Connexion() {
             </Button>
 
             <TempDirUser />
-
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: 400,
-                        bgcolor: 'background.paper',
-                        border: '2px solid #000',
-                        boxShadow: 24,
-                        p: 4,
-                    }}
-                >
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Hello
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {mail}
-                    </Typography>
-                </Box>
-            </Modal>
-
-
-
         </Box>
     )
 }
