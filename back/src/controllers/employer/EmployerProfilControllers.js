@@ -1,6 +1,8 @@
 // Import Model
-const { ProfilUser, ProfilUserCompagny } = require("../../models/employer/ProfilUser");
-// const ProfilUserCompagny = require("../../models/employer/ProfilUser");
+const {
+  ProfilUser,
+  ProfilUserCompagny,
+} = require("../../models/employer/ProfilUserModel");
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
@@ -34,6 +36,7 @@ class EmployerProfilControllers {
       throw error;
     }
   }
+
   //action get Update mail ProfilUser
   async updateProfilUser(req, res) {
     // console.log(
@@ -81,25 +84,28 @@ class EmployerProfilControllers {
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
       //ici String est une coercion qui permet de typer la variable
-      ProfilUserCompagny.getProfilCompagnyById(String(req.params.id), (err, data) => {
-        // console.log("dataid res", data);
-        //Si erreur alors affiche console log erreur et res.status
-        if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
+      ProfilUserCompagny.getProfilCompagnyById(
+        String(req.params.id),
+        (err, data) => {
+          // console.log("dataid res", data);
+          //Si erreur alors affiche console log erreur et res.status
+          if (err) {
+            console.log("err", err),
+              res.status(500).send({
+                message: err.message || "Une erreur est survenue",
+              });
+            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+          } else {
+            return res.json({
+              method: req.method,
+              status: "success",
+              flash: "Get Compagny for User By Id !",
+              message: "controller get profil Compagny",
+              dataProfilEmployer: data,
             });
-          //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-        } else {
-          return res.json({
-            method: req.method,
-            status: "success",
-            flash: "Get Compagny for User By Id !",
-            message: "controller get profil Compagny",
-            dataProfilEmployer: data,
-          });
+          }
         }
-      });
+      );
     } catch (error) {
       throw error;
     }
@@ -158,7 +164,7 @@ class EmployerProfilControllers {
       // console.log("post Profil Compagny Employeur", req.body);
       let profilUserCompagnyObj = new ProfilUserCompagny({
         user_id: req.params.id,
-        ...req.body
+        ...req.body,
       });
       // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
