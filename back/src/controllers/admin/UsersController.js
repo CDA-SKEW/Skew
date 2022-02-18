@@ -50,21 +50,33 @@ class UsersControllers {
   }
 
   // BAN USER
-  async banUser(req, res) {
-    const { id, name } = req.params;
+  async putUser(req, res) {
+    const { id } = req.params;
+    let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;
+    console.log("isBanned", typeof isBanned, isBanned, Boolean(isBanned));
+
+    isAdmin = isAdmin === "true" ? 1 : 0;
+    isBanned = isBanned === "true" ? 1 : 0;
+    isVerified = isVerified === "true" ? 1 : 0;
+    isCandidat = isCandidat === "true" ? 1 : 0;
+    isRecruteur = isRecruteur === "true" ? 1 : 0;
+
     // Essayes cette fonction
     try {
-      // console.log(id, mail, { ... req.body });
-      User.banUser({ id, name }, (err, data) => {
-        // console.log('response controller user ban', data);
-        if (err) res.send({ message: "error in request db" });
-        // Sinon retourner cette réponse avec les data
-        else
-          return res.json({
-            users: data,
-            message: " The user has been successfully BANNED.!!!",
-          });
-      });
+      // console.log(id, { ...req.body });
+      User.putUser(
+        { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur },
+        (err, data) => {
+          console.log("response controller user ban", data);
+          if (err) res.send({ message: "error in request db" });
+          // Sinon retourner cette réponse avec les data
+          else
+            return res.json({
+              users: data,
+              message: " The user has been successfully UPDATED.!!!",
+            });
+        }
+      );
     } catch (error) {
       throw error;
     }
