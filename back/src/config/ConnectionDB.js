@@ -4,7 +4,7 @@ const dbOptions = require("./db");
 connectionPool = MySQL.createPool({ ...dbOptions });
 
 connectionPool.config.connectionConfig.queryFormat = function (query, values) {
-
+  if (!values) return query
   // repere les singles quote et double quote pour les saisr dans la db
   console.log("pool config", "query key", query, "values", values);
   return query.replace(
