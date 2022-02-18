@@ -191,7 +191,7 @@ router.route("/api/admin").get(new UsersController().getUserAll);
 router
   .route("/api/admin/:id")
   .get(new UsersController().getUserId)
-  .put(new UsersController().banUser)
+  .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 
 // Jobs
@@ -201,7 +201,7 @@ router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
 
 // Messages
 router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
-// .post(new MessagesController().getMessagePost);
+// .post(new MessagesController().addMessage);
 
 router
   .route("/api/admin/messages/:id")
