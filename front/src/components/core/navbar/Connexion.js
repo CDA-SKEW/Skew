@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -39,6 +39,7 @@ export default function Connexion() {
     };
 
     const dataUser = useSelector(state => state.auth.user)
+    const isAuthenticate = useSelector(state => state.auth.authenticate)
 
     const handleFormId = (e) => {
         switch (e.target.name) {
@@ -52,31 +53,34 @@ export default function Connexion() {
         }
     }
 
-    const SubmitFormId = async () => {
+    const SubmitFormId = () => {
         if (mail && pass) {
-            // console.log('submit', mail, pass)
-            await dispatch(login({ mail, pass }))
+            dispatch(login({ mail, pass }))
             setMail('')
             setPass('')
-            setTimeout(() => {
-                dispatch(checkToken())
-            }, 777);
-            if (dataUser.isAdmin === 1) {
-                navigate("/Admin");
-            }
-            else if (dataUser.isRecruteur === 1) {
-                navigate("/employer/dashboard");
-            }
-            else if (dataUser.isCandidat === 1) {
-                navigate("/candidat/dashboard");
-            }
-            else {
-                navigate("/");
-            }
         } else {
             setError('Le mail ou le mot de passe est incorrect!');
         }
     };
+
+    useEffect(() => {
+        console.log('checkLog', isAuthenticate)
+        if (isAuthenticate === true) navigate('/admin')
+        else return
+
+        // if (dataUser.isAdmin === 1) {
+        //     navigate("/Admin");
+        // }
+        // else if (dataUser.isRecruteur === 1) {
+        //     navigate("/employer/dashboard");
+        // }
+        // else if (dataUser.isCandidat === 1) {
+        //     navigate("/candidat/dashboard");
+        // }
+        // else {
+        //     navigate("/");
+        // }
+    }, [isAuthenticate])
 
     return (
         <Box

@@ -255,10 +255,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 INSERT INTO user(mail, pass, isAdmin) 
-VALUES ("admin@gmail.com", "admin", 1);
+VALUES ("admin@gmail.com", "$2b$10$/kIYeZiDw374HmyM5reJr.QRJ6Lij1LyQXu8XcnAIHLHJfRD6p2Iu", 1);
 
 INSERT INTO user(mail, pass, isCandidat) 
-VALUES ("candidat@gmail.com", "candidat", 1);
+VALUES ("candidat@gmail.com", "$2b$10$uUzLNFtK50jqYPENRMjepurWn3ZztfYmooY.LBLo4MKwvPHkRZR.a", 1);
 
 INSERT INTO user(mail, pass, isRecruteur) 
-VALUES ("recruteur@gmail.com", "recruteur", 1);
+VALUES ("recruteur@gmail.com", "$2b$10$dUI1Q8evYKmevTzVHk.Q5O7QEQYXKiFwRLbZL5jqv64adG5YXZ4bO", 1);
