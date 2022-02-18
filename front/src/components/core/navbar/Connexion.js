@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import TempDirUser from './TempDirUser';
-import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import TempDirUser from './TempDirUser';
+
+import { useNavigate } from "react-router";
+
+import { useDispatch, useSelector } from "react-redux";
 import { store } from 'store';
 import { checkToken, login } from "store/actions/AuthActions";
-// import { getListUsers } from "store/actions/AdminActions";
 
 store.dispatch(checkToken())
 
@@ -18,13 +27,17 @@ export default function Connexion() {
 
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword)
+    };
 
-    const ConnexionList = [
-        { titre: 'Mail', name: 'mail', type: 'text' },
-        { titre: 'Mot de passe', name: 'pass', type: 'password' },
-    ]
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
 
     const dataUser = useSelector(state => state.auth.user)
 
@@ -46,9 +59,9 @@ export default function Connexion() {
             await dispatch(login({ mail, pass }))
             setMail('')
             setPass('')
-             setTimeout(() => {
+            setTimeout(() => {
                 dispatch(checkToken())
-             }, 777); 
+            }, 777);
             if (dataUser.isAdmin === 1) {
                 navigate("/Admin");
             }
@@ -78,12 +91,9 @@ export default function Connexion() {
             >
                 Connexion
             </Typography>
-            {ConnexionList.map((connexion, index) => (
                 <TextField
-                    key={index}
-                    label={connexion.titre}
-                    name={connexion.name}
-                    type={connexion.type}
+                    label='Mail'
+                    name='mail'
                     variant="outlined"
                     fullWidth
                     onChange={(e) => handleFormId(e)}
@@ -91,7 +101,28 @@ export default function Connexion() {
                         my: 1
                     }}
                 />
-            ))}
+            <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
+                <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
+                <OutlinedInput
+                    name='pass'
+                    type={showPassword ? 'text' : 'password'}
+                    value={pass}
+                    onChange={(e) => handleFormId(e)}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                            >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                    label="Password"
+                />
+            </FormControl>
             <Link
                 component="button"
                 variant="body2"
