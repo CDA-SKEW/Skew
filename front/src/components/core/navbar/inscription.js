@@ -20,6 +20,7 @@ import { register } from 'store/actions/AuthActions';
 function PassInput({ values, handleFormId }) {
 
     const [showPassword, setShowPassword] = useState(false);
+    
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     };
@@ -27,6 +28,7 @@ function PassInput({ values, handleFormId }) {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
     return (
         <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
             <InputLabel htmlFor="outlined-adornment-password">{values.titre}</InputLabel>
