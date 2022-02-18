@@ -5,10 +5,14 @@ import Box from "@mui/material/Box";
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import TempDirUser from './TempDirUser';
-import { getAuth } from "store/actions/AuthActions";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
+import { store } from 'store';
+import { checkToken, login } from "store/actions/AuthActions";
 // import { getListUsers } from "store/actions/AdminActions";
-import { useDispatch } from "react-redux";
+
+store.dispatch(checkToken())
 
 export default function Connexion() {
 
@@ -17,12 +21,12 @@ export default function Connexion() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const authData = useSelector((state) => state.auth.authData);
-
     const ConnexionList = [
-        { key: 1, titre: 'Mail', name: 'mail', type: 'text' },
-        { key: 2, titre: 'Mot de passe', name: 'pass', type: 'password' },
+        { titre: 'Mail', name: 'mail', type: 'text' },
+        { titre: 'Mot de passe', name: 'pass', type: 'password' },
     ]
+
+    const dataUser = useSelector(state => state.auth.user)
 
     const handleFormId = (e) => {
         switch (e.target.name) {
@@ -36,29 +40,29 @@ export default function Connexion() {
         }
     }
 
-
     const SubmitFormId = async () => {
         console.log('submitFormId', mail, pass)
         if (mail && pass) {
-            await dispatch(getAuth({ mail, pass }))
-
-            if (mail === 'candidat') {
-                if (pass === 'candidat') {
-                    navigate('/candidat/dashboard')
-                }
+            await dispatch(login({ mail, pass }))
+            setMail('')
+            setPass('')
+             setTimeout(() => {
+                dispatch(checkToken())
+             }, 777); 
+            if (dataUser.isAdmin === 1) {
+                navigate("/Admin");
             }
-            if (mail === 'recruteur') {
-                if (pass === 'recruteur') {
-                    navigate('/employer/dashboard')
-                }
+            else if (dataUser.isRecruteur === 1) {
+                navigate("/employer/dashboard");
             }
-            if (mail === 'admin') {
-                if (pass === 'admin') {
-                    navigate('/admin')
-                }
-            };
+            else if (dataUser.isCandidat === 1) {
+                navigate("/candidat/dashboard");
+            }
+            else {
+                navigate("/")
+            }
         };
-    }
+    };
 
     return (
         <Box
@@ -74,12 +78,12 @@ export default function Connexion() {
             >
                 Connexion
             </Typography>
-            {ConnexionList.map((index1) => (
+            {ConnexionList.map((connexion, index) => (
                 <TextField
-                    key={index1.key}
-                    label={index1.titre}
-                    name={index1.name}
-                    type={index1.type}
+                    key={index}
+                    label={connexion.titre}
+                    name={connexion.name}
+                    type={connexion.type}
                     variant="outlined"
                     fullWidth
                     onChange={(e) => handleFormId(e)}
@@ -117,7 +121,6 @@ export default function Connexion() {
             </Button>
 
             <TempDirUser />
-
         </Box>
     )
 }

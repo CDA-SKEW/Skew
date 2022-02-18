@@ -11,11 +11,9 @@ const router = require("express").Router();
 //User
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
-const UsersControllers = require("../controllers/admin/UsersController");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
-const EmployerProfilUserControllers = require("../controllers/employer/EmployerProfilUserControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
 const EmployerCandidateStatutControllers = require("../controllers/employer/EmployerCandidateStatutControllers");
 const EmployerMessageCandidateControllers = require("../controllers/employer/EmployerMessageCandidateControllers");
@@ -23,8 +21,14 @@ const EmployerMessageCandidateControllers = require("../controllers/employer/Emp
 //Candidat
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
 
+// Admin
+const UsersController = require("../controllers/admin/UsersController");
+const JobsController = require("../controllers/admin/JobsController");
+const MessagesController = require("../controllers/admin/MessagesController");
+
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
+const TokenJWT = require("../middlewares/Token_jwt")
 
 // router.route('/api/testUser').post(new CandidatProfilControllers().testUser)
 
@@ -34,7 +38,11 @@ const TestMD = require("../middlewares/Test_md");
 //------------------------------------------------------------
 // Authentification
 router.route("/api/login").post(new AuthControllers().login);
-// router.route("/api/register").post(new AuthControllers().register);
+router.route("/api/register").post(new AuthControllers().register);
+
+// Check
+router.route("/api/auth/:token")
+  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
 
 // Users
 router
@@ -47,24 +55,24 @@ router
 
 // Employeur user profil
 router
-  .route("/api/employer/profilUser")
-  .get(new EmployerProfilUserControllers().getProfilUser)
+  .route("/api/employer/profilUser/:id")
+  .get(new EmployerProfilControllers().getProfilUser);
 
 // Employeur user profil Id
 router
   .route("/api/employer/profilUser/:id")
-  .put(new EmployerProfilUserControllers().updateProfilUser);
+  .put(new EmployerProfilControllers().updateProfilUser);
 
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
-  .get(new EmployerProfilControllers().getProfil)
-  .post(new EmployerProfilControllers().createProfil);
+  .post(new EmployerProfilControllers().createProfilCompagny);
 
 // Employeur entreprise profil Id
 router
   .route("/api/employer/profil/:id")
-  .put(new EmployerProfilControllers().updateProfil);
+  .get(new EmployerProfilControllers().getProfilCompagny)
+  .put(new EmployerProfilControllers().updateProfilCompagny);
 
 // Employeur offer
 router
@@ -94,7 +102,7 @@ router
 //#####################################
 router
   .route("/api/candidat/profil")
-  .get(new CandidatProfilControllers().getProfil)
+  .get(new CandidatProfilControllers().getProfil);
 
 //#########################################
 //# Candidat profil-Contact Table-CONTACT #
@@ -171,14 +179,34 @@ router
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #
-//############################################################ 
+//############################################################
 
 //------------------------------------------------------------
 
-// Admin
-router.route("/api/admin").get(new UsersControllers().getAll);
+// ADMIN
 
-router.route("/api/admin/:id").get(new UsersControllers().getId);
+// Users
+router.route("/api/admin").get(new UsersController().getUserAll);
+
+router
+  .route("/api/admin/:id")
+  .get(new UsersController().getUserId)
+  .put(new UsersController().banUser)
+  .delete(new UsersController().deleteUser);
+
+// Jobs
+router.route("/api/admin/jobs").get(new JobsController().getJobAll);
+router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
+// .delete(new JobsController().deleteJob);
+
+// Messages
+router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
+// .post(new MessagesController().getMessagePost);
+
+router
+  .route("/api/admin/messages/:id")
+  .get(new MessagesController().getMessageId);
+// .delete(new MessagesController().deleteMessage);
 
 // Authentification
 

@@ -7,7 +7,8 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-    authData: [],
+    user: {},
+    flash: "",
 };
 
 /*
@@ -17,10 +18,22 @@ export function AuthReducer(state = initialState, action) {
     switch (action.type) {
         default:
             return state;
-        case Actions.GET_AUTH:
-            return { ...state, authData: action.payload };
-            case Actions.POST_AUTH:
-                return { ...state, authData: action.payload }
+        case Actions.LOGIN:
+            return {
+                ...state,
+                flash: action.payload.flash
+            };
+        case Actions.REGISTER:
+            return {
+                ...state,
+                flash: action.payload.flash
+            };
+        case Actions.CHECKTOKEN:
+            return {
+                ...state,
+                flash: action.payload.flash,
+                user: action.payload.user,
+            };
     }
 }
 

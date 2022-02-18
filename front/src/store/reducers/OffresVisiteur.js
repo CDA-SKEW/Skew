@@ -17,7 +17,7 @@ export function OffresVisiteurReducer(state = initialState, action) {
     switch (action.type) {
         default:
             return state;
-        case Actions.GET_AUTH:
+        case Actions.LOGIN:
             return { ...state, listOffer: action.payload };
     }
 }

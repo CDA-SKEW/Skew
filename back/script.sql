@@ -23,7 +23,7 @@ USE `Skew` ;
 CREATE TABLE IF NOT EXISTS `Skew`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `mail` VARCHAR(45) NULL,
-  `pass` VARCHAR(45) NULL,
+  `pass` VARCHAR(255) NULL,
   `isAdmin` TINYINT NULL DEFAULT 0,
   `isCandidat` TINYINT NULL DEFAULT 0,
   `isRecruteur` TINYINT NULL DEFAULT 0,
@@ -48,8 +48,9 @@ CREATE TABLE IF NOT EXISTS `Skew`.`contactProfil` (
   `zipCode` CHAR(5) NULL DEFAULT '00000',
   `avatar` VARCHAR(60) NULL DEFAULT ' ',
   `phone` VARCHAR(20) NULL DEFAULT '06 06 06 06 06',
-  `siret` INT NULL DEFAULT NULL,
-  `siren` INT NULL DEFAULT NULL,
+  `siret` BIGINT NULL DEFAULT NULL,
+  `siren` BIGINT NULL DEFAULT NULL,
+  `category` VARCHAR(45) NULL,
   `badge` TINYINT NULL DEFAULT 0,
   INDEX `fk_contact_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_contact_user1`
