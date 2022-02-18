@@ -16,6 +16,7 @@ export default function Inscription() {
     const [pass, setPass] = useState('');
     const [pass2, setPass2] = useState('');
     const [toggle, setToggle] = useState('');
+    const [error, setError] = useState('');
     const [candidat, setCandidat] = useState(0);
     const [recruteur, setRecruteur] = useState(0);
     const dispatch = useDispatch();
@@ -57,7 +58,6 @@ export default function Inscription() {
     }
 
     const SubmitFormIdInscription = async (e) => {
-        // e.preventDefault();
         console.log('SubmitFormIdInscription', mail, pass, pass2, toggle, candidat, recruteur)
         if (mail && toggle && pass && pass2) {
             if (pass === pass2) {
@@ -69,8 +69,10 @@ export default function Inscription() {
                 setCandidat(0);
                 setRecruteur(0)
             } else {
-                console.log('non')
+                setError('Les mots de passe ne coîncident pas!')
             }
+        } else {
+            setError('Entrez tous les champs requis!')
         }
 
     };
@@ -114,6 +116,15 @@ export default function Inscription() {
                 <ToggleButton value="candidat">Candidat</ToggleButton>
                 <ToggleButton value="recruteur">Recruteur</ToggleButton>
             </ToggleButtonGroup>
+
+            {error.length > 0 &&
+                <Box sx={{ my: 3, color: '#ff0000' }} >
+                    <typography variant='body1' >
+                        {error}
+                    </typography>
+                </Box>
+            }
+
             <Button
                 variant="contained"
                 fullWidth
