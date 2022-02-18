@@ -43,14 +43,6 @@ export const checkToken = () => {
                 if (res.data.user) {
                     console.log("check", res.data);
                     dispatch({ type: CHECKTOKEN, payload: res.data });
-                    // if (res.data.user.isVerified === 0)
-                    //     localStorage["user_verified"] = localStorage["user_token"];
-                    // if (res.data.user.isAdmin === 1)
-                    //     localStorage["user_admin"] = localStorage["user_token"];
-                    // if (res.data.user.isCandidat === 1)
-                    //     localStorage["user_candidat"] = localStorage["user_token"];
-                    // if (res.data.user.isRecruteur === 1)
-                    //     localStorage["user_recruteur"] = localStorage["user_token"];
                 }
             })
             .catch((err) => console.log(err));
