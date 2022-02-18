@@ -3,6 +3,7 @@
 const req = require("express/lib/request");
 const Candidat = require("../../models/CandidatModel");
 const CandidatContact = require("../../models/ContactCandidatProfilModel");
+const CandidatExperience = require("../../models/ExperienceCandidatProfilModel")
 // Import Module
 
 require("dotenv").config();
@@ -99,8 +100,26 @@ class CandidatProfilControllers {
   //  GET EXPERIENCE PROFIL CANDIDAT 
 
   async getExperienceProfil(req, res) {
-    console.log("controller GET Profil candidat EXPERIENCE");
-    res.json({ message: "controller CREATE profil candidat EXPERIENCE" });
+    // console.log("controller GET Profil candidat EXPERIENCE");
+    // res.json({ message: "controller GET profil candidat EXPERIENCE" });
+    try {
+      CandidatExperience.getExperienceProfil(String(req.params.id), (err, data) => {
+        if (err) {
+          console.log("err", err),
+            res.status(500).send({
+              message: err.message || "Une erreur est survenue",
+            });
+        } else {
+          return res.json({
+            method: req.method,
+            User: data,
+          })
+        }
+      });
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
   //  CREATE EXPERIENCE PROFIL CANDIDAT 
