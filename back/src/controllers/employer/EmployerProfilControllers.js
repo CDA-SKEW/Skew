@@ -41,7 +41,7 @@ class EmployerProfilControllers {
     //   req.body,
     //   req.params.id
     // );
-    if (req.params.id && req.body.mail && req.body.oldMail) {
+    if (req.params.id && req.body.mail) {
       // console.log("controller update mail", req.body);
       let profilUserObj = new ProfilUser({
         id: Number(req.params.id),
@@ -50,7 +50,7 @@ class EmployerProfilControllers {
       // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editMail(profilUserObj, req.body.oldMail, (err, data) => {
+        ProfilUser.editMail(profilUserObj, (err, data) => {
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
             console.log("err", err),
@@ -160,7 +160,7 @@ class EmployerProfilControllers {
         user_id: req.params.id,
         ...req.body
       });
-      console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
+      // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
         ProfilUserCompagny.updateProfilCompagny(
