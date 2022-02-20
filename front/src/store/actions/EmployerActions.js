@@ -33,11 +33,11 @@ const dataDefault = {
   address: "21 fze fzefjzpej",
   category: "fvevfeqrg",
   town: "Bonnetable",
-  avatar:imageEmployer,
+  avatar: imageEmployer,
 };
 // const dataDefault = {
 // }
-const message ="Votre offre a bien été publiée !"
+const message = "Votre offre a bien été publiée !"
 const messagePostCandidate = "Votre mail a bien été envoyé !"
 
 const dataDefaultID = {
@@ -52,7 +52,7 @@ const offers = [
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
-    profile: "vverveververv evrvever reerer erverererere ",
+    profil: "vverveververv evrvever reerer erverererere ",
     nameEmployor: "arinfo",
     dateOfferDays: "10",
     badgeEmployor: true,
@@ -190,7 +190,7 @@ const offers = [
     type: "CDD",
     period: 12,
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
-    profile: "vverveververv evrvever reerer erverererere ",
+    profil: "vverveververv evrvever reerer erverererere ",
     nameEmployor: "arinfo",
     dateOfferDays: "2",
     badgeEmployor: true,
@@ -327,7 +327,7 @@ const offers = [
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
-    profile: "vverveververv evrvever reerer erverererere ",
+    profil: "vverveververv evrvever reerer erverererere ",
     nameEmployor: "arinfo",
     dateOfferDays: "30",
     badgeEmployor: true,
@@ -465,7 +465,7 @@ const offers = [
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
-    profile: "vverveververv evrvever reerer erverererere ",
+    profil: "vverveververv evrvever reerer erverererere ",
     nameEmployor: "arinfo",
     dateOfferDays: "50",
     badgeEmployor: true,
@@ -603,7 +603,7 @@ const offers = [
     type: "CDI",
     period: "",
     description: "ddsvdvsdvsdvsd fzefzefzefze  zefzefzef sdvsv sdvsvs",
-    profile: "vverveververv evrvever reerer erverererere ",
+    profil: "vverveververv evrvever reerer erverererere ",
     dateOfferDays: "2",
     nameEmployor: "arinfo",
     badgeEmployor: true,
@@ -776,7 +776,7 @@ export const postFormProfilEmployer = (data) => {
 export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_EMPLOYER action", data);
-    dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data});
+    dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data });
   };
 };
 
@@ -790,7 +790,7 @@ export const getProfilUser = () => {
 export const putFormProfilUser = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_USER action", data);
-    dispatch({ type: PUT_PROFIL_USER, payload: data});
+    dispatch({ type: PUT_PROFIL_USER, payload: data });
   };
 };
 
@@ -798,7 +798,7 @@ export const putFormProfilUser = (data) => {
 export const putFormProfilUserPw = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_USER PW action", data);
-    dispatch({ type: PUT_PROFIL_USER_PW, payload: data});
+    dispatch({ type: PUT_PROFIL_USER_PW, payload: data });
   };
 };
 
@@ -814,14 +814,14 @@ export const getOffer = () => {
 export const postFormAddOffer = (data) => {
   return (dispatch) => {
     // console.log("POST_OFFER action", data, message);
-    dispatch({ type: POST_OFFER, payload: {data, message}});
+    dispatch({ type: POST_OFFER, payload: { data, message } });
   };
 };
 
 //  Delete offer
 export const deleteOffer = (id) => {
   return (dispatch) => {
-  console.log("DELETE_OFFER action", id);
+    console.log("DELETE_OFFER action", id);
     // dispatch({ type: DELETE_OFFER, payload: {data, messagePostCandidate}});
   };
 };
@@ -829,15 +829,15 @@ export const deleteOffer = (id) => {
 //  Action candidate
 export const putActionCandidate = (data) => {
   return (dispatch) => {
-  // console.log("PUT_ACTION_CANDIDATE", data);
-    dispatch({ type: PUT_ACTION_CANDIDATE, payload: {data, messagePostCandidate}});
+    // console.log("PUT_ACTION_CANDIDATE", data);
+    dispatch({ type: PUT_ACTION_CANDIDATE, payload: { data, messagePostCandidate } });
   };
 };
 
 // Post message candidate
 export const postMessageCandidate = (data) => {
   return (dispatch) => {
-  // console.log("POST_MESSAGE_CANDIDATE action", data, messagePostCandidate);
-    dispatch({ type: POST_MESSAGE_CANDIDATE, payload: {data, messagePostCandidate}});
+    // console.log("POST_MESSAGE_CANDIDATE action", data, messagePostCandidate);
+    dispatch({ type: POST_MESSAGE_CANDIDATE, payload: { data, messagePostCandidate } });
   };
 };
