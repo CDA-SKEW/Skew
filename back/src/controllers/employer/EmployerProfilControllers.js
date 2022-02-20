@@ -1,7 +1,7 @@
 // Import Model
 const {
   ProfilUser,
-  ProfilUserCompagny,
+  ProfilUserCompagny
 } = require("../../models/employer/ProfilUserModel");
 
 // const class du controlleur EmployerProfilControlleur
@@ -26,8 +26,7 @@ class EmployerProfilControllers {
           return res.json({
             method: req.method,
             status: "success",
-            flash: "Get User By Id !",
-            message: "controller get user profil employer",
+            message: "Votre profil utilisateur",
             dataProfilUser: data,
           });
         }
@@ -65,8 +64,7 @@ class EmployerProfilControllers {
             return res.json({
               method: req.method,
               status: "success",
-              flash: "controller update user profil By ID !",
-              message: "controller update user profil employer",
+              message: "Votre profil entreprise a bien été modifié",
               dataProfilUser: data,
             });
           }
@@ -74,7 +72,6 @@ class EmployerProfilControllers {
       } catch (error) {
         throw error;
       }
-      // res.json({ message: "controller update user profil employer" });
     } else res.json("Error Request");
   }
 
@@ -99,8 +96,7 @@ class EmployerProfilControllers {
             return res.json({
               method: req.method,
               status: "success",
-              flash: "Get Compagny for User By Id !",
-              message: "controller get profil Compagny",
+              message: "Votre profil entreprise",
               dataProfilEmployer: data,
             });
           }
@@ -140,8 +136,7 @@ class EmployerProfilControllers {
               return res.json({
                 method: req.method,
                 status: "success",
-                flash: "controller Create profil compagny !",
-                message: "controller Create profil compagny",
+                message: "Votre profil entreprise a été crée",
                 dataProfilEmployer: data,
               });
             }
@@ -159,6 +154,17 @@ class EmployerProfilControllers {
     //   "controller update Profil Employeur",
     //   req.body, "req.params",req.params.id
     // );
+    //  console.log("reqfile", req.file)
+    // console.log("reqbody", req.body)
+    const pathAvatar = "assets/images/avatar/",
+      pathAvatarDb = "/assets/images/avatar/"
+
+    // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+    const pathImgWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + ".webp"
+    // console.log(pathImgWebp)
+    const pathAvatarWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + "_" + req.params.id + ".webp"
+    // console.log(pathAvatarWebp)
+
 
     if (req.params.id) {
       // console.log("post Profil Compagny Employeur", req.body);
@@ -183,8 +189,7 @@ class EmployerProfilControllers {
               return res.json({
                 method: req.method,
                 status: "success",
-                flash: "controller update profil compagny !",
-                message: "controller update profil compagny",
+                message: "Votre profil entreprise a été modifié",
                 dataProfilEmployer: data,
               });
             }
