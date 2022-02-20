@@ -11,7 +11,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ModalConfimation(props) {
-    const { colorBgModal, colorTextModal, titleModal, textModal, action, param, onClose, open, } = props
+    const { colorBgModal, colorTextModal, titleModal, textModal, action, param, onClose, open, offer} = props
+    // console.log("offer modal confirmation", offer)
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -31,7 +32,8 @@ export default function ModalConfimation(props) {
 
             case "candidateRetain":
                 const dataRetain = {
-                    id: param,
+                    user_id: param,
+                    offer_id:offer.offer_id,
                     isRetain: true
                 }
                 await dispatch(putActionCandidate(dataRetain));
@@ -39,7 +41,8 @@ export default function ModalConfimation(props) {
 
             case "candidateNoRetain":
                 const dataNoRetain = {
-                    id: param,
+                    offer_id:offer.offer_id,
+                    user_id: param,
                     isRetain: false
                 }
                 await dispatch(putActionCandidate(dataNoRetain));
