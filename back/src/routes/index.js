@@ -194,26 +194,30 @@ router
 // ADMIN
 
 // Jobs
-router.route("/api/admin/jobs").get(new JobsController().getJobAll);
-router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
-// .delete(new JobsController().deleteJob);
+router.route("/api/admin/jobs").get(new JobsController().getListJobs);
+router
+  .route("/api/admin/jobs/:id")
+  .get(new JobsController().getJobId)
+  .put(new JobsController().putJob)
+  .delete(new JobsController().deleteJob);
+
+// Messages
+router
+  .route("/api/admin/messages")
+  .get(new MessagesController().getListMessages)
+  .post(new MessagesController().addMessage);
+router
+  .route("/api/admin/messages/:id")
+  .get(new MessagesController().getMessageId)
+  // .delete(new MessagesController().deleteMessage);
 
 // Users
-router.route("/api/admin").get(new UsersController().getUserAll);
+router.route("/api/admin").get(new UsersController().getListUsers);
 router
   .route("/api/admin/:id")
   .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
-
-// Messages
-router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
-// .post(new MessagesController().addMessage);
-
-router
-  .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId);
-// .delete(new MessagesController().deleteMessage);
 
 // Authentification
 
