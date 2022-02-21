@@ -1,8 +1,10 @@
 // Import Model
 
 const req = require("express/lib/request");
-const Candidat = require("../../models/CandidatModel");
-const CandidatContact = require("../../models/ContactCandidatProfilModel");
+const Candidat = require("../../models/candidat/CandidatModel");
+const CandidatContact = require("../../models/candidat/ContactCandidatProfilModel");
+const CandidatExperience = require("../../models/candidat/ContactCandidatProfilModel");
+const CandidatSkill = require("../../models/candidat/SkillCandidatProfilModel");
 // Import Module
 
 require("dotenv").config();
@@ -99,30 +101,94 @@ class CandidatProfilControllers {
   //  GET EXPERIENCE PROFIL CANDIDAT 
 
   async getExperienceProfil(req, res) {
-    console.log("controller GET Profil candidat EXPERIENCE");
-    res.json({ message: "controller CREATE profil candidat EXPERIENCE" });
+    try {
+      CandidatExperience.getExperienceProfil(String(req.params.id), (err, data) => {
+        if (err) {
+          console.log("err", err),
+            res.status(500).send({
+              message: err.message || "Une erreur est survenue",
+            });
+        } else {
+          return res.json({
+            method: req.method,
+            User: data,
+          })
+        }
+      });
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
   //  CREATE EXPERIENCE PROFIL CANDIDAT 
 
   async createExperienceProfil(req, res) {
-    console.log("controller CREATE Profil candidat EXPERIENCE");
-    res.json({ message: "controller CREATE profil candidat EXPERIENCE" });
+    let newExperience = new CandidatExperience({
+      user_id: Number(req.body.id),
+      compagny: String(req.body.compagny),
+      job: String(req.body.job),
+      description: String(req.body.description),
+      dateStart: String(req.body.dateStart),
+      dateEnd: String(req.body.dateEnd),
+    });
+    try {
+      CandidatExperience.createExperienceProfil(newExperience, (err, data) => {
+        if (err) res.send(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
+
   }
 
   //  UPDATE EXPERIENCE PROFIL CANDIDAT 
 
   async updateExperienceProfil(req, res) {
-    console.log("controller UPDATE Profil Candidat EXPERIENCE");
-    res.json({ message: "controller UPDATE profil candidat EXPERIENCE" });
+    let experienceObj = new CandidatExperience({
+      user_id: Number(req.params.id),
+      compagny: String(req.body.compagny),
+      job: String(req.body.job),
+      description: String(req.body.description),
+      // dateStart: (req.body.dateStart),
+      // dateEnd: (req.body.dateEnd),
+
+    });
+    try {
+      CandidatExperience.updateExperienceProfil(experienceObj, (err, data) => {
+        if (err) res.json(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   //  DELETE EXPERIENCE PROFIL CANDIDAT 
 
   async deleteExperienceProfil(req, res) {
-    console.log("controller DELETE Profil Candidat EXPERIENCE");
-    res.json({ message: "controller DELETE profil candidat EXPERIENCE" });
+    try {
+      CandidatExperience.deleteExperienceProfil(req.params.id, (err, data) => {
+        if (err) res.send(err);
+        else {
+          return res.send({
+            method: req.method,
+            User: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
+
 
   // **************************************
 
@@ -140,8 +206,22 @@ class CandidatProfilControllers {
   //  CREATE SKILL PROFIL CANDIDAT
 
   async createSkillProfil(req, res) {
-    console.log("controller CREATE Profil candidat SKILL");
-    res.json({ message: "controller CREATE profil candidat SKILL" });
+
+    let newSkill = new CandidatSkill({
+      user_id: Number(req.body.id),
+      skill: String(req.body.skill)
+    });
+    try {
+      CandidatSkill.createSkillProfil(newSkill, (err, data) => {
+        if (err) res.send(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   //  UPDATE SKILL PROFIL CANDIDAT 
@@ -166,7 +246,7 @@ class CandidatProfilControllers {
 
   //  GET INTEREST PROFIL CANDIDAT 
 
-  async getInterest(req, res) {
+  async getInterestProfil(req, res) {
     console.log("controller GET Profil candidat INTEREST");
     res.json({ message: "controller CREATE profil candidat INTEREST" });
   }

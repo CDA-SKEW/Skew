@@ -1,5 +1,5 @@
-const connection = require("../config/ConnectionDB");
-const { user } = require("../config/db");
+const connection = require("../../config/ConnectionDB");
+const { user } = require("../../config/db");
 
 // Model
 const Candidat = function (candidat) {

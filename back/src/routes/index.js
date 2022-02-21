@@ -4,7 +4,7 @@
 const router = require("express").Router();
 
 const upload = require("../config/multer"),
-sharp = require('../config/sharp')
+  sharp = require('../config/sharp')
 
 //#############
 //#Controllers#
@@ -66,13 +66,13 @@ router
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
-  .post(upload.single('avatar'),sharp,new EmployerProfilControllers().createProfilCompagny);
+  .post(upload.single('avatar'), sharp, new EmployerProfilControllers().createProfilCompagny);
 
 // Employeur entreprise profil Id
 router
   .route("/api/employer/profil/:id")
   .get(new EmployerProfilControllers().getProfilCompagny)
-  .put(upload.single('avatar'),sharp,new EmployerProfilControllers().updateProfilCompagny);
+  .put(upload.single('avatar'), sharp, new EmployerProfilControllers().updateProfilCompagny);
 
 // Employeur offer
 router
@@ -119,11 +119,12 @@ router
 
 router
   .route("/api/candidat/profil/experience")
-  .get(new CandidatProfilControllers().getExperienceProfil)
+  // .get(new CandidatProfilControllers().getExperienceProfil)
   .post(new CandidatProfilControllers().createExperienceProfil)
 
 router
   .route("/api/candidat/profil/experience/:id")
+  .get(new CandidatProfilControllers().getExperienceProfil)
   .put(new CandidatProfilControllers().updateExperienceProfil)
   .delete(new CandidatProfilControllers().deleteExperienceProfil)
 
@@ -132,22 +133,24 @@ router
 // ##################################
 router
   .route("/api/candidat/profil/skill")
-  .get(new CandidatProfilControllers().getSkillProfil)
+  // .get(new CandidatProfilControllers().getSkillProfil)
   .post(new CandidatProfilControllers().createSkillProfil)
 
 router
   .route("/api/candidat/profil/skill/:id")
+  .get(new CandidatProfilControllers().getSkillProfil)
   .put(new CandidatProfilControllers().updateSkillProfil)
   .delete(new CandidatProfilControllers().deleteSkillProfil)
 
 // ########################################
 // #CandidatProfilInterest Table-INTEREST #
-// ################################
+// ########################################
 router
   .route("/api/candidat/profil/interest")
-
+  .post(new CandidatProfilControllers().createInterestProfil)
 router
   .route("/api/candidat/profil/interest/:id")
+  .get(new CandidatProfilControllers().getInterestProfil)
   .put(new CandidatProfilControllers().updateInterestProfil)
   .delete(new CandidatProfilControllers().deleteInterestProfil)
 
@@ -156,11 +159,12 @@ router
 // ##############################################
 router
   .route("/api/candidat/profil/certificate")
-  .get(new CandidatProfilControllers().getCertificateProfil)
+  // .get(new CandidatProfilControllers().getCertificateProfil)
   .post(new CandidatProfilControllers().createCertificateProfil)
 
 router
   .route("/api/candidat/profil/certificate/:id")
+  .get(new CandidatProfilControllers().getCertificateProfil)
   .put(new CandidatProfilControllers().updateCertificateProfil)
   .delete(new CandidatProfilControllers().deleteCertificateProfil)
 
