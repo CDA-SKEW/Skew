@@ -1,4 +1,5 @@
 const { Offer, StatutCandidate } = require("../../models/employer/OfferModel");
+const nodemailer = require("../../config/nodemailer");
 
 class EmployerOfferControllers {
   async getOffer(req, res) {
@@ -39,24 +40,21 @@ class EmployerOfferControllers {
       });
       console.log("post create offer profilUserObj ", offerObj);
       try {
-        Offer.createOffer(
-          offerObj,
-          (err, data) => {
-            if (err) {
-              console.log("err", err),
-                res.status(500).send({
-                  message: err.message || "Une erreur est survenue",
-                });
-            } else {
-              return res.json({
-                method: req.method,
-                status: "success",
-                message: "Votre offre a bien été publiée !",
-                offers: data,
+        Offer.createOffer(offerObj, (err, data) => {
+          if (err) {
+            console.log("err", err),
+              res.status(500).send({
+                message: err.message || "Une erreur est survenue",
               });
-            }
+          } else {
+            return res.json({
+              method: req.method,
+              status: "success",
+              message: "Votre offre a bien été publiée !",
+              offers: data,
+            });
           }
-        );
+        });
       } catch (error) {
         throw error;
       }
@@ -97,16 +95,15 @@ class EmployerOfferControllers {
   async updateCandidate(req, res) {
     // console.log("controller update statut Candidate", req.body);
     if (req.params.id && req.body.offer_id && req.body.isRetain) {
-
-      let isRetainLet
-      if (req.body.isRetain === "true") isRetainLet = 1
-      if (req.body.isRetain === "false") isRetainLet = 0
+      let isRetainLet;
+      if (req.body.isRetain === "true") isRetainLet = 1;
+      if (req.body.isRetain === "false") isRetainLet = 0;
 
       let statutCandidateObj = new StatutCandidate({
         user_id: req.params.id,
         offre_id: req.body.offer_id,
-        statut: isRetainLet
-      }); 
+        statut: isRetainLet,
+      });
 
       try {
         StatutCandidate.updateCandidate(statutCandidateObj, (err, data) => {
@@ -132,8 +129,8 @@ class EmployerOfferControllers {
   }
 
   async createMessageCandidate(req, res) {
-    console.log("controller create message candidate");
-    res.json({ message: "Votre mail a bien été envoyé !" });
+    console.log("controller create message candidate")
+    nodemailer.SendEmailCandidate(req, res)
   }
 }
 
