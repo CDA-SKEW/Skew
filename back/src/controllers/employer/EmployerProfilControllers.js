@@ -1,8 +1,14 @@
 // Import Model
 const {
   ProfilUser,
-  ProfilUserCompagny
+  ProfilUserCompagny,
 } = require("../../models/employer/ProfilUserModel");
+
+const func = require("../../utils/function"),
+  path = require("path");
+
+const pathAvatar = "public/images/avatar/",
+  pathAvatarDb = "/assets/images/avatar/";
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
@@ -114,9 +120,29 @@ class EmployerProfilControllers {
     //   req.body
     // );
 
-    if (req.body.user_id) {
+    let index = req.file.mimetype.indexOf("image");
+    if (index !== -1) {
+      // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+      const pathImgWebp = path.resolve(
+        pathAvatar +
+          req.file.filename.split(".").slice(0, -1).join(".") +
+          ".webp"
+      );
+      // console.log("pathImgWebp", pathImgWebp);
+      const pathAvatarWebp = path.resolve(
+        pathAvatar + "avatar_user_" + req.body.user_id + ".webp"
+      );
+      // console.log("pathAvatarWebp", pathAvatarWebp);
+
+      setTimeout(function () {
+        //ici on rename le file convertit en webp avec le nouveau nom
+        func.renameFile(pathImgWebp, pathAvatarWebp);
+      }, 600); //delay is in milliseconds
+    }
+    if (req.body.user_id && req.file) {
       // console.log("post Profil Compagny Employeur", req.body);
       let profilUserCompagnyObj = new ProfilUserCompagny({
+        avatar: pathAvatarDb + "avatar_user_" + req.body.user_id + ".webp",
         ...req.body,
       });
       // console.log("post Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
@@ -156,20 +182,32 @@ class EmployerProfilControllers {
     // );
     //  console.log("reqfile", req.file)
     // console.log("reqbody", req.body)
-    const pathAvatar = "assets/images/avatar/",
-      pathAvatarDb = "/assets/images/avatar/"
 
-    // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
-    const pathImgWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + ".webp"
-    // console.log(pathImgWebp)
-    const pathAvatarWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + "_" + req.params.id + ".webp"
-    // console.log(pathAvatarWebp)
+    let index = req.file.mimetype.indexOf("image");
+    if (index !== -1) {
+      // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+      const pathImgWebp = path.resolve(
+        pathAvatar +
+          req.file.filename.split(".").slice(0, -1).join(".") +
+          ".webp"
+      );
+      // console.log("pathImgWebp", pathImgWebp);
+      const pathAvatarWebp = path.resolve(
+        pathAvatar + "avatar_user_" + req.params.id + ".webp"
+      );
+      // console.log("pathAvatarWebp", pathAvatarWebp);
 
+      setTimeout(function () {
+        //ici on rename le file convertit en webp avec le nouveau nom
+        func.renameFile(pathImgWebp, pathAvatarWebp);
+      }, 600); //delay is in milliseconds
+    }
 
-    if (req.params.id) {
+    if (req.params.id && req.file) {
       // console.log("post Profil Compagny Employeur", req.body);
       let profilUserCompagnyObj = new ProfilUserCompagny({
         user_id: req.params.id,
+        avatar: pathAvatarDb + "avatar_user_" + req.params.id + ".webp",
         ...req.body,
       });
       // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
