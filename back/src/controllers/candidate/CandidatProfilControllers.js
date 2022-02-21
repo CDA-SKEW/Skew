@@ -3,7 +3,7 @@
 const req = require("express/lib/request");
 const Candidat = require("../../models/candidat/CandidatModel");
 const CandidatContact = require("../../models/candidat/ContactCandidatProfilModel");
-const CandidatExperience = require("../../models/candidat/ContactCandidatProfilModel");
+const CandidatExperience = require("../../models/candidat/ExperienceCandidatProfilModel");
 const CandidatSkill = require("../../models/candidat/SkillCandidatProfilModel");
 // Import Module
 
@@ -125,12 +125,7 @@ class CandidatProfilControllers {
 
   async createExperienceProfil(req, res) {
     let newExperience = new CandidatExperience({
-      user_id: Number(req.body.id),
-      compagny: String(req.body.compagny),
-      job: String(req.body.job),
-      description: String(req.body.description),
-      dateStart: String(req.body.dateStart),
-      dateEnd: String(req.body.dateEnd),
+      ...req.body
     });
     try {
       CandidatExperience.createExperienceProfil(newExperience, (err, data) => {
@@ -150,10 +145,11 @@ class CandidatProfilControllers {
 
   async updateExperienceProfil(req, res) {
     let experienceObj = new CandidatExperience({
-      user_id: Number(req.params.id),
-      compagny: String(req.body.compagny),
-      job: String(req.body.job),
-      description: String(req.body.description),
+      id: Number(req.params.id),
+      ...req.body
+      // compagny: String(req.body.compagny),
+      // job: String(req.body.job),
+      // description: String(req.body.description),
       // dateStart: (req.body.dateStart),
       // dateEnd: (req.body.dateEnd),
 
@@ -199,8 +195,25 @@ class CandidatProfilControllers {
   //  GET SKILL PROFIL CANDIDAT 
 
   async getSkillProfil(req, res) {
-    console.log("controller GET Profil candidat SKILL");
-    res.json({ message: "controller GET profil candidat SKILL" });
+    try {
+      CandidatSkill.getSkillProfil(String(req.params.id), (err, data) => {
+        if (err) {
+          console.log("err", err),
+            res.status(500).send({
+              message: err.message || "Une erreur est survenue",
+            });
+        } else {
+          return res.json({
+            method: req.method,
+            User: data,
+          })
+        }
+      });
+    }
+    catch (error) {
+      throw error;
+    }
+
   }
 
   //  CREATE SKILL PROFIL CANDIDAT
@@ -227,8 +240,21 @@ class CandidatProfilControllers {
   //  UPDATE SKILL PROFIL CANDIDAT 
 
   async updateSkillProfil(req, res) {
-    console.log("controller UPDATE Profil Candidat SKILL");
-    res.json({ message: "controller UPDATE profil candidat SKILL" });
+    let skillObj = new CandidatSkill({
+      user_id: Number(req.params.id),
+      skill: String(req.body.skill)
+    });
+    try {
+      CandidatSkill.updateSkillProfil(skillObj, (err, data) => {
+        if (err) res.json(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   //  DELETE SKILL PROFIL CANDIDAT 

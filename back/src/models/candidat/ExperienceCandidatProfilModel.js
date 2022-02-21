@@ -3,13 +3,13 @@ const { user } = require("../../config/db");
 
 // Model
 const CandidatExperience = function (experience) {
-    // this.id = user.id;
-    this.user_id = experience.user_id,
-        this.compagny = experience.compagny,
-        this.job = experience.job,
-        this.description = experience.description,
-        this.dateStart = experience.dateStart,
-        this.dateEnd = experience.dateEnd
+    this.id = Number(experience.id);
+    this.user_id = Number(experience.user_id),
+        this.compagny = String(experience.compagny),
+        this.job = String(experience.job),
+        this.description = String(experience.description), String
+    this.dateStart = (experience.dateStart),
+        this.dateEnd = (experience.dateEnd)
 };
 
 // Get ID
@@ -42,7 +42,6 @@ CandidatExperience.createExperienceProfil = function (newExperience, result) {
             compagny = :compagny,
             job = :job,
             description = :description
-            
             ;`,
             { compagny, job, description, dateStart, dateEnd, user_id }
             , (error, data) => {
@@ -63,19 +62,20 @@ CandidatExperience.createExperienceProfil = function (newExperience, result) {
 
 // // Edit One
 CandidatExperience.updateExperienceProfil = function (experienceObj, result) {
-    const { compagny, job, description, dateStart, dateEnd, user_id } = experienceObj
+    const { compagny, job, description, dateStart, dateEnd, user_id, id } = experienceObj
     console.log("edit", experienceObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE experience,user
             SET 
+            user_id= :user_id,
             compagny = :compagny,
             job = :job,
             description = :description,
             dateStart = :dateStart,
             dateEnd = :dateEnd
-            WHERE user_id = :user_id;`,
-            { compagny, job, description, dateStart, dateEnd, user_id }
+            WHERE experience.id = :id;`,
+            { compagny, job, description, dateStart, dateEnd, user_id, id }
             , (error, data) => {
                 if (error) throw error;
                 conn.query(`SELECT u.id,e.*
@@ -96,6 +96,7 @@ CandidatExperience.updateExperienceProfil = function (experienceObj, result) {
 CandidatExperience.deleteExperienceProfil = function (id, result, user_id, experience) {
     connection.getConnection(function (error, conn) {
         conn.query(`DELETE FROM experience WHERE experience.id = ${id}`, (error, data) => {
+            { user_id, id }
             if (error) throw error;
             conn.query(`SELECT u.id,e.*
             FROM user as u
