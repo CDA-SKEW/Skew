@@ -1,5 +1,5 @@
 /*
- * Model de 'Article'
+ * Model de 'User'
  ******************************/
 const connection = require("../config/ConnectionDB");
 
@@ -52,8 +52,6 @@ User.register = function (body, result) {
         if (error) throw error;
         conn.query(`insert into contactProfil (user_id) values (${newUser.insertId})`, (err, profilUser) => {
           if (err) throw err
-          console.log('data res model test create user', profilUser)
-
           result(null, newUser);
 
         })

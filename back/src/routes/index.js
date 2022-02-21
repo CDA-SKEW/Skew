@@ -14,6 +14,9 @@ sharp = require('../config/sharp')
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
 
+//Message
+const ContactControllers = require('../controllers/ContactControllers');
+
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
@@ -43,6 +46,9 @@ router.route("/api/register").post(new AuthControllers().register);
 // Check
 router.route("/api/auth/:token")
   .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+
+// Messages
+router.route("/api/messages").post(new ContactControllers().post);
 
 // Users
 router
@@ -209,9 +215,6 @@ router
   .get(new MessagesController().getMessageId);
 // .delete(new MessagesController().deleteMessage);
 
-// Authentification
-
-// router.use(new TokenJWT().checkIsValid)
 // Session
 
 /*
