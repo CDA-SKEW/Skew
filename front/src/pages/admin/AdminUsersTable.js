@@ -3,6 +3,7 @@ import AdminLayout from "layouts/AdminLayout";
 import UsersTable from "components/admin/UsersTable";
 import { getListUsers } from "store/actions/AdminActions";
 import { useDispatch, useSelector } from "react-redux";
+import withAdmin from "components/auth/withAdmin";
 
 const AdminUsersTable = () => {
   /*------------ listUsers import via Store-------------*/
@@ -20,4 +21,5 @@ const AdminUsersTable = () => {
   );
 };
 
-export default AdminUsersTable;
+export default withAdmin(AdminUsersTable);
+// export default AdminUsersTable;

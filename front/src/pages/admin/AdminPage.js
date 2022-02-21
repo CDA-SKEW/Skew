@@ -34,5 +34,5 @@ const AdminPage = () => {
   );
 };
 
-// export default withAdmin(AdminPage);
-export default AdminPage;
+export default withAdmin(AdminPage);
+// export default AdminPage;

@@ -38,7 +38,6 @@ export default function Connexion() {
         event.preventDefault();
     };
 
-    const dataUser = useSelector(state => state.auth.user)
     const isAuthenticate = useSelector(state => state.auth.authenticate)
 
     const handleFormId = (e) => {
