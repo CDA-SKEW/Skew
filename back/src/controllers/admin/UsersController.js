@@ -18,7 +18,7 @@ class UsersControllers {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            users: data,
+            user: data,
             message: "All users has been successfully GETTED. !!!",
           });
       });
@@ -40,7 +40,7 @@ class UsersControllers {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            users: data,
+            user: data,
             message: "The user has been successfully GETTED. !!!",
           });
       });
@@ -53,7 +53,7 @@ class UsersControllers {
   async putUser(req, res) {
     const { id } = req.params;
     let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;
-    console.log("isBanned", typeof isBanned, isBanned, Boolean(isBanned));
+    // console.log("isBanned", typeof isBanned, isBanned, Boolean(isBanned));
 
     isAdmin = isAdmin === "true" ? 1 : 0;
     isBanned = isBanned === "true" ? 1 : 0;
@@ -67,12 +67,12 @@ class UsersControllers {
       User.putUser(
         { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur },
         (err, data) => {
-          console.log("response controller user ban", data);
+          // console.log("response controller user ban", data);
           if (err) res.send({ message: "error in request db" });
           // Sinon retourner cette réponse avec les data
           else
             return res.json({
-              users: data,
+              user: data,
               message: " The user has been successfully UPDATED.!!!",
             });
         }
@@ -93,7 +93,7 @@ class UsersControllers {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            users: data,
+            user: data,
             message: " The user has been successfully DELETED.!!",
           });
       });

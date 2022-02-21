@@ -188,15 +188,16 @@ router
 // Users
 router.route("/api/admin").get(new UsersController().getUserAll);
 
+// Jobs
+router.route("/api/admin/souka").get(new JobsController().getJobAll);
+
 router
   .route("/api/admin/:id")
   .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 
-// Jobs
-router.route("/api/admin/jobs").get(new JobsController().getJobAll);
-router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
+// router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
 // .delete(new JobsController().deleteJob);
 
 // Messages
