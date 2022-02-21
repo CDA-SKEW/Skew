@@ -4,20 +4,21 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-// import { useSelector } from "react-redux";
-import { postMessages } from "store/actions/MessagesActions";
-import { store } from 'store';
+import { useDispatch } from "react-redux";
+import { PostContactUs } from "store/actions/ContactActions";
 
 export default function FormContact() {
 
-    // const Message = useSelector((state) => state.messages.listMessage)
+    const [nom, setNom] = useState('');
+    const [prenom, setPrenom] = useState('');
+    const [tel, setTel] = useState('');
+    const [mail, setMail] = useState('');
+    const [sujet, setSujet] = useState('');
+    const [message, setMessage] = useState('');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
 
-    const [nom, setNom] = useState();
-    const [prenom, setPrenom] = useState();
-    const [tel, setTel] = useState();
-    const [mail, setMail] = useState();
-    const [sujet, setSujet] = useState();
-    const [message, setMessage] = useState();
+    const dispatch = useDispatch();
 
     const InputList = [
         { label: "Nom", multiline: false, rows: '1' },
@@ -53,23 +54,20 @@ export default function FormContact() {
         }
     }
 
-    const submitForm = () => {
-        console.log('submitForm', nom, prenom, tel, mail, sujet, message)
-        if (nom & prenom & tel & mail & sujet & message) {
-            store.dispatch(postMessages({
-                nom,
-                prenom,
-                tel,
-                mail,
-                message,
-                sujet
-            }))
+    const submitForm = async (e) => {
+        if (nom && prenom && tel && mail && sujet && message) {
+            await dispatch(PostContactUs({ nom, prenom, tel, mail, message, sujet }))
             setNom('')
             setPrenom('')
             setTel('')
             setMail('')
             setSujet('')
             setMessage('')
+            setSuccess('Votre message a bien été envoyé !');
+            setError('')
+        } else {
+            setError('Les champs n\'ont pas été remplis correctement !')
+            setSuccess('')
         }
     }
 
@@ -110,6 +108,20 @@ export default function FormContact() {
                         }}
                     />
                 ))}
+                {error.length > 0 &&
+                    <Box sx={{ my: 3, color: '#ff0000' }} >
+                        <Typography variant='body1' >
+                            {error}
+                        </Typography>
+                    </Box>
+                }
+                {success.length > 0 &&
+                    <Box sx={{ my: 3, color: '#1e90ff' }} >
+                        <Typography variant='body1' >
+                            {success}
+                        </Typography>
+                    </Box>
+                }
                 <Button
                     variant="contained"
                     color='secondary'

@@ -14,6 +14,9 @@ const upload = require("../config/multer"),
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
 
+//Message
+const ContactControllers = require('../controllers/ContactControllers');
+
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
@@ -44,6 +47,9 @@ router.route("/api/register").post(new AuthControllers().register);
 router
   .route("/api/auth/:token")
   .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+
+// Messages
+router.route("/api/contact").post(new ContactControllers().post);
 
 // Users
 router
@@ -219,9 +225,24 @@ router
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 
+<<<<<<< HEAD
 // Authentification
 
 // router.use(new TokenJWT().checkIsValid)
+=======
+// router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
+// .delete(new JobsController().deleteJob);
+
+// Messages
+router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
+// .post(new MessagesController().addMessage);
+
+router
+  .route("/api/admin/messages/:id")
+  .get(new MessagesController().getMessageId);
+// .delete(new MessagesController().deleteMessage);
+
+>>>>>>> kevin
 // Session
 
 /*

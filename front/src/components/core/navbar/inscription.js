@@ -20,7 +20,7 @@ import { register } from 'store/actions/AuthActions';
 function PassInput({ values, handleFormId }) {
 
     const [showPassword, setShowPassword] = useState(false);
-    
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     };
@@ -120,6 +120,7 @@ export default function Inscription() {
             }
         } else {
             setError('Entrez tous les champs requis!')
+            setSuccess('')
         }
 
     };
