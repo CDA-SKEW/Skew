@@ -18,7 +18,7 @@ export function ContactReducer(state = initialState, action) {
     switch (action.type) {
         default:
             return state;
-        case Actions.POST:
+        case Actions.POST_CONTACT_US:
             return {
                 ...state,
                 flash: action.payload.flash,

@@ -42,7 +42,7 @@ export const CHECKTOKEN = 'CHECKTOKEN';
 export const REGISTER = 'REGISTER';
 
 // Contact Us
-export const POST_CONTACT = 'POST_CONTACT';
+export const POST_CONTACT_US = 'POST_CONTACT_US';
 
 // Offres visiteur
 export const GET_OFFRES_VISITEUR = 'GET_OFFRES_VISITEUR';

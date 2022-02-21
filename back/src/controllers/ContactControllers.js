@@ -6,8 +6,8 @@ require("dotenv").config();
 class ContactControllers {
     async post(req, res) {
         let newContact = new Contact ({
-            name: String(req.body.name),
-            firstname: String(req.body.firstname),
+            name: String(req.body.nom),
+            firstname: String(req.body.prenom),
             tel: String(req.body.tel),
             mail: String(req.body.mail),
             message: String(req.body.message),

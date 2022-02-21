@@ -3,7 +3,7 @@
  * *************** */
 import axios from "axios";
 
-import { POST_CONTACT } from "./ActionTypes";
+import { POST_CONTACT_US } from "./ActionTypes";
 
 /*
  * Import types { ... }
@@ -13,13 +13,13 @@ import { POST_CONTACT } from "./ActionTypes";
  * Actions
  * ******* */
 
-// Login
-export const login = (data) => {
+// Post
+export const PostContactUs = (data) => {
     return (dispatch) => {
         return axios
             .post("http://localhost:3033/api/contact", data)
             .then((res) => {
-                dispatch({ type: POST_CONTACT, payload: res.data })
+                dispatch({ type: POST_CONTACT_US, payload: res.data })
             })
             .catch((err) => console.log(err));
     };
