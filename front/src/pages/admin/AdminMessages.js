@@ -4,6 +4,7 @@ import AdminLayout from "layouts/AdminLayout";
 import MessagesTable from "components/admin/MessagesTable";
 import { getListMessages } from "store/actions/AdminActions";
 import { useDispatch, useSelector } from "react-redux";
+import withAdmin from "components/auth/withAdmin";
 
 const AdminMessages = () => {
   /*------------ listMessages import via Store-------------*/
@@ -21,4 +22,5 @@ const AdminMessages = () => {
   );
 };
 
-export default AdminMessages;
+export default withAdmin(AdminMessages);
+// export default AdminMessages;
