@@ -16,10 +16,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from "react-router";
 
 import { useDispatch, useSelector } from "react-redux";
-import { store } from 'store';
-import { checkToken, login } from "store/actions/AuthActions";
-
-store.dispatch(checkToken())
+import { login } from "store/actions/AuthActions";
 
 export default function Connexion() {
 
@@ -39,6 +36,9 @@ export default function Connexion() {
     };
 
     const isAuthenticate = useSelector(state => state.auth.authenticate)
+    const isAdmin = useSelector(state => state.auth.user.isAdmin)
+    const isRecruteur = useSelector(state => state.auth.user.isRecruteur)
+    const isCandidat = useSelector(state => state.auth.user.isCandidat)
 
     const handleFormId = (e) => {
         switch (e.target.name) {
@@ -63,22 +63,14 @@ export default function Connexion() {
     };
 
     useEffect(() => {
-        console.log('checkLog', isAuthenticate)
-        if (isAuthenticate === true) navigate('/admin')
-        else return
-
-        // if (dataUser.isAdmin === 1) {
-        //     navigate("/Admin");
-        // }
-        // else if (dataUser.isRecruteur === 1) {
-        //     navigate("/employer/dashboard");
-        // }
-        // else if (dataUser.isCandidat === 1) {
-        //     navigate("/candidat/dashboard");
-        // }
-        // else {
-        //     navigate("/");
-        // }
+        if (isAuthenticate === true) {
+            if (isAdmin === 1) navigate("/admin");
+            else if (isCandidat === 1) navigate ("/candidat/dashboard");
+            else if (isRecruteur === 1) navigate ("/employer/dashboard");
+        }
+        else {
+            navigate("/");
+        }
     }, [isAuthenticate])
 
     return (

@@ -4,6 +4,7 @@ import CandidatureList from "components/candidat/listOffer/CandidatureList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProfilCandidate } from "store/actions/CandidateActions";
+import withCandidat from "components/auth/withCandidat";
 
 const CandidatCandidature = () => {
   const dispatch = useDispatch()
@@ -27,4 +28,5 @@ const CandidatCandidature = () => {
   );
 };
 
+// export default withCandidat(CandidatCandidature);
 export default CandidatCandidature;

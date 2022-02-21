@@ -9,9 +9,7 @@ import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
-
-
-
+import withCandidat from "components/auth/withCandidat";
 
 const CandidatProfil = () => {
 
@@ -65,3 +63,4 @@ const CandidatProfil = () => {
 };
 
 export default CandidatProfil;
+// export default withCandidat(CandidatProfil);

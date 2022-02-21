@@ -7,6 +7,7 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
 import CardOffer from "components/CardOffer";
 import { themeCandidate } from "configs/theme";
+import withCandidat from "components/auth/withCandidat";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
 import imageEmployer from "assets/images/imageEmployor.png";
@@ -191,3 +192,4 @@ const CandidatDashboard = () => {
 };
 
 export default CandidatDashboard;
+// export default withCandidat(CandidatDashboard);

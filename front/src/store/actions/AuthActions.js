@@ -25,7 +25,6 @@ export const login = (data) => {
             .post("http://localhost:3033/api/login", data)
             .then((res) => {
                 if (res.data.success) {
-                    console.log('res;login', res.data, jwt_decode(res.data.token))
                     if (res.data.token) localStorage["user_token"] = res.data.token;
                     res.data.token = jwt_decode(res.data.token)
                     res.data.authenticate = true

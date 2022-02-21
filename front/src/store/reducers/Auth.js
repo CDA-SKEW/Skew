@@ -23,7 +23,8 @@ export function AuthReducer(state = initialState, action) {
             return {
                 ...state,
                 flash: action.payload.flash,
-                authenticate: action.payload.authenticate
+                authenticate: action.payload.authenticate,
+                user: action.payload.token,
             };
         case Actions.REGISTER:
             return {
