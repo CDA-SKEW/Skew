@@ -2,6 +2,7 @@
  * Import - Module
  * *************** */
 import axios from "axios";
+import jwt_decode from 'jwt-decode'
 
 import {
     LOGIN,
@@ -23,11 +24,20 @@ export const login = (data) => {
         return axios
             .post("http://localhost:3033/api/login", data)
             .then((res) => {
-                if (res.data.token) localStorage["user_token"] = res.data.token;
-                dispatch({
-                    type: LOGIN,
-                    payload: res.data
-                });
+                if (res.data.success) {
+                    console.log('res;login', res.data, jwt_decode(res.data.token))
+                    if (res.data.token) localStorage["user_token"] = res.data.token;
+                    res.data.token = jwt_decode(res.data.token)
+                    res.data.authenticate = true
+                    dispatch({
+                        type: LOGIN,
+                        payload: res.data
+                    });
+                } else if (res.data.error) {
+
+                } else {
+
+                }
             })
             .catch((err) => console.log(err));
     };
@@ -41,7 +51,7 @@ export const checkToken = () => {
             .get(`http://localhost:3033/api/auth/${localStorage["user_token"]}`)
             .then((res) => {
                 if (res.data.user) {
-                    console.log("check", res.data);
+                    // console.log("check", res.data);
                     dispatch({ type: CHECKTOKEN, payload: res.data });
                 }
             })

@@ -24,7 +24,7 @@ class Server {
       })
     );
 
-    // Routes
+      // Routes
     this.app.use(router);
 
     // Run app

@@ -6,7 +6,7 @@ connectionPool = MySQL.createPool({ ...dbOptions });
 connectionPool.config.connectionConfig.queryFormat = function (query, values) {
 
   // repere les singles quote et double quote pour les saisr dans la db
-  console.log("pool config", "query key", query, "values", values);
+  // console.log("pool config", "query key", query, "values", values);
   return query.replace(
     /:(\w+)/g,
     function (txt, key) {

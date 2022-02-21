@@ -30,7 +30,8 @@ ProfilUser.getById = function (id, result) {
     // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
     conn.query(
       `SELECT id,mail,date_update, date_create
-     FROM user WHERE id = ${id}`,
+     FROM user WHERE id = :id`,
+      { id },
       (error, data) => {
         if (error) throw error;
         result(null, data);
@@ -42,7 +43,7 @@ ProfilUser.getById = function (id, result) {
 };
 
 // Update mail in profil employer User (by id)
-ProfilUser.editMail = function (profilUserObj, oldMail, result) {
+ProfilUser.editMail = function (profilUserObj, result) {
   // console.log(
   //   "edit mail in Model:",
   //   "id:",
@@ -50,24 +51,25 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
   //   profilUserObj.id,
   //   "mail:",
   //   profilUserObj.mail,
-  //   "oldMail:",
-  //   oldMail
   // );
+  //Declarations des constantes de profilUserCompagnyObj pour mysql
+  const { mail, id } = profilUserObj;
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     // ici on fait un update de la colonne mail de la table user par l'ID
     conn.query(
-      `
-          UPDATE user
-              SET mail = '${profilUserObj.mail}'
-              WHERE id = ${profilUserObj.id}
+      `       UPDATE user
+              SET mail=:mail
+              WHERE id =:id
         `,
+      { mail, id },
       (error, data) => {
         if (error) throw error;
         // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
           `SELECT id,mail,date_update, date_create
-          FROM user WHERE id = ${profilUserObj.id}`,
+          FROM user WHERE id = :id`,
+          { id },
           (error, data) => {
             if (error) throw error;
             result(null, data);
@@ -91,7 +93,8 @@ ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
     // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
     conn.query(
       `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
-     FROM contactProfil WHERE user_id = ${id}`,
+     FROM contactProfil WHERE user_id = :id`,
+      { id },
       (error, data) => {
         if (error) throw error;
         result(null, data);
@@ -132,7 +135,7 @@ ProfilUserCompagny.createProfilCompagny = function (
       avatar=:avatar,
       siret=:siret,
       siren=:siren,
-      category=:siren
+      category=:category
         `,
       { user_id, name, address, town, zipCode, avatar, siret, siren, category },
       (error, data) => {
@@ -172,7 +175,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
     category,
     user_id,
   } = profilUserCompagnyObj;
-  console.log("Model for update profil entreprise", profilUserCompagnyObj);
+  // console.log("Model for update profil entreprise", profilUserCompagnyObj);
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import AdminLayout from "layouts/AdminLayout";
 import AdminCardUsers from "components/admin/AdminCardUsers";
+import withAdmin from "components/auth/withAdmin";
+
 import {
   getListUsers,
   getListJobs,
@@ -32,4 +34,5 @@ const AdminPage = () => {
   );
 };
 
+// export default withAdmin(AdminPage);
 export default AdminPage;

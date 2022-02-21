@@ -30,13 +30,13 @@ class AuthControllers {
               process.env.SIGN_JWT,
               { expiresIn: "1h" }
             );
-          }
+            return res.status(200).send({
+              success: 'success',
+              flash: "Login Success !",
+              token,
+            });
+          } else return res.status(503).json({error: 'Fils de pul'})
 
-          return res.send({
-            status: "success",
-            flash: "Login Success !",
-            token: token,
-          });
         }
       });
     } catch (error) {
@@ -79,20 +79,22 @@ class AuthControllers {
     });
     try {
       // JWT
-      return res.send({
-        method: req.method,
-        status: "success",
-        flash: "Login Auth Success !",
-        user: {
-          id: user.id,
-          mail: user.mail,
-          isAdmin: user.isAdmin,
-          isCandidat: user.isCandidat,
-          isRecruteur: user.isRecruteur,
-          // isVerified: user.isVerified
-          // isBanned: user.isBanned
-        }
-      });
+      if (user) {
+        return res.send({
+          method: req.method,
+          status: "success",
+          flash: "Login Auth Success !",
+          user: {
+            id: user.id,
+            mail: user.mail,
+            isAdmin: user.isAdmin,
+            isCandidat: user.isCandidat,
+            isRecruteur: user.isRecruteur,
+            // isVerified: user.isVerified
+            // isBanned: user.isBanned
+          }
+        });
+      } else return res.json({ error: 'Fils de pull !' })
     } catch (error) {
       throw error;
     }
