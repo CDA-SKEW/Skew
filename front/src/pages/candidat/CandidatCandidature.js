@@ -28,5 +28,5 @@ const CandidatCandidature = () => {
   );
 };
 
-// export default withCandidat(CandidatCandidature);
-export default CandidatCandidature;
+export default withCandidat(CandidatCandidature);
+// export default CandidatCandidature;

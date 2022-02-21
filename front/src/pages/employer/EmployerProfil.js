@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer, getProfilUser } from "store/actions/EmployerActions";
 import FormPersonalEmployer from "components/employer/profil/FormPersonalEmployer";
 import { themeEmployer } from "configs/theme";
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerProfil = () => {
   const dispatch = useDispatch();
@@ -190,4 +191,4 @@ const EmployerProfil = () => {
   );
 };
 
-export default EmployerProfil;
+export default withRecruteur(EmployerProfil);

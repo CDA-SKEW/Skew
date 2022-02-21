@@ -8,7 +8,7 @@ import OfferIdDataFactory from "components/employer/offers/OfferIdDataFactory"
 import OfferIdDataOffer from "components/employer/offers/OfferIdDataOffer"
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerOfferId = () => {
     const { state } = useLocation();
@@ -79,4 +79,4 @@ const EmployerOfferId = () => {
     );
 };
 
-export default EmployerOfferId;
+export default withRecruteur(EmployerOfferId);

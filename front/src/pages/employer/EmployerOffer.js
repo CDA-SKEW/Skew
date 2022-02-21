@@ -9,6 +9,7 @@ import CardTableOffer from "components/employer/offers/CardTableOffer";
 import { themeEmployer } from "configs/theme";
 import { getOffer, getProfilUser } from "store/actions/EmployerActions";
 import { useDispatch, useSelector } from "react-redux";
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerOffer = () => {
 
@@ -54,4 +55,4 @@ const EmployerOffer = () => {
   );
 };
 
-export default EmployerOffer;
+export default withRecruteur(EmployerOffer);

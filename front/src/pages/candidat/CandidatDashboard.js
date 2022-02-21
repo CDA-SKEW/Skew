@@ -191,5 +191,5 @@ const CandidatDashboard = () => {
   );
 };
 
-export default CandidatDashboard;
-// export default withCandidat(CandidatDashboard);
+// export default CandidatDashboard;
+export default withCandidat(CandidatDashboard);

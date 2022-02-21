@@ -62,5 +62,5 @@ const CandidatProfil = () => {
   );
 };
 
-export default CandidatProfil;
-// export default withCandidat(CandidatProfil);
+// export default CandidatProfil;
+export default withCandidat(CandidatProfil);
