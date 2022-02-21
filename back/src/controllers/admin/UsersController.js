@@ -6,12 +6,12 @@ require("dotenv").config();
 class UsersControllers {
   // GET ALL USERS
   // Récupération de la route "usersAll"
-  async getUserAll(req, res) {
+  async getListUsers(req, res) {
     // Essayes cette fonction
     try {
       /* SQL récupération de tous les users
       à partir de la fonction qui a été créé dans le model */
-      User.getUserAll((err, data) => {
+      User.getListUsers((err, data) => {
         // console.log('response controller all user', data);
         // Si il y a erreur le mentionner
         if (err) res.send({ message: "error in request db" });
@@ -49,7 +49,7 @@ class UsersControllers {
     }
   }
 
-  // BAN USER
+  // UPDATE USER
   async putUser(req, res) {
     const { id } = req.params;
     let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;

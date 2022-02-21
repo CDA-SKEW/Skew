@@ -12,11 +12,11 @@ export default function IconChips(props) {
   // console.log("Chips Table users", user);
   const checkStatus = () => {
     // Si l'user est un employeur
-    if (user.row.isEmployer === 1) {
+    if (user.row.isRecruteur === 1) {
       // tu me retourne ce component ci (employeur)
       return (
         <Chip
-          label="employer"
+          label="recruteur"
           variant="outlined"
           color="secondary"
           icon={<AccountCircleIcon />}
@@ -26,7 +26,7 @@ export default function IconChips(props) {
       // Sinon tu me retourne celui-là (candidat)
       return (
         <Chip
-          label="candidate"
+          label="candidat"
           variant="outlined"
           color="info"
           icon={<AccountCircleIcon />}

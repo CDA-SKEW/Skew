@@ -23,7 +23,7 @@ const User = function (user) {
 };
 
 // Get All Users
-User.getUserAll = function (result) {
+User.getListUsers = function (result) {
   // console.log("Method getAll Model User");
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
@@ -54,7 +54,7 @@ User.getUserId = function (user, result) {
   });
 };
 
-// Ban User
+// Update User
 User.putUser = function (user, result) {
   // console.log("Method BAN Model User", user);
   //Declarations des constantes de user pour mysql
@@ -67,7 +67,7 @@ User.putUser = function (user, result) {
       isBanned = :isBanned,
       isVerified = :isVerified,
       isCandidat = :isCandidat,
-      isRecruteur = isRecruteur
+      isRecruteur = :isRecruteur
       WHERE id = :id;
        `,
       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes

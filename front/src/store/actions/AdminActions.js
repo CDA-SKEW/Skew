@@ -7,9 +7,13 @@ import {
   PUT_USER,
   DELETE_USER,
   GET_LIST_USERS,
+  GET_USER,
   GET_LIST_JOBS,
+  GET_JOB,
+  PUT_JOB,
   DELETE_JOB,
   GET_LIST_MESSAGES,
+  GET_MESSAGE,
   DELETE_MESSAGE,
   ADD_MESSAGE,
 } from "./ActionTypes";
@@ -166,6 +170,7 @@ const listUsers = [
   },
 ];
 
+// User All
 export const getListUsers = () => {
   return (dispatch) => {
     console.log("get:admin List user");
@@ -173,7 +178,15 @@ export const getListUsers = () => {
   };
 };
 
-// PUT User (checker/ban un user)
+// User ID
+export const getUserId = () => {
+  return (dispatch) => {
+    console.log("get:admin One user");
+    dispatch({ type: GET_USER, payload: listUsers });
+  };
+};
+
+// User Update (put)
 export const putUser = (id) => {
   return (dispatch) => {
     console.log("put user action", id);
@@ -182,7 +195,7 @@ export const putUser = (id) => {
   };
 };
 
-// DELETE User
+//  User Delete
 export const deleteUser = (id) => {
   return (dispatch) => {
     console.log("delete user action", id);
@@ -288,6 +301,7 @@ const listJobs = [
   },
 ];
 
+// All jobs
 export const getListJobs = () => {
   return (dispatch) => {
     console.log("get:admin List jobs");
@@ -295,7 +309,23 @@ export const getListJobs = () => {
   };
 };
 
-// DELETE Job
+// Job ID
+export const getJobId = () => {
+  return (dispatch) => {
+    console.log("get:admin One job");
+    dispatch({ type: GET_JOB, payload: listJobs });
+  };
+};
+
+// Job Update (put)
+export const putJob = () => {
+  return (dispatch) => {
+    console.log("put job action");
+    dispatch({ type: PUT_JOB, payload: listJobs });
+  };
+};
+
+// Job delete
 export const deleteJob = (id) => {
   return (dispatch) => {
     console.log("delete job action", id);
@@ -445,6 +475,7 @@ const listMessages = [
   },
 ];
 
+// All Messages
 export const getListMessages = () => {
   return (dispatch) => {
     // console.log("get:admin List messages");
@@ -452,7 +483,15 @@ export const getListMessages = () => {
   };
 };
 
-// ADD Message (POST)
+// Message ID
+export const getMessageId =(id)=>{
+  return (dispatch) => {
+    console.log("ID message action", id);
+    dispatch({ type: GET_MESSAGE, payload: listMessages });
+  };
+}
+
+// Add Message (POST)
 export const addMessage = (id) => {
   return (dispatch) => {
     console.log("reply message action", id);
