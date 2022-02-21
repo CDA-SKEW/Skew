@@ -225,11 +225,6 @@ router
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 
-<<<<<<< HEAD
-// Authentification
-
-// router.use(new TokenJWT().checkIsValid)
-=======
 // router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
 // .delete(new JobsController().deleteJob);
 
@@ -242,7 +237,6 @@ router
   .get(new MessagesController().getMessageId);
 // .delete(new MessagesController().deleteMessage);
 
->>>>>>> kevin
 // Session
 
 /*
