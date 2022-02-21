@@ -49,7 +49,7 @@ class UsersControllers {
     }
   }
 
-  // BAN USER
+  // UPDATE USER
   async putUser(req, res) {
     const { id } = req.params;
     let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;

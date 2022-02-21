@@ -28,10 +28,27 @@ class JobsController {
     }
   }
 
-  // async getJobId(req, res) {
-  //   console.log("controller getJobId");
-  //   res.send({ message: "GET JOBS ID" });
-  // }
+  // GET JOB ID
+  // Récupération de la route "getJobId"
+  async getJobId(req, res) {
+    const { id } = req.params;
+    // Essayes cette fonction
+    try {
+      console.log(id,'req.params', {...req.params});
+      Job.getJobId({ id }, (err, data) => {
+        console.log('response controller user ID', data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourné cette réponse avec les data
+        else
+          return res.json({
+            job: data,
+            message: "The job has been successfully GETTED. !!!",
+          });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = JobsController;
