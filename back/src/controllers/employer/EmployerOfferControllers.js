@@ -130,7 +130,9 @@ class EmployerOfferControllers {
 
   async createMessageCandidate(req, res) {
     // console.log("controller create message candidate")
-    nodemailer.SendEmailCandidate(req, res)
+    if (req.body.user_id) {
+      nodemailer.SendEmailCandidate(req, res);
+    } else res.json("Error Request");
   }
 }
 
