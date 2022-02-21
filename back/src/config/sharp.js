@@ -1,11 +1,11 @@
 const sharp = require('sharp'),
     func = require('../utils/function')
 
-const pathSharp = "assets/images/avatar/"
+const pathSharp = "public/images/avatar/"
 
 module.exports = (req, res, next) => {
 
-    if (req.file) {
+    if (req.file ) {
         const file = req.file
         // console.log(file.path)
         // console.log(file.filename)
@@ -24,6 +24,7 @@ module.exports = (req, res, next) => {
             .toFile(pathSharp + file.filename.split('.').slice(0, -1).join('.') + ".webp", (err, info) => {
                 let index =req.file.mimetype.indexOf("image");
                 if (index !== -1) {
+                    // console.log("je suis une image")
                     func.removeFile(pathSharp + file.filename)
                 }
             })
