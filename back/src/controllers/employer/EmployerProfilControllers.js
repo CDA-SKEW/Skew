@@ -1,6 +1,8 @@
 // Import Model
-const { ProfilUser, ProfilUserCompagny } = require("../../models/employer/ProfilUser");
-// const ProfilUserCompagny = require("../../models/employer/ProfilUser");
+const {
+  ProfilUser,
+  ProfilUserCompagny
+} = require("../../models/employer/ProfilUserModel");
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
@@ -24,8 +26,7 @@ class EmployerProfilControllers {
           return res.json({
             method: req.method,
             status: "success",
-            flash: "Get User By Id !",
-            message: "controller get user profil employer",
+            message: "Votre profil utilisateur",
             dataProfilUser: data,
           });
         }
@@ -34,6 +35,7 @@ class EmployerProfilControllers {
       throw error;
     }
   }
+
   //action get Update mail ProfilUser
   async updateProfilUser(req, res) {
     // console.log(
@@ -41,7 +43,7 @@ class EmployerProfilControllers {
     //   req.body,
     //   req.params.id
     // );
-    if (req.params.id && req.body.mail && req.body.oldMail) {
+    if (req.params.id && req.body.mail) {
       // console.log("controller update mail", req.body);
       let profilUserObj = new ProfilUser({
         id: Number(req.params.id),
@@ -50,7 +52,7 @@ class EmployerProfilControllers {
       // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editMail(profilUserObj, req.body.oldMail, (err, data) => {
+        ProfilUser.editMail(profilUserObj, (err, data) => {
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
             console.log("err", err),
@@ -62,8 +64,7 @@ class EmployerProfilControllers {
             return res.json({
               method: req.method,
               status: "success",
-              flash: "controller update user profil By ID !",
-              message: "controller update user profil employer",
+              message: "Votre profil entreprise a bien été modifié",
               dataProfilUser: data,
             });
           }
@@ -71,7 +72,6 @@ class EmployerProfilControllers {
       } catch (error) {
         throw error;
       }
-      // res.json({ message: "controller update user profil employer" });
     } else res.json("Error Request");
   }
 
@@ -81,25 +81,27 @@ class EmployerProfilControllers {
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
       //ici String est une coercion qui permet de typer la variable
-      ProfilUserCompagny.getProfilCompagnyById(String(req.params.id), (err, data) => {
-        // console.log("dataid res", data);
-        //Si erreur alors affiche console log erreur et res.status
-        if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
+      ProfilUserCompagny.getProfilCompagnyById(
+        String(req.params.id),
+        (err, data) => {
+          // console.log("dataid res", data);
+          //Si erreur alors affiche console log erreur et res.status
+          if (err) {
+            console.log("err", err),
+              res.status(500).send({
+                message: err.message || "Une erreur est survenue",
+              });
+            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+          } else {
+            return res.json({
+              method: req.method,
+              status: "success",
+              message: "Votre profil entreprise",
+              dataProfilEmployer: data,
             });
-          //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-        } else {
-          return res.json({
-            method: req.method,
-            status: "success",
-            flash: "Get Compagny for User By Id !",
-            message: "controller get profil Compagny",
-            dataProfilEmployer: data,
-          });
+          }
         }
-      });
+      );
     } catch (error) {
       throw error;
     }
@@ -134,8 +136,7 @@ class EmployerProfilControllers {
               return res.json({
                 method: req.method,
                 status: "success",
-                flash: "controller Create profil compagny !",
-                message: "controller Create profil compagny",
+                message: "Votre profil entreprise a été crée",
                 dataProfilEmployer: data,
               });
             }
@@ -153,14 +154,25 @@ class EmployerProfilControllers {
     //   "controller update Profil Employeur",
     //   req.body, "req.params",req.params.id
     // );
+    //  console.log("reqfile", req.file)
+    // console.log("reqbody", req.body)
+    const pathAvatar = "assets/images/avatar/",
+      pathAvatarDb = "/assets/images/avatar/"
+
+    // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+    const pathImgWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + ".webp"
+    // console.log(pathImgWebp)
+    const pathAvatarWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + "_" + req.params.id + ".webp"
+    // console.log(pathAvatarWebp)
+
 
     if (req.params.id) {
       // console.log("post Profil Compagny Employeur", req.body);
       let profilUserCompagnyObj = new ProfilUserCompagny({
         user_id: req.params.id,
-        ...req.body
+        ...req.body,
       });
-      console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
+      // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
         ProfilUserCompagny.updateProfilCompagny(
@@ -177,8 +189,7 @@ class EmployerProfilControllers {
               return res.json({
                 method: req.method,
                 status: "success",
-                flash: "controller update profil compagny !",
-                message: "controller update profil compagny",
+                message: "Votre profil entreprise a été modifié",
                 dataProfilEmployer: data,
               });
             }

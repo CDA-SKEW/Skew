@@ -1,8 +1,10 @@
 /*
  * Import Module
  * ************* */
-
 const router = require("express").Router();
+
+const upload = require("../config/multer"),
+sharp = require('../config/sharp')
 
 //#############
 //#Controllers#
@@ -15,8 +17,6 @@ const UserControllers = require("../controllers/UserControllers");
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
-const EmployerCandidateStatutControllers = require("../controllers/employer/EmployerCandidateStatutControllers");
-const EmployerMessageCandidateControllers = require("../controllers/employer/EmployerMessageCandidateControllers");
 
 //Candidat
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
@@ -66,13 +66,13 @@ router
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
-  .post(new EmployerProfilControllers().createProfilCompagny);
+  .post(upload.single('avatar'),sharp,new EmployerProfilControllers().createProfilCompagny);
 
 // Employeur entreprise profil Id
 router
   .route("/api/employer/profil/:id")
   .get(new EmployerProfilControllers().getProfilCompagny)
-  .put(new EmployerProfilControllers().updateProfilCompagny);
+  .put(upload.single('avatar'),sharp,new EmployerProfilControllers().updateProfilCompagny);
 
 // Employeur offer
 router
@@ -88,12 +88,12 @@ router
 // Employeur statut candidat offer
 router
   .route("/api/employer/offer/candidat/:id")
-  .put(new EmployerCandidateStatutControllers().updateCandidate);
+  .put(new EmployerOfferControllers().updateCandidate);
 
 // Employeur send message candidate
 router
   .route("/api/employer/candidat/message/")
-  .post(new EmployerMessageCandidateControllers().createMessage);
+  .post(new EmployerOfferControllers().createMessageCandidate);
 
 //------------------------------------------------------------
 

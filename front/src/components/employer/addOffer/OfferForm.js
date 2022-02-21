@@ -9,7 +9,6 @@ import {
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { postFormAddOffer } from "store/actions/EmployerActions";
-import ModalOfferPublished from "../../SnackbarMessage";
 import SnackbarMessage from "../../SnackbarMessage";
 
 export default function OfferForm() {
@@ -47,7 +46,7 @@ export default function OfferForm() {
   const [type, setType] = useState("");
   const [period, setPeriod] = useState("");
   const [description, setDescription] = useState("");
-  const [profile, setProfile] = useState("");
+  const [profil, setProfil] = useState("");
 
   // code pour savoir si la valeur du select est à CDI pour affichage durée du contrat
   let typeCdi = false;
@@ -61,11 +60,12 @@ export default function OfferForm() {
     e.preventDefault();
 
     const dataFormAddOffer = {
+      user_id:4,
       title,
       type,
       period,
       description,
-      profile,
+      profil,
     };
 
     //passage de la varaiblesecondesSnackbarMessage à false apres 2 
@@ -81,7 +81,7 @@ export default function OfferForm() {
     setType("");
     setPeriod("");
     setDescription("");
-    setProfile("");
+    setProfil("");
   };
 
   return (
@@ -171,9 +171,9 @@ export default function OfferForm() {
             size="small"
             multiline
             rows={5}
-            value={profile}
+            value={profil}
             onChange={(e) => {
-              setProfile(e.target.value);
+              setProfil(e.target.value);
             }}
           />
         </Grid>

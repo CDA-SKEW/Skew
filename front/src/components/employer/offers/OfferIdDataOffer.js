@@ -80,7 +80,7 @@ export default function OfferIdDataOffer(props) {
 
                 <Grid item xs={12} sm={12} md={10}>
                     <Typography variant="body2" paragraph={true} sx={{ whiteSpace: "pre-line" }}>
-                        {offer.profile}
+                        {offer.profil}
                     </Typography>
                 </Grid>
 

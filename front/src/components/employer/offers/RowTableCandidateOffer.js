@@ -293,6 +293,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorTextModal="#000000"
                                     action="candidateNoRetain"
                                     param={row.user_id}
+                                    offer={offer}
                                 />
 
 
@@ -327,6 +328,7 @@ export default function RowTableCandidateOffer(props) {
                                     colorBgModal="#ABC4FF"
                                     colorTextModal="#000000"
                                     action="candidateRetain"
+                                    offer={offer}
                                     param={row.user_id}
                                 />
 
