@@ -52,8 +52,27 @@ Message.getMessageId = function (message, result) {
 };
 
 // Post Message (reply)
-Message.addMessage = function (message, result) {
- 
+Message.addMessage = function (newMessage, result) {
+  const { name, firstname } = newMessage;
+  connection.getConnection(function (error, conn) {
+    conn.query(
+      `
+          INSERT INTO messages (name, firstname)
+          VALUES 
+          newMessage = :name, 
+          newMessage = :firstname
+      `,
+      { name, firstname },
+      (error, data) => {
+        if (error) throw error;
+        conn.query(`SELECT * FROM messages`, (error, data) => {
+          if (error) throw error;
+          result(null, data);
+        });
+      }
+    );
+    conn.release();
+  });
 };
 
 // Delete Message
@@ -62,7 +81,7 @@ Message.addMessage = function (message, result) {
 //   const { id } = message;
 //   connection.getConnection(function (error, conn) {
 //     conn.query(
-//       ` DELETE FROM messages 
+//       ` DELETE FROM messages
 //     WHERE id  = :id`,
 //       { id },
 //       (error, data) => {

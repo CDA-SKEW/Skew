@@ -1,6 +1,9 @@
 // Import Model
 const Message = require("../../models/admin/MessageModel");
 
+// Import nodemailer
+// const nodemailer = require('nodemailer')
+
 require("dotenv").config();
 
 class MessagesController {
@@ -52,7 +55,7 @@ class MessagesController {
 
   // POST MESSAGE (Reply)
   async addMessage(req, res) {
-    console.log("controller post message");
+    console.log("controller Reply message");
     res.json({ message: "controller Message Add" });
   }
 
