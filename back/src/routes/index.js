@@ -101,7 +101,7 @@ router
 
 // Employeur send message candidate
 router
-  .route("/api/employer/candidat/message/")
+  .route("/api/employer/candidat/message")
   .post(new EmployerOfferControllers().createMessageCandidate);
 
 //------------------------------------------------------------
