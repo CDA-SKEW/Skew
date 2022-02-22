@@ -21,12 +21,12 @@ export default function FormContact() {
     const dispatch = useDispatch();
 
     const InputList = [
-        { label: "Nom", multiline: false, rows: '1' },
-        { label: "Prenom", multiline: false, rows: '1' },
-        { label: "Tel", multiline: false, rows: '1' },
-        { label: "Mail", multiline: false, rows: '1' },
-        { label: "Sujet", multiline: false, rows: '1' },
-        { label: "Message", multiline: true, rows: '10' },
+        { label: "Nom", multiline: false, rows: '1', value: nom },
+        { label: "Prenom", multiline: false, rows: '1', value: prenom },
+        { label: "Tel", multiline: false, rows: '1', value: tel },
+        { label: "Mail", multiline: false, rows: '1', value: mail },
+        { label: "Sujet", multiline: false, rows: '1', value: sujet },
+        { label: "Message", multiline: true, rows: '10', value: message },
     ]
 
     const handleForm = (e) => {
@@ -98,6 +98,7 @@ export default function FormContact() {
                         name={input.label}
                         multiline={input.multiline}
                         rows={input.rows}
+                        value={input.value}
                         color='secondary'
                         variant="outlined"
                         fullWidth
