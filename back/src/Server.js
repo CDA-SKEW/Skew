@@ -1,5 +1,6 @@
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const express = require('express')
 const router = require("./routes/index");
 
 class Server {
@@ -16,6 +17,9 @@ class Server {
       credentials: true
     }))
 
+    // Express static permet de diriger un chemin sur un dossier en particulier
+    this.app.use('/assets', express.static('public'))
+
     // Body Parser
     this.app.use(bodyParser.json());
     this.app.use(
@@ -24,7 +28,7 @@ class Server {
       })
     );
 
-      // Routes
+    // Routes
     this.app.use(router);
 
     // Run app

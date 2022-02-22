@@ -12,7 +12,10 @@ const OffreVisiteur = function (data) {
         this.title = data.title,
         this.type = data.type,
         this.period = data.period,
-        this.createDate = data.createDate
+        this.createDate = data.createDate,
+        this.avatar = data.avatar,
+        this.description = data.description,
+        this.profil = data.profil
 };
 
 // getAll message
@@ -21,10 +24,10 @@ OffreVisiteur.getAll = function (result) {
     connection.getConnection(async function (error, conn) {
         if (error) throw error;
         conn.query(
-            `SELECT u.id, c.name, c.lastname, c.town, o.title, o.type, o.period, o.createDate
-            FROM user as u, contactProfil as c, offre as o
-            WHERE u.id = c.user_id
-            AND u.id = o.user_id`, (error, data) => {
+            `select u.id, c.name, c.lastname, c.town, c.avatar, o.title, o.type, o.period, o.createDate, o.description, o.profil
+            from user as u, contactProfil as c, offre as o
+            where u.id = c.user_id
+            and u.id = o.user_id`, (error, data) => {
             if (error) throw error;
             result(null, data);
             conn.release();

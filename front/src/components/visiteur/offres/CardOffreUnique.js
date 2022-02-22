@@ -1,9 +1,9 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-
+import url from '../../../utils/url'
 export default function CardOffreUnique({ listOffer, handleClickOpen }) {
-
+console.log('fisubhfsdhfdshf', url)
     return (
         <Card
             sx={{
@@ -32,12 +32,12 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                         }}
                     />
                 )} */}
-                {/* <CardMedia
+                <CardMedia
                     component="img"
                     height="120"
-                    image={listOffer.image}
+                    image={url + listOffer.avatar}
                     alt="imageEmployer"
-                /> */}
+                />
                 <CardContent>
                     <Typography
                         gutterBottom
