@@ -8,17 +8,22 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
     listOffer: [],
+    flash: "",
 };
 
 /*
  * Reducers
  * ******** */
-export function OffresVisiteurReducer(state = initialState, action) {
+export function OffreVisiteurReducer(state = initialState, action) {
     switch (action.type) {
         default:
             return state;
-        case Actions.LOGIN:
-            return { ...state, listOffer: action.payload };
+        case Actions.GET_OFFRE_VISITEUR:
+            return {
+                ...state,
+                flash: action.payload.flash,
+                listOffer: action.payload.dbOffresVisiteur
+            };
     }
 }
 

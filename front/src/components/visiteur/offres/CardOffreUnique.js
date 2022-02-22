@@ -19,7 +19,7 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
             <CardActionArea
                 onClick={() => handleClickOpen(listOffer)}
             >
-                {listOffer.badgeEmployor && (
+                {/* {listOffer.badgeEmployor && (
                     <VerifiedUserIcon
                         sx={{
                             position: "absolute",
@@ -31,13 +31,13 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                             color: "#16B84E",
                         }}
                     />
-                )}
-                <CardMedia
+                )} */}
+                {/* <CardMedia
                     component="img"
                     height="120"
                     image={listOffer.image}
                     alt="imageEmployer"
-                />
+                /> */}
                 <CardContent>
                     <Typography
                         gutterBottom
@@ -51,9 +51,9 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                             alignItems: "center",
                         }}
                     >
-                        {listOffer.titleOffer}
+                        {listOffer.title}
                     </Typography>
-                    {listOffer.typeContrat && (
+                    {listOffer.type && (
                         <Typography
                             gutterBottom
                             variant='body1'
@@ -64,10 +64,10 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                                 color: '#808080',
                             }}
                         >
-                            {listOffer.typeContrat}
+                            {listOffer.type}
                         </Typography>
                     )}
-                    {listOffer.localisation && (
+                    {listOffer.town && (
                         <Typography
                             gutterBottom
                             variant='body1'
@@ -78,7 +78,7 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                                 color: '#808080',
                             }}
                         >
-                            {listOffer.localisation}
+                            {listOffer.town}
                         </Typography>
                     )}
                     <Typography
@@ -89,14 +89,14 @@ export default function CardOffreUnique({ listOffer, handleClickOpen }) {
                             textAlign: "center",
                         }}
                     >
-                        {listOffer.nameEmployor}
+                        {listOffer.name}
                     </Typography>
                     <Typography
                         variant="body2"
                         color="text.secondary"
                         sx={{ textAlign: "center" }}
                     >
-                        {listOffer.dateOfferDays}
+                        {listOffer.createDate}
                     </Typography>
                 </CardContent>
             </CardActionArea>

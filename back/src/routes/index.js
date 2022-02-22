@@ -17,6 +17,9 @@ const UserControllers = require("../controllers/UserControllers");
 //Message
 const ContactControllers = require("../controllers/ContactControllers");
 
+// Offres visiteur
+const OffreVisiteurControllers = require("../controllers/OffreVisiteurControllers");
+
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
@@ -50,6 +53,9 @@ router
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
+
+// Offres visiteur
+router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll)
 
 // Users
 router

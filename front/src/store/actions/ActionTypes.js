@@ -49,4 +49,4 @@ export const REGISTER = 'REGISTER';
 export const POST_CONTACT_US = 'POST_CONTACT_US';
 
 // Offres visiteur
-export const GET_OFFRES_VISITEUR = 'GET_OFFRES_VISITEUR';
+export const GET_OFFRE_VISITEUR = 'GET_OFFRE_VISITEUR';
