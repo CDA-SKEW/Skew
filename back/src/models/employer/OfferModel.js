@@ -38,38 +38,63 @@ Offer.getOfferId = function (id, result) {
   const dataOffer = [];
   // console.log("Method delete Model User", user);
   connection.getConnection(function (error, conn) {
-
-
-    
-
     conn.query(
-      `select * FROM skill where user_id=:id
-      `,
+      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil, 
+      c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays,
+       c.badge as badgeEmployor, c.avatar as image
+       FROM offre as o
+       inner join contactProfil as c On o.user_id=c.user_id
+       where o.user_id=:id
+       ORDER BY o.createDate DESC;`,
       { id },
       (error, data) => {
         if (error) throw error;
+
         else {
-          const skill = {};
-          const skillItem = [];
+
           // console.log("data", data.length);
           for (let index = 0; index < data.length; index++) {
-            //  console.log(data[index].skill)
-            skillItem.push(data[index].skill);
+            console.log(data[index])
+            console.log(data[index].offer_id)
+            Object.defineProperty(data[index], "profilCandidate", {
+              value: [],
+              writable: true,
+              enumerable: true,
+              configurable: true,
+            })
+            // skillItem.push(data[index].skill); 
           }
-          console.log("skillItem", skillItem);
-          cvCandidat = Object.create(
-            {},
-            {
-              skill: {
-                value: skillItem,
-                writable: true,
-                enumerable: true,
-                configurable: true,
-              },
-            }
-          );
-          console.log("cvCandidat", cvCandidat);
-          result(null, cvCandidat);
+
+          // data.push(Object.create(profilCandidate=[]))
+          // const profilCandidate =["e","eee"]
+          // Object.create()
+
+          // Object.defineProperty(data , "profilCandidate ", {
+          //   value: profilCandidate,
+          //   enumerable: true
+          // })
+
+          // const skill = {};
+          // const skillItem = [];
+          // // console.log("data", data.length);
+          // for (let index = 0; index < data.length; index++) {
+          //   //  console.log(data[index].skill)
+          //   skillItem.push(data[index].skill);
+          // }
+          // console.log("skillItem", skillItem);
+          // cvCandidat = Object.create(
+          //   {},
+          //   {
+          //     skill: {
+          //       value: skillItem,
+          //       writable: true,
+          //       enumerable: true,
+          //       configurable: true,
+          //     },
+          //   }
+          // );
+          // console.log("cvCandidat", cvCandidat);
+          result(null, data);
         }
       }
     );
