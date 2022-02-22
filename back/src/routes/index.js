@@ -229,7 +229,7 @@ router
 // .delete(new JobsController().deleteJob);
 
 // Messages
-router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
+// router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
 // .post(new MessagesController().addMessage);
 
 router
