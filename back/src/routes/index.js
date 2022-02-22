@@ -205,7 +205,7 @@ router
 router
   .route("/api/admin/messages")
   .get(new MessagesController().getListMessages)
-  .post(new MessagesController().addMessage);
+  .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
   .get(new MessagesController().getMessageId)

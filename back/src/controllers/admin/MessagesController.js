@@ -1,4 +1,5 @@
 // Import Model
+const nodemailer = require("../../config/nodemailer");
 const Message = require("../../models/admin/MessageModel");
 
 // Import nodemailer
@@ -7,7 +8,7 @@ const Message = require("../../models/admin/MessageModel");
 require("dotenv").config();
 
 class MessagesController {
-   // GET ALL MESSAGES
+  // GET ALL MESSAGES
   // Récupération de la route "getMessageAll"
   async getListMessages(req, res) {
     // Essayes cette fonction
@@ -15,7 +16,7 @@ class MessagesController {
       /* SQL récupération de tous les messages
       à partir de la fonction qui a été créé dans le model */
       Message.getListMessages((err, data) => {
-        console.log('response controller all messages', data);
+        console.log("response controller all messages", data);
         // Si il y a erreur le mentionner
         if (err) res.send({ message: "error in request db" });
         // Sinon retourné cette réponse avec les data
@@ -30,15 +31,15 @@ class MessagesController {
     }
   }
 
- // GET MESSAGES ID
+  // GET MESSAGES ID
   // Récupération de la route "getMessageId"
   async getMessageId(req, res) {
     const { id } = req.params;
     // Essayes cette fonction
     try {
-      console.log(id,'req.params', {...req.params});
+      console.log(id, "req.params", { ...req.params });
       Message.getMessageId({ id }, (err, data) => {
-        console.log('response controller message ID', data);
+        console.log("response controller message ID", data);
         if (err) res.send({ message: "error in request db" });
         // Sinon retourné cette réponse avec les data
         else
@@ -52,11 +53,10 @@ class MessagesController {
     }
   }
 
-
-  // POST MESSAGE (Reply)
-  async addMessage(req, res) {
+  // POST MESSAGE
+  async replyMessage(req, res) {
     console.log("controller Reply message");
-    res.json({ message: "controller Message Add" });
+    nodemailer.replyMessage(req, res);
   }
 
   // DELETE MESSAGE
@@ -78,7 +78,6 @@ class MessagesController {
   //     throw error;
   //   }
   // }
-
 }
 
 module.exports = MessagesController;

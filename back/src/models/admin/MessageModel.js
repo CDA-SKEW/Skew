@@ -51,18 +51,21 @@ Message.getMessageId = function (message, result) {
   });
 };
 
-// Post Message (reply)
-Message.addMessage = function (newMessage, result) {
-  const { name, firstname } = newMessage;
+// Post Message 
+Message.replyMessage = function (newMessage, result) {
+  const { name, sujet, message } = newMessage;
   connection.getConnection(function (error, conn) {
+    console.log(req.body.name, "MODEL");
     conn.query(
       `
-          INSERT INTO messages (name, firstname)
+          INSERT INTO messages (name, sujet, message)
           VALUES 
           newMessage = :name, 
-          newMessage = :firstname
+          newMessage = :sujet,
+          newMessage = :message
       `,
-      { name, firstname },
+      { name, sujet, message },
+      
       (error, data) => {
         if (error) throw error;
         conn.query(`SELECT * FROM messages`, (error, data) => {
