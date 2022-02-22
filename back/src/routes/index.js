@@ -224,11 +224,10 @@ router
 // .delete(new MessagesController().deleteMessage);
 
 // Users
-router.route("/api/admin").get(new UsersController().getListUsers);
-
+router.route("/api/admin/users").get(new UsersController().getListUsers);
 router
-  .route("/api/admin/:id")
-  .get(new UsersController().getUserId)
+  .route("/api/admin/users/:id")
+  // .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 

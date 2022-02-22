@@ -127,20 +127,59 @@ module.exports = {
 
     console.log("Reply NodeMailer Config");
     console.log(req.body.name);
+
     const mailOptions = {
       from: process.env.USER_NODMAILER,
       to: req.body.mail,
       name: req.body.name,
       sujet: req.body.sujet,
       html: `
-      ${req.body.message} <br>
+      <b>Bonjour ! </br> <strong>${req.body.name}</strong></b>, </br> <p>${req.body.message} </br></p>  
+      <div style="display: flex;margin-bottom: 15px;">
+      <span>Cordialement,</span>
+      </div> 
+        <div style="display: flex;margin-bottom: 15px;">  
+         <div style="margin-top:auto;margin-bottom:auto;width:100px;height:auto">
+          <img style="width:100%" src="cid:signatureLogo"
+              alt="logo">
+         </div>  
+        <div style="text-align:left;margin-left: 15px;">
+         <div style="font-size: 13px;">
+              <strong><span>Skew application </span></strong>
+         </div>  
+         <div style="font-size: 10px;">
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Adresse:</span>
+                  <span>18 rue Georges Bizet</span>
+              </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Code postal:</span>
+                  <span>72700</span>
+              </div>  
+              <div style="display: flex;">
+              <span style="margin-right:2px">Ville:</span>
+              <span>Allonnes</span>
+               </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Email:</span>
+                  <a href="mailto:${process.env.USER_NODMAILER}" style="color:#428BCA;">${process.env.USER_NODMAILER}</a>
+              </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Link:</span>
+                  <a href="http://localhost:3000/" target="_blank"  rel="noreferrer" style="color:#428BCA;">
+                      Skew Application</a>
+              </div>  
+           </div>
+         </div>
+       </div>
   `,
+      attachments: arrayFiles,
     };
     // console.log(mailOptions);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log("err", err),
-          res.status(500).send({
+          res.status(500).json({
             message: err.message || "Une erreur est survenue",
           });
       } else {

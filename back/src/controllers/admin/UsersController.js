@@ -12,7 +12,7 @@ class UsersControllers {
       /* SQL récupération de tous les users
       à partir de la fonction qui a été créé dans le model */
       User.getListUsers((err, data) => {
-        // console.log('response controller all user', data);
+        console.log("response controller all user", data);
         // Si il y a erreur le mentionner
         if (err) res.send({ message: "error in request db" });
         // Sinon retourné cette réponse avec les data
@@ -29,25 +29,25 @@ class UsersControllers {
 
   // GET USER ID
   // Récupération de la route "userID"
-  async getUserId(req, res) {
-    const { id } = req.params;
-    // Essayes cette fonction
-    try {
-      // console.log(id,'req.params', {...req.params});
-      User.getUserId({ id }, (err, data) => {
-        // console.log('response controller user ID', data);
-        if (err) res.send({ message: "error in request db" });
-        // Sinon retourné cette réponse avec les data
-        else
-          return res.json({
-            user: data,
-            message: "The user has been successfully GETTED. !!!",
-          });
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
+  // async getUserId(req, res) {
+  //   const { id } = req.params;
+  //   // Essayes cette fonction
+  //   try {
+  //     // console.log(id,'req.params', {...req.params});
+  //     User.getUserId({ id }, (err, data) => {
+  //       // console.log('response controller user ID', data);
+  //       if (err) res.send({ message: "error in request db" });
+  //       // Sinon retourné cette réponse avec les data
+  //       else
+  //         return res.json({
+  //           user: data,
+  //           message: "The user has been successfully GETTED. !!!",
+  //         });
+  //     });
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   // UPDATE USER
   async putUser(req, res) {

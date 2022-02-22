@@ -5,12 +5,10 @@
 // Connection à la base de données
 const connection = require("../../config/ConnectionDB");
 
-// Module
-// const bcrypt = require("bcrypt");
-
 // Model
 const User = function (user) {
-  (this.id = user.id),
+  (this.user_id = user.user_id),
+    (this.id = user.id),
     (this.name = user.name),
     (this.mail = user.mail),
     (this.pass = user.pass),
@@ -23,36 +21,43 @@ const User = function (user) {
 };
 
 // Get All Users
-User.getListUsers = function (result) {
-  // console.log("Method getAll Model User");
+User.getListUsers = function (result, user_id) {
+  console.log("Method getAll Model User");
+  // console.log(user_id);
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
     /* Requête SQL pour afficher tous les Users 
     de la table user de la DB Skew */
-    conn.query(`SELECT * FROM user`, (error, data) => {
-      //   Si erreur l'afficher
-      if (error) throw error;
-      //   Sinon afficher les datas
-      else result(null, data);
-    });
+    conn.query(
+      `SELECT u.*, c.name, c.lastname FROM user as u
+      INNER JOIN  contactProfil  as c
+      ON u.id = c.user_id;
+`,
+      (error, data) => {
+        //   Si erreur l'afficher
+        if (error) throw error;
+        //   Sinon afficher les datas
+        else result(null, data);
+      }
+    );
     // Stop la function une fois exécutée
     conn.release();
   });
 };
 
 // Get One User
-User.getUserId = function (user, result) {
-  // console.log("Method getID Model User", user);
-  const { id } = user;
-  connection.getConnection(function (error, conn) {
-    conn.query(` SELECT * FROM user WHERE id = :id`, { id }, (error, data) => {
-      if (error) throw error;
-      else result(null, data);
-      // console.log("data", data);
-    });
-    conn.release();
-  });
-};
+// User.getUserId = function (user, result) {
+//   // console.log("Method getID Model User", user);
+//   const { id } = user;
+//   connection.getConnection(function (error, conn) {
+//     conn.query(` SELECT * FROM user WHERE id = :id`, { id }, (error, data) => {
+//       if (error) throw error;
+//       else result(null, data);
+//       // console.log("data", data);
+//     });
+//     conn.release();
+//   });
+// };
 
 // Update User
 User.putUser = function (user, result) {
@@ -86,7 +91,7 @@ User.putUser = function (user, result) {
 
 // Delete User
 User.deleteUser = function (user, result) {
-  // console.log("Method delete Model User", user);
+  console.log("Method delete Model User", user);
   const { id } = user;
   connection.getConnection(function (error, conn) {
     conn.query(
