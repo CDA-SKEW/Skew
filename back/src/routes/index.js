@@ -70,6 +70,11 @@ router
   .route("/api/employer/profilUser/:id")
   .put(new EmployerProfilControllers().updateProfilUser);
 
+// Employeur user profil password Id
+router
+  .route("/api/employer/profilUserPw/:id")
+  .put(new EmployerProfilControllers().updateProfilUserPw);
+
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
@@ -213,13 +218,15 @@ router
   .route("/api/admin/messages")
   .get(new MessagesController().getListMessages)
   .post(new MessagesController().addMessage);
+
 router
   .route("/api/admin/messages/:id")
   .get(new MessagesController().getMessageId)
-  // .delete(new MessagesController().deleteMessage);
+// .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin").get(new UsersController().getListUsers);
+
 router
   .route("/api/admin/:id")
   .get(new UsersController().getUserId)
@@ -229,13 +236,15 @@ router
 // router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
 // .delete(new JobsController().deleteJob);
 
+
+// Mis en commentaire pour continuer - voir avec souka
 // Messages
-router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
+// router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
 // .post(new MessagesController().addMessage);
 
-router
-  .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId);
+// router
+//   .route("/api/admin/messages/:id")
+//   .get(new MessagesController().getMessageId);
 // .delete(new MessagesController().deleteMessage);
 
 // Session
