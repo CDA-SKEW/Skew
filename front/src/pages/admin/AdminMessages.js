@@ -22,5 +22,5 @@ const AdminMessages = () => {
   );
 };
 
-export default withAdmin(AdminMessages);
-// export default AdminMessages;
+// export default withAdmin(AdminMessages);
+export default AdminMessages;
