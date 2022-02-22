@@ -42,7 +42,7 @@ class EmployerProfilControllers {
     }
   }
 
-  //action get Update mail ProfilUser
+  //action Update mail ProfilUser
   async updateProfilUser(req, res) {
     // console.log(
     //   "controller get Profil user Employeur",
@@ -70,7 +70,46 @@ class EmployerProfilControllers {
             return res.json({
               method: req.method,
               status: "success",
-              message: "Votre profil entreprise a bien été modifié",
+              message: "Votre mail a bien été modifié",
+              dataProfilUser: data,
+            });
+          }
+        });
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
+  }
+
+  //action Update password ProfilUser
+  async updateProfilUserPw(req, res) {
+    // console.log(
+    //   "controller get Profil PW user Employeur",
+    //   req.body,
+    //   req.params.id
+    // );
+    if (req.params.id && req.body.mail) {
+      // console.log("controller update mail", req.body);
+      let profilUserObj = new ProfilUser({
+        id: Number(req.params.id),
+        mail: String(req.body.mail),
+      });
+      // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
+      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
+      try {
+        ProfilUser.editPw(profilUserObj, (err, data) => {
+          //Si erreur alors affiche console log erreur et res.status
+          if (err) {
+            console.log("err", err),
+              res.status(500).send({
+                message: err.message || "Une erreur est survenue",
+              });
+          } else {
+            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+            return res.json({
+              method: req.method,
+              status: "success",
+              message: "Votre mot de passe a bien été modifié",
               dataProfilUser: data,
             });
           }
@@ -125,8 +164,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-          req.file.filename.split(".").slice(0, -1).join(".") +
-          ".webp"
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(
@@ -188,8 +227,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-          req.file.filename.split(".").slice(0, -1).join(".") +
-          ".webp"
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(

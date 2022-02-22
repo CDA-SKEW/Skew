@@ -15,7 +15,7 @@ const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
 
 //Message
-const ContactControllers = require('../controllers/ContactControllers');
+const ContactControllers = require("../controllers/ContactControllers");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
@@ -69,6 +69,11 @@ router
 router
   .route("/api/employer/profilUser/:id")
   .put(new EmployerProfilControllers().updateProfilUser);
+
+// Employeur user profil password Id
+router
+  .route("/api/employer/profilUserPw/:id")
+  .put(new EmployerProfilControllers().updateProfilUserPw);
 
 // Employeur entreprise profil
 router
@@ -201,6 +206,7 @@ router
 
 // Jobs
 router.route("/api/admin/jobs").get(new JobsController().getListJobs);
+
 router
   .route("/api/admin/jobs/:id")
   .get(new JobsController().getJobId)
@@ -211,31 +217,21 @@ router
 router
   .route("/api/admin/messages")
   .get(new MessagesController().getListMessages)
-  .post(new MessagesController().addMessage);
+  .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId)
-  // .delete(new MessagesController().deleteMessage);
+  .get(new MessagesController().getMessageId);
+// .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin").get(new UsersController().getListUsers);
+
 router
   .route("/api/admin/:id")
   .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 
-// router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
-// .delete(new JobsController().deleteJob);
-
-// Messages
-// router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
-// .post(new MessagesController().addMessage);
-
-router
-  .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId);
-// .delete(new MessagesController().deleteMessage);
 
 // Session
 

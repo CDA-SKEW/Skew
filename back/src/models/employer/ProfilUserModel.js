@@ -82,6 +82,46 @@ ProfilUser.editMail = function (profilUserObj, result) {
   });
 };
 
+// Update mail in profil employer User (by id)
+ProfilUser.editPw = function (profilUserObj, result) {
+  // console.log(
+  //   "edit mail in Model:",
+  //   "id:",
+  //   typeof profilUserObj.id,
+  //   profilUserObj.id,
+  //   "mail:",
+  //   profilUserObj.mail,
+  // );
+  //Declarations des constantes de profilUserCompagnyObj pour mysql
+  const { mail, id } = profilUserObj;
+  //ici on se connect à la base de donnée en appellant le module importé
+  connection.getConnection(function (error, conn) {
+    // ici on fait un update de la colonne mail de la table user par l'ID
+    conn.query(
+      `       UPDATE user
+              SET mail=:mail
+              WHERE id =:id
+        `,
+      { mail, id },
+      (error, data) => {
+        if (error) throw error;
+        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
+        conn.query(
+          `SELECT id,mail,date_update, date_create
+          FROM user WHERE id = :id`,
+          { id },
+          (error, data) => {
+            if (error) throw error;
+            result(null, data);
+          }
+        );
+        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+        conn.release();
+      }
+    );
+  });
+};
+
 // Get profil employer User (by id)
 ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
   // console.log("model Profiluser", id, result)
