@@ -15,7 +15,7 @@ const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
 
 //Message
-const ContactControllers = require('../controllers/ContactControllers');
+const ContactControllers = require("../controllers/ContactControllers");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
@@ -214,8 +214,8 @@ router
   .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId)
-  // .delete(new MessagesController().deleteMessage);
+  .get(new MessagesController().getMessageId);
+// .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin").get(new UsersController().getListUsers);
@@ -224,13 +224,6 @@ router
   .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
-
-// router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
-// .delete(new JobsController().deleteJob);
-
-// Messages
-// router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
-// .post(new MessagesController().addMessage);
 
 router
   .route("/api/admin/messages/:id")
