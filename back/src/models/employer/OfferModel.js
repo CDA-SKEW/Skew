@@ -8,16 +8,16 @@ const Offer = function (offer) {
     (this.type = String(offer.type)),
     (this.period = Number(offer.period)),
     (this.description = String(offer.description)),
-    (this.profil = String(offer.profil))
+    (this.profil = String(offer.profil));
 };
 
 const StatutCandidate = function (statutCandidate) {
-  this.user_id = Number(statutCandidate.user_id),
-    this.offre_id = Number(statutCandidate.offre_id),
-    this.statut = Number(statutCandidate.statut)
+  (this.user_id = Number(statutCandidate.user_id)),
+    (this.offre_id = Number(statutCandidate.offre_id)),
+    (this.statut = Number(statutCandidate.statut));
 };
 
-// Get Offer  
+// Get Offer
 Offer.getOffer = function (result) {
   // console.log("Method delete Model User", user);
   connection.getConnection(function (error, conn) {
@@ -34,17 +34,53 @@ Offer.getOffer = function (result) {
   });
 };
 
+Offer.getOfferId = function (id, result) {
+  const dataOffer = [];
+  // console.log("Method delete Model User", user);
+  connection.getConnection(function (error, conn) {
+
+
+    
+
+    conn.query(
+      `select * FROM skill where user_id=:id
+      `,
+      { id },
+      (error, data) => {
+        if (error) throw error;
+        else {
+          const skill = {};
+          const skillItem = [];
+          // console.log("data", data.length);
+          for (let index = 0; index < data.length; index++) {
+            //  console.log(data[index].skill)
+            skillItem.push(data[index].skill);
+          }
+          console.log("skillItem", skillItem);
+          cvCandidat = Object.create(
+            {},
+            {
+              skill: {
+                value: skillItem,
+                writable: true,
+                enumerable: true,
+                configurable: true,
+              },
+            }
+          );
+          console.log("cvCandidat", cvCandidat);
+          result(null, cvCandidat);
+        }
+      }
+    );
+    conn.release();
+  });
+};
+
 //create offer
 Offer.createOffer = function (offerObj, result) {
   // //Declarations des constantes de profilUserCompagnyObj pour mysql
-  const {
-    user_id,
-    title,
-    type,
-    period,
-    description,
-    profil
-  } = offerObj;
+  const { user_id, title, type, period, description, profil } = offerObj;
   connection.getConnection(function (error, conn) {
     conn.query(
       `INSERT INTO offre SET
@@ -82,7 +118,8 @@ Offer.deleteOffer = function (id, result) {
   connection.getConnection(function (error, conn) {
     conn.query(
       ` DELETE FROM offre
-      WHERE offer_id  =:id`, { id },
+      WHERE offer_id  =:id`,
+      { id },
       (error, data) => {
         if (error) throw error;
         // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
@@ -104,11 +141,7 @@ Offer.deleteOffer = function (id, result) {
 
 // update statut candidat
 StatutCandidate.updateCandidate = function (statutCandidateObj, result) {
-  const {
-    offre_id,
-    statut,
-    user_id,
-  } = statutCandidateObj;
+  const { offre_id, statut, user_id } = statutCandidateObj;
 
   connection.getConnection(function (error, conn) {
     conn.query(
@@ -116,7 +149,8 @@ StatutCandidate.updateCandidate = function (statutCandidateObj, result) {
       UPDATE postuled 
       SET  statut= :statut
       WHERE user_id = :user_id AND offre_id=:offre_id;
-    `, { statut, user_id, offre_id },
+    `,
+      { statut, user_id, offre_id },
       (error, data) => {
         if (error) throw error;
         conn.query(
