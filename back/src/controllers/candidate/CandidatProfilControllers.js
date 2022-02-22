@@ -5,6 +5,9 @@ const Candidat = require("../../models/candidat/CandidatModel");
 const CandidatContact = require("../../models/candidat/ContactCandidatProfilModel");
 const CandidatExperience = require("../../models/candidat/ExperienceCandidatProfilModel");
 const CandidatSkill = require("../../models/candidat/SkillCandidatProfilModel");
+const CandidatInterest = require("../../models/candidat/InterestCandidatProfilModel");
+const CandidatCertificate = require("../../models/candidat/CertificateCandidatProfilModel");
+
 // Import Module
 
 require("dotenv").config();
@@ -221,8 +224,7 @@ class CandidatProfilControllers {
   async createSkillProfil(req, res) {
 
     let newSkill = new CandidatSkill({
-      user_id: Number(req.body.id),
-      skill: String(req.body.skill)
+      ...req.body
     });
     try {
       CandidatSkill.createSkillProfil(newSkill, (err, data) => {
@@ -241,8 +243,8 @@ class CandidatProfilControllers {
 
   async updateSkillProfil(req, res) {
     let skillObj = new CandidatSkill({
-      user_id: Number(req.params.id),
-      skill: String(req.body.skill)
+      id: Number(req.params.id),
+      ...req.body
     });
     try {
       CandidatSkill.updateSkillProfil(skillObj, (err, data) => {
@@ -260,8 +262,19 @@ class CandidatProfilControllers {
   //  DELETE SKILL PROFIL CANDIDAT 
 
   async deleteSkillProfil(req, res) {
-    console.log("controller DELETE Profil Candidat SKILL");
-    res.json({ message: "controller DELETE profil candidat SKILL" });
+    try {
+      CandidatSkill.deleteSkillProfil(req.params.id, (err, data) => {
+        if (err) res.send(err);
+        else {
+          return res.send({
+            method: req.method,
+            User: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   // **************************************
@@ -273,29 +286,81 @@ class CandidatProfilControllers {
   //  GET INTEREST PROFIL CANDIDAT 
 
   async getInterestProfil(req, res) {
-    console.log("controller GET Profil candidat INTEREST");
-    res.json({ message: "controller CREATE profil candidat INTEREST" });
+    try {
+      CandidatInterest.getInterestProfil(String(req.params.id), (err, data) => {
+        if (err) {
+          console.log("err", err),
+            res.status(500).send({
+              message: err.message || "Une erreur est survenue",
+            });
+        } else {
+          return res.json({
+            method: req.method,
+            User: data,
+          })
+        }
+      });
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
   //  CREATE INTEREST PROFIL CANDIDAT
 
   async createInterestProfil(req, res) {
-    console.log("controller CREATE Profil candidat INTEREST");
-    res.json({ message: "controller CREATE profil candidat INTEREST" });
+    let newInterest = new CandidatInterest({
+      ...req.body
+    });
+    try {
+      CandidatInterest.createInterestProfil(newInterest, (err, data) => {
+        if (err) res.send(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   //  UPDATE INTEREST PROFIL CANDIDAT 
 
   async updateInterestProfil(req, res) {
-    console.log("controller UPDATE Profil Candidat INTEREST");
-    res.json({ message: "controller UPDATE profil candidat INTEREST" });
+    let interestObj = new CandidatInterest({
+      id: Number(req.params.id),
+      ...req.body
+    });
+    try {
+      CandidatInterest.updateInterestProfil(interestObj, (err, data) => {
+        if (err) res.json(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   //  DELETE INTEREST PROFIL CANDIDAT
 
   async deleteInterestProfil(req, res) {
-    console.log("controller DELETE Profil Candidat INTEREST");
-    res.json({ message: "controller DELETE profil candidat INTEREST" });
+    try {
+      CandidatInterest.deleteInterestProfil(req.params.id, (err, data) => {
+        if (err) res.send(err);
+        else {
+          return res.send({
+            method: req.method,
+            User: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   // **************************************
@@ -307,29 +372,82 @@ class CandidatProfilControllers {
   //  GET CERTIFICATE PROFIL CANDIDAT 
 
   async getCertificateProfil(req, res) {
-    console.log("controller GET Profil candidat CERTIFICATE");
-    res.json({ message: "controller CREATE profil candidat CERTIFICATE" });
+    try {
+      CandidatCertificate.getCertificateProfil(String(req.params.id), (err, data) => {
+        if (err) {
+          console.log("err", err),
+            res.status(500).send({
+              message: err.message || "Une erreur est survenue",
+            });
+        } else {
+          return res.json({
+            method: req.method,
+            User: data,
+          })
+        }
+      });
+    }
+    catch (error) {
+      throw error;
+    }
   }
 
   //  CREATE CERTIFICATE PROFIL CANDIDAT
 
   async createCertificateProfil(req, res) {
-    console.log("controller CREATE Profil candidat CERTIFICATE");
-    res.json({ message: "controller CREATE profil candidat CERTIFICATE" });
+    let newCertificate = new CandidatCertificate({
+      ...req.body
+    });
+    try {
+      CandidatCertificate.createCertificateProfil(newCertificate, (err, data) => {
+        if (err) res.send(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
+
   }
 
   //  UPDATE CERTIFICATE PROFIL CANDIDAT 
 
   async updateCertificateProfil(req, res) {
-    console.log("controller UPDATE Profil Candidat CERTIFICATE");
-    res.json({ message: "controller UPDATE profil candidat CERTIFICATE" });
+    let certificateObj = new CandidatCertificate({
+      id: Number(req.params.id),
+      ...req.body
+    });
+    try {
+      CandidatCertificate.updateCertificateProfil(certificateObj, (err, data) => {
+        if (err) res.json(err);
+        return res.json({
+          method: req.method,
+          User: data,
+        });
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   //  DELETE CERTIFICATE PROFIL CANDIDAT
 
   async deleteCertificateProfil(req, res) {
-    console.log("controller DELETE Profil Candidat CERTIFICATE");
-    res.json({ message: "controller DELETE profil candidat CERTIFICATE" });
+    try {
+      CandidatCertificate.deleteCertificateProfil(req.params.id, (err, data) => {
+        if (err) res.send(err);
+        else {
+          return res.send({
+            method: req.method,
+            User: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   // **************************************
