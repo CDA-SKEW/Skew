@@ -86,34 +86,48 @@ class EmployerProfilControllers {
     // console.log(
     //   "controller get Profil PW user Employeur",
     //   req.body,
-    //   req.params.id
+    //   // req.params.id
     // );
-    if (req.params.id && req.body.mail) {
+    if (
+      req.params.id &&
+      req.body.mail &&
+      req.body.password &&
+      req.body.oldPassword
+    ) {
       // console.log("controller update mail", req.body);
       let profilUserObj = new ProfilUser({
-        id: Number(req.params.id),
-        mail: String(req.body.mail),
+        id: req.params.id,
+        mail: req.body.mail,
+        pass: req.body.password,
       });
-      // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
-      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editPw(profilUserObj, (err, data) => {
-          //Si erreur alors affiche console log erreur et res.status
-          if (err) {
-            console.log("err", err),
-              res.status(500).send({
-                message: err.message || "Une erreur est survenue",
-              });
-          } else {
-            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-            return res.json({
-              method: req.method,
-              status: "success",
-              message: "Votre mot de passe a bien été modifié",
-              dataProfilUser: data,
-            });
+        ProfilUser.editPw(
+          profilUserObj,
+          req.body.oldPassword,
+          (err, data, errorModel) => {
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              if (errorModel) {
+                return res.json({
+                  method: req.method,
+                  status: "error",
+                  dataProfilUser: data,
+                });
+              } else {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Votre mot de passe a bien été modifié",
+                  dataProfilUser: data,
+                });
+              }
+            }
           }
-        });
+        );
       } catch (error) {
         throw error;
       }
@@ -164,8 +178,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-        req.file.filename.split(".").slice(0, -1).join(".") +
-        ".webp"
+          req.file.filename.split(".").slice(0, -1).join(".") +
+          ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(
@@ -227,8 +241,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-        req.file.filename.split(".").slice(0, -1).join(".") +
-        ".webp"
+          req.file.filename.split(".").slice(0, -1).join(".") +
+          ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(
