@@ -4,6 +4,7 @@ import { Button, Typography } from "@mui/material";
 import PropTypes from 'prop-types';
 import { StaticRouter } from 'react-router-dom/server';
 import { MemoryRouter } from 'react-router-dom';
+import RecruteurCard from 'assets/images/recruteurCard.jpg';
 
 function Router(props) {
     const { children } = props;
@@ -21,8 +22,8 @@ Router.propTypes = {
 export default function CardHome() {
 
     const CardsList = [
-        {titre: "Je suis un recruteur", lien: "/recruteur", color: "tiers" },
-        {titre: "Je suis un candidat", lien: "/candidat", color: "secondary" }
+        { titre: "Je suis un recruteur", lien: "/recruteur", color: "tiers", image: RecruteurCard },
+        { titre: "Je suis un candidat", lien: "/candidat", color: "secondary", image: RecruteurCard }
     ]
 
     return (
@@ -45,7 +46,7 @@ export default function CardHome() {
                         m: 'auto',
                         minWidth: 150,
                         maxWidth: 600,
-                        height: {xs: 400, md: 500},
+                        height: { xs: 400, md: 500 },
                     }}
                 >
                     <Typography
