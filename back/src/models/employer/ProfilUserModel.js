@@ -1,9 +1,14 @@
 // import module connection de la base de données
 const connection = require("../../config/ConnectionDB");
 
+// Module
+const bcrypt = require("bcrypt");
+
 //Creation du Constructeur profilUser pour exporter les fonctions dans ce model model
 const ProfilUser = function (profilUser) {
-  (this.id = profilUser.id), (this.mail = profilUser.mail);
+  (this.id = Number(profilUser.id)),
+    (this.mail = String(profilUser.mail)),
+    (this.pass = String(profilUser.pass));
 };
 // console.log("profilUser dans model", ProfilUser);
 
@@ -83,40 +88,68 @@ ProfilUser.editMail = function (profilUserObj, result) {
 };
 
 // Update mail in profil employer User (by id)
-ProfilUser.editPw = function (profilUserObj, result) {
+ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
   // console.log(
-  //   "edit mail in Model:",
+  //   "edit pw in Model:",
   //   "id:",
   //   typeof profilUserObj.id,
   //   profilUserObj.id,
   //   "mail:",
   //   profilUserObj.mail,
+  //   "pass:",
+  //   profilUserObj.pass,
+  //   "oldPassword",
+  //   oldPassword
   // );
   //Declarations des constantes de profilUserCompagnyObj pour mysql
-  const { mail, id } = profilUserObj;
-  //ici on se connect à la base de donnée en appellant le module importé
+  const { mail, id, pass } = profilUserObj;
+
   connection.getConnection(function (error, conn) {
-    // ici on fait un update de la colonne mail de la table user par l'ID
+    if (error) throw error;
     conn.query(
-      `       UPDATE user
-              SET mail=:mail
-              WHERE id =:id
-        `,
-      { mail, id },
+      `SELECT * FROM user where mail =:mail`,
+      { mail },
       (error, data) => {
+        // console.log("data", data[0].pass);
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-        conn.query(
-          `SELECT id,mail,date_update, date_create
-          FROM user WHERE id = :id`,
-          { id },
-          (error, data) => {
-            if (error) throw error;
-            result(null, data);
-          }
-        );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-        conn.release();
+        // verifie si le mail existe
+        if (data.length <= 0) {
+          result(null, { message: "error" }, true);
+          conn.release();
+        }
+        // Compare l'ancien mot de pass ds req.body hachés avec celui dans la db
+        else
+          bcrypt.compare(
+            oldPassword,
+            data[0].pass,
+            async function (err, check) {
+              if (err) throw err;
+              if (check) {
+
+                const passBcrypt = await bcrypt.hash(pass, 10)
+                conn.query(
+                  `UPDATE user
+                SET pass =:passBcrypt
+                WHERE id =:id
+                `,
+                  { passBcrypt,id },
+                  (error, data) => {
+                    if (error) throw error;
+                    conn.query(
+                      `SELECT id,mail,date_update, date_create
+                    FROM user WHERE id = :id`,
+                      { id },
+                      (error, data) => {
+                        if (error) throw error;
+                        result(null, data);
+                      }
+                    );
+                    conn.release();
+                  }
+                );
+              } else result(null, { message: "error" }, true);
+            }
+          );
       }
     );
   });

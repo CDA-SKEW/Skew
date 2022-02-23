@@ -109,6 +109,7 @@ router
 // Employeur offerid
 router
   .route("/api/employer/offer/:id")
+  .get(new EmployerOfferControllers().getOfferId)
   .delete(new EmployerOfferControllers().delOffer);
 
 // Employeur statut candidat offer
