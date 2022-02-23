@@ -52,34 +52,24 @@ export default function VisiteurLayout({ children }) {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword)
-  };
+  const handleClickShowPassword = () => { setShowPassword(!showPassword) };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = (event) => { event.preventDefault(); };
 
   const isAuthenticate = useSelector(state => state.auth.authenticate)
   const isAdmin = useSelector(state => state.auth.user.isAdmin)
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur)
   const isCandidat = useSelector(state => state.auth.user.isCandidat)
 
-  const handleOpen = () => {
-    setOpenModal(true);
-  };
+  const handleOpen = () => { setOpenModal(true); };
 
-  const handleClose = () => {
-    setOpenModal(false);
-  };
+  const handleClose = () => { setOpenModal(false); };
 
   const handleFormId = (e) => {
     switch (e.target.name) {
-      case 'mail':
-        setMail(e.target.value)
+      case 'mail': setMail(e.target.value)
         break;
-      case 'pass':
-        setPass(e.target.value)
+      case 'pass': setPass(e.target.value)
         break;
       default:
     }
@@ -95,20 +85,16 @@ export default function VisiteurLayout({ children }) {
     }
   };
 
+  const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
+
   useEffect(() => {
     if (isAuthenticate === true) {
       if (isAdmin === 1) navigate("/admin");
       else if (isCandidat === 1) navigate("/candidat/dashboard");
       else if (isRecruteur === 1) navigate("/employer/dashboard");
     }
-    else {
-      navigate("/");
-    }
+    else { navigate("/"); }
   }, [isAuthenticate])
-
-  const toggleDrawer = (newOpenDrawer) => () => {
-    setOpenDrawer(newOpenDrawer);
-  };
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -125,44 +111,21 @@ export default function VisiteurLayout({ children }) {
             }}
           >
             <Box sx={{ display: { xs: "flex", md: "block" } }}>
-              <Box
-                sx={{
-                  flexGrow: 0,
-                  display: 'flex',
-                }}
-              >
+              <Box sx={{ flexGrow: 0, display: 'flex' }}>
                 <Avatar
                   variant="square"
                   src={Logo}
-                  sx={{
-                    mx: 1,
-                    width: { md: 50 },
-                    height: { md: 50 },
-                    mt: { md: 1 }
-                  }}
-                />
-                <Typography
-                  variant='h1'
-                  sx={{
-                    width: '100%',
-                    mt: { md: 1 }
-                  }}
-                >
+                  sx={{ mx: 1, width: { md: 50 }, height: { md: 50 }, mt: { md: 1 } }} />
+                <Typography variant='h1' sx={{ width: '100%', mt: { md: 1 } }}>
                   SKEW
                 </Typography>
               </Box>
             </Box>
             <Box
-              sx={{
-                display: { xs: "none", md: "block" },
-              }}
+              sx={{ display: { xs: "none", md: "block" } }}
             >
               <List
-                sx={{
-                  flexGrow: 1,
-                  display: "flex",
-                  justifyContent: 'center',
-                }}>
+                sx={{ flexGrow: 1, display: "flex", justifyContent: 'center', }}>
                 {pages.map((page) => (
                   <MenuItem
                     key={page.titre}
@@ -176,46 +139,29 @@ export default function VisiteurLayout({ children }) {
                 <Button
                   variant="contained"
                   onClick={handleOpen}
-                  sx={{
-                    bgcolor: 'secondary.main',
-                    width: { md: 250, lg: 300, xl: 400 },
-                    fontSize: 17,
-                  }}
+                  sx={{ bgcolor: 'secondary.main', width: { md: 250, lg: 300, xl: 400 }, fontSize: 17 }}
                 >
                   Log in / Sign in
                 </Button>
 
-                <Modal
-                  open={openModal}
-                  onClose={handleClose}
-                >
+                <Modal open={openModal} onClose={handleClose}>
                   <Box
                     sx={{
                       position: 'absolute',
-                      top: '50%',
-                      left: '50%',
+                      top: '50%', left: '50%',
                       transform: 'translate(-50%, -50%)',
                       width: 800,
                       bgcolor: '#fff',
-                      pt: 2,
-                      px: 4,
-                      pb: 3,
+                      pt: 2, px: 4, pb: 3,
                       borderRadius: 2,
                       display: 'flex',
                       textAlign: 'center'
                     }}
                   >
                     <Box
-                      sx={{
-                        display: 'block',
-                        width: 400,
-                        pr: 2,
-                        borderRight: 2
-                      }}
+                      sx={{ display: 'block', width: 400, pr: 2, borderRight: 2 }}
                     >
-                      <Typography
-                        variant='h4'
-                      >
+                      <Typography variant='h4'>
                         Connexion
                       </Typography>
                       <TextField
@@ -224,10 +170,7 @@ export default function VisiteurLayout({ children }) {
                         variant="outlined"
                         fullWidth
                         onChange={(e) => handleFormId(e)}
-                        sx={{
-                          my: 1
-                        }}
-                      />
+                        sx={{ my: 1 }} />
                       <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
                         <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
                         <OutlinedInput
@@ -253,28 +196,15 @@ export default function VisiteurLayout({ children }) {
                       <Link
                         component="button"
                         variant="body2"
-                        onClick={() => {
-                          console.info("I'm a button.");
-                        }}
-                        sx={{
-                          color: '#0099FF',
-                          fontSize: 17,
-                          my: 3
-                        }}
-                      >
+                        onClick={() => { console.info("I'm a button.") }}
+                        sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
                         Mot de passe oublié
                       </Link>
                       <Button
                         variant="contained"
                         fullWidth
                         onClick={() => SubmitFormId()}
-                        sx={{
-                          bgcolor: '#ABC4FF',
-                          fontWeight: 'bold',
-                          my: 1,
-                          py: 1
-                        }}
-                      >
+                        sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
                         Envoyer
                       </Button>
                       {error.length > 0 &&
@@ -292,17 +222,8 @@ export default function VisiteurLayout({ children }) {
               </List>
             </Box>
             <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "flex", md: "none" },
-                flexDirection: 'row-reverse',
-              }}
-            >
-              <IconButton
-                size="large"
-                onClick={toggleDrawer(true)}
-                color="inherit"
-              >
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: 'row-reverse' }}>
+              <IconButton size="large" onClick={toggleDrawer(true)} color="inherit">
                 <MenuIcon />
               </IconButton>
               <SwipeableDrawer
@@ -312,47 +233,26 @@ export default function VisiteurLayout({ children }) {
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
                 disableSwipeToOpen={false}
-                ModalProps={{
-                  keepMounted: true,
-                }}
-              >
+                ModalProps={{ keepMounted: true }}>
                 <Box
-                  sx={{
-                    listStyleType: 'none',
-                    textAlign: 'center',
-                  }}
-                >
+                  sx={{ listStyleType: 'none', textAlign: 'center' }}>
                   {pages.map((page) => (
-                    <MenuItem
-                      key={page.titre}
-                      onClick={() => navigate({ pathname: `/${page.lien}` })}
-                    >
+                    <MenuItem key={page.titre} onClick={() => navigate({ pathname: `/${page.lien}` })}>
                       <Typography textAlign="center">{page.titre}</Typography>
                     </MenuItem>
                   ))}
                   <Button
                     variant="contained"
                     onClick={handleOpen}
-                    sx={{
-                      bgcolor: '#ABC4FF',
-                      fontWeight: 'bold',
-                      py: 2,
-                      width: '80%',
-                      my: 2,
-                      mx: 'auto',
-                    }}
-                  >Log in / Sign in</Button>
+                    sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
+                    Log in / Sign in</Button>
                 </Box>
               </SwipeableDrawer>
             </Box>
           </Toolbar>
         </Box>
       </AppBar>
-      <Container
-        component="main"
-        disableGutters
-        maxWidth="100%"
-      >
+      <Container component="main" disableGutters maxWidth="100%">
         {children}
       </Container>
       <Footer />
