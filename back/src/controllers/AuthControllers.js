@@ -24,8 +24,8 @@ class AuthControllers {
                 isAdmin: data.isAdmin,
                 isCandidat: data.isCandidat,
                 isRecruteur: data.isRecruteur,
-                // isVerified: data.isVerified === 1 ? true : false,
-                // isBanned: data.isBanned === 0 ? true : false,
+                // isVerified: data.isVerified,
+                // isBanned: data.isBanned,
               },
               process.env.SIGN_JWT,
               { expiresIn: "1h" }
@@ -90,7 +90,7 @@ class AuthControllers {
             isAdmin: user.isAdmin,
             isCandidat: user.isCandidat,
             isRecruteur: user.isRecruteur,
-            // isVerified: user.isVerified
+            // isVerified: user.isVerified,
             // isBanned: user.isBanned
           }
         });
