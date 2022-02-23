@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from "@mui/material/Box";
 import { List, MenuItem, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function MenuList({ pages }) {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate()
 
     const handleOpen = () => {
@@ -30,7 +30,7 @@ export default function MenuList({ pages }) {
                     <MenuItem
                         key={page.titre}
                         onClick={() => navigate({ pathname: `/${page.lien}` })}
-                        sx={{ width: 400}}
+                        sx={{ width: 400 }}
                     >
                         <Typography textAlign="center">{page.titre}</Typography>
                     </MenuItem>
@@ -40,7 +40,7 @@ export default function MenuList({ pages }) {
                     variant="contained"
                     onClick={handleOpen}
                     sx={{
-                        bgcolor: '#ABC4FF',
+                        bgcolor: 'secondary.main',
                         width: { md: 250, lg: 300, xl: 400 },
                         fontSize: 17,
                     }}

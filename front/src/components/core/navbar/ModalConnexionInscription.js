@@ -10,8 +10,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 800,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
+    bgcolor: '#fff',
     pt: 2,
     px: 4,
     pb: 3,
@@ -27,15 +26,12 @@ export default function ModalConnexionInscription({ open, setOpen }) {
         <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
         >
             <Box
                 sx={{
                     ...style,
                     width: 800,
-                    bgcolor: '#fff',
-                    borderRadius: 5,
+                    borderRadius: 2,
                     display: 'flex',
                     textAlign: 'center'
                 }}

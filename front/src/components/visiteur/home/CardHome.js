@@ -45,7 +45,7 @@ export default function CardHome() {
                         m: 'auto',
                         minWidth: 150,
                         maxWidth: 600,
-                        height: 600,
+                        height: {xs: 400, md: 500},
                     }}
                 >
                     <Typography

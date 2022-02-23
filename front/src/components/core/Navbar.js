@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Titre from "./navbar/Titre";
 import MenuList from "./navbar/MenuList";
 import MenuListResponsive from "./navbar/MenuListResponsive";
-import ListItemLink from "components/core/navbar/ListItemLink";
 
 export default function ResponsiveAppBar() {
 
