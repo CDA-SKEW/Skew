@@ -29,31 +29,31 @@ class UsersControllers {
 
   // GET USER ID
   // Récupération de la route "userID"
-  // async getUserId(req, res) {
-  //   const { id } = req.params;
-  //   // Essayes cette fonction
-  //   try {
-  //     // console.log(id,'req.params', {...req.params});
-  //     User.getUserId({ id }, (err, data) => {
-  //       // console.log('response controller user ID', data);
-  //       if (err) res.send({ message: "error in request db" });
-  //       // Sinon retourné cette réponse avec les data
-  //       else
-  //         return res.json({
-  //           user: data,
-  //           message: "The user has been successfully GETTED. !!!",
-  //         });
-  //     });
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+  async getUserId(req, res) {
+    const { id } = req.params;
+    // Essayes cette fonction
+    try {
+      // console.log(id,'req.params', {...req.params});
+      User.getUserId({ id }, (err, data) => {
+        // console.log('response controller user ID', data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourné cette réponse avec les data
+        else
+          return res.json({
+            user: data,
+            message: "The user has been successfully GETTED. !!!",
+          });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 
   // UPDATE USER
   async putUser(req, res) {
     const { id } = req.params;
     let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;
-    // console.log("isBanned", typeof isBanned, isBanned, Boolean(isBanned));
+    // console.log("isVerified", typeof isVerified, isVerified, Boolean(isVerified));
 
     isAdmin = isAdmin === "true" ? 1 : 0;
     isBanned = isBanned === "true" ? 1 : 0;
@@ -63,11 +63,11 @@ class UsersControllers {
 
     // Essayes cette fonction
     try {
-      // console.log(id, { ...req.body });
+      console.log("UpdateController", id, { ...req.body });
       User.putUser(
         { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur },
         (err, data) => {
-          // console.log("response controller user ban", data);
+          // console.log("response controller user update", data);
           if (err) res.send({ message: "error in request db" });
           // Sinon retourner cette réponse avec les data
           else

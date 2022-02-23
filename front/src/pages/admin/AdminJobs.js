@@ -21,5 +21,5 @@ const AdminJobs = () => {
   );
 };
 
-export default withAdmin(AdminJobs);
-// export default AdminJobs;
+// export default withAdmin(AdminJobs);
+export default AdminJobs;

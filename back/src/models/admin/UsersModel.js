@@ -3,6 +3,7 @@
  ******************************/
 
 // Connection à la base de données
+const req = require("express/lib/request");
 const connection = require("../../config/ConnectionDB");
 
 // Model
@@ -21,9 +22,8 @@ const User = function (user) {
 };
 
 // Get All Users
-User.getListUsers = function (result, user_id) {
+User.getListUsers = function (result) {
   console.log("Method getAll Model User");
-  // console.log(user_id);
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
     /* Requête SQL pour afficher tous les Users 
@@ -61,14 +61,22 @@ User.getListUsers = function (result, user_id) {
 
 // Update User
 User.putUser = function (user, result) {
-  // console.log("Method BAN Model User", user);
+  console.log("Method UPDATE Model User", user);
   //Declarations des constantes de user pour mysql
   const { id, isAdmin, isBanned, isVerified, isCandidat, isRecruteur } = user;
   connection.getConnection(function (error, conn) {
+    console.log(
+      "isBanned",
+      isBanned,
+      "isRecruteur",
+      isRecruteur,
+      "isVerified",
+      isVerified
+    );
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `UPDATE user 
-      set isAdmin = :isAdmin,
+      set 
       isBanned = :isBanned,
       isVerified = :isVerified,
       isCandidat = :isCandidat,
@@ -79,9 +87,22 @@ User.putUser = function (user, result) {
       // situé dans ConnectionDb.js dans dossier config
       { isAdmin, isBanned, isVerified, isCandidat, isRecruteur, id },
       (error, data) => {
-        // console.log(id, isAdmin, isBanned, isVerified, isCandidat, isRecruteur);
+        console.log(id, isAdmin, isBanned, isVerified, isCandidat, isRecruteur);
         if (error) throw error;
-        result(null, data);
+        conn.query(
+          `SELECT u.*, c.name, c.lastname FROM user as u
+          INNER JOIN  contactProfil  as c
+          ON u.id = c.user_id;
+    `,
+          (error, data) => {
+            //   Si erreur l'afficher
+            if (error) throw error;
+            //   Sinon afficher les datas
+            else result(null, data);
+          }
+        );
+        // if (error) throw error;
+        // result(null, data);
         // console.log("data", data);
       }
     );
@@ -95,15 +116,30 @@ User.deleteUser = function (user, result) {
   const { id } = user;
   connection.getConnection(function (error, conn) {
     conn.query(
-      ` DELETE FROM user 
-    WHERE id  = :id`,
+      ` DELETE contactProfil, user
+      FROM contactProfil 
+      INNER JOIN user  
+      ON id = user_id 
+      WHERE id = :id;`,
       { id },
       (error, data) => {
         if (error) throw error;
-        else result(null, data);
+        conn.query(
+          `SELECT u.*, c.name, c.lastname FROM user as u
+          INNER JOIN  contactProfil  as c
+          ON u.id = c.user_id;
+    `,
+          (error, data) => {
+            //   Si erreur l'afficher
+            if (error) throw error;
+            //   Sinon afficher les datas
+            else result(null, data);
+          }
+        );
         // console.log('data', data)
       }
     );
+
     conn.release();
   });
 };

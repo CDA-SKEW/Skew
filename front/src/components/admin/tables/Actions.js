@@ -212,7 +212,6 @@ export default function DeletableChips(props) {
             color="error"
             sx={{ color: "#E57373" }}
             variant="outlined"
-            // icon={<BlockIcon />}
             onClick={handleOpen}
           ></Chip>
           <Modal
@@ -245,7 +244,7 @@ export default function DeletableChips(props) {
                 id="modal-modal-description"
                 sx={{ mt: 2 }}
               >
-                {/* Reply action Button */}
+                {/* Update action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
                     startIcon={<BlockIcon />}

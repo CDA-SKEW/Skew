@@ -5,6 +5,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
+import BlockIcon from "@mui/icons-material/Block";
 
 /*------------Export function-------------*/
 
@@ -13,17 +14,22 @@ export default function IconChips(props) {
   const handleClick = () => {};
 
   const checkStatus = () => {
-    if (user.row.isChecked === 1) {
+    if (user.row.isBanned === 1) {
+      return (
+        <Chip
+          label="banned"
+          variant="outlined"
+          color="warning"
+          icon={<BlockIcon />}
+        />
+      );
+    } else if (user.row.isVerified === 1) {
       return (
         <Chip
           label="check"
           variant="outlined"
           color="primary"
-          onClick={() => {
-            if (window.confirm("Voulez-vous checker cet user ?")) {
-              handleClick();
-            }
-          }}
+          onClick={handleClick}
           icon={<CheckIcon />}
         />
       );
