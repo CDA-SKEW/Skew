@@ -30,7 +30,7 @@ export default function MenuList({ pages }) {
                     <MenuItem
                         key={page.titre}
                         onClick={() => navigate({ pathname: `/${page.lien}` })}
-                        sx={{ width: 400 }}
+                        sx={{ width: { md: 250, lg: 300, xl: 400 }, }}
                     >
                         <Typography textAlign="center">{page.titre}</Typography>
                     </MenuItem>
