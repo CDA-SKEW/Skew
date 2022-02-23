@@ -4,11 +4,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Button from '@mui/material/Button';
+import { MenuItem, Typography } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 export default function MenuListResponsive({ pages, ListItemLink }) {
 
     const { window } = pages;
     const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate()
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -50,11 +53,12 @@ export default function MenuListResponsive({ pages, ListItemLink }) {
                     }}
                 >
                     {pages.map((page) => (
-                        <ListItemLink
+                        <MenuItem
                             key={page.titre}
-                            primary={page.titre}
-                            to={page.lien}
-                        />
+                            onClick={() => navigate({ pathname: `/${page.lien}` })}
+                        >
+                            <Typography textAlign="center">{page.titre}</Typography>
+                        </MenuItem>
                     ))}
                     <Button
                         variant="contained"

@@ -1,12 +1,14 @@
 import React from 'react'
 import Box from "@mui/material/Box";
-import { List } from "@mui/material";
+import { List, MenuItem, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import ModalConnexionInscription from './ModalConnexionInscription';
+import { useNavigate } from 'react-router-dom';
 
-export default function MenuList({ pages, ListItemLink }) {
+export default function MenuList({ pages }) {
 
     const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate()
 
     const handleOpen = () => {
         setOpen(true);
@@ -25,11 +27,14 @@ export default function MenuList({ pages, ListItemLink }) {
                     justifyContent: 'center',
                 }}>
                 {pages.map((page) => (
-                    <ListItemLink
+                    <MenuItem
                         key={page.titre}
-                        primary={page.titre}
-                        to={page.lien}
-                    />
+                        onClick={() => navigate({ pathname: `/${page.lien}` })}
+                        sx={{ width: 400}}
+                    >
+                        <Typography textAlign="center">{page.titre}</Typography>
+                    </MenuItem>
+
                 ))}
                 <Button
                     variant="contained"

@@ -6,20 +6,13 @@ import Titre from "./navbar/Titre";
 import MenuList from "./navbar/MenuList";
 import MenuListResponsive from "./navbar/MenuListResponsive";
 import ListItemLink from "components/core/navbar/ListItemLink";
-import PropTypes from 'prop-types';
 
-<ListItemLink />
-
-ListItemLink.propTypes = {
-    primary: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
-};
 export default function ResponsiveAppBar() {
 
   const pages = [
-    { titre: "Accueil", lien: "/" },
-    { titre: "Offres", lien: "/offres" },
-    { titre: "Contactez-nous", lien: "/contactus" },
+    { titre: "Accueil", lien: "" },
+    { titre: "Offres", lien: "offres" },
+    { titre: "Contactez-nous", lien: "contactus" },
   ];
 
   return (
@@ -32,8 +25,8 @@ export default function ResponsiveAppBar() {
           }}
         >
           <Titre />
-          <MenuList pages={pages} ListItemLink={ListItemLink} />
-          <MenuListResponsive pages={pages} ListItemLink={ListItemLink} />
+          <MenuList pages={pages} />
+          <MenuListResponsive pages={pages} />
         </Toolbar>
       </Box>
     </AppBar>
