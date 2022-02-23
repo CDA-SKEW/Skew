@@ -57,18 +57,18 @@ function PassInput({ values, handleFormId }) {
 
 export default function Inscription() {
 
-    const [mail, setMail] = useState('');
-    const [pass, setPass] = useState('');
+    const [mailInscription, setMailInscription] = useState('');
+    const [passInscription, setPassInscription] = useState('');
     const [pass2, setPass2] = useState('');
     const [toggle, setToggle] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [errorInscription, setErrorInscription] = useState('');
+    const [successInscription, setSuccessInscription] = useState('');
     const [candidat, setCandidat] = useState(0);
     const [recruteur, setRecruteur] = useState(0);
     const dispatch = useDispatch();
 
     const passList = [
-        { titre: 'Mot de passe', name: 'pass', value: pass },
+        { titre: 'Mot de passe', name: 'pass', value: passInscription },
         { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 },
     ]
 
@@ -90,10 +90,10 @@ export default function Inscription() {
     const handleFormId = (e) => {
         switch (e.target.name) {
             case 'mail':
-                setMail(e.target.value)
+                setMailInscription(e.target.value)
                 break;
             case 'pass':
-                setPass(e.target.value)
+                setPassInscription(e.target.value)
                 break;
             case 'pass2':
                 setPass2(e.target.value)
@@ -103,24 +103,24 @@ export default function Inscription() {
     }
 
     const SubmitFormIdInscription = async (e) => {
-        if (mail && toggle && pass && pass2) {
-            if (pass === pass2) {
-                await dispatch(register({ mail, pass, candidat, recruteur }));
-                setMail("");
-                setPass("");
+        if (mailInscription && toggle && passInscription && pass2) {
+            if (passInscription === pass2) {
+                await dispatch(register({ mailInscription, passInscription, candidat, recruteur }));
+                setMailInscription("");
+                setPassInscription("");
                 setPass2("");
                 setToggle("");
                 setCandidat(0);
                 setRecruteur(0);
-                setSuccess('L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
-                setError('')
+                setSuccessInscription('L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
+                setErrorInscription('')
             } else {
-                setError('Les mots de passe ne coîncident pas!')
-                setSuccess('')
+                setErrorInscription('Les mots de passe ne coîncident pas!')
+                setSuccessInscription('')
             }
         } else {
-            setError('Entrez tous les champs requis!')
-            setSuccess('')
+            setErrorInscription('Entrez tous les champs requis!')
+            setSuccessInscription('')
         }
 
     };
@@ -137,7 +137,7 @@ export default function Inscription() {
             <TextField
                 label='Mail'
                 name='mail'
-                value={mail}
+                value={mailInscription}
                 variant="outlined"
                 fullWidth
                 onChange={(e) => handleFormId(e)}
@@ -157,17 +157,17 @@ export default function Inscription() {
                 <ToggleButton value="candidat">Candidat</ToggleButton>
                 <ToggleButton value="recruteur">Recruteur</ToggleButton>
             </ToggleButtonGroup>
-            {error.length > 0 &&
+            {errorInscription.length > 0 &&
                 <Box sx={{ my: 3, color: '#ff0000' }} >
                     <Typography variant='body1' >
-                        {error}
+                        {errorInscription}
                     </Typography>
                 </Box>
             }
-            {success.length > 0 &&
+            {successInscription.length > 0 &&
                 <Box sx={{ my: 3, color: '#1e90ff' }} >
                     <Typography variant='body1' >
-                        {success}
+                        {successInscription}
                     </Typography>
                 </Box>
             }
