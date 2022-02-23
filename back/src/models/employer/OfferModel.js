@@ -1,6 +1,5 @@
 // import module connection de la base de données
 const connection = require("../../config/ConnectionDB");
-const dbOptions = require("../../config/db");
 
 //Creation du Constructeur profilUser pour exporter les fonctions dans ce model model
 const Offer = function (offer) {
@@ -38,61 +37,98 @@ Offer.getOffer = function (result) {
 Offer.getOfferId = function (params_id, result) {
   connection.getConnection(function (error, conn) {
     conn.query(
-      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil, c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays, c.badge as badgeEmployor, c.avatar as image
-          FROM offre as o
-          inner join contactProfil as c On o.user_id=c.user_id
-              where o.user_id=:params_id
-                  ORDER BY o.createDate DESC;`,
+      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
+      c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays,
+       c.badge as badgeEmployor, c.avatar as image,
+       p.user_id, p.statut,
+      u.mail,
+      ce.user_id, ce.name, ce.lastName, ce.phone, ce.address, ce.zipCode, ce.town,
+      e.compagny, e.job, e.dateStart, e.description, e.dateEnd,
+      s.skill,
+      i.interest,
+      cer.school, cer.title, cer.year, cer.validate,
+      d.document
+       FROM offre as o
+      inner join contactProfil as c On o.user_id=c.user_id
+       inner join postuled as p On o.offer_id=p.offre_id
+      inner join user as u On p.user_id=u.id
+      inner join contactProfil as ce On u.id=ce.user_id
+      inner join experience as e On u.id=e.user_id
+      inner join skill as s On u.id=s.user_id
+      inner join interest as i On u.id=i.user_id
+      inner join certificate as cer On u.id=cer.user_id
+      inner join document d On u.id=d.user_id
+      where o.user_id=:params_id 
+       ORDER BY o.createDate DESC;`,
       { params_id },
       (error, dataOffer) => {
         if (error) throw error;
         else {
+          
 
-          dataOffer.forEach((el) => {
-       
-            const offerId = el.offer_id;
-            console.log("offerId", offerId);
-
+          dataOffer.map((row, index) => (
+          // console.log(" index, row",index, row)
 
 
-            el.profilCandidate = data;
+          console.log(" index, row",index, row.offer_id)
+
+          // row.offer_id.forEach((el) => {
+          //   console.log("data", el)
+          // })
+
+
+          
+          ))
+
+
+          // dataOffer.forEach((el) => {
+          //   console.log("data", el.offer_id)
+          // });
 
 
 
-          });
 
 
 
-          for (let index = 0; index < dataOffer.length; index++) {
-            const offerId = dataOffer[index].offer_id;
-            console.log("offerId", offerId);
 
-            conn.query(
-              `SELECT offre_id, user_id, statut
-                 FROM postuled
-                     where offre_id=:offerId;`,
-              { offerId },
-              (err, data) => {
-                if (err) result(null, err);
-                // if (err) console.log(err)
 
-                console.log("postuled data", data);
 
-                dataOffer.forEach((el) => {
-                  el.profilCandidate = data;
-                });
+          result(null,dataOffer);
+          // for (let index = 0; index < dataOffer.length; index++) {
+          //   const offerId = dataOffer[index].offer_id;
+          //   console.log("offerId", offerId);
 
-                const Obj = {
-                  offre: dataOffer,
-                  profilCandidate: data,
-                };
 
-                // result(null, data);
-              }
-            );
-          }
 
-          result(null, dataOffer);
+          //   conn.query(
+          //     `SELECT offre_id, user_id, statut
+          //        FROM postuled
+          //            where offre_id=:offerId;`,
+          //     { offerId },
+          //     (err, data) => {
+          //       if (err) result(null, err);
+          //       // if (err) console.log(err)
+          //       const Obj = {
+          //         dataOffer,
+          //         profilCandidate: {}
+          //       };
+
+          //       console.log("postuled data", data);
+
+          //       // dataOffer.forEach((el) => {
+          //         dataOffer[index].profilCandidate = data;
+          //       // });
+
+          //       console.log("Obj", Obj)
+          //       // console.log("Obj", Obj.profilCandidate)
+
+          //       // result(null, Obj);
+          //       result(null, dataOffer);
+          //     }
+          //   );
+          // }
+
+          // result(null, Obj);
         }
       }
     );
