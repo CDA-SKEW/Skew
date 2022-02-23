@@ -1,5 +1,6 @@
 // import module connection de la base de données
 const connection = require("../../config/ConnectionDB");
+const dbOptions = require("../../config/db");
 
 //Creation du Constructeur profilUser pour exporter les fonctions dans ce model model
 const Offer = function (offer) {
@@ -34,67 +35,64 @@ Offer.getOffer = function (result) {
   });
 };
 
-Offer.getOfferId = function (id, result) {
-  const dataOffer = [];
-  // console.log("Method delete Model User", user);
+Offer.getOfferId = function (params_id, result) {
   connection.getConnection(function (error, conn) {
     conn.query(
-      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil, 
-      c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays,
-       c.badge as badgeEmployor, c.avatar as image
-       FROM offre as o
-       inner join contactProfil as c On o.user_id=c.user_id
-       where o.user_id=:id
-       ORDER BY o.createDate DESC;`,
-      { id },
-      (error, data) => {
+      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil, c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays, c.badge as badgeEmployor, c.avatar as image
+          FROM offre as o
+          inner join contactProfil as c On o.user_id=c.user_id
+              where o.user_id=:params_id
+                  ORDER BY o.createDate DESC;`,
+      { params_id },
+      (error, dataOffer) => {
         if (error) throw error;
-
         else {
 
-          // console.log("data", data.length);
-          for (let index = 0; index < data.length; index++) {
-            console.log(data[index])
-            console.log(data[index].offer_id)
-            Object.defineProperty(data[index], "profilCandidate", {
-              value: [],
-              writable: true,
-              enumerable: true,
-              configurable: true,
-            })
-            // skillItem.push(data[index].skill); 
+          dataOffer.forEach((el) => {
+       
+            const offerId = el.offer_id;
+            console.log("offerId", offerId);
+
+
+
+            el.profilCandidate = data;
+
+
+
+          });
+
+
+
+          for (let index = 0; index < dataOffer.length; index++) {
+            const offerId = dataOffer[index].offer_id;
+            console.log("offerId", offerId);
+
+            conn.query(
+              `SELECT offre_id, user_id, statut
+                 FROM postuled
+                     where offre_id=:offerId;`,
+              { offerId },
+              (err, data) => {
+                if (err) result(null, err);
+                // if (err) console.log(err)
+
+                console.log("postuled data", data);
+
+                dataOffer.forEach((el) => {
+                  el.profilCandidate = data;
+                });
+
+                const Obj = {
+                  offre: dataOffer,
+                  profilCandidate: data,
+                };
+
+                // result(null, data);
+              }
+            );
           }
 
-          // data.push(Object.create(profilCandidate=[]))
-          // const profilCandidate =["e","eee"]
-          // Object.create()
-
-          // Object.defineProperty(data , "profilCandidate ", {
-          //   value: profilCandidate,
-          //   enumerable: true
-          // })
-
-          // const skill = {};
-          // const skillItem = [];
-          // // console.log("data", data.length);
-          // for (let index = 0; index < data.length; index++) {
-          //   //  console.log(data[index].skill)
-          //   skillItem.push(data[index].skill);
-          // }
-          // console.log("skillItem", skillItem);
-          // cvCandidat = Object.create(
-          //   {},
-          //   {
-          //     skill: {
-          //       value: skillItem,
-          //       writable: true,
-          //       enumerable: true,
-          //       configurable: true,
-          //     },
-          //   }
-          // );
-          // console.log("cvCandidat", cvCandidat);
-          result(null, data);
+          result(null, dataOffer);
         }
       }
     );
