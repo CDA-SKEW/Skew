@@ -24,41 +24,43 @@ const User = function (user) {
 User.login = function (user, result) {
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    conn.query(
-      `SELECT * FROM user where mail = "${user.mail}"`,
-      (error, data) => {
-        if (error) throw error;
-        if (data.length <= 0) result(null, { message: 'error' });
-        // Compare les pass hachés
-        else bcrypt.compare(user.pass, data[0].pass, function (err, check) {
-          if (err) throw err;
-          if (check) result(null, data[0]);
-          else result(null, { message: 'error' });
-        });
-        conn.release();
-      }
+    conn.query(`SELECT * FROM user WHERE mail = "${user.mail}"`, (error, data) => {
+      if (error) throw error;
+      if (data.length <= 0) result(null, { message: 'error' });
+      else bcrypt.compare(user.pass, data[0].pass, function (err, check) {
+        if (err) throw err;
+        if (check) result(null, data[0]);
+        else result(null, { message: 'error' });
+      });
+      conn.release();
+    }
     );
   });
 };
 
-// Register
 User.register = function (body, result) {
   connection.getConnection(async function (error, conn) {
     if (error) throw error;
-    conn.query(
-      `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
-            VALUES ("${body.mail}", "${await bcrypt.hash(body.pass, 10)}", 0, "${body.isCandidat}", "${body.isRecruteur}")`,
-      (error, newUser) => {
-        if (error) throw error;
-        conn.query(`insert into contactProfil (user_id) values (${newUser.insertId})`, (err, profilUser) => {
-          if (err) throw err
-          result(null, newUser);
-
-        })
-        conn.release();
+    conn.query(`SELECT * FROM user WHERE mail = "${body.mail}"`, async (error, data) => {
+      if (error) throw error;
+      if (data.length <= 0) {
+        conn.query(`INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
+            VALUES ("${body.mail}", "${await bcrypt.hash(body.pass, 10)}", 0, ${body.isCandidat}, ${body.isRecruteur})`,
+          (error, newUser) => {
+            if (error) throw error;
+            conn.query(`INSERT INTO contactProfil (user_id) VALUES (${newUser.insertId})`, (err, profilUser) => {
+              if (err) throw err
+              else result(null, profilUser);
+            })
+            conn.release();
+          }
+        );
+      } else {
+        result(null, { message: 'Adresse mail déjà utilisée!' });
       }
-    );
+    });
   });
 };
+
 
 module.exports = User;

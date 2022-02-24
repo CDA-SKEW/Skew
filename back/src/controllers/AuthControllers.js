@@ -72,7 +72,7 @@ class AuthControllers {
   }
 
   async checkToken(req, res) {
-    console.log("check", req.params.token);
+    // console.log("check", req.params.token);
     const user = jwt.verify(req.params.token, process.env.SIGN_JWT, (err, decoded) => {
       if (err) return;
       return decoded;
