@@ -4,6 +4,7 @@ import Logo from "assets/logo/logo.png";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../configs/theme";
 import { style } from '../configs/globalStyle';
+
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
@@ -39,14 +40,8 @@ import Footer from "components/core/Footer";
 function PassInput({ values, handleFormIdInscription }) {
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword)
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleClickShowPassword = () => { setShowPassword(!showPassword) };
+  const handleMouseDownPassword = (event) => { event.preventDefault(); };
 
   return (
     <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
@@ -76,9 +71,8 @@ function PassInput({ values, handleFormIdInscription }) {
 
 export default function VisiteurLayout({ children }) {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [openModal, setOpenModal] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [mail, setMail] = useState('');
@@ -97,24 +91,22 @@ export default function VisiteurLayout({ children }) {
   const pages = [
     { titre: "Accueil", lien: "" },
     { titre: "Offres", lien: "offres" },
-    { titre: "Contactez-nous", lien: "contactus" },
+    { titre: "Contactez-nous", lien: "contactus" }
   ];
 
   const passList = [
     { titre: 'Mot de passe', name: 'pass', value: passInscription },
-    { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 },
+    { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 }
   ]
 
   const handleClickShowPassword = () => { setShowPassword(!showPassword) };
-
   const handleMouseDownPassword = (event) => { event.preventDefault(); };
-
   const handleChange = (e, newToggle) => { setToggle(newToggle) };
 
-  const isAuthenticate = useSelector(state => state.auth.authenticate)
-  const isAdmin = useSelector(state => state.auth.user.isAdmin)
-  const isRecruteur = useSelector(state => state.auth.user.isRecruteur)
-  const isCandidat = useSelector(state => state.auth.user.isCandidat)
+  const isAuthenticate = useSelector(state => state.auth.authenticate);
+  const isAdmin = useSelector(state => state.auth.user.isAdmin);
+  const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
+  const isCandidat = useSelector(state => state.auth.user.isCandidat);
 
   const handleOpen = () => { setOpenModal(true); };
 
@@ -122,9 +114,9 @@ export default function VisiteurLayout({ children }) {
 
   const handleFormId = (e) => {
     switch (e.target.name) {
-      case 'mail': setMail(e.target.value)
+      case 'mail': setMail(e.target.value);
         break;
-      case 'pass': setPass(e.target.value)
+      case 'pass': setPass(e.target.value);
         break;
       default:
     }
@@ -132,11 +124,11 @@ export default function VisiteurLayout({ children }) {
 
   const handleFormIdInscription = (e) => {
     switch (e.target.name) {
-      case 'mail': setMailInscription(e.target.value)
+      case 'mail': setMailInscription(e.target.value);
         break;
-      case 'pass': setPassInscription(e.target.value)
+      case 'pass': setPassInscription(e.target.value);
         break;
-      case 'pass2': setPass2(e.target.value)
+      case 'pass2': setPass2(e.target.value);
         break;
       default:
     }
@@ -144,9 +136,9 @@ export default function VisiteurLayout({ children }) {
 
   const SubmitFormId = () => {
     if (mail && pass) {
-      dispatch(login({ mail, pass }))
-      setMail('')
-      setPass('')
+      dispatch(login({ mail, pass }));
+      setMail('');
+      setPass('');
     } else {
       setError('Le mail ou le mot de passe est incorrect!');
     }
@@ -163,14 +155,14 @@ export default function VisiteurLayout({ children }) {
         setCandidat(0);
         setRecruteur(0);
         setSuccessInscription('L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
-        setErrorInscription('')
+        setErrorInscription('');
       } else {
-        setErrorInscription('Les mots de passe ne coîncident pas!')
-        setSuccessInscription('')
+        setErrorInscription('Les mots de passe ne coîncident pas!');
+        setSuccessInscription('');
       }
     } else {
-      setErrorInscription('Entrez tous les champs requis!')
-      setSuccessInscription('')
+      setErrorInscription('Entrez tous les champs requis!');
+      setSuccessInscription('');
     }
 
   };
@@ -183,17 +175,17 @@ export default function VisiteurLayout({ children }) {
       else if (isCandidat === 1) navigate("/candidat/dashboard");
       else if (isRecruteur === 1) navigate("/employer/dashboard");
     }
-  }, [isAuthenticate])
+  }, [isAuthenticate]);
 
   useEffect(() => {
     if (toggle === 'candidat') {
-      setCandidat(1)
-      setRecruteur(0)
-    }
+      setCandidat(1);
+      setRecruteur(0);
+    };
     if (toggle === 'recruteur') {
-      setCandidat(0)
-      setRecruteur(1)
-    }
+      setCandidat(0);
+      setRecruteur(1);
+    };
   }, [toggle]);
 
   const { window } = pages;
@@ -207,9 +199,7 @@ export default function VisiteurLayout({ children }) {
         <Box>
           <Toolbar
             disableGutters
-            sx={{
-              display: { xs: "flex", md: "block" },
-            }}
+            sx={{ display: { xs: "flex", md: "block" } }}
           >
             <Box sx={{ display: { xs: "flex", md: "block" } }}>
               <Box sx={{ flexGrow: 0, display: 'flex' }}>
@@ -222,11 +212,8 @@ export default function VisiteurLayout({ children }) {
                 </Typography>
               </Box>
             </Box>
-            <Box
-              sx={{ display: { xs: "none", md: "block" } }}
-            >
-              <List
-                sx={{ flexGrow: 1, display: "flex", justifyContent: 'center', }}>
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'center', }}>
                 {pages.map((page) => (
                   <MenuItem
                     key={page.titre}
@@ -261,12 +248,8 @@ export default function VisiteurLayout({ children }) {
                   >
 
                     {/* Connexion */}
-                    <Box
-                      sx={{ display: 'block', width: 400, pr: 2, borderRight: 2 }}
-                    >
-                      <Typography variant='h4'>
-                        Connexion
-                      </Typography>
+                    <Box sx={{ display: 'block', width: 400, pr: 2, borderRight: 2 }}>
+                      <Typography variant='h4'>Connexion</Typography>
                       <TextField
                         label='Mail'
                         name='mail'
@@ -312,22 +295,14 @@ export default function VisiteurLayout({ children }) {
                       </Button>
                       {error.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' >
-                            {error}
-                          </Typography>
+                          <Typography variant='body1' >{error}</Typography>
                         </Box>
                       }
                     </Box>
 
                     {/* Inscription */}
-                    <Box
-                      sx={{ display: 'block', width: 400, ml: 2, }}>
-                      <Typography
-                        variant='h4'
-                      >
-                        Inscription
-                      </Typography>
-
+                    <Box sx={{ display: 'block', width: 400, ml: 2, }}>
+                      <Typography variant='h4'>Inscription</Typography>
                       <TextField
                         label='Mail'
                         name='mail'
@@ -353,29 +328,19 @@ export default function VisiteurLayout({ children }) {
                       </ToggleButtonGroup>
                       {errorInscription.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' >
-                            {errorInscription}
-                          </Typography>
+                          <Typography variant='body1' >{errorInscription}</Typography>
                         </Box>
                       }
                       {successInscription.length > 0 &&
                         <Box sx={{ my: 3, color: '#1e90ff' }} >
-                          <Typography variant='body1' >
-                            {successInscription}
-                          </Typography>
+                          <Typography variant='body1' >{successInscription}</Typography>
                         </Box>
                       }
                       <Button
                         variant="contained"
                         fullWidth
                         onClick={() => SubmitFormIdInscription()}
-                        sx={{
-                          bgcolor: '#ABC4FF',
-                          fontWeight: 'bold',
-                          my: 1,
-                          py: 1
-                        }}
-                      >
+                        sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
                         Envoyer
                       </Button>
                     </Box>
@@ -397,8 +362,7 @@ export default function VisiteurLayout({ children }) {
                 onOpen={toggleDrawer(true)}
                 disableSwipeToOpen={false}
                 ModalProps={{ keepMounted: true }}>
-                <Box
-                  sx={{ listStyleType: 'none', textAlign: 'center' }}>
+                <Box sx={{ listStyleType: 'none', textAlign: 'center' }}>
                   {pages.map((page) => (
                     <MenuItem key={page.titre} onClick={() => navigate({ pathname: `/${page.lien}` })}>
                       <Typography textAlign="center">{page.titre}</Typography>
@@ -415,9 +379,7 @@ export default function VisiteurLayout({ children }) {
           </Toolbar>
         </Box>
       </AppBar>
-      <Container component="main" disableGutters maxWidth="100%">
-        {children}
-      </Container>
+      <Container component="main" disableGutters maxWidth="100%">{children}</Container>
       <Footer />
     </ThemeProvider>
   );
