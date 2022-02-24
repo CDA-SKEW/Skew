@@ -35,7 +35,7 @@ class AuthControllers {
               flash: "Login Success !",
               token,
             });
-          } else return res.status(503).json({error: 'Fils de pul'})
+          } else return res.status(503).json({flash: 'L\'identifiant ou le mot de passe ne correspondent pas!'})
 
         }
       });

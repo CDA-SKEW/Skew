@@ -8,7 +8,6 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
     user: {},
-    message: {},
     flash: "",
     authenticate: null
 };

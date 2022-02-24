@@ -84,6 +84,7 @@ export default function VisiteurLayout({ children }) {
   const [pass2, setPass2] = useState('');
   const [toggle, setToggle] = useState('');
   const [errorInscription, setErrorInscription] = useState('');
+  const [success, setSuccess] = useState('');
   const [successInscription, setSuccessInscription] = useState('');
   const [candidat, setCandidat] = useState(0);
   const [recruteur, setRecruteur] = useState(0);
@@ -108,6 +109,8 @@ export default function VisiteurLayout({ children }) {
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
   const flash = useSelector(state => state.auth.flash);
+
+  console.log('flash', flash)
 
   const handleOpen = () => { setOpenModal(true); };
 
@@ -141,7 +144,7 @@ export default function VisiteurLayout({ children }) {
       setMail('');
       setPass('');
     } else {
-      setError('Le mail ou le mot de passe est incorrect!');
+      setError('Tous les champs doivent être remplis!');
     }
   };
 
@@ -191,6 +194,8 @@ export default function VisiteurLayout({ children }) {
     if (flash.length >= 0) {
       setSuccessInscription(flash);
       setErrorInscription('');
+      setSuccess(flash);
+      setError('')
     }
   }, [flash]);
 
@@ -310,6 +315,11 @@ export default function VisiteurLayout({ children }) {
                       {error.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
                           <Typography variant='body1' >{error}</Typography>
+                        </Box>
+                      }
+                      {success.length > 31 &&
+                        <Box sx={{ my: 3, color: '#1e90ff' }} >
+                          <Typography variant='body1' align='center' >{success}</Typography>
                         </Box>
                       }
                     </Box>
