@@ -34,30 +34,6 @@ Offer.getOffer = function (result) {
   });
 };
 
-Offer.getOfferCvCandidate = function (user_id) {
-  return new Promise((resolve, reject) => {
-    connection.getConnection(function (error, conn) {
-      const userIdCandidate = user_id;
-      console.log(user_id);
-
-      conn.query(
-        `SELECT e.*
-      FROM experience as e
-      where user_id=:userIdCandidate
-    `,
-        { userIdCandidate },
-        (err, dataCvCandidat) => {
-          if (error) reject(err);
-          // console.log("dataCvCandidat data", dataCvCandidat);
-          // console.log("el.exp", el.experience);
-          // console.log(dataCvCandidat);
-          resolve(dataCvCandidat);
-        }
-      );
-    });
-  });
-};
-
 Offer.getOfferId = function (params_id) {
   // console.log("model param_id",params_id)
   return new Promise((resolve, reject) => {
@@ -92,23 +68,51 @@ Offer.getOfferId = function (params_id) {
                  where offre_id=:offerId
               `,
                     { offerId },
-                    async (err, dataCandidate) => {
+                    (err, dataCandidate) => {
                       if (error) reject(err);
                       // console.log("postuled data", dataOffer, index, dataCandidate)
 
-                      await dataCandidate.forEach(async (el) => {
+                      dataCandidate.forEach((el) => {
                         console.log(
                           "el",
                           "-------------------------",
-                          el,
+                          // el,
                           "-------------------------"
                         );
-                        Offer.getOfferCvCandidate(el.user_id).then(
-                          (dataCVCandidate) => {
-                            console.log("dataCVCandidate", dataCVCandidate);
-                            el.experience =dataCVCandidate
-                          }
-                        );
+
+                        let toto = new Promise((resolve, reject) => {
+                          const userIdCandidate = el.user_id;
+                          console.log(userIdCandidate);
+
+                          conn.query(
+                            `SELECT e.*
+                            FROM experience as e
+                            where user_id=:userIdCandidate
+                          `,
+                            { userIdCandidate },
+                            (err, dataCvCandidat) => {
+                              if (error) reject(err);
+                              // console.log("dataCvCandidat data", dataCvCandidat);
+                              // console.log("el.exp", el.experience);
+                              // console.log(dataCvCandidat);
+                              return resolve(dataCvCandidat);
+                            }
+                          );
+                        })
+                        console.log(toto);
+                        el.experience = toto
+
+
+                        // let Obj = Offer.getOfferCvCandidate(el.user_id, conn, error).then(
+                        //   (dataCvCandidate) => {
+                        //     // console.log("dataCVCandidate", dataCvCandidate);
+                        //     let Obj=dataCvCandidate  
+                        //    return Obj                                            
+                        //   });
+
+                        // console.log(" Obj ",  Obj );
+                        // el.experience =  Obj 
+
                       });
 
                       el.profilCandidate = dataCandidate;

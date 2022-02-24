@@ -32,22 +32,19 @@ class EmployerOfferControllers {
 
   async getOfferId(req, res) {
     // console.log("controller get Offer Employeur");
-  
-    let Obj ={}
-
       await Offer.getOfferId(String(req.params.id)).then(
         (data) => {
-          Obj =data
+          return res.json({
+            method: req.method,
+            status: "success",
+            message: "Mes offres",
+            offers: data,
+          });
         }
       );
 
 
-      return res.json({
-        method: req.method,
-        status: "success",
-        message: "Mes offres",
-        offers: Obj,
-      });
+
 
       // try {
       //   //ici String est une coercion qui permet de typer la variable
