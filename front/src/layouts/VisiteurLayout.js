@@ -232,6 +232,7 @@ export default function VisiteurLayout({ children }) {
                   Log in / Sign in
                 </Button>
 
+                {/* Modal connexion inscription */}
                 <Modal open={openModal} onClose={handleClose}>
                   <Box
                     sx={{
