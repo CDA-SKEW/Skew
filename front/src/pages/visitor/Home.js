@@ -6,9 +6,9 @@ import RecruteurCard from 'assets/images/recruteurCard.jpg';
 import { useNavigate } from 'react-router-dom';
 import WhyHome1 from 'assets/images/WhyHome01.jpg';
 import WhyHome2 from 'assets/images/WhyHome02.jpg';
+import Stack from '@mui/material/Stack';
 
 import ParagraphCard from 'components/visiteur/ParagraphCard';
-import StatBarHome from 'components/visiteur/home/StatBarHome';
 
 export default function Home() {
 
@@ -21,7 +21,12 @@ export default function Home() {
     const CardsContents = [
         { image: WhyHome1, titre: "Pourquoi nous?", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: true },
         { image: WhyHome2, titre: "Nos méthodes", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: false },
-    ]
+    ];
+    const StatList = [
+        { nombre: "2500", titre: "Candidats" },
+        { nombre: "500", titre: "Entreprises" },
+        { nombre: "25000", titre: "Offres" }
+    ];
 
     return (
         <VisiteurLayout>
@@ -51,7 +56,23 @@ export default function Home() {
                     <ParagraphCard cardsContent={cardsContent} key={index} />
                 ))}
             </Box>
-            <StatBarHome />
+
+            <Box
+                maxWidth='xl'
+                sx={{ bgcolor: "primary.main", mx: 'auto', my: 10, borderRadius: { sx: 0, md: 50 } }}>
+                <Stack direction="row" spacing={2} sx={{ mx: { xs: 0, xl: "75px" } }}>
+                    {StatList.map((stat, index) => (
+                        <Typography
+                            variant='h3' key={index} align='center'
+                            sx={{ boxShadow: "none", py: 3, width: '33%', fontSize: { xs: 17, md: 35 } }}>
+                            {stat.nombre}
+                            <br />
+                            {stat.titre}
+                        </Typography>
+                    ))}
+                </Stack>
+            </Box>
+
         </VisiteurLayout>
     );
 };
