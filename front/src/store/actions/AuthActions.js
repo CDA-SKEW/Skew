@@ -28,14 +28,7 @@ export const login = (data) => {
                     if (res.data.token) localStorage["user_token"] = res.data.token;
                     res.data.token = jwt_decode(res.data.token)
                     res.data.authenticate = true
-                    dispatch({
-                        type: LOGIN,
-                        payload: res.data
-                    });
-                } else if (res.data.error) {
-
-                } else {
-
+                    dispatch({ type: LOGIN, payload: res.data });
                 }
             })
             .catch((err) => console.log(err));
@@ -50,7 +43,6 @@ export const checkToken = () => {
             .get(`http://localhost:3033/api/auth/${localStorage["user_token"]}`)
             .then((res) => {
                 if (res.data.user) {
-                    // console.log("check", res.data);
                     dispatch({ type: CHECKTOKEN, payload: res.data });
                 }
             })

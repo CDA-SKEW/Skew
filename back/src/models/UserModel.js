@@ -30,7 +30,7 @@ User.login = function (user, result) {
       else bcrypt.compare(user.pass, data[0].pass, function (err, check) {
         if (err) throw err;
         if (check) result(null, data[0]);
-        else result(null, { message: 'error' });
+        else result(null, 'L\'identifiant et le mots de passe ne correspondent pas!');
       });
       conn.release();
     }
