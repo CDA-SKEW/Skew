@@ -34,105 +34,95 @@ Offer.getOffer = function (result) {
   });
 };
 
-Offer.getOfferId = function (params_id, result) {
-  connection.getConnection(function (error, conn) {
-    conn.query(
-      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
+Offer.getOfferCvCandidate = function (user_id) {
+  return new Promise((resolve, reject) => {
+    connection.getConnection(function (error, conn) {
+      const userIdCandidate = user_id;
+      console.log(user_id);
+
+      conn.query(
+        `SELECT e.*
+      FROM experience as e
+      where user_id=:userIdCandidate
+    `,
+        { userIdCandidate },
+        (err, dataCvCandidat) => {
+          if (error) reject(err);
+          // console.log("dataCvCandidat data", dataCvCandidat);
+          // console.log("el.exp", el.experience);
+          // console.log(dataCvCandidat);
+          resolve(dataCvCandidat);
+        }
+      );
+    });
+  });
+};
+
+Offer.getOfferId = function (params_id) {
+  // console.log("model param_id",params_id)
+  return new Promise((resolve, reject) => {
+    connection.getConnection(function (error, conn) {
+      conn.query(
+        `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
       c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays,
-       c.badge as badgeEmployor, c.avatar as image,
-       p.user_id, p.statut,
-      u.mail,
-      ce.user_id, ce.name, ce.lastName, ce.phone, ce.address, ce.zipCode, ce.town,
-      e.compagny, e.job, e.dateStart, e.description, e.dateEnd,
-      s.skill,
-      i.interest,
-      cer.school, cer.title, cer.year, cer.validate,
-      d.document
-       FROM offre as o
+       c.badge as badgeEmployor, c.avatar as image
+        FROM offre as o
       inner join contactProfil as c On o.user_id=c.user_id
-       inner join postuled as p On o.offer_id=p.offre_id
-      inner join user as u On p.user_id=u.id
-      inner join contactProfil as ce On u.id=ce.user_id
-      inner join experience as e On u.id=e.user_id
-      inner join skill as s On u.id=s.user_id
-      inner join interest as i On u.id=i.user_id
-      inner join certificate as cer On u.id=cer.user_id
-      inner join document d On u.id=d.user_id
       where o.user_id=:params_id 
        ORDER BY o.createDate DESC;`,
-      { params_id },
-      (error, dataOffer) => {
-        if (error) throw error;
-        else {
-          
+        { params_id },
+        (error, dataOffer) => {
+          if (error) reject(err);
+          else {
+            // console.log(dataOffer)
+            if (dataOffer.length > 0) {
+              conn.query(
+                dataOffer.map((el, index) => {
+                  const offerId = el.offer_id;
 
-          dataOffer.map((row, index) => (
-          // console.log(" index, row",index, row)
+                  console.log("dataOffer", index);
 
+                  conn.query(
+                    `SELECT p.offre_id, p.user_id
+                ,ce.name, ce.lastName, u.mail, ce.phone, ce.address, ce.zipCode, ce.town
+                , p.statut
+                FROM postuled as p
+                inner join user as u On p.user_id=u.id
+                inner join contactProfil as ce On u.id=ce.user_id
+                 where offre_id=:offerId
+              `,
+                    { offerId },
+                    async (err, dataCandidate) => {
+                      if (error) reject(err);
+                      // console.log("postuled data", dataOffer, index, dataCandidate)
 
-          console.log(" index, row",index, row.offer_id)
+                      await dataCandidate.forEach(async (el) => {
+                        console.log(
+                          "el",
+                          "-------------------------",
+                          el,
+                          "-------------------------"
+                        );
+                        Offer.getOfferCvCandidate(el.user_id).then(
+                          (dataCVCandidate) => {
+                            console.log("dataCVCandidate", dataCVCandidate);
+                            el.experience =dataCVCandidate
+                          }
+                        );
+                      });
 
-          // row.offer_id.forEach((el) => {
-          //   console.log("data", el)
-          // })
-
-
-          
-          ))
-
-
-          // dataOffer.forEach((el) => {
-          //   console.log("data", el.offer_id)
-          // });
-
-
-
-
-
-
-
-
-
-          result(null,dataOffer);
-          // for (let index = 0; index < dataOffer.length; index++) {
-          //   const offerId = dataOffer[index].offer_id;
-          //   console.log("offerId", offerId);
-
-
-
-          //   conn.query(
-          //     `SELECT offre_id, user_id, statut
-          //        FROM postuled
-          //            where offre_id=:offerId;`,
-          //     { offerId },
-          //     (err, data) => {
-          //       if (err) result(null, err);
-          //       // if (err) console.log(err)
-          //       const Obj = {
-          //         dataOffer,
-          //         profilCandidate: {}
-          //       };
-
-          //       console.log("postuled data", data);
-
-          //       // dataOffer.forEach((el) => {
-          //         dataOffer[index].profilCandidate = data;
-          //       // });
-
-          //       console.log("Obj", Obj)
-          //       // console.log("Obj", Obj.profilCandidate)
-
-          //       // result(null, Obj);
-          //       result(null, dataOffer);
-          //     }
-          //   );
-          // }
-
-          // result(null, Obj);
+                      el.profilCandidate = dataCandidate;
+                      if (index === dataOffer.length - 1) resolve(dataOffer);
+                    }
+                  );
+                })
+              );
+            } else resolve(dataOffer);
+          }
         }
-      }
-    );
-    conn.release();
+      );
+      conn.release();
+    });
   });
 };
 
