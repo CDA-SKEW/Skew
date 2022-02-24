@@ -90,7 +90,7 @@ class JobsController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            user: data,
+            job: data,
             message: " The job has been successfully DELETED.!!",
           });
       });

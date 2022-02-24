@@ -52,20 +52,20 @@ class UsersControllers {
   // UPDATE USER
   async putUser(req, res) {
     const { id } = req.params;
-    let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;
-    // console.log("isVerified", typeof isVerified, isVerified, Boolean(isVerified));
+    let { isBanned, isVerified, isCandidat, isRecruteur, isAdmin } = req.body;
+    console.log("isBanned", Boolean(isBanned));
 
     isAdmin = isAdmin === "true" ? 1 : 0;
-    isBanned = isBanned === "true" ? 1 : 0;
-    isVerified = isVerified === "true" ? 1 : 0;
     isCandidat = isCandidat === "true" ? 1 : 0;
     isRecruteur = isRecruteur === "true" ? 1 : 0;
+    isVerified = isVerified === "true" ? 1 : 0;
+    isBanned = isBanned === "true" ? 1 : 0;
 
     // Essayes cette fonction
     try {
-      console.log("UpdateController", id, { ...req.body });
+      // console.log("UpdateController", id, isBanned);
       User.putUser(
-        { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur },
+        { id, isBanned, isVerified, isAdmin, isRecruteur, isCandidat },
         (err, data) => {
           // console.log("response controller user update", data);
           if (err) res.send({ message: "error in request db" });

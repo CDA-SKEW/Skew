@@ -63,7 +63,7 @@ User.getListUsers = function (result) {
 User.putUser = function (user, result) {
   console.log("Method UPDATE Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, isAdmin, isBanned, isVerified, isCandidat, isRecruteur } = user;
+  const { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = user;
   connection.getConnection(function (error, conn) {
     console.log(
       "isBanned",
@@ -76,18 +76,18 @@ User.putUser = function (user, result) {
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `UPDATE user 
-      set 
-      isBanned = :isBanned,
-      isVerified = :isVerified,
+      set isAdmin = :isAdmin,
       isCandidat = :isCandidat,
-      isRecruteur = :isRecruteur
+      isRecruteur = :isRecruteur,
+      isBanned = :isBanned,
+      isVerified = :isVerified
       WHERE id = :id;
        `,
       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
       // situé dans ConnectionDb.js dans dossier config
-      { isAdmin, isBanned, isVerified, isCandidat, isRecruteur, id },
+      { isVerified, isBanned, isAdmin, isCandidat, isRecruteur, id },
       (error, data) => {
-        console.log(id, isAdmin, isBanned, isVerified, isCandidat, isRecruteur);
+        console.log(id, isBanned);
         if (error) throw error;
         conn.query(
           `SELECT u.*, c.name, c.lastname FROM user as u

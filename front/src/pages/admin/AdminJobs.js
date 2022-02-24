@@ -7,7 +7,7 @@ import withAdmin from "components/auth/withAdmin";
 
 const AdminJobs = () => {
   /*------------ listJobs import via Store-------------*/
-  const listJobs = useSelector((state) => state.admin.listJobs);
+  const job = useSelector((state) => state.admin.job);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const AdminJobs = () => {
 
   return (
     <AdminLayout>
-      <JobsTable listJobs={listJobs} />
+      <JobsTable job={job} />
     </AdminLayout>
   );
 };
