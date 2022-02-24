@@ -97,7 +97,7 @@ export default function VisiteurLayout({ children }) {
   const passList = [
     { titre: 'Mot de passe', name: 'pass', value: passInscription },
     { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 }
-  ]
+  ];
 
   const handleClickShowPassword = () => { setShowPassword(!showPassword) };
   const handleMouseDownPassword = (event) => { event.preventDefault(); };

@@ -51,12 +51,14 @@ export default function Home() {
                 ))}
             </Box>
 
+            {/* Carte du pourquoi */}
             <Box maxWidth="xl" sx={{ mx: 'auto' }}>
                 {CardsContents.map((cardsContent, index) => (
                     <ParagraphCard cardsContent={cardsContent} key={index} />
                 ))}
             </Box>
 
+            {/* Barre de statistique */}
             <Box
                 maxWidth='xl'
                 sx={{ bgcolor: "primary.main", mx: 'auto', my: 10, borderRadius: { sx: 0, md: 50 } }}>
