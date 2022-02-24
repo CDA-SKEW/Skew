@@ -61,8 +61,7 @@ class AuthControllers {
           // JWT
           return res.send({
             status: "success",
-            flash: "Register Success !",
-            token: data,
+            flash: data,
           });
         }
       });
@@ -72,7 +71,6 @@ class AuthControllers {
   }
 
   async checkToken(req, res) {
-    // console.log("check", req.params.token);
     const user = jwt.verify(req.params.token, process.env.SIGN_JWT, (err, decoded) => {
       if (err) return;
       return decoded;

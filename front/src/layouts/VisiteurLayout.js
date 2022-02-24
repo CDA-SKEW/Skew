@@ -107,6 +107,7 @@ export default function VisiteurLayout({ children }) {
   const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
+  const flash = useSelector(state => state.auth.flash);
 
   const handleOpen = () => { setOpenModal(true); };
 
@@ -154,8 +155,6 @@ export default function VisiteurLayout({ children }) {
         setToggle("");
         setCandidat(0);
         setRecruteur(0);
-        setSuccessInscription('L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
-        setErrorInscription('');
       } else {
         setErrorInscription('Les mots de passe ne coîncident pas!');
         setSuccessInscription('');
@@ -188,6 +187,13 @@ export default function VisiteurLayout({ children }) {
     };
   }, [toggle]);
 
+  useEffect(() => {
+    if (flash.length >= 0) {
+      setSuccessInscription(flash);
+      setErrorInscription('');
+    }
+  }, [flash]);
+
   const { window } = pages;
   const container = window !== undefined ? () => window().document.body : undefined;
 
@@ -201,6 +207,8 @@ export default function VisiteurLayout({ children }) {
             disableGutters
             sx={{ display: { xs: "flex", md: "block" } }}
           >
+
+            {/* Titre */}
             <Box sx={{ display: { xs: "flex", md: "block" } }}>
               <Box sx={{ flexGrow: 0, display: 'flex' }}>
                 <Avatar
@@ -212,6 +220,8 @@ export default function VisiteurLayout({ children }) {
                 </Typography>
               </Box>
             </Box>
+
+            {/* Menu */}
             <Box sx={{ display: { xs: "none", md: "block" } }}>
               <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'center', }}>
                 {pages.map((page) => (
@@ -224,6 +234,8 @@ export default function VisiteurLayout({ children }) {
                   </MenuItem>
 
                 ))}
+
+                {/* Bouton Login */}
                 <Button
                   variant="contained"
                   onClick={handleOpen}
@@ -240,6 +252,7 @@ export default function VisiteurLayout({ children }) {
                       top: '50%', left: '50%',
                       transform: 'translate(-50%, -50%)',
                       width: 800,
+                      height: 560,
                       bgcolor: '#fff',
                       pt: 2, px: 4, pb: 3,
                       borderRadius: 2,
@@ -332,9 +345,15 @@ export default function VisiteurLayout({ children }) {
                           <Typography variant='body1' >{errorInscription}</Typography>
                         </Box>
                       }
-                      {successInscription.length > 0 &&
+                      {successInscription.length > 0 && successInscription.length < 30 &&
+                        <Box sx={{ my: 3, color: '#ff0000' }} >
+                          <Typography variant='body1' align='center' >{successInscription}</Typography>
+                        </Box>
+                      }
+
+                      {successInscription.length > 31 &&
                         <Box sx={{ my: 3, color: '#1e90ff' }} >
-                          <Typography variant='body1' >{successInscription}</Typography>
+                          <Typography variant='body1' align='center' >{successInscription}</Typography>
                         </Box>
                       }
                       <Button
@@ -350,6 +369,8 @@ export default function VisiteurLayout({ children }) {
 
               </List>
             </Box>
+
+            {/* Menu responsive */}
             <Box
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: 'row-reverse' }}>
               <IconButton size="large" onClick={toggleDrawer(true)} color="inherit">

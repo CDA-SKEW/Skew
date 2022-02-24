@@ -8,6 +8,7 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
     user: {},
+    message: {},
     flash: "",
     authenticate: null
 };
@@ -29,7 +30,7 @@ export function AuthReducer(state = initialState, action) {
         case Actions.REGISTER:
             return {
                 ...state,
-                flash: action.payload.flash
+                flash: action.payload.flash,
             };
         case Actions.CHECKTOKEN:
             return {

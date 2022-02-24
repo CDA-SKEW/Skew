@@ -50,13 +50,15 @@ User.register = function (body, result) {
             if (error) throw error;
             conn.query(`INSERT INTO contactProfil (user_id) VALUES (${newUser.insertId})`, (err, profilUser) => {
               if (err) throw err
-              else result(null, profilUser);
+              else result(null,
+                'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!'
+              );
             })
             conn.release();
           }
         );
       } else {
-        result(null, { message: 'Adresse mail déjà utilisée!' });
+        result(null, 'Adresse mail déjà utilisée!');
       }
     });
   });
