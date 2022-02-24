@@ -46,8 +46,8 @@ class AuthControllers {
 
   async register(req, res) {
     let newUser = new User({
-      mail: String(req.body.mail),
-      pass: String(req.body.pass),
+      mail: String(req.body.mailInscription),
+      pass: String(req.body.passInscription),
       isCandidat: Number(req.body.candidat),
       isRecruteur: Number(req.body.recruteur),
     });

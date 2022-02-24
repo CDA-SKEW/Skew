@@ -26,35 +26,90 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@mui/material/Link';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "store/actions/AuthActions";
+import { register } from 'store/actions/AuthActions';
 
 import Footer from "components/core/Footer";
-import Inscription from '../components/core/navbar/inscription';
+
+function PassInput({ values, handleFormIdInscription }) {
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
+      <InputLabel htmlFor="outlined-adornment-password">{values.titre}</InputLabel>
+      <OutlinedInput
+        name={values.name}
+        type={showPassword ? 'text' : 'password'}
+        value={values.value}
+        onChange={(e) => handleFormIdInscription(e)}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+        }
+        label="Password"
+      />
+    </FormControl>
+  )
+}
 
 export default function VisiteurLayout({ children }) {
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
-  const pages = [
-    { titre: "Accueil", lien: "" },
-    { titre: "Offres", lien: "offres" },
-    { titre: "Contactez-nous", lien: "contactus" },
-  ];
-  const { window } = pages;
   const [openModal, setOpenModal] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [mail, setMail] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [mailInscription, setMailInscription] = useState('');
+  const [passInscription, setPassInscription] = useState('');
+  const [pass2, setPass2] = useState('');
+  const [toggle, setToggle] = useState('');
+  const [errorInscription, setErrorInscription] = useState('');
+  const [successInscription, setSuccessInscription] = useState('');
+  const [candidat, setCandidat] = useState(0);
+  const [recruteur, setRecruteur] = useState(0);
+
+  const pages = [
+    { titre: "Accueil", lien: "" },
+    { titre: "Offres", lien: "offres" },
+    { titre: "Contactez-nous", lien: "contactus" },
+  ];
+
+  const passList = [
+    { titre: 'Mot de passe', name: 'pass', value: passInscription },
+    { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 },
+  ]
 
   const handleClickShowPassword = () => { setShowPassword(!showPassword) };
 
   const handleMouseDownPassword = (event) => { event.preventDefault(); };
+
+  const handleChange = (e, newToggle) => { setToggle(newToggle) };
 
   const isAuthenticate = useSelector(state => state.auth.authenticate)
   const isAdmin = useSelector(state => state.auth.user.isAdmin)
@@ -75,6 +130,18 @@ export default function VisiteurLayout({ children }) {
     }
   }
 
+  const handleFormIdInscription = (e) => {
+    switch (e.target.name) {
+      case 'mail': setMailInscription(e.target.value)
+        break;
+      case 'pass': setPassInscription(e.target.value)
+        break;
+      case 'pass2': setPass2(e.target.value)
+        break;
+      default:
+    }
+  }
+
   const SubmitFormId = () => {
     if (mail && pass) {
       dispatch(login({ mail, pass }))
@@ -85,6 +152,29 @@ export default function VisiteurLayout({ children }) {
     }
   };
 
+  const SubmitFormIdInscription = async (e) => {
+    if (mailInscription && toggle && passInscription && pass2) {
+      if (passInscription === pass2) {
+        await dispatch(register({ mailInscription, passInscription, candidat, recruteur }));
+        setMailInscription("");
+        setPassInscription("");
+        setPass2("");
+        setToggle("");
+        setCandidat(0);
+        setRecruteur(0);
+        setSuccessInscription('L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
+        setErrorInscription('')
+      } else {
+        setErrorInscription('Les mots de passe ne coîncident pas!')
+        setSuccessInscription('')
+      }
+    } else {
+      setErrorInscription('Entrez tous les champs requis!')
+      setSuccessInscription('')
+    }
+
+  };
+
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
 
   useEffect(() => {
@@ -93,9 +183,20 @@ export default function VisiteurLayout({ children }) {
       else if (isCandidat === 1) navigate("/candidat/dashboard");
       else if (isRecruteur === 1) navigate("/employer/dashboard");
     }
-    else { navigate("/"); }
   }, [isAuthenticate])
 
+  useEffect(() => {
+    if (toggle === 'candidat') {
+      setCandidat(1)
+      setRecruteur(0)
+    }
+    if (toggle === 'recruteur') {
+      setCandidat(0)
+      setRecruteur(1)
+    }
+  }, [toggle]);
+
+  const { window } = pages;
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -158,6 +259,8 @@ export default function VisiteurLayout({ children }) {
                       textAlign: 'center'
                     }}
                   >
+
+                    {/* Connexion */}
                     <Box
                       sx={{ display: 'block', width: 400, pr: 2, borderRight: 2 }}
                     >
@@ -215,7 +318,67 @@ export default function VisiteurLayout({ children }) {
                         </Box>
                       }
                     </Box>
-                    <Inscription />
+
+                    {/* Inscription */}
+                    <Box
+                      sx={{ display: 'block', width: 400, ml: 2, }}>
+                      <Typography
+                        variant='h4'
+                      >
+                        Inscription
+                      </Typography>
+
+                      <TextField
+                        label='Mail'
+                        name='mail'
+                        value={mailInscription}
+                        variant="outlined"
+                        fullWidth
+                        onChange={(e) => handleFormIdInscription(e)}
+                        sx={{ my: 1 }} />
+
+                      {passList.map((values, index) => (
+                        <PassInput key={index} values={values} handleFormIdInscription={handleFormIdInscription} />
+                      ))}
+                      <ToggleButtonGroup
+                        color="info"
+                        value={toggle}
+                        exclusive
+                        onChange={handleChange}
+                        fullWidth
+                        sx={{ my: 1 }}
+                      >
+                        <ToggleButton value="candidat">Candidat</ToggleButton>
+                        <ToggleButton value="recruteur">Recruteur</ToggleButton>
+                      </ToggleButtonGroup>
+                      {errorInscription.length > 0 &&
+                        <Box sx={{ my: 3, color: '#ff0000' }} >
+                          <Typography variant='body1' >
+                            {errorInscription}
+                          </Typography>
+                        </Box>
+                      }
+                      {successInscription.length > 0 &&
+                        <Box sx={{ my: 3, color: '#1e90ff' }} >
+                          <Typography variant='body1' >
+                            {successInscription}
+                          </Typography>
+                        </Box>
+                      }
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={() => SubmitFormIdInscription()}
+                        sx={{
+                          bgcolor: '#ABC4FF',
+                          fontWeight: 'bold',
+                          my: 1,
+                          py: 1
+                        }}
+                      >
+                        Envoyer
+                      </Button>
+                    </Box>
                   </Box>
                 </Modal>
 
