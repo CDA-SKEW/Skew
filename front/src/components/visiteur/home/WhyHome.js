@@ -1,11 +1,11 @@
 import * as React from 'react';
 import WhyHome1 from '../../../assets/images/WhyHome01.jpg';
 import WhyHome2 from '../../../assets/images/WhyHome02.jpg';
-import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/system';
 
 export default function WhyHome() {
 
@@ -15,7 +15,7 @@ export default function WhyHome() {
     ]
 
     return (
-        <Container maxWidth="xl">
+        <Box maxWidth="xl" sx={{mx: 'auto'}}>
             {CardsContents.map((cardsContent, index) => (
                 <Card
                     key={index}
@@ -32,34 +32,21 @@ export default function WhyHome() {
                         component="img"
                         image={cardsContent.image}
                         alt="Pourquoi-nous"
-                        sx={{
-                            minWidth: 340,
-                            width: '90%'
-                        }}
-                    />
-                    <CardContent sx={{
-                        pt: 0,
-                        px: 2,
-                        width: '90%',
-                    }}>
-                        <Typography
-                            variant="h2"
-                        >
+                        sx={{ minWidth: 340, width: '90%' }} />
+                    <CardContent sx={{ pt: 0, px: 2, width: '90%' }}>
+                        <Typography variant="h2">
                             {cardsContent.titre}
                         </Typography>
                         <Typography
                             variant="body1"
                             color="text.secondary"
                             align="justify"
-                            sx={{
-                                fontSize: { sx: '1rem', md: 20 }
-                            }}
-                        >
+                            sx={{ fontSize: { sx: '1rem', md: 20 } }}>
                             {cardsContent.texte}
                         </Typography>
                     </CardContent>
                 </Card>
             ))}
-        </Container>
+        </Box>
     );
 }
