@@ -33,8 +33,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "store/actions/AuthActions";
-import { register } from 'store/actions/AuthActions';
+import { login, register } from "store/actions/AuthActions";
 
 function PassInput({ values, handleFormIdInscription }) {
 
@@ -177,13 +176,14 @@ export default function VisiteurLayout({ children }) {
     console.log('oui')
   }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
-  useEffect(() => {
-    if (isAuthenticate === true) {
-      if (isAdmin === 1) navigate("/admin");
-      else if (isCandidat === 1) navigate("/candidat/dashboard");
-      else if (isRecruteur === 1) navigate("/employer/dashboard");
-    }
-  }, [isAuthenticate]);
+  
+  // useEffect(() => {
+  //   if (isAuthenticate === true) {
+  //     if (isAdmin === 1) navigate("/admin");
+  //     else if (isCandidat === 1) navigate("/candidat/dashboard");
+  //     else if (isRecruteur === 1) navigate("/employer/dashboard");
+  //   }
+  // }, [isAuthenticate]);
 
   useEffect(() => {
     if (toggle === 'candidat') {
