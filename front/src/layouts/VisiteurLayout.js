@@ -243,24 +243,15 @@ export default function VisiteurLayout({ children }) {
 
             {/* Menu */}
             <Box sx={{ display: { xs: "none", md: "block" } }}>
-              <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'center', }}>
+              <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'space-around', }}>
                 {pages.map((page) => (
-                  <MenuItem
-                    key={page.titre}
-                    onClick={() => navigate({ pathname: `/${page.lien}` })}
-                    sx={{ width: { md: 250, lg: 300, xl: 400 }, }}
-                  >
+                  <MenuItem key={page.titre} onClick={() => navigate({ pathname: `/${page.lien}` })}>
                     <Typography textAlign="center">{page.titre}</Typography>
                   </MenuItem>
-
                 ))}
 
                 {/* Bouton Login */}
-                <Button
-                  variant="contained"
-                  onClick={handleOpen}
-                  sx={{ bgcolor: 'secondary.main', width: { md: 250, lg: 300, xl: 400 }, fontSize: 17 }}
-                >
+                <Button variant="contained" onClick={handleOpen} sx={{ bgcolor: 'secondary.main' }}>
                   Log in / Sign in
                 </Button>
 
@@ -365,11 +356,7 @@ export default function VisiteurLayout({ children }) {
                             <Button
                               variant='contained'
                               onClick={() => handleCloseChildModal()}
-                              sx={{
-                                bgcolor: "secondary.main",
-                                width: 100
-                              }}
-                            >
+                              sx={{ bgcolor: "secondary.main", width: 100 }}>
                               Fermer
                             </Button>
                           </Box>
