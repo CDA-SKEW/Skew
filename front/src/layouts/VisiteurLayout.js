@@ -88,6 +88,7 @@ export default function VisiteurLayout({ children }) {
   const [successInscription, setSuccessInscription] = useState('');
   const [candidat, setCandidat] = useState(0);
   const [recruteur, setRecruteur] = useState(0);
+  const [certificate, setCertificate] = useState(false);
 
   const pages = [
     { titre: "Accueil", lien: "" },
@@ -111,7 +112,7 @@ export default function VisiteurLayout({ children }) {
   const handleMouseDownPassword = (event) => { event.preventDefault(); };
   const handleChange = (e, newToggle) => { setToggle(newToggle) };
 
-  const isAuthenticate = useSelector(state => state.auth.authenticate);
+  // const isAuthenticate = useSelector(state => state.auth.authenticate);
   const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
@@ -148,6 +149,7 @@ export default function VisiteurLayout({ children }) {
       await dispatch(login({ mail, pass }));
       setMail('');
       setPass('');
+      setCertificate(true)
     } else {
       setError('Tous les champs doivent être remplis!');
     }
@@ -176,14 +178,23 @@ export default function VisiteurLayout({ children }) {
     console.log('oui')
   }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
-  
-  // useEffect(() => {
-  //   if (isAuthenticate === true) {
-  //     if (isAdmin === 1) navigate("/admin");
-  //     else if (isCandidat === 1) navigate("/candidat/dashboard");
-  //     else if (isRecruteur === 1) navigate("/employer/dashboard");
-  //   }
-  // }, [isAuthenticate]);
+
+  useEffect(() => {
+    if (certificate === true) {
+      if (isAdmin === 1) {
+        navigate("/admin");
+        setCertificate(false)
+      }
+      else if (isCandidat === 1) {
+        navigate("/candidat/dashboard");
+        setCertificate(false)
+      }
+      else if (isRecruteur === 1) {
+        navigate("/employer/dashboard");
+        setCertificate(false)
+      }
+    }
+  }, [certificate]);
 
   useEffect(() => {
     if (toggle === 'candidat') {
