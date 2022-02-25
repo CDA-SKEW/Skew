@@ -24,10 +24,13 @@ export const login = (data) => {
         return axios
             .post("http://localhost:3033/api/login", data)
             .then((res) => {
-                if (res.data.success) {
+                if (res.data.success.lenght > 5) {
                     if (res.data.token) localStorage["user_token"] = res.data.token;
                     res.data.token = jwt_decode(res.data.token)
                     res.data.authenticate = true
+                    dispatch({ type: LOGIN, payload: res.data });
+                } else {
+                    res.data.authenticate = false
                     dispatch({ type: LOGIN, payload: res.data });
                 }
             })

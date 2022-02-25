@@ -11,9 +11,7 @@ class AuthControllers {
     try {
       User.login({ ...req.body }, (err, data) => {
         if (err) {
-          res.status(500).send({
-            message: err.message || "Une erreur est survenue",
-          });
+          res.status(500).send({ flash: err.message || "Une erreur est survenue", });
         } else {
           let token = "visitor";
           if (data.mail) {
@@ -32,16 +30,18 @@ class AuthControllers {
             );
             return res.status(200).send({
               success: 'success',
-              flash: "Login Success !",
+              flash: "Login Success!",
               token,
             });
-          } else return res.status(503).send({flash: data})
+          } else return res.status(202).send({
+            success: 'no',
+            flash: data,
+            token: 'no'
+          })
 
         }
       });
-    } catch (error) {
-      throw error;
-    }
+    } catch (error) { throw error; }
   }
 
   async register(req, res) {
@@ -54,9 +54,7 @@ class AuthControllers {
     try {
       User.register(newUser, (err, data) => {
         if (err) {
-          res.status(500).send({
-            message: err.message || "Une erreur est survenue",
-          });
+          res.status(500).send({ message: err.message || "Une erreur est survenue", });
         } else {
           // JWT
           return res.send({
@@ -65,9 +63,7 @@ class AuthControllers {
           });
         }
       });
-    } catch (error) {
-      throw error;
-    }
+    } catch (error) { throw error; }
   }
 
   async checkToken(req, res) {

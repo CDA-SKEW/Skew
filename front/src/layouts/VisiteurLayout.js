@@ -109,8 +109,9 @@ export default function VisiteurLayout({ children }) {
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
   const flash = useSelector(state => state.auth.flash);
+  const flashCon = useSelector(state => state.auth.flashCon);
 
-  console.log('flash', flash)
+  console.log('flashCon', flashCon)
 
   const handleOpen = () => { setOpenModal(true); };
 
@@ -138,9 +139,9 @@ export default function VisiteurLayout({ children }) {
     }
   }
 
-  const SubmitFormId = () => {
+  const SubmitFormId = async(e) => {
     if (mail && pass) {
-      dispatch(login({ mail, pass }));
+      await dispatch(login({ mail, pass }));
       setMail('');
       setPass('');
     } else {
@@ -194,10 +195,19 @@ export default function VisiteurLayout({ children }) {
     if (flash.length >= 0) {
       setSuccessInscription(flash);
       setErrorInscription('');
-      setSuccess(flash);
-      setError('')
+      setSuccess('');
+      setError('');
     }
   }, [flash]);
+
+  useEffect(() => {
+    if (flashCon.length >= 0) {
+      setSuccess(flashCon);
+      setError('');
+      setSuccessInscription('');
+      setErrorInscription('');
+    }
+  }, [flashCon]);
 
   const { window } = pages;
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -317,8 +327,8 @@ export default function VisiteurLayout({ children }) {
                           <Typography variant='body1' >{error}</Typography>
                         </Box>
                       }
-                      {success.length > 31 &&
-                        <Box sx={{ my: 3, color: '#1e90ff' }} >
+                      {success.length > 16 &&
+                        <Box sx={{ my: 3, color: '#ff0000' }} >
                           <Typography variant='body1' align='center' >{success}</Typography>
                         </Box>
                       }
