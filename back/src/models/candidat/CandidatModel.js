@@ -1,26 +1,90 @@
 const connection = require("../../config/ConnectionDB");
-const { user } = require("../../config/db");
 
 // Model
 const Candidat = function (candidat) {
-    this.id = user.id;
-    this.user_id = candidat.user_id,
+    this.id = candidat.id,
+        this.user_id = candidat.user_id,
         this.mail = candidat.mail,
         this.adress = candidat.adress,
         this.zipCode = candidat.zipCode,
         this.town = candidat.town,
-        this.phone = candidat.phone;
+        this.phone = candidat.phone
 };
 
+
+
 // Get All
-Candidat.getProfil = function (result) {
+Candidat.getProfil = function (user_id, result) {
+    // console.log('getProfil', user_id)
+
+    let Obj = {
+        coord: {},
+        experience: [],
+        skill: [],
+        interest: []
+    };
+
     connection.getConnection(function (error, conn) {
         if (error) throw error;
-        conn.query(`SELECT address, town, zipCode, phone, mail from contactProfil, user`, (error, data) => {
+        conn.query(`
+            SELECT u.id, u.mail,c.*
+                FROM contactProfil as c
+                INNER JOIN user as u
+                ON c.user_id = u.id
+                WHERE u.id = :user_id
+            `, { user_id }, (error, data) => {
             if (error) throw error;
-            result(null, data);
-            // Mettre fin à la connexion avec la db
-            conn.release();
+            Obj.coord = data[0]
+            conn.query(`
+                SELECT u.id,e.*
+                    FROM user as u
+                    INNER JOIN experience as e
+                        ON u.id = e.user_id
+                            WHERE u.id = :user_id;
+                `, { user_id }, (error, data) => {
+                if (error) throw error;
+                console.log('exp data', data);
+                Obj.experience = data
+
+                conn.query(
+                    `SELECT u.id,s.*
+                FROM user as u
+                INNER JOIN skill as s
+                ON u.id = user_id
+                WHERE u.id = :user_id;`,
+
+                    { user_id }, (error, data) => {
+                        if (error) throw error;
+                        // console.log('SKILL data', data);
+                        Obj.skill = data
+
+                        conn.query(
+                            `SELECT u.id,i.*
+                            FROM user as u
+                            INNER JOIN interest as i
+                            ON u.id = user_id
+                            WHERE u.id = :user_id;`,
+
+                            { user_id }, (error, data) => {
+                                if (error) throw error;
+                                Obj.interest = data
+                                // console.log('INT data', data);
+                                conn.query(
+                                    `SELECT u.id,c.*
+                FROM user as u
+                INNER JOIN certificate as c
+                ON u.id = user_id
+                WHERE u.id = :user_id;`, { user_id },
+                                    (error, data) => {
+                                        if (error) throw error;
+                                        // console.log('je suis ici', Obj, data)
+                                        Obj.certificate = data
+                                        result(null, Obj);
+                                        conn.release();
+                                    });
+                            });
+                    });
+            });
         });
     });
 };

@@ -101,7 +101,7 @@ router
 //# Candidat profil GET PROFIL COMPLET#
 //#####################################
 router
-  .route("/api/candidat/profil")
+  .route("/api/candidat/profil/:id")
   .get(new CandidatProfilControllers().getProfil);
 
 //#########################################
@@ -110,7 +110,7 @@ router
 
 router
   .route("/api/candidat/profil/contact/:id")
-  .get(new CandidatProfilControllers().getContactProfil)
+  // .get(new CandidatProfilControllers().getContactProfil)
   .put(new CandidatProfilControllers().updateContactProfil)
 
 // ############################################

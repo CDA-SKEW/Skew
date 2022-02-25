@@ -10,23 +10,23 @@ const CandidatSkill = function (skill) {
 };
 
 //Get Skill 
-CandidatSkill.getSkillProfil = function (id, result) {
-    connection.getConnection(function (error, conn) {
-        if (error) throw error;
-        conn.query(
-            `SELECT u.id,s.*
-            FROM user as u
-            INNER JOIN skill as s
-            ON u.id = user_id
-            WHERE u.id = ${id};`,
+// CandidatSkill.getSkillProfil = function (user_id, result) {
+//     connection.getConnection(function (error, conn) {
+//         if (error) throw error;
+//         conn.query(
+//             `SELECT u.id,s.*
+//             FROM user as u
+//             INNER JOIN skill as s
+//             ON u.id = user_id
+//             WHERE u.id = :user_id;`,
 
-            (error, data) => {
-                if (error) throw error;
-                result(null, data);
-                conn.release();
-            });
-    });
-};
+//             { user_id }, (error, data) => {
+//                 if (error) throw error;
+//                 result(null, data);
+//                 conn.release();
+//             });
+//     });
+// };
 
 // Create Skill
 CandidatSkill.createSkillProfil = function (newSkill, result) {
@@ -59,7 +59,7 @@ CandidatSkill.createSkillProfil = function (newSkill, result) {
 
 CandidatSkill.updateSkillProfil = function (skillObj, result) {
     const { skill, user_id, id } = skillObj
-    console.log("edit SKILL & id", id, skillObj);
+    // console.log("edit SKILL & id", id, skillObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE skill,user

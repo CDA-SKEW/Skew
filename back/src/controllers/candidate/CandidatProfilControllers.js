@@ -20,17 +20,19 @@ class CandidatProfilControllers {
   // PROFIL CANDIDAT GET ALL DATA
 
   async getProfil(req, res) {
+    // console.log('getProfile', req.params.id)
     try {
-      Candidat.getProfil((err, data) => {
-        console.log("data res", data);
+      Candidat.getProfil(String(req.params.id), (err, data) => {
+        // console.log("data res", data);
         if (err) {
           console.log("err", err),
             res.status(500).send({
             });
         } else {
+          // console.log('res getProfil')
           return res.json({
             method: req.method,
-            User: data,
+            userProfil: data,
           });
         }
       });
@@ -45,46 +47,27 @@ class CandidatProfilControllers {
   // # CONTACT TABLE #
   // #################
 
-  // GET CONTACT PROFIL CANDIDAT
-
-  async getContactProfil(req, res) {
-    try {
-      CandidatContact.getContactProfil(String(req.params.id), (err, data) => {
-        if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
-            });
-        } else {
-          return res.json({
-            method: req.method,
-            User: data,
-          })
-        }
-      });
-    }
-    catch (error) {
-      throw error;
-    }
-  }
 
   //  UPDATE CONTACT PROFIL CANDIDAT 
 
   async updateContactProfil(req, res) {
-
+    console.log('REQ.BODY UPDATE', req.body);
     let candidatObj = new CandidatContact({
-      user_id: Number(req.params.id),
-      mail: String(req.body.mail),
-      name: String(req.body.name),
-      lastName: String(req.body.lastName),
-      address: String(req.body.address),
-      zipCode: Number(req.body.zipCode),
-      town: String(req.body.town),
-      phone: String(req.body.phone),
+      id: Number(req.params.id),
+      ...req.body
+      // user_id: Number(req.params.id),
+      // mail: String(req.body.mail),
+      // name: String(req.body.name),
+      // lastName: String(req.body.lastName),
+      // address: String(req.body.address),
+      // zipCode: Number(req.body.zipCode),
+      // town: String(req.body.town),
+      // phone: String(req.body.phone),
     });
     try {
       CandidatContact.updateContactProfil(candidatObj, (err, data) => {
         if (err) res.json(err);
+        // console.log('RES JSON CONTACT', res);
         return res.json({
           method: req.method,
           User: data,
@@ -123,6 +106,7 @@ class CandidatProfilControllers {
       throw error;
     }
   }
+
 
   //  CREATE EXPERIENCE PROFIL CANDIDAT 
 
@@ -459,28 +443,28 @@ class CandidatProfilControllers {
   //  GET CERTIFICATE PROFIL CANDIDAT 
 
   async getDocumentProfil(req, res) {
-    console.log("controller GET Profil DOCUMENT");
+    // console.log("controller GET Profil DOCUMENT");
     res.json({ message: "controller READ profil DOCUMENT" });
   }
 
   //  CREATE CERTIFICATE PROFIL CANDIDAT
 
   async createDocumentProfil(req, res) {
-    console.log("controller CREATE Profil candidat DOCUMENT");
+    // console.log("controller CREATE Profil candidat DOCUMENT");
     res.json({ message: "controller CREATE profil candidat DOCUMENT" });
   }
 
   //  UPDATE CERTIFICATE PROFIL CANDIDAT 
 
   async updateDocumentProfil(req, res) {
-    console.log("controller UPDATE Profil Candidat DOCUMENT");
+    // console.log("controller UPDATE Profil Candidat DOCUMENT");
     res.json({ message: "controller UPDATE profil candidat DOCUMENT" });
   }
 
   //  DELETE CERTIFICATE PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
-    console.log("controller DELETE Profil Candidat CERTIFICATE");
+    // console.log("controller DELETE Profil Candidat CERTIFICATE");
     res.json({ message: "controller DELETE profil candidat DOCUMENT" });
   }
 

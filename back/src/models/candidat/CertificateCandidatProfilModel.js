@@ -30,7 +30,7 @@ CandidatCertificate.getCertificateProfil = function (id, result) {
     });
 };
 
-// Create Experience
+// Create Certificate
 CandidatCertificate.createCertificateProfil = function (newCertificate, result) {
     const { school, title, year, validate, user_id } = newCertificate
     connection.getConnection(function (error, conn) {

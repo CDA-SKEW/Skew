@@ -10,23 +10,23 @@ const CandidatInterest = function (interest) {
 };
 
 //Get Skill 
-CandidatInterest.getInterestProfil = function (id, result) {
-    connection.getConnection(function (error, conn) {
-        if (error) throw error;
-        conn.query(
-            `SELECT u.id,i.*
-            FROM user as u
-            INNER JOIN interest as i
-            ON u.id = user_id
-            WHERE u.id = ${id};`,
+// CandidatInterest.getInterestProfil = function (id, result) {
+//     connection.getConnection(function (error, conn) {
+//         if (error) throw error;
+//         conn.query(
+//             `SELECT u.id,i.*
+//             FROM user as u
+//             INNER JOIN interest as i
+//             ON u.id = user_id
+//             WHERE u.id = ${id};`,
 
-            (error, data) => {
-                if (error) throw error;
-                result(null, data);
-                conn.release();
-            });
-    });
-};
+//             (error, data) => {
+//                 if (error) throw error;
+//                 result(null, data);
+//                 conn.release();
+//             });
+//     });
+// };
 
 // Create Skill
 CandidatInterest.createInterestProfil = function (newInterest, result) {
@@ -59,7 +59,7 @@ CandidatInterest.createInterestProfil = function (newInterest, result) {
 
 CandidatInterest.updateInterestProfil = function (interestObj, result) {
     const { interest, user_id, id } = interestObj
-    console.log("edit Interest & id", id, interestObj);
+    // console.log("edit Interest & id", id, interestObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE interest,user
