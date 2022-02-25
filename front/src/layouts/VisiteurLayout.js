@@ -74,8 +74,10 @@ export default function VisiteurLayout({ children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
+  const [openChildModal, setOpenChildModal] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [mail, setMail] = useState('');
+  const [mailLostPass, setMailLostPass] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -111,12 +113,10 @@ export default function VisiteurLayout({ children }) {
   const flash = useSelector(state => state.auth.flash);
   const flashCon = useSelector(state => state.auth.flashCon);
 
-  console.log('flashCon', flashCon)
-
   const handleOpen = () => { setOpenModal(true); };
-
   const handleClose = () => { setOpenModal(false); };
-
+  const handleOpenChildModal = () => { setOpenChildModal(true); };
+  const handleCloseChildModal = () => { setOpenChildModal(false); };
   const handleFormId = (e) => {
     switch (e.target.name) {
       case 'mail': setMail(e.target.value);
@@ -126,7 +126,7 @@ export default function VisiteurLayout({ children }) {
       default:
     }
   }
-
+  const handleChangeMailLostPass = (e) => { setMailLostPass(e.target.value) }
   const handleFormIdInscription = (e) => {
     switch (e.target.name) {
       case 'mail': setMailInscription(e.target.value);
@@ -138,8 +138,7 @@ export default function VisiteurLayout({ children }) {
       default:
     }
   }
-
-  const SubmitFormId = async(e) => {
+  const SubmitFormId = async (e) => {
     if (mail && pass) {
       await dispatch(login({ mail, pass }));
       setMail('');
@@ -148,7 +147,6 @@ export default function VisiteurLayout({ children }) {
       setError('Tous les champs doivent être remplis!');
     }
   };
-
   const SubmitFormIdInscription = async (e) => {
     if (mailInscription && toggle && passInscription && pass2) {
       if (passInscription === pass2) {
@@ -169,9 +167,10 @@ export default function VisiteurLayout({ children }) {
     }
 
   };
-
+  const handleSubmitChildModal = () => {
+    console.log('oui')
+  }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
-
   useEffect(() => {
     if (isAuthenticate === true) {
       if (isAdmin === 1) navigate("/admin");
@@ -311,10 +310,65 @@ export default function VisiteurLayout({ children }) {
                       <Link
                         component="button"
                         variant="body2"
-                        onClick={() => { console.info("I'm a button.") }}
+                        onClick={() => handleOpenChildModal()}
                         sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
                         Mot de passe oublié
                       </Link>
+                      <Modal
+                        hideBackdrop
+                        open={openChildModal}
+                        onClose={handleCloseChildModal}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: '50%', left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            height: 300,
+                            bgcolor: '#fff',
+                            pt: 2, px: 4, pb: 3,
+                            borderRadius: 2,
+                            display: 'block',
+                            textAlign: 'center',
+                            border: 1
+                          }}>
+                          <h2 id="child-modal-title">Mot de passe oublié</h2>
+                          <p id="child-modal-description">Entrez votre adresse mail:</p>
+                          <TextField
+                            label='Mail'
+                            name={mailLostPass}
+                            variant="outlined"
+                            value={mailLostPass}
+                            fullWidth
+                            onChange={(e) => handleChangeMailLostPass(e)}
+                            sx={{ my: 1 }} />
+                          <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 3 }}>
+                            <Button
+                              variant='contained'
+                              onClick={() => handleSubmitChildModal()}
+                              sx={{
+                                bgcolor: "secondary.main",
+                                width: 100
+                              }}
+                            >
+                              Envoyer
+                            </Button>
+                            <Button
+                              variant='contained'
+                              onClick={() => handleCloseChildModal()}
+                              sx={{
+                                bgcolor: "secondary.main",
+                                width: 100
+                              }}
+                            >
+                              Fermer
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Modal>
                       <Button
                         variant="contained"
                         fullWidth
@@ -386,7 +440,6 @@ export default function VisiteurLayout({ children }) {
                     </Box>
                   </Box>
                 </Modal>
-
               </List>
             </Box>
 
