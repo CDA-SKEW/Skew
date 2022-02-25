@@ -29,13 +29,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@mui/material/Link';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "store/actions/AuthActions";
 import { register } from 'store/actions/AuthActions';
-
-import Footer from "components/core/Footer";
 
 function PassInput({ values, handleFormIdInscription }) {
 
@@ -100,6 +99,13 @@ export default function VisiteurLayout({ children }) {
   const passList = [
     { titre: 'Mot de passe', name: 'pass', value: passInscription },
     { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 }
+  ];
+
+  const UserListFooter = [
+    { user: 'Souka', link: 'https://www.linkedin.com/in/soukainata-attoumani-39131b13b/', color: 'souka' },
+    { user: 'Etienne', link: 'https://www.linkedin.com/in/etienne-massot-8398b31b8/', color: 'etienne' },
+    { user: 'Kevin', link: 'https://www.linkedin.com/in/kevin-hueri/', color: 'kevin' },
+    { user: 'Wilfried', link: 'https://www.linkedin.com/in/liwza/', color: 'wil' },
   ];
 
   const handleClickShowPassword = () => { setShowPassword(!showPassword) };
@@ -475,7 +481,39 @@ export default function VisiteurLayout({ children }) {
         </Box>
       </AppBar>
       <Container component="main" disableGutters maxWidth="100%">{children}</Container>
-      <Footer />
+
+      <Box
+        sx={{
+          bgcolor: '#696969',
+        }}>
+        <Typography
+          variant="body2"
+          color="#fff"
+          align='center'
+          paddingY={1}
+
+        >
+          copiright@2022 SKEW
+        </Typography>
+        <Box
+          display={"flex"}
+          flexDirection={{ xs: "column", sm: "row", md: "row" }}
+          justifyContent={"center"}>
+          {UserListFooter.map((list, index) => (
+            <Button
+              size='small'
+              key={index}
+              color={list.color}
+              href={list.link}>
+              <LinkedInIcon />
+              <Typography variant="body2" alignItems={"center"}>
+                {list.user}
+              </Typography>
+            </Button>
+          ))}
+        </Box>
+      </Box>
+
     </ThemeProvider>
   );
 };
