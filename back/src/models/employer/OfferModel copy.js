@@ -73,84 +73,52 @@ Offer.getOfferId = function (params_id) {
   // console.log("model param_id",params_id)
 
   return new Promise((resolve, reject) => {
-    const Obj = {
-      profilEmployer: {},
-      offers: [],
-    };
     connection.getConnection(function (error, conn) {
-      // Data Profil Employer
       conn.query(
-        `SELECT c.user_id, c.name as nameEmployor, c.badge as badgeEmployor, c.avatar as image
-        FROM contactProfil as c
-       inner join user as u On c.user_id=u.id
-       where c.user_id=:params_id ;`,
+        `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
+      c.name as nameEmployor,DATEDIFF(now(),o.createDate) as dateOfferDays,
+       c.badge as badgeEmployor, c.avatar as image
+        FROM offre as o
+      inner join contactProfil as c On o.user_id=c.user_id
+      where o.user_id=:params_id 
+       ORDER BY o.createDate DESC;`,
         { params_id },
-        (error, dataEmployer) => {
+        (error, dataOffer) => {
           if (error) reject(err);
           else {
             // console.log(dataOffer)
-            if (dataEmployer.length > 0) {
-              // console.log("dataEmployer",dataEmployer)
-              console.log("dataEmployerID", dataEmployer[0].user_id);
-              const userEmployerID = dataEmployer[0].user_id;
-              Obj.profilEmployer = dataEmployer;
+            if (dataOffer.length > 0) {
+              // dataOffer.map((el, index) => {
+                // const offerId = el.offer_id;
+                console.log("dataOffer", index);
 
-              conn.query(
-                `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
-                DATEDIFF(now(),o.createDate) as dateOfferDays  
-                FROM offre as o
-                inner join contactProfil as c On o.user_id=c.user_id
-                where o.user_id=:userEmployerID
-                ORDER BY o.createDate DESC;
-                  `,
-                { userEmployerID },
-                (err, dataOfferByEmployer) => {
-                  if (error) reject(err);
-                  Obj.offers = dataOfferByEmployer;
+                conn.query(
+                  `SELECT p.offre_id, p.user_id
+                      ,ce.name, ce.lastName, u.mail, ce.phone, ce.address, ce.zipCode, ce.town
+                      , p.statut
+                      FROM postuled as p
+                      inner join user as u On p.user_id=u.id
+                      inner join contactProfil as ce On u.id=ce.user_id
+                      where offre_id=:offerId
+                    `, { offerId }, (err, dataCandidate) => {
+                    if (error) reject(err);
+                    // console.log("postuled data", dataOffer, index, dataCandidate)
 
-                  dataOfferByEmployer.map((el, index) => {
-                    console.log("index, el", index, el.offer_id);
-                    const offerId = el.offer_id
+                    dataCandidate.forEach((el) => {
+                      el.toto = experience(el.user_id, conn, error).then(
+                        (data) => {
+                          console.log("data", data);
+                          return data;
+                        }
+                      );
+                    });
 
-                    conn.query(
-                      `SELECT p.offre_id, p.user_id
-                          ,ce.name, ce.lastName, u.mail, ce.phone, ce.address, ce.zipCode, ce.town
-                          , p.statut
-                          FROM postuled as p
-                          inner join user as u On p.user_id=u.id
-                          inner join contactProfil as ce On u.id=ce.user_id
-                          where offre_id=:offerId
-                        `, { offerId }, (err, profilCandidate) => {
-                        if (error) reject(err);
-                        el.profilCandidate = profilCandidate
-                        console.log("obj",Obj)
-       
-                      }
-                    );   
-                                        
-                  });
-
-                  resolve(Obj);
-                }
-              );
-
-              //     // Mapper les offre et leur faire une relation pour modifier l'objet sorti de la db
-
-              //     // dataCandidate.forEach((el) => {
-              //     //   el.toto = experience(el.user_id, conn, error).then(
-              //     //     (data) => {
-              //     //       console.log("data", data);
-              //     //       return data;
-              //     //     }
-              //     //   );
-              //     // });
-
-              //   //   el.profilCandidate = dataCandidate;
-              //   //   if (index === dataOffer.length - 1) resolve(dataOffer);
-              //   }
-              // );
+                    el.profilCandidate = dataCandidate;
+                    if (index === dataOffer.length - 1) resolve(dataOffer);
+                  }
+                );
               // });
-            } else resolve(dataEmployer);
+            } else resolve(dataOffer);
           }
         }
       );

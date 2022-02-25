@@ -38,7 +38,7 @@ class EmployerOfferControllers {
             method: req.method,
             status: "success",
             message: "Mes offres",
-            offers: data,
+            employer: data,
           });
         }
       );
