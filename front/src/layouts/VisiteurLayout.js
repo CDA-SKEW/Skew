@@ -89,6 +89,7 @@ export default function VisiteurLayout({ children }) {
   const [candidat, setCandidat] = useState(0);
   const [recruteur, setRecruteur] = useState(0);
   const [certificate, setCertificate] = useState(false);
+  const userToken = localStorage["user_token"];
 
   const pages = [
     { titre: "Accueil", lien: "" },
@@ -112,7 +113,6 @@ export default function VisiteurLayout({ children }) {
   const handleMouseDownPassword = (event) => { event.preventDefault(); };
   const handleChange = (e, newToggle) => { setToggle(newToggle) };
 
-  // const isAuthenticate = useSelector(state => state.auth.authenticate);
   const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
@@ -147,11 +147,13 @@ export default function VisiteurLayout({ children }) {
   const SubmitFormId = async (e) => {
     if (mail && pass) {
       await dispatch(login({ mail, pass }));
-      setMail('');
       setPass('');
       setCertificate(true)
     } else {
       setError('Tous les champs doivent être remplis!');
+      setSuccessInscription('');
+      setErrorInscription('');
+      setSuccess('');
     }
   };
   const SubmitFormIdInscription = async (e) => {
@@ -167,10 +169,14 @@ export default function VisiteurLayout({ children }) {
       } else {
         setErrorInscription('Les mots de passe ne coîncident pas!');
         setSuccessInscription('');
+        setSuccess('');
+        setError('');
       }
     } else {
       setErrorInscription('Entrez tous les champs requis!');
       setSuccessInscription('');
+      setSuccess('');
+      setError('');
     }
 
   };
@@ -178,6 +184,11 @@ export default function VisiteurLayout({ children }) {
     console.log('oui')
   }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
+  const logout = () => {
+    localStorage.removeItem("user_token");
+    console.log('loggouuuttt !!!')
+    window.location.reload()
+  }
 
   useEffect(() => {
     if (certificate === true) {
@@ -225,8 +236,7 @@ export default function VisiteurLayout({ children }) {
     }
   }, [flashCon]);
 
-  const { window } = pages;
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = pages.window !== undefined ? () => pages.window().document.body : undefined;
 
   return (
     <ThemeProvider theme={theme}>
@@ -262,9 +272,16 @@ export default function VisiteurLayout({ children }) {
                 ))}
 
                 {/* Bouton Login */}
-                <Button variant="contained" onClick={handleOpen} sx={{ bgcolor: 'secondary.main' }}>
-                  Log in / Sign in
-                </Button>
+                {!userToken &&
+                  <Button variant="contained" onClick={handleOpen} sx={{ bgcolor: 'secondary.main' }}>
+                    Log in / Sign in
+                  </Button>
+                }
+                {userToken &&
+                  <Button variant="contained" onClick={logout} sx={{ bgcolor: 'secondary.main' }}>
+                    Log out
+                  </Button>
+                }
 
                 {/* Modal connexion inscription */}
                 <Modal open={openModal} onClose={handleClose}>
@@ -351,7 +368,7 @@ export default function VisiteurLayout({ children }) {
                             variant="outlined"
                             value={mailLostPass}
                             fullWidth
-                            onChange={(e) => handleChangeMailLostPass(e)}
+                            onChange={() => handleChangeMailLostPass()}
                             sx={{ my: 1 }} />
                           <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 3 }}>
                             <Button
@@ -382,7 +399,7 @@ export default function VisiteurLayout({ children }) {
                       </Button>
                       {error.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' >{error}</Typography>
+                          <Typography variant='body1' align='center' >{error}</Typography>
                         </Box>
                       }
                       {success.length > 16 &&
@@ -420,7 +437,7 @@ export default function VisiteurLayout({ children }) {
                       </ToggleButtonGroup>
                       {errorInscription.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' >{errorInscription}</Typography>
+                          <Typography variant='body1' align='center' >{errorInscription}</Typography>
                         </Box>
                       }
                       {successInscription.length > 0 && successInscription.length < 30 &&
@@ -480,6 +497,7 @@ export default function VisiteurLayout({ children }) {
       </AppBar>
       <Container component="main" disableGutters maxWidth="100%">{children}</Container>
 
+      {/* Footer */}
       <Box
         sx={{
           bgcolor: '#696969',
