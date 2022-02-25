@@ -12,7 +12,7 @@ import WorkIcon from "@mui/icons-material/Work";
 
 /*------------Export function + table header-------------*/
 
-export default function JobsTable(props) {
+export default function JobsTable (props) {
   const { job } = props;
 
   // Table Head

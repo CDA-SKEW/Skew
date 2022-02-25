@@ -8,10 +8,10 @@ const { user } = require("./db");
 require("dotenv").config();
 
 // Déclaration du module de connection à notre Gmail (transporteur)
-const transporter = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   service: "gmail",
-  port: "587",
+  port: 587,
   secure: false,
   auth: {
     user: process.env.USER_NODMAILER,
@@ -113,9 +113,8 @@ module.exports = {
   },
 
   replyMessage: (req, res) => {
-    const message = "Votre mail a bien été envoyé !";
+    const mess = "Email SENDED !!! ";
     arrayFiles = [];
-
     // initialisation du tableau array avec data signature
     arrayFiles.push({
       filename: "logo.webp",
@@ -124,17 +123,18 @@ module.exports = {
     });
 
     console.log(arrayFiles); // On configure notre mail à envoyer par nodemailer
-
     console.log("Reply NodeMailer Config");
-    console.log(req.body.name);
 
     const mailOptions = {
-      from: process.env.USER_NODMAILER,
-      to: req.body.mail,
-      name: req.body.name,
-      sujet: req.body.sujet,
+      from: '"Fred Foo 👻", process.env.USER_NODMAILER',
+      // to: req.body.mail,
+      to: "soukainataa1987@gmail.com",
+      // subject: req.body.sujet,
+      // firstname: req.body.firstname,
+      // text: req.body.message,
+      // date: new Date(),
       html: `
-      <b>Bonjour ! </br> <strong>${req.body.name}</strong></b>, </br> <p>${req.body.message} </br></p>  
+      <b>Bonjour ! </br> <strong>${req.body.firstname}</strong></b>, </br> <p>${req.body.message}</br></p>  
       <div style="display: flex;margin-bottom: 15px;">
       <span>Cordialement,</span>
       </div> 
@@ -175,7 +175,7 @@ module.exports = {
   `,
       attachments: arrayFiles,
     };
-    // console.log(mailOptions);
+    console.log(mailOptions);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log("err", err),
@@ -186,7 +186,7 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          message: message,
+          mess: mess,
         });
       }
     });

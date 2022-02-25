@@ -8,7 +8,7 @@ import withAdmin from "components/auth/withAdmin";
 
 const AdminMessages = () => {
   /*------------ listMessages import via Store-------------*/
-  const listMessages = useSelector((state) => state.admin.listMessages);
+  const messages = useSelector((state) => state.admin.listMessages);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const AdminMessages = () => {
   
   return (
     <AdminLayout>
-      <MessagesTable listMessages={listMessages} />
+      <MessagesTable messages={messages} />
     </AdminLayout>
   );
 };

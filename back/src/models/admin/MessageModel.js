@@ -53,10 +53,10 @@ Message.getMessageId = function (message, result) {
 };
 
 // Post Message
-Message.replyMessage = function (newMessage, result) {
+Message.replyMessage = function (result) {
   const { message } = newMessage;
   connection.getConnection(function (error, conn) {
-    // console.log(req.body.name, "MODEL");
+    console.log(req.body.message, "MODEL");
     conn.query(
       `
           INSERT INTO messages ( message)
@@ -64,7 +64,6 @@ Message.replyMessage = function (newMessage, result) {
           newMessage = :message
       `,
       { message },
-
       (error, data) => {
         if (error) throw error;
         conn.query(`SELECT * FROM messages`, (error, data) => {

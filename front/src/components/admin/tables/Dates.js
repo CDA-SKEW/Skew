@@ -10,7 +10,7 @@ import MobileDatePicker from "@mui/lab/MobileDatePicker";
 /*------------Export function-------------*/
 
 export default function MaterialUIPickers() {
-  const [value, setValue] = React.useState(Date.now());
+  const [value, setValue] = React.useState(new Date());
 
   const handleChange = (newValue) => {
     setValue(newValue);

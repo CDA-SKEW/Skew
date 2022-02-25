@@ -22,7 +22,7 @@ class MessagesController {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            mess: data,
+            messages: data,
             message: "All messages has been successfully GETTED. !!!",
           });
       });
@@ -44,7 +44,7 @@ class MessagesController {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            mess: data,
+            messages: data,
             message: "The message has been successfully GETTED. !!!",
           });
       });
@@ -56,7 +56,9 @@ class MessagesController {
   // POST MESSAGE
   async replyMessage(req, res) {
     console.log("controller Reply message");
-    nodemailer.replyMessage(req, res);
+    if ({ ...req.body }) {
+      nodemailer.replyMessage(req, res);
+    } else res.json("Error Request");
   }
 
   // DELETE MESSAGE
