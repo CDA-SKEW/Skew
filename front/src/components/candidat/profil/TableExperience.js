@@ -21,7 +21,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { postFormProfilCandidate, getProfilCandidate } from "store/actions/CandidateActions";
+// import { getProfilCandidate } from "store/actions/CandidateActions";
 
 
 
@@ -30,9 +30,7 @@ import { postFormProfilCandidate, getProfilCandidate } from "store/actions/Candi
 /*Export of the component TableExperience */
 export default function TableExperience(props) {
   /*Const ListExp come from the parent Component(page) ProfilCandidate */
-  const { ListExp,
-    dataProfilCandidate
-  } = props
+  const { ListExp } = props
 
   /* *************************************************************************** */
 
@@ -67,7 +65,7 @@ export default function TableExperience(props) {
   //Condition Trigger mode edit 
   const CheckModeEdit = (props) => {
     const { status, row } = props
-    console.log('props mode edit', props)
+    // console.log('props mode edit', props)
     if (status === true) return <ModeEdit data={row} />
     return <div></div>
   }
@@ -86,16 +84,14 @@ export default function TableExperience(props) {
       // console.log('end form', form)
     }
 
-
-
     const submitForm = () => {
       // console.log('SUBMIT', form)
-      dispatch(postFormProfilCandidate({ ...form }))
-      setTimeout(() => dispatch(getProfilCandidate()), 777)
+      dispatch(({ ...form }))
+      // setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
     }
 
-    console.log('mode edit comp', data)
+    // console.log('mode edit comp', data)
 
     return (
       <TableRow>
@@ -177,7 +173,7 @@ export default function TableExperience(props) {
     const { status, row } = props
     // console.log('props mode edit', props)
     if (status === true) return <ModeAdd data={row} />
-    return <div></div>
+    return <tr><td></td></tr>
   }
 
   /* *************************************************************************** */
@@ -195,7 +191,7 @@ export default function TableExperience(props) {
     }
 
     const submitForm = () => {
-      dispatch(postFormProfilCandidate(form))
+      dispatch((form))
     }
 
     // console.log('mode edit comp', data)
@@ -284,7 +280,7 @@ export default function TableExperience(props) {
     /*const ActionBtn trigger only if mode edit is true & the btn open the edit row */
 
     const ActionBTN = () => {
-      console.log('ACTION BTN', edit)
+      // console.log('ACTION BTN', edit)
       if (edit === true) return <Box sx={{ display: "flex", flexDirection: "column", m: 2 }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
         <BorderColorIcon />
       </Button>
@@ -342,7 +338,7 @@ export default function TableExperience(props) {
   useEffect(() => {
     // console.log("effect for useState form employer");
     setUseState();
-  }, [dataProfilCandidate]);
+  }, []);
 
   /* *************************************************************************** */
 
@@ -357,7 +353,7 @@ export default function TableExperience(props) {
   const checkViewAction = () => {
     if (edit || openAdd === true) return <TableCell align='center'>Action
     </TableCell>
-    else return <div></div>;
+    else return <TableCell />;
   }
 
   /* *************************************************************************** */

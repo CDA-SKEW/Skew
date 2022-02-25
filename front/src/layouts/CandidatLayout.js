@@ -52,7 +52,7 @@ export default function CandidatLayout({ children }) {
         { name: 'Mon compte', link: 'Candidat/profil' },
         // { name: 'Mot de passe', link: 'Employer/profilPw' }
     ]
-
+    // const token = jwt_decode(localStorage.getItem('candidat'))
     React.useEffect(() => {
         // console.log("effect getDataProfilEmployerEmployer");
         dispatch(getProfilCandidate());
@@ -65,7 +65,7 @@ export default function CandidatLayout({ children }) {
     }, [location]);
 
 
-    dispatch(getProfilCandidate());
+    // dispatch(getProfilCandidate());
 
     // const dataProfilCandidate = useSelector(
     //     (state) => state.candidate.dataProfilCandidate

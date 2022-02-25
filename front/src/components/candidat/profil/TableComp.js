@@ -12,20 +12,19 @@ import { display } from "@mui/system";
 
 
 export default function ResponsiveGrid(props) {
-  const { ListSkill,
-    dataProfilCandidat } = props
+  const { ListSkill } = props
   const [edit, setEdit] = React.useState(false);
   const [skill, setSkill] = useState("");
 
-
+  // console.log('ListSkill', ListSkill)
 
   const setUseState = () => {
-    setSkill(ListSkill.skill);
+    setSkill(ListSkill);
   };
-  useEffect(() => {
-    // console.log("effect for useState form employer");
-    setUseState();
-  }, [dataProfilCandidat]);
+  // useEffect(() => {
+  //   // console.log("effect for useState form employer");
+  //   setUseState();
+  // }, [dataProfilCandidat]);
 
   const BtnDelete = () => {
     if (edit === true) return <Button sx={{ color: "red" }} >
@@ -78,9 +77,9 @@ export default function ResponsiveGrid(props) {
   function ModeText(props) {
     return (
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 8 }}>
-        {ListSkill.map((Skill, index) => (
+        {ListSkill.map((el, index) => (
           <Grid item xs={2} sm={4} md={4} key={index}>
-            <Typography>{Skill}</Typography>
+            <Typography>{el.skill}</Typography>
           </Grid>
         ))}
       </Grid>
@@ -91,7 +90,7 @@ export default function ResponsiveGrid(props) {
   function ModeEdit(props) {
     return (
       <Stack direction="column" spacing={2}>
-        {ListSkill.map((skill, index) => (
+        {ListSkill.map((el, index) => (
           <Box>
             <TextField
               keyskill
@@ -99,7 +98,7 @@ export default function ResponsiveGrid(props) {
               required
               id="outlined-required"
               label="Skill"
-              defaultValue={skill}
+              defaultValue={el.skill}
             />
             {BtnDelete()}
           </Box>

@@ -16,13 +16,14 @@ import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, de
 const CandidatProfil = () => {
 
   const dispatch = useDispatch();
-  dispatch(getProfilCandidate());
   // dispatch(postFormProfilCandidate());
   // dispatch(putFormProfilCandidate());
   // dispatch(deleteFormProfilCandidate());
 
-  const dataProfilCandidate = useSelector((state) => state.candidate.dataProfilCandidate)
-  console.log("store dataProfil page profil", dataProfilCandidate);
+  // useEffect(() => dispatch(getProfilCandidate()), [])
+  // dispatch(getProfilCandidate())
+  const User = useSelector((state) => state.candidate.userProfil)
+  // console.log('user page candidate profile', User)
 
   return (
     <React.Fragment>
@@ -41,22 +42,21 @@ const CandidatProfil = () => {
           </Button>
         </Box> */}
         {/*   {/* BOX CONTACT*/}
-        <TableContact ListUser={dataProfilCandidate.coord} />
+        <TableContact User={User.coord} />
 
         {/* BOX Expérience*/}
-        <TableExperience ListExp={dataProfilCandidate.experience} />
-
+        <TableExperience ListExp={User.experience} />
 
         {/* BOX COMPETENCE & INTERET */}
         <Masonry columns={2} spacing={2} >
-          <TableComp ListSkill={dataProfilCandidate.skill} />
-          <TableInt ListInterest={dataProfilCandidate.interest} />
+          <TableComp ListSkill={User.skill} />
+          <TableInt ListInterest={User.interest} />
         </Masonry>
 
         {/* BOX FORMATION*/}
-        <TableFormation ListCertificate={dataProfilCandidate.certificate} />
+        <TableFormation ListCertificate={User.certificate} />
         {/* CV Checkbox*/}
-        <ChekboxCV listCv={dataProfilCandidate.cv} />
+        {/* <ChekboxCV listCv={User && User.cv} /> */}
 
       </Container>
     </React.Fragment >

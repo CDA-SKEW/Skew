@@ -21,14 +21,14 @@ import Select from '@mui/material/Select';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import { postFormProfilCandidate, getProfilCandidate } from "store/actions/CandidateActions";
+import { getProfilCandidate } from "store/actions/CandidateActions";
 import { add } from "date-fns";
 
 
 
 export default function TableFormation(props) {
-    const { ListCertificate,
-        dataProfilCandidate
+    const { ListCertificate
+
     } = props
     const [edit, setEdit] = React.useState(false);
     const [openAdd, setOpenAdd] = React.useState(false);
@@ -54,7 +54,7 @@ export default function TableFormation(props) {
     useEffect(() => {
         // console.log("effect for useState form employer");
         setUseState();
-    }, [dataProfilCandidate]);
+    }, []);
 
 
 
@@ -112,7 +112,7 @@ export default function TableFormation(props) {
     //Condition Trigger mode edit 
     const CheckModeEdit = (props) => {
         const { status, row } = props
-        console.log('props mode edit', props)
+        // console.log('props mode edit', props)
         if (status === true) return <ModeEdit data={row} />
         return <div></div>
     }
@@ -130,10 +130,10 @@ export default function TableFormation(props) {
         }
 
         const submitForm = () => {
-            dispatch(postFormProfilCandidate(form))
+            dispatch((form))
         }
 
-        console.log('mode edit comp', data)
+        // console.log('mode edit comp', data)
 
         return (
             <TableRow>
@@ -195,7 +195,7 @@ export default function TableFormation(props) {
     //Condition Trigger mode Add 
     const CheckModeAdd = (props) => {
         const { status, row } = props
-        console.log('props mode edit', props)
+        // console.log('props mode edit', props)
         if (status === true) return <ModeAdd data={row} />
         return <div></div>
     }
@@ -215,7 +215,7 @@ export default function TableFormation(props) {
         }
 
         const submitForm = () => {
-            dispatch(postFormProfilCandidate(form))
+            dispatch(getProfilCandidate(form))
         }
 
         // console.log('mode edit comp', data)
@@ -290,7 +290,7 @@ export default function TableFormation(props) {
         /*const ActionBtn trigger only if mode edit is true & the btn open the edit row */
 
         const ActionBTN = () => {
-            console.log('ACTION BTN', edit)
+            // console.log('ACTION BTN', edit)
             if (edit === true) return <Box sx={{ display: "flex", flexDirection: 'column' }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
                 <BorderColorIcon />
             </Button>

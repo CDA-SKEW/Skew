@@ -14,7 +14,7 @@ import { Box } from '@mui/material';
 
 export default function CandidatureList(props) {
   const { ListCandidature } = props
-  console.log('component list candidature', ListCandidature);
+  // console.log('component list candidature', ListCandidature);
   // console.log('gggg', ListCandidature[0].statusCheck);
 
 

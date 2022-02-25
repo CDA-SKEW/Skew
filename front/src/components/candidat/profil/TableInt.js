@@ -12,20 +12,21 @@ import { display } from "@mui/system";
 
 
 export default function ResponsiveGrid(props) {
-    const { ListInterest,
-        dataProfilCandidat } = props
+    const { ListInterest } = props
     const [edit, setEdit] = React.useState(false);
     const [interest, setInterest] = useState("");
+
+    // console.log('ListInterest', ListInterest)
 
 
 
     const setUseState = () => {
-        setInterest(ListInterest.intetest);
+        setInterest(ListInterest);
     };
-    useEffect(() => {
-        // console.log("effect for useState form employer");
-        setUseState();
-    }, [dataProfilCandidat]);
+    // useEffect(() => {
+    //     // console.log("effect for useState form employer");
+    //     setUseState();
+    // }, [dataProfilCandidat]);
 
     const BtnDelete = () => {
         if (edit === true) return <Button sx={{ color: "red" }} >
@@ -78,9 +79,9 @@ export default function ResponsiveGrid(props) {
     function ModeText(props) {
         return (
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 8 }}>
-                {ListInterest.map((interest, index) => (
+                {ListInterest.map((el, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
-                        <Typography>{interest}</Typography>
+                        <Typography>{el.interest}</Typography>
                     </Grid>
                 ))}
             </Grid>
@@ -91,7 +92,7 @@ export default function ResponsiveGrid(props) {
     function ModeEdit(props) {
         return (
             <Stack direction="column" spacing={2}>
-                {ListInterest.map((interest, index) => (
+                {ListInterest.map((el, index) => (
                     <Box>
                         <TextField
                             key={index}
@@ -99,7 +100,7 @@ export default function ResponsiveGrid(props) {
                             required
                             id="outlined-required"
                             label="Interest"
-                            defaultValue={interest}
+                            defaultValue={el.interest}
                         />
                         {BtnDelete()}
                     </Box>
