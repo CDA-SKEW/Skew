@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_SERVEUR,
+  headers: { "X-Custom-Header": "Skew application" },
   timeout: 1000,
 });
 

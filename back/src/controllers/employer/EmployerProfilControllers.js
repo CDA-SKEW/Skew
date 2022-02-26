@@ -14,7 +14,7 @@ const pathAvatar = "public/images/avatar/",
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
-    // console.log("controller get Profil user Employeur");
+    console.log("controller get Profil user Employeur");
 
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
