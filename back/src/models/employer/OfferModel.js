@@ -34,87 +34,54 @@ Offer.getOffer = function (result) {
   });
 };
 
-async function experience(userIdCandidate, conn, error) {
-  // console.log("calling experience function");
 
-  let toto = await Offer.getCandidatExperience(
-    userIdCandidate,
-    conn,
-    error
-  ).then((result) => {
-    // console.log("result experience function", result);
-    return result;
-  });
-  // console.log("toto", toto);
-  return toto;
-}
-
-Offer.getCandidatExperience = function (userIdCandidate, conn, error) {
-  return new Promise((resolve, reject) => {
-    // console.log("userIdCandidate", userIdCandidate);
-    conn.query(
-      `SELECT e.*
-        FROM experience as e
-        where user_id=:userIdCandidate
-      `,
-      { userIdCandidate },
-      (err, dataCvCandidat) => {
-        if (error) reject(err);
-        // console.log("dataCvCandidat data", dataCvCandidat);
-        // console.log("el.exp", el.experience);
-        // console.log(dataCvCandidat);
-        resolve(dataCvCandidat);
-      }
-    );
-  });
-};
-
-Offer.getOfferId = function (params_id) {
+Offer.getOfferId = function (params_id, result) {
   // console.log("model param_id",params_id)
 
-  return new Promise((resolve, reject) => {
+  connection.getConnection(function (error, conn) {
+
     const Obj = {
       profilEmployer: {},
       offers: [],
     };
-    connection.getConnection(function (error, conn) {
-      // Data Profil Employer
-      conn.query(
-        `SELECT c.user_id, c.name as nameEmployor, c.badge as badgeEmployor, c.avatar as image
+    // Data Profil Employer
+    conn.query(
+      `SELECT c.user_id, c.name as nameEmployor, c.badge as badgeEmployor, c.avatar as image
         FROM contactProfil as c
        inner join user as u On c.user_id=u.id
        where c.user_id=:params_id ;`,
-        { params_id },
-        (error, dataEmployer) => {
-          if (error) reject(err);
-          else {
-            // console.log("dataEmployer",dataEmployer)
-            console.log("dataEmployerID", dataEmployer[0].user_id);
-            const userEmployerID = dataEmployer[0].user_id;
-            Obj.profilEmployer = dataEmployer[0];
+      { params_id },
+      (error, dataEmployer) => {
+        if (error) result(null, { message: "error" })
+        if (dataEmployer.length > 0) {
+          // console.log("dataEmployer",dataEmployer)
+          // console.log("dataEmployerID", dataEmployer[0].user_id);
+          const userEmployerID = dataEmployer[0].user_id;
+          Obj.profilEmployer = dataEmployer[0];
 
-            conn.query(
-              `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
+          // Data offer
+          conn.query(
+            `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
                 DATEDIFF(now(),o.createDate) as dateOfferDays  
                 FROM offre as o
                 inner join contactProfil as c On o.user_id=c.user_id
                 where o.user_id=:userEmployerID
                 ORDER BY o.createDate DESC;
                   `,
-              { userEmployerID },
-              (err, dataOfferByEmployer) => {
-                if (error) reject(err);
-                Obj.offers = dataOfferByEmployer;
+            { userEmployerID },
+            (err, dataOfferByEmployer) => {
+              if (error) result(null, { message: "error" })
+              Obj.offers = dataOfferByEmployer;
 
-                if (dataOfferByEmployer.length > 0) {
+              if (dataOfferByEmployer.length > 0) {
 
+                dataOfferByEmployer.map((el, index) => {
+                  // console.log("index, el", index, el.offer_id);
+                  const offerId = el.offer_id;
 
-                  dataOfferByEmployer.map((el, index) => {
-                    // console.log("index, el", index, el.offer_id);
-                    const offerId = el.offer_id;
-
-                    conn.query(
-                      `SELECT p.offre_id, p.user_id
+                  // Data candidate postuled
+                  conn.query(
+                    `SELECT p.offre_id, p.user_id
                           ,ce.name, ce.lastName, u.mail, ce.phone, ce.address, ce.zipCode, ce.town
                           , p.statut
                           FROM postuled as p
@@ -122,86 +89,115 @@ Offer.getOfferId = function (params_id) {
                           inner join contactProfil as ce On u.id=ce.user_id
                           where offre_id=:offerId
                         `,
-                      { offerId },
-                      (err, profilCandidate) => {
-                        if (error) reject(err);
-                        // el.profilCandidate = profilCandidate;
-                        console.log(
-                          "nb profilCandidate ",
-                          profilCandidate.length
-                        );
-                        el.profilCandidate = profilCandidate
+                    { offerId },
+                    (err, profilCandidate) => {
+                      if (error) throw error;
+                      // el.profilCandidate = profilCandidate;
+                      // console.log(
+                      //   "nb profilCandidate ",
+                      //   profilCandidate.length
+                      // );
+                      el.profilCandidate = profilCandidate
 
-                        profilCandidate.map((elc, index2) => {
-                          // for (let i = 0; i < profilCandidate.length; i++) {
-                          // elc.profilCandidate = profilCandidate
+                      profilCandidate.map((elc, index2) => {
+                        // console.log(elc)
 
-                          // console.log(elc)
+                        let userIdCandidate = elc.user_id;
+                        // console.log("userIdCandidate", userIdCandidate);
 
-                          let userIdCandidate = elc.user_id;
-                          console.log("userIdCandidate", userIdCandidate);
-
-                          conn.query(
-                            `select e.user_id, e.job, e.compagny, e.description, e.dateStart, e.dateEnd
+                        // Data profileCandidate
+                        conn.query(
+                          `select e.user_id, e.job, e.compagny, e.description, e.dateStart, e.dateEnd
                              FROM experience as e
                              where e.user_id=:userIdCandidate
                             `,
-                            { userIdCandidate },
-                            (err, dataExperience) => {
-                              if (error) reject(err);
-                              // elc.cvCandidat = { experience: dataExperience }
-                              console.log("dataExperience user id", elc.user_id)
+                          { userIdCandidate },
+                          (err, dataExperience) => {
+                            if (error) throw error;
+                            // elc.cvCandidat = { experience: dataExperience }
+                            // console.log("dataExperience user id", elc.user_id)
 
-                              conn.query(
-                                `select * FROM skill WHERE user_id = :userIdCandidate`,
-                                { userIdCandidate },
-                                (error, dataSkill) => {
-                                  if (error) reject(err);
+                            // Data skill
+                            conn.query(
+                              `select * FROM skill WHERE user_id = :userIdCandidate`,
+                              { userIdCandidate },
+                              (error, dataSkill) => {
+                                if (error) throw error;
 
-                                  // console.log("dataSkill", dataSkill)
+                                // console.log("dataSkill", dataSkill)
 
-                                  const skills = []
-                                  for (let index = 0; index < dataSkill.length; index++) {
-                                    skills.push(dataSkill[index].skill)                                    
-                                  }
-                                  
-                                  // interet
-
-                                  // certificate
-
-                                  //documents
-
-
-
-
-
-
-
-                                  // elc.cvCandidat = { experience: dataExperience, skill: dataSkill,skills:skills }
-                                  elc.cvCandidat = { experience: dataExperience, skill:skills }
-                                  if (index2 === profilCandidate.length - 1 && index === dataOfferByEmployer.length - 1) {
-                                    console.log("index de fin");
-                                    resolve(Obj);
-                                  }
+                                const skills = []
+                                for (let index = 0; index < dataSkill.length; index++) {
+                                  skills.push(dataSkill[index].skill)
                                 }
-                              )
-                            }
 
-                          )
-                        })
-                      }
-                    )
-                  })
+                                //  Data interet
+                                conn.query(
+                                  `select * FROM interest WHERE user_id = :userIdCandidate`,
+                                  { userIdCandidate },
+                                  (error, dataInterest) => {
+                                    if (error) throw error;
 
-                } else resolve(dataEmployer);
-              }
-            );
-          }
+                                    // console.log("dataInterest", dataInterest)
+                                    const interests = []
+                                    for (let index = 0; index < dataInterest.length; index++) {
+                                      interests.push(dataInterest[index].interest)
+                                    }
+
+                                    //Data certificate
+                                    conn.query(
+                                      `select c.user_id, c.school, c.title, c.year, c.validate
+                                      FROM certificate as c
+                                            where c.user_id=:userIdCandidate`,
+                                      { userIdCandidate },
+                                      (error, dataCertificate) => {
+                                        if (error) throw error;
+                                        // console.log("dataCertificate", dataCertificate)
+
+
+                                        //  Data Documents
+                                        conn.query(
+                                          `select d.*
+                                         FROM document as d
+                                         where d.user_id=:userIdCandidate`,
+                                          { userIdCandidate },
+                                          (error, dataDocument) => {
+                                            if (error) throw error;
+
+                                            const documents = []
+                                            for (let index = 0; index < dataDocument.length; index++) {
+                                              documents.push(dataDocument[index].document)
+                                            }
+
+                                            // console.log("dataCertificate", dataCertificate)
+                                            elc.cvCandidat = { experience: dataExperience, skill: skills, interest: interests, certificate: dataCertificate, document: documents }
+                                            if (index2 === profilCandidate.length - 1 && index === dataOfferByEmployer.length - 1) {
+                                              // console.log("index de fin");
+                                              result(null, Obj);
+                                            }
+                                          })
+                                      })
+                                  }
+                                )
+                              }
+                            )
+                          }
+                        )
+                      })
+                    }
+                  )
+                })
+
+              } else result(null, dataEmployer);
+            }
+          );
         }
-      );
-      conn.release();
-    });
+        else result(null, { message: "error" })
+      }
+    );
+    conn.release();
   });
+
 };
 
 //create offer

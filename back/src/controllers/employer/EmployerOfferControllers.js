@@ -32,40 +32,32 @@ class EmployerOfferControllers {
 
   async getOfferId(req, res) {
     // console.log("controller get Offer Employeur");
-      await Offer.getOfferId(String(req.params.id)).then(
-        (data) => {
-          return res.json({
-            method: req.method,
-            status: "success",
-            message: "Mes offres",
-            employer: data,
-          });
-        }
-      );
 
-
-
-
-      // try {
-      //   //ici String est une coercion qui permet de typer la variable
-      //   Offer.getOfferId((String(req.params.id)),(err, data) => {
-      //     // console.log("dataid res", data);
-      //     //Si erreur alors affiche console log erreur et res.status
-      //     if (err) {
-      //       console.log("err", err),
-      //         res.status(500).send({
-      //           message: err.message || "Une erreur est survenue",
-      //         });
-      //       //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-      //     } else {
-      //       return res.json({
-      //         method: req.method,
-      //         status: "success",
-      //         message: "Mes offres",
-      //         offers: data,
-      //       });
-      //     }
-      //   });
+    if (req.params.id) {
+      try {
+        //ici String est une coercion qui permet de typer la variable
+        Offer.getOfferId((String(req.params.id)), (err, data) => {
+          // console.log("dataid res", data);
+          //Si erreur alors affiche console log erreur et res.status
+          if (err) {
+            console.log("err", err),
+              res.status(500).send({
+                message: err.message || "Une erreur est survenue",
+              });
+            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+          } else {
+            return res.json({
+              method: req.method,
+              status: "success",
+              message: "Mes offres",
+              offers: data,
+            });
+          }
+        });
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
 
   }
 
