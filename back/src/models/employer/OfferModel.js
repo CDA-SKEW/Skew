@@ -107,6 +107,8 @@ Offer.getOfferId = function (params_id) {
                 Obj.offers = dataOfferByEmployer;
 
                 if (dataOfferByEmployer.length > 0) {
+
+
                   dataOfferByEmployer.map((el, index) => {
                     // console.log("index, el", index, el.offer_id);
                     const offerId = el.offer_id;
@@ -128,12 +130,15 @@ Offer.getOfferId = function (params_id) {
                           "nb profilCandidate ",
                           profilCandidate.length
                         );
+                        el.profilCandidate = profilCandidate
 
-                        el.profilCandidate = profilCandidate;
-                        // el.profilCandidate = { profilCandidate, cvCandidate: [] }
+                        profilCandidate.map((elc, index2) => {
+                          // for (let i = 0; i < profilCandidate.length; i++) {
+                          // elc.profilCandidate = profilCandidate
 
-                        for (let i = 0; i < profilCandidate.length; i++) {
-                          let userIdCandidate = profilCandidate[i].user_id;
+                          // console.log(elc)
+
+                          let userIdCandidate = elc.user_id;
                           console.log("userIdCandidate", userIdCandidate);
 
                           conn.query(
@@ -144,24 +149,50 @@ Offer.getOfferId = function (params_id) {
                             { userIdCandidate },
                             (err, dataExperience) => {
                               if (error) reject(err);
-                              // console.log(
-                              //   "dataExperience " + i,
-                              //   dataExperience
-                              // );
-                              el.profilCandidate.cvCandidat = dataExperience;
+                              // elc.cvCandidat = { experience: dataExperience }
+                              console.log("dataExperience user id", elc.user_id)
+
+                              conn.query(
+                                `select * FROM skill WHERE user_id = :userIdCandidate`,
+                                { userIdCandidate },
+                                (error, dataSkill) => {
+                                  if (error) reject(err);
+
+                                  // console.log("dataSkill", dataSkill)
+
+                                  const skills = []
+                                  for (let index = 0; index < dataSkill.length; index++) {
+                                    skills.push(dataSkill[index].skill)                                    
+                                  }
+                                  
+                                  // interet
+
+                                  // certificate
+
+                                  //documents
+
+
+
+
+
+
+
+                                  // elc.cvCandidat = { experience: dataExperience, skill: dataSkill,skills:skills }
+                                  elc.cvCandidat = { experience: dataExperience, skill:skills }
+                                  if (index2 === profilCandidate.length - 1 && index === dataOfferByEmployer.length - 1) {
+                                    console.log("index de fin");
+                                    resolve(Obj);
+                                  }
+                                }
+                              )
                             }
+
                           )
-
-                          if (i === profilCandidate.length-1 && index === dataOfferByEmployer.length - 1) {
-                            console.log("index de fin");
-                            resolve(Obj);
-                          }
-
-                        }
+                        })
                       }
-                    );
-                  });
-                  // resolve(Obj);
+                    )
+                  })
+
                 } else resolve(dataEmployer);
               }
             );
