@@ -8,5 +8,9 @@ export const api = axios.create({
 
 export const apiSiret = axios.create({
   baseURL: "https://entreprise.data.gouv.fr/api/sirene/v3/etablissements/",
+  headers: { "X-Custom-Header": "Skew application" },
   timeout: 1000,
 });
+
+
+

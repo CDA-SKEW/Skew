@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import ModalConfimation from "components/ModalConfimation";
+import { urlImg } from "utils/url";
 
 export default function SlideBarUser(props) {
     const navigate = useNavigate()
@@ -53,7 +54,7 @@ export default function SlideBarUser(props) {
             <Box
                 display={"flex"} justifyContent='start' paddingTop={4} paddingX={2}>
                 {dataProfilUser && (
-                    <Avatar alt="" srcSet={dataProfilUser.avatar} sx={{ width: 90, height: 90 }} />)}
+                    <Avatar alt="" srcSet={urlImg + dataProfilUser.avatar} sx={{ width: 90, height: 90 }} />)}
             </Box>
 
             <Box

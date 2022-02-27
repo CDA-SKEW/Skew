@@ -760,12 +760,12 @@ export const getApiSiret = (siretNumber) => {
 
 // get profil employer
 export const getProfilEmployer = () => {
-  console.log("getProfilEmployer action store ");
+  // console.log("getProfilEmployer action store ");
   return (dispatch) => {
     return api
       .get(`/employer/profil/${ id }`)
       .then((res) => {
-        console.log("return api getProfilEmployer action store", res.data);
+        // console.log("return api getProfilEmployer action store", res.data);
         dispatch({ type: GET_PROFIL_EMPLOYER, payload: res.data});
       })
       .catch((err) => console.log(err));
@@ -775,7 +775,7 @@ export const getProfilEmployer = () => {
 // Post profil employer
 export const postFormProfilEmployer = (data) => {
   return (dispatch) => {
-    // console.log("POST_PROFIL_EMPLOYER action", data);
+        // console.log("POST_PROFIL_EMPLOYER action", data);
     dispatch({ type: POST_PROFIL_EMPLOYER, payload: data });
   };
 };
@@ -783,10 +783,18 @@ export const postFormProfilEmployer = (data) => {
 // Put profil employer
 export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
-    // console.log("PUT_PROFIL_EMPLOYER action", data);
-    dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data });
+    console.log("PUT_PROFIL_EMPLOYER action", data);
+    return api
+      .put(`/employer/profil/${id}`, data)
+      .then((res) => {
+        console.log("PUT_PROFIL_EMPLOYER action", res.data);
+        dispatch({ type: PUT_PROFIL_EMPLOYER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
+
   };
 };
+
 
 export const getProfilUser = () => {
   return (dispatch) => {
