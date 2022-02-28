@@ -19,7 +19,7 @@ class JobsController {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            job: data,
+            data: data,
             message: "All Jobs has been successfully GETTED. !!!",
           });
       });

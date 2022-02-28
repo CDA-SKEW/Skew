@@ -113,7 +113,6 @@ module.exports = {
   },
 
   replyMessage: (req, res) => {
-    const mess = "Email SENDED !!! ";
     arrayFiles = [];
     // initialisation du tableau array avec data signature
     arrayFiles.push({
@@ -121,19 +120,19 @@ module.exports = {
       path: "public/images/logo/logo.png",
       cid: "signatureLogo", //same cid value as in the html img src
     });
-   
+
     console.log(arrayFiles); // On configure notre mail à envoyer par nodemailer
     console.log("Reply NodeMailer Config");
     const mailOptions = {
-      from: '"Fred Foo 👻", process.env.USER_NODMAILER',
+      from: process.env.USER_NODMAILER,
       to: req.body.mail,
-      // to: "soukainataa1987@gmail.com",
-      // subject: req.body.sujet,
-      // firstname: req.body.firstname,
-      // text: req.body.message,
-      // date: new Date(),
+      subject: req.body.sujet,
+      firstname: req.body.firstname,
+      text: req.body.reply,
+      date: new Date(),
       html: `
-      <b>Bonjour ! </br> <strong>${req.body.firstname}</strong></b>, </br> <p>${req.body.message}</br></p>  
+      <h2 style="color:#ABC4FF;"> Bonjour,  ${req.body.firstname} </h2>
+      </br> <p>${req.body.reply}</br></p>  
       <div style="display: flex;margin-bottom: 15px;">
       <span>Cordialement,</span>
       </div> 
@@ -185,9 +184,10 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          mess: mess,
+          mess: "Email SENDED !!! ",
         });
       }
+     
     });
   },
 };
