@@ -8,7 +8,7 @@ import TableComp from "components/candidat/profil/TableComp";
 import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
+
 
 
 
@@ -17,11 +17,10 @@ const CandidatProfil = () => {
 
   const dispatch = useDispatch();
   // dispatch(postFormProfilCandidate());
-  // dispatch(putFormProfilCandidate());
   // dispatch(deleteFormProfilCandidate());
 
-  // useEffect(() => dispatch(getProfilCandidate()), [])
-  // dispatch(getProfilCandidate())
+  // useEffect(() => dispatch(L()), [])
+  // dispatch(L())
   const User = useSelector((state) => state.candidate.userProfil)
   // console.log('user page candidate profile', User)
 

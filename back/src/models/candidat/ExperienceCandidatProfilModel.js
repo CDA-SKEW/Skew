@@ -4,48 +4,49 @@ const { user } = require("../../config/db");
 
 // Model
 const CandidatExperience = function (experience) {
-    this.id = Number(experience.id);
-    this.user_id = Number(experience.user_id),
+    this.id = Number(experience.id),
+        this.user_id = Number(experience.user_id),
         this.compagny = String(experience.compagny),
         this.job = String(experience.job),
-        this.description = String(experience.description)
-    // this.dateStart = (experience.dateStart),
-    // this.dateEnd = (experience.dateEnd)
+        this.description = String(experience.description),
+        this.dateStart = (experience.dateStart),
+        this.dateEnd = (experience.dateEnd)
 };
 
 // Get ID
-CandidatExperience.getExperienceProfil = function (user_id, result) {
-    connection.getConnection(function (error, conn) {
-        if (error) throw error;
-        conn.query(
-            `SELECT u.id,e.*
-            FROM user as u
-            INNER JOIN experience as e
-            ON u.id = user_id
-            WHERE u.id = :user_id;`,
+// CandidatExperience.getExperienceProfil = function (user_id, result) {
+//     connection.getConnection(function (error, conn) {
+//         if (error) throw error;
+//         conn.query(
+//             `SELECT u.id,e.*
+//             FROM user as u
+//             INNER JOIN experience as e
+//             ON u.id = user_id
+//             WHERE u.id = :user_id;`,
 
-            { user_id }, (error, data) => {
-                if (error) throw error;
-                // console.log('exp data', data);
-                result(null, data);
-                conn.release();
-            });
-    });
-};
+//             { user_id }, (error, data) => {
+//                 if (error) throw error;
+//                 // console.log('exp data', data);
+//                 result(null, data);
+//                 conn.release();
+//             });
+//     });
+// };
 
 // Create Experience
 CandidatExperience.createExperienceProfil = function (newExperience, result) {
-    const { compagny, job, description, dateStart, dateEnd, user_id } = newExperience
+    const { compagny, job, description, dateStart, dateEnd, user_id, id } = newExperience
+    console.log('mlodel create expérience', newExperience)
     connection.getConnection(function (error, conn) {
         conn.query(`
         INSERT INTO experience
          SET 
-         user_id = :user_id,
+            user_id = :user_id,
             compagny = :compagny,
             job = :job,
             description = :description
             ;`,
-            { compagny, job, description, dateStart, dateEnd, user_id }
+            { compagny, job, description, dateStart, dateEnd, user_id, id }
             , (error, data) => {
                 if (error) throw error;
                 conn.query(`SELECT u.id,e.*
@@ -65,17 +66,17 @@ CandidatExperience.createExperienceProfil = function (newExperience, result) {
 // // Edit One
 CandidatExperience.updateExperienceProfil = function (experienceObj, result) {
     const { compagny, job, description, dateStart, dateEnd, user_id, id } = experienceObj
-    // console.log("edit", experienceObj);
+    console.log("edit", experienceObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE experience,user
             SET 
-            user_id= :user_id,
-            compagny = :compagny,
-            job = :job,
-            description = :description,
-            dateStart = :dateStart,
-            dateEnd = :dateEnd
+                user_id= :user_id,
+                compagny = :compagny,
+                job = :job,
+                description = :description,
+                dateStart = :dateStart,
+                dateEnd = :dateEnd
             WHERE experience.id = :id;`,
             { compagny, job, description, dateStart, dateEnd, user_id, id }
             , (error, data) => {

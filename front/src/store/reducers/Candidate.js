@@ -40,12 +40,12 @@ export function CandidateReducer(state = initialState, action) {
         ...state, userProfil: action.payload
       };
 
-    // case Actions.POST_PROFIL_CANDIDATE:
-    //   console.log("POST_PROFIL_CANDIDATE Reducer", action.payload);
-    //   return {
-    //     // flash: action.payload.flash,
-    //     ...state, dataProfilCandidate: action.payload.dataProfilCandidate, candidatures: action.payload.candidatures.postul
-    //   };
+    case Actions.POST_PROFIL_CANDIDATE:
+      console.log("POST_PROFIL_CANDIDATE Reducer", action.payload);
+      return {
+        // flash: action.payload.flash,
+        ...state, userProfil: action.payload.userProfil
+      };
 
     case Actions.PUT_PROFIL_CANDIDATE:
       console.log("PUT_PROFIL_CANDIDATE Reducer", action.payload);

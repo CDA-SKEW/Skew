@@ -51,18 +51,11 @@ class CandidatProfilControllers {
   //  UPDATE CONTACT PROFIL CANDIDAT 
 
   async updateContactProfil(req, res) {
-    console.log('REQ.BODY UPDATE', req.body);
+    // console.log('REQ.BODY UPDATE', req.body);
     let candidatObj = new CandidatContact({
       id: Number(req.params.id),
       ...req.body
-      // user_id: Number(req.params.id),
-      // mail: String(req.body.mail),
-      // name: String(req.body.name),
-      // lastName: String(req.body.lastName),
-      // address: String(req.body.address),
-      // zipCode: Number(req.body.zipCode),
-      // town: String(req.body.town),
-      // phone: String(req.body.phone),
+
     });
     try {
       CandidatContact.updateContactProfil(candidatObj, (err, data) => {
@@ -111,6 +104,7 @@ class CandidatProfilControllers {
   //  CREATE EXPERIENCE PROFIL CANDIDAT 
 
   async createExperienceProfil(req, res) {
+    // console.log('REQ.BODY CREATE', req.body);
     let newExperience = new CandidatExperience({
       ...req.body
     });
@@ -131,15 +125,10 @@ class CandidatProfilControllers {
   //  UPDATE EXPERIENCE PROFIL CANDIDAT 
 
   async updateExperienceProfil(req, res) {
+    console.log('REQ.BODY CREATE', req.body);
     let experienceObj = new CandidatExperience({
       id: Number(req.params.id),
       ...req.body
-      // compagny: String(req.body.compagny),
-      // job: String(req.body.job),
-      // description: String(req.body.description),
-      // dateStart: (req.body.dateStart),
-      // dateEnd: (req.body.dateEnd),
-
     });
     try {
       CandidatExperience.updateExperienceProfil(experienceObj, (err, data) => {

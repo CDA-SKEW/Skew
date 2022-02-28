@@ -21,7 +21,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-// import { getProfilCandidate } from "store/actions/CandidateActions";
+import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidateExperience } from "store/actions/CandidateActions";
 
 
 
@@ -76,7 +76,9 @@ export default function TableExperience(props) {
   function ModeEdit(props) {
     const { data } = props
     const dispatch = useDispatch()
-    const [form, setForm] = useState({})
+    const [form, setForm] = useState({ ...data })
+
+    // console.log('ModeEdit', form)
 
     const handleChange = (prop) => (event) => {
       // console.log('change form', prop, event.target.value)
@@ -85,9 +87,9 @@ export default function TableExperience(props) {
     }
 
     const submitForm = () => {
-      // console.log('SUBMIT', form)
-      dispatch(({ ...form }))
-      // setTimeout(() => dispatch(getProfilCandidate()), 777)
+      // console.log('SUBMIT Experience', form)
+      dispatch(putFormProfilCandidateExperience({ ...form }))
+      setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
     }
 
@@ -103,21 +105,22 @@ export default function TableExperience(props) {
             required
             size="small"
             id="outlined-required"
-            label="Company"
-            onChange={() => handleChange('company')}
-            defaultValue={data.company}
-            value={form.company}
+            label="Compagny"
+            onChange={handleChange('compagny')}
+            defaultValue={data.compagny}
+            value={form.compgany}
             sx={{ my: 2 }}
           />
           <TextField
+            fullWidth
             required
             size="small"
             id="outlined-required"
-            onChange={() => handleChange('post')}
-            label="Post"
+            label="Compagny"
+            onChange={handleChange('job')}
             defaultValue={data.job}
             value={form.job}
-          // sx={{ my: 2 }}
+            sx={{ my: 2 }}
           />
         </TableCell>
 
@@ -128,7 +131,7 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             multiline
-            onChange={() => handleChange('description')}
+            onChange={handleChange('description')}
             maxRows={4}
             required
             size="large"
@@ -182,19 +185,28 @@ export default function TableExperience(props) {
   //Mode add Experience Component
 
   function ModeAdd(props) {
-    const { data } = props
+    // const { data } = props
     const dispatch = useDispatch()
-    const [form, setForm] = useState({})
+    const [form, setForm] = useState({ user_id: 5 })
 
     const changeForm = (prop) => (event) => {
+      console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
     }
 
-    const submitForm = () => {
-      dispatch((form))
+    const submitForm = async (data) => {
+      console.log('SUBMIT', form)
+      await dispatch(postFormProfilCandidate({ ...form }))
+      setCompagny("");
+      setJob("");
+
+      setDateStart("");
+      setDateEnd("");
+      setTimeout(() => dispatch(getProfilCandidate()), 777)
+      setEdit(false) // close editMode
     }
 
-    // console.log('mode edit comp', data)
+
 
     return (
       <TableRow>
@@ -207,7 +219,7 @@ export default function TableExperience(props) {
             size="small"
             id="outlined-required"
             label="Comp"
-            // onChange={() => changeForm('company')}
+            onChange={changeForm('compagny')}
             defaultValue={""}
             sx={{ my: 2 }}
           />
@@ -216,7 +228,7 @@ export default function TableExperience(props) {
             required
             size="small"
             id="outlined-required"
-            // onChange={() => changeForm('company')}
+            onChange={changeForm('job')}
             label="Post"
             defaultValue={""}
 
@@ -230,7 +242,7 @@ export default function TableExperience(props) {
           <TextField
             fullWidth
             multiline
-            // onChange={() => changeForm('description')}
+            onChange={changeForm('description')}
             maxRows={4}
             required
             size="small"
@@ -301,7 +313,7 @@ export default function TableExperience(props) {
       <React.Fragment>
         <TableRow sx={{ "&:last-child td,&:last-child th": { border: 0 } }}>
           <TableCell component="th" scope="row" sx={{ display: "none" }}>0</TableCell>
-          <TableCell align='center'>{row.company}</TableCell>
+          <TableCell align='center'>{row.compagny}</TableCell>
           <TableCell align='center'>{row.job}</TableCell>
           <TableCell align='center' sx={{ minWidth: { xs: 400, sm: 400, md: 400 } }}>{row.description}</TableCell>
           <TableCell align='center'>{row.dateStart}</TableCell>
@@ -320,7 +332,7 @@ export default function TableExperience(props) {
 
   // Declare Const used for the Form
 
-  const [company, setCompany] = useState("");
+  const [compagny, setCompagny] = useState("");
   const [job, setJob] = useState("");
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
@@ -329,7 +341,7 @@ export default function TableExperience(props) {
 
 
   const setUseState = () => {
-    setCompany(ListExp.company);
+    setCompagny(ListExp.compagny);
     setJob(ListExp.job);
     setDateStart(ListExp.dateStart);
     setDateEnd(ListExp.dateEnd);
@@ -426,7 +438,7 @@ export default function TableExperience(props) {
         <Table sx={{ width: "100%" }}>
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
-              <TableCell align='center'>Company</TableCell>
+              <TableCell align='center'>Compagny</TableCell>
               <TableCell align='center' >Job</TableCell>
               <TableCell align='center'>Description</TableCell>
               <TableCell align='center'>Start-Year</TableCell>
