@@ -7,7 +7,7 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-  dataProfilEmployer: {},
+  dataProfilEmployer: [],
   dataProfilUser: {},
   dataOffers: [],
   dataSiretApi: {},
@@ -29,7 +29,7 @@ export function EmployerReducer(state = initialState, action) {
         dataSiretApi: action.payload,
       };
     case Actions.GET_PROFIL_EMPLOYER:
-      // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload);
+      // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
       return {
         // flash: action.payload.flash,
         ...state,
@@ -43,7 +43,7 @@ export function EmployerReducer(state = initialState, action) {
         dataProfilEmployer: action.payload.dataProfilEmployer,
       };
     case Actions.PUT_PROFIL_EMPLOYER:
-      console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload);
+      console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
       return {
         // flash: action.payload.flash,
         ...state,
