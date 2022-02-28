@@ -29,13 +29,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@mui/material/Link';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "store/actions/AuthActions";
-import { register } from 'store/actions/AuthActions';
-
-import Footer from "components/core/Footer";
+import { login, register } from "store/actions/AuthActions";
 
 function PassInput({ values, handleFormIdInscription }) {
 
@@ -74,8 +72,10 @@ export default function VisiteurLayout({ children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
+  const [openChildModal, setOpenChildModal] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [mail, setMail] = useState('');
+  const [mailLostPass, setMailLostPass] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -88,6 +88,8 @@ export default function VisiteurLayout({ children }) {
   const [successInscription, setSuccessInscription] = useState('');
   const [candidat, setCandidat] = useState(0);
   const [recruteur, setRecruteur] = useState(0);
+  const [certificate, setCertificate] = useState(false);
+  const userToken = localStorage["user_token"];
 
   const pages = [
     { titre: "Accueil", lien: "" },
@@ -100,23 +102,27 @@ export default function VisiteurLayout({ children }) {
     { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 }
   ];
 
+  const UserListFooter = [
+    { user: 'Souka', link: 'https://www.linkedin.com/in/soukainata-attoumani-39131b13b/', color: 'souka' },
+    { user: 'Etienne', link: 'https://www.linkedin.com/in/etienne-massot-8398b31b8/', color: 'etienne' },
+    { user: 'Kevin', link: 'https://www.linkedin.com/in/kevin-hueri/', color: 'kevin' },
+    { user: 'Wilfried', link: 'https://www.linkedin.com/in/liwza/', color: 'wil' },
+  ];
+
   const handleClickShowPassword = () => { setShowPassword(!showPassword) };
   const handleMouseDownPassword = (event) => { event.preventDefault(); };
   const handleChange = (e, newToggle) => { setToggle(newToggle) };
 
-  const isAuthenticate = useSelector(state => state.auth.authenticate);
   const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
   const flash = useSelector(state => state.auth.flash);
   const flashCon = useSelector(state => state.auth.flashCon);
 
-  console.log('flashCon', flashCon)
-
   const handleOpen = () => { setOpenModal(true); };
-
   const handleClose = () => { setOpenModal(false); };
-
+  const handleOpenChildModal = () => { setOpenChildModal(true); };
+  const handleCloseChildModal = () => { setOpenChildModal(false); };
   const handleFormId = (e) => {
     switch (e.target.name) {
       case 'mail': setMail(e.target.value);
@@ -126,7 +132,7 @@ export default function VisiteurLayout({ children }) {
       default:
     }
   }
-
+  const handleChangeMailLostPass = (e) => { setMailLostPass(e.target.value) }
   const handleFormIdInscription = (e) => {
     switch (e.target.name) {
       case 'mail': setMailInscription(e.target.value);
@@ -138,17 +144,18 @@ export default function VisiteurLayout({ children }) {
       default:
     }
   }
-
-  const SubmitFormId = async(e) => {
+  const SubmitFormId = async (e) => {
     if (mail && pass) {
       await dispatch(login({ mail, pass }));
-      setMail('');
       setPass('');
+      setCertificate(true)
     } else {
       setError('Tous les champs doivent être remplis!');
+      setSuccessInscription('');
+      setErrorInscription('');
+      setSuccess('');
     }
   };
-
   const SubmitFormIdInscription = async (e) => {
     if (mailInscription && toggle && passInscription && pass2) {
       if (passInscription === pass2) {
@@ -162,23 +169,43 @@ export default function VisiteurLayout({ children }) {
       } else {
         setErrorInscription('Les mots de passe ne coîncident pas!');
         setSuccessInscription('');
+        setSuccess('');
+        setError('');
       }
     } else {
       setErrorInscription('Entrez tous les champs requis!');
       setSuccessInscription('');
+      setSuccess('');
+      setError('');
     }
 
   };
-
+  const handleSubmitChildModal = () => {
+    console.log('oui')
+  }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
+  const logout = () => {
+    localStorage.removeItem("user_token");
+    console.log('loggouuuttt !!!')
+    window.location.reload()
+  }
 
   useEffect(() => {
-    if (isAuthenticate === true) {
-      if (isAdmin === 1) navigate("/admin");
-      else if (isCandidat === 1) navigate("/candidat/dashboard");
-      else if (isRecruteur === 1) navigate("/employer/dashboard");
+    if (certificate === true) {
+      if (isAdmin === 1) {
+        navigate("/admin");
+        setCertificate(false)
+      }
+      else if (isCandidat === 1) {
+        navigate("/candidat/dashboard");
+        setCertificate(false)
+      }
+      else if (isRecruteur === 1) {
+        navigate("/employer/dashboard");
+        setCertificate(false)
+      }
     }
-  }, [isAuthenticate]);
+  }, [certificate]);
 
   useEffect(() => {
     if (toggle === 'candidat') {
@@ -209,8 +236,7 @@ export default function VisiteurLayout({ children }) {
     }
   }, [flashCon]);
 
-  const { window } = pages;
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = pages.window !== undefined ? () => pages.window().document.body : undefined;
 
   return (
     <ThemeProvider theme={theme}>
@@ -238,26 +264,24 @@ export default function VisiteurLayout({ children }) {
 
             {/* Menu */}
             <Box sx={{ display: { xs: "none", md: "block" } }}>
-              <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'center', }}>
+              <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'space-around', }}>
                 {pages.map((page) => (
-                  <MenuItem
-                    key={page.titre}
-                    onClick={() => navigate({ pathname: `/${page.lien}` })}
-                    sx={{ width: { md: 250, lg: 300, xl: 400 }, }}
-                  >
+                  <MenuItem key={page.titre} onClick={() => navigate({ pathname: `/${page.lien}` })}>
                     <Typography textAlign="center">{page.titre}</Typography>
                   </MenuItem>
-
                 ))}
 
                 {/* Bouton Login */}
-                <Button
-                  variant="contained"
-                  onClick={handleOpen}
-                  sx={{ bgcolor: 'secondary.main', width: { md: 250, lg: 300, xl: 400 }, fontSize: 17 }}
-                >
-                  Log in / Sign in
-                </Button>
+                {!userToken &&
+                  <Button variant="contained" onClick={handleOpen} sx={{ bgcolor: 'secondary.main' }}>
+                    Log in / Sign in
+                  </Button>
+                }
+                {userToken &&
+                  <Button variant="contained" onClick={logout} sx={{ bgcolor: 'secondary.main' }}>
+                    Log out
+                  </Button>
+                }
 
                 {/* Modal connexion inscription */}
                 <Modal open={openModal} onClose={handleClose}>
@@ -311,10 +335,61 @@ export default function VisiteurLayout({ children }) {
                       <Link
                         component="button"
                         variant="body2"
-                        onClick={() => { console.info("I'm a button.") }}
+                        onClick={() => handleOpenChildModal()}
                         sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
                         Mot de passe oublié
                       </Link>
+                      <Modal
+                        hideBackdrop
+                        open={openChildModal}
+                        onClose={handleCloseChildModal}
+                        aria-labelledby="child-modal-title"
+                        aria-describedby="child-modal-description"
+                      >
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: '50%', left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            height: 300,
+                            bgcolor: '#fff',
+                            pt: 2, px: 4, pb: 3,
+                            borderRadius: 2,
+                            display: 'block',
+                            textAlign: 'center',
+                            border: 1
+                          }}>
+                          <h2 id="child-modal-title">Mot de passe oublié</h2>
+                          <p id="child-modal-description">Entrez votre adresse mail:</p>
+                          <TextField
+                            label='Mail'
+                            name={mailLostPass}
+                            variant="outlined"
+                            value={mailLostPass}
+                            fullWidth
+                            onChange={() => handleChangeMailLostPass()}
+                            sx={{ my: 1 }} />
+                          <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 3 }}>
+                            <Button
+                              variant='contained'
+                              onClick={() => handleSubmitChildModal()}
+                              sx={{
+                                bgcolor: "secondary.main",
+                                width: 100
+                              }}
+                            >
+                              Envoyer
+                            </Button>
+                            <Button
+                              variant='contained'
+                              onClick={() => handleCloseChildModal()}
+                              sx={{ bgcolor: "secondary.main", width: 100 }}>
+                              Fermer
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Modal>
                       <Button
                         variant="contained"
                         fullWidth
@@ -324,7 +399,7 @@ export default function VisiteurLayout({ children }) {
                       </Button>
                       {error.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' >{error}</Typography>
+                          <Typography variant='body1' align='center' >{error}</Typography>
                         </Box>
                       }
                       {success.length > 16 &&
@@ -362,7 +437,7 @@ export default function VisiteurLayout({ children }) {
                       </ToggleButtonGroup>
                       {errorInscription.length > 0 &&
                         <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' >{errorInscription}</Typography>
+                          <Typography variant='body1' align='center' >{errorInscription}</Typography>
                         </Box>
                       }
                       {successInscription.length > 0 && successInscription.length < 30 &&
@@ -386,7 +461,6 @@ export default function VisiteurLayout({ children }) {
                     </Box>
                   </Box>
                 </Modal>
-
               </List>
             </Box>
 
@@ -422,7 +496,40 @@ export default function VisiteurLayout({ children }) {
         </Box>
       </AppBar>
       <Container component="main" disableGutters maxWidth="100%">{children}</Container>
-      <Footer />
+
+      {/* Footer */}
+      <Box
+        sx={{
+          bgcolor: '#696969',
+        }}>
+        <Typography
+          variant="body2"
+          color="#fff"
+          align='center'
+          paddingY={1}
+
+        >
+          copiright@2022 SKEW
+        </Typography>
+        <Box
+          display={"flex"}
+          flexDirection={{ xs: "column", sm: "row", md: "row" }}
+          justifyContent={"center"}>
+          {UserListFooter.map((list, index) => (
+            <Button
+              size='small'
+              key={index}
+              color={list.color}
+              href={list.link}>
+              <LinkedInIcon />
+              <Typography variant="body2" alignItems={"center"}>
+                {list.user}
+              </Typography>
+            </Button>
+          ))}
+        </Box>
+      </Box>
+
     </ThemeProvider>
   );
 };

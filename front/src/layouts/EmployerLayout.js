@@ -4,7 +4,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@emotion/react";
 import { theme, themeEmployer } from "configs/theme";
 import { AppBar, Toolbar } from '@mui/material';
-import Footer from "components/core/Footer";
 import TopNav from "components/core/navBarUser/TopNav";
 import BackNav from "components/core/navBarUser/BackNav";
 import Fab from '@mui/material/Fab';
