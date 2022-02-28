@@ -24,6 +24,7 @@ import ChangePassword from "pages/employer/ChangePassword";
 
 import EmployerLayout from "layouts/EmployerLayout";
 import CandidatLayout from "layouts/CandidatLayout";
+import VerifAuth from "pages/visitor/VerifAuth";
 
 const EmployerRoutes = () => (
   <EmployerLayout>
@@ -64,6 +65,7 @@ function App() {
         <Route path="/offres" exact element={<Offres />} />
         <Route path="/Employer/*" element={<EmployerRoutes />} />
         <Route path="/Candidat/*" element={<CandidatRoutes />} />
+        <Route path="/verif/:rand" element={<VerifAuth />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>

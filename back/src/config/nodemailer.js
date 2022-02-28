@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// var rand, mailOptions, host, link;
+var rand, mailOptions, host, link;
 
 module.exports = {
   // Action envoi mail par nodemailer
@@ -164,17 +164,29 @@ module.exports = {
       path: "public/images/logo/logo.png",
       cid: "signatureLogo", //same cid value as in the html img src
     });
-    console.log('req.body', req.body)
-    const mailOptions = {
+
+    rand = Math.floor((Math.random() * 100) + 54)
+
+    host = req.get('host');
+
+    link = "http://" + req.get('host') + "/api/auth/verify/" + rand;
+
+    mailOptions = {
       from: process.env.USER_NODMAILER,
       to: req.body.mail,
       subject: "Vérification du compte",
+      rand: rand,
       html: `
       <strong>Félicitation, votre compte est créé !</strong>
       <br><br>
+
+      <a href=" ` + link + ` ">Click here to verify</a>
+
       <div>
         Il ne reste plus qu'a cliquer sur ce lien pour valider votre inscription.
       </div>
+
+
       <br><br>
       <div style="text-align:left;margin-left: 15px;">
          <div style="font-size: 13px;">
@@ -219,8 +231,27 @@ module.exports = {
           method: req.method,
           status: "success",
           message: "Votre mail a bien été envoyé !",
+          mailoptions: mailOptions
         });
       }
     });
+  },
+
+  // Génération de la page ID (Unique)
+  verifMail: (req, res) => {
+    // Ici on tcheck notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
+    if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
+      // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
+      if (req.params.id == mailOptions.rand) {
+
+        // res.end("<h1>L'email " + mailOptions.to + " est vérifié")
+        res.redirect(process.env.URL + '/verif/'+ mailOptions.rand)
+        res.send({ data: mailOptions})
+      } else {
+        res.end("<h1>Bad Request</h1>")
+      }
+    } else {
+      res.end("<h1>Request is from unknown source")
+    }
   }
 };

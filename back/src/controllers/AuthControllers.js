@@ -23,8 +23,8 @@ class AuthControllers {
                 isAdmin: data.isAdmin,
                 isCandidat: data.isCandidat,
                 isRecruteur: data.isRecruteur,
-                // isVerified: data.isVerified,
-                // isBanned: data.isBanned,
+                isVerified: data.isVerified,
+                isBanned: data.isBanned,
               },
               process.env.SIGN_JWT,
               { expiresIn: "1h" }
@@ -99,6 +99,10 @@ class AuthControllers {
     if (req.body.mail) {
       nodemailer.VerifUser(req, res);
     } else res.json("Error Request");
+  }
+
+  async verifMail(req, res) {
+    nodemailer.verifMail(req, res);
   }
 }
 
