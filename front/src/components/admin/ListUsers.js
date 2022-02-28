@@ -60,7 +60,19 @@ export default function ListUsers(props) {
                 <Avatar alt="avatar" src={user.avatar} />
               </ListItemAvatar>
               <ListItemText
-                primary={user.fullName}
+                primary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      {user.name} 
+                      {user.lastname}
+                    </Typography>
+                  </React.Fragment>
+                }
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -69,7 +81,7 @@ export default function ListUsers(props) {
                       variant="body2"
                       color="text.primary"
                     >
-                      {user.email}
+                      {user.mail}
                     </Typography>
                   </React.Fragment>
                 }

@@ -9,6 +9,7 @@ const connection = require("../../config/ConnectionDB");
 const Message = function (message) {
   (this.id = message.id),
     (this.name = message.name),
+    (this.mail = message.mail),
     (this.firstname = message.firstname),
     (this.mail = message.message),
     (this.sujet = message.sujet),
@@ -51,21 +52,18 @@ Message.getMessageId = function (message, result) {
   });
 };
 
-// Post Message 
-Message.replyMessage = function (newMessage, result) {
-  const { name, sujet, message } = newMessage;
+// Post Message
+Message.replyMessage = function (result) {
+  const { message } = newMessage;
   connection.getConnection(function (error, conn) {
-    console.log(req.body.name, "MODEL");
+    console.log(req.body.message, "MODEL");
     conn.query(
       `
-          INSERT INTO messages (name, sujet, message)
+          INSERT INTO messages ( message)
           VALUES 
-          newMessage = :name, 
-          newMessage = :sujet,
           newMessage = :message
       `,
-      { name, sujet, message },
-      
+      { message },
       (error, data) => {
         if (error) throw error;
         conn.query(`SELECT * FROM messages`, (error, data) => {

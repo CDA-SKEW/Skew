@@ -7,7 +7,7 @@ import withAdmin from "components/auth/withAdmin";
 
 const AdminUsersTable = () => {
   /*------------ listUsers import via Store-------------*/
-  const listUsers = useSelector((state) => state.admin.listUsers);
+  const user = useSelector((state) => state.admin.listUsers);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,10 +16,10 @@ const AdminUsersTable = () => {
 
   return (
     <AdminLayout>
-      <UsersTable listUsers={listUsers} />
+      <UsersTable user={user} />
     </AdminLayout>
   );
 };
 
-export default withAdmin(AdminUsersTable);
-// export default AdminUsersTable;
+// export default withAdmin(AdminUsersTable);
+export default AdminUsersTable;

@@ -8,7 +8,7 @@ import {
   deleteJob,
   deleteUser,
   deleteMessage,
-  addMessage,
+  replyMessage,
   putUser,
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,10 +18,12 @@ import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Button,
+  Dialog,
   DialogActions,
   DialogTitle,
   Divider,
@@ -34,13 +36,19 @@ import {
 /*------------Export function-------------*/
 
 export default function DeletableChips(props) {
+
+  // console.log("props row table message", props)
   // Transmettre les données du STORE avec dispatch (crud)
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
   const [user, setUser] = React.useState(false);
+  const [form, setForm] = React.useState({...props.id.row});
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   /*------------MODALS-------------*/
 
@@ -102,6 +110,18 @@ export default function DeletableChips(props) {
   const UserDeleteButton = () => {
     if (user === true) return <DeleteUser />;
     else return <div></div>;
+  };
+
+  const submitReplyMessage = (data) => {
+    console.log('form message', data)
+    console.log(form, props);
+    dispatch(replyMessage(form))
+  }
+  // handlechange = Pour changer la valeur d'un input
+  const handleChange = (prop) => (event) => {
+    console.log("handleInput", prop, event.target.value);
+    // Prop = la key du oneChange
+    setForm({ ...form, [prop]: event.target.value });
   };
 
   /* Transformation d'une fonction en composant conditionel, 
@@ -212,7 +232,6 @@ export default function DeletableChips(props) {
             color="error"
             sx={{ color: "#E57373" }}
             variant="outlined"
-            // icon={<BlockIcon />}
             onClick={handleOpen}
           ></Chip>
           <Modal
@@ -245,7 +264,7 @@ export default function DeletableChips(props) {
                 id="modal-modal-description"
                 sx={{ mt: 2 }}
               >
-                {/* Reply action Button */}
+                {/* Update action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
                     startIcon={<BlockIcon />}
@@ -350,77 +369,98 @@ export default function DeletableChips(props) {
             color="error"
             sx={{ color: "#E57373" }}
             variant="outlined"
-            // icon={<ReplyIcon />}
             onClick={handleOpen}
           ></Chip>
-          <Modal
+          <Dialog
+            fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            aria-labelledby="responsive-dialog-title"
           >
-            <Box sx={style}>
-              {/* Form */}
-              <Typography variant="h5" component="h2">
-                REPONDRE A UN MESSAGE
-                <TextField
-                  fullWidth
-                  sx={{ mt: 5 }}
-                  required
-                  id="outlined-required"
-                  label="To"
-                  defaultValue={id.row.fullName}
-                />
-                <TextField
-                  fullWidth
-                  sx={{ mt: 5 }}
-                  required
-                  id="outlined-required"
-                  label="subject"
-                  defaultValue={id.row.subject}
-                />
-                <TextField
-                  fullWidth
-                  sx={{ mt: 5 }}
-                  required
-                  id="outlined-multiline-static"
-                  label="Message"
-                  multiline
-                  rows={4}
-                  defaultValue=""
-                />
-              </Typography>
-              <Typography
-                component="span"
-                id="modal-modal-description"
-                sx={{ mt: 2 }}
-              >
-                {/* Reply action Button */}
-                <Stack spacing={2} direction="row" sx={{ m: 4 }}>
-                  <Button
-                    variant="outlined"
-                    color="success"
-                    endIcon={<SendIcon />}
-                    onClick={() => dispatch(addMessage(id.row.id))}
-                  >
-                    Envoyer
-                  </Button>
-                  <Button
-                    startIcon={<MessageIcon />}
-                    autoFocus
-                    variant="outlined"
-                    color="error"
-                    // Déclenche l'action de la constante CheckDelete
-                    onClick={(e) => setMsg(msg === true ? false : true)}
-                  >
-                    Supprimer
-                  </Button>
-                </Stack>
-                {/* Appel de la condition */}
-                {CheckDelete()}
-              </Typography>
-            </Box>
-          </Modal>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                {/* Form */}
+                <Typography variant="h5" component="h2">
+                  REPONDRE A UN MESSAGE
+                  <TextField
+                    disabled
+                    fullWidth
+                    sx={{ mt: 5 }}
+                    required
+                    id="outlined-required"
+                    label="replyTo"
+                    defaultValue={id.row.mail}
+                  />
+                  <TextField
+                    fullWidth
+                    sx={{ mt: 5 }}
+                    required
+                    id="outlined-required"
+                    onChange={handleChange(`sujet`)}
+                    label="Objet"
+                    defaultValue={id.row.sujet}
+                  />
+                  <TextField
+                    disabled
+                    fullWidth
+                    sx={{ mt: 5 }}
+                    required
+                    id="outlined-multiline-static"
+                    label="Message"
+                    multiline
+                    rows={4}
+                    defaultValue={id.row.message}
+                  />
+                  {/* Reply TextField */}
+                  <TextField
+                    fullWidth
+                    sx={{ mt: 5 }}
+                    required
+                    id="outlined-multiline-static"
+                    label="Reply"
+                    multiline
+                    onChange={handleChange(`reply`)}
+                    rows={4}
+                    defaultValue=""
+                  />
+                </Typography>
+                <Typography
+                  component="span"
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                >
+                  {/* Reply action Button */}
+                  <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+                    <Button
+                      variant="outlined"
+                      color="success"
+                      endIcon={<SendIcon />}
+                      onClick={() => submitReplyMessage(form)}
+                    >
+                      Envoyer
+                    </Button>
+                    <Button
+                      startIcon={<MessageIcon />}
+                      autoFocus
+                      variant="outlined"
+                      color="error"
+                      // Déclenche l'action de la constante CheckDelete
+                      onClick={(e) => setMsg(msg === true ? false : true)}
+                    >
+                      Supprimer
+                    </Button>
+                  </Stack>
+                  {/* Appel de la condition */}
+                  {CheckDelete()}
+                </Typography>
+              </Box>
+            </Modal>
+          </Dialog>
         </Box>
       )}
     </Stack>
