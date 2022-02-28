@@ -125,14 +125,13 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
             async function (err, check) {
               if (err) throw err;
               if (check) {
-
-                const passBcrypt = await bcrypt.hash(pass, 10)
+                const passBcrypt = await bcrypt.hash(pass, 10);
                 conn.query(
                   `UPDATE user
                 SET pass =:passBcrypt
                 WHERE id =:id
                 `,
-                  { passBcrypt,id },
+                  { passBcrypt, id },
                   (error, data) => {
                     if (error) throw error;
                     conn.query(
@@ -234,7 +233,9 @@ ProfilUserCompagny.createProfilCompagny = function (
 // Update profil employer User
 ProfilUserCompagny.updateProfilCompagny = function (
   profilUserCompagnyObj,
-  result
+  reqfile,
+  result,
+
 ) {
   //Declarations des constantes de profilUserCompagnyObj pour mysql
   const {
@@ -250,10 +251,13 @@ ProfilUserCompagny.updateProfilCompagny = function (
   } = profilUserCompagnyObj;
   // console.log("Model for update profil entreprise", profilUserCompagnyObj);
   //ici on se connect à la base de donnée en appellant le module importé
-  connection.getConnection(function (error, conn) {
-    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
-    conn.query(
-      `
+
+  // console.log("reqfile", reqfile);
+  if (reqfile) {
+    connection.getConnection(function (error, conn) {
+      //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+      conn.query(
+        `
       UPDATE contactProfil
       SET name = :name,
       address =:address,
@@ -265,27 +269,74 @@ ProfilUserCompagny.updateProfilCompagny = function (
       category =:category
       WHERE user_id = :user_id;
     `,
-      //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
-      // situé dans ConnectionDb.js dans dossier config
-      { name, address, town, zipCode, avatar, siret, siren, category, user_id },
-      (error, data) => {
-        if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-        conn.query(
-          `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
+        //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
+        // situé dans ConnectionDb.js dans dossier config
+        {
+          name,
+          address,
+          town,
+          zipCode,
+          avatar,
+          siret,
+          siren,
+          category,
+          user_id,
+        },
+        (error, data) => {
+          if (error) throw error;
+          // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
+          conn.query(
+            `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
          FROM contactProfil WHERE user_id = :user_id`,
-          { user_id },
-          (error, data) => {
-            if (error) throw error;
-            result(null, data[0]);
-            // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-          }
-        );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-        conn.release();
-      }
-    );
-  });
+            { user_id },
+            (error, data) => {
+              if (error) throw error;
+              result(null, data[0]);
+              // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+            }
+          );
+          // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+          conn.release();
+        }
+      );
+    });
+  } else {
+    connection.getConnection(function (error, conn) {
+      //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+      conn.query(
+        `
+      UPDATE contactProfil
+      SET name = :name,
+      address =:address,
+      town = :town,
+      zipCode = :zipCode,
+      siret = :siret,
+      siren = :siren,
+      category =:category
+      WHERE user_id = :user_id;
+    `,
+        //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
+        // situé dans ConnectionDb.js dans dossier config
+        { name, address, town, zipCode, siret, siren, category, user_id },
+        (error, data) => {
+          if (error) throw error;
+          // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
+          conn.query(
+            `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
+         FROM contactProfil WHERE user_id = :user_id`,
+            { user_id },
+            (error, data) => {
+              if (error) throw error;
+              result(null, data[0]);
+              // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+            }
+          );
+          // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+          conn.release();
+        }
+      );
+    });
+  }
 };
 
 module.exports = { ProfilUser, ProfilUserCompagny };

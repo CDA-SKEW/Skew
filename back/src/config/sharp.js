@@ -13,9 +13,6 @@ module.exports = (req, res, next) => {
             .resize({
                 //ratio
                 fit: sharp.fit.contain,
-                // redimentionne l'image avec une hauteur definie 
-                height: 400,
-                width: 600,
                 position: "centre"
             })
             .webp({
