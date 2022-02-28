@@ -1,5 +1,6 @@
 // Import Model
 const User = require("../models/UserModel");
+const nodemailer = require("../config/nodemailer");
 
 // Import Module
 const jwt = require("jsonwebtoken");
@@ -92,6 +93,12 @@ class AuthControllers {
     } catch (error) {
       throw error;
     }
+  }
+
+  async verifUser(req, res) {
+    if (req.body.mail) {
+      nodemailer.VerifUser(req, res);
+    } else res.json("Error Request");
   }
 }
 

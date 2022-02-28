@@ -48,8 +48,9 @@ router.route("/api/register").post(new AuthControllers().register);
 
 // Check
 router
-  .route("/api/auth/:token")
-  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+  .route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router
+  .route("/api/auth/verify").post(new AuthControllers().verifUser)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
