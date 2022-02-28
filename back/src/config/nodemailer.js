@@ -121,14 +121,13 @@ module.exports = {
       path: "public/images/logo/logo.png",
       cid: "signatureLogo", //same cid value as in the html img src
     });
-
+   
     console.log(arrayFiles); // On configure notre mail à envoyer par nodemailer
     console.log("Reply NodeMailer Config");
-
     const mailOptions = {
       from: '"Fred Foo 👻", process.env.USER_NODMAILER',
-      // to: req.body.mail,
-      to: "soukainataa1987@gmail.com",
+      to: req.body.mail,
+      // to: "soukainataa1987@gmail.com",
       // subject: req.body.sujet,
       // firstname: req.body.firstname,
       // text: req.body.message,
