@@ -5,6 +5,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import { urlImg } from "utils/url";
 
 import { useDispatch } from "react-redux";
 import {
@@ -102,6 +103,8 @@ export default function FormProfilEmployer(props) {
     buttonProfilVisible,
   } = props;
 
+
+  // console.log("dataProfilEmployer",dataProfilEmployer)
   const dispatch = useDispatch();
 
   //constante pour mettre les input soit readOnly soit editable
@@ -123,6 +126,7 @@ export default function FormProfilEmployer(props) {
   // Declaration des constantes pour le formulaire
   const [stateImgUpload, setStateImgUpload] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [avatarSelect, setAvatarSelect] = useState("");
   const [name, setFactoryName] = useState("");
   const [siret, setSiret] = useState("");
   const [siren, setSiren] = useState("");
@@ -136,6 +140,7 @@ export default function FormProfilEmployer(props) {
   const setUseState = () => {
     setStateImgUpload("");
     setAvatar(dataProfilEmployer.avatar);
+    setAvatarSelect(false);
     setSiret(dataProfilEmployer.siret);
     setSiren(dataProfilEmployer.siren);
     setFactoryName(dataProfilEmployer.name);
@@ -198,7 +203,9 @@ export default function FormProfilEmployer(props) {
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      setAvatar(reader.result);
+      setAvatarSelect(true);
+      setAvatar(e.target.files[0]);
+      // console.log("avatar",avatar)
     };
     reader.readAsDataURL(file);
   };
@@ -230,9 +237,10 @@ export default function FormProfilEmployer(props) {
 
       setStateImgUpload("");
       // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
-      if (formSubmit === "modified")
-        await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
+      console.log("formSubmit", formSubmit);
       if (formSubmit === "create")
+        await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
+      if (formSubmit === "modified")
         await dispatch(putFormProfilEmployer(dataFormProfilEmployer));
     }
   };
@@ -272,7 +280,7 @@ export default function FormProfilEmployer(props) {
               alignItems="center"
             >
               <Grid item xs={12}>
-                {avatar ? <Img alt="imageEmployer" src={avatar} /> : <Img />}
+                {avatarSelect ? <Img alt="imageEmployer" src={avatar} /> : <Img alt="imageEmployer" src={urlImg + avatar} />}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
                 )}
@@ -289,7 +297,7 @@ export default function FormProfilEmployer(props) {
                   <TextField
                     sx={{ display: "none" }}
                     size="small"
-                    type="file"
+                    type="file"                  
                     inputProps={{ accept: "image/*" }}
                     onChange={(e) => handleImageChange(e)}
                   />

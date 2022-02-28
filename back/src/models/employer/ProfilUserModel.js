@@ -170,7 +170,7 @@ ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
       { id },
       (error, data) => {
         if (error) throw error;
-        result(null, data);
+        result(null, data[0]);
         // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
@@ -220,7 +220,7 @@ ProfilUserCompagny.createProfilCompagny = function (
           { user_id },
           (error, data) => {
             if (error) throw error;
-            result(null, data);
+            result(null, data[0]);
             // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
           }
         );
@@ -277,7 +277,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
           { user_id },
           (error, data) => {
             if (error) throw error;
-            result(null, data);
+            result(null, data[0]);
             // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
           }
         );

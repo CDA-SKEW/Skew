@@ -14,7 +14,7 @@ const pathAvatar = "public/images/avatar/",
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
-    // console.log("controller get Profil user Employeur");
+    console.log("controller get Profil user Employeur");
 
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
@@ -233,37 +233,41 @@ class EmployerProfilControllers {
     //   "controller update Profil Employeur",
     //   req.body, "req.params",req.params.id
     // );
-    //  console.log("reqfile", req.file)
-    // console.log("reqbody", req.body)
+     console.log("reqfile", req.file)
+    console.log("reqbody", req.body)
 
-    let index = req.file.mimetype.indexOf("image");
-    if (index !== -1) {
-      // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
-      const pathImgWebp = path.resolve(
-        pathAvatar +
-          req.file.filename.split(".").slice(0, -1).join(".") +
-          ".webp"
-      );
-      // console.log("pathImgWebp", pathImgWebp);
-      const pathAvatarWebp = path.resolve(
-        pathAvatar + "avatar_user_" + req.params.id + ".webp"
-      );
-      // console.log("pathAvatarWebp", pathAvatarWebp);
 
-      setTimeout(function () {
-        //ici on rename le file convertit en webp avec le nouveau nom
-        func.renameFile(pathImgWebp, pathAvatarWebp);
-      }, 600); //delay is in milliseconds
-    }
+    if (req.params.id>0) {
 
-    if (req.params.id && req.file) {
+      if (req.file) {
       // console.log("post Profil Compagny Employeur", req.body);
+
+      let index = req.file.mimetype.indexOf("image");
+      if (index !== -1) {
+        // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+        const pathImgWebp = path.resolve(
+          pathAvatar +
+            req.file.filename.split(".").slice(0, -1).join(".") +
+            ".webp"
+        );
+        // console.log("pathImgWebp", pathImgWebp);
+        const pathAvatarWebp = path.resolve(
+          pathAvatar + "avatar_user_" + req.params.id + ".webp"
+        );
+        // console.log("pathAvatarWebp", pathAvatarWebp);
+  
+        setTimeout(function () {
+          //ici on rename le file convertit en webp avec le nouveau nom
+          func.renameFile(pathImgWebp, pathAvatarWebp);
+        }, 600); //delay is in milliseconds
+      }
+
+      
       let profilUserCompagnyObj = new ProfilUserCompagny({
         user_id: req.params.id,
         avatar: pathAvatarDb + "avatar_user_" + req.params.id + ".webp",
         ...req.body,
       });
-      // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
         ProfilUserCompagny.updateProfilCompagny(
@@ -289,6 +293,39 @@ class EmployerProfilControllers {
       } catch (error) {
         throw error;
       }
+
+    } else {
+      let profilUserCompagnyObj = new ProfilUserCompagny({
+        user_id: req.params.id,
+        ...req.body,
+      });
+
+            // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
+            try {
+              ProfilUserCompagny.updateProfilCompagny(
+                profilUserCompagnyObj,
+                (err, data) => {
+                  //Si erreur alors affiche console log erreur et res.status
+                  if (err) {
+                    console.log("err", err),
+                      res.status(500).send({
+                        message: err.message || "Une erreur est survenue",
+                      });
+                  } else {
+                    //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+                    return res.json({
+                      method: req.method,
+                      status: "success",
+                      message: "Votre profil entreprise a été modifié",
+                      dataProfilEmployer: data,
+                    });
+                  }
+                }
+              );
+            } catch (error) {
+              throw error;
+            }
+    }
     } else res.json("Error Request");
   }
 }

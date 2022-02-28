@@ -1,7 +1,7 @@
 /*
  * Import - Module
  * *************** */
-import { apiSiret } from "configs/axios";
+import { apiSiret, api } from "configs/axios";
 import {
   DELETE_OFFER,
   GET_API_SIRET,
@@ -24,17 +24,19 @@ import pdf1 from "assets/documents/Cours_SQL.pdf";
 import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
 
 
-const dataDefault = {
-  user_id: 1,
-  name: "Buno & Co",
-  zipCode: "85600",
-  siren: "356454356",
-  siret: "40976852000135",
-  address: "21 fze fzefjzpej",
-  category: "fvevfeqrg",
-  town: "Bonnetable",
-  avatar: imageEmployer,
-};
+const id = 4
+
+// const dataDefault = {
+//   user_id: 1,
+//   name: "Buno & Co",
+//   zipCode: "85600",
+//   siren: "356454356",
+//   siret: "40976852000135",
+//   address: "21 fze fzefjzpej",
+//   category: "fvevfeqrg",
+//   town: "Bonnetable",
+//   avatar: imageEmployer,
+// };
 // const dataDefault = {
 // }
 const message = "Votre offre a bien été publiée !"
@@ -758,16 +760,22 @@ export const getApiSiret = (siretNumber) => {
 
 // get profil employer
 export const getProfilEmployer = () => {
+  // console.log("getProfilEmployer action store ");
   return (dispatch) => {
-    // console.log("GET_PROFIL_EMPLOYER action", data);
-    dispatch({ type: GET_PROFIL_EMPLOYER, payload: dataDefault });
+    return api
+      .get(`/employer/profil/${ id }`)
+      .then((res) => {
+        // console.log("return api getProfilEmployer action store", res.data);
+        dispatch({ type: GET_PROFIL_EMPLOYER, payload: res.data});
+      })
+      .catch((err) => console.log(err));
   };
 };
 
 // Post profil employer
 export const postFormProfilEmployer = (data) => {
   return (dispatch) => {
-    // console.log("POST_PROFIL_EMPLOYER action", data);
+        // console.log("POST_PROFIL_EMPLOYER action", data);
     dispatch({ type: POST_PROFIL_EMPLOYER, payload: data });
   };
 };
@@ -775,10 +783,18 @@ export const postFormProfilEmployer = (data) => {
 // Put profil employer
 export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
-    // console.log("PUT_PROFIL_EMPLOYER action", data);
-    dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data });
+    console.log("PUT_PROFIL_EMPLOYER action", data);
+    return api
+      .put(`/employer/profil/${id}`, data)
+      .then((res) => {
+        console.log("PUT_PROFIL_EMPLOYER action", res.data);
+        dispatch({ type: PUT_PROFIL_EMPLOYER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
+
   };
 };
+
 
 export const getProfilUser = () => {
   return (dispatch) => {
