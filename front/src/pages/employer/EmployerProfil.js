@@ -20,7 +20,7 @@ const EmployerProfil = () => {
     // console.log("effect getDataProfilEmployerEmployer")
       dispatch(getProfilEmployer());
       dispatch(getProfilUser());
-  }, []);
+  },[]);
 
   //dispatch(getProfilEmployer());
 

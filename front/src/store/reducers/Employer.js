@@ -11,13 +11,17 @@ const initialState = {
   dataProfilUser: {},
   dataOffers: [],
   dataSiretApi: {},
-  flashs: {},
+  flash: "",
+  statusMessage: "",
 };
+
 
 /*
  * Reducers
  * ******** */
 export function EmployerReducer(state = initialState, action) {
+  // const messageError = ""
+
   switch (action.type) {
     default:
       return state;
@@ -38,10 +42,10 @@ export function EmployerReducer(state = initialState, action) {
       };
 
     case Actions.PUT_PROFIL_EMPLOYER:
-      console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
+      // console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload);
       return {
-        // flash: action.payload.flash,
         ...state,
+        flash: action.payload.message,
         dataProfilEmployer: action.payload.dataProfilEmployer,
       };
 
@@ -54,19 +58,22 @@ export function EmployerReducer(state = initialState, action) {
       };
 
     case Actions.PUT_PROFIL_USER:
-      // console.log("GET_PROFIL_USER Reducer", action.payload);
+      //  console.log("PUT_PROFIL_USER Reducer", action.payload.message);
       return {
-        // flash: action.payload.flash,
         ...state,
+        flash: action.payload.message,
         dataProfilUser: action.payload.dataProfilUser,
       };
+
     case Actions.PUT_PROFIL_USER_PW:
-      // console.log("GET_PROFIL_USER PW Reducer", action.payload);
+      // console.log("PUT_PROFIL_USER PW Reducer", action.payload)
       return {
-        // flash: action.payload.flash,
         ...state,
-        dataProfilUser: action.payload,
+        statusMessage: action.payload.status,
+        flash: action.payload.message,
+        dataProfilUser: action.payload.dataProfilUser
       };
+
     case Actions.GET_OFFER:
       // console.log("GET_OFFER reducer", action.payload);
       return {
@@ -80,13 +87,13 @@ export function EmployerReducer(state = initialState, action) {
         // flash: action.payload.flash,
         ...state,
         dataOffer: action.payload.data,
-        flashs: action.payload.message,
+        flash: action.payload.message,
       };
     case Actions.POST_MESSAGE_CANDIDATE:
       // console.log("POST_MESSAGE_CANDIDATE reduceur", action.payload);
       return {
         ...state,
-        flashs: action.payload.messagePostCandidate,
+        flash: action.payload.messagePostCandidate,
       };
 
     // Non utilisé dans l'application car profil crée par défaut au register

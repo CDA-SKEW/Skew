@@ -1134,7 +1134,7 @@ export const getProfilUser = () => {
   return (dispatch) => {
     // console.log("GET_PROFIL_USER action");
     return api
-    .get(`employer/profilUser/${id}`)
+    .get(`/employer/profilUser/${id}`)
     .then((res) => {
       // console.log("return api getProfil User action store", res.data);
       dispatch({ type: GET_PROFIL_USER, payload: res.data });
@@ -1162,9 +1162,17 @@ export const putFormProfilUser = (data) => {
 export const putFormProfilUserPw = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_USER PW action", data);
-    dispatch({ type: PUT_PROFIL_USER_PW, payload: data });
+    return api
+    .put(`/employer/profilUserPw/${id}`, data , {
+    })
+    .then((res) => {
+      // console.log("PUT_PROFIL_EMPLOYER action retour back", res.data);
+      dispatch({ type: PUT_PROFIL_USER_PW, payload: res.data});
+    })
+    .catch((err) => console.log(err));
   };
 };
+
 
 // get offer
 export const getOffer = () => {

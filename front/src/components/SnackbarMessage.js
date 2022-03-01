@@ -2,9 +2,10 @@
 import { Alert, Snackbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Slide from '@mui/material/Slide';
+import { height } from "@mui/system";
 
 export default function SnackbarMessage(props) {
-  const { open, messageEmployer } = props;
+  const { open, message } = props;
 
   //  console.log("je suis dans le modal", open, messageEmployer);
 
@@ -27,9 +28,11 @@ export default function SnackbarMessage(props) {
         sx={{
           bgcolor: "#ABC4FF",
           borderRadius: "10px",
+          minWidth:"300px",
+          height:"50px"
         }}
       >
-        <Typography variant="span">{messageEmployer}</Typography>
+        <Typography variant="span">{message}</Typography>
       </Alert>
     </Snackbar>
   );

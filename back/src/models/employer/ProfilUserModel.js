@@ -24,7 +24,7 @@ const ProfilUserCompagny = function (profilUserCompagny) {
     (this.zipCode = Number(profilUserCompagny.zipCode)),
     (this.avatar = String(profilUserCompagny.avatar)),
     (this.siret = Number(profilUserCompagny.siret));
-  (this.siren = Number(profilUserCompagny.siren)),
+    (this.siren = Number(profilUserCompagny.siren)),
     (this.category = String(profilUserCompagny.category));
 };
 
@@ -107,8 +107,8 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
 
 };
 
-// Update mail in profil employer User (by id)
-ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
+// Update pw in profil employer User (by id)
+ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
   // console.log(
   //   "edit pw in Model:",
   //   "id:",
@@ -130,11 +130,11 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
       `SELECT * FROM user where mail =:mail`,
       { mail },
       (error, data) => {
-        // console.log("data", data[0].pass);
+        // console.log("data", data);
         if (error) throw error;
         // verifie si le mail existe
         if (data.length <= 0) {
-          result(null, { message: "error" }, true);
+          result(null, true);
           conn.release();
         }
         // Compare l'ancien mot de pass ds req.body hachés avec celui dans la db
@@ -155,18 +155,31 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
                   (error, data) => {
                     if (error) throw error;
                     conn.query(
-                      `SELECT id,mail,date_update, date_create
+                      `SELECT id,mail,date_update
                     FROM user WHERE id = :id`,
                       { id },
                       (error, data) => {
                         if (error) throw error;
-                        result(null, data);
+                        result(null, data[0]);
                       }
                     );
                     conn.release();
                   }
                 );
-              } else result(null, { message: "error" }, true);
+              } else 
+              {
+                conn.query(
+                  `SELECT id,mail
+                FROM user WHERE id = :id`,
+                  { id },
+                  (error, data) => {
+                    if (error) throw error;
+                    result(null, data[0], true);
+                  }
+                );
+                conn.release();
+              }
+
             }
           );
       }
