@@ -8,6 +8,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { urlImg } from "utils/url";
 
 import { useDispatch } from "react-redux";
+
 import {
   getApiSiret,
   postFormProfilEmployer,
@@ -15,11 +16,19 @@ import {
 } from "store/actions/EmployerActions";
 import NumberFormat from "react-number-format";
 
+
+const ImgPreview = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "40%",
+  maxHeight: "40%",
+});
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
-  maxWidth: "50%",
-  maxHeight: "50%",
+  maxWidth: "60%",
+  maxHeight: "60%",
 });
 
 //----------------------
@@ -124,23 +133,23 @@ export default function FormProfilEmployer(props) {
   }
 
   // Declaration des constantes pour le formulaire
-  const [stateImgUpload, setStateImgUpload] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [avatarSelect, setAvatarSelect] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState("");
-  const [name, setFactoryName] = useState("");
-  const [siret, setSiret] = useState("");
-  const [siren, setSiren] = useState("");
-  const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [town, setTown] = useState("");
-  const [category, setCategory] = useState("");
-  const [formSubmit, setFormSubmit] = useState("");
+  const [stateImgUpload, setStateImgUpload] = useState();
+  const [avatar, setAvatar] = useState();
+  const [avatarSelect, setAvatarSelect] = useState();
+  const [avatarPreview, setAvatarPreview] = useState();
+  const [name, setFactoryName] = useState();
+  const [siret, setSiret] = useState();
+  const [siren, setSiren] = useState();
+  const [address, setAddress] = useState();
+  const [zipCode, setZipCode] = useState();
+  const [town, setTown] = useState();
+  const [category, setCategory] = useState();
+  const [formSubmit, setFormSubmit] = useState();
 
   // fonction set des useState
   const setUseState = () => {
     setStateImgUpload("");
-    setAvatar(`${urlImg + dataProfilEmployer.avatar}`)
+    setAvatar(dataProfilEmployer.avatar)
     setAvatarSelect(false);
     setAvatarPreview("");
     setSiret(dataProfilEmployer.siret);
@@ -153,10 +162,10 @@ export default function FormProfilEmployer(props) {
   };
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
-  useEffect(() => {
-    // console.log("effect for useState form employer");
-    setUseState();
-  }, [profilNotEditabled]);
+  // useEffect(() => {
+  //   // console.log("effect for useState form employer");
+  //   setUseState();
+  // }, [profilNotEditabled]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
@@ -174,10 +183,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-          " " +
-          dataApiSiret.type_voie +
-          " " +
-          dataApiSiret.libelle_voie
+        " " +
+        dataApiSiret.type_voie +
+        " " +
+        dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -301,9 +310,9 @@ export default function FormProfilEmployer(props) {
             >
               <Grid item xs={12}>
                 {avatarSelect ? (
-                  <Img alt="imageEmployer" src={`${avatarPreview}`} />
+                  <ImgPreview alt="imageEmployer" src={`${avatarPreview}`} />
                 ) : (
-                  <Img alt="imageEmployer" src={`${avatar}`} />
+                  <Img alt="imageEmployer" src={`${urlImg + avatar}`} />
                 )}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>

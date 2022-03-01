@@ -1116,7 +1116,7 @@ export const getApiSiret = (siretNumber) => {
 
 // get profil employer
 export const getProfilEmployer = () => {
-  console.log("getProfilEmployer action store ");
+  // console.log("getProfilEmployer action store ");
   return (dispatch) => {
     return api
       .get(`/employer/profil/${id}`)

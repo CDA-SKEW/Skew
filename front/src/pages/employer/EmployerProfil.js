@@ -14,6 +14,7 @@ import { themeEmployer } from "configs/theme";
 import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerProfil = () => {
+  
   const dispatch = useDispatch();
   useEffect(() => {
     // console.log("effect getDataProfilEmployerEmployer")
