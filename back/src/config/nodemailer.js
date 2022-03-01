@@ -3,7 +3,7 @@
  * ************************ */
 // import nodemailer
 const nodemailer = require("nodemailer");
-const { user } = require("./db");
+const user = require("../models/UserModel");
 
 require("dotenv").config();
 
@@ -237,21 +237,19 @@ module.exports = {
     });
   },
 
-  // Génération de la page ID (Unique)
   verifMail: (req, res) => {
     // Ici on tcheck notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
     if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
       if (req.params.id == mailOptions.rand) {
-
-        // res.end("<h1>L'email " + mailOptions.to + " est vérifié")
-        res.redirect(process.env.URL + '/verif/'+ mailOptions.rand)
-        res.send({ data: mailOptions})
-      } else {
-        res.end("<h1>Bad Request</h1>")
-      }
-    } else {
-      res.end("<h1>Request is from unknown source")
-    }
+        try {
+          console.log('mailOptions', mailOptions)
+          user.verify(mailOptions, (err, data) => {
+            if (err) res.status(500).send({ flash: err.message || "Une erreur est survenue", });
+            else return res.redirect(process.env.URL + '/#/verif/' + mailOptions.rand)
+          })
+        } catch (error) { throw error; }
+      } else res.end("<h1>Bad Request</h1>")
+    } else res.end("<h1>Request is from unknown source")
   }
 };

@@ -1,13 +1,25 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { verifMail } from "store/actions/AuthActions";
+import { useNavigate } from 'react-router-dom';
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import CircularProgress from '@mui/material/CircularProgress';
 
-export default function VerifAuth () {
-  const isVerified = useSelector(state => state.auth);
+export default function VerifAuth() {
+    
+    // const navigate = useNavigate();
+
+    // setTimeout(() => {
+    //     navigate("/");
+    // }, 5000);
 
     return (
-        <div>
-            <h1>Hello world</h1>
-        </div>
+        <Box>
+            <Typography variant='body1' align='center' sx={{ mt: 20 }}>
+                La vérification de votre compte est prise en compte, nous allons vous rediriger dans quelques secondes.
+            </Typography>
+            <Box sx={{ mt: 10, mx: 'auto', width: 50 }}>
+                <CircularProgress />
+            </Box>
+        </Box>
     );
 };
