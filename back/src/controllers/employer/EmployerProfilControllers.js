@@ -7,8 +7,6 @@ const {
 const func = require("../../utils/function"),
   path = require("path");
 
-const pathAvatar = "public/images/avatar/",
-  pathAvatarDb = "/assets/images/avatar/";
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
@@ -178,8 +176,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-          req.file.filename.split(".").slice(0, -1).join(".") +
-          ".webp"
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(
@@ -229,50 +227,14 @@ class EmployerProfilControllers {
 
   //action modifier profil entreprise
   async updateProfilCompagny(req, res) {
-    //   console.log(
-    //   "controller update Profil Employeur",
-    //   req.body, "req.params",req.params.id
-    // );
-    // console.log("reqfile", req.file)
-    // console.log("reqbody", req.body)
+  let profilUserCompagnyObj;
 
-    let profilUserCompagnyObj;
     if (req.params.id > 0) {
-      // console.log("post Profil Compagny Employeur", req.body);
+      profilUserCompagnyObj = new ProfilUserCompagny({
+        user_id: req.params.id,
+        ...req.body,
+      });
 
-      if (req.file) {
-        let index = req.file.mimetype.indexOf("image");
-        if (index !== -1) {
-          // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
-          const pathImgWebp = path.resolve(
-            pathAvatar +
-              req.file.filename.split(".").slice(0, -1).join(".") +
-              ".webp"
-          );
-          // console.log("pathImgWebp", pathImgWebp);
-          const pathAvatarWebp = path.resolve(
-            pathAvatar + "avatar_user_" + req.params.id + "_" + new Date().getTime() + ".webp"
-          );
-          // console.log("pathAvatarWebp", pathAvatarWebp);
-
-          setTimeout(function () {
-            //ici on rename le file convertit en webp avec le nouveau nom
-            func.renameFile(pathImgWebp, pathAvatarWebp);
-          }, 600); //delay is in milliseconds
-        }
-
-        profilUserCompagnyObj = new ProfilUserCompagny({
-          user_id: req.params.id,
-          avatar: pathAvatarDb + "avatar_user_" + req.params.id + "_" + new Date().getTime() + ".webp",
-          ...req.body,
-        });
-      } else {
-        profilUserCompagnyObj = new ProfilUserCompagny({
-          user_id: req.params.id,
-          ...req.body,
-        });
-      }
-      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
         ProfilUserCompagny.updateProfilCompagny(
           profilUserCompagnyObj,

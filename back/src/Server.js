@@ -16,7 +16,7 @@ class Server {
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       credentials: true
     }))
-
+   
     // Express static permet de diriger un chemin sur un dossier en particulier
     this.app.use('/assets', express.static('public'))
 
