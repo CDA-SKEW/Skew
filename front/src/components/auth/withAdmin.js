@@ -7,7 +7,7 @@ export default function withAdmin(Component) {
         if (!localStorage.getItem("user_token")) return <Navigate to="/" />;
         else {
             const token = jwt_decode(localStorage.getItem("user_token"));
-            if (token.isAdmin === 1) return <Component />;
+            if (token.isVerified === 1 && token.isBanned === 0 && token.isAdmin === 1) return <Component />;
             else return <Navigate to="/" />;
         }
     };

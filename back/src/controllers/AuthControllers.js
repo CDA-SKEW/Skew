@@ -15,7 +15,7 @@ class AuthControllers {
           res.status(500).send({ flash: err.message || "Une erreur est survenue", });
         } else {
           let token = "visitor";
-          if (data.mail) {
+          if (data.isVerified === 1) {
             token = jwt.sign(
               {
                 id: data.id,
