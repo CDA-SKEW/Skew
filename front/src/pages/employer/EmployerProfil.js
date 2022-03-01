@@ -1,27 +1,24 @@
-import {
-  Button,
-  Container,
-  Popover,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Popover, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 
 import FormProfilEmployer from "components/employer/profil/FormProfilEmployer";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfilEmployer, getProfilUser } from "store/actions/EmployerActions";
+import {
+  getProfilEmployer,
+  getProfilUser,
+} from "store/actions/EmployerActions";
 import FormPersonalEmployer from "components/employer/profil/FormPersonalEmployer";
 import { themeEmployer } from "configs/theme";
 import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerProfil = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer");
-    dispatch(getProfilEmployer());
-    dispatch(getProfilUser());
+    // console.log("effect getDataProfilEmployerEmployer")
+      dispatch(getProfilEmployer());
+      dispatch(getProfilUser());
   }, []);
 
   //dispatch(getProfilEmployer());
@@ -31,9 +28,7 @@ const EmployerProfil = () => {
   );
   // console.log("store dataProfilEmployer page profil", dataProfilEmployer);
 
-  const dataProfilUser = useSelector(
-    (state) => state.employer.dataProfilUser
-  );
+  const dataProfilUser = useSelector((state) => state.employer.dataProfilUser);
   // console.log("store dataProfilUser", dataProfilUser);
 
   const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
@@ -59,10 +54,10 @@ const EmployerProfil = () => {
   return (
     <Container>
       <Box
-              bgcolor={themeEmployer.palette.bgBox.main}
-              borderRadius={3}
-              paddingTop={2}
-              marginTop={2}
+        bgcolor={themeEmployer.palette.bgBox.main}
+        borderRadius={3}
+        paddingTop={2}
+        marginTop={2}
       >
         <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
           <Typography
@@ -181,7 +176,7 @@ const EmployerProfil = () => {
         </Typography>
         {dataProfilUser && (
           <FormPersonalEmployer
-            dataProfilUser ={dataProfilUser}
+            dataProfilUser={dataProfilUser}
             profilPersonnalNotEditabled={profilPersonnalNotEditabled}
             buttonProfilPersonnalVisible={buttonProfilPersonnalVisible}
           />
