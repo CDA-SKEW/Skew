@@ -62,5 +62,16 @@ User.register = function (body, result) {
   });
 };
 
+User.verify = function (data, result) {
+  connection.getConnection(function (error, conn) {
+    if (error) throw error;
+    conn.query(`UPDATE user SET isVerified = 1 WHERE mail = '${data.to}'`, (error, info) => {
+      if (error) throw error;
+      else result(null, 'L\'utilisateur a bien été mis a jour!');
+    })
+    conn.release();
+  })
+}
+
 
 module.exports = User;
