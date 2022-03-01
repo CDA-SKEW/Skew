@@ -97,7 +97,7 @@ CandidatExperience.updateExperienceProfil = function (experienceObj, result) {
 // Delete by ID (row)
 CandidatExperience.deleteExperienceProfil = function (id, result, user_id, experience) {
     connection.getConnection(function (error, conn) {
-        conn.query(`DELETE FROM experience WHERE experience.id = ${id}`, (error, data) => {
+        conn.query(`DELETE FROM experience WHERE experience.id = ${id};`, (error, data) => {
             { user_id, id }
             if (error) throw error;
             conn.query(`SELECT u.id,e.*

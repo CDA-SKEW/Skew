@@ -53,12 +53,12 @@ export function CandidateReducer(state = initialState, action) {
         // flash: action.payload.flash,
         ...state, userProfil: action.payload.userProfil
       };
-    // case Actions.DELETE_PROFIL_CANDIDATE:
-    //   console.log("DELETE_PROFIL_CANDIDATE Reducer", action.payload);
-    //   return {
-    //     // flash: action.payload.flash,
-    //     ...state, dataProfilCandidate: action.payload.dataProfilCandidate, candidatures: action.payload.candidatures.postul
-    //   };
+    case Actions.DELETE_PROFIL_CANDIDATE:
+      console.log("DELETE_PROFIL_CANDIDATE Reducer", action.payload);
+      return {
+        // flash: action.payload.flash,
+        ...state, userProfil: action.payload.userProfil
+      };
   }
 }
 

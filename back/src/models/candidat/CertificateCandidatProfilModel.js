@@ -32,7 +32,7 @@ CandidatCertificate.getCertificateProfil = function (id, result) {
 
 // Create Certificate
 CandidatCertificate.createCertificateProfil = function (newCertificate, result) {
-    const { school, title, year, validate, user_id } = newCertificate
+    const { school, title, year, user_id } = newCertificate
     connection.getConnection(function (error, conn) {
         conn.query(`
         INSERT INTO certificate
@@ -40,10 +40,9 @@ CandidatCertificate.createCertificateProfil = function (newCertificate, result) 
          user_id = :user_id,
             school = :school,
             title = :title,
-            year = :year,
-            validate = :validate
+            year = :year
             ;`,
-            { school, title, year, validate, user_id }
+            { school, title, year, user_id }
             , (error, data) => {
                 if (error) throw error;
                 conn.query(`SELECT u.id,c.*

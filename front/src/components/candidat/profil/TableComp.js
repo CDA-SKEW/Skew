@@ -8,6 +8,8 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { display } from "@mui/system";
+import { getProfilCandidate, deleteFormProfilCandidateSkill, postFormProfilCandidateSkill } from "store/actions/CandidateActions";
+import { useDispatch } from "react-redux";
 
 
 
@@ -15,26 +17,27 @@ export default function ResponsiveGrid(props) {
   const { ListSkill } = props
   const [edit, setEdit] = React.useState(false);
   const [skill, setSkill] = useState("");
+  const dispatch = useDispatch()
 
-  // console.log('ListSkill', ListSkill)
+  // const setUseState = () => {
+  //   setSkill(ListSkill);
+  // };
 
-  const setUseState = () => {
-    setSkill(ListSkill);
-  };
-  // useEffect(() => {
-  //   // console.log("effect for useState form employer");
-  //   setUseState();
-  // }, [dataProfilCandidat]);
+  const handleDelete = (id) => {
+    console.log('id Button Trigger', ListSkill);
+    dispatch(deleteFormProfilCandidateSkill(id))
+    setTimeout(() => dispatch(getProfilCandidate()), 777)
+  }
 
-  const BtnDelete = () => {
-    if (edit === true) return <Button sx={{ color: "red" }} >
+  const BtnDelete = (id) => {
+    if (edit === true) return <Button sx={{ color: "red" }} onClick={() => handleDelete(id)} >
       <DeleteIcon />
     </Button>
     else return;
   };
 
   // ##################################################
-  // Bouton ADD Interest ,Open textfield on click
+  // Bouton ADD Skill,Open textfield on click
   const [addSkill, setAddSkill] = useState("");
 
   const BtnAddSkill = () => {
@@ -43,22 +46,39 @@ export default function ResponsiveGrid(props) {
   }
 
   function AddSkill() {
+    const dispatch = useDispatch()
+    const [form, setForm] = useState({ user_id: 5 })
+
+    const changeForm = (prop) => (event) => {
+      // console.log('change form', prop, event.target.value)
+      setForm({ ...form, [prop]: event.target.value })
+    }
+
+    const submitForm = async (data) => {
+      console.log('SUBMIT', form)
+      await dispatch(postFormProfilCandidateSkill({ ...form }))
+      setAddSkill("");
+      setTimeout(() => dispatch(getProfilCandidate()), 777)
+      setEdit(false) // close editMode
+    }
+
+
     return (
       <Box>
         <Box>
           <TextField
-
             size="small"
             required
             id="outlined-required"
             label="Add Skill"
+            onChange={changeForm('skill')}
           />
           <Button sx={{ color: "black" }} >
             <CheckCircleOutlineIcon />
           </Button>
         </Box>
         <Box>
-          <Button sx={{ color: "green" }} >
+          <Button sx={{ color: "green" }} onClick={() => submitForm()} >
             <CheckCircleOutlineIcon />
             Submit
           </Button>
@@ -90,19 +110,22 @@ export default function ResponsiveGrid(props) {
   function ModeEdit(props) {
     return (
       <Stack direction="column" spacing={2}>
-        {ListSkill.map((el, index) => (
-          <Box>
-            <TextField
-              keyskill
-              size="small"
-              required
-              id="outlined-required"
-              label="Skill"
-              defaultValue={el.skill}
-            />
-            {BtnDelete()}
-          </Box>
-        ))}
+        {ListSkill.map((el, index) => {
+          console.log('loop skill', el)
+          return (
+            <Box>
+              <TextField
+                keyskill
+                size="small"
+                required
+                id="outlined-required"
+                label="Skill"
+                defaultValue={el.skill}
+              />
+              {BtnDelete(el.id)}
+            </Box>
+          )
+        })}
         <Box sx={{ display: 'flex', justifyContent: 'right' }}>
           <Button onClick={(e) => setAddSkill(addSkill === true ? false : true)} sx={{ color: "#004F98", px: 8.5 }} >
             <AddCircleOutlineIcon /><Typography>Add Skill</Typography>

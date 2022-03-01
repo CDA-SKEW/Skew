@@ -43,7 +43,7 @@ Candidat.getProfil = function (user_id, result) {
                             WHERE u.id = :user_id;
                 `, { user_id }, (error, data) => {
                 if (error) throw error;
-                console.log('exp data', data);
+                // console.log('exp data', data);
                 Obj.experience = data
 
                 conn.query(

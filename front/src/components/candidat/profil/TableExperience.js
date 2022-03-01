@@ -21,8 +21,8 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidateExperience } from "store/actions/CandidateActions";
-
+import { getProfilCandidate, postFormProfilCandidateExperience, putFormProfilCandidateExperience, deleteFormProfilCandidateExperience } from "store/actions/CandidateActions";
+import { useNavigate } from "react-router";
 
 
 
@@ -77,13 +77,11 @@ export default function TableExperience(props) {
     const { data } = props
     const dispatch = useDispatch()
     const [form, setForm] = useState({ ...data })
-
+    const navigate = useNavigate();
     // console.log('ModeEdit', form)
 
     const handleChange = (prop) => (event) => {
-      // console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
-      // console.log('end form', form)
     }
 
     const submitForm = () => {
@@ -92,6 +90,10 @@ export default function TableExperience(props) {
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
     }
+    // const handleDelete = (id) => {
+    //   console.log('id', id);
+    //   dispatch(deleteFormProfilCandidate(id))
+    // }
 
     // console.log('mode edit comp', data)
 
@@ -190,13 +192,12 @@ export default function TableExperience(props) {
     const [form, setForm] = useState({ user_id: 5 })
 
     const changeForm = (prop) => (event) => {
-      console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
     }
 
     const submitForm = async (data) => {
-      console.log('SUBMIT', form)
-      await dispatch(postFormProfilCandidate({ ...form }))
+      // console.log('SUBMIT', form)
+      await dispatch(postFormProfilCandidateExperience({ ...form }))
       setCompagny("");
       setJob("");
 
@@ -287,7 +288,12 @@ export default function TableExperience(props) {
   function Row(props) {
     const { row, str } = props
     const [open, setOpen] = React.useState(false);
-
+    const dispatch = useDispatch()
+    const handleDelete = () => {
+      console.log('id Button Trigger ROW', row);
+      dispatch(deleteFormProfilCandidateExperience(row.id))
+      setTimeout(() => dispatch(getProfilCandidate()), 777)
+    }
 
     /*const ActionBtn trigger only if mode edit is true & the btn open the edit row */
 
@@ -297,7 +303,7 @@ export default function TableExperience(props) {
         <BorderColorIcon />
       </Button>
 
-        <Button sx={{ color: "red", m: 2 }} >
+        <Button sx={{ color: "red", m: 2 }} onClick={() => handleDelete()} >
           <DeleteIcon />
         </Button>
       </Box>

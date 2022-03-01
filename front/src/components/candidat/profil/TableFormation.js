@@ -21,15 +21,13 @@ import Select from '@mui/material/Select';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import { getProfilCandidate } from "store/actions/CandidateActions";
+import { getProfilCandidate, postFormProfilCandidateCertificate, putFormProfilCandidateCertificate, deleteFormProfilCandidateCertificate } from "store/actions/CandidateActions";
 import { add } from "date-fns";
 
 
 
 export default function TableFormation(props) {
-    const { ListCertificate
-
-    } = props
+    const { ListCertificate } = props
     const [edit, setEdit] = React.useState(false);
     const [openAdd, setOpenAdd] = React.useState(false);
 
@@ -130,7 +128,10 @@ export default function TableFormation(props) {
         }
 
         const submitForm = () => {
-            dispatch((form))
+            // console.log('SUBMIT Experience', form)
+            dispatch(putFormProfilCandidateCertificate({ ...form }))
+            setTimeout(() => dispatch(getProfilCandidate()), 777)
+            setEdit(false) // close editMode
         }
 
         // console.log('mode edit comp', data)
@@ -206,18 +207,24 @@ export default function TableFormation(props) {
     //Mode add Experience Component
 
     function ModeAdd(props) {
-        const { data } = props
+        // const { data } = props
         const dispatch = useDispatch()
-        const [form, setForm] = useState({})
+        const [form, setForm] = useState({ user_id: 5 })
 
         const changeForm = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
         }
 
-        const submitForm = () => {
-            dispatch(getProfilCandidate(form))
+        const submitForm = async (data) => {
+            console.log('SUBMIT', form)
+            await dispatch(postFormProfilCandidateCertificate({ ...form }))
+            setSchool("");
+            setTitle("");
+            setYear("");
+            setValidate("");
+            setTimeout(() => dispatch(getProfilCandidate()), 777)
+            setEdit(false) // close editMode
         }
-
         // console.log('mode edit comp', data)
 
         return (
@@ -231,7 +238,7 @@ export default function TableFormation(props) {
                         size="small"
                         id="outlined-required"
                         label="School"
-                        // onChange={() => changeForm('company')}
+                        onChange={changeForm('shcool')}
                         defaultValue={""}
                     />
 
@@ -243,7 +250,7 @@ export default function TableFormation(props) {
                         required
                         size="small"
                         id="outlined-required"
-                        // onChange={() => changeForm('company')}
+                        onChange={changeForm('title')}
                         label="Title"
                         defaultValue={""}
                     />
@@ -285,7 +292,12 @@ export default function TableFormation(props) {
     function Row(props) {
         const { row, str } = props
         const [open, setOpen] = React.useState(false);
-
+        const dispatch = useDispatch()
+        const handleDelete = () => {
+            console.log('id Button Trigger ROW', row);
+            dispatch(deleteFormProfilCandidateCertificate(row.id))
+            setTimeout(() => dispatch(getProfilCandidate()), 777)
+        }
 
         /*const ActionBtn trigger only if mode edit is true & the btn open the edit row */
 
@@ -295,7 +307,7 @@ export default function TableFormation(props) {
                 <BorderColorIcon />
             </Button>
 
-                <Button sx={{ color: "red", }} >
+                <Button sx={{ color: "red", }} onClick={() => handleDelete()}>
                     <DeleteIcon />
                 </Button>
             </Box>
