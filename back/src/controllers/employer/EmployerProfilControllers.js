@@ -12,7 +12,7 @@ const func = require("../../utils/function"),
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
-    console.log("controller get Profil user Employeur");
+    // console.log("controller get Profil user Employeur");
 
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
@@ -56,7 +56,7 @@ class EmployerProfilControllers {
       // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editMail(profilUserObj, (err, data) => {
+        ProfilUser.editMail(profilUserObj, req.body.oldmail, (err, data) => {
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
             console.log("err", err),

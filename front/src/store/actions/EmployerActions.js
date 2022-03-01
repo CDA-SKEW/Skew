@@ -25,26 +25,9 @@ import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
 
 const id = 4;
 
-// const dataDefault = {
-//   user_id: 1,
-//   name: "Buno & Co",
-//   zipCode: "85600",
-//   siren: "356454356",
-//   siret: "40976852000135",
-//   address: "21 fze fzefjzpej",
-//   category: "fvevfeqrg",
-//   town: "Bonnetable",
-//   avatar: imageEmployer,
-// };
-// const dataDefault = {
-// }
 const message = "Votre offre a bien été publiée !";
 const messagePostCandidate = "Votre mail a bien été envoyé !";
 
-const dataDefaultID = {
-  user_id: 1,
-  mail: "wilfried.cda@gmail.com",
-};
 
 const offers = [
   {
@@ -1128,18 +1111,10 @@ export const getProfilEmployer = () => {
   };
 };
 
-// Post profil employer
-export const postFormProfilEmployer = (data) => {
-  return (dispatch) => {
-    // console.log("POST_PROFIL_EMPLOYER action", data);
-    dispatch({ type: POST_PROFIL_EMPLOYER, payload: data });
-  };
-};
-
 // Put profil employer
 export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
-    console.log("PUT_PROFIL_EMPLOYER action",data);
+    // console.log("PUT_PROFIL_EMPLOYER action",data);
     return api
       .put(`/employer/profil/${id}`, data , {
         headers: {
@@ -1147,24 +1122,39 @@ export const putFormProfilEmployer = (data) => {
         },
       })
       .then((res) => {
-        console.log("PUT_PROFIL_EMPLOYER action", res.data);
+        // console.log("PUT_PROFIL_EMPLOYER action", res.data);
         dispatch({ type: PUT_PROFIL_EMPLOYER, payload: res.data });
       })
       .catch((err) => console.log(err));
   };
 };
 
+// get profil user
 export const getProfilUser = () => {
   return (dispatch) => {
     // console.log("GET_PROFIL_USER action");
-    dispatch({ type: GET_PROFIL_USER, payload: dataDefaultID });
+    return api
+    .get(`employer/profilUser/${id}`)
+    .then((res) => {
+      // console.log("return api getProfil User action store", res.data);
+      dispatch({ type: GET_PROFIL_USER, payload: res.data });
+    })
+    .catch((err) => console.log(err));
   };
 };
-// Put profil User
+
+// Put profil User email
 export const putFormProfilUser = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_USER action", data);
-    dispatch({ type: PUT_PROFIL_USER, payload: data });
+    return api
+    .put(`/employer/profilUser/${id}`, data , {
+    })
+    .then((res) => {
+      // console.log("PUT_PROFIL_EMPLOYER action", res.data);
+      dispatch({ type: PUT_PROFIL_USER, payload: res.data});
+    })
+    .catch((err) => console.log(err));
   };
 };
 
@@ -1221,3 +1211,12 @@ export const postMessageCandidate = (data) => {
     });
   };
 };
+
+// Non utilisé dans l'application car profil crée par défaut au register
+// Post profil employer
+// export const postFormProfilEmployer = (data) => {
+//   return (dispatch) => {
+//     // console.log("POST_PROFIL_EMPLOYER action", data);
+//     dispatch({ type: POST_PROFIL_EMPLOYER, payload: data });
+//   };
+// };
