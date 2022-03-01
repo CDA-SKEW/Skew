@@ -121,20 +121,18 @@ export default function TableFormation(props) {
     function ModeEdit(props) {
         const { data } = props
         const dispatch = useDispatch()
-        const [form, setForm] = useState({})
+        const [form, setForm] = useState({ ...data })
 
-        const changeForm = (prop) => (event) => {
+        const handleChange = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
         }
 
         const submitForm = () => {
-            // console.log('SUBMIT Experience', form)
+            console.log('SUBMIT Certificate UPDATE', form)
             dispatch(putFormProfilCandidateCertificate({ ...form }))
             setTimeout(() => dispatch(getProfilCandidate()), 777)
             setEdit(false) // close editMode
         }
-
-        // console.log('mode edit comp', data)
 
         return (
             <TableRow>
@@ -147,7 +145,7 @@ export default function TableFormation(props) {
                         size="small"
                         id="outlined-required"
                         label="School"
-                        onChange={() => changeForm('school')}
+                        onChange={handleChange('school')}
                         defaultValue={data.school}
                     />
                 </TableCell>
@@ -156,7 +154,7 @@ export default function TableFormation(props) {
 
                     <TextField
                         fullWidth
-                        onChange={() => changeForm('title')}
+                        onChange={handleChange('title')}
                         maxRows={4}
                         required
                         size="small"
@@ -216,7 +214,6 @@ export default function TableFormation(props) {
         }
 
         const submitForm = async (data) => {
-            console.log('SUBMIT', form)
             await dispatch(postFormProfilCandidateCertificate({ ...form }))
             setSchool("");
             setTitle("");
@@ -238,7 +235,7 @@ export default function TableFormation(props) {
                         size="small"
                         id="outlined-required"
                         label="School"
-                        onChange={changeForm('shcool')}
+                        onChange={changeForm('school')}
                         defaultValue={""}
                     />
 

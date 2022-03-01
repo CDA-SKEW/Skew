@@ -12,23 +12,23 @@ const CandidatCertificate = function (certificate) {
 };
 
 // Get ID
-CandidatCertificate.getCertificateProfil = function (id, result) {
-    connection.getConnection(function (error, conn) {
-        if (error) throw error;
-        conn.query(
-            `SELECT u.id,c.*
-            FROM user as u
-            INNER JOIN certificate as c
-            ON u.id = user_id
-            WHERE u.id = ${id};`,
+// CandidatCertificate.getCertificateProfil = function (id, result) {
+//     connection.getConnection(function (error, conn) {
+//         if (error) throw error;
+//         conn.query(
+//             `SELECT u.id,c.*
+//             FROM user as u
+//             INNER JOIN certificate as c
+//             ON u.id = user_id
+//             WHERE u.id = ${id};`,
 
-            (error, data) => {
-                if (error) throw error;
-                result(null, data);
-                conn.release();
-            });
-    });
-};
+//             (error, data) => {
+//                 if (error) throw error;
+//                 result(null, data);
+//                 conn.release();
+//             });
+//     });
+// };
 
 // Create Certificate
 CandidatCertificate.createCertificateProfil = function (newCertificate, result) {
@@ -61,7 +61,7 @@ CandidatCertificate.createCertificateProfil = function (newCertificate, result) 
 
 // // Edit One
 CandidatCertificate.updateCertificateProfil = function (certificateObj, result) {
-    const { school, title, year, validate, user_id, id } = certificateObj
+    const { school, title, year, user_id, id } = certificateObj
     console.log("edit", certificateObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
@@ -70,10 +70,9 @@ CandidatCertificate.updateCertificateProfil = function (certificateObj, result) 
             user_id= :user_id,
             school = :school,
             title = :title,
-            year = :year,
-            validate = :validate
+            year = :year
             WHERE certificate.id = :id;`,
-            { school, title, year, validate, user_id, id }
+            { school, title, year, user_id, id }
             , (error, data) => {
                 if (error) throw error;
                 conn.query(`SELECT u.id,c.*

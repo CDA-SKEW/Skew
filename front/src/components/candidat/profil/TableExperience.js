@@ -77,26 +77,18 @@ export default function TableExperience(props) {
     const { data } = props
     const dispatch = useDispatch()
     const [form, setForm] = useState({ ...data })
-    const navigate = useNavigate();
-    // console.log('ModeEdit', form)
+    // const navigate = useNavigate();
+
 
     const handleChange = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
     }
 
     const submitForm = () => {
-      // console.log('SUBMIT Experience', form)
       dispatch(putFormProfilCandidateExperience({ ...form }))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
     }
-    // const handleDelete = (id) => {
-    //   console.log('id', id);
-    //   dispatch(deleteFormProfilCandidate(id))
-    // }
-
-    // console.log('mode edit comp', data)
-
     return (
       <TableRow>
 
@@ -200,7 +192,6 @@ export default function TableExperience(props) {
       await dispatch(postFormProfilCandidateExperience({ ...form }))
       setCompagny("");
       setJob("");
-
       setDateStart("");
       setDateEnd("");
       setTimeout(() => dispatch(getProfilCandidate()), 777)
