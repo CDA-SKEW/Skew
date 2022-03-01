@@ -82,7 +82,7 @@ export default function FormPasswordChange(props) {
       // );
 
       //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue
-        console.log("je suis dans le succes")
+        // console.log("je suis dans le succes")
         setOpenModal(true);
         setTimeout(function () {
           setOpenModal(false)
