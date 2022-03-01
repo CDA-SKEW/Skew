@@ -6,16 +6,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export default function VerifAuth() {
     
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    // setTimeout(() => {
-    //     navigate("/");
-    // }, 5000);
+    setTimeout(() => {
+        navigate("/");
+    }, 3000);
 
     return (
         <Box>
             <Typography variant='body1' align='center' sx={{ mt: 20 }}>
-                La vérification de votre compte est prise en compte, nous allons vous rediriger dans quelques secondes.
+                Votre compte est vérifié, vous allez être redirigé vers la page d'accueil pour vous connecter.
             </Typography>
             <Box sx={{ mt: 10, mx: 'auto', width: 50 }}>
                 <CircularProgress />

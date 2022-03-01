@@ -180,11 +180,11 @@ module.exports = {
       <strong>Félicitation, votre compte est créé !</strong>
       <br><br>
 
-      <a href=" ` + link + ` ">Click here to verify</a>
-
       <div>
-        Il ne reste plus qu'a cliquer sur ce lien pour valider votre inscription.
+        Pour finaliser votre inscription, il ne reste plus qu'a cliquer sur ce lien.
       </div>
+
+      <a href=" ` + link + ` ">Click here to verify</a>
 
 
       <br><br>
