@@ -29,7 +29,7 @@ User.getListUsers = function (result) {
     /* Requête SQL pour afficher tous les Users 
     de la table user de la DB Skew */
     conn.query(
-      `SELECT u.*, c.name, c.lastname FROM user as u
+      `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
       INNER JOIN  contactProfil  as c
       ON u.id = c.user_id;
 `,
@@ -63,7 +63,8 @@ User.getListUsers = function (result) {
 User.putUser = function (user, result) {
   console.log("Method UPDATE Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = user;
+  const { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur, badge } =
+    user;
   connection.getConnection(function (error, conn) {
     console.log(
       "isBanned",
@@ -85,12 +86,12 @@ User.putUser = function (user, result) {
        `,
       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
       // situé dans ConnectionDb.js dans dossier config
-      { isVerified, isBanned, isAdmin, isCandidat, isRecruteur, id },
+      { isVerified, isBanned, isAdmin, isCandidat, isRecruteur, badge, id },
       (error, data) => {
         console.log(id, isBanned);
         if (error) throw error;
         conn.query(
-          `SELECT u.*, c.name, c.lastname FROM user as u
+          `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
           INNER JOIN  contactProfil  as c
           ON u.id = c.user_id;
     `,
@@ -101,9 +102,43 @@ User.putUser = function (user, result) {
             else result(null, data);
           }
         );
-        // if (error) throw error;
-        // result(null, data);
         // console.log("data", data);
+      }
+    );
+    conn.release();
+  });
+};
+
+// Update User
+User.putBadge = function (user, result) {
+  console.log("Method UPDATE Model User", user);
+  //Declarations des constantes de user pour mysql
+  const { id, badge } = user;
+  connection.getConnection(function (error, conn) {
+    console.log("Badge", badge);
+    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+    conn.query(
+      `UPDATE contactProfil
+      set badge = :badge
+      WHERE user_id = :id;
+       `,
+      //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
+      // situé dans ConnectionDb.js dans dossier config
+      { badge, id },
+      (error, data) => {
+        console.log(id, badge);
+        if (error) throw error;
+        conn.query(
+          `SELECT * FROM user;
+    `,
+          (error, data) => {
+            //   Si erreur l'afficher
+            if (error) throw error;
+            //   Sinon afficher les datas
+            else result(null, data);
+          }
+        );
+        console.log("data", data);
       }
     );
     conn.release();
@@ -139,7 +174,6 @@ User.deleteUser = function (user, result) {
         // console.log('data', data)
       }
     );
-
     conn.release();
   });
 };
