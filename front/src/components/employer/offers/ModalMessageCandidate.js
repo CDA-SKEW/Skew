@@ -147,7 +147,7 @@ export default function ModalMessageCandidate(props) {
       </Box>
 
       {openModal && (
-        <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />
+        <SnackbarMessage message={messageEmployer} open={openModal} />
       )}
     </Dialog>
   );

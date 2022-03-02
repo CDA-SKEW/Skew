@@ -24,11 +24,11 @@ const ProfilUserCompagny = function (profilUserCompagny) {
     (this.zipCode = Number(profilUserCompagny.zipCode)),
     (this.avatar = String(profilUserCompagny.avatar)),
     (this.siret = Number(profilUserCompagny.siret));
-  (this.siren = Number(profilUserCompagny.siren)),
+    (this.siren = Number(profilUserCompagny.siren)),
     (this.category = String(profilUserCompagny.category));
 };
 
-// Get profil employer User (by id)
+// Get profil User (by id)
 ProfilUser.getById = function (id, result) {
   // console.log("model Profiluser", id, result)
   //ici on se connect à la base de donnée en appellant le module importé
@@ -42,7 +42,7 @@ ProfilUser.getById = function (id, result) {
       { id },
       (error, data) => {
         if (error) throw error;
-        result(null, data);
+        result(null, data[0]);
         // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
@@ -51,7 +51,7 @@ ProfilUser.getById = function (id, result) {
 };
 
 // Update mail in profil employer User (by id)
-ProfilUser.editMail = function (profilUserObj, result) {
+ProfilUser.editMail = function (profilUserObj, oldMail, result) {
   // console.log(
   //   "edit mail in Model:",
   //   "id:",
@@ -59,39 +59,56 @@ ProfilUser.editMail = function (profilUserObj, result) {
   //   profilUserObj.id,
   //   "mail:",
   //   profilUserObj.mail,
+  //   "oldMail", oldMail
   // );
   //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { mail, id } = profilUserObj;
   //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
-    // ici on fait un update de la colonne mail de la table user par l'ID
     conn.query(
-      `       UPDATE user
-              SET mail=:mail
-              WHERE id =:id
-        `,
-      { mail, id },
+      `SELECT u.mail
+        From user as u
+        WHERE id =:id
+        `, { id },
       (error, data) => {
         if (error) throw error;
         // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-        conn.query(
-          `SELECT id,mail,date_update, date_create
-          FROM user WHERE id = :id`,
-          { id },
-          (error, data) => {
-            if (error) throw error;
-            result(null, data);
-          }
-        );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-        conn.release();
+        // console.log("emailDb", data[0].mail)
+        if (oldMail === data[0].mail) {
+          // console.log("old mail identique")
+          // ici on fait un update de la colonne mail de la table user par l'ID
+          conn.query(
+            `  UPDATE user
+              SET mail=:mail
+              WHERE id =:id
+          `,
+            { mail, id },
+            (error, data) => {
+              if (error) throw error;
+              // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
+              conn.query(
+                `SELECT id,mail,date_update, date_create
+            FROM user WHERE id = :id`,
+                { id },
+                (error, data) => {
+                  if (error) throw error;
+                  result(null, data[0]);
+                }
+              );
+
+            });
+        } else result(null, { message: "error" }, true)
       }
     );
-  });
+    // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+    conn.release();
+  }
+  );
+
 };
 
-// Update mail in profil employer User (by id)
-ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
+// Update pw in profil employer User (by id)
+ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
   // console.log(
   //   "edit pw in Model:",
   //   "id:",
@@ -113,11 +130,11 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
       `SELECT * FROM user where mail =:mail`,
       { mail },
       (error, data) => {
-        // console.log("data", data[0].pass);
+        // console.log("data", data);
         if (error) throw error;
         // verifie si le mail existe
         if (data.length <= 0) {
-          result(null, { message: "error" }, true);
+          result(null, true);
           conn.release();
         }
         // Compare l'ancien mot de pass ds req.body hachés avec celui dans la db
@@ -138,18 +155,31 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result, error) {
                   (error, data) => {
                     if (error) throw error;
                     conn.query(
-                      `SELECT id,mail,date_update, date_create
+                      `SELECT id,mail,date_update
                     FROM user WHERE id = :id`,
                       { id },
                       (error, data) => {
                         if (error) throw error;
-                        result(null, data);
+                        result(null, data[0]);
                       }
                     );
                     conn.release();
                   }
                 );
-              } else result(null, { message: "error" }, true);
+              } else 
+              {
+                conn.query(
+                  `SELECT id,mail
+                FROM user WHERE id = :id`,
+                  { id },
+                  (error, data) => {
+                    if (error) throw error;
+                    result(null, data[0], true);
+                  }
+                );
+                conn.release();
+              }
+
             }
           );
       }
@@ -324,7 +354,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
 };
 
 // Creation profil employer Compagny
-// Non utlisée dans l'application car profil crée par défaut au register
+//  Plus utlisé dans l'application car profil crée par défaut au register
 // Utiliser pour test postman
 ProfilUserCompagny.createProfilCompagny = function (
   profilUserCompagnyObj,

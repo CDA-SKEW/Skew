@@ -7,14 +7,14 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { urlImg } from "utils/url";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   getApiSiret,
-  postFormProfilEmployer,
   putFormProfilEmployer,
 } from "store/actions/EmployerActions";
 import NumberFormat from "react-number-format";
+import SnackbarMessage from "components/SnackbarMessage";
 
 
 const ImgPreview = styled("img")({
@@ -132,6 +132,17 @@ export default function FormProfilEmployer(props) {
     displayButton = "none";
   }
 
+  // declaration des constantes pour le SnackbarMessage
+  const [openModal, setOpenModal] = useState(false);
+  const messageFlash = useSelector((state) => state.employer.flash);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (messageFlash.length>=0) {
+    setMessage(messageFlash);
+    }
+  }, [messageFlash]);
+
   // Declaration des constantes pour le formulaire
   const [stateImgUpload, setStateImgUpload] = useState();
   const [avatar, setAvatar] = useState();
@@ -162,10 +173,10 @@ export default function FormProfilEmployer(props) {
   };
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
-  // useEffect(() => {
-  //   // console.log("effect for useState form employer");
-  //   setUseState();
-  // }, [profilNotEditabled]);
+  useEffect(() => {
+    // console.log("effect for useState form employer");
+    setUseState();
+  }, [profilNotEditabled]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
@@ -267,10 +278,16 @@ export default function FormProfilEmployer(props) {
       setStateImgUpload("");
       // console.log("formData", formData);
       // console.log("formSubmit", formSubmit);
-      if (formSubmit === "create")
-        await dispatch(postFormProfilEmployer(formData));
-      if (formSubmit === "modified")
-        await dispatch(putFormProfilEmployer(formData));
+
+      setOpenModal(true);
+      setTimeout(function () {
+        setOpenModal(false);
+      }, 2000);
+
+      if (formSubmit === "modified") await dispatch(putFormProfilEmployer(formData));
+
+      // Plus utilisé dans l'application car profil crée par défaut au register
+      // if (formSubmit === "create") await dispatch(postFormProfilEmployer(formData));
     }
   };
 
@@ -470,7 +487,58 @@ export default function FormProfilEmployer(props) {
               />
             </Grid>
 
-            {dataProfilEmployer ? (
+            {dataProfilEmployer && (
+              <Grid
+                item
+                xs={10}
+                padding={1}
+                display={"flex"}
+                justifyContent={{ xs: "center", md: "end" }}
+              >
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    bgcolor: "#DC143C",
+                    color: "white",
+                    m: 1,
+                    display: displayButton,
+                  }}
+                  startIcon={
+                    <TaskAltIcon
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    />
+                  }
+                  type="submit"
+                  onClick={() => setFormSubmit("modified")}
+                >
+                  Modifier
+                </Button>
+
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    bgcolor: "gray",
+                    color: "white",
+                    m: 1,
+                    display: displayButton,
+                  }}
+                  startIcon={
+                    <HighlightOffIcon
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    />
+                  }
+                  onClick={(e) => cancelFormProfil()}
+                >
+                  Annuler
+                </Button>
+              </Grid>
+            )}
+
+            {/* Plus utilisé dans l'application car profil crée par défaut au register */}
+            {/* ----------------------------------------------------------------------------------------------- */}
+            {/* {dataProfilEmployer ? (
               <Grid
                 item
                 xs={10}
@@ -564,10 +632,16 @@ export default function FormProfilEmployer(props) {
                   Annuler
                 </Button>
               </Grid>
-            )}
+            )} */}
+            {/* ----------------------------------------------------------------------------------------------- */}
+
           </Grid>
         </Grid>
       </Grid>
+
+      {openModal && (
+        <SnackbarMessage message={message} open={openModal} />
+      )}
     </Box>
   );
 }

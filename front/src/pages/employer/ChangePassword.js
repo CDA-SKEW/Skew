@@ -8,9 +8,12 @@ import React from "react";
 import { themeEmployer } from "configs/theme";
 import FormPasswordChange from "components/FormPasswordChange";
 import withRecruteur from "components/auth/withRecruteur";
+import { useSelector } from "react-redux";
 
-const ChangePassword = (props) => {
-    const { mail } = props
+const ChangePassword = () => {    
+
+    const dataProfilUser = useSelector((state) => state.employer.dataProfilUser);
+    // console.log("store dataProfilUser", dataProfilUser);
 
     return (
         <Container
@@ -44,7 +47,7 @@ const ChangePassword = (props) => {
                     spacing={2}
                 >
                     <Grid item xs={12} sm={12} md={9} xl={6}>
-                        <FormPasswordChange mail={mail} />
+                        <FormPasswordChange dataProfilUser ={dataProfilUser } />
                     </Grid>
                 </Grid>
 

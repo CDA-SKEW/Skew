@@ -11,13 +11,17 @@ const initialState = {
   dataProfilUser: {},
   dataOffers: [],
   dataSiretApi: {},
-  flashs: {},
+  flash: "",
+  statusMessage: "",
 };
+
 
 /*
  * Reducers
  * ******** */
 export function EmployerReducer(state = initialState, action) {
+  // const messageError = ""
+
   switch (action.type) {
     default:
       return state;
@@ -28,6 +32,7 @@ export function EmployerReducer(state = initialState, action) {
         ...state,
         dataSiretApi: action.payload,
       };
+
     case Actions.GET_PROFIL_EMPLOYER:
       // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
       return {
@@ -35,41 +40,40 @@ export function EmployerReducer(state = initialState, action) {
         ...state,
         dataProfilEmployer: action.payload.dataProfilEmployer,
       };
-    case Actions.POST_PROFIL_EMPLOYER:
-      // console.log("POST_PROFIL_EMPLOYER Reducer", action.payload);
-      return {
-        // flash: action.payload.flash,
-        ...state,
-        dataProfilEmployer: action.payload.dataProfilEmployer,
-      };
+
     case Actions.PUT_PROFIL_EMPLOYER:
-      console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
+      // console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload);
+      return {
+        ...state,
+        flash: action.payload.message,
+        dataProfilEmployer: action.payload.dataProfilEmployer,
+      };
+
+    case Actions.GET_PROFIL_USER:
+      // console.log("GET_PROFIL_USER Reducer", action.payload);
       return {
         // flash: action.payload.flash,
         ...state,
-        dataProfilEmployer: action.payload.dataProfilEmployer,
+        dataProfilUser: action.payload.dataProfilUser,
       };
-      case Actions.GET_PROFIL_USER:
-        // console.log("GET_PROFIL_USER Reducer", action.payload);
-        return {
-          // flash: action.payload.flash,
-          ...state,
-          dataProfilUser: action.payload,
-        };
-      case Actions.PUT_PROFIL_USER:
-        // console.log("GET_PROFIL_USER Reducer", action.payload);
-        return {
-          // flash: action.payload.flash,
-          ...state,
-          dataProfilUser: action.payload,
-        };
-        case Actions.PUT_PROFIL_USER_PW:
-          // console.log("GET_PROFIL_USER PW Reducer", action.payload);
-          return {
-            // flash: action.payload.flash,
-            ...state,
-            dataProfilUser: action.payload,
-          };
+
+    case Actions.PUT_PROFIL_USER:
+      //  console.log("PUT_PROFIL_USER Reducer", action.payload.message);
+      return {
+        ...state,
+        flash: action.payload.message,
+        dataProfilUser: action.payload.dataProfilUser,
+      };
+
+    case Actions.PUT_PROFIL_USER_PW:
+      // console.log("PUT_PROFIL_USER PW Reducer", action.payload)
+      return {
+        ...state,
+        statusMessage: action.payload.status,
+        flash: action.payload.message,
+        dataProfilUser: action.payload.dataProfilUser
+      };
+
     case Actions.GET_OFFER:
       // console.log("GET_OFFER reducer", action.payload);
       return {
@@ -83,14 +87,23 @@ export function EmployerReducer(state = initialState, action) {
         // flash: action.payload.flash,
         ...state,
         dataOffer: action.payload.data,
-        flashs: action.payload.message,
+        flash: action.payload.message,
       };
     case Actions.POST_MESSAGE_CANDIDATE:
       // console.log("POST_MESSAGE_CANDIDATE reduceur", action.payload);
       return {
         ...state,
-        flashs: action.payload.messagePostCandidate,
+        flash: action.payload.messagePostCandidate,
       };
+
+    // Non utilisé dans l'application car profil crée par défaut au register
+    // case Actions.POST_PROFIL_EMPLOYER:
+    //   // console.log("POST_PROFIL_EMPLOYER Reducer", action.payload);
+    //   return {
+    //     // flash: action.payload.flash,
+    //     ...state,
+    //     dataProfilEmployer: action.payload.dataProfilEmployer,
+    //   };
   }
 }
 
