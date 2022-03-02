@@ -10,6 +10,7 @@ import {
   deleteMessage,
   replyMessage,
   putUser,
+  putBadge,
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
@@ -36,14 +37,13 @@ import {
 /*------------Export function-------------*/
 
 export default function DeletableChips(props) {
-
-  // console.log("props row table message", props)
+  // console.log("props row table message", props);
   // Transmettre les données du STORE avec dispatch (crud)
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
   const [user, setUser] = React.useState(false);
-  const [form, setForm] = React.useState({...props.id.row});
+  const [form, setForm] = React.useState({ ...props.id.row });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -100,32 +100,10 @@ export default function DeletableChips(props) {
   // Boolean actions operators
   const { columnsBan, columnsDeleteJob, columnsAddMessage, id } = props;
 
-  /* Condition de la fonction: si more est = à true alors 
-  retourner le component DeleteForm sinon retourner div vide */
-  const CheckDelete = () => {
-    if (msg === true) return <DeleteForm />;
-    else return <div></div>;
-  };
-
-  const UserDeleteButton = () => {
-    if (user === true) return <DeleteUser />;
-    else return <div></div>;
-  };
-
-  const submitReplyMessage = (data) => {
-    console.log('form message', data)
-    console.log(form, props);
-    dispatch(replyMessage(form))
-  }
-  // handlechange = Pour changer la valeur d'un input
-  const handleChange = (prop) => (event) => {
-    console.log("handleInput", prop, event.target.value);
-    // Prop = la key du oneChange
-    setForm({ ...form, [prop]: event.target.value });
-  };
-
   /* Transformation d'une fonction en composant conditionel, 
-  elle s'affiche sous une certaine consition*/
+  elle s'affiche sous une certaine consition */
+
+  // Message
   function DeleteForm() {
     return (
       <Box>
@@ -173,6 +151,7 @@ export default function DeletableChips(props) {
     );
   }
 
+  // User
   function DeleteUser() {
     return (
       <Box>
@@ -219,6 +198,35 @@ export default function DeletableChips(props) {
       </Box>
     );
   }
+
+  /* Condition de la fonction: si more est = à true alors 
+  retourner le component DeleteForm sinon retourner div vide */
+
+  // Message
+  const CheckDelete = () => {
+    if (msg === true) return <DeleteForm />;
+    else return <Box></Box>;
+  };
+
+  // User
+  const UserDeleteButton = () => {
+    if (user === true) return <DeleteUser />;
+    else return <Box></Box>;
+  };
+
+  /*-----------------------------------------------------*/
+
+  // MESSAGE: handlechange = Pour changer la valeur d'un input
+  const handleChange = (prop) => (event) => {
+    // console.log("handleInput", prop, event.target.value);
+    // Prop = la key du oneChange
+    setForm({ ...form, [prop]: event.target.value });
+  };
+  const submitReplyMessage = (data) => {
+    // console.log("form message", data);
+    // console.log(form, props);
+    dispatch(replyMessage(form));
+  };
 
   /*--------------Components Chips + Modals------------*/
 
@@ -287,7 +295,6 @@ export default function DeletableChips(props) {
                   </Button>
                 </Stack>
                 {/* Appel de la condition */}
-
                 {UserDeleteButton()}
               </Typography>
             </Box>
@@ -342,7 +349,7 @@ export default function DeletableChips(props) {
                     variant="outlined"
                     color="error"
                     startIcon={<DeleteIcon />}
-                    onClick={() => dispatch(deleteJob(id.row.id))}
+                    onClick={() => dispatch(deleteJob(id.row.offer_id))}
                   >
                     OUI
                   </Button>

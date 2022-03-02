@@ -58,7 +58,7 @@ router
 router.route("/api/contact").post(new ContactControllers().post);
 
 // Offres visiteur
-router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll)
+router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
 
 // Users
 router
@@ -224,8 +224,7 @@ router.route("/api/admin/jobs").get(new JobsController().getListJobs);
 
 router
   .route("/api/admin/jobs/:id")
-  .get(new JobsController().getJobId)
-  .put(new JobsController().putJob)
+  // .get(new JobsController().getJobId)
   .delete(new JobsController().deleteJob);
 
 // Messages
@@ -242,10 +241,10 @@ router
 router.route("/api/admin/users").get(new UsersController().getListUsers);
 router
   .route("/api/admin/users/:id")
-  .get(new UsersController().getUserId)
+  // .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
-
+router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
 
 // Session
 

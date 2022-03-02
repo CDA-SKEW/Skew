@@ -4,11 +4,6 @@ const Job = require("../../models/admin/JobsModel");
 require("dotenv").config();
 
 class JobsController {
-<<<<<<< HEAD
-  async getJobAll(req, res) {
-    // console.log("controller getAllJobs");
-    res.send({ message: "GET JOBS ALL" });
-=======
   // GET ALL JOBS
   // Récupération de la route "getJobAll"
   async getListJobs(req, res) {
@@ -31,16 +26,12 @@ class JobsController {
     } catch (error) {
       throw error;
     }
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
   }
 
   // GET JOB ID
   // Récupération de la route "getJobId"
+
   async getJobId(req, res) {
-<<<<<<< HEAD
-    // console.log("controller getJobId");
-    res.send({ message: "GET JOBS ID" });
-=======
     const { id } = req.params;
     // Essayes cette fonction
     try {
@@ -58,37 +49,55 @@ class JobsController {
     } catch (error) {
       throw error;
     }
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
   }
+  // async getJobId(req, res) {
+  //   const { id } = req.params;
+  //   // Essayes cette fonction
+  //   try {
+  //     // console.log(id, "req.params", { ...req.params });
+  //     Job.getJobId({ id }, (err, data) => {
+  //       // console.log("response controller Job ID", data);
+  //       if (err) res.send({ message: "error in request db" });
+  //       // Sinon retourné cette réponse avec les data
+  //       else
+  //         return res.json({
+  //           job: data,
+  //           message: "The job has been successfully GETTED. !!!",
+  //         });
+  //     });
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   // UPDATE JOB
-  async putJob(req, res) {
-    const { id } = req.params;
-    let { isVerified } = req.body;
-    console.log("isVerified", typeof isVerified, isVerified, Boolean(isVerified));
+  // async putJob(req, res) {
+  //   const { id } = req.params;
+  //   let { isVerified } = req.body;
+  //   console.log("isVerified", typeof isVerified, isVerified, Boolean(isVerified));
 
-    isVerified = isVerified === "true" ? 1 : 0;
+  //   isVerified = isVerified === "true" ? 1 : 0;
 
-    // Essayes cette fonction
-    try {
-      console.log(id, { ...req.body });
-      Job.putJob(
-        { id, isVerified },
-        (err, data) => {
-          // console.log("response controller user ban", data);
-          if (err) res.send({ message: "error in request db" });
-          // Sinon retourner cette réponse avec les data
-          else
-            return res.json({
-              job: data,
-              message: " The job has been successfully UPDATED.!!!",
-            });
-        }
-      );
-    } catch (error) {
-      throw error;
-    }
-  }
+  //   // Essayes cette fonction
+  //   try {
+  //     console.log(id, { ...req.body });
+  //     Job.putJob(
+  //       { id, isVerified },
+  //       (err, data) => {
+  //         // console.log("response controller user ban", data);
+  //         if (err) res.send({ message: "error in request db" });
+  //         // Sinon retourner cette réponse avec les data
+  //         else
+  //           return res.json({
+  //             job: data,
+  //             message: " The job has been successfully UPDATED.!!!",
+  //           });
+  //       }
+  //     );
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   // DELETE JOB
   async deleteJob(req, res) {
