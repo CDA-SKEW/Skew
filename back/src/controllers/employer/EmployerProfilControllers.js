@@ -12,7 +12,7 @@ const func = require("../../utils/function"),
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
-    console.log("controller get Profil user Employeur");
+    // console.log("controller get Profil user Employeur");
 
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
@@ -56,7 +56,7 @@ class EmployerProfilControllers {
       // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editMail(profilUserObj, (err, data) => {
+        ProfilUser.editMail(profilUserObj, req.body.oldmail, (err, data) => {
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
             console.log("err", err),
@@ -68,7 +68,7 @@ class EmployerProfilControllers {
             return res.json({
               method: req.method,
               status: "success",
-              message: "Votre mail a bien été modifié",
+              message: "Votre email a bien été modifié",
               dataProfilUser: data,
             });
           }
@@ -113,6 +113,7 @@ class EmployerProfilControllers {
                 return res.json({
                   method: req.method,
                   status: "error",
+                  message: "Votre ancien mot de passe est incorrect",
                   dataProfilUser: data,
                 });
               } else {
@@ -164,6 +165,46 @@ class EmployerProfilControllers {
     }
   }
 
+  //action modifier profil entreprise
+  async updateProfilCompagny(req, res) {
+    let profilUserCompagnyObj;
+
+    if (req.params.id > 0) {
+      profilUserCompagnyObj = new ProfilUserCompagny({
+        user_id: req.params.id,
+        ...req.body,
+      });
+
+      try {
+        ProfilUserCompagny.updateProfilCompagny(
+          profilUserCompagnyObj,
+          req.file,
+          (err, data) => {
+            //Si erreur alors affiche console log erreur et res.status
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+              return res.json({
+                method: req.method,
+                status: "success",
+                message: "Votre profil entreprise a été modifié",
+                dataProfilEmployer: data,
+              });
+            }
+          }
+        );
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
+  }
+
+  //  Plus utlisé dans l'application car profil crée par défaut au register
+  // Utiliser pour test postman
   //action creation profil entreprise
   async createProfilCompagny(req, res) {
     // console.log(
@@ -214,44 +255,6 @@ class EmployerProfilControllers {
                 method: req.method,
                 status: "success",
                 message: "Votre profil entreprise a été crée",
-                dataProfilEmployer: data,
-              });
-            }
-          }
-        );
-      } catch (error) {
-        throw error;
-      }
-    } else res.json("Error Request");
-  }
-
-  //action modifier profil entreprise
-  async updateProfilCompagny(req, res) {
-  let profilUserCompagnyObj;
-
-    if (req.params.id > 0) {
-      profilUserCompagnyObj = new ProfilUserCompagny({
-        user_id: req.params.id,
-        ...req.body,
-      });
-
-      try {
-        ProfilUserCompagny.updateProfilCompagny(
-          profilUserCompagnyObj,
-          req.file,
-          (err, data) => {
-            //Si erreur alors affiche console log erreur et res.status
-            if (err) {
-              console.log("err", err),
-                res.status(500).send({
-                  message: err.message || "Une erreur est survenue",
-                });
-            } else {
-              //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-              return res.json({
-                method: req.method,
-                status: "success",
-                message: "Votre profil entreprise a été modifié",
                 dataProfilEmployer: data,
               });
             }
