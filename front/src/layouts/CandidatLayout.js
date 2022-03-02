@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import { ThemeProvider } from "@emotion/react";
 import { theme, themeCandidate } from "configs/theme";
 import { AppBar } from '@mui/material';
-import Footer from "components/core/Footer";
 import TopNav from "components/core/navBarUser/TopNav";
 import BackNav from "components/core/navBarUser/BackNav";
 import Fab from '@mui/material/Fab';

@@ -1,7 +1,7 @@
 /*
  * Import - Module
  * *************** */
-import { apiSiret } from "configs/axios";
+import { apiSiret, api } from "configs/axios";
 import {
   DELETE_OFFER,
   GET_API_SIRET,
@@ -23,22 +23,23 @@ import imageEmployer from "assets/images/imageEmployor.png";
 import pdf1 from "assets/documents/Cours_SQL.pdf";
 import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
 
+const id = 4;
 
-const dataDefault = {
-  user_id: 1,
-  name: "Buno & Co",
-  zipCode: "85600",
-  siren: "356454356",
-  siret: "40976852000135",
-  address: "21 fze fzefjzpej",
-  category: "fvevfeqrg",
-  town: "Bonnetable",
-  avatar: imageEmployer,
-};
+// const dataDefault = {
+//   user_id: 1,
+//   name: "Buno & Co",
+//   zipCode: "85600",
+//   siren: "356454356",
+//   siret: "40976852000135",
+//   address: "21 fze fzefjzpej",
+//   category: "fvevfeqrg",
+//   town: "Bonnetable",
+//   avatar: imageEmployer,
+// };
 // const dataDefault = {
 // }
-const message = "Votre offre a bien été publiée !"
-const messagePostCandidate = "Votre mail a bien été envoyé !"
+const message = "Votre offre a bien été publiée !";
+const messagePostCandidate = "Votre mail a bien été envoyé !";
 
 const dataDefaultID = {
   user_id: 1,
@@ -88,11 +89,35 @@ const offers = [
             },
           ],
           skill: ["NODEJS", "MongoDB", "Quasar", "WordPress", "CAN"],
-          interest: ['Foot', 'cerveau lent', 'bricolage', 'Pillier de comptoir'],
+          interest: [
+            "Foot",
+            "cerveau lent",
+            "bricolage",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -129,11 +154,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -170,19 +219,42 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 }
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
           ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
           ],
         },
-      }
-    ]
+      },
+    ],
   },
   {
     offer_id: 2,
@@ -226,11 +298,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -267,11 +363,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -308,11 +428,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -363,11 +507,35 @@ const offers = [
             },
           ],
           skill: ["NODEJS", "MongoDB", "Quasar", "WordPress", "CAN"],
-          interest: ['Foot', 'cerveau lent', 'bricolage', 'Pillier de comptoir'],
+          interest: [
+            "Foot",
+            "cerveau lent",
+            "bricolage",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -404,11 +572,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -445,19 +637,42 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 }
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
           ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
           ],
         },
-      }
-    ]
+      },
+    ],
   },
   {
     offer_id: 4,
@@ -501,11 +716,35 @@ const offers = [
             },
           ],
           skill: ["NODEJS", "MongoDB", "Quasar", "WordPress", "CAN"],
-          interest: ['Foot', 'cerveau lent', 'bricolage', 'Pillier de comptoir'],
+          interest: [
+            "Foot",
+            "cerveau lent",
+            "bricolage",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -542,11 +781,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -583,19 +846,42 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 }
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
           ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
           ],
         },
-      }
-    ]
+      },
+    ],
   },
   {
     offer_id: 5,
@@ -639,11 +925,35 @@ const offers = [
             },
           ],
           skill: ["NODEJS", "MongoDB", "Quasar", "WordPress", "CAN"],
-          interest: ['Foot', 'cerveau lent', 'bricolage', 'Pillier de comptoir'],
+          interest: [
+            "Foot",
+            "cerveau lent",
+            "bricolage",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -680,11 +990,35 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 },],
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
+          ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
@@ -721,19 +1055,42 @@ const offers = [
             },
           ],
           skill: ["HTML", "CSS", "VUEJS", "REACTJS", "FAIRE LE CAFE"],
-          interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
+          interest: [
+            "Planche à voile",
+            "cerveau lent",
+            "Foot",
+            "Pillier de comptoir",
+          ],
           certificate: [
-            { id: 1, school: 'Arinfo', title: 'Developpeur web et web mobile', year: 2021, validate: 1 },
-            { id: 2, school: 'Lycée Estournelle de constant', title: 'BTS électronique', year: 2022, validate: 1 },
-            { id: 3, school: 'Arinfo', title: "Concepteur développeur d'application", year: 2023, validate: 0 }
+            {
+              id: 1,
+              school: "Arinfo",
+              title: "Developpeur web et web mobile",
+              year: 2021,
+              validate: 1,
+            },
+            {
+              id: 2,
+              school: "Lycée Estournelle de constant",
+              title: "BTS électronique",
+              year: 2022,
+              validate: 1,
+            },
+            {
+              id: 3,
+              school: "Arinfo",
+              title: "Concepteur développeur d'application",
+              year: 2023,
+              validate: 0,
+            },
           ],
           document: [
             { name: "cv", url: pdf1 },
             { name: "lettre motivation", url: pdf2 },
           ],
         },
-      }
-    ]
+      },
+    ],
   },
 ];
 
@@ -745,6 +1102,7 @@ const offers = [
 
 // Get Api siret employer
 export const getApiSiret = (siretNumber) => {
+  // console.log("get siret action store ", siretNumber);
   return (dispatch) => {
     return apiSiret
       .get(siretNumber)
@@ -758,9 +1116,15 @@ export const getApiSiret = (siretNumber) => {
 
 // get profil employer
 export const getProfilEmployer = () => {
+  // console.log("getProfilEmployer action store ");
   return (dispatch) => {
-    // console.log("GET_PROFIL_EMPLOYER action", data);
-    dispatch({ type: GET_PROFIL_EMPLOYER, payload: dataDefault });
+    return api
+      .get(`/employer/profil/${id}`)
+      .then((res) => {
+        // console.log("return api getProfilEmployer action store", res.data);
+        dispatch({ type: GET_PROFIL_EMPLOYER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -775,8 +1139,18 @@ export const postFormProfilEmployer = (data) => {
 // Put profil employer
 export const putFormProfilEmployer = (data) => {
   return (dispatch) => {
-    // console.log("PUT_PROFIL_EMPLOYER action", data);
-    dispatch({ type: PUT_PROFIL_EMPLOYER, payload: data });
+    console.log("PUT_PROFIL_EMPLOYER action",data);
+    return api
+      .put(`/employer/profil/${id}`, data , {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log("PUT_PROFIL_EMPLOYER action", res.data);
+        dispatch({ type: PUT_PROFIL_EMPLOYER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -830,7 +1204,10 @@ export const deleteOffer = (id) => {
 export const putActionCandidate = (data) => {
   return (dispatch) => {
     // console.log("PUT_ACTION_CANDIDATE", data);
-    dispatch({ type: PUT_ACTION_CANDIDATE, payload: { data, messagePostCandidate } });
+    dispatch({
+      type: PUT_ACTION_CANDIDATE,
+      payload: { data, messagePostCandidate },
+    });
   };
 };
 
@@ -838,6 +1215,9 @@ export const putActionCandidate = (data) => {
 export const postMessageCandidate = (data) => {
   return (dispatch) => {
     // console.log("POST_MESSAGE_CANDIDATE action", data, messagePostCandidate);
-    dispatch({ type: POST_MESSAGE_CANDIDATE, payload: { data, messagePostCandidate } });
+    dispatch({
+      type: POST_MESSAGE_CANDIDATE,
+      payload: { data, messagePostCandidate },
+    });
   };
 };

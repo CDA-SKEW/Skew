@@ -1,14 +1,18 @@
 // Import Model
 const {
   ProfilUser,
-  ProfilUserCompagny
+  ProfilUserCompagny,
 } = require("../../models/employer/ProfilUserModel");
+
+const func = require("../../utils/function"),
+  path = require("path");
+
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
-    // console.log("controller get Profil user Employeur");
+    console.log("controller get Profil user Employeur");
 
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
@@ -36,7 +40,7 @@ class EmployerProfilControllers {
     }
   }
 
-  //action get Update mail ProfilUser
+  //action Update mail ProfilUser
   async updateProfilUser(req, res) {
     // console.log(
     //   "controller get Profil user Employeur",
@@ -64,11 +68,64 @@ class EmployerProfilControllers {
             return res.json({
               method: req.method,
               status: "success",
-              message: "Votre profil entreprise a bien été modifié",
+              message: "Votre mail a bien été modifié",
               dataProfilUser: data,
             });
           }
         });
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
+  }
+
+  //action Update password ProfilUser
+  async updateProfilUserPw(req, res) {
+    // console.log(
+    //   "controller get Profil PW user Employeur",
+    //   req.body,
+    //   // req.params.id
+    // );
+    if (
+      req.params.id &&
+      req.body.mail &&
+      req.body.password &&
+      req.body.oldPassword
+    ) {
+      // console.log("controller update mail", req.body);
+      let profilUserObj = new ProfilUser({
+        id: req.params.id,
+        mail: req.body.mail,
+        pass: req.body.password,
+      });
+      try {
+        ProfilUser.editPw(
+          profilUserObj,
+          req.body.oldPassword,
+          (err, data, errorModel) => {
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              if (errorModel) {
+                return res.json({
+                  method: req.method,
+                  status: "error",
+                  dataProfilUser: data,
+                });
+              } else {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Votre mot de passe a bien été modifié",
+                  dataProfilUser: data,
+                });
+              }
+            }
+          }
+        );
       } catch (error) {
         throw error;
       }
@@ -114,9 +171,29 @@ class EmployerProfilControllers {
     //   req.body
     // );
 
-    if (req.body.user_id) {
+    let index = req.file.mimetype.indexOf("image");
+    if (index !== -1) {
+      // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+      const pathImgWebp = path.resolve(
+        pathAvatar +
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
+      );
+      // console.log("pathImgWebp", pathImgWebp);
+      const pathAvatarWebp = path.resolve(
+        pathAvatar + "avatar_user_" + req.body.user_id + ".webp"
+      );
+      // console.log("pathAvatarWebp", pathAvatarWebp);
+
+      setTimeout(function () {
+        //ici on rename le file convertit en webp avec le nouveau nom
+        func.renameFile(pathImgWebp, pathAvatarWebp);
+      }, 600); //delay is in milliseconds
+    }
+    if (req.body.user_id && req.file) {
       // console.log("post Profil Compagny Employeur", req.body);
       let profilUserCompagnyObj = new ProfilUserCompagny({
+        avatar: pathAvatarDb + "avatar_user_" + req.body.user_id + ".webp",
         ...req.body,
       });
       // console.log("post Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
@@ -150,33 +227,18 @@ class EmployerProfilControllers {
 
   //action modifier profil entreprise
   async updateProfilCompagny(req, res) {
-    //   console.log(
-    //   "controller update Profil Employeur",
-    //   req.body, "req.params",req.params.id
-    // );
-    //  console.log("reqfile", req.file)
-    // console.log("reqbody", req.body)
-    const pathAvatar = "assets/images/avatar/",
-      pathAvatarDb = "/assets/images/avatar/"
+  let profilUserCompagnyObj;
 
-    // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
-    const pathImgWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + ".webp"
-    // console.log(pathImgWebp)
-    const pathAvatarWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + "_" + req.params.id + ".webp"
-    // console.log(pathAvatarWebp)
-
-
-    if (req.params.id) {
-      // console.log("post Profil Compagny Employeur", req.body);
-      let profilUserCompagnyObj = new ProfilUserCompagny({
+    if (req.params.id > 0) {
+      profilUserCompagnyObj = new ProfilUserCompagny({
         user_id: req.params.id,
         ...req.body,
       });
-      // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
-      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
+
       try {
         ProfilUserCompagny.updateProfilCompagny(
           profilUserCompagnyObj,
+          req.file,
           (err, data) => {
             //Si erreur alors affiche console log erreur et res.status
             if (err) {

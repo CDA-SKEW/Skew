@@ -24,19 +24,14 @@ export const login = (data) => {
         return axios
             .post("http://localhost:3033/api/login", data)
             .then((res) => {
-                if (res.data.success) {
-                    console.log('res;login', res.data, jwt_decode(res.data.token))
+                if (res.data.success === 'success') {
                     if (res.data.token) localStorage["user_token"] = res.data.token;
                     res.data.token = jwt_decode(res.data.token)
                     res.data.authenticate = true
-                    dispatch({
-                        type: LOGIN,
-                        payload: res.data
-                    });
-                } else if (res.data.error) {
-
+                    dispatch({ type: LOGIN, payload: res.data });
                 } else {
-
+                    res.data.authenticate = false
+                    dispatch({ type: LOGIN, payload: res.data });
                 }
             })
             .catch((err) => console.log(err));
@@ -51,7 +46,6 @@ export const checkToken = () => {
             .get(`http://localhost:3033/api/auth/${localStorage["user_token"]}`)
             .then((res) => {
                 if (res.data.user) {
-                    // console.log("check", res.data);
                     dispatch({ type: CHECKTOKEN, payload: res.data });
                 }
             })
