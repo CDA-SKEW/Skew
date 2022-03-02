@@ -34,15 +34,12 @@ class AuthControllers {
               flash: "Login Success!",
               token,
             });
-<<<<<<< HEAD
           } else return res.status(503).json({ error: 'Fils de pul' })
-=======
-          } else return res.status(202).send({
-            success: 'no',
-            flash: data,
-            token: 'no'
-          })
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
+          // } else return res.status(202).send({
+          //   success: 'no',
+          //   flash: data,
+          //   token: 'no'
+          // })
 
         }
       });
@@ -72,10 +69,7 @@ class AuthControllers {
   }
 
   async checkToken(req, res) {
-<<<<<<< HEAD
     // console.log("check", req.params.token);
-=======
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
     const user = jwt.verify(req.params.token, process.env.SIGN_JWT, (err, decoded) => {
       if (err) return;
       return decoded;

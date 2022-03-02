@@ -10,23 +10,35 @@ import { themeEmployer } from "configs/theme";
 import withRecruteur from "components/auth/withRecruteur";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
-import imageEmployer from "assets/images/imageEmployor.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getOffer } from "store/actions/EmployerActions";
-import { useNavigate } from "react-router-dom";
-
 const EmployerDashboard = () => {
 
-  const { nbNotif, nbCandidateReceive, NbMyOffers } = {
+
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getOffer());
+  }, []);
+
+
+  const offers = useSelector(
+    (state) => state.employer.dataOffers.offers
+  );
+
+  let NbMyOffers =[]
+  if (offers) NbMyOffers=offers.length
+
+  const { nbNotif, nbCandidateReceive } = {
     nbNotif: [0, 1, 2, 3, 4, 5],
     nbCandidateReceive: [0, 1, 2, 3],
-    NbMyOffers: [0, 1, 2, 3, 4, 5, 6, 7, 8],
   };
 
   const arrayDash = [
     {
       icon: <LibraryBooksIcon sx={{ width: "35px", height: "35px" }} />,
-      number: NbMyOffers.length,
+      number: NbMyOffers,
       text: "Mes offres déposée",
     },
     {
@@ -41,17 +53,6 @@ const EmployerDashboard = () => {
     },
   ];
 
-  const dispatch = useDispatch();
-
-
-  useEffect(() => {
-    dispatch(getOffer());
-  }, []);
-
-
-  const offers = useSelector(
-    (state) => state.employer.dataOffers
-  );
 
   return (
     <Container
@@ -137,7 +138,7 @@ const EmployerDashboard = () => {
             alignItems: { xs: "center", md: "none" }
           }}
         >
-          {offers.length > 0 &&
+          {offers &&
             offers
               .slice(-3)
               .reverse()
