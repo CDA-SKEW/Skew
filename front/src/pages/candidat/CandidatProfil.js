@@ -8,15 +8,8 @@ import TableComp from "components/candidat/profil/TableComp";
 import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-
-
-
-
-=======
 import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
 import withCandidat from "components/auth/withCandidat";
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
 
 const CandidatProfil = () => {
 
