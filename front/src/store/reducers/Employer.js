@@ -29,25 +29,25 @@ export function EmployerReducer(state = initialState, action) {
         dataSiretApi: action.payload,
       };
     case Actions.GET_PROFIL_EMPLOYER:
-      // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload);
+      // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
       return {
         // flash: action.payload.flash,
         ...state,
-        dataProfilEmployer: action.payload,
+        dataProfilEmployer: action.payload.dataProfilEmployer,
       };
     case Actions.POST_PROFIL_EMPLOYER:
       // console.log("POST_PROFIL_EMPLOYER Reducer", action.payload);
       return {
         // flash: action.payload.flash,
         ...state,
-        dataProfilEmployer: action.payload,
+        dataProfilEmployer: action.payload.dataProfilEmployer,
       };
     case Actions.PUT_PROFIL_EMPLOYER:
-      // console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload);
+      console.log("PUT_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
       return {
         // flash: action.payload.flash,
         ...state,
-        dataProfilEmployer: action.payload,
+        dataProfilEmployer: action.payload.dataProfilEmployer,
       };
       case Actions.GET_PROFIL_USER:
         // console.log("GET_PROFIL_USER Reducer", action.payload);

@@ -20,10 +20,11 @@ import AdminMessages from "pages/admin/AdminMessages";
 import EmployerOffer from "pages/employer/EmployerOffer";
 import EmployerOfferId from "pages/employer/EmployerOfferId";
 import EmployerCandidateId from "pages/employer/EmployerCandidateId";
-import ChangePassword from "pages/employer/ChangePassword"
+import ChangePassword from "pages/employer/ChangePassword";
 
 import EmployerLayout from "layouts/EmployerLayout";
 import CandidatLayout from "layouts/CandidatLayout";
+import VerifAuth from "pages/visitor/VerifAuth";
 
 const EmployerRoutes = () => (
   <EmployerLayout>
@@ -37,11 +38,10 @@ const EmployerRoutes = () => (
       <Route path="profilPw" exact element={<ChangePassword />} />
     </Routes>
   </EmployerLayout>
-
 );
 
 const CandidatRoutes = () => (
-  <CandidatLayout >
+  <CandidatLayout>
     <Routes>
       <Route path="profil" exact element={<CandidatProfil />} />
       <Route path="dashboard" exact element={<CandidatDashboard />} />
@@ -49,7 +49,6 @@ const CandidatRoutes = () => (
     </Routes>
   </CandidatLayout>
 );
-
 
 function App() {
   return (
@@ -66,6 +65,7 @@ function App() {
         <Route path="/offres" exact element={<Offres />} />
         <Route path="/Employer/*" element={<EmployerRoutes />} />
         <Route path="/Candidat/*" element={<CandidatRoutes />} />
+        <Route path="/verif/:rand" element={<VerifAuth />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>

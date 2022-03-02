@@ -7,6 +7,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import { themeEmployer } from "configs/theme";
 import FormPasswordChange from "components/FormPasswordChange";
+import withRecruteur from "components/auth/withRecruteur";
 
 const ChangePassword = (props) => {
     const { mail } = props
@@ -54,4 +55,4 @@ const ChangePassword = (props) => {
     );
 };
 
-export default ChangePassword;
+export default withRecruteur(ChangePassword);

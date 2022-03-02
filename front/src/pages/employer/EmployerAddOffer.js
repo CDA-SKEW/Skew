@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import OfferDataFactory from "components/employer/addOffer/OfferDataFactory";
 import OfferForm from "components/employer/addOffer/OfferForm";
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerAddOffer = () => {
   const dispatch = useDispatch();
@@ -87,4 +88,4 @@ const EmployerAddOffer = () => {
   );
 };
 
-export default EmployerAddOffer;
+export default withRecruteur(EmployerAddOffer);

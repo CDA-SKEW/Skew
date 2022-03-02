@@ -41,6 +41,7 @@ export default function ModalMessageCandidate(props) {
     const dataFormMessageCandidate = {
       user_id: dataProfilUser.user_id,
       mailEmployeur: dataProfilUser.mail,
+      subject:"Offres n°" + offer.offer_id + " - " + offer.title,
       name: form.name,
       lastName: form.lastName,
       phone: form.phone,

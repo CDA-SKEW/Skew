@@ -4,7 +4,7 @@
 const router = require("express").Router();
 
 const upload = require("../config/multer"),
-sharp = require('../config/sharp')
+  sharp = require("../config/sharp");
 
 //#############
 //#Controllers#
@@ -13,6 +13,12 @@ sharp = require('../config/sharp')
 //User
 const AuthControllers = require("../controllers/AuthControllers");
 const UserControllers = require("../controllers/UserControllers");
+
+//Message
+const ContactControllers = require("../controllers/ContactControllers");
+
+// Offres visiteur
+const OffreVisiteurControllers = require("../controllers/OffreVisiteurControllers");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
@@ -28,7 +34,7 @@ const MessagesController = require("../controllers/admin/MessagesController");
 
 // Middlewares
 const TestMD = require("../middlewares/Test_md");
-const TokenJWT = require("../middlewares/Token_jwt")
+const TokenJWT = require("../middlewares/Token_jwt");
 
 // router.route('/api/testUser').post(new CandidatProfilControllers().testUser)
 
@@ -41,8 +47,18 @@ router.route("/api/login").post(new AuthControllers().login);
 router.route("/api/register").post(new AuthControllers().register);
 
 // Check
-router.route("/api/auth/:token")
-  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router
+  .route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router
+  .route("/api/auth/verification").post(new AuthControllers().verifUser)
+router
+  .route("/api/auth/verify/:id").get(new AuthControllers().verifMail)
+
+// Messages
+router.route("/api/contact").post(new ContactControllers().post);
+
+// Offres visiteur
+router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll)
 
 // Users
 router
@@ -63,16 +79,29 @@ router
   .route("/api/employer/profilUser/:id")
   .put(new EmployerProfilControllers().updateProfilUser);
 
+// Employeur user profil password Id
+router
+  .route("/api/employer/profilUserPw/:id")
+  .put(new EmployerProfilControllers().updateProfilUserPw);
+
 // Employeur entreprise profil
 router
   .route("/api/employer/profil")
-  .post(upload.single('avatar'),sharp,new EmployerProfilControllers().createProfilCompagny);
+  .post(
+    upload.single("avatar"),
+    sharp,
+    new EmployerProfilControllers().createProfilCompagny
+  );
 
 // Employeur entreprise profil Id
 router
   .route("/api/employer/profil/:id")
   .get(new EmployerProfilControllers().getProfilCompagny)
-  .put(upload.single('avatar'),sharp,new EmployerProfilControllers().updateProfilCompagny);
+  .put(
+    upload.single("avatar"),
+    sharp,
+    new EmployerProfilControllers().updateProfilCompagny
+  );
 
 // Employeur offer
 router
@@ -83,6 +112,7 @@ router
 // Employeur offerid
 router
   .route("/api/employer/offer/:id")
+  .get(new EmployerOfferControllers().getOfferId)
   .delete(new EmployerOfferControllers().delOffer);
 
 // Employeur statut candidat offer
@@ -92,7 +122,7 @@ router
 
 // Employeur send message candidate
 router
-  .route("/api/employer/candidat/message/")
+  .route("/api/employer/candidat/message")
   .post(new EmployerOfferControllers().createMessageCandidate);
 
 //------------------------------------------------------------
@@ -111,7 +141,7 @@ router
 router
   .route("/api/candidat/profil/contact/:id")
   .get(new CandidatProfilControllers().getContactProfil)
-  .put(new CandidatProfilControllers().updateContactProfil)
+  .put(new CandidatProfilControllers().updateContactProfil);
 
 // ############################################
 // #CandidatProfilExperience Table-EXPERIENCE #
@@ -120,12 +150,12 @@ router
 router
   .route("/api/candidat/profil/experience")
   .get(new CandidatProfilControllers().getExperienceProfil)
-  .post(new CandidatProfilControllers().createExperienceProfil)
+  .post(new CandidatProfilControllers().createExperienceProfil);
 
 router
   .route("/api/candidat/profil/experience/:id")
   .put(new CandidatProfilControllers().updateExperienceProfil)
-  .delete(new CandidatProfilControllers().deleteExperienceProfil)
+  .delete(new CandidatProfilControllers().deleteExperienceProfil);
 
 // ##################################
 // #CandidatProfilSkill Table-SKILL #
@@ -133,23 +163,22 @@ router
 router
   .route("/api/candidat/profil/skill")
   .get(new CandidatProfilControllers().getSkillProfil)
-  .post(new CandidatProfilControllers().createSkillProfil)
+  .post(new CandidatProfilControllers().createSkillProfil);
 
 router
   .route("/api/candidat/profil/skill/:id")
   .put(new CandidatProfilControllers().updateSkillProfil)
-  .delete(new CandidatProfilControllers().deleteSkillProfil)
+  .delete(new CandidatProfilControllers().deleteSkillProfil);
 
 // ########################################
 // #CandidatProfilInterest Table-INTEREST #
-// ########################################
-router
-  .route("/api/candidat/profil/interest")
+// ################################
+router.route("/api/candidat/profil/interest");
 
 router
   .route("/api/candidat/profil/interest/:id")
   .put(new CandidatProfilControllers().updateInterestProfil)
-  .delete(new CandidatProfilControllers().deleteInterestProfil)
+  .delete(new CandidatProfilControllers().deleteInterestProfil);
 
 // ##############################################
 // #CandidatProfilCertificate Table-CERTIFICATE #
@@ -157,12 +186,12 @@ router
 router
   .route("/api/candidat/profil/certificate")
   .get(new CandidatProfilControllers().getCertificateProfil)
-  .post(new CandidatProfilControllers().createCertificateProfil)
+  .post(new CandidatProfilControllers().createCertificateProfil);
 
 router
   .route("/api/candidat/profil/certificate/:id")
   .put(new CandidatProfilControllers().updateCertificateProfil)
-  .delete(new CandidatProfilControllers().deleteCertificateProfil)
+  .delete(new CandidatProfilControllers().deleteCertificateProfil);
 
 // ########################################
 // #CandidatProfilDocument Table-DOCUMENT #
@@ -170,12 +199,12 @@ router
 router
   .route("/api/candidat/profil/document")
   .get(new CandidatProfilControllers().getDocumentProfil)
-  .post(new CandidatProfilControllers().createDocumentProfil)
+  .post(new CandidatProfilControllers().createDocumentProfil);
 
 router
   .route("/api/candidat/profil/document/:id")
   .put(new CandidatProfilControllers().updateDocumentProfil)
-  .delete(new CandidatProfilControllers().deleteDocumentProfil)
+  .delete(new CandidatProfilControllers().deleteDocumentProfil);
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #
@@ -185,32 +214,34 @@ router
 
 // ADMIN
 
-// Users
-router.route("/api/admin").get(new UsersController().getUserAll);
+// Jobs
+router.route("/api/admin/jobs").get(new JobsController().getListJobs);
 
 router
-  .route("/api/admin/:id")
-  .get(new UsersController().getUserId)
-  .put(new UsersController().putUser)
-  .delete(new UsersController().deleteUser);
-
-// Jobs
-router.route("/api/admin/jobs").get(new JobsController().getJobAll);
-router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
-// .delete(new JobsController().deleteJob);
+  .route("/api/admin/jobs/:id")
+  .get(new JobsController().getJobId)
+  .put(new JobsController().putJob)
+  .delete(new JobsController().deleteJob);
 
 // Messages
-router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
-// .post(new MessagesController().addMessage);
-
+router
+  .route("/api/admin/messages")
+  .get(new MessagesController().getListMessages)
+  .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
   .get(new MessagesController().getMessageId);
 // .delete(new MessagesController().deleteMessage);
 
-// Authentification
+// Users
+router.route("/api/admin/users").get(new UsersController().getListUsers);
+router
+  .route("/api/admin/users/:id")
+  .get(new UsersController().getUserId)
+  .put(new UsersController().putUser)
+  .delete(new UsersController().deleteUser);
 
-// router.use(new TokenJWT().checkIsValid)
+
 // Session
 
 /*

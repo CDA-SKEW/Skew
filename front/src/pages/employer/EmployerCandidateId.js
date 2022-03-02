@@ -7,7 +7,7 @@ import CandidateSkill from "components/employer/candidate/CandidateSkill"
 import CandidateInterest from "components/employer/candidate/CandidateInterest"
 import CandidateCertificate from "components/employer/candidate/CandidateCertificate"
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerCandidateId = () => {
 
@@ -76,4 +76,4 @@ const EmployerCandidateId = () => {
     );
 };
 
-export default EmployerCandidateId;
+export default withRecruteur(EmployerCandidateId);

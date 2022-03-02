@@ -5,8 +5,10 @@ import { Button, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import { urlImg } from "utils/url";
 
 import { useDispatch } from "react-redux";
+
 import {
   getApiSiret,
   postFormProfilEmployer,
@@ -14,11 +16,19 @@ import {
 } from "store/actions/EmployerActions";
 import NumberFormat from "react-number-format";
 
+
+const ImgPreview = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "40%",
+  maxHeight: "40%",
+});
+
 const Img = styled("img")({
   margin: "auto",
   display: "block",
-  maxWidth: "50%",
-  maxHeight: "50%",
+  maxWidth: "60%",
+  maxHeight: "60%",
 });
 
 //----------------------
@@ -30,22 +40,22 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
   const { onChange, ...other } = props;
   // console.log(props.name);
 
-  let zipCodeFormat, siret, siren;
+  let zipCodeFormat, siretFormat, sirenFormat;
   if (props.name === "zipCode") zipCodeFormat = true;
-  if (props.name === "siret") siret = true;
-  if (props.name === "siren") siren = true;
+  if (props.name === "siret") siretFormat = true;
+  if (props.name === "siren") sirenFormat = true;
 
   return (
     <div>
-      {siret && (
+      {siretFormat && (
         <NumberFormat
           {...other}
           getInputRef={ref}
-          onValueChange={(zipCode) => {
+          onValueChange={(siret) => {
             onChange({
               target: {
                 name: props.name,
-                value: zipCode.value,
+                value: siret.value,
               },
             });
           }}
@@ -54,15 +64,15 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
         />
       )}
 
-      {siren && (
+      {sirenFormat && (
         <NumberFormat
           {...other}
           getInputRef={ref}
-          onValueChange={(zipCode) => {
+          onValueChange={(siren) => {
             onChange({
               target: {
                 name: props.name,
-                value: zipCode.value,
+                value: siren.value,
               },
             });
           }}
@@ -102,12 +112,14 @@ export default function FormProfilEmployer(props) {
     buttonProfilVisible,
   } = props;
 
+  // console.log("dataProfilEmployer",dataProfilEmployer)
   const dispatch = useDispatch();
 
   //constante pour mettre les input soit readOnly soit editable
   const inputProps = {
     readOnly: profilNotEditabled,
     disabled: profilNotEditabled,
+    style: { textTransform: "uppercase" },
   };
 
   // constante pour affiche les boutons si form editable
@@ -121,21 +133,25 @@ export default function FormProfilEmployer(props) {
   }
 
   // Declaration des constantes pour le formulaire
-  const [stateImgUpload, setStateImgUpload] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [name, setFactoryName] = useState("");
-  const [siret, setSiret] = useState("");
-  const [siren, setSiren] = useState("");
-  const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [town, setTown] = useState("");
-  const [category, setCategory] = useState("");
-  const [formSubmit, setFormSubmit] = useState("");
+  const [stateImgUpload, setStateImgUpload] = useState();
+  const [avatar, setAvatar] = useState();
+  const [avatarSelect, setAvatarSelect] = useState();
+  const [avatarPreview, setAvatarPreview] = useState();
+  const [name, setFactoryName] = useState();
+  const [siret, setSiret] = useState();
+  const [siren, setSiren] = useState();
+  const [address, setAddress] = useState();
+  const [zipCode, setZipCode] = useState();
+  const [town, setTown] = useState();
+  const [category, setCategory] = useState();
+  const [formSubmit, setFormSubmit] = useState();
 
   // fonction set des useState
   const setUseState = () => {
     setStateImgUpload("");
-    setAvatar(dataProfilEmployer.avatar);
+    setAvatar(dataProfilEmployer.avatar)
+    setAvatarSelect(false);
+    setAvatarPreview("");
     setSiret(dataProfilEmployer.siret);
     setSiren(dataProfilEmployer.siren);
     setFactoryName(dataProfilEmployer.name);
@@ -146,10 +162,10 @@ export default function FormProfilEmployer(props) {
   };
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
-  useEffect(() => {
-    // console.log("effect for useState form employer");
-    setUseState();
-  }, [profilNotEditabled]);
+  // useEffect(() => {
+  //   // console.log("effect for useState form employer");
+  //   setUseState();
+  // }, [profilNotEditabled]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
@@ -167,10 +183,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-          " " +
-          dataApiSiret.type_voie +
-          " " +
-          dataApiSiret.libelle_voie
+        " " +
+        dataApiSiret.type_voie +
+        " " +
+        dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -185,8 +201,10 @@ export default function FormProfilEmployer(props) {
     // console.log("e", e)
     e.preventDefault();
 
-    // console.log("N° de siret", siret);
-    await dispatch(getApiSiret(siret));
+    if (siret.length === 14) {
+      // console.log("N° de siret", siret);
+      await dispatch(getApiSiret(siret));
+    }
   };
 
   // fonction pour la previsualisation de l'image
@@ -197,10 +215,16 @@ export default function FormProfilEmployer(props) {
     let reader = new FileReader();
     let file = e.target.files[0];
 
-    reader.onloadend = () => {
-      setAvatar(reader.result);
-    };
-    reader.readAsDataURL(file);
+    if (file) {
+      reader.onloadend = () => {
+        setAvatarSelect(true);
+        setAvatarPreview(reader.result);
+        setAvatar(file);
+        // console.log("reader.result",reader.result)
+        // console.log("avatar",avatar)
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // fonction pour l'envoi du formulaire à la db
@@ -225,15 +249,28 @@ export default function FormProfilEmployer(props) {
         zipCode,
         town,
         category,
-        avatar,
       };
 
+      // console.log("avatar", avatar);
+      const formData = new FormData();
+
+      Object.entries(dataFormProfilEmployer).forEach(([cle, valeur]) => {
+        // console.log(`${cle}, ${valeur}`);
+        formData.append(cle, valeur);
+      });
+
+      if (avatarSelect) {
+        // Update the formData object with file
+        formData.append("avatar", avatar);
+      }
+      setAvatarSelect(false);
       setStateImgUpload("");
-      // console.log("dataFormProfilEmployer", dataFormProfilEmployer);
-      if (formSubmit === "modified")
-        await dispatch(postFormProfilEmployer(dataFormProfilEmployer));
+      // console.log("formData", formData);
+      // console.log("formSubmit", formSubmit);
       if (formSubmit === "create")
-        await dispatch(putFormProfilEmployer(dataFormProfilEmployer));
+        await dispatch(postFormProfilEmployer(formData));
+      if (formSubmit === "modified")
+        await dispatch(putFormProfilEmployer(formData));
     }
   };
 
@@ -272,7 +309,11 @@ export default function FormProfilEmployer(props) {
               alignItems="center"
             >
               <Grid item xs={12}>
-                {avatar ? <Img alt="imageEmployer" src={avatar} /> : <Img />}
+                {avatarSelect ? (
+                  <ImgPreview alt="imageEmployer" src={`${avatarPreview}`} />
+                ) : (
+                  <Img alt="imageEmployer" src={`${urlImg + avatar}`} />
+                )}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
                 )}
@@ -324,6 +365,9 @@ export default function FormProfilEmployer(props) {
                 name="siret"
                 InputProps={{ inputComponent: NumberFormatCustom, inputProps }}
                 onChange={(e) => {
+                  setSiret(e.target.value);
+                }}
+                onFocus={(e) => {
                   setSiret(e.target.value);
                 }}
               />
@@ -443,7 +487,11 @@ export default function FormProfilEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+                  startIcon={
+                    <TaskAltIcon
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    />
+                  }
                   type="submit"
                   onClick={() => setFormSubmit("modified")}
                 >
@@ -459,7 +507,11 @@ export default function FormProfilEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}} />}
+                  startIcon={
+                    <HighlightOffIcon
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    />
+                  }
                   onClick={(e) => cancelFormProfil()}
                 >
                   Annuler
@@ -482,7 +534,11 @@ export default function FormProfilEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+                  startIcon={
+                    <TaskAltIcon
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    />
+                  }
                   onClick={() => setFormSubmit("create")}
                   type="submit"
                 >
@@ -498,7 +554,11 @@ export default function FormProfilEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+                  startIcon={
+                    <HighlightOffIcon
+                      sx={{ display: { xs: "none", sm: "block" } }}
+                    />
+                  }
                   onClick={(e) => cancelFormProfil()}
                 >
                   Annuler

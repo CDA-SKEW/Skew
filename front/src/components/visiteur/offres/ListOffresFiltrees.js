@@ -11,11 +11,11 @@ export default function ListOffresFiltrees({ listOffer, job, type, location, pag
     };
 
     const title = (item) =>
-        item.titleOffer.toLowerCase().includes(job.toLowerCase());
+        item.title.toLowerCase().includes(job.toLowerCase());
     const types = (item2) =>
-        item2.typeContrat.toLowerCase().includes(type.toLowerCase());
+        item2.type.toLowerCase().includes(type.toLowerCase());
     const locations = (item3) =>
-        item3.localisation.toLowerCase().includes(location.toLowerCase());
+        item3.town.toLowerCase().includes(location.toLowerCase());
 
     const filterList = listOffer
         .filter((item) => title(item))

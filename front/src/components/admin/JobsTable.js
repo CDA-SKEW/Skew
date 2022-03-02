@@ -12,8 +12,8 @@ import WorkIcon from "@mui/icons-material/Work";
 
 /*------------Export function + table header-------------*/
 
-export default function JobsTable(props) {
-  const { listJobs } = props;
+export default function JobsTable (props) {
+  const { job } = props;
 
   // Table Head
   const columns = [
@@ -54,7 +54,7 @@ export default function JobsTable(props) {
       flex: 1,
     },
     {
-      field: "profile",
+      field: "profil",
       headerName: "Profil",
       minWidth: 200,
       editable: true,
@@ -103,7 +103,7 @@ export default function JobsTable(props) {
       <DataGrid
         autoHeight
         rowHeight={80}
-        rows={listJobs}
+        rows={job}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

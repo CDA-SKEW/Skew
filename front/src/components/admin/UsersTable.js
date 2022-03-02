@@ -14,7 +14,7 @@ import PeopleIcon from "@mui/icons-material/People";
 /*------------Export function + table header-------------*/
 
 export default function UsersTable(props) {
-  const { listUsers } = props;
+  const { user } = props;
 
   // Table Head
   const columns = [
@@ -44,7 +44,7 @@ export default function UsersTable(props) {
       flex: 1,
     },
     {
-      field: "firstName",
+      field: "lastname",
       headerName: "Prénoms",
       editable: true,
       minWidth: 100,
@@ -58,10 +58,10 @@ export default function UsersTable(props) {
       minWidth: 200,
       flex: 1,
       valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.name || ""}`,
+        `${params.row.lastname || ""} ${params.row.name || ""}`,
     },
     {
-      field: "email",
+      field: "mail",
       editable: false,
       minWidth: 200,
       flex: 1,
@@ -124,7 +124,7 @@ export default function UsersTable(props) {
       <DataGrid
         autoHeight
         rowHeight={80}
-        rows={listUsers}
+        rows={user}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
