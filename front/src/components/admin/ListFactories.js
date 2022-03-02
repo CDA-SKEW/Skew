@@ -41,6 +41,7 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 export default function ListFactories(props) {
   const { listJobs } = props;
+  console.log("ListFactories", listJobs);
   // Afficher uniquement les 4 derniers offres
   const SliceJobs = listJobs.slice(0, 4);
 

@@ -28,15 +28,15 @@ export const PUT_PROFIL_CANDIDATE = "POST_PROFIL_CANDIDATE";
 export const DELETE_PROFIL_CANDIDATE = "DELETE_PROFIL_CANDIDATE";
 // Admin
 export const GET_LIST_USERS = "GET_LIST_USERS";
-export const GET_USER = "GET_USER";
+// export const GET_USER = "GET_USER";
 export const PUT_USER = "PUT_USER";
 export const DELETE_USER = "DELETE_USER";
 export const GET_LIST_JOBS = "GET_LIST_JOBS";
-export const GET_JOB = "GET_JOB";
+// export const GET_JOB = "GET_JOB";
 export const PUT_JOB = "PUT_JOB";
 export const DELETE_JOB = "DELETE_JOB";
 export const GET_LIST_MESSAGES = "GET_LIST_MESSAGES";
-export const GET_MESSAGE = "GET_MESSAGE";
+// export const GET_MESSAGE = "GET_MESSAGE";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 

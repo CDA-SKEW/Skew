@@ -9,6 +9,7 @@ import withAdmin from "components/auth/withAdmin";
 const AdminMessages = () => {
   /*------------ listMessages import via Store-------------*/
   const messages = useSelector((state) => state.admin.listMessages);
+  // console.log("AdminGetListMessages",messages);
   const dispatch = useDispatch();
 
   useEffect(() => {
