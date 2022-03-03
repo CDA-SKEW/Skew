@@ -57,7 +57,6 @@ class AuthControllers {
         if (err) {
           res.status(500).send({ message: err.message || "Une erreur est survenue", });
         } else {
-          console.log('data', data)
           nodemailer.VerifUser(req, res, (res) => {
             return res.send({
               status: "success",

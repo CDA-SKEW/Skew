@@ -268,7 +268,7 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          message: "Votre mail a bien été envoyé !",
+          flash: "L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!",
           mailoptions: mailOptions
         });
       }
@@ -281,7 +281,6 @@ module.exports = {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
       if (req.params.id == mailOptions.rand) {
         try {
-          console.log('mailOptions', mailOptions)
           user.verify(mailOptions, (err, data) => {
             if (err) res.status(500).send({ flash: err.message || "Une erreur est survenue", });
             else return res.redirect(process.env.URL + '/#/verif/' + mailOptions.rand)
