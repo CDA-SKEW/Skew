@@ -9,9 +9,12 @@ import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import CancelIcon from '@mui/icons-material/Cancel';
 import {
   Box,
   Button,
+  Dialog,
   DialogTitle,
   IconButton,
   Modal,
@@ -82,54 +85,82 @@ export default function DeletableChips(props) {
   const { id } = props;
 
   /*--------------Components Chips + Modals------------*/
+
   return (
     <Stack direction="row" spacing={1}>
       <Box>
-        <Chip label="badge" color="default" onClick={handleOpen}></Chip>
-        <Modal
+        <Chip
+          label="badge"
+          color="default"
+          icon={<VerifiedIcon />}
+          onClick={handleOpen}
+        ></Chip>
+        <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="responsive-dialog-title"
         >
-          <Box sx={style}>
-            {/* Form */}
-            <Typography
-              sx={{ mb: 2, textAlign: "center" }}
-              variant="h6"
-              component="h2"
-            >
-              BADGER CET UTILISATEUR ?
-            </Typography>
-            <Typography
-              gutterBottom
-              component="span"
-              variant="body2"
-              color="text.primary"
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco
-            </Typography>
-            <Typography
-              component="span"
-              id="modal-modal-description"
-              sx={{ mt: 2 }}
-            >
-              {/* Update action Button */}
-              <Stack spacing={2} direction="column" sx={{ m: 5 }}>
-                <Button
-                  autoFocus
-                  variant="outlined"
-                  color="info"
-                  onClick={() => dispatch(putBadge(id.row.badge))}
-                >
-                  Badge
-                </Button>
-              </Stack>
-            </Typography>
-          </Box>
-        </Modal>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
+                variant="h6"
+                component="h2"
+              >
+                BADGER CET UTILISATEUR ?
+              </Typography>
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
+                {/* Update action Button */}
+                <Stack spacing={10} direction="row" sx={{ m: 5 }}>
+                  <Button
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
+                    variant="outlined"
+                    startIcon={<VerifiedIcon />}
+                    color="primary"
+                    onClick={() => dispatch(putBadge(id.row.badge))}
+                  >
+                    Badge
+                  </Button>
+                  <Button
+                    sx={{  border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
+                    onClick={handleClose}
+                  >
+                    NON
+                  </Button>
+                </Stack>
+              </Typography>
+            </Box>
+          </Modal>
+        </Dialog>
       </Box>
     </Stack>
   );

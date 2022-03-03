@@ -12,7 +12,7 @@ class UsersControllers {
       /* SQL récupération de tous les users
       à partir de la fonction qui a été créé dans le model */
       User.getListUsers((err, data) => {
-        console.log("response controller all user", data);
+        // console.log("response controller all user", data);
         // Si il y a erreur le mentionner
         if (err) res.send({ message: "error in request db" });
         // Sinon retourné cette réponse avec les data
@@ -53,17 +53,16 @@ class UsersControllers {
   async putUser(req, res) {
     const { id } = req.params;
     let { isBanned, isVerified, isCandidat, isRecruteur, isAdmin } = req.body;
-    console.log("isBanned", Boolean(isBanned));
+    console.log("CONTROLLER UPDATE USERS:", { ...req.body });
 
-    isAdmin = isAdmin === "true" ? 1 : 0;
-    isCandidat = isCandidat === "true" ? 1 : 0;
-    isRecruteur = isRecruteur === "false" ? 0 : 1;
-    isVerified = isVerified === "false" ? 0 : 1;
+    isAdmin = isAdmin === 1 ? 1 : 0;
+    isCandidat = isCandidat === 1 ? 1 : 0;
+    isRecruteur = isRecruteur === "true" ? 1 : 0;
+    isVerified = isVerified === "true" ? 1 : 0;
     isBanned = isBanned === "false" ? 0 : 1;
 
     // Essayes cette fonction
     try {
-      // console.log("UpdateController", id, isBanned);
       User.putUser(
         { id, isBanned, isVerified, isAdmin, isRecruteur, isCandidat },
         (err, data) => {
@@ -82,14 +81,17 @@ class UsersControllers {
     }
   }
 
+  // BADGE
   async putBadge(req, res) {
     const { id } = req.params;
     let { badge } = req.body;
-    console.log("badge", Boolean(badge));
-    badge = badge === "false" ? 0 : 1;
+    // console.log("CONTROLLER:Badge", Boolean(badge));
+    // Si condition true alors l'opérateur retourne valeur_si_true
+    // condition ? valeur_si_false : valeur_si_true ;
+    badge = badge === 1 ? 0 : 1;
     // Essayes cette fonction
     try {
-      // console.log("UpdateController", id, isBanned);
+      // console.log("UpdateBadgeController", id, badge);
       User.putBadge({ id, badge }, (err, data) => {
         // console.log("response controller user update", data);
         if (err) res.send({ message: "error in request db" });

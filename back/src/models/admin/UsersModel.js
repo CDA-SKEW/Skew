@@ -23,7 +23,7 @@ const User = function (user) {
 
 // Get All Users
 User.getListUsers = function (result) {
-  console.log("Method getAll Model User");
+  // console.log("Method getAll Model User");
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
     /* Requête SQL pour afficher tous les Users 
@@ -63,17 +63,8 @@ User.getUserId = function (user, result) {
 User.putUser = function (user, result) {
   console.log("Method UPDATE Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur, badge } =
-    user;
+  const { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = user;
   connection.getConnection(function (error, conn) {
-    console.log(
-      "isBanned",
-      isBanned,
-      "isRecruteur",
-      isRecruteur,
-      "isVerified",
-      isVerified
-    );
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `UPDATE user 
@@ -86,9 +77,9 @@ User.putUser = function (user, result) {
        `,
       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
       // situé dans ConnectionDb.js dans dossier config
-      { isVerified, isBanned, isAdmin, isCandidat, isRecruteur, badge, id },
+      { isVerified, isBanned, isAdmin, isCandidat, isRecruteur, id },
       (error, data) => {
-        console.log(id, isBanned);
+        console.log("MODEL BOOL:", isVerified, isBanned, isAdmin, isCandidat, isRecruteur, id);
         if (error) throw error;
         conn.query(
           `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
@@ -111,11 +102,11 @@ User.putUser = function (user, result) {
 
 // Badge User
 User.putBadge = function (user, result) {
-  console.log("Method UPDATE Model User", user);
+  // console.log("Method BADGE Model User", user);
   //Declarations des constantes de user pour mysql
   const { id, badge } = user;
   connection.getConnection(function (error, conn) {
-    console.log("Badge", badge);
+    // console.log("MODEL:Badge", badge, "id", id);
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `UPDATE contactProfil
@@ -126,7 +117,7 @@ User.putBadge = function (user, result) {
       // situé dans ConnectionDb.js dans dossier config
       { badge, id },
       (error, data) => {
-        console.log(id, badge);
+        // console.log(id, badge);
         if (error) throw error;
         conn.query(
           `SELECT u.*, c.badge FROM user as u
@@ -140,7 +131,7 @@ User.putBadge = function (user, result) {
             else result(null, data);
           }
         );
-        console.log("data", data);
+        // console.log("data", data);
       }
     );
     conn.release();
@@ -149,7 +140,7 @@ User.putBadge = function (user, result) {
 
 // Delete User
 User.deleteUser = function (user, result) {
-  console.log("Method delete Model User", user);
+  // console.log("Method delete Model User", user);
   const { id } = user;
   connection.getConnection(function (error, conn) {
     conn.query(

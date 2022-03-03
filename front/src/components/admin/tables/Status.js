@@ -5,7 +5,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-import BlockIcon from "@mui/icons-material/Block";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 /*------------Export function-------------*/
 
@@ -20,7 +20,7 @@ export default function IconChips(props) {
           label="banned"
           variant="outlined"
           color="warning"
-          icon={<BlockIcon />}
+          icon={<RemoveCircleIcon />}
         />
       );
     } else if (user.row.isVerified === 1) {

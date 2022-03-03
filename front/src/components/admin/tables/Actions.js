@@ -10,10 +10,8 @@ import {
   deleteMessage,
   replyMessage,
   putUser,
-  putBadge,
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BlockIcon from "@mui/icons-material/Block";
 import SendIcon from "@mui/icons-material/Send";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
@@ -21,6 +19,10 @@ import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import InfoIcon from "@mui/icons-material/Info";
 import {
   Box,
   Button,
@@ -109,7 +111,7 @@ export default function DeletableChips(props) {
       <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
-          sx={{ mb: 2, textAlign: "center" }}
+          sx={{ mb: 2, textAlign: "center", fontSize: "30px", fontWeight: 700 }}
           variant="h6"
           component="h2"
         >
@@ -157,7 +159,7 @@ export default function DeletableChips(props) {
       <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
-          sx={{ mb: 2, textAlign: "center" }}
+          sx={{ mb: 2, textAlign: "center", fontSize: "20px", fontWeight: 700 }}
           variant="h6"
           component="h2"
         >
@@ -175,19 +177,21 @@ export default function DeletableChips(props) {
         </Typography>
         <Typography component="span">
           <DialogActions>
-            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+            <Stack spacing={10} direction="row" sx={{ m: 4 }}>
               <Button
-                autoFocus
+                sx={{ color: "#fff", border: "1px solid #33c863" }}
                 variant="outlined"
-                color="error"
+                startIcon={<CheckCircleOutlineIcon />}
+                color="primary"
                 onClick={() => dispatch(deleteUser(id.row.id))}
               >
                 OUI
               </Button>
               <Button
-                autoFocus
-                variant="outlined"
-                color="success"
+                sx={{ border: "1px solid #33c863" }}
+                variant="contained"
+                startIcon={<CancelIcon />}
+                color="primary"
                 onClick={handleClose}
               >
                 NON
@@ -237,9 +241,9 @@ export default function DeletableChips(props) {
         <Box>
           <Chip
             label="update or delete user"
-            color="error"
-            sx={{ color: "#E57373" }}
-            variant="outlined"
+            color="info"
+            icon={<InfoIcon />}
+            variant="contained"
             onClick={handleOpen}
           ></Chip>
           <Modal
@@ -251,7 +255,12 @@ export default function DeletableChips(props) {
             <Box sx={style}>
               {/* Form */}
               <Typography
-                sx={{ mb: 2, textAlign: "center" }}
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
                 variant="h6"
                 component="h2"
               >
@@ -273,9 +282,10 @@ export default function DeletableChips(props) {
                 sx={{ mt: 2 }}
               >
                 {/* Update action Button */}
-                <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+                <Stack spacing={6} direction="row" sx={{ m: 4 }}>
                   <Button
-                    startIcon={<BlockIcon />}
+                    sx={{ border: "1px solid" }}
+                    startIcon={<RemoveCircleIcon />}
                     autoFocus
                     variant="outlined"
                     color="warning"
@@ -284,6 +294,7 @@ export default function DeletableChips(props) {
                     Bannir
                   </Button>
                   <Button
+                    sx={{ border: "1px solid" }}
                     startIcon={<PersonIcon />}
                     autoFocus
                     variant="outlined"

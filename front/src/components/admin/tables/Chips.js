@@ -18,6 +18,7 @@ export default function IconChips(props) {
         <Chip
           label="admin"
           variant="outlined"
+          sx={{ border: "1px solid" }}
           color="secondary"
           icon={<AccountCircleIcon />}
         />
@@ -28,6 +29,7 @@ export default function IconChips(props) {
         <Chip
           label="recruteur"
           variant="outlined"
+          sx={{ border: "1px solid" }}
           color="warning"
           icon={<AccountCircleIcon />}
         />
@@ -38,6 +40,7 @@ export default function IconChips(props) {
         <Chip
           label="candidat"
           variant="outlined"
+          sx={{ border: "1px solid" }}
           color="info"
           icon={<AccountCircleIcon />}
         />
