@@ -61,6 +61,7 @@ router.route("/api/contact").post(new ContactControllers().post);
 
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
+router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
 
 // Users
 router
