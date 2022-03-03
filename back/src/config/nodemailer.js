@@ -123,7 +123,7 @@ module.exports = {
       path: "public/images/logo/logo.png",
       cid: "signatureLogo", //same cid value as in the html img src
     });
-   
+
     console.log(arrayFiles); // On configure notre mail à envoyer par nodemailer
     console.log("Reply NodeMailer Config");
     const mailOptions = {
@@ -204,14 +204,14 @@ module.exports = {
     });
 
     rand = Math.floor((Math.random() * 100) + 54)
-
+    
     host = req.get('host');
 
     link = "http://" + req.get('host') + "/api/auth/verify/" + rand;
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
-      to: req.body.mail,
+      to: req.body.mailInscription,
       subject: "Vérification du compte",
       rand: rand,
       html: `
