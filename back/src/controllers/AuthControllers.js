@@ -99,6 +99,10 @@ class AuthControllers {
   async verifMail(req, res) {
     nodemailer.verifMail(req, res);
   }
+
+  async mailLostMdp(req, res) {
+    nodemailer.mailLostMdp(req, res)
+  }
 }
 
 module.exports = AuthControllers;

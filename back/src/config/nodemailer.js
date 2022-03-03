@@ -290,7 +290,7 @@ module.exports = {
     } else res.end("<h1>Request is from unknown source")
   },
 
-  ChangeMdp: (req, res) => {
+  mailLostMdp: (req, res) => {
 
     arrayFiles = [];
     // initialisation du tableau array avec data signature
@@ -308,7 +308,7 @@ module.exports = {
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
-      to: req.body.mailChangeMdp,
+      to: req.body.mailLostMdp,
       subject: "Modification du mot de passe",
       rand: rand,
       html: `
