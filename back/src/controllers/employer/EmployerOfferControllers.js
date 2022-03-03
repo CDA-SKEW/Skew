@@ -2,16 +2,44 @@ const { Offer, StatutCandidate } = require("../../models/employer/OfferModel");
 const nodemailer = require("../../config/nodemailer");
 
 class EmployerOfferControllers {
+  //action GetDashboard by User id
+  async getDashboard(req, res) {
+    // console.log("controller GetDashboard Employeur");
+    if (req.params.id) {
+      try {
+        //ici String est une coercion qui permet de typer la variable
+        Offer.getDashboard(String(req.params.id), (err, data) => {
+          // console.log("data id res", data);
+          //Si erreur alors affiche console log erreur et res.status
+          if (err) {
+            console.log("err", err),
+              res.status(500).send({
+                message: err.message || "Une erreur est survenue",
+              });
+            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+          } else {
+            return res.json({
+              method: req.method,
+              status: "success",
+              message: "info dashboard",
+              dashboard: data,
+            });
+          }
+        });
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
+  }
 
-
-    //action GetOffer by User id
+  //action GetOffer by User id
   async getOfferId(req, res) {
     // console.log("controller get Offer Employeur");
 
     if (req.params.id) {
       try {
         //ici String est une coercion qui permet de typer la variable
-        Offer.getOfferId((String(req.params.id)), (err, data) => {
+        Offer.getOfferId(String(req.params.id), (err, data) => {
           // console.log("dataid res", data);
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
@@ -33,7 +61,6 @@ class EmployerOfferControllers {
         throw error;
       }
     } else res.json("Error Request");
-
   }
 
   async createOffer(req, res) {

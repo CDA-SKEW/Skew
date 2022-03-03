@@ -5,6 +5,7 @@ import { apiSiret, api } from "configs/axios";
 import {
   DELETE_OFFER,
   GET_API_SIRET,
+  GET_DASHBOARD_EMPLOYER,
   GET_OFFER,
   GET_PROFIL_EMPLOYER,
   GET_PROFIL_USER,
@@ -17,11 +18,6 @@ import {
   PUT_PROFIL_USER_PW,
 } from "./ActionTypes";
 
-// import image en static mais à voir pour aller chercher l'image dans le back plus tard
-import imageEmployer from "assets/images/imageEmployor.png";
-// import document en static mais à voir pour aller chercher le doc dans le back plus tard
-import pdf1 from "assets/documents/Cours_SQL.pdf";
-import pdf2 from "assets/documents/Conception_base_de_donnees.pdf";
 
 const id = 4;
 
@@ -1092,6 +1088,20 @@ export const getApiSiret = (siretNumber) => {
       .then((res) => {
         // console.log("resApi action store", res.data.etablissement);
         dispatch({ type: GET_API_SIRET, payload: res.data.etablissement });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+// get dashboard employer
+export const getDashboardEmployer = () => {
+  // console.log("getDashboardEmployer action store ");
+  return (dispatch) => {
+    return api
+      .get(`/employer/dashboard/${id}`)
+      .then((res) => {
+        console.log("return api getDashboardEmployer action store", res.data);
+        dispatch({ type: GET_DASHBOARD_EMPLOYER, payload: res.data });
       })
       .catch((err) => console.log(err));
   };

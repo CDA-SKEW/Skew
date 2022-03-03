@@ -71,6 +71,11 @@ router
 
 // Employeur user profil
 router
+  .route("/api/employer/dashboard/:id")
+  .get(new EmployerOfferControllers().getDashboard);
+
+// Employeur user profil
+router
   .route("/api/employer/profilUser/:id")
   .get(new EmployerProfilControllers().getProfilUser);
 

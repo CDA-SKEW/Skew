@@ -7,6 +7,7 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
+  dataDashboardEmployer: [],
   dataProfilEmployer: {},
   dataProfilUser: {},
   dataOffers: [],
@@ -32,6 +33,13 @@ export function EmployerReducer(state = initialState, action) {
         ...state,
         dataSiretApi: action.payload,
       };
+
+      case Actions.GET_DASHBOARD_EMPLOYER:
+        console.log("GET_DASHBOARD_EMPLOYER Reducer", action.payload.dashboard);
+        return {
+          ...state,
+          dataDashboardEmployer: action.payload.dashboard,
+        };
 
     case Actions.GET_PROFIL_EMPLOYER:
       // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
