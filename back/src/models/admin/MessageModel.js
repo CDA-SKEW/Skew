@@ -77,23 +77,18 @@ Message.replyMessage = function (result) {
 };
 
 // Delete Message
-// Message.deleteMessage = function (message, result) {
-//   //   console.log("Method delete Model Message", message);
-//   const { id } = message;
-//   connection.getConnection(function (error, conn) {
-//     conn.query(
-//       ` DELETE FROM messages
-//     WHERE id  = :id`,
-//       { id },
-//       (error, data) => {
-//         if (error) throw error;
-//         else result(null, data);
-//         console.log("data", data);
-//       }
-//     );
-//     conn.release();
-//   });
-// };
+Message.deleteMessage = function (message, result) {
+  connection.getConnection(function (error, conn) {
+    conn.query(
+      ` DELETE FROM messages WHERE id  = '${message.id}'`, (error, data) => {
+        if (error) throw error;
+        else result(null, data);
+        console.log("data", data);
+      }
+    );
+    conn.release();
+  });
+};
 
 // Ce qui nous permettra de pouvoir l'utiliser sur d'autre page
 module.exports = Message;

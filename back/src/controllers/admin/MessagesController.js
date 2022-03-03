@@ -62,24 +62,20 @@ class MessagesController {
   }
 
   // DELETE MESSAGE
-  // async deleteMessage(req, res) {
-  //   const { id } = req.params;
-  //   // Essayes cette fonction
-  //   try {
-  //     Message.deleteMessage({ id }, (err, data) => {
-  //       // console.log('response controller message ID', data);
-  //       if (err) res.send({ message: "error in request db" });
-  //       // Sinon retourner cette réponse avec les data
-  //       else
-  //         return res.json({
-  //           mess: data,
-  //           message: " The message has been successfully DELETED.!!",
-  //         });
-  //     });
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
+  async deleteMessage(req, res) {
+    try {
+      Message.deleteMessage(req.params, (err, data) => {
+        if (err) res.send({ message: "error in request db" });
+        else
+          return res.json({
+            mess: data,
+            message: " The message has been successfully DELETED.!!",
+          });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = MessagesController;

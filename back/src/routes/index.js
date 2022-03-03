@@ -236,8 +236,8 @@ router
   .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId);
-// .delete(new MessagesController().deleteMessage);
+  .get(new MessagesController().getMessageId)
+  .delete (new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);
