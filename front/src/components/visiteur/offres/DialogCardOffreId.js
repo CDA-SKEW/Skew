@@ -11,8 +11,9 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import { Box } from '@mui/system';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import url from 'utils/url';
 
-export default function DialogCardOffreId({ open, handleClose, Transition, date, type, job, location, image, description, profil }) {
+export default function DialogCardOffreId({ listOffer, open, handleClose, Transition, date, type, job, location, image, description, profil }) {
 
     return (
         <Dialog
@@ -31,8 +32,7 @@ export default function DialogCardOffreId({ open, handleClose, Transition, date,
                 }}>
                     <CardMedia
                         component="img"
-                        // height="200"
-                        image={image}
+                        image={url.url + listOffer.avatar}
                         alt=""
                     />
                     <IconButton
@@ -55,29 +55,29 @@ export default function DialogCardOffreId({ open, handleClose, Transition, date,
                         }}>
                             <Typography variant="body2" color="text.secondary">
                                 publié le <br />
-                                {date}
+                                {listOffer.createDate}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {type}
+                                {listOffer.type}
                             </Typography>
                         </Box>
                         <Typography gutterBottom variant="h5" component="div">
-                            {job}
+                            {listOffer.title}
                         </Typography>
                         <Typography gutterBottom variant="h6" component="div">
-                            {location}
+                            {listOffer.town}
                         </Typography>
                         <Typography gutterBottom variant="h6" component="div" sx={{ textAlign: 'left', px: 5 }}>
                             Descriptif:
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ px: 5 }}>
-                            {description}
+                            {listOffer.description}
                         </Typography>
                         <Typography gutterBottom variant="h6" component="div" sx={{ textAlign: 'left', mt: 5, px: 5 }}>
                             Profil recherché:
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ px: 5 }}>
-                            {profil}
+                            {listOffer.profil}
                         </Typography>
                     </CardContent>
                     <CardActions

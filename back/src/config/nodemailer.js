@@ -288,5 +288,87 @@ module.exports = {
         } catch (error) { throw error; }
       } else res.end("<h1>Bad Request</h1>")
     } else res.end("<h1>Request is from unknown source")
-  }
+  },
+
+  ChangeMdp: (req, res) => {
+
+    arrayFiles = [];
+    // initialisation du tableau array avec data signature
+    arrayFiles.push({
+      filename: "logo.webp",
+      path: "public/images/logo/logo.png",
+      cid: "signatureLogo", //same cid value as in the html img src
+    });
+
+    rand = Math.floor((Math.random() * 100) + 54)
+    
+    host = req.get('host');
+
+    link = "http://" + req.get('host') + "/api/auth/changemdp/" + rand;
+
+    mailOptions = {
+      from: process.env.USER_NODMAILER,
+      to: req.body.mailChangeMdp,
+      subject: "Modification du mot de passe",
+      rand: rand,
+      html: `
+      <strong>Modification du mot de passe</strong>
+      <br><br>
+
+      <div>
+        Pour modifier le mot de passe, cliquez sur ce lien.
+      </div>
+
+      <a href=" ` + link + ` ">Click here to change password</a>
+
+
+      <br><br>
+      <div style="text-align:left;margin-left: 15px;">
+         <div style="font-size: 13px;">
+              <strong><span>Skew application </span></strong>
+         </div>  
+         <div style="font-size: 10px;">
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Adresse:</span>
+                  <span>18 rue Georges Bizet</span>
+              </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Code postal:</span>
+                  <span>72700</span>
+              </div>  
+              <div style="display: flex;">
+              <span style="margin-right:2px">Ville:</span>
+              <span>Allonnes</span>
+               </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Email:</span>
+                  <a href="mailto:${process.env.USER_NODMAILER}" style="color:#428BCA;">${process.env.USER_NODMAILER}</a>
+              </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Link:</span>
+                  <a href="http://localhost:3000/" target="_blank"  rel="noreferrer" style="color:#428BCA;">
+                      Skew Application</a>
+              </div>  
+           </div>
+         </div>
+      `,
+      attachments: arrayFiles,
+    };
+    // On demande à notre transporter d'envoyer notre mail
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log("err", err),
+          res.status(500).send({
+            message: err.message || "Une erreur est survenue",
+          });
+      } else {
+        return res.json({
+          method: req.method,
+          status: "success",
+          flash: "success mail change password!",
+          mailoptions: mailOptions
+        });
+      }
+    });
+  },
 };

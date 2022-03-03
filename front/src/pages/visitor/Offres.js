@@ -46,13 +46,13 @@ export default function Offres() {
     };
     const handleClickOpen = (data) => {
         setOpen(true);
-        setJob(data.titleOffer);
-        setImage(data.image);
-        setDescription(data.descriptif);
+        setJob(data.title);
+        setImage(data.avatar);
+        setDescription(data.description);
         setProfil(data.profil);
-        setDate(data.dateOfferDays);
-        setType(data.typeContrat);
-        setLocation(data.localisation)
+        setDate(data.createDate);
+        setType(data.type);
+        setLocation(data.town)
     };
     const handleClose = () => {
         setOpen(false);
@@ -104,17 +104,3 @@ export default function Offres() {
         </VisiteurLayout>
     );
 };
-
-// const listOffer = [
-//     {
-//         image: Logo1,
-//         title: 'Developpeur',
-//         name: 'Faceboock',
-//         Createdate: '20/06/2021',
-//         badge: true,
-//         type: 'CDI',
-//         town: "Paris",
-//         descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-//         profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-//     },
-// ]
