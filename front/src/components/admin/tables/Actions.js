@@ -236,7 +236,7 @@ export default function DeletableChips(props) {
         // Bannir et supprimer un utilisateur
         <Box>
           <Chip
-            label="ban or delete user"
+            label="update or delete user"
             color="error"
             sx={{ color: "#E57373" }}
             variant="outlined"

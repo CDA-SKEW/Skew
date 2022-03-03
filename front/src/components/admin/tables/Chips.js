@@ -32,7 +32,7 @@ export default function IconChips(props) {
           icon={<AccountCircleIcon />}
         />
       );
-    } else {
+    } else if (user.row.isRecruteur === 0) {
       // Sinon il est un candidat
       return (
         <Chip

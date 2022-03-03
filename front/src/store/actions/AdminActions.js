@@ -91,6 +91,22 @@ export const putBadge = (id) => {
   };
 };
 
+export const putVerif = (id) => {
+  return (dispatch) => {
+    console.log("put verified action", id);
+    return axios
+      .put(`http://localhost:1870/api/admin/users/verif/${id}`)
+      .then((res) => {
+        console.log("putUserVerif", res.data);
+        dispatch({
+          type: PUT_USER,
+          payload: res.data.user,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
 //  User Delete
 export const deleteUser = (id) => {
   return (dispatch) => {
