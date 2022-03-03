@@ -50,3 +50,4 @@ export const POST_CONTACT_US = 'POST_CONTACT_US';
 
 // Offres visiteur
 export const GET_OFFRE_VISITEUR = 'GET_OFFRE_VISITEUR';
+export const GET_OFFRE_VISITEURID = 'GET_OFFRE_VISITEURID';

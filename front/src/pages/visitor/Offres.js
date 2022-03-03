@@ -20,18 +20,15 @@ store.dispatch(getOffreVisiteur())
 
 export default function Offres() {
 
-    const [date, setDate] = useState("");
     const [job, setJob] = useState("");
-    const [image, setImage] = useState("");
-    const [description, setDescription] = useState("")
-    const [profil, setProfil] = useState("")
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
     const [page, setPage] = useState(1);
+    const [valueModal, setValueModal] = useState({});
     const [open, setOpen] = useState(false);
 
     const listOffer = useSelector(state => state.offreVisiteur.listOffer)
-
+    console.log('listOffer', listOffer)
     const handleSearchJob = (value) => {
         setJob(value);
         setPage(1);
@@ -45,22 +42,12 @@ export default function Offres() {
         setPage(1);
     };
     const handleClickOpen = (data) => {
+        setValueModal(data)
         setOpen(true);
-        setJob(data.title);
-        setImage(data.avatar);
-        setDescription(data.description);
-        setProfil(data.profil);
-        setDate(data.createDate);
-        setType(data.type);
-        setLocation(data.town)
     };
     const handleClose = () => {
         setOpen(false);
         setJob('');
-        setImage('');
-        setDescription('');
-        setProfil('');
-        setDate('');
         setType('');
         setLocation('');
     };
@@ -92,14 +79,7 @@ export default function Offres() {
                 open={open}
                 handleClose={handleClose}
                 Transition={Transition}
-                listOffer={listOffer}
-                job={job}
-                image={image}
-                description={description}
-                profil={profil}
-                date={date}
-                type={type}
-                location={location}
+                data={valueModal}
             />
         </VisiteurLayout>
     );

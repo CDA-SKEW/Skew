@@ -24,6 +24,12 @@ export function OffreVisiteurReducer(state = initialState, action) {
                 flash: action.payload.flash,
                 listOffer: action.payload.dbOffresVisiteur
             };
+        case Actions.GET_OFFRE_VISITEURID:
+            return {
+                ...state,
+                flash: action.payload.flash,
+                listOffer: action.payload.dbOffresVisiteur
+            };
     }
 }
 
