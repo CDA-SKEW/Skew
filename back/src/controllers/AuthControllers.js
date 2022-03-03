@@ -15,7 +15,7 @@ class AuthControllers {
           res.status(500).send({ flash: err.message || "Une erreur est survenue", });
         } else {
           let token = "visitor";
-          if (data.mail) {
+          if (data.isVerified === 1) {
             token = jwt.sign(
               {
                 id: data.id,
@@ -57,11 +57,12 @@ class AuthControllers {
         if (err) {
           res.status(500).send({ message: err.message || "Une erreur est survenue", });
         } else {
-          // JWT
-          return res.send({
-            status: "success",
-            flash: data,
-          });
+          nodemailer.VerifUser(req, res, (res) => {
+            return res.send({
+              status: "success",
+              flash: res,
+            });
+          })
         }
       });
     } catch (error) { throw error; }
@@ -93,12 +94,6 @@ class AuthControllers {
     } catch (error) {
       throw error;
     }
-  }
-
-  async verifUser(req, res) {
-    if (req.body.mail) {
-      nodemailer.VerifUser(req, res);
-    } else res.json("Error Request");
   }
 
   async verifMail(req, res) {
