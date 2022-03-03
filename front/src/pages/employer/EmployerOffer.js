@@ -25,7 +25,7 @@ const EmployerOffer = () => {
   );
 
   const offers = useSelector(
-    (state) => state.employer.dataOffers
+    (state) => state.employer.dataOffers.offers
   );
   // console.log("store offers ", offers );
 

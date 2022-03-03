@@ -17,29 +17,10 @@ const StatutCandidate = function (statutCandidate) {
     (this.statut = Number(statutCandidate.statut));
 };
 
-// Get Offer
-Offer.getOffer = function (result) {
-  // console.log("Method delete Model User", user);
-  connection.getConnection(function (error, conn) {
-    conn.query(
-      `SELECT offer_id, user_id, title,type,period,description,profil, createDate 
-      FROM offre`,
-      (error, data) => {
-        if (error) throw error;
-        else result(null, data);
-        // console.log('data', data)
-      }
-    );
-    conn.release();
-  });
-};
-
 
 Offer.getOfferId = function (params_id, result) {
   // console.log("model param_id",params_id)
-
   connection.getConnection(function (error, conn) {
-
     const Obj = {
       profilEmployer: {},
       offers: [],
@@ -287,6 +268,25 @@ StatutCandidate.updateCandidate = function (statutCandidateObj, result) {
         conn.release();
       }
     );
+  });
+};
+
+// Plus utlisé dans l'application car getOffer All replace by getOffer id user
+// Utiliser pour test postman
+// Get Offer
+Offer.getOffer = function (result) {
+  // console.log("Method delete Model User", user);
+  connection.getConnection(function (error, conn) {
+    conn.query(
+      `SELECT offer_id, user_id, title,type,period,description,profil, createDate 
+      FROM offre`,
+      (error, data) => {
+        if (error) throw error;
+        else result(null, data);
+        // console.log('data', data)
+      }
+    );
+    conn.release();
   });
 };
 
