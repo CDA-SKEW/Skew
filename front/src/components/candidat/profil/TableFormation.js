@@ -76,31 +76,31 @@ export default function TableFormation(props) {
     }
 
     // Select Yes/No //
-    function BasicSelect() {
-        const { handleValidateParent, status } = props
-        const [value, setValue] = useState(status)
-        const handleValidate = (prop) => (event) => {
-            handleValidateParent(prop, event)
-            setValue(event)
-        }
+    // function BasicSelect() {
+    //     const { handleValidateParent, status } = props
+    //     const [value, setValue] = useState(status)
+    //     const handleValidate = (prop) => (event) => {
+    //         handleValidateParent(prop, event)
+    //         setValue(event)
+    //     }
 
-        return (
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                    <InputLabel id="simple-select">Obtain</InputLabel>
-                    <Select
-                        labelId="Obtain"
-                        id="simple-select"
-                        defaultValue={1}
-                        onChange={handleValidate('validate')}
-                        size="small">
-                        <MenuItem value={Number(value)}>Yes</MenuItem>
-                        <MenuItem value={Number(value)}>No</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
-        );
-    }
+    //     return (
+    //         <Box sx={{ minWidth: 120 }}>
+    //             <FormControl fullWidth>
+    //                 <InputLabel id="simple-select">Obtain</InputLabel>
+    //                 <Select
+    //                     labelId="Obtain"
+    //                     id="simple-select"
+    //                     defaultValue={1}
+    //                     onChange={handleValidate('validate')}
+    //                     size="small">
+    //                     <MenuItem value={Number(value)}>Yes</MenuItem>
+    //                     <MenuItem value={Number(value)}>No</MenuItem>
+    //                 </Select>
+    //             </FormControl>
+    //         </Box>
+    //     );
+    // }
 
 
     /*MODE EDIT */
@@ -135,11 +135,11 @@ export default function TableFormation(props) {
             // console.log('form certificate', form)
         }
 
-        const handleValidateParent = (prop, value) => {
-            console.log('handleChange from cert VALIDATE', prop, value)
-            setForm({ ...form, [prop]: value })
-            console.log('form certificate', form)
-        }
+        // const handleValidateParent = (prop, value) => {
+        //     console.log('handleChange from cert VALIDATE', prop, value)
+        //     setForm({ ...form, [prop]: value })
+        //     console.log('form certificate', form)
+        // }
 
         const submitForm = () => {
             console.log('SUBMIT Certificate UPDATE', form)
@@ -185,7 +185,7 @@ export default function TableFormation(props) {
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-                    <BasicSelect handleValidateParent={handleValidateParent} status={form.status} />
+                    {/* <BasicSelect handleValidateParent={handleValidateParent} status={form.status} /> */}
                 </TableCell>
 
                 <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -226,6 +226,12 @@ export default function TableFormation(props) {
 
         const changeForm = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
+        }
+
+        const handleDateParent = (prop, value) => {
+            // console.log('handleChange from cert DATE', prop, value)
+            setForm({ ...form, [prop]: value })
+            // console.log('form certificate', form)
         }
 
         const submitForm = async (data) => {
@@ -272,13 +278,13 @@ export default function TableFormation(props) {
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-                    <ViewsDatePicker />
+                    <ViewsDatePicker handleDateParent={handleDateParent} year={form.year} />
 
                 </TableCell>
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-                    <BasicSelect />
+                    {/* <BasicSelect /> */}
                 </TableCell>
 
                 <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
