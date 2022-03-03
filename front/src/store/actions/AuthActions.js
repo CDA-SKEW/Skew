@@ -60,6 +60,7 @@ export const register = (data) => {
             .post("http://localhost:3033/api/register", data)
             .then((res) => {
                 dispatch({ type: REGISTER, payload: res.data });
+                return axios.post("http://localhost:3033/api/auth/verification", data)
             })
             .catch((err) => console.log(err));
     };

@@ -50,9 +50,11 @@ router.route("/api/register").post(new AuthControllers().register);
 router
   .route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
 router
-  .route("/api/auth/verification").post(new AuthControllers().verifUser)
-router
   .route("/api/auth/verify/:id").get(new AuthControllers().verifMail)
+
+// Mot de passe oublié
+// router
+// .route("/api/auth/changemdp").post()
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
