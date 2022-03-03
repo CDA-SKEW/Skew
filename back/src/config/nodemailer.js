@@ -24,8 +24,8 @@ var rand, mailOptions, host, link;
 module.exports = {
   // Action envoi mail par nodemailer
   SendEmailCandidate: (req, res) => {
-    console.log("je suis dans le controlleur nodemailer");
-    console.log("req.body", req.body);
+    // console.log("je suis dans le controlleur nodemailer");
+    // console.log("req.body", req.body);
 
     const message = "Votre mail a bien été envoyé !";
     arrayFiles = [];

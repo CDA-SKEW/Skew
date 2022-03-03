@@ -34,12 +34,12 @@ export function EmployerReducer(state = initialState, action) {
         dataSiretApi: action.payload,
       };
 
-      case Actions.GET_DASHBOARD_EMPLOYER:
-        console.log("GET_DASHBOARD_EMPLOYER Reducer", action.payload.dashboard);
-        return {
-          ...state,
-          dataDashboardEmployer: action.payload.dashboard,
-        };
+    case Actions.GET_DASHBOARD_EMPLOYER:
+      // console.log("GET_DASHBOARD_EMPLOYER Reducer", action.payload.dashboard);
+      return {
+        ...state,
+        dataDashboardEmployer: action.payload.dashboard,
+      };
 
     case Actions.GET_PROFIL_EMPLOYER:
       // console.log("GET_PROFIL_EMPLOYER Reducer", action.payload.dataProfilEmployer);
@@ -98,10 +98,10 @@ export function EmployerReducer(state = initialState, action) {
         flash: action.payload.message,
       };
     case Actions.POST_MESSAGE_CANDIDATE:
-      // console.log("POST_MESSAGE_CANDIDATE reduceur", action.payload);
+      // console.log("POST_MESSAGE_CANDIDATE reduceur", action.payload.message);
       return {
         ...state,
-        flash: action.payload.messagePostCandidate,
+        flash: action.payload.message,
       };
 
     // Non utilisé dans l'application car profil crée par défaut au register
