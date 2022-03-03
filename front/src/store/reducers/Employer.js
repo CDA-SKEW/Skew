@@ -79,7 +79,7 @@ export function EmployerReducer(state = initialState, action) {
       return {
         // flash: action.payload.flash,
         ...state,
-        dataOffers: action.payload,
+        dataOffers: action.payload.offers
       };
     case Actions.POST_OFFER:
       // console.log("POST_OFFER", action.payload);

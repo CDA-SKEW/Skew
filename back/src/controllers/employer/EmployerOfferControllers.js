@@ -2,34 +2,9 @@ const { Offer, StatutCandidate } = require("../../models/employer/OfferModel");
 const nodemailer = require("../../config/nodemailer");
 
 class EmployerOfferControllers {
-  async getOffer(req, res) {
-    // console.log("controller get Offer Employeur");
 
-    try {
-      //ici String est une coercion qui permet de typer la variable
-      Offer.getOffer((err, data) => {
-        // console.log("dataid res", data);
-        //Si erreur alors affiche console log erreur et res.status
-        if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
-            });
-          //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-        } else {
-          return res.json({
-            method: req.method,
-            status: "success",
-            message: "Toutes les offres",
-            offers: data,
-          });
-        }
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
 
+    //action GetOffer by User id
   async getOfferId(req, res) {
     // console.log("controller get Offer Employeur");
 
@@ -164,6 +139,37 @@ class EmployerOfferControllers {
     if (req.body.user_id) {
       nodemailer.SendEmailCandidate(req, res);
     } else res.json("Error Request");
+  }
+
+  // Plus utlisé dans l'application car getOffer All replace by getOffer id user
+  // Utiliser pour test postman
+  //action GetOffer All
+  async getOffer(req, res) {
+    // console.log("controller get Offer Employeur");
+
+    try {
+      //ici String est une coercion qui permet de typer la variable
+      Offer.getOffer((err, data) => {
+        // console.log("dataid res", data);
+        //Si erreur alors affiche console log erreur et res.status
+        if (err) {
+          console.log("err", err),
+            res.status(500).send({
+              message: err.message || "Une erreur est survenue",
+            });
+          //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+        } else {
+          return res.json({
+            method: req.method,
+            status: "success",
+            message: "Toutes les offres",
+            offers: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
