@@ -8,11 +8,6 @@ const Message = require("../../models/admin/MessageModel");
 require("dotenv").config();
 
 class MessagesController {
-<<<<<<< HEAD
-  async getMessageAll(req, res) {
-    // console.log("controller getMessageAll");
-    res.send({ message: "GET MESSAGE ALL" });
-=======
   // GET ALL MESSAGES
   // Récupération de la route "getMessageAll"
   async getListMessages(req, res) {
@@ -34,16 +29,11 @@ class MessagesController {
     } catch (error) {
       throw error;
     }
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
   }
 
   // GET MESSAGES ID
   // Récupération de la route "getMessageId"
   async getMessageId(req, res) {
-<<<<<<< HEAD
-    // console.log("controller getMessageId");
-    res.send({ message: "GET MESSAGE ID" });
-=======
     const { id } = req.params;
     // Essayes cette fonction
     try {
@@ -69,7 +59,6 @@ class MessagesController {
     if ({ ...req.body }) {
       nodemailer.replyMessage(req, res);
     } else res.json("Error Request");
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
   }
 
   // DELETE MESSAGE
