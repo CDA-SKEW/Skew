@@ -18,11 +18,8 @@ import {
   PUT_PROFIL_USER_PW,
 } from "./ActionTypes";
 
-
 const id = 4;
 
-const message = "Votre offre a bien été publiée !";
-const messagePostCandidate = "Votre mail a bien été envoyé !";
 
 /*
  * Actions
@@ -132,7 +129,6 @@ export const putFormProfilUserPw = (data) => {
   };
 };
 
-
 // get offer
 export const getOffer = () => {
   return (dispatch) => {
@@ -151,39 +147,56 @@ export const getOffer = () => {
 // Post add offer
 export const postFormAddOffer = (data) => {
   return (dispatch) => {
-    // console.log("POST_OFFER action", data, message);
-    dispatch({ type: POST_OFFER, payload: { data, message } });
+    // console.log("POST_OFFER action", data);
+    return api
+    .post("/employer/offer", data)
+    .then((res) => {
+      // console.log("return api post offer action store", res.data);
+      dispatch({ type: POST_OFFER, payload: res.data });
+    })
+    .catch((err) => console.log(err));
   };
 };
 
 //  Delete offer
-export const deleteOffer = (id) => {
+export const deleteOffer = (data) => {
   return (dispatch) => {
-    console.log("DELETE_OFFER action", id);
-    // dispatch({ type: DELETE_OFFER, payload: {data, messagePostCandidate}});
+    // console.log("DELETE_OFFER action", data);
+    return api
+    .delete(`/employer/offer/${data}`, {
+    })
+    .then((res) => {
+      // console.log("DELETE_OFFER action retour back", res.data);
+      dispatch({ type: DELETE_OFFER, payload: res.data });
+    })
+    .catch((err) => console.log(err));
   };
 };
+
+// /employer/offer/:id
 
 //  Action candidate
 export const putActionCandidate = (data) => {
   return (dispatch) => {
-    // console.log("PUT_ACTION_CANDIDATE", data);
-    dispatch({
-      type: PUT_ACTION_CANDIDATE,
-      payload: { data, messagePostCandidate },
-    });
+    // console.log("PUT_ACTION_CANDIDATE", data, data.user_id);
+    return api
+    .put(`/employer/offer/candidat/${data.user_id}`,data)
+    .then((res) => {
+      // console.log("return api PUT_ACTION_CANDIDATE action store", res.data);
+      dispatch({ type: PUT_ACTION_CANDIDATE, payload: res.data });
+    })
+    .catch((err) => console.log(err));
   };
 };
 
 // Post message candidate
 export const postMessageCandidate = (data) => {
-  // console.log("POST_MESSAGE_CANDIDATE action", data);
   return (dispatch) => {
-    // console.log("POST_MESSAGE_CANDIDATE action", data, messagePostCandidate);
+    // console.log("POST_MESSAGE_CANDIDATE action", data)
     return api
-      .post(`employer/candidat/message`, data)
+      .post("employer/candidat/message", data)
       .then((res) => {
-        // console.log("return api getoffer by Id action store", res.data);
+        // console.log("return api post message action store", res.data);
         dispatch({ type: POST_MESSAGE_CANDIDATE, payload: res.data });
       })
       .catch((err) => console.log(err));

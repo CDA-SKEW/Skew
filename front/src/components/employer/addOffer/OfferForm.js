@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
-import {
-  Button,
-  Grid,
-  MenuItem,
-  TextField,
-} from "@mui/material";
+import { Button, Grid, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { postFormAddOffer } from "store/actions/EmployerActions";
+import {
+  getOffer,
+  getProfilUser,
+  postFormAddOffer,
+} from "store/actions/EmployerActions";
 import SnackbarMessage from "../../SnackbarMessage";
 
 export default function OfferForm() {
   const dispatch = useDispatch();
 
-  const messageEmployer = useSelector((state) => state.employer.flashs);
+  const messageEmployer = useSelector((state) => state.employer.flash);
+  const dataEmployer = useSelector((state) => state.employer.dataOffers);
+  const [textFlash, setTextFlash] = useState("");
 
-  // console.log("messageEmployer ", messageEmployer);
+  useEffect(() => {
+    setTextFlash(messageEmployer);
+  }, [dataEmployer]);
+  // console.log("textFlash", textFlash);
 
   // declaration du tableau pour le select
   const types = [
@@ -60,7 +64,7 @@ export default function OfferForm() {
     e.preventDefault();
 
     const dataFormAddOffer = {
-      user_id:4,
+      user_id: 4,
       title,
       type,
       period,
@@ -68,20 +72,25 @@ export default function OfferForm() {
       profil,
     };
 
-    //passage de la varaiblesecondesSnackbarMessage à false apres 2 
-    setOpenModal(true)
+    //passage de la variable pour SnackbarMessage à false apres 2
+    setTimeout(function () {
+      setOpenModal(true);
+    }, 1000);
     setTimeout(function () {
       setOpenModal(false);
-    }, 2000);
+    }, 3000);
 
     // console.log("dataFormAddOffer", dataFormAddOffer);
     await dispatch(postFormAddOffer(dataFormAddOffer));
-
     setTitle("");
     setType("");
     setPeriod("");
     setDescription("");
     setProfil("");
+
+    setTimeout(() => {
+      dispatch(getOffer());
+    }, 600);
   };
 
   return (
@@ -196,7 +205,8 @@ export default function OfferForm() {
       </Grid>
 
       {openModal && (
-      <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />)}
+        <SnackbarMessage message={textFlash} open={openModal} />
+      )}
     </Box>
   );
 }

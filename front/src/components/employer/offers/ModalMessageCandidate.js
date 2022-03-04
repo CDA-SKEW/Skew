@@ -57,7 +57,7 @@ export default function ModalMessageCandidate(props) {
     };
     setTextMessage("");
 
-    //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue*
+    //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue*
     setTimeout(function () {
       setOpenModal(true);
     }, 1000);

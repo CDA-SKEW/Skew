@@ -74,7 +74,7 @@ export default function CandidateExperience(props) {
                                         </TableCell>
                                         <TableCell align="center">{experience.job}</TableCell>
                                         <TableCell align="center">
-                                        {moment.utc(experience.dateStart).format('DD/MM/YY')}
+                                        {moment.utc(experience.dateStart).format('DD/MM/YYYY')}
                                         </TableCell>
                                         <TableCell
                                             sx={{ minWidth: { xs: "500px", sm: "500px" } }}
@@ -83,7 +83,7 @@ export default function CandidateExperience(props) {
                                             {experience.description}
                                         </TableCell>
                                         <TableCell align="center">
-                                        {moment.utc(experience.dateEnd).format('DD/MM/YY')}
+                                        {moment.utc(experience.dateEnd).format('DD/MM/YYYY')}
                                         </TableCell>
                                     </TableRow>
                                 )))}

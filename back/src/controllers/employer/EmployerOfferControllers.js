@@ -71,7 +71,7 @@ class EmployerOfferControllers {
       let offerObj = new Offer({
         ...req.body,
       });
-      console.log("post create offer profilUserObj ", offerObj);
+      // console.log("post create offer profilUserObj ", offerObj);
       try {
         Offer.createOffer(offerObj, (err, data) => {
           if (err) {
@@ -98,7 +98,6 @@ class EmployerOfferControllers {
 
   async delOffer(req, res) {
     // console.log("controller del offer Employeur");
-
     try {
       //ici String est une coercion qui permet de typer la variable
       Offer.deleteOffer(String(req.params.id), (err, data) => {
@@ -115,7 +114,7 @@ class EmployerOfferControllers {
             method: req.method,
             status: "success",
             flash: "Del offer By Id !",
-            message: "controller del offer employer",
+            message: "Votre offre a bien été supprimée !",
             offers: data,
           });
         }
@@ -126,17 +125,20 @@ class EmployerOfferControllers {
   }
 
   async updateCandidate(req, res) {
-    // console.log("controller update statut Candidate", req.body);
-    if (req.params.id && req.body.offer_id && req.body.isRetain) {
+    // console.log("controller update statut Candidate", req.body,req.params.id);
+
+    if (req.params.id && req.body.offer_id) {
       let isRetainLet;
-      if (req.body.isRetain === "true") isRetainLet = 1;
-      if (req.body.isRetain === "false") isRetainLet = 0;
+      if (req.body.isRetain === true) isRetainLet = 1;
+      if (req.body.isRetain === false) isRetainLet = 0;
 
       let statutCandidateObj = new StatutCandidate({
         user_id: req.params.id,
         offre_id: req.body.offer_id,
         statut: isRetainLet,
       });
+
+      // console.log("controller update statut Candidate statutCandidateObj", statutCandidateObj);
 
       try {
         StatutCandidate.updateCandidate(statutCandidateObj, (err, data) => {

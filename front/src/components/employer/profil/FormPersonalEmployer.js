@@ -99,7 +99,7 @@ export default function FormPersonalEmployer(props) {
     };
 
 
-    //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue
+    //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
     setOpenModal(true);
     setTimeout(function () {
       setOpenModal(false);

@@ -146,7 +146,7 @@ export default function RowTableCandidateOffer(props) {
                                                 </TableCell>
                                                 <TableCell align="center">{candidatRow.job}</TableCell>
                                                 <TableCell align="center">
-                                                    {moment.utc(candidatRow.dateStart).format('DD/MM/YY')}
+                                                    {moment.utc(candidatRow.dateStart).format('DD/MM/YYYY')}
                                                 </TableCell>
                                                 <TableCell
                                                     sx={{ minWidth: { xs: "500px", sm: "500px" } }}
@@ -155,7 +155,7 @@ export default function RowTableCandidateOffer(props) {
                                                     {candidatRow.description}
                                                 </TableCell>
                                                 <TableCell align="center">
-                                                    {moment.utc(candidatRow.dateEnd).format('DD/MM/YY')}
+                                                    {moment.utc(candidatRow.dateEnd).format('DD/MM/YYYY')}
                                                 </TableCell>
                                             </TableRow>
                                         ))}
