@@ -18,6 +18,7 @@ export default function IconChips(props) {
         <Chip
           label="admin"
           variant="outlined"
+          sx={{ border: "1px solid" }}
           color="secondary"
           icon={<AccountCircleIcon />}
         />
@@ -28,16 +29,18 @@ export default function IconChips(props) {
         <Chip
           label="recruteur"
           variant="outlined"
-          color="warning"
+          sx={{ border: "1px solid" }}
+          color="primary"
           icon={<AccountCircleIcon />}
         />
       );
-    } else {
+    } else if (user.row.isRecruteur === 0) {
       // Sinon il est un candidat
       return (
         <Chip
           label="candidat"
           variant="outlined"
+          sx={{ border: "1px solid" }}
           color="info"
           icon={<AccountCircleIcon />}
         />

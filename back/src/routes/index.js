@@ -249,10 +249,12 @@ router
 router.route("/api/admin/users").get(new UsersController().getListUsers);
 router
   .route("/api/admin/users/:id")
-  // .get(new UsersController().getUserId)
+  .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
+router.route("/api/admin/users/verif/:id").put(new UsersController().verifUser);
+
 
 // Session
 
