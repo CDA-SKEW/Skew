@@ -173,8 +173,6 @@ export const deleteOffer = (data) => {
   };
 };
 
-// /employer/offer/:id
-
 //  Action candidate
 export const putActionCandidate = (data) => {
   return (dispatch) => {
