@@ -117,6 +117,7 @@ Offer.getOfferId = function (params_id, result) {
             (err, dataOfferByEmployer) => {
               if (error) result(null, { message: "error" });
               Obj.offers = dataOfferByEmployer;
+              console.log("dataOfferByEmployer",dataOfferByEmployer);
 
               if (dataOfferByEmployer.length > 0) {
                 dataOfferByEmployer.map((el, index) => {
