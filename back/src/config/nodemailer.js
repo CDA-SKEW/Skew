@@ -24,10 +24,9 @@ var rand, mailOptions, host, link;
 module.exports = {
   // Action envoi mail par nodemailer
   SendEmailCandidate: (req, res) => {
-    console.log("je suis dans le controlleur nodemailer");
-    console.log("req.body", req.body);
+    // console.log("je suis dans le controlleur nodemailer");
+    // console.log("req.body", req.body);
 
-    const message = "Votre mail a bien été envoyé !";
     arrayFiles = [];
 
     // initialisation du tableau array avec data signature
@@ -105,10 +104,11 @@ module.exports = {
             message: err.message || "Une erreur est survenue",
           });
       } else {
+        // console.log("envoi json", "Votre mail a bien été envoyé !")
         return res.json({
           method: req.method,
           status: "success",
-          message: message,
+          message: "Votre mail a bien été envoyé !",
         });
       }
     });
@@ -204,14 +204,14 @@ module.exports = {
     });
 
     rand = Math.floor((Math.random() * 100) + 54)
-
+    
     host = req.get('host');
 
     link = "http://" + req.get('host') + "/api/auth/verify/" + rand;
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
-      to: req.body.mail,
+      to: req.body.mailInscription,
       subject: "Vérification du compte",
       rand: rand,
       html: `
@@ -268,7 +268,7 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          message: "Votre mail a bien été envoyé !",
+          flash: "L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!",
           mailoptions: mailOptions
         });
       }
@@ -281,7 +281,6 @@ module.exports = {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
       if (req.params.id == mailOptions.rand) {
         try {
-          console.log('mailOptions', mailOptions)
           user.verify(mailOptions, (err, data) => {
             if (err) res.status(500).send({ flash: err.message || "Une erreur est survenue", });
             else return res.redirect(process.env.URL + '/#/verif/' + mailOptions.rand)
@@ -289,5 +288,84 @@ module.exports = {
         } catch (error) { throw error; }
       } else res.end("<h1>Bad Request</h1>")
     } else res.end("<h1>Request is from unknown source")
-  }
+  },
+
+  mailLostMdp: (req, res) => {
+
+    arrayFiles = [];
+    // initialisation du tableau array avec data signature
+    arrayFiles.push({
+      filename: "logo.webp",
+      path: "public/images/logo/logo.png",
+      cid: "signatureLogo", //same cid value as in the html img src
+    });
+
+    rand = Math.floor((Math.random() * 100) + 54)
+    
+    host = req.get('host');
+
+    link = "http://" + req.get('host') + "/api/auth/changemdp/" + rand;
+
+    mailOptions = {
+      from: process.env.USER_NODMAILER,
+      to: req.body.mailLostMdp,
+      subject: "Modification du mot de passe",
+      rand: rand,
+      html: `
+      <strong>Modification du mot de passe</strong>
+      <br><br>
+
+
+      
+
+
+      <br><br>
+      <div style="text-align:left;margin-left: 15px;">
+         <div style="font-size: 13px;">
+              <strong><span>Skew application </span></strong>
+         </div>  
+         <div style="font-size: 10px;">
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Adresse:</span>
+                  <span>18 rue Georges Bizet</span>
+              </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Code postal:</span>
+                  <span>72700</span>
+              </div>  
+              <div style="display: flex;">
+              <span style="margin-right:2px">Ville:</span>
+              <span>Allonnes</span>
+               </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Email:</span>
+                  <a href="mailto:${process.env.USER_NODMAILER}" style="color:#428BCA;">${process.env.USER_NODMAILER}</a>
+              </div>  
+              <div style="display: flex;">
+                  <span style="margin-right:2px">Link:</span>
+                  <a href="http://localhost:3000/" target="_blank"  rel="noreferrer" style="color:#428BCA;">
+                      Skew Application</a>
+              </div>  
+           </div>
+         </div>
+      `,
+      attachments: arrayFiles,
+    };
+    // On demande à notre transporter d'envoyer notre mail
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log("err", err),
+          res.status(500).send({
+            message: err.message || "Une erreur est survenue",
+          });
+      } else {
+        return res.json({
+          method: req.method,
+          status: "success",
+          flash: "success mail new password!",
+          mailoptions: mailOptions
+        });
+      }
+    });
+  },
 };

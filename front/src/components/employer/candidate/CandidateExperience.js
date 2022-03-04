@@ -5,6 +5,7 @@ import { themeEmployer} from 'configs/theme';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
+import moment from 'moment';
 
 
 
@@ -73,7 +74,7 @@ export default function CandidateExperience(props) {
                                         </TableCell>
                                         <TableCell align="center">{experience.job}</TableCell>
                                         <TableCell align="center">
-                                            {experience.dateStart}
+                                        {moment.utc(experience.dateStart).format('DD/MM/YYYY')}
                                         </TableCell>
                                         <TableCell
                                             sx={{ minWidth: { xs: "500px", sm: "500px" } }}
@@ -82,7 +83,7 @@ export default function CandidateExperience(props) {
                                             {experience.description}
                                         </TableCell>
                                         <TableCell align="center">
-                                            {experience.dateEnd}
+                                        {moment.utc(experience.dateEnd).format('DD/MM/YYYY')}
                                         </TableCell>
                                     </TableRow>
                                 )))}

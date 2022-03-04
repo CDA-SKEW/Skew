@@ -181,7 +181,7 @@ export default function VisiteurLayout({ children }) {
 
   };
   const handleSubmitChildModal = () => {
-    console.log('oui')
+    if (mailLostPass.length > 0) console.log('oui')
   }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
   const logout = () => {

@@ -50,15 +50,18 @@ router.route("/api/register").post(new AuthControllers().register);
 router
   .route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
 router
-  .route("/api/auth/verification").post(new AuthControllers().verifUser)
-router
   .route("/api/auth/verify/:id").get(new AuthControllers().verifMail)
+
+// Mot de passe oublié
+router
+.route("/api/auth/mailLostMdp").post(new AuthControllers().mailLostMdp)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
 
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
+router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
 
 // Users
 router
@@ -68,6 +71,11 @@ router
 
 //------------------------------------------------------------
 // Employeur
+
+// Employeur user profil
+router
+  .route("/api/employer/dashboard/:id")
+  .get(new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
@@ -234,8 +242,8 @@ router
   .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId);
-// .delete(new MessagesController().deleteMessage);
+  .get(new MessagesController().getMessageId)
+  .delete (new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);

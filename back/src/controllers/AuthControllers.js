@@ -15,7 +15,7 @@ class AuthControllers {
           res.status(500).send({ flash: err.message || "Une erreur est survenue", });
         } else {
           let token = "visitor";
-          if (data.mail) {
+          if (data.isVerified === 1) {
             token = jwt.sign(
               {
                 id: data.id,
@@ -34,15 +34,11 @@ class AuthControllers {
               flash: "Login Success!",
               token,
             });
-<<<<<<< HEAD
-          } else return res.status(503).json({ error: 'Fils de pul' })
-=======
           } else return res.status(202).send({
             success: 'no',
             flash: data,
             token: 'no'
           })
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
 
         }
       });
@@ -61,21 +57,18 @@ class AuthControllers {
         if (err) {
           res.status(500).send({ message: err.message || "Une erreur est survenue", });
         } else {
-          // JWT
-          return res.send({
-            status: "success",
-            flash: data,
-          });
+          nodemailer.VerifUser(req, res, (res) => {
+            return res.send({
+              status: "success",
+              flash: res,
+            });
+          })
         }
       });
     } catch (error) { throw error; }
   }
 
   async checkToken(req, res) {
-<<<<<<< HEAD
-    // console.log("check", req.params.token);
-=======
->>>>>>> 29e79f3b86879cf4870d9d31aa44e116a6a65ffd
     const user = jwt.verify(req.params.token, process.env.SIGN_JWT, (err, decoded) => {
       if (err) return;
       return decoded;
@@ -103,14 +96,28 @@ class AuthControllers {
     }
   }
 
-  async verifUser(req, res) {
-    if (req.body.mail) {
-      nodemailer.VerifUser(req, res);
-    } else res.json("Error Request");
-  }
-
   async verifMail(req, res) {
     nodemailer.verifMail(req, res);
+  }
+
+  async mailLostMdp(req, res) {
+    let newUser = new User({
+      mail: String(req.body.mailLostPass)
+    });
+    try {
+      User.changePass({...req.body}, (err, data) => {
+        if (err) {
+          res.status(500).send({ message: err.message || "Une erreur est survenue", });
+        } else {
+          // nodemailer.mailLostMdp(req, res, (res) => {
+          return res.send({
+            status: "success",
+            // flash: res,
+          });
+          // })
+        }
+      });
+    } catch (error) { throw error; }
   }
 }
 

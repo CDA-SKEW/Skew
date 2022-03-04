@@ -1,5 +1,5 @@
 import { Button, Collapse, Divider, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, color } from "@mui/system";
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -11,6 +11,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import ModalMessageCandidate from "./ModalMessageCandidate";
 import ModalConfimation from "components/ModalConfimation";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 
 export default function RowTableCandidateOffer(props) {
@@ -41,7 +42,7 @@ export default function RowTableCandidateOffer(props) {
     };
 
 
-     //constante pour le modal contact
+    //constante pour le modal contact
     const [openContact, setOpenContact] = useState(false);
     const handleClickModalContact = () => {
         setOpenContact(true);
@@ -60,7 +61,7 @@ export default function RowTableCandidateOffer(props) {
                 <TableCell align="center">{row.lastName}</TableCell>
                 <TableCell align="center">{row.mail}</TableCell>
                 <TableCell align="center">{row.phone}</TableCell>
-                <TableCell align="center">{row.statut}</TableCell>
+                {row.statut === 0 ? <TableCell align="center" sx={{ color: "red" }}>Non retenu</TableCell> : row.statut === 1 ? <TableCell align="center" sx={{ color: "green" }}>Retenu</TableCell> : <TableCell align="center" sx={{ color: "orange" }}>En attente</TableCell>}
                 <TableCell align="center">
                     <IconButton
                         aria-label="expand row"
@@ -145,7 +146,7 @@ export default function RowTableCandidateOffer(props) {
                                                 </TableCell>
                                                 <TableCell align="center">{candidatRow.job}</TableCell>
                                                 <TableCell align="center">
-                                                    {candidatRow.dateStart}
+                                                    {moment.utc(candidatRow.dateStart).format('DD/MM/YYYY')}
                                                 </TableCell>
                                                 <TableCell
                                                     sx={{ minWidth: { xs: "500px", sm: "500px" } }}
@@ -154,7 +155,7 @@ export default function RowTableCandidateOffer(props) {
                                                     {candidatRow.description}
                                                 </TableCell>
                                                 <TableCell align="center">
-                                                    {candidatRow.dateEnd}
+                                                    {moment.utc(candidatRow.dateEnd).format('DD/MM/YYYY')}
                                                 </TableCell>
                                             </TableRow>
                                         ))}
@@ -255,7 +256,7 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
-                                    onClick={e => navigate("/Employer/candidate/" + row.user_id ,{ state: { profilCandidate: row} })}
+                                    onClick={e => navigate("/Employer/candidate/" + row.user_id, { state: { profilCandidate: row } })}
 
                                 >
                                     Voir candidat
