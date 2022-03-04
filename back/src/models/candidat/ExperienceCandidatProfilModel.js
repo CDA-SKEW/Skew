@@ -9,7 +9,7 @@ const CandidatExperience = function (experience) {
         this.compagny = String(experience.compagny),
         this.job = String(experience.job),
         this.description = String(experience.description),
-        this.dateStart = STR_TO_DATE(experience.dateStart, '%d,%m,%Y'),
+        this.dateStart = (experience.dateStart),
         this.dateEnd = (experience.dateEnd)
 };
 
@@ -26,7 +26,7 @@ CandidatExperience.createExperienceProfil = function (newExperience, result) {
             compagny = :compagny,
             job = :job,
             description = :description,
-            dateStart = STR_TO_DATE(:dateStart, '%d,%m,%Y'),
+            dateStart = :dateStart,
             dateEnd = :dateEnd
             ;`,
             { compagny, job, description, dateStart, dateEnd, user_id, id }

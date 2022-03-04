@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { getProfilCandidate, postFormProfilCandidateExperience, putFormProfilCandidateExperience, deleteFormProfilCandidateExperience } from "store/actions/CandidateActions";
 import { useNavigate } from "react-router";
+import moment from "moment";
 
 
 
@@ -47,8 +48,12 @@ export default function TableExperience(props) {
     const { handleExpDateParent, dateExp } = props
     const [value, setValue] = useState(dateExp)
     const handleExpDate = (prop) => (event) => {
+      // 2012-06-22T03:40:06.000Z
 
-      handleExpDateParent(prop, event)
+      console.log('format date', prop, event)
+      console.log('?KKKKK', moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+
+      handleExpDateParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
       setValue(event)
     }
 
@@ -58,7 +63,7 @@ export default function TableExperience(props) {
         <DatePicker
           label=""
           // value={String(value)}
-          onChange={handleExpDate('dateStart', 'dateEnd')}
+          onChange={handleExpDate('dateStart')}
           renderInput={(params) => <TextField {...params} helperText={null} />}
         />
       </LocalizationProvider>
