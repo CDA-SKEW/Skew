@@ -1,7 +1,7 @@
 /*
  * Import - Module
  * *************** */
-import axios from "axios";
+import { api } from "configs/axios";
 
 import { GET_OFFRE_VISITEUR, GET_OFFRE_VISITEURID } from "./ActionTypes";
 
@@ -16,8 +16,8 @@ import { GET_OFFRE_VISITEUR, GET_OFFRE_VISITEURID } from "./ActionTypes";
 // GET OFFRES VISITEUR
 export const getOffreVisiteur = (data) => {
     return (dispatch) => {
-        return axios
-            .get("http://localhost:3033/api/offresvisiteur")
+        return api
+            .get("/offresvisiteur")
             .then((res) => {
                 dispatch({ type: GET_OFFRE_VISITEUR, payload: res.data })
             })
@@ -27,8 +27,8 @@ export const getOffreVisiteur = (data) => {
 
 export const getOffreVisiteurId = (id) => {
     return (dispatch) => {
-        return axios
-            .get(`http://localhost:3033/api/offresvisiteur/${id}`)
+        return api
+            .get(`/offresvisiteur/${id}`)
             .then((res) => {
                 dispatch({ type: GET_OFFRE_VISITEURID, payload: res.data })
             })
