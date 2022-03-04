@@ -24,10 +24,9 @@ var rand, mailOptions, host, link;
 module.exports = {
   // Action envoi mail par nodemailer
   SendEmailCandidate: (req, res) => {
-    console.log("je suis dans le controlleur nodemailer");
-    console.log("req.body", req.body);
+    // console.log("je suis dans le controlleur nodemailer");
+    // console.log("req.body", req.body);
 
-    const message = "Votre mail a bien été envoyé !";
     arrayFiles = [];
 
     // initialisation du tableau array avec data signature
@@ -105,10 +104,11 @@ module.exports = {
             message: err.message || "Une erreur est survenue",
           });
       } else {
+        // console.log("envoi json", "Votre mail a bien été envoyé !")
         return res.json({
           method: req.method,
           status: "success",
-          message: message,
+          message: "Votre mail a bien été envoyé !",
         });
       }
     });
@@ -204,14 +204,14 @@ module.exports = {
     });
 
     rand = Math.floor((Math.random() * 100) + 54)
-
+    
     host = req.get('host');
 
     link = "http://" + req.get('host') + "/api/auth/verify/" + rand;
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
-      to: req.body.mail,
+      to: req.body.mailInscription,
       subject: "Vérification du compte",
       rand: rand,
       html: `
@@ -268,7 +268,7 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          message: "Votre mail a bien été envoyé !",
+          flash: "L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!",
           mailoptions: mailOptions
         });
       }
@@ -281,7 +281,6 @@ module.exports = {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
       if (req.params.id == mailOptions.rand) {
         try {
-          console.log('mailOptions', mailOptions)
           user.verify(mailOptions, (err, data) => {
             if (err) res.status(500).send({ flash: err.message || "Une erreur est survenue", });
             else return res.redirect(process.env.URL + '/#/verif/' + mailOptions.rand)

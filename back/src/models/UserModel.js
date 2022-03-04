@@ -29,8 +29,11 @@ User.login = function (user, result) {
       if (!data[0]) result(null, "L'utilisateur est incorrect ou n'est pas encore inscrit!");
       else bcrypt.compare(user.pass, data[0].pass, function (err, check) {
         if (err) throw err;
-        if (check) result(null, data[0]);
-        else result(null, 'Le mots de passe est incorrect!');
+        if (check) {
+          if (data[0].isVerified === 1) {
+            result(null, data[0]);
+          } else result(null, 'Le compte n\'as pas été validé!');
+        } else result(null, 'Le mots de passe est incorrect!');
       });
       conn.release();
     }

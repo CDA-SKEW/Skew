@@ -42,18 +42,24 @@ export default function TableExperience(props) {
 
   /*FUNCTION DATEPICKER */
 
-  function BasicDatePicker() {
-    const [value, setValue] = React.useState(null);
+  function BasicDatePicker(props) {
+
+    const { handleExpDateParent, dateExp } = props
+    const [value, setValue] = useState(dateExp)
+    const handleExpDate = (prop) => (event) => {
+
+      handleExpDateParent(prop, event)
+      setValue(event)
+    }
+
 
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label=""
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
+          // value={String(value)}
+          onChange={handleExpDate('dateStart', 'dateEnd')}
+          renderInput={(params) => <TextField {...params} helperText={null} />}
         />
       </LocalizationProvider>
     );
@@ -82,6 +88,12 @@ export default function TableExperience(props) {
 
     const handleChange = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
+    }
+
+    const handleExpDateParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
     }
 
     const submitForm = () => {
@@ -138,13 +150,13 @@ export default function TableExperience(props) {
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
           <Typography>Start</Typography>
-          <BasicDatePicker />
+          <BasicDatePicker handleExpDateParent={handleExpDateParent} dateExp={form.dateStart} />
 
         </TableCell>
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
           <Typography>End</Typography>
-          <BasicDatePicker />
+          <BasicDatePicker handleExpDateParent={handleExpDateParent} dateExp={form.dateEnd} />
         </TableCell>
 
         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>

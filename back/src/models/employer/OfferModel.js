@@ -17,6 +17,70 @@ const StatutCandidate = function (statutCandidate) {
     (this.statut = Number(statutCandidate.statut));
 };
 
+Offer.getDashboard = function (params_id, result) {
+  // console.log("model getDashboard  param_id", params_id);
+  connection.getConnection(function (error, conn) {
+    const Obj = {
+      offers: [],
+    };
+
+    // Data Offre
+    conn.query(
+      `SELECT o.offer_id, o.user_id, o.title,o.type,o.period,o.description,o.profil,
+        DATEDIFF(now(),o.createDate) as dateOfferDays,
+        c.user_id, c.name as nameEmployor, c.badge as badgeEmployor, c.avatar as image
+        FROM offre as o
+        inner join contactProfil as c On o.user_id=c.user_id
+        where o.user_id=:params_id;`,
+      { params_id },
+      (error, dataOffers) => {
+        if (error) result(null, { message: "error" });
+        if (dataOffers.length > 0) {
+          Obj.offers = dataOffers;
+
+          conn.query(
+            `SELECT COUNT(*) AS numberOffers
+              FROM offre as o
+              where o.user_id=:params_id;`,
+            { params_id },
+            (error, numberOffers) => {
+              if (error) result(null, { message: "error" });
+              // console.log(numberOffers)
+              Obj.numberOffers = numberOffers[0].numberOffers;
+
+              conn.query(
+                `SELECT COUNT(*) AS numberCandidate
+            FROM offre as o
+            inner join postuled as p On o.offer_id=p.offre_id
+            where o.user_id=:params_id;`,
+                { params_id },
+                (error, numberCandidate) => {
+                  if (error) result(null, { message: "error" });
+                  Obj.numberCandidate = numberCandidate[0].numberCandidate;
+
+                  conn.query(
+                    `SELECT COUNT(*) AS numberCandidateNull
+                  FROM offre as o
+                  inner join postuled as p On o.offer_id=p.offre_id
+                  where o.user_id=:params_id and ISNULL(p.statut) = 1;`,
+                    { params_id },
+                    (error, numberCandidateNull) => {
+                      if (error) result(null, { message: "error" });
+                      Obj.numberCandidateNull =
+                        numberCandidateNull[0].numberCandidateNull;
+                      result(null, Obj);
+                    }
+                  );
+                }
+              );
+            }
+          );
+        } else result(null, dataOffers);
+      }
+    );
+    conn.release();
+  });
+};
 
 Offer.getOfferId = function (params_id, result) {
   // console.log("model param_id",params_id)
@@ -33,7 +97,7 @@ Offer.getOfferId = function (params_id, result) {
        where c.user_id=:params_id ;`,
       { params_id },
       (error, dataEmployer) => {
-        if (error) result(null, { message: "error" })
+        if (error) result(null, { message: "error" });
         if (dataEmployer.length > 0) {
           // console.log("dataEmployer",dataEmployer)
           // console.log("dataEmployerID", dataEmployer[0].user_id);
@@ -51,11 +115,11 @@ Offer.getOfferId = function (params_id, result) {
                   `,
             { userEmployerID },
             (err, dataOfferByEmployer) => {
-              if (error) result(null, { message: "error" })
+              if (error) result(null, { message: "error" });
               Obj.offers = dataOfferByEmployer;
+              console.log("dataOfferByEmployer",dataOfferByEmployer);
 
               if (dataOfferByEmployer.length > 0) {
-
                 dataOfferByEmployer.map((el, index) => {
                   // console.log("index, el", index, el.offer_id);
                   const offerId = el.offer_id;
@@ -78,7 +142,7 @@ Offer.getOfferId = function (params_id, result) {
                       //   "nb profilCandidate ",
                       //   profilCandidate.length
                       // );
-                      el.profilCandidate = profilCandidate
+                      el.profilCandidate = profilCandidate;
 
                       profilCandidate.map((elc, index2) => {
                         // console.log(elc)
@@ -107,9 +171,13 @@ Offer.getOfferId = function (params_id, result) {
 
                                 // console.log("dataSkill", dataSkill)
 
-                                const skills = []
-                                for (let index = 0; index < dataSkill.length; index++) {
-                                  skills.push(dataSkill[index].skill)
+                                const skills = [];
+                                for (
+                                  let index = 0;
+                                  index < dataSkill.length;
+                                  index++
+                                ) {
+                                  skills.push(dataSkill[index].skill);
                                 }
 
                                 //  Data interet
@@ -120,9 +188,15 @@ Offer.getOfferId = function (params_id, result) {
                                     if (error) throw error;
 
                                     // console.log("dataInterest", dataInterest)
-                                    const interests = []
-                                    for (let index = 0; index < dataInterest.length; index++) {
-                                      interests.push(dataInterest[index].interest)
+                                    const interests = [];
+                                    for (
+                                      let index = 0;
+                                      index < dataInterest.length;
+                                      index++
+                                    ) {
+                                      interests.push(
+                                        dataInterest[index].interest
+                                      );
                                     }
 
                                     //Data certificate
@@ -135,7 +209,6 @@ Offer.getOfferId = function (params_id, result) {
                                         if (error) throw error;
                                         // console.log("dataCertificate", dataCertificate)
 
-
                                         //  Data Documents
                                         conn.query(
                                           `select d.*
@@ -145,46 +218,63 @@ Offer.getOfferId = function (params_id, result) {
                                           (error, dataDocument) => {
                                             if (error) throw error;
 
-                                            const documents = []
-                                            for (let index = 0; index < dataDocument.length; index++) {
-                                              documents.push(dataDocument[index].document)
+                                            const documents = [];
+                                            for (
+                                              let index = 0;
+                                              index < dataDocument.length;
+                                              index++
+                                            ) {
+                                              documents.push(
+                                                dataDocument[index].document
+                                              );
                                             }
 
                                             // console.log("dataCertificate", dataCertificate)
-                                            elc.cvCandidat = { experience: dataExperience, skill: skills, interest: interests, certificate: dataCertificate, document: documents }
-                                            if (index2 === profilCandidate.length - 1 && index === dataOfferByEmployer.length - 1) {
+                                            elc.cvCandidat = {
+                                              experience: dataExperience,
+                                              skill: skills,
+                                              interest: interests,
+                                              certificate: dataCertificate,
+                                              document: documents,
+                                            };
+                                            if (
+                                              index2 ===
+                                                profilCandidate.length - 1 &&
+                                              index ===
+                                                dataOfferByEmployer.length - 1
+                                            ) {
                                               // console.log("index de fin");
                                               result(null, Obj);
                                             }
-                                          })
-                                      })
+                                          }
+                                        );
+                                      }
+                                    );
                                   }
-                                )
+                                );
                               }
-                            )
+                            );
                           }
-                        )
-                      })
+                        );
+                      });
                     }
-                  )
-                })
-
+                  );
+                });
               } else result(null, dataEmployer);
             }
           );
-        }
-        else result(null, { message: "error" })
+        } else result(null, { message: "error" });
       }
     );
     conn.release();
   });
-
 };
 
 //create offer
 Offer.createOffer = function (offerObj, result) {
   // //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { user_id, title, type, period, description, profil } = offerObj;
+  // console.log("offerObj dans model offer",offerObj)
   connection.getConnection(function (error, conn) {
     conn.query(
       `INSERT INTO offre SET
@@ -218,7 +308,7 @@ Offer.createOffer = function (offerObj, result) {
 
 // Delete offer
 Offer.deleteOffer = function (id, result) {
-  // console.log("Method delete Model User", user);
+  //  console.log("Method delete Model User", id);
   connection.getConnection(function (error, conn) {
     conn.query(
       ` DELETE FROM offre

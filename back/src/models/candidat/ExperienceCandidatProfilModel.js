@@ -9,29 +9,10 @@ const CandidatExperience = function (experience) {
         this.compagny = String(experience.compagny),
         this.job = String(experience.job),
         this.description = String(experience.description),
-        this.dateStart = (experience.dateStart),
+        this.dateStart = STR_TO_DATE(experience.dateStart, '%d,%m,%Y'),
         this.dateEnd = (experience.dateEnd)
 };
 
-// Get ID
-// CandidatExperience.getExperienceProfil = function (user_id, result) {
-//     connection.getConnection(function (error, conn) {
-//         if (error) throw error;
-//         conn.query(
-//             `SELECT u.id,e.*
-//             FROM user as u
-//             INNER JOIN experience as e
-//             ON u.id = user_id
-//             WHERE u.id = :user_id;`,
-
-//             { user_id }, (error, data) => {
-//                 if (error) throw error;
-//                 // console.log('exp data', data);
-//                 result(null, data);
-//                 conn.release();
-//             });
-//     });
-// };
 
 // Create Experience
 CandidatExperience.createExperienceProfil = function (newExperience, result) {
@@ -44,7 +25,9 @@ CandidatExperience.createExperienceProfil = function (newExperience, result) {
             user_id = :user_id,
             compagny = :compagny,
             job = :job,
-            description = :description
+            description = :description,
+            dateStart = STR_TO_DATE(:dateStart, '%d,%m,%Y'),
+            dateEnd = :dateEnd
             ;`,
             { compagny, job, description, dateStart, dateEnd, user_id, id }
             , (error, data) => {

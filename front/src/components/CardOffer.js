@@ -11,10 +11,13 @@ import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { useNavigate } from "react-router-dom";
+import { urlImg } from "utils/url";
 
 export default function CardOffer(props) {
   const { listOffer } = props;
   const navigate = useNavigate();
+
+  // console.log("listOffer",listOffer)
 
   return (
     <Card
@@ -30,7 +33,7 @@ export default function CardOffer(props) {
       onClick={e => navigate("/Employer/offer/" + listOffer.offer_id, { state: { offer: listOffer } })}
     >
       <CardActionArea>
-        {listOffer.badgeEmployor && (
+        {listOffer.badgeEmployor===1 && (
           <VerifiedUserIcon
             sx={{
               position: "absolute",
@@ -46,7 +49,7 @@ export default function CardOffer(props) {
         <CardMedia
           component="img"
           height="140"
-          image={listOffer.image}
+          image={`${urlImg + listOffer.image}`}
           alt="imageEmployer"
         />
         <CardContent>
