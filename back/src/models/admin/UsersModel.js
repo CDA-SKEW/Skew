@@ -63,23 +63,20 @@ User.getUserId = function (user, result) {
 User.putUser = function (user, result) {
   console.log("Method UPDATE Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = user;
+  const { id, isBanned } = user;
   connection.getConnection(function (error, conn) {
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `UPDATE user 
-      set isAdmin = :isAdmin,
-      isCandidat = :isCandidat,
-      isRecruteur = :isRecruteur,
-      isBanned = :isBanned,
-      isVerified = :isVerified
+      set 
+      isBanned = :isBanned
       WHERE id = :id;
        `,
       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
       // situé dans ConnectionDb.js dans dossier config
-      { isVerified, isBanned, isAdmin, isCandidat, isRecruteur, id },
+      { isBanned, id },
       (error, data) => {
-        console.log("MODEL BOOL:", isVerified, isBanned, isAdmin, isCandidat, isRecruteur, id);
+        console.log("MODEL BOOL:", isBanned, id);
         if (error) throw error;
         conn.query(
           `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
@@ -102,11 +99,11 @@ User.putUser = function (user, result) {
 
 // Badge User
 User.putBadge = function (user, result) {
-  // console.log("Method BADGE Model User", user);
+  console.log("Method BADGE Model User", user);
   //Declarations des constantes de user pour mysql
   const { id, badge } = user;
   connection.getConnection(function (error, conn) {
-    // console.log("MODEL:Badge", badge, "id", id);
+    console.log("MODEL:Badge", badge, "id", id);
     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
     conn.query(
       `UPDATE contactProfil
@@ -116,6 +113,45 @@ User.putBadge = function (user, result) {
       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
       // situé dans ConnectionDb.js dans dossier config
       { badge, id },
+      (error, data) => {
+        // console.log(id, badge);
+        if (error) throw error;
+        conn.query(
+          `SELECT u.*, c.badge FROM user as u
+          INNER JOIN  contactProfil  as c
+          ON u.id = c.user_id;
+    `,
+          (error, data) => {
+            //   Si erreur l'afficher
+            if (error) throw error;
+            //   Sinon afficher les datas
+            else result(null, data);
+          }
+        );
+        // console.log("data", data);
+      }
+    );
+    conn.release();
+  });
+};
+
+// Verif User
+User.verifUser = function (user, result) {
+  console.log("Method VERIF Model User", user);
+  //Declarations des constantes de user pour mysql
+  const { id, isVerified } = user;
+  connection.getConnection(function (error, conn) {
+    console.log("MODEL:Verif", isVerified, "id", id);
+    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+    conn.query(
+      `UPDATE user
+      set 
+      isVerified =:isVerified
+      WHERE user_id = :id;
+       `,
+      //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
+      // situé dans ConnectionDb.js dans dossier config
+      { isVerified, id },
       (error, data) => {
         // console.log(id, badge);
         if (error) throw error;

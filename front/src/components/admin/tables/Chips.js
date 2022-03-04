@@ -30,7 +30,7 @@ export default function IconChips(props) {
           label="recruteur"
           variant="outlined"
           sx={{ border: "1px solid" }}
-          color="warning"
+          color="primary"
           icon={<AccountCircleIcon />}
         />
       );

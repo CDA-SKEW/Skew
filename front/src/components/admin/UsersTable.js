@@ -8,9 +8,9 @@ import Actions from "components/admin/tables/Actions";
 import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
-import Status from "components/admin/tables/Status";
+// import Status from "components/admin/tables/Status";
 import PeopleIcon from "@mui/icons-material/People";
-import Badges from "../admin/tables/Badges";
+// import Badges from "../admin/tables/Badges";
 
 /*------------Export function + table header-------------*/
 
@@ -80,8 +80,8 @@ export default function UsersTable(props) {
     {
       field: "checking",
       headerName: "Vérifié",
-      renderCell: (cell) => {
-        return <Status user={cell} />;
+      renderCell: (id) => {
+        return <Actions  columnsVerif={true} id={id} key={id} />;
       },
       editable: false,
       minWidth: 200,
@@ -91,7 +91,7 @@ export default function UsersTable(props) {
       field: "badge",
       headerName: "Certifié",
       renderCell: (id) => {
-        return <Badges id={id} key={id} />;
+        return <Actions columnsBadge={true} id={id} key={id} />;
       },
       editable: false,
       minWidth: 200,

@@ -52,30 +52,23 @@ class UsersControllers {
   // UPDATE USER
   async putUser(req, res) {
     const { id } = req.params;
-    let { isBanned, isVerified, isCandidat, isRecruteur, isAdmin } = req.body;
-    console.log("CONTROLLER UPDATE USERS:", { ...req.body });
 
-    isAdmin = isAdmin === 1 ? 1 : 0;
-    isCandidat = isCandidat === 1 ? 1 : 0;
-    isRecruteur = isRecruteur === "true" ? 1 : 0;
-    isVerified = isVerified === "true" ? 1 : 0;
-    isBanned = isBanned === "false" ? 0 : 1;
+    // condition ? valeur_si_false : valeur_si_true ;
+    // var isVerified = isVerified === "true" ? 1 : 0;
+    var isBanned = isBanned === "true" ? 1 : 0;
 
     // Essayes cette fonction
     try {
-      User.putUser(
-        { id, isBanned, isVerified, isAdmin, isRecruteur, isCandidat },
-        (err, data) => {
-          // console.log("response controller user update", data);
-          if (err) res.send({ message: "error in request db" });
-          // Sinon retourner cette réponse avec les data
-          else
-            return res.json({
-              user: data,
-              message: " The user has been successfully UPDATED.!!!",
-            });
-        }
-      );
+      User.putUser({ id, isBanned }, (err, data) => {
+        // console.log("response controller user update", data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourner cette réponse avec les data
+        else
+          return res.json({
+            user: data,
+            message: " The user has been successfully UPDATED.!!!",
+          });
+      });
     } catch (error) {
       throw error;
     }
@@ -84,11 +77,9 @@ class UsersControllers {
   // BADGE
   async putBadge(req, res) {
     const { id } = req.params;
-    let { badge } = req.body;
-    // console.log("CONTROLLER:Badge", Boolean(badge));
-    // Si condition true alors l'opérateur retourne valeur_si_true
+
     // condition ? valeur_si_false : valeur_si_true ;
-    badge = badge === 1 ? 0 : 1;
+    var badge = badge === "false" ? 0 : 1;
     // Essayes cette fonction
     try {
       // console.log("UpdateBadgeController", id, badge);
@@ -100,6 +91,31 @@ class UsersControllers {
           return res.json({
             user: data,
             message: " The BADGE has been successfully UPDATED.!!!",
+          });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  // Verif
+  async verifUser(req, res) {
+    const { id } = req.params;
+
+    // condition ? valeur_si_false : valeur_si_true ;
+    var isVerified = isVerified === "false" ? 0 : 1;
+    // Essayes cette fonction
+    try {
+      // console.log("UpdateBadgeController", id, badge);
+      User.verifUser({ id, isVerified }, (err, data) => {
+        // console.log("response controller user update", data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourner cette réponse avec les data
+        else
+          return res.json({
+            user: data,
+            message: " The user has been successfully VERIFIED.!!!",
           });
       });
     } catch (error) {

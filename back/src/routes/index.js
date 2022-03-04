@@ -247,6 +247,7 @@ router
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
+router.route("/api/admin/users/verif/:id").put(new UsersController().verifUser);
 
 
 // Session

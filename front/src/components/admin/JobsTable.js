@@ -7,7 +7,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
 import Status from "components/admin/tables/Status";
-import Badges from "components/admin/tables/Badges";
+// import Badges from "components/admin/tables/Badges";
 import WorkIcon from "@mui/icons-material/Work";
 import AdminJobs from "pages/admin/AdminJobs";
 import PropTypes from "prop-types";
