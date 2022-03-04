@@ -61,36 +61,47 @@ User.getUserId = function (user, result) {
 
 // Update User
 User.putUser = function (user, result) {
-  console.log("Method UPDATE Model User", user);
+  let isBanned;
+  console.log("Method BANNED Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, isBanned } = user;
+  const { id } = user;
   connection.getConnection(function (error, conn) {
-    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+    console.log("MODEL: isBanned id", id);
+    // Selection de la valeur bool de la table pour l'update
     conn.query(
-      `UPDATE user 
-      set 
-      isBanned = :isBanned
-      WHERE id = :id;
-       `,
-      //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
-      // situé dans ConnectionDb.js dans dossier config
-      { isBanned, id },
-      (error, data) => {
-        console.log("MODEL BOOL:", isBanned, id);
+      "select isBanned from user where id = :id",
+      { id },
+      (err, data) => {
         if (error) throw error;
+        // Recupérer l'ancien état de la valeur afin de la modifier
+        isBanned = data[0].isBanned === 1 ? 0 : 1;
+        console.log("isBanned data value");
+        //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
         conn.query(
-          `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
-          INNER JOIN  contactProfil  as c
-          ON u.id = c.user_id;
-    `,
+          `UPDATE user 
+            set 
+            isBanned = :isBanned
+            WHERE id = :id;
+       `,
+          //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
+          // situé dans ConnectionDb.js dans dossier config
+          { isBanned, id },
           (error, data) => {
-            //   Si erreur l'afficher
+            // console.log("MODEL BOOL:", isBanned, id);
             if (error) throw error;
-            //   Sinon afficher les datas
-            else result(null, data);
+            conn.query(
+              `SELECT * FROM user;
+    `,
+              (error, data) => {
+                //   Si erreur l'afficher
+                if (error) throw error;
+                //   Sinon afficher les datas
+                else result(null, data);
+              }
+            );
+            // console.log("data", data);
           }
         );
-        // console.log("data", data);
       }
     );
     conn.release();
@@ -99,36 +110,48 @@ User.putUser = function (user, result) {
 
 // Badge User
 User.putBadge = function (user, result) {
+  let badge;
   console.log("Method BADGE Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, badge } = user;
+  const { id } = user;
   connection.getConnection(function (error, conn) {
-    console.log("MODEL:Badge", badge, "id", id);
-    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+    console.log("MODEL:Badge id", id);
+    // Selection de la valeur bool de la table pour l'update
     conn.query(
-      `UPDATE contactProfil
-      set badge = :badge
-      WHERE user_id = :id;
-       `,
-      //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
-      // situé dans ConnectionDb.js dans dossier config
-      { badge, id },
-      (error, data) => {
-        // console.log(id, badge);
+      "select badge from contactProfil where user_id = :id",
+      { id },
+      (err, data) => {
         if (error) throw error;
+        // Recupérer l'ancien état de la valeur afin de la modifier
+        badge = data[0].badge === 1 ? 0 : 1;
+        console.log("badge data value");
+        //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
         conn.query(
-          `SELECT u.*, c.badge FROM user as u
-          INNER JOIN  contactProfil  as c
-          ON u.id = c.user_id;
-    `,
+          `UPDATE contactProfil
+            set 
+            badge = :badge
+            WHERE user_id = :id;
+       `,
+          //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
+          // situé dans ConnectionDb.js dans dossier config
+          { badge, id },
           (error, data) => {
-            //   Si erreur l'afficher
             if (error) throw error;
-            //   Sinon afficher les datas
-            else result(null, data);
+            conn.query(
+              `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
+              INNER JOIN  contactProfil  as c
+              ON u.id = c.user_id;
+    `,
+              (error, data) => {
+                //   Si erreur l'afficher
+                if (error) throw error;
+                //   Sinon afficher les datas
+                else result(null, data);
+              }
+            );
+            // console.log("data", data);
           }
         );
-        // console.log("data", data);
       }
     );
     conn.release();
@@ -137,37 +160,46 @@ User.putBadge = function (user, result) {
 
 // Verif User
 User.verifUser = function (user, result) {
+  let isVerified;
   console.log("Method VERIF Model User", user);
   //Declarations des constantes de user pour mysql
-  const { id, isVerified } = user;
+  const { id } = user;
   connection.getConnection(function (error, conn) {
-    console.log("MODEL:Verif", isVerified, "id", id);
-    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
+    console.log("MODEL:Verif id", id);
+    // Selection de la valeur bool de la table pour l'update
     conn.query(
-      `UPDATE user
-      set 
-      isVerified =:isVerified
-      WHERE user_id = :id;
-       `,
-      //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
-      // situé dans ConnectionDb.js dans dossier config
-      { isVerified, id },
-      (error, data) => {
-        // console.log(id, badge);
+      "select isVerified from user where id=:id",
+      { id },
+      (err, data) => {
         if (error) throw error;
+        // Recupérer l'ancien état de la valeur afin de la modifier
+        isVerified = data[0].isVerified === 1 ? 0 : 1;
+        console.log("isVerified data value");
+        //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
         conn.query(
-          `SELECT u.*, c.badge FROM user as u
-          INNER JOIN  contactProfil  as c
-          ON u.id = c.user_id;
-    `,
+          `UPDATE user
+            set 
+            isVerified = :isVerified
+            WHERE id = :id;
+       `,
+          // ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
+          // situé dans ConnectionDb.js dans dossier config
+          { isVerified, id },
           (error, data) => {
-            //   Si erreur l'afficher
             if (error) throw error;
-            //   Sinon afficher les datas
-            else result(null, data);
+            conn.query(
+              `SELECT * FROM user;
+    `,
+              (error, data) => {
+                //   Si erreur l'afficher
+                if (error) throw error;
+                //   Sinon afficher les datas
+                else result(null, data);
+              }
+            );
+            // console.log("data", data);
           }
         );
-        // console.log("data", data);
       }
     );
     conn.release();

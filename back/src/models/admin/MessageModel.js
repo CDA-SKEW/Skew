@@ -77,15 +77,13 @@ Message.replyMessage = function (result) {
 };
 
 // Delete Message
-Message.deleteMessage = function (message, result) {
+Message.deleteMessage = function (id, result) {
   connection.getConnection(function (error, conn) {
-    conn.query(
-      ` DELETE FROM messages WHERE id  = '${message.id}'`, (error, data) => {
-        if (error) throw error;
-        else result(null, data);
-        console.log("data", data);
-      }
-    );
+    conn.query(` DELETE FROM messages WHERE id  = '${id}'`, (error, data) => {
+      if (error) throw error;
+      else result(null, data);
+      console.log("data", data);
+    });
     conn.release();
   });
 };
