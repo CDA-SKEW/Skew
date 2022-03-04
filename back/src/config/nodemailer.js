@@ -24,10 +24,9 @@ var rand, mailOptions, host, link;
 module.exports = {
   // Action envoi mail par nodemailer
   SendEmailCandidate: (req, res) => {
-    console.log("je suis dans le controlleur nodemailer");
-    console.log("req.body", req.body);
+    // console.log("je suis dans le controlleur nodemailer");
+    // console.log("req.body", req.body);
 
-    const message = "Votre mail a bien été envoyé !";
     arrayFiles = [];
 
     // initialisation du tableau array avec data signature
@@ -105,10 +104,11 @@ module.exports = {
             message: err.message || "Une erreur est survenue",
           });
       } else {
+        // console.log("envoi json", "Votre mail a bien été envoyé !")
         return res.json({
           method: req.method,
           status: "success",
-          message: message,
+          message: "Votre mail a bien été envoyé !",
         });
       }
     });

@@ -26,6 +26,8 @@ const EmployerDashboard = () => {
     (state) => state.employer.dataDashboardEmployer
   );
 
+  // console.log("dashboard",dashboard)
+
   useEffect(() => {
     setNbOffer(dashboard.numberOffers);
     setNbCandidateReceive(dashboard.numberCandidate);

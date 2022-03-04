@@ -81,7 +81,7 @@ export default function FormPasswordChange(props) {
       //   dataFormPersonalEmployer
       // );
 
-      //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue
+      //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
         // console.log("je suis dans le succes")
         setOpenModal(true);
         setTimeout(function () {

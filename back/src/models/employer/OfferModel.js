@@ -46,7 +46,7 @@ Offer.getDashboard = function (params_id, result) {
             (error, numberOffers) => {
               if (error) result(null, { message: "error" });
               // console.log(numberOffers)
-              Obj.numberOffers =numberOffers[0].numberOffers;
+              Obj.numberOffers = numberOffers[0].numberOffers;
 
               conn.query(
                 `SELECT COUNT(*) AS numberCandidate
@@ -56,7 +56,7 @@ Offer.getDashboard = function (params_id, result) {
                 { params_id },
                 (error, numberCandidate) => {
                   if (error) result(null, { message: "error" });
-                  Obj.numberCandidate =numberCandidate[0].numberCandidate;
+                  Obj.numberCandidate = numberCandidate[0].numberCandidate;
 
                   conn.query(
                     `SELECT COUNT(*) AS numberCandidateNull
@@ -66,7 +66,8 @@ Offer.getDashboard = function (params_id, result) {
                     { params_id },
                     (error, numberCandidateNull) => {
                       if (error) result(null, { message: "error" });
-                      Obj.numberCandidateNull=numberCandidateNull[0].numberCandidateNull;
+                      Obj.numberCandidateNull =
+                        numberCandidateNull[0].numberCandidateNull;
                       result(null, Obj);
                     }
                   );
@@ -116,6 +117,7 @@ Offer.getOfferId = function (params_id, result) {
             (err, dataOfferByEmployer) => {
               if (error) result(null, { message: "error" });
               Obj.offers = dataOfferByEmployer;
+              console.log("dataOfferByEmployer",dataOfferByEmployer);
 
               if (dataOfferByEmployer.length > 0) {
                 dataOfferByEmployer.map((el, index) => {
@@ -272,6 +274,7 @@ Offer.getOfferId = function (params_id, result) {
 Offer.createOffer = function (offerObj, result) {
   // //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { user_id, title, type, period, description, profil } = offerObj;
+  // console.log("offerObj dans model offer",offerObj)
   connection.getConnection(function (error, conn) {
     conn.query(
       `INSERT INTO offre SET
@@ -305,7 +308,7 @@ Offer.createOffer = function (offerObj, result) {
 
 // Delete offer
 Offer.deleteOffer = function (id, result) {
-  // console.log("Method delete Model User", user);
+  //  console.log("Method delete Model User", id);
   connection.getConnection(function (error, conn) {
     conn.query(
       ` DELETE FROM offre
