@@ -1,7 +1,7 @@
 /*
  * Import - Module
  * *************** */
-import axios from "axios";
+import { api } from "configs/axios";
 
 import {
   PUT_USER,
@@ -32,9 +32,9 @@ import {
 export const getListUsers = () => {
   return (dispatch) => {
     return (
-      axios
+      api
         // Lien de la base de données
-        .get("http://localhost:1870/api/admin/users")
+        .get("/admin/users")
         .then((res) => {
           // console.log("getListUsers:", res.data.user);
           dispatch({
@@ -62,8 +62,8 @@ export const getListUsers = () => {
 export const putUser = (id) => {
   return (dispatch) => {
     console.log("put user action", id);
-    return axios
-      .put(`http://localhost:1870/api/admin/users/${id}` )
+    return api
+      .put(`/admin/users/${id}` )
       .then((res) => {
         console.log("putUser", res.data);
         dispatch({
@@ -78,8 +78,8 @@ export const putUser = (id) => {
 export const putBadge = (id) => {
   return (dispatch) => {
     console.log("put badge action", id);
-    return axios
-      .put(`http://localhost:1870/api/admin/users/badge/${id}`)
+    return api
+      .put(`/admin/users/badge/${id}`)
       .then((res) => {
         console.log("putUserBadge", res.data);
         dispatch({
@@ -94,8 +94,8 @@ export const putBadge = (id) => {
 export const verifUser = (id) => {
   return (dispatch) => {
     console.log("put verif action", id);
-    return axios
-      .put(`http://localhost:1870/api/admin/users/verif/${id}`)
+    return api
+      .put(`/admin/users/verif/${id}`)
       .then((res) => {
         console.log("putUserVerif", res.data);
         dispatch({
@@ -111,8 +111,8 @@ export const verifUser = (id) => {
 export const deleteUser = (id) => {
   return (dispatch) => {
     console.log("delete user action", id);
-    return axios
-      .delete(`http://localhost:1870/api/admin/users/${id}`)
+    return api
+      .delete(`/admin/users/${id}`)
       .then((res) => {
         console.log("deleteUser", res.data);
         dispatch({
@@ -132,9 +132,9 @@ export const deleteUser = (id) => {
 export const getListJobs = () => {
   return (dispatch) => {
     return (
-      axios
+      api
         // Lien de la base de données
-        .get("http://localhost:1870/api/admin/jobs")
+        .get("/admin/jobs")
         .then((res) => {
           console.log("getListJobs:", res.data.job);
           res.data.job.map((el, index) => {
@@ -165,8 +165,8 @@ export const getListJobs = () => {
 export const putJob = (id) => {
   return (dispatch) => {
     console.log("put job action", id);
-    return axios
-      .put(`http://localhost:1870/api/admin/jobs/${id}`)
+    return api
+      .put(`/admin/jobs/${id}`)
       .then((res) => {
         console.log("putJob", res.data.job);
         dispatch({
@@ -186,8 +186,8 @@ export const putJob = (id) => {
 export const deleteJob = (id) => {
   return (dispatch) => {
     console.log("delete job action", id);
-    return axios
-      .delete(`http://localhost:1870/api/admin/jobs/${id}`)
+    return api
+      .delete(`/admin/jobs/${id}`)
       .then((res) => {
         console.log("deleteJob", res.data.job);
         res.data.job.map((el, index) => {
@@ -210,9 +210,9 @@ export const deleteJob = (id) => {
 export const getListMessages = () => {
   return (dispatch) => {
     return (
-      axios
+      api
         // Lien de la base de données
-        .get("http://localhost:1870/api/admin/messages")
+        .get("/admin/messages")
         .then((res) => {
           console.log("getListMessages:", res.data.messages);
           dispatch({
@@ -241,9 +241,9 @@ export const replyMessage = (form) => {
   console.log("action reply message", form);
   return (dispatch) => {
     return (
-      axios
+      api
         // Lien de la base de données
-        .post("http://localhost:1870/api/admin/messages", form)
+        .post("/admin/messages", form)
         .then((res) => {
           console.log("ADMIN Action - Reply message:", res.data.messages);
           dispatch({
@@ -263,8 +263,8 @@ export const replyMessage = (form) => {
 export const deleteMessage = (id) => {
   return (dispatch) => {
     console.log("delete message action", id);
-    return axios
-      .delete(`http://localhost:1870/api/admin/messages/${id}`)
+    return api
+      .delete(`/admin/messages/${id}`)
       .then((res) => {
         console.log("deleteMessage", res.data.messages);
         dispatch({

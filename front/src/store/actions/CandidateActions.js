@@ -1,7 +1,7 @@
 /*
  * Import - Module
  * *************** */
-import axios from "axios";
+import { api } from "configs/axios";
 
 /*
  * Import types { ... }
@@ -27,8 +27,8 @@ import {
 export const getProfilCandidate = (user_id) => {
     console.log("contact user ACTION", user_id);
     return (dispatch) => {
-        return axios
-            .get(`http://localhost:3033/api/candidat/profil/5`)
+        return api
+            .get(`/candidat/profil/5`)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: GET_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -46,8 +46,8 @@ export const getProfilCandidate = (user_id) => {
 export const postFormProfilCandidateExperience = (form) => {
     console.log('form PROFIL CANDIDATE POST', form)
     return (dispatch) => {
-        return axios
-            .post(`http://localhost:3033/api/candidat/profil/experience`, form)
+        return api
+            .post(`/candidat/profil/experience`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -66,8 +66,8 @@ export const postFormProfilCandidateExperience = (form) => {
 export const postFormProfilCandidateSkill = (form) => {
     console.log('form PROFIL CANDIDATE POST', form)
     return (dispatch) => {
-        return axios
-            .post(`http://localhost:3033/api/candidat/profil/skill`, form)
+        return api
+            .post(`/candidat/profil/skill`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -86,8 +86,8 @@ export const postFormProfilCandidateSkill = (form) => {
 export const postFormProfilCandidateInterest = (form) => {
     console.log('form PROFIL CANDIDATE POST', form)
     return (dispatch) => {
-        return axios
-            .post(`http://localhost:3033/api/candidat/profil/interest`, form)
+        return api
+            .post(`/candidat/profil/interest`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -106,8 +106,8 @@ export const postFormProfilCandidateInterest = (form) => {
 export const postFormProfilCandidateCertificate = (form) => {
     console.log('form PROFIL CANDIDATE POST', form)
     return (dispatch) => {
-        return axios
-            .post(`http://localhost:3033/api/candidat/profil/certificate`, form)
+        return api
+            .post(`/candidat/profil/certificate`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -129,8 +129,8 @@ export const postFormProfilCandidateCertificate = (form) => {
 export const deleteFormProfilCandidateExperience = (id, form) => {
     // console.log('form PROFIL CANDIDATE DELETE', id)
     return (dispatch) => {
-        return axios
-            .delete(`http://localhost:3033/api/candidat/profil/experience/${id}`, form)
+        return api
+            .delete(`/candidat/profil/experience/${id}`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -146,8 +146,8 @@ export const deleteFormProfilCandidateExperience = (id, form) => {
 export const deleteFormProfilCandidateSkill = (id) => {
     console.log('form PROFIL CANDIDATE DELETE', id)
     return (dispatch) => {
-        return axios
-            .delete(`http://localhost:3033/api/candidat/profil/skill/${id}`)
+        return api
+            .delete(`/candidat/profil/skill/${id}`)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -164,8 +164,8 @@ export const deleteFormProfilCandidateSkill = (id) => {
 export const deleteFormProfilCandidateInterest = (id) => {
     console.log('form PROFIL CANDIDATE DELETE', id)
     return (dispatch) => {
-        return axios
-            .delete(`http://localhost:3033/api/candidat/profil/interest/${id}`)
+        return api
+            .delete(`/candidat/profil/interest/${id}`)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -182,8 +182,8 @@ export const deleteFormProfilCandidateInterest = (id) => {
 export const deleteFormProfilCandidateCertificate = (id) => {
     console.log('form PROFIL CANDIDATE DELETE', id)
     return (dispatch) => {
-        return axios
-            .delete(`http://localhost:3033/api/candidat/profil/certificate/${id}`)
+        return api
+            .delete(`/candidat/profil/certificate/${id}`)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -205,8 +205,8 @@ export const deleteFormProfilCandidateCertificate = (id) => {
 export const putFormProfilCandidate = (form) => {
     // console.log('form ACTION PROFIL CANDIDATE PUT', form)
     return (dispatch) => {
-        return axios
-            .put(`http://localhost:3033/api/candidat/profil/contact/${form.user_id}`, form)
+        return api
+            .put(`/candidat/profil/contact/${form.user_id}`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: PUT_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -222,8 +222,8 @@ export const putFormProfilCandidate = (form) => {
 export const putFormProfilCandidateExperience = (form, id) => {
     console.log('form ACTION PROFIL CANDIDATE Experience PUT', form)
     return (dispatch) => {
-        return axios
-            .put(`http://localhost:3033/api/candidat/profil/experience/${form.id}`, form)
+        return api
+            .put(`/candidat/profil/experience/${form.id}`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: PUT_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -238,8 +238,8 @@ export const putFormProfilCandidateExperience = (form, id) => {
 export const putFormProfilCandidateCertificate = (form, id) => {
     console.log('form ACTION PROFIL CANDIDATE Experience PUT', form)
     return (dispatch) => {
-        return axios
-            .put(`http://localhost:3033/api/candidat/profil/certificate/${form.id}`, form)
+        return api
+            .put(`/candidat/profil/certificate/${form.id}`, form)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: PUT_PROFIL_CANDIDATE, payload: res.data.userProfil });

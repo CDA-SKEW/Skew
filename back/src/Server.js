@@ -12,7 +12,7 @@ class Server {
   run() {
     // Cors
     this.app.use(cors({
-      origin: ['http://localhost:3000', 'http://192.168.1.15:3000', 'https://domain.com/', 'http://domain.com/'],
+      origin: ['http://localhost:3000', 'http://192.168.1.4:3000', 'https://domain.com/', 'http://domain.com/','http://192.168.1.69:3000'],
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       credentials: true
     }))
