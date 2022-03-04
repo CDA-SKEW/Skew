@@ -53,14 +53,15 @@ router
   .route("/api/auth/verify/:id").get(new AuthControllers().verifMail)
 
 // Mot de passe oublié
-// router
-// .route("/api/auth/changemdp").post()
+router
+.route("/api/auth/mailLostMdp").post(new AuthControllers().mailLostMdp)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
 
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
+router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
 
 // Users
 router
@@ -248,10 +249,12 @@ router
 router.route("/api/admin/users").get(new UsersController().getListUsers);
 router
   .route("/api/admin/users/:id")
-  // .get(new UsersController().getUserId)
+  .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
+router.route("/api/admin/users/verif/:id").put(new UsersController().verifUser);
+
 
 // Session
 

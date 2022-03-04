@@ -63,7 +63,7 @@ export const putUser = (id) => {
   return (dispatch) => {
     console.log("put user action", id);
     return axios
-      .put(`http://localhost:1870/api/admin/users/${id}`)
+      .put(`http://localhost:1870/api/admin/users/${id}` )
       .then((res) => {
         console.log("putUser", res.data);
         dispatch({
@@ -82,6 +82,22 @@ export const putBadge = (id) => {
       .put(`http://localhost:1870/api/admin/users/badge/${id}`)
       .then((res) => {
         console.log("putUserBadge", res.data);
+        dispatch({
+          type: PUT_USER,
+          payload: res.data.user,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const verifUser = (id) => {
+  return (dispatch) => {
+    console.log("put verif action", id);
+    return axios
+      .put(`http://localhost:1870/api/admin/users/verif/${id}`)
+      .then((res) => {
+        console.log("putUserVerif", res.data);
         dispatch({
           type: PUT_USER,
           payload: res.data.user,

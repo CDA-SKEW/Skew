@@ -11,9 +11,9 @@ import {
   replyMessage,
   putUser,
   putBadge,
+  verifUser,
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BlockIcon from "@mui/icons-material/Block";
 import SendIcon from "@mui/icons-material/Send";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
@@ -21,6 +21,12 @@ import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import InfoIcon from "@mui/icons-material/Info";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import {
   Box,
   Button,
@@ -98,7 +104,14 @@ export default function DeletableChips(props) {
   /*---------------------------------------------*/
 
   // Boolean actions operators
-  const { columnsBan, columnsDeleteJob, columnsAddMessage, id } = props;
+  const {
+    columnsVerif,
+    columnsBadge,
+    columnsBan,
+    columnsDeleteJob,
+    columnsAddMessage,
+    id,
+  } = props;
 
   /* Transformation d'une fonction en composant conditionel, 
   elle s'affiche sous une certaine consition */
@@ -109,11 +122,11 @@ export default function DeletableChips(props) {
       <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
-          sx={{ mb: 2, textAlign: "center" }}
+          sx={{ mb: 2, textAlign: "center", fontSize: "20px", fontWeight: 700 }}
           variant="h6"
           component="h2"
         >
-          OU ALORS VOULEZ-VOUS SUPPRIMER CE MESSAGE ?
+          SUPPRIMER CE MESSAGE ?
         </Typography>
         <Typography
           gutterBottom
@@ -127,19 +140,21 @@ export default function DeletableChips(props) {
         </Typography>
         <Typography component="span">
           <DialogActions>
-            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+            <Stack spacing={10} direction="row" sx={{ m: 4 }}>
               <Button
-                autoFocus
+                sx={{ color: "#fff", border: "1px solid #33c863" }}
                 variant="outlined"
-                color="error"
+                color="primary"
+                endIcon={<SendIcon />}
                 onClick={() => dispatch(deleteMessage(id.row.id))}
               >
                 OUI
               </Button>
               <Button
-                autoFocus
-                variant="outlined"
-                color="success"
+                sx={{ border: "1px solid #33c863" }}
+                variant="contained"
+                startIcon={<CancelIcon />}
+                color="primary"
                 onClick={handleClose}
               >
                 NON
@@ -157,7 +172,7 @@ export default function DeletableChips(props) {
       <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
-          sx={{ mb: 2, textAlign: "center" }}
+          sx={{ mb: 2, textAlign: "center", fontSize: "20px", fontWeight: 700 }}
           variant="h6"
           component="h2"
         >
@@ -175,19 +190,21 @@ export default function DeletableChips(props) {
         </Typography>
         <Typography component="span">
           <DialogActions>
-            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+            <Stack spacing={10} direction="row" sx={{ m: 4 }}>
               <Button
-                autoFocus
+                sx={{ color: "#fff", border: "1px solid #33c863" }}
                 variant="outlined"
-                color="error"
+                startIcon={<CheckCircleOutlineIcon />}
+                color="primary"
                 onClick={() => dispatch(deleteUser(id.row.id))}
               >
                 OUI
               </Button>
               <Button
-                autoFocus
-                variant="outlined"
-                color="success"
+                sx={{ border: "1px solid #33c863" }}
+                variant="contained"
+                startIcon={<CancelIcon />}
+                color="primary"
                 onClick={handleClose}
               >
                 NON
@@ -233,16 +250,26 @@ export default function DeletableChips(props) {
   return (
     <Stack direction="row" spacing={1}>
       {columnsBan && (
-        // Bannir et supprimer un utilisateur
+        // Bannir et supprimer un utilisatcolumnsBanur
         <Box>
-          <Chip
+          {/* <Chip
             label="ban or delete user"
-            color="error"
-            sx={{ color: "#E57373" }}
-            variant="outlined"
+            color="info"
+            icon={<InfoIcon />}
+            variant="contained"
             onClick={handleOpen}
-          ></Chip>
+          ></Chip> */}
+          <Chip
+            label={id.row.isBanned === 1 ? "banned" : "not banned"}
+            variant="outlined"
+            color={id.row.isBanned === 1 ? "warning" : "success"}
+            icon={
+              id.row.isBanned === 1 ? <RemoveCircleIcon /> : <CheckCircleIcon />
+            }
+            onClick={handleOpen}
+          />
           <Modal
+           fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -251,7 +278,12 @@ export default function DeletableChips(props) {
             <Box sx={style}>
               {/* Form */}
               <Typography
-                sx={{ mb: 2, textAlign: "center" }}
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
                 variant="h6"
                 component="h2"
               >
@@ -275,19 +307,21 @@ export default function DeletableChips(props) {
                 {/* Update action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
-                    startIcon={<BlockIcon />}
                     autoFocus
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
-                    color="warning"
+                    color="primary"
+                    startIcon={<RemoveCircleIcon />}
                     onClick={() => dispatch(putUser(id.row.id))}
                   >
                     Bannir
                   </Button>
                   <Button
-                    startIcon={<PersonIcon />}
                     autoFocus
-                    variant="outlined"
-                    color="error"
+                    startIcon={<PersonIcon />}
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    color="primary"
                     // Déclenche l'action de la constante CheckDelete
                     onClick={(e) => setUser(user === true ? false : true)}
                   >
@@ -299,6 +333,171 @@ export default function DeletableChips(props) {
               </Typography>
             </Box>
           </Modal>
+        </Box>
+      )}
+
+      {columnsVerif && (
+        // Vérifier un user
+        <Box>
+          {/* <Chip
+            label="ban or delete user"
+            color="info"
+            icon={<InfoIcon />}
+            variant="contained"
+            onClick={handleOpen}
+          ></Chip> */}
+          <Chip
+            label={id.row.isVerified === 1 ? "verified" : "not verfied"}
+            variant="outlined"
+            color={id.row.isVerified === 1 ? "primary" : "error"}
+            icon={
+              id.row.isVerified === 1 ? (
+                <CheckCircleIcon />
+              ) : (
+                <RemoveCircleIcon />
+              )
+            }
+            onClick={handleOpen}
+          />
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
+                variant="h6"
+                component="h2"
+              >
+                CHECKER CET UTILISATEUR ?
+              </Typography>
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
+                {/* Update action Button */}
+                <Stack spacing={10} direction="row" sx={{ m: 4 }}>
+                  <Button
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
+                    variant="outlined"
+                    startIcon={<CheckCircleOutlineIcon />}
+                    color="primary"
+                    // startIcon={<RemoveCircleIcon />}
+                    onClick={() => dispatch(verifUser(id.row.id))}
+                  >
+                    Verif
+                  </Button>
+                  <Button
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
+                    onClick={handleClose}
+                  >
+                    NON
+                  </Button>
+                </Stack>
+              </Typography>
+            </Box>
+          </Modal>
+        </Box>
+      )}
+
+      {columnsBadge && (
+        // Badge User
+        <Box>
+          <Chip
+            label={id.row.badge === 1 ? "badged" : "not badged"}
+            variant="contained"
+            color={id.row.badge === 1 ? "primary" : "default"}
+            onClick={handleOpen}
+            icon={<VerifiedIcon />}
+          />
+          <Dialog
+            fullScreen={fullScreen}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                {/* Form */}
+                <Typography
+                  sx={{
+                    mb: 2,
+                    textAlign: "center",
+                    fontSize: "30px",
+                    fontWeight: 700,
+                  }}
+                  variant="h6"
+                  component="h2"
+                >
+                  BADGER CET UTILISATEUR ?
+                </Typography>
+                <Typography
+                  gutterBottom
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                </Typography>
+                <Typography
+                  component="span"
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                >
+                  {/* Update action Button */}
+                  <Stack spacing={10} direction="row" sx={{ m: 5 }}>
+                    <Button
+                      sx={{ color: "#fff", border: "1px solid #33c863" }}
+                      variant="outlined"
+                      startIcon={<VerifiedIcon />}
+                      color="primary"
+                      onClick={() => dispatch(putBadge(id.row.id))}
+                    >
+                      Badge
+                    </Button>
+                    <Button
+                      sx={{ border: "1px solid #33c863" }}
+                      variant="contained"
+                      startIcon={<CancelIcon />}
+                      color="primary"
+                      onClick={handleClose}
+                    >
+                      NON
+                    </Button>
+                  </Stack>
+                </Typography>
+              </Box>
+            </Modal>
+          </Dialog>
         </Box>
       )}
 
@@ -321,7 +520,12 @@ export default function DeletableChips(props) {
             <Box sx={style}>
               {/* Form */}
               <Typography
-                sx={{ mb: 2, textAlign: "center" }}
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                }}
                 variant="h6"
                 component="h2"
               >
@@ -343,20 +547,21 @@ export default function DeletableChips(props) {
                 sx={{ mt: 2 }}
               >
                 {/* Reply action Button */}
-                <Stack spacing={2} direction="row" sx={{ m: 8 }}>
+                <Stack spacing={10} direction="row" sx={{ m: 8 }}>
                   <Button
-                    autoFocus
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
-                    color="error"
+                    color="primary"
                     startIcon={<DeleteIcon />}
                     onClick={() => dispatch(deleteJob(id.row.offer_id))}
                   >
                     OUI
                   </Button>
                   <Button
-                    autoFocus
-                    variant="outlined"
-                    color="success"
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
                     onClick={handleClose}
                   >
                     NON
@@ -373,9 +578,9 @@ export default function DeletableChips(props) {
         <Box>
           <Chip
             label="reply or delete message"
-            color="error"
-            sx={{ color: "#E57373" }}
-            variant="outlined"
+            color="info"
+            icon={<InfoIcon />}
+            variant="contained"
             onClick={handleOpen}
           ></Chip>
           <Dialog
@@ -392,7 +597,16 @@ export default function DeletableChips(props) {
             >
               <Box sx={style}>
                 {/* Form */}
-                <Typography variant="h5" component="h2">
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  sx={{
+                    mb: 2,
+                    textAlign: "center",
+                    fontSize: "20px",
+                    fontWeight: 700,
+                  }}
+                >
                   REPONDRE A UN MESSAGE
                   <TextField
                     disabled
@@ -442,10 +656,11 @@ export default function DeletableChips(props) {
                   sx={{ mt: 2 }}
                 >
                   {/* Reply action Button */}
-                  <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+                  <Stack spacing={5} direction="row" sx={{ m: 4 }}>
                     <Button
+                      sx={{ color: "#fff", border: "1px solid #33c863" }}
                       variant="outlined"
-                      color="success"
+                      color="primary"
                       endIcon={<SendIcon />}
                       onClick={() => submitReplyMessage(form)}
                     >
@@ -453,9 +668,9 @@ export default function DeletableChips(props) {
                     </Button>
                     <Button
                       startIcon={<MessageIcon />}
-                      autoFocus
-                      variant="outlined"
-                      color="error"
+                      sx={{ border: "1px solid #33c863" }}
+                      variant="contained"
+                      color="primary"
                       // Déclenche l'action de la constante CheckDelete
                       onClick={(e) => setMsg(msg === true ? false : true)}
                     >

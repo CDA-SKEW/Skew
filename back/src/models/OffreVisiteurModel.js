@@ -6,6 +6,7 @@ const connection = require("../config/ConnectionDB");
 // Model
 const OffreVisiteur = function (data) {
     this.id = data.id,
+        this.offer_id = data.offer_id,
         this.name = data.name,
         this.lastname = data.lastname,
         this.town = data.town,
@@ -24,12 +25,29 @@ OffreVisiteur.getAll = function (result) {
     connection.getConnection(async function (error, conn) {
         if (error) throw error;
         conn.query(
-            `select u.id, c.name, c.lastname, c.town, c.avatar, o.title, o.type, o.period, o.createDate, o.description, o.profil
+            `select u.id, c.name, c.lastname, c.town, c.avatar, o.offer_id, o.title, o.type, o.period, o.createDate, o.description, o.profil
             from user as u, contactProfil as c, offre as o
             where u.id = c.user_id
             and u.id = o.user_id`, (error, data) => {
             if (error) throw error;
             result(null, data);
+            conn.release();
+        })
+    })
+};
+
+OffreVisiteur.getOne = function (data, result) {
+    connection.getConnection(async function (error, conn) {
+        if (error) throw error;
+        conn.query(
+            `select u.id, c.name, c.lastname, c.town, c.avatar, o.offer_id, o.title, o.type, o.period, o.createDate, o.description, o.profil
+            from user as u, contactProfil as c, offre as o
+            where u.id = c.user_id
+            and u.id = o.user_id
+            and o.offer_id =  "${data.id}"`, (error, offredata) => {
+            console.log('data', offredata)
+            if (error) throw error;
+            result(null, offredata[0]);
             conn.release();
         })
     })
