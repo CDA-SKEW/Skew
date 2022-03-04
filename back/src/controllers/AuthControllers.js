@@ -101,7 +101,23 @@ class AuthControllers {
   }
 
   async mailLostMdp(req, res) {
-    nodemailer.mailLostMdp(req, res)
+    let newUser = new User({
+      mail: String(req.body.mailLostPass)
+    });
+    try {
+      User.changePass({...req.body}, (err, data) => {
+        if (err) {
+          res.status(500).send({ message: err.message || "Une erreur est survenue", });
+        } else {
+          // nodemailer.mailLostMdp(req, res, (res) => {
+          return res.send({
+            status: "success",
+            // flash: res,
+          });
+          // })
+        }
+      });
+    } catch (error) { throw error; }
   }
 }
 

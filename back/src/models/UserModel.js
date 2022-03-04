@@ -76,5 +76,24 @@ User.verify = function (data, result) {
   })
 }
 
+User.changePass = function (body, result) {
+  var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()-_=+[{]}\\|;:'\",<.>/? ";
+  var pass = '';
+  longueur = 20;
+  for (i = 0; i < longueur; i++) {
+    var wpos = Math.round(Math.random() * chars.length);
+    pass += chars.substring(wpos, wpos + 1);
+  }
+  connection.getConnection(function (error, conn) {
+    if (error) throw error;
+    conn.query(`SELECT * FROM user WHERE mail = "${body.mailLostPass}"`, (error, data) => {
+      console.log('data', data[0])
+      if (error) throw error;
+      if (!data[0]) result(null, "Le mail n'est pas enregistré dans notre base de données!");
+      else result(null, data[0]);
+    })
+    conn.release();
+  })
+}
 
 module.exports = User;

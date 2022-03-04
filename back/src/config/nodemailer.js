@@ -315,11 +315,8 @@ module.exports = {
       <strong>Modification du mot de passe</strong>
       <br><br>
 
-      <div>
-        Pour modifier le mot de passe, cliquez sur ce lien.
-      </div>
 
-      <a href=" ` + link + ` ">Click here to change password</a>
+      
 
 
       <br><br>
@@ -365,7 +362,7 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          flash: "success mail change password!",
+          flash: "success mail new password!",
           mailoptions: mailOptions
         });
       }
