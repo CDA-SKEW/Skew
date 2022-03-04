@@ -54,7 +54,7 @@ export default function DeletableChips(props) {
   const handleClose = () => setOpen(false);
 
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   /*------------MODALS-------------*/
 
@@ -262,13 +262,14 @@ export default function DeletableChips(props) {
           <Chip
             label={id.row.isBanned === 1 ? "banned" : "not banned"}
             variant="outlined"
-            color={id.row.isBanned === 1 ? "warning" : "primary"}
+            color={id.row.isBanned === 1 ? "warning" : "success"}
             icon={
               id.row.isBanned === 1 ? <RemoveCircleIcon /> : <CheckCircleIcon />
             }
             onClick={handleOpen}
           />
           <Modal
+           fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -306,6 +307,7 @@ export default function DeletableChips(props) {
                 {/* Update action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
+                    autoFocus
                     sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
                     color="primary"
@@ -315,15 +317,7 @@ export default function DeletableChips(props) {
                     Bannir
                   </Button>
                   <Button
-                    sx={{ color: "#fff", border: "1px solid #33c863" }}
-                    variant="outlined"
-                    color="primary"
-                    // startIcon={<RemoveCircleIcon />}
-                    onClick={() => dispatch(verifUser(id.row.id))}
-                  >
-                    Bannir
-                  </Button>
-                  <Button
+                    autoFocus
                     startIcon={<PersonIcon />}
                     sx={{ border: "1px solid #33c863" }}
                     variant="contained"
@@ -343,7 +337,7 @@ export default function DeletableChips(props) {
       )}
 
       {columnsVerif && (
-        // Bannir et supprimer un utilisatcolumnsBanur
+        // Vérifier un user
         <Box>
           {/* <Chip
             label="ban or delete user"
@@ -363,6 +357,7 @@ export default function DeletableChips(props) {
                 <RemoveCircleIcon />
               )
             }
+            onClick={handleOpen}
           />
           <Modal
             open={open}
@@ -382,7 +377,7 @@ export default function DeletableChips(props) {
                 variant="h6"
                 component="h2"
               >
-                VOULEZ-VOUS BANNIR CET UTILISATEUR ?
+                CHECKER CET UTILISATEUR ?
               </Typography>
               <Typography
                 gutterBottom
@@ -400,38 +395,27 @@ export default function DeletableChips(props) {
                 sx={{ mt: 2 }}
               >
                 {/* Update action Button */}
-                <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+                <Stack spacing={10} direction="row" sx={{ m: 4 }}>
                   <Button
                     sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
-                    color="primary"
-                    startIcon={<RemoveCircleIcon />}
-                    onClick={() => dispatch(putUser(id.row.id))}
-                  >
-                    Bannir
-                  </Button>
-                  <Button
-                    sx={{ color: "#fff", border: "1px solid #33c863" }}
-                    variant="outlined"
+                    startIcon={<CheckCircleOutlineIcon />}
                     color="primary"
                     // startIcon={<RemoveCircleIcon />}
                     onClick={() => dispatch(verifUser(id.row.id))}
                   >
-                    Bannir
+                    Verif
                   </Button>
                   <Button
-                    startIcon={<PersonIcon />}
                     sx={{ border: "1px solid #33c863" }}
                     variant="contained"
+                    startIcon={<CancelIcon />}
                     color="primary"
-                    // Déclenche l'action de la constante CheckDelete
-                    onClick={(e) => setUser(user === true ? false : true)}
+                    onClick={handleClose}
                   >
-                    Supprimer
+                    NON
                   </Button>
                 </Stack>
-                {/* Appel de la condition */}
-                {UserDeleteButton()}
               </Typography>
             </Box>
           </Modal>
