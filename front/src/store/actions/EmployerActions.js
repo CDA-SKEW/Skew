@@ -17,8 +17,15 @@ import {
   PUT_PROFIL_USER,
   PUT_PROFIL_USER_PW,
 } from "./ActionTypes";
+import jwt_decode from 'jwt-decode'
 
-const id = 4;
+const id = jwt_decode(localStorage["user_token"]).id
+// console.log("token id ",id)
+
+
+// if (res.data.token) localStorage["user_token"] = res.data.token;
+// res.data.token = jwt_decode(res.data.token)
+// res.data.authenticate = true
 
 
 /*
@@ -44,7 +51,7 @@ export const getDashboardEmployer = () => {
   // console.log("getDashboardEmployer action store ");
   return (dispatch) => {
     return api
-      .get(`/employer/dashboard/${id}`)
+      .get(`/employer/dashboard/${localStorage.getItem("user_token")}/${id}`)
       .then((res) => {
         // console.log("return api getDashboardEmployer action store", res.data);
         dispatch({ type: GET_DASHBOARD_EMPLOYER, payload: res.data });

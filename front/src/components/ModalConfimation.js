@@ -16,7 +16,6 @@ import {
   putActionCandidate,
 } from "store/actions/EmployerActions";
 import { useNavigate } from "react-router-dom";
-import SnackbarMessage from "./SnackbarMessage";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -38,6 +37,11 @@ export default function ModalConfimation(props) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("user_token");
+    // console.log('loggouuuttt !!!')
+  }
 
   const handleCancel = () => {
     onClose();
@@ -80,6 +84,7 @@ export default function ModalConfimation(props) {
         break;
 
       case "disconnect":
+        logout()
         navigate("/");
         break;
       default:

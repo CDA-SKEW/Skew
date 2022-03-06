@@ -24,7 +24,7 @@ const EmployerDashboard = () => {
 
   const dashboard = useSelector(
     (state) => state.employer.dataDashboardEmployer
-  );
+  ) || "";
 
   // console.log("dashboard",dashboard)
 
@@ -127,7 +127,7 @@ const EmployerDashboard = () => {
             alignItems: { xs: "center", md: "none" },
           }}
         >
-          {dashboard.offers &&
+          {dashboard.offers > 0 &&
             dashboard.offers
               .slice(-3)
               .reverse()
