@@ -4,8 +4,10 @@ const nodemailer = require("../../config/nodemailer");
 class EmployerOfferControllers {
   //action GetDashboard by User id
   async getDashboard(req, res) {
-    // console.log("controller GetDashboard Employeur");
-    if (req.params.id) {
+    console.log("controller GetDashboard Employeur");
+    // console.log("controller GetDashboard Employeur id ",req.id)
+    console.log("controller GetDashboard Employeur id ",req.params.id);
+    if (req.id) {
       try {
         //ici String est une coercion qui permet de typer la variable
         Offer.getDashboard(String(req.params.id), (err, data) => {

@@ -48,20 +48,21 @@ router.route("/api/register").post(new AuthControllers().register);
 
 // Check
 router
-  .route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
-router
-  .route("/api/auth/verify/:id").get(new AuthControllers().verifMail)
+  .route("/api/auth/:token")
+  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
-router
-.route("/api/auth/mailLostMdp").post(new AuthControllers().mailLostMdp)
+router.route("/api/auth/mailLostMdp").post(new AuthControllers().mailLostMdp);
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
 
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
-router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
+router
+  .route("/api/offresvisiteur/:id")
+  .get(new OffreVisiteurControllers().getOne);
 
 // Users
 router
@@ -75,12 +76,11 @@ router
 // Employeur user profil
 
 router
-  .route("/api/employer/dashboard/:id")
-  .get(new EmployerOfferControllers().getDashboard);
+  // .route("/api/employer/dashboard/:id")
+  // .get(new EmployerOfferControllers().getDashboard);
 
-// router
-//   .route("/api/employer/dashboard/:token/:id")
-//   .get(new TokenJWT().checkToken,new EmployerOfferControllers().getDashboard);
+  .route("/api/employer/dashboard/:id")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
@@ -154,7 +154,7 @@ router
 router
   .route("/api/candidat/profil/contact/:id")
   // .get(new CandidatProfilControllers().getContactProfil)
-  .put(new CandidatProfilControllers().updateContactProfil)
+  .put(new CandidatProfilControllers().updateContactProfil);
 
 // ############################################
 // #CandidatProfilExperience Table-EXPERIENCE #
@@ -163,7 +163,7 @@ router
 router
   .route("/api/candidat/profil/experience")
   // .get(new CandidatProfilControllers().getExperienceProfil)
-  .post(new CandidatProfilControllers().createExperienceProfil)
+  .post(new CandidatProfilControllers().createExperienceProfil);
 
 router
   .route("/api/candidat/profil/experience/:id")
@@ -177,7 +177,7 @@ router
 router
   .route("/api/candidat/profil/skill")
   // .get(new CandidatProfilControllers().getSkillProfil)
-  .post(new CandidatProfilControllers().createSkillProfil)
+  .post(new CandidatProfilControllers().createSkillProfil);
 
 router
   .route("/api/candidat/profil/skill/:id")
@@ -190,7 +190,7 @@ router
 // ########################################
 router
   .route("/api/candidat/profil/interest")
-  .post(new CandidatProfilControllers().createInterestProfil)
+  .post(new CandidatProfilControllers().createInterestProfil);
 router
   .route("/api/candidat/profil/interest/:id")
   .get(new CandidatProfilControllers().getInterestProfil)
@@ -203,7 +203,7 @@ router
 router
   .route("/api/candidat/profil/certificate")
   // .get(new CandidatProfilControllers().getCertificateProfil)
-  .post(new CandidatProfilControllers().createCertificateProfil)
+  .post(new CandidatProfilControllers().createCertificateProfil);
 
 router
   .route("/api/candidat/profil/certificate/:id")
@@ -248,7 +248,7 @@ router
 router
   .route("/api/admin/messages/:id")
   .get(new MessagesController().getMessageId)
-  .delete (new MessagesController().deleteMessage);
+  .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);
@@ -259,7 +259,6 @@ router
   .delete(new UsersController().deleteUser);
 router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
 router.route("/api/admin/users/verif/:id").put(new UsersController().verifUser);
-
 
 // Session
 

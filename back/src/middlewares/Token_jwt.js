@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-require('dotenv').config()
+require("dotenv").config();
 
 class TokenJWT {
   checkIsValid(req, res, next) {
@@ -13,7 +13,7 @@ class TokenJWT {
           return decoded;
         }
       );
-      if (!auth) return res.json({ auth: false })
+      if (!auth) return res.json({ auth: false });
       else next();
       if (!auth) res.status(403).send("Invalid token");
       else next();
@@ -23,22 +23,23 @@ class TokenJWT {
   }
 
   checkToken(req, res, next) {
-    console.log("checkToken",req.params)
+    console.log("req.headers", req.headers.authorization);
+    console.log("checkToken req.params", req.params);
     try {
-      console.log("dans try")
+      console.log("dans try");
       const auth = jwt.verify(
-        req.params.token,
+        req.headers.authorization,
         process.env.SIGN_JWT,
         (err, decoded) => {
           if (err) return;
-          console.log("decode jwt:",decoded)
+          console.log("decode jwt:", decoded);
           return decoded;
         }
       );
-      if (!auth) return res.json({ auth: false })
-      else next();
+      req.id = auth.id;
+      console.log("middleware req.params", req.id);    
       if (!auth) res.status(403).send("Invalid token");
-      else next();
+      else next()
     } catch (error) {
       throw error;
     }
