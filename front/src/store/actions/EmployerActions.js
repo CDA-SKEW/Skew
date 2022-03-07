@@ -19,6 +19,8 @@ import {
 } from "./ActionTypes";
 import jwt_decode from 'jwt-decode'
 
+// const id=4
+
 const id = jwt_decode(localStorage["user_token"]).id
 // console.log("token id ",id)
 
@@ -27,6 +29,7 @@ const id = jwt_decode(localStorage["user_token"]).id
 // res.data.token = jwt_decode(res.data.token)
 // res.data.authenticate = true
 
+// .get(`/employer/dashboard/${localStorage.getItem("user_token")}/${id}`)
 
 /*
  * Actions
@@ -51,7 +54,7 @@ export const getDashboardEmployer = () => {
   // console.log("getDashboardEmployer action store ");
   return (dispatch) => {
     return api
-      .get(`/employer/dashboard/${localStorage.getItem("user_token")}/${id}`)
+      .get(`/employer/dashboard/${id}`)
       .then((res) => {
         // console.log("return api getDashboardEmployer action store", res.data);
         dispatch({ type: GET_DASHBOARD_EMPLOYER, payload: res.data });

@@ -127,7 +127,7 @@ const EmployerDashboard = () => {
             alignItems: { xs: "center", md: "none" },
           }}
         >
-          {dashboard.offers > 0 &&
+          {dashboard.offers &&
             dashboard.offers
               .slice(-3)
               .reverse()

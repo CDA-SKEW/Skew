@@ -73,9 +73,14 @@ router
 // Employeur
 
 // Employeur user profil
+
 router
-  .route("/api/employer/dashboard/:token/:id")
-  .get(new TokenJWT().checkToken,new EmployerOfferControllers().getDashboard);
+  .route("/api/employer/dashboard/:id")
+  .get(new EmployerOfferControllers().getDashboard);
+
+// router
+//   .route("/api/employer/dashboard/:token/:id")
+//   .get(new TokenJWT().checkToken,new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
