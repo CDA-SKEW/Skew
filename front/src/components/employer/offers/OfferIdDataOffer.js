@@ -34,7 +34,7 @@ export default function OfferIdDataOffer(props) {
                         Type de contrat: {offer.type}
                     </Typography>
 
-                    {offer.period && (
+                    {offer.period!=="0" && (
                     <Typography variant="body2">
                         Durée du contrat:  {offer.period}
                     </Typography>
@@ -49,15 +49,15 @@ export default function OfferIdDataOffer(props) {
                 px={1}
                 pb={1}
             >
-                <Grid item xs={12} sm={12} md={2} alignItems="center"  >
-                    <Typography variant="body2">
+                <Grid item xs={12} sm={12} md={3} alignItems="center" display={"inline"} >
+                    <Typography variant="body2" display={"inline"}>
                         Description du poste:
                     </Typography>
                 </Grid>
 
 
-                <Grid item xs={12} sm={12} md={10}>
-                    <Typography variant="body2" paragraph={true} sx={{ whiteSpace: "pre-line" }}>
+                <Grid item xs={12} sm={12} md={9}>
+                    <Typography variant="body2" display={"inline"} paragraph={true} sx={{ whiteSpace: "normal" }}>
                         {offer.description}
                     </Typography>
                 </Grid>
@@ -71,15 +71,15 @@ export default function OfferIdDataOffer(props) {
                 px={1}
                 pb={3}
             >
-                <Grid item xs={12} sm={12} md={2} alignItems="center"  >
-                    <Typography variant="body2">
+                <Grid item xs={12} sm={12} md={3} alignItems="center"  >
+                    <Typography variant="body2" display={"inline"}>
                         Profil recherché:
                     </Typography>
                 </Grid>
 
 
-                <Grid item xs={12} sm={12} md={10}>
-                    <Typography variant="body2" paragraph={true} sx={{ whiteSpace: "pre-line" }}>
+                <Grid item xs={12} sm={12} md={9}>
+                    <Typography variant="body2" display={"inline"} paragraph={true} sx={{ whiteSpace: "normal" }}>
                         {offer.profil}
                     </Typography>
                 </Grid>

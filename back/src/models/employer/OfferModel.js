@@ -117,7 +117,7 @@ Offer.getOfferId = function (params_id, result) {
             (err, dataOfferByEmployer) => {
               if (error) result(null, { message: "error" });
               Obj.offers = dataOfferByEmployer;
-              console.log("dataOfferByEmployer",dataOfferByEmployer);
+              // console.log("dataOfferByEmployer",dataOfferByEmployer);
 
               if (dataOfferByEmployer.length > 0) {
                 dataOfferByEmployer.map((el, index) => {
@@ -311,19 +311,26 @@ Offer.deleteOffer = function (id, result) {
   //  console.log("Method delete Model User", id);
   connection.getConnection(function (error, conn) {
     conn.query(
-      ` DELETE FROM offre
-      WHERE offer_id  =:id`,
+      ` DELETE FROM postuled
+      WHERE offre_id  =:id`,
       { id },
       (error, data) => {
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
-          `SELECT offer_id, user_id, title,type,period,description,profil, createDate 
-         FROM offre`,
+          ` DELETE FROM offre
+            WHERE offer_id  =:id`,
+          { id },
           (error, data) => {
             if (error) throw error;
-            result(null, data);
-            // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+            conn.query(
+              `SELECT offer_id, user_id, title,type,period,description,profil, createDate 
+               FROM offre`,
+              (error, data) => {
+                if (error) throw error;
+                result(null, data);
+                // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+              }
+            );
           }
         );
         // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)

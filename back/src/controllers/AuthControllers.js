@@ -4,6 +4,7 @@ const nodemailer = require("../config/nodemailer");
 
 // Import Module
 const jwt = require("jsonwebtoken");
+const { password } = require("../config/db");
 
 require("dotenv").config();
 
@@ -98,6 +99,35 @@ class AuthControllers {
 
   async verifMail(req, res) {
     nodemailer.verifMail(req, res);
+  }
+
+  async mailLostMdp(req, res) {
+    var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()-_=+[{]}\\|;:'\",<.>/? ";
+    var password = '';
+    const longueur = 20;
+    var i;
+    for (i = 0; i < longueur; i++) {
+      var wpos = Math.round(Math.random() * chars.length);
+      password += chars.substring(wpos, wpos + 1);
+    }
+    let newUser = new User({
+      mail: String(req.body.mailLostPass),
+      pass: password
+    });
+    try {
+      User.changePass(newUser, (err, data) => {
+        if (err) {
+          res.status(500).send({ message: err.message || "Une erreur est survenue", });
+        } else {
+          nodemailer.mailLostMdp(newUser, res, (res) => {
+            return res.send({
+              status: "success",
+              flash: data,
+            });
+          })
+        }
+      });
+    } catch (error) { throw error; }
   }
 }
 

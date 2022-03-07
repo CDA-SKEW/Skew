@@ -28,11 +28,7 @@ const EmployerOffer = () => {
     (state) => state.employer.dataOffers.offers
   );
 
-  useEffect(() => {
-    dispatch(getOffer());
-    dispatch(getProfilUser());
-  }, [offers]);
-  // console.log("store offers ", offers );
+   // console.log("store offers ", offers );
 
   // console.log("offer page; nunmber offer", offers.length)
 

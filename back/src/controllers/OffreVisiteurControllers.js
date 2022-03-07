@@ -21,6 +21,27 @@ class OffreVisiteurControllers {
             throw error;
         }
     }
+
+    async getOne(req, res) {
+        try {
+            OffreVisiteur.getOne({ ...req.params }, (err, data) => {
+                if (err) {
+                    res.status(500).send({
+                        message: err.message || "Une erreur est survenue",
+                    });
+                } else {
+                    return res.send({
+                        method: req.method,
+                        status: "success",
+                        flash: "Get Offre Success !",
+                        dbOffresVisiteur: data,
+                    });
+                }
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = OffreVisiteurControllers;

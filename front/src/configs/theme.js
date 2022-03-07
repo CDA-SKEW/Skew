@@ -136,6 +136,7 @@ const themeAdmin = createTheme({
     },
   },
   typography: {
+    fontFamily: "Mulish,sans-serif",
     fontWeightLight: 400,
     fontSize: 13,
     "@media (min-width:600px)": {

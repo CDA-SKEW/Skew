@@ -76,5 +76,21 @@ User.verify = function (data, result) {
   })
 }
 
+User.changePass = function (body, result) {
+  connection.getConnection(function (error, conn) {
+    if (error) throw error;
+    conn.query(`SELECT * FROM user WHERE mail = "${body.mail}"`, async (error, data) => {
+      if (error) throw error;
+      console.log('body', data);
+      if (!data) result(null, "Le mail n'est pas enregistré dans notre base de données!");
+      else conn.query(`UPDATE user SET pass = :pass WHERE mail = :mail`,
+        { pass: await bcrypt.hash(body.pass, 10), mail: body.mail }, (error, info) => {
+          if (error) throw error;
+          else result(null, data);
+        })
+    })
+    conn.release();
+  })
+}
 
 module.exports = User;

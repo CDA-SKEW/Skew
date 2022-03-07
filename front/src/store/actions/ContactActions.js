@@ -1,7 +1,7 @@
 /*
  * Import - Module
  * *************** */
-import axios from "axios";
+import { api } from "configs/axios";
 
 import { POST_CONTACT_US } from "./ActionTypes";
 
@@ -16,8 +16,8 @@ import { POST_CONTACT_US } from "./ActionTypes";
 // Post
 export const PostContactUs = (data) => {
     return (dispatch) => {
-        return axios
-            .post("http://localhost:3033/api/contact", data)
+        return api
+            .post("/contact", data)
             .then((res) => {
                 dispatch({ type: POST_CONTACT_US, payload: res.data })
             })
