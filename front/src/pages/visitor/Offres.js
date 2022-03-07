@@ -28,7 +28,6 @@ export default function Offres() {
     const [open, setOpen] = useState(false);
 
     const listOffer = useSelector(state => state.offreVisiteur.listOffer)
-    console.log('listOffer', listOffer)
     const handleSearchJob = (value) => {
         setJob(value);
         setPage(1);

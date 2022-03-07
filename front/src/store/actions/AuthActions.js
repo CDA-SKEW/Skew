@@ -44,11 +44,7 @@ export const checkToken = () => {
     return (dispatch) => {
         return api
             .get(`/auth/${localStorage["user_token"]}`)
-            .then((res) => {
-                if (res.data.user) {
-                    dispatch({ type: CHECKTOKEN, payload: res.data });
-                }
-            })
+            .then((res) => { if (res.data.user) { dispatch({ type: CHECKTOKEN, payload: res.data }); } })
             .catch((err) => console.log(err));
     };
 }
@@ -58,9 +54,7 @@ export const register = (data) => {
     return (dispatch) => {
         return api
             .post("/register", data)
-            .then((res) => {
-                dispatch({ type: REGISTER, payload: res.data });
-            })
+            .then((res) => { dispatch({ type: REGISTER, payload: res.data }); })
             .catch((err) => console.log(err));
     };
 };
@@ -70,10 +64,7 @@ export const changePass = (data) => {
     return (dispatch) => {
         return api
             .post(`/auth/mail-lost-mdp`, data)
-            .then((res) => {
-                console.log('mailLostPass', res.data)
-                dispatch({ type: CHANGEMDP, payload: res.data });
-            })
+            .then((res) => { dispatch({ type: CHANGEMDP, payload: res.data }); })
             .catch((err) => console.log(err))
     }
 }

@@ -167,12 +167,7 @@ export default function VisiteurLayout({ children }) {
     }
 
   };
-  const handleSubmitChildModal = () => {
-    if (mailLostPass.length > 0) {
-      dispatch(changePass(mailLostPass))
-      // console.log('mailLostPass', mailLostPass)
-    }
-  }
+  const handleSubmitChildModal = () => { if (mailLostPass.length > 0) dispatch(changePass({ mailLostPass })) }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
   const logout = () => {
     localStorage.removeItem("user_token");
@@ -319,7 +314,7 @@ export default function VisiteurLayout({ children }) {
                           <h2 id="child-modal-title">Mot de passe oublié</h2>
                           <p id="child-modal-description">Entrez votre adresse mail:</p>
                           <TextField
-                            label='Mail' name='mailLostPass' variant="outlined" fullWidth
+                            label='Mail' name='mailLostmdp' variant="outlined" fullWidth
                             onChange={(e) => setMailLostPass(e.target.value)}
                             sx={{ my: 1 }} />
                           <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 3 }}>

@@ -291,8 +291,6 @@ module.exports = {
   },
 
   mailLostMdp: (req, res) => {
-
-    console.log('data', req)
     arrayFiles = [];
     // initialisation du tableau array avec data signature
     arrayFiles.push({

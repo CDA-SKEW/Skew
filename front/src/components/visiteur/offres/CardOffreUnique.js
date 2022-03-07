@@ -3,7 +3,6 @@ import React from "react";
 // import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import url from 'utils/url';
 export default function CardOffreUnique({ listOffer, handleClickOpen }) {
-    console.log('listOffre', listOffer)
     return (
         <Card
             sx={{
