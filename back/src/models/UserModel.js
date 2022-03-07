@@ -77,20 +77,17 @@ User.verify = function (data, result) {
 }
 
 User.changePass = function (body, result) {
-  var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()-_=+[{]}\\|;:'\",<.>/? ";
-  var pass = '';
-  longueur = 20;
-  for (i = 0; i < longueur; i++) {
-    var wpos = Math.round(Math.random() * chars.length);
-    pass += chars.substring(wpos, wpos + 1);
-  }
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    conn.query(`SELECT * FROM user WHERE mail = "${body.mailLostPass}"`, (error, data) => {
-      console.log('data', data[0])
+    conn.query(`SELECT * FROM user WHERE mail = "${body.mail}"`, async (error, data) => {
       if (error) throw error;
-      if (!data[0]) result(null, "Le mail n'est pas enregistré dans notre base de données!");
-      else result(null, data[0]);
+      console.log('body', data);
+      if (!data) result(null, "Le mail n'est pas enregistré dans notre base de données!");
+      else conn.query(`UPDATE user SET pass = :pass WHERE mail = :mail`,
+        { pass: await bcrypt.hash(body.pass, 10), mail: body.mail }, (error, info) => {
+          if (error) throw error;
+          else result(null, data);
+        })
     })
     conn.release();
   })
