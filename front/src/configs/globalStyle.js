@@ -3,7 +3,6 @@ export const style = {
   ".MuiDrawer-root > .MuiPaper-root": {
     overflow: "visible",
     backgroundColor: "#fff",
-    marginTop: 55,
   },
   TextField: {
     width: "100%",

@@ -27,45 +27,20 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@mui/material/Link';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Slide from '@mui/material/Slide';
+import Dialog from '@mui/material/Dialog';
+import CloseIcon from '@mui/icons-material/Close';
+
+import Inscription from 'components/auth/Inscription';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { changePass, login, register } from "store/actions/AuthActions";
+import { changePass, login } from "store/actions/AuthActions";
 
-function PassInput({ values, handleFormIdInscription }) {
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => { setShowPassword(!showPassword) };
-  const handleMouseDownPassword = (event) => { event.preventDefault(); };
-
-  return (
-    <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
-      <InputLabel htmlFor="outlined-adornment-password">{values.titre}</InputLabel>
-      <OutlinedInput
-        name={values.name}
-        type={showPassword ? 'text' : 'password'}
-        value={values.value}
-        onChange={(e) => handleFormIdInscription(e)}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-        label="Password"
-      />
-    </FormControl>
-  )
-}
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function VisiteurLayout({ children }) {
 
@@ -73,6 +48,8 @@ export default function VisiteurLayout({ children }) {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [openChildModal, setOpenChildModal] = useState(false);
+  const [openDialogConnexion, setOpenDialogConnexion] = useState(false);
+  const [openDialogInscription, setOpenDialogInscription] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [certificate, setCertificate] = useState(false);
@@ -80,26 +57,15 @@ export default function VisiteurLayout({ children }) {
   const [mailLostPass, setMailLostPass] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
-  const [mailInscription, setMailInscription] = useState('');
-  const [passInscription, setPassInscription] = useState('');
-  const [pass2, setPass2] = useState('');
-  const [toggle, setToggle] = useState('');
-  const [errorInscription, setErrorInscription] = useState('');
   const [success, setSuccess] = useState('');
+  const [errorInscription, setErrorInscription] = useState('');
   const [successInscription, setSuccessInscription] = useState('');
-  const [candidat, setCandidat] = useState(0);
-  const [recruteur, setRecruteur] = useState(0);
   const userToken = localStorage["user_token"];
 
   const pages = [
     { titre: "Accueil", lien: "" },
     { titre: "Offres", lien: "offres" },
     { titre: "Contactez-nous", lien: "contactus" }
-  ];
-
-  const passList = [
-    { titre: 'Mot de passe', name: 'pass', value: passInscription },
-    { titre: 'Confirmer mot de passe', name: 'pass2', value: pass2 }
   ];
 
   const UserListFooter = [
@@ -111,7 +77,6 @@ export default function VisiteurLayout({ children }) {
 
   const handleClickShowPassword = () => { setShowPassword(!showPassword) };
   const handleMouseDownPassword = (event) => { event.preventDefault(); };
-  const handleChange = (e, newToggle) => { setToggle(newToggle) };
 
   const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
@@ -120,17 +85,9 @@ export default function VisiteurLayout({ children }) {
   const flashCon = useSelector(state => state.auth.flashCon);
 
   const handleCloseChildModal = () => { setOpenChildModal(false); };
-  const handleFormIdInscription = (e) => {
-    switch (e.target.name) {
-      case 'mail': setMailInscription(e.target.value);
-        break;
-      case 'pass': setPassInscription(e.target.value);
-        break;
-      case 'pass2': setPass2(e.target.value);
-        break;
-      default:
-    }
-  }
+  const handleCloseDialogConnexion = () => { setOpenDialogConnexion(false); }
+  const handleCloseDialogInscription = () => { setOpenDialogInscription(false); }
+
   const SubmitFormId = async (e) => {
     if (mail && pass) {
       await dispatch(login({ mail, pass }));
@@ -142,30 +99,6 @@ export default function VisiteurLayout({ children }) {
       setErrorInscription('');
       setSuccess('');
     }
-  };
-  const SubmitFormIdInscription = async (e) => {
-    if (mailInscription && toggle && passInscription && pass2) {
-      if (passInscription === pass2) {
-        await dispatch(register({ mailInscription, passInscription, candidat, recruteur }));
-        setMailInscription("");
-        setPassInscription("");
-        setPass2("");
-        setToggle("");
-        setCandidat(0);
-        setRecruteur(0);
-      } else {
-        setErrorInscription('Les mots de passe ne coîncident pas!');
-        setSuccessInscription('');
-        setSuccess('');
-        setError('');
-      }
-    } else {
-      setErrorInscription('Entrez tous les champs requis!');
-      setSuccessInscription('');
-      setSuccess('');
-      setError('');
-    }
-
   };
   const handleSubmitChildModal = () => { if (mailLostPass.length > 0) dispatch(changePass({ mailLostPass })) }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
@@ -190,17 +123,6 @@ export default function VisiteurLayout({ children }) {
       }
     }
   }, [certificate, isAdmin, isCandidat, isRecruteur, navigate]);
-
-  useEffect(() => {
-    if (toggle === 'candidat') {
-      setCandidat(1);
-      setRecruteur(0);
-    };
-    if (toggle === 'recruteur') {
-      setCandidat(0);
-      setRecruteur(1);
-    };
-  }, [toggle]);
 
   useEffect(() => {
     if (flash.length >= 0) {
@@ -261,7 +183,11 @@ export default function VisiteurLayout({ children }) {
                   </Button>
                 }
                 {/* Modal connexion inscription */}
-                <Modal open={openModal} onClose={() => setOpenModal(false)}>
+                <Modal
+                  open={openModal}
+                  onClose={() => setOpenModal(false)}
+                  sx={{ display: { xs: "none", md: 'block' } }}
+                >
                   <Box sx={{
                     position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                     width: 800, height: 560, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
@@ -350,66 +276,36 @@ export default function VisiteurLayout({ children }) {
                     </Box>
 
                     {/* Inscription */}
-                    <Box sx={{ display: 'block', width: 400, ml: 2, }}>
-                      <Typography variant='h4'>Inscription</Typography>
-                      <TextField label='Mail' name='mail' fullWidth
-                        value={mailInscription} variant="outlined"
-                        onChange={(e) => handleFormIdInscription(e)}
-                        sx={{ my: 1 }} />
-
-                      {passList.map((values, index) => (
-                        <PassInput key={index} values={values} handleFormIdInscription={handleFormIdInscription} />
-                      ))}
-                      <ToggleButtonGroup
-                        color="info" exclusive fullWidth value={toggle}
-                        onChange={handleChange} sx={{ my: 1 }} >
-                        <ToggleButton value="candidat">Candidat</ToggleButton>
-                        <ToggleButton value="recruteur">Recruteur</ToggleButton>
-                      </ToggleButtonGroup>
-                      {errorInscription.length > 0 &&
-                        <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' align='center' >{errorInscription}</Typography>
-                        </Box>
-                      }
-                      {successInscription.length > 0 && successInscription.length < 30 &&
-                        <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' align='center' >{successInscription}</Typography>
-                        </Box>
-                      }
-
-                      {successInscription.length > 31 &&
-                        <Box sx={{ my: 3, color: '#1e90ff' }} >
-                          <Typography variant='body1' align='center' >{successInscription}</Typography>
-                        </Box>
-                      }
-                      <Button
-                        variant="contained" fullWidth onClick={() => SubmitFormIdInscription()}
-                        sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
-                        Envoyer
-                      </Button>
-                    </Box>
+                    <Inscription
+                      dispatch={dispatch}
+                      setErrorInscription={setErrorInscription}
+                      setSuccessInscription={setSuccessInscription}
+                      setSuccess={setSuccess}
+                      setError={setError}
+                      errorInscription={errorInscription}
+                      successInscription={successInscription}
+                    />
                   </Box>
                 </Modal>
               </List>
             </Box>
 
             {/* Menu responsive */}
-            <Box
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: 'row-reverse' }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: 'row-reverse' }} >
               <IconButton size="large" onClick={toggleDrawer(true)} color="inherit">
                 <MenuIcon />
               </IconButton>
               <SwipeableDrawer
                 container={container}
-                anchor="top"
+                anchor="bottom"
                 open={openDrawer}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
                 disableSwipeToOpen={false}
                 ModalProps={{ keepMounted: true }}>
                 <Box sx={{ listStyleType: 'none', textAlign: 'center' }}>
-                  {pages.map((page) => (
-                    <MenuItem key={page.titre} onClick={() => navigate({ pathname: `/${page.lien}` })}>
+                  {pages.map((page, index) => (
+                    <MenuItem key={index} onClick={() => navigate({ pathname: `/${page.lien}` })}>
                       <Typography textAlign="center">{page.titre}</Typography>
                     </MenuItem>
                   ))}
@@ -419,11 +315,103 @@ export default function VisiteurLayout({ children }) {
                     sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
                     Log in / Sign in</Button>
                 </Box>
+
+                {/* Modal Login / signin */}
+                <Modal
+                  open={openModal}
+                  onClose={() => setOpenModal(false)}
+                  sx={{ display: { xs: "block", md: 'none' } }}
+                >
+                  <Box
+                    sx={{
+                      position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                      width: 350, height: 190, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
+                      display: 'block'
+                    }}
+                  >
+                    <Button variant="outlined" fullWidth
+                      onClick={() => setOpenDialogConnexion(true)}
+                      sx={{ bgcolor: '#0099FF', fontSize: 17, my: 3, display: 'block' }}>
+                      Connexion
+                    </Button>
+                    <Button variant="outlined" fullWidth
+                      onClick={() => setOpenDialogInscription(true)}
+                      sx={{ bgcolor: '#0099FF', fontSize: 17, my: 3, display: 'block' }}>
+                      Inscription
+                    </Button>
+                  </Box>
+
+
+                </Modal>
+                {/* Dialog Connexion */}
+                <Box>
+                  <Dialog
+                    fullScreen
+                    open={openDialogConnexion}
+                    onClose={handleCloseDialogConnexion}
+                    TransitionComponent={Transition}
+                    PaperProps={{ style: { backgroundColor: '#fff' } }}
+                  >
+                    <AppBar sx={{ position: 'relative' }}>
+                      <Toolbar>
+                        <IconButton
+                          edge="start"
+                          color="inherit"
+                          onClick={() => handleCloseDialogConnexion()}
+                          aria-label="close"
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                          Connexion
+                        </Typography>
+                      </Toolbar>
+                    </AppBar>
+                  </Dialog>
+                </Box>
               </SwipeableDrawer>
             </Box>
           </Toolbar>
         </Box>
+
+        {/* Dialog Inscription */}
+        <Box>
+          <Dialog
+            fullScreen
+            open={openDialogInscription}
+            onClose={handleCloseDialogInscription}
+            TransitionComponent={Transition}
+            PaperProps={{ style: { backgroundColor: '#fff' } }}
+          >
+            <AppBar sx={{ position: 'relative' }}>
+              <Toolbar>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={() => handleCloseDialogInscription()}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                  Inscription
+                </Typography>
+              </Toolbar>
+            </AppBar>
+
+            <Inscription
+              dispatch={dispatch}
+              setErrorInscription={setErrorInscription}
+              setSuccessInscription={setSuccessInscription}
+              setSuccess={setSuccess}
+              setError={setError}
+              errorInscription={errorInscription}
+              successInscription={successInscription}
+            />
+          </Dialog>
+        </Box>
       </AppBar>
+
       <Container component="main" disableGutters maxWidth="100%">{children}</Container>
 
       {/* Footer */}
