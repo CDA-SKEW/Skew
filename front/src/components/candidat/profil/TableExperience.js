@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { getProfilCandidate, postFormProfilCandidateExperience, putFormProfilCandidateExperience, deleteFormProfilCandidateExperience } from "store/actions/CandidateActions";
 import { useNavigate } from "react-router";
+import moment from "moment";
 
 
 
@@ -42,18 +43,56 @@ export default function TableExperience(props) {
 
   /*FUNCTION DATEPICKER */
 
-  function BasicDatePicker() {
-    const [value, setValue] = React.useState(null);
+  function BasicDatePicker(props) {
+
+    const { handleExpDateParent, dateExp } = props
+    const [value, setValue] = useState(dateExp)
+    const handleExpDate = (prop) => (event) => {
+      // 2012-06-22T03:40:06.000Z
+
+      console.log('format date', prop, event)
+      console.log('?KKKKK', moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+
+      handleExpDateParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+      setValue(event)
+    }
+
 
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label=""
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
+          // value={String(value)}
+          onChange={handleExpDate('dateStart')}
+          renderInput={(params) => <TextField {...params} helperText={null} />}
+        />
+      </LocalizationProvider>
+    );
+  }
+  /* *************************************************************************** */
+
+  function BasicDatePicker2(props) {
+
+    const { handleExpDateEndParent, dateExpEnd } = props
+    const [value2, setValue2] = useState(dateExpEnd)
+    const handleExpDateEnd = (prop) => (event) => {
+
+
+      console.log('format date', prop, event)
+      console.log('DATE END', moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+
+      handleExpDateEndParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+      setValue2(event)
+    }
+
+
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label=""
+          // value={String(value)}
+          onChange={handleExpDateEnd('dateEnd')}
+          renderInput={(params) => <TextField {...params} helperText={null} />}
         />
       </LocalizationProvider>
     );
@@ -82,6 +121,18 @@ export default function TableExperience(props) {
 
     const handleChange = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
+    }
+
+    const handleExpDateParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
+    }
+
+    const handleExpDateEndParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
     }
 
     const submitForm = () => {
@@ -138,13 +189,13 @@ export default function TableExperience(props) {
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
           <Typography>Start</Typography>
-          <BasicDatePicker />
+          <BasicDatePicker handleExpDateParent={handleExpDateParent} dateExp={form.dateStart} />
 
         </TableCell>
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
           <Typography>End</Typography>
-          <BasicDatePicker />
+          <BasicDatePicker2 handleExpDateEndParent={handleExpDateEndParent} dateExpEnd={form.dateEnd} />
         </TableCell>
 
         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -185,6 +236,18 @@ export default function TableExperience(props) {
 
     const changeForm = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
+    }
+
+    const handleExpDateParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
+    }
+
+    const handleExpDateEndParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
     }
 
     const submitForm = async (data) => {
@@ -246,13 +309,13 @@ export default function TableExperience(props) {
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-          <BasicDatePicker />
+          <BasicDatePicker handleExpDateParent={handleExpDateParent} dateExp={form.dateStart} />
 
         </TableCell>
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-          <BasicDatePicker />
+          <BasicDatePicker2 handleExpDateEndParent={handleExpDateEndParent} dateExpEnd={form.dateEnd} />
         </TableCell>
 
         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -313,8 +376,8 @@ export default function TableExperience(props) {
           <TableCell align='center'>{row.compagny}</TableCell>
           <TableCell align='center'>{row.job}</TableCell>
           <TableCell align='center' sx={{ minWidth: { xs: 400, sm: 400, md: 400 } }}>{row.description}</TableCell>
-          <TableCell align='center'>{row.dateStart}</TableCell>
-          <TableCell align='center'>{row.dateEnd}</TableCell>
+          <TableCell align='center'>{moment.utc(row.dateStart).format('DD/MM/YYYY')}</TableCell>
+          <TableCell align='center'>{moment.utc(row.dateEnd).format('DD/MM/YYYY')}</TableCell>
           {ActionBTN()}
         </TableRow>
         <CheckModeEdit status={open} row={row} />

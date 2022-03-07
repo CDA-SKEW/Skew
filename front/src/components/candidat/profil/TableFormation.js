@@ -23,14 +23,18 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { getProfilCandidate, postFormProfilCandidateCertificate, putFormProfilCandidateCertificate, deleteFormProfilCandidateCertificate } from "store/actions/CandidateActions";
 import { add } from "date-fns";
+import dateFormat, { masks } from "dateformat";
 
+
+import Chip from '@mui/material/Chip';
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 
 export default function TableFormation(props) {
     const { ListCertificate } = props
     const [edit, setEdit] = React.useState(false);
     const [openAdd, setOpenAdd] = React.useState(false);
-
 
     // Declaration des constantes pour le formulaire
 
@@ -41,24 +45,24 @@ export default function TableFormation(props) {
 
 
     const setUseState = () => {
-
         setSchool(ListCertificate.school);
         setTitle(ListCertificate.title);
         setYear(ListCertificate.year);
         setValidate(ListCertificate.validate);
-
-
     };
+
     useEffect(() => {
-        // console.log("effect for useState form employer");
         setUseState();
     }, []);
 
-
-
     // Date Picker Year Only//
-    function ViewsDatePicker() {
-        const [value, setValue] = React.useState(new Date());
+    function ViewsDatePicker(props) {
+        const { handleDateParent, year } = props
+        const [value, setValue] = useState(year)
+        const handleDate = (prop) => (event) => {
+            handleDateParent(prop, event.getFullYear())
+            setValue(event.getFullYear())
+        }
 
         return (
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -67,10 +71,8 @@ export default function TableFormation(props) {
                         size="small"
                         views={['year']}
                         label="Year only"
-                        value={value}
-                        onChange={(newValue) => {
-                            setValue(newValue);
-                        }}
+                        value={String(value)}
+                        onChange={handleDate('year')}
                         renderInput={(params) => <TextField {...params} helperText={null} />}
                     />
                 </Stack>
@@ -78,32 +80,35 @@ export default function TableFormation(props) {
         );
     }
 
-    // Select Yes/No //
-    function BasicSelect() {
-        const [age, setAge] = React.useState('');
+    // Select Yes / No //
+    function BasicSwitch(props) {
+        const { handleSwitchParent, check } = props
+        const [value, setValue] = useState(check)
 
-        const handleChange = (event) => {
-            setAge(event.target.value);
+        const handleChangeSwitch = (prop) => (event) => {
+            const { checked } = event.target
+            console.log('handleChangeSwitch', prop, checked)
+            setValue((value === true) ? false : true)
+            handleSwitchParent(prop, checked);
         };
 
         return (
             <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                    <InputLabel id="simple-select">Obtain</InputLabel>
-                    <Select
-                        labelId="Obtain"
-                        id="simple-select"
-                        onChange={handleChange}
-                        size="small"
-                    >
-                        <MenuItem value={"Yes"}>Yes</MenuItem>
-                        <MenuItem value={"No"}>No</MenuItem>
-                    </Select>
-                </FormControl>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            label={'validate'}
+                            checked={value}
+                            onChange={handleChangeSwitch('validate')}
+                            inputProps={{ "aria-label": "controlled" }}
+                        />
+                    }
+                    labelPlacement="top"
+                    label={'validate'}
+                />
             </Box>
         );
     }
-
 
     /*MODE EDIT */
 
@@ -123,8 +128,18 @@ export default function TableFormation(props) {
         const dispatch = useDispatch()
         const [form, setForm] = useState({ ...data })
 
+        // console.log('data certificate', form)
+
         const handleChange = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
+        }
+
+        const handleDateParent = (prop, value) => {
+            setForm({ ...form, [prop]: value })
+        }
+
+        const handleSwitchParent = (prop, value) => {
+            setForm({ ...form, [prop]: value })
         }
 
         const submitForm = () => {
@@ -165,12 +180,12 @@ export default function TableFormation(props) {
                 </TableCell>
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-
-                    <ViewsDatePicker />
+                    <ViewsDatePicker handleDateParent={handleDateParent} year={form.year} />
                 </TableCell>
-                <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-                    <BasicSelect />
+
+                <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
+                    <BasicSwitch handleSwitchParent={handleSwitchParent} check={form.validate} />
                 </TableCell>
 
                 <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -205,15 +220,27 @@ export default function TableFormation(props) {
     //Mode add Experience Component
 
     function ModeAdd(props) {
-        // const { data } = props
         const dispatch = useDispatch()
-        const [form, setForm] = useState({ user_id: 5 })
+        const [form, setForm] = useState({ user_id: 5, validate: false })
 
         const changeForm = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
         }
 
+        const handleDateParent = (prop, value) => {
+            // console.log('handleChange from cert DATE', prop, value)
+            setForm({ ...form, [prop]: value })
+            // console.log('form certificate', form)
+        }
+
+        const handleSwitchParent = (prop, value) => {
+            console.log('handleSwitchParent bouyaka !!!', prop, value)
+            setForm({ ...form, [prop]: value })
+            console.log('form', form)
+        }
+
         const submitForm = async (data) => {
+            console.log('submitForm', form)
             await dispatch(postFormProfilCandidateCertificate({ ...form }))
             setSchool("");
             setTitle("");
@@ -222,7 +249,7 @@ export default function TableFormation(props) {
             setTimeout(() => dispatch(getProfilCandidate()), 777)
             setEdit(false) // close editMode
         }
-        // console.log('mode edit comp', data)
+
 
         return (
             <TableRow>
@@ -257,13 +284,12 @@ export default function TableFormation(props) {
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-                    <ViewsDatePicker />
+                    <ViewsDatePicker handleDateParent={handleDateParent} year={form.year} />
 
                 </TableCell>
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-
-                    <BasicSelect />
+                    <BasicSwitch handleSwitchParent={handleSwitchParent} check={form.validate} />
                 </TableCell>
 
                 <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -300,9 +326,10 @@ export default function TableFormation(props) {
 
         const ActionBTN = () => {
             // console.log('ACTION BTN', edit)
-            if (edit === true) return <Box sx={{ display: "flex", flexDirection: 'column' }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
-                <BorderColorIcon />
-            </Button>
+            if (edit === true) return <Box sx={{ display: "flex", flexDirection: 'column' }}>
+                <Button onClick={(e) => setOpen(open === true ? false : true)}>
+                    <BorderColorIcon />
+                </Button>
 
                 <Button sx={{ color: "red", }} onClick={() => handleDelete()}>
                     <DeleteIcon />
@@ -323,7 +350,15 @@ export default function TableFormation(props) {
                     <TableCell align='center'>{row.school}</TableCell>
                     <TableCell align='center'>{row.title}</TableCell>
                     <TableCell align='center'>{row.year}</TableCell>
-                    <TableCell align='center'>{row.validate}</TableCell>
+                    <TableCell align='center'>
+                        <Stack direction="row" spacing={1}>
+                            <Chip size="small"
+                                label={(row.validate === 0) ? 'not certified' : 'certified'}
+                                color={(row.validate === 0) ? 'warning' : 'success'}
+                                variant=""
+                            />
+                        </Stack>
+                    </TableCell>
                     {ActionBTN()}
                 </TableRow>
                 <CheckModeEdit status={open} row={row} />

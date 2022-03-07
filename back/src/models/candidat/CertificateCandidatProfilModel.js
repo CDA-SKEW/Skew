@@ -11,28 +11,11 @@ const CandidatCertificate = function (certificate) {
         this.validate = Number(certificate.validate)
 };
 
-// Get ID
-// CandidatCertificate.getCertificateProfil = function (id, result) {
-//     connection.getConnection(function (error, conn) {
-//         if (error) throw error;
-//         conn.query(
-//             `SELECT u.id,c.*
-//             FROM user as u
-//             INNER JOIN certificate as c
-//             ON u.id = user_id
-//             WHERE u.id = ${id};`,
 
-//             (error, data) => {
-//                 if (error) throw error;
-//                 result(null, data);
-//                 conn.release();
-//             });
-//     });
-// };
 
 // Create Certificate
 CandidatCertificate.createCertificateProfil = function (newCertificate, result) {
-    const { school, title, year, user_id } = newCertificate
+    const { school, title, year, validate, user_id } = newCertificate
     connection.getConnection(function (error, conn) {
         conn.query(`
         INSERT INTO certificate
@@ -40,9 +23,10 @@ CandidatCertificate.createCertificateProfil = function (newCertificate, result) 
          user_id = :user_id,
             school = :school,
             title = :title,
-            year = :year
+            year = :year,
+            validate = :validate
             ;`,
-            { school, title, year, user_id }
+            { school, title, year, validate, user_id }
             , (error, data) => {
                 if (error) throw error;
                 conn.query(`SELECT u.id,c.*
@@ -61,8 +45,10 @@ CandidatCertificate.createCertificateProfil = function (newCertificate, result) 
 
 // // Edit One
 CandidatCertificate.updateCertificateProfil = function (certificateObj, result) {
-    const { school, title, year, user_id, id } = certificateObj
+    // console.log('REQ.BODY CREATE', req.body);
+    const { school, title, year, validate, user_id, id } = certificateObj
     console.log("edit", certificateObj);
+    // let isValidate;
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE certificate,user
@@ -70,11 +56,13 @@ CandidatCertificate.updateCertificateProfil = function (certificateObj, result) 
             user_id= :user_id,
             school = :school,
             title = :title,
-            year = :year
+            year = :year,
+            validate = :validate
             WHERE certificate.id = :id;`,
-            { school, title, year, user_id, id }
+            { school, title, year, validate, user_id, id }
             , (error, data) => {
                 if (error) throw error;
+                // isValidate = certificate.validate === 1 ? 0 : 1;
                 conn.query(`SELECT u.id,c.*
             FROM user as u
             INNER JOIN certificate as c

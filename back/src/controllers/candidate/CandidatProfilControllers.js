@@ -125,7 +125,7 @@ class CandidatProfilControllers {
   //  UPDATE EXPERIENCE PROFIL CANDIDAT 
 
   async updateExperienceProfil(req, res) {
-    console.log('REQ.BODY CREATE', req.body);
+    // console.log('REQ.BODY CREATE', req.body);
     let experienceObj = new CandidatExperience({
       id: Number(req.params.id),
       ...req.body
@@ -345,6 +345,7 @@ class CandidatProfilControllers {
   //  GET CERTIFICATE PROFIL CANDIDAT 
 
   async getCertificateProfil(req, res) {
+
     try {
       CandidatCertificate.getCertificateProfil(String(req.params.id), (err, data) => {
         if (err) {
@@ -368,6 +369,7 @@ class CandidatProfilControllers {
   //  CREATE CERTIFICATE PROFIL CANDIDAT
 
   async createCertificateProfil(req, res) {
+    console.log('REQ.BODY CREATE', req.body);
     let newCertificate = new CandidatCertificate({
       ...req.body
     });
@@ -388,6 +390,11 @@ class CandidatProfilControllers {
   //  UPDATE CERTIFICATE PROFIL CANDIDAT 
 
   async updateCertificateProfil(req, res) {
+
+    console.log('REQ.BODY CREATE', req.body);
+    let { isCertified } = req.body;
+    console.log("isCertified", Boolean(isCertified));
+    isCertified = isCertified === "true" ? 1 : 0;
     let certificateObj = new CandidatCertificate({
       id: Number(req.params.id),
       ...req.body

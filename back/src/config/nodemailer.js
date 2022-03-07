@@ -292,6 +292,7 @@ module.exports = {
 
   mailLostMdp: (req, res) => {
 
+    console.log('data', req)
     arrayFiles = [];
     // initialisation du tableau array avec data signature
     arrayFiles.push({
@@ -300,23 +301,18 @@ module.exports = {
       cid: "signatureLogo", //same cid value as in the html img src
     });
 
-    rand = Math.floor((Math.random() * 100) + 54)
-    
-    host = req.get('host');
-
-    link = "http://" + req.get('host') + "/api/auth/changemdp/" + rand;
-
     mailOptions = {
       from: process.env.USER_NODMAILER,
-      to: req.body.mailLostMdp,
+      to: req.mail,
       subject: "Modification du mot de passe",
-      rand: rand,
       html: `
       <strong>Modification du mot de passe</strong>
       <br><br>
 
 
-      
+      <p>Voici votre nouveau mot de passe:</p>
+
+      <p>${req.pass}</p>
 
 
       <br><br>
@@ -354,7 +350,6 @@ module.exports = {
     // On demande à notre transporter d'envoyer notre mail
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.log("err", err),
           res.status(500).send({
             message: err.message || "Une erreur est survenue",
           });
