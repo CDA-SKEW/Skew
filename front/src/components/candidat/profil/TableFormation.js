@@ -26,6 +26,11 @@ import { add } from "date-fns";
 import dateFormat, { masks } from "dateformat";
 
 
+import Chip from '@mui/material/Chip';
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
+
 export default function TableFormation(props) {
     const { ListCertificate } = props
     const [edit, setEdit] = React.useState(false);
@@ -75,33 +80,35 @@ export default function TableFormation(props) {
         );
     }
 
-    // Select Yes/No //
-    // function BasicSelect() {
-    //     const { handleValidateParent, status } = props
-    //     const [value, setValue] = useState(status)
-    //     const handleValidate = (prop) => (event) => {
-    //         handleValidateParent(prop, event)
-    //         setValue(event)
-    //     }
+    // Select Yes / No //
+    function BasicSwitch(props) {
+        const { handleSwitchParent, check } = props
+        const [value, setValue] = useState(check)
 
-    //     return (
-    //         <Box sx={{ minWidth: 120 }}>
-    //             <FormControl fullWidth>
-    //                 <InputLabel id="simple-select">Obtain</InputLabel>
-    //                 <Select
-    //                     labelId="Obtain"
-    //                     id="simple-select"
-    //                     defaultValue={1}
-    //                     onChange={handleValidate('validate')}
-    //                     size="small">
-    //                     <MenuItem value={Number(value)}>Yes</MenuItem>
-    //                     <MenuItem value={Number(value)}>No</MenuItem>
-    //                 </Select>
-    //             </FormControl>
-    //         </Box>
-    //     );
-    // }
+        const handleChangeSwitch = (prop) => (event) => {
+            const { checked } = event.target
+            console.log('handleChangeSwitch', prop, checked)
+            setValue((value === true) ? false : true)
+            handleSwitchParent(prop, checked);
+        };
 
+        return (
+            <Box sx={{ minWidth: 120 }}>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            label={'validate'}
+                            checked={value}
+                            onChange={handleChangeSwitch('validate')}
+                            inputProps={{ "aria-label": "controlled" }}
+                        />
+                    }
+                    labelPlacement="top"
+                    label={'validate'}
+                />
+            </Box>
+        );
+    }
 
     /*MODE EDIT */
 
@@ -124,22 +131,16 @@ export default function TableFormation(props) {
         // console.log('data certificate', form)
 
         const handleChange = (prop) => (event) => {
-            // console.log('handleChange from cert', prop, event)
             setForm({ ...form, [prop]: event.target.value })
-            // console.log('form certificate', form)
         }
 
         const handleDateParent = (prop, value) => {
-            // console.log('handleChange from cert DATE', prop, value)
             setForm({ ...form, [prop]: value })
-            // console.log('form certificate', form)
         }
 
-        // const handleValidateParent = (prop, value) => {
-        //     console.log('handleChange from cert VALIDATE', prop, value)
-        //     setForm({ ...form, [prop]: value })
-        //     console.log('form certificate', form)
-        // }
+        const handleSwitchParent = (prop, value) => {
+            setForm({ ...form, [prop]: value })
+        }
 
         const submitForm = () => {
             console.log('SUBMIT Certificate UPDATE', form)
@@ -184,8 +185,7 @@ export default function TableFormation(props) {
 
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-
-                    {/* <BasicSelect handleValidateParent={handleValidateParent} status={form.status} /> */}
+                    <BasicSwitch handleSwitchParent={handleSwitchParent} check={form.validate} />
                 </TableCell>
 
                 <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -220,9 +220,8 @@ export default function TableFormation(props) {
     //Mode add Experience Component
 
     function ModeAdd(props) {
-        // const { data } = props
         const dispatch = useDispatch()
-        const [form, setForm] = useState({ user_id: 5 })
+        const [form, setForm] = useState({ user_id: 5, validate: false })
 
         const changeForm = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
@@ -234,7 +233,14 @@ export default function TableFormation(props) {
             // console.log('form certificate', form)
         }
 
+        const handleSwitchParent = (prop, value) => {
+            console.log('handleSwitchParent bouyaka !!!', prop, value)
+            setForm({ ...form, [prop]: value })
+            console.log('form', form)
+        }
+
         const submitForm = async (data) => {
+            console.log('submitForm', form)
             await dispatch(postFormProfilCandidateCertificate({ ...form }))
             setSchool("");
             setTitle("");
@@ -243,7 +249,7 @@ export default function TableFormation(props) {
             setTimeout(() => dispatch(getProfilCandidate()), 777)
             setEdit(false) // close editMode
         }
-        // console.log('mode edit comp', data)
+
 
         return (
             <TableRow>
@@ -283,8 +289,7 @@ export default function TableFormation(props) {
                 </TableCell>
 
                 <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
-
-                    {/* <BasicSelect /> */}
+                    <BasicSwitch handleSwitchParent={handleSwitchParent} check={form.validate} />
                 </TableCell>
 
                 <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -345,7 +350,15 @@ export default function TableFormation(props) {
                     <TableCell align='center'>{row.school}</TableCell>
                     <TableCell align='center'>{row.title}</TableCell>
                     <TableCell align='center'>{row.year}</TableCell>
-                    <TableCell align='center'>{row.validate}</TableCell>
+                    <TableCell align='center'>
+                        <Stack direction="row" spacing={1}>
+                            <Chip size="small"
+                                label={(row.validate === 0) ? 'not certified' : 'certified'}
+                                color={(row.validate === 0) ? 'warning' : 'success'}
+                                variant=""
+                            />
+                        </Stack>
+                    </TableCell>
                     {ActionBTN()}
                 </TableRow>
                 <CheckModeEdit status={open} row={row} />

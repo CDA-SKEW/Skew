@@ -71,6 +71,34 @@ export default function TableExperience(props) {
   }
   /* *************************************************************************** */
 
+  function BasicDatePicker2(props) {
+
+    const { handleExpDateEndParent, dateExpEnd } = props
+    const [value2, setValue2] = useState(dateExpEnd)
+    const handleExpDateEnd = (prop) => (event) => {
+
+
+      console.log('format date', prop, event)
+      console.log('DATE END', moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+
+      handleExpDateEndParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
+      setValue2(event)
+    }
+
+
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label=""
+          // value={String(value)}
+          onChange={handleExpDateEnd('dateEnd')}
+          renderInput={(params) => <TextField {...params} helperText={null} />}
+        />
+      </LocalizationProvider>
+    );
+  }
+  /* *************************************************************************** */
+
   /*MODE EDIT */
 
   //Condition Trigger mode edit 
@@ -96,6 +124,12 @@ export default function TableExperience(props) {
     }
 
     const handleExpDateParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
+    }
+
+    const handleExpDateEndParent = (prop, value) => {
       console.log('handleChange from cert DATE', prop, value)
       setForm({ ...form, [prop]: value })
       console.log('form certificate', form)
@@ -161,7 +195,7 @@ export default function TableExperience(props) {
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
           <Typography>End</Typography>
-          <BasicDatePicker handleExpDateParent={handleExpDateParent} dateExp={form.dateEnd} />
+          <BasicDatePicker2 handleExpDateEndParent={handleExpDateEndParent} dateExpEnd={form.dateEnd} />
         </TableCell>
 
         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -202,6 +236,18 @@ export default function TableExperience(props) {
 
     const changeForm = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
+    }
+
+    const handleExpDateParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
+    }
+
+    const handleExpDateEndParent = (prop, value) => {
+      console.log('handleChange from cert DATE', prop, value)
+      setForm({ ...form, [prop]: value })
+      console.log('form certificate', form)
     }
 
     const submitForm = async (data) => {
@@ -263,13 +309,13 @@ export default function TableExperience(props) {
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-          <BasicDatePicker />
+          <BasicDatePicker handleExpDateParent={handleExpDateParent} dateExp={form.dateStart} />
 
         </TableCell>
 
         <TableCell align='center' sx={{ minWidth: { xs: 150, sm: 150, md: 150 } }}>
 
-          <BasicDatePicker />
+          <BasicDatePicker2 handleExpDateEndParent={handleExpDateEndParent} dateExpEnd={form.dateEnd} />
         </TableCell>
 
         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -330,8 +376,8 @@ export default function TableExperience(props) {
           <TableCell align='center'>{row.compagny}</TableCell>
           <TableCell align='center'>{row.job}</TableCell>
           <TableCell align='center' sx={{ minWidth: { xs: 400, sm: 400, md: 400 } }}>{row.description}</TableCell>
-          <TableCell align='center'>{row.dateStart}</TableCell>
-          <TableCell align='center'>{row.dateEnd}</TableCell>
+          <TableCell align='center'>{moment.utc(row.dateStart).format('DD/MM/YYYY')}</TableCell>
+          <TableCell align='center'>{moment.utc(row.dateEnd).format('DD/MM/YYYY')}</TableCell>
           {ActionBTN()}
         </TableRow>
         <CheckModeEdit status={open} row={row} />
