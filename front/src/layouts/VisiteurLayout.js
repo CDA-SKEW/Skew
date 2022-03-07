@@ -33,7 +33,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { login, register } from "store/actions/AuthActions";
+import { changePass, login, register } from "store/actions/AuthActions";
 
 function PassInput({ values, handleFormIdInscription }) {
 
@@ -74,11 +74,12 @@ export default function VisiteurLayout({ children }) {
   const [openModal, setOpenModal] = useState(false);
   const [openChildModal, setOpenChildModal] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [certificate, setCertificate] = useState(false);
   const [mail, setMail] = useState('');
   const [mailLostPass, setMailLostPass] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [mailInscription, setMailInscription] = useState('');
   const [passInscription, setPassInscription] = useState('');
   const [pass2, setPass2] = useState('');
@@ -88,7 +89,6 @@ export default function VisiteurLayout({ children }) {
   const [successInscription, setSuccessInscription] = useState('');
   const [candidat, setCandidat] = useState(0);
   const [recruteur, setRecruteur] = useState(0);
-  const [certificate, setCertificate] = useState(false);
   const userToken = localStorage["user_token"];
 
   const pages = [
@@ -119,20 +119,7 @@ export default function VisiteurLayout({ children }) {
   const flash = useSelector(state => state.auth.flash);
   const flashCon = useSelector(state => state.auth.flashCon);
 
-  const handleOpen = () => { setOpenModal(true); };
-  const handleClose = () => { setOpenModal(false); };
-  const handleOpenChildModal = () => { setOpenChildModal(true); };
   const handleCloseChildModal = () => { setOpenChildModal(false); };
-  const handleFormId = (e) => {
-    switch (e.target.name) {
-      case 'mail': setMail(e.target.value);
-        break;
-      case 'pass': setPass(e.target.value);
-        break;
-      default:
-    }
-  }
-  const handleChangeMailLostPass = (e) => { setMailLostPass(e.target.value) }
   const handleFormIdInscription = (e) => {
     switch (e.target.name) {
       case 'mail': setMailInscription(e.target.value);
@@ -181,12 +168,14 @@ export default function VisiteurLayout({ children }) {
 
   };
   const handleSubmitChildModal = () => {
-    if (mailLostPass.length > 0) console.log('oui')
+    if (mailLostPass.length > 0) {
+      dispatch(changePass(mailLostPass))
+      // console.log('mailLostPass', mailLostPass)
+    }
   }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
   const logout = () => {
     localStorage.removeItem("user_token");
-    console.log('loggouuuttt !!!')
     window.location.reload()
   }
 
@@ -205,7 +194,7 @@ export default function VisiteurLayout({ children }) {
         setCertificate(false)
       }
     }
-  }, [certificate]);
+  }, [certificate, isAdmin, isCandidat, isRecruteur, navigate]);
 
   useEffect(() => {
     if (toggle === 'candidat') {
@@ -244,17 +233,11 @@ export default function VisiteurLayout({ children }) {
       <GlobalStyles styles={{ ...style }} />
       <AppBar position="static">
         <Box>
-          <Toolbar
-            disableGutters
-            sx={{ display: { xs: "flex", md: "block" } }}
-          >
-
+          <Toolbar disableGutters sx={{ display: { xs: "flex", md: "block" } }}>
             {/* Titre */}
             <Box sx={{ display: { xs: "flex", md: "block" } }}>
               <Box sx={{ flexGrow: 0, display: 'flex' }}>
-                <Avatar
-                  variant="square"
-                  src={Logo}
+                <Avatar variant="square" src={Logo}
                   sx={{ mx: 1, width: { md: 50 }, height: { md: 50 }, mt: { md: 1 } }} />
                 <Typography variant='h1' sx={{ width: '100%', mt: { md: 1 } }}>
                   SKEW
@@ -273,7 +256,7 @@ export default function VisiteurLayout({ children }) {
 
                 {/* Bouton Login */}
                 {!userToken &&
-                  <Button variant="contained" onClick={handleOpen} sx={{ bgcolor: 'secondary.main' }}>
+                  <Button variant="contained" onClick={() => setOpenModal(true)} sx={{ bgcolor: 'secondary.main' }}>
                     Log in / Sign in
                   </Button>
                 }
@@ -282,41 +265,22 @@ export default function VisiteurLayout({ children }) {
                     Log out
                   </Button>
                 }
-
                 {/* Modal connexion inscription */}
-                <Modal open={openModal} onClose={handleClose}>
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: '50%', left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: 800,
-                      height: 560,
-                      bgcolor: '#fff',
-                      pt: 2, px: 4, pb: 3,
-                      borderRadius: 2,
-                      display: 'flex',
-                      textAlign: 'center'
-                    }}
-                  >
-
+                <Modal open={openModal} onClose={() => setOpenModal(false)}>
+                  <Box sx={{
+                    position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                    width: 800, height: 560, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
+                    display: 'flex', textAlign: 'center'
+                  }}>
                     {/* Connexion */}
                     <Box sx={{ display: 'block', width: 400, pr: 2, borderRight: 2 }}>
                       <Typography variant='h4'>Connexion</Typography>
-                      <TextField
-                        label='Mail'
-                        name='mail'
-                        variant="outlined"
-                        fullWidth
-                        onChange={(e) => handleFormId(e)}
-                        sx={{ my: 1 }} />
+                      <TextField label='Mail' name='mail' variant="outlined" fullWidth
+                        onChange={(e) => setMail(e.target.value)} sx={{ my: 1 }} />
                       <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
                         <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
-                        <OutlinedInput
-                          name='pass'
-                          type={showPassword ? 'text' : 'password'}
-                          value={pass}
-                          onChange={(e) => handleFormId(e)}
+                        <OutlinedInput name='pass' type={showPassword ? 'text' : 'password'}
+                          value={pass} onChange={(e) => setPass(e.target.value)}
                           endAdornment={
                             <InputAdornment position="end">
                               <IconButton
@@ -333,9 +297,8 @@ export default function VisiteurLayout({ children }) {
                         />
                       </FormControl>
                       <Link
-                        component="button"
-                        variant="body2"
-                        onClick={() => handleOpenChildModal()}
+                        component="button" variant="body2"
+                        onClick={() => setOpenChildModal(true)}
                         sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
                         Mot de passe oublié
                       </Link>
@@ -346,54 +309,36 @@ export default function VisiteurLayout({ children }) {
                         aria-labelledby="child-modal-title"
                         aria-describedby="child-modal-description"
                       >
-                        <Box
-                          sx={{
-                            position: 'absolute',
-                            top: '50%', left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            height: 300,
-                            bgcolor: '#fff',
-                            pt: 2, px: 4, pb: 3,
-                            borderRadius: 2,
-                            display: 'block',
-                            textAlign: 'center',
-                            border: 1
-                          }}>
+                        <Box sx={{
+                          position: 'absolute', top: '50%', left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: 400, height: 300, bgcolor: '#fff',
+                          pt: 2, px: 4, pb: 3, borderRadius: 2,
+                          display: 'block', textAlign: 'center', border: 1
+                        }}>
                           <h2 id="child-modal-title">Mot de passe oublié</h2>
                           <p id="child-modal-description">Entrez votre adresse mail:</p>
                           <TextField
-                            label='Mail'
-                            name={mailLostPass}
-                            variant="outlined"
-                            value={mailLostPass}
-                            fullWidth
-                            onChange={() => handleChangeMailLostPass()}
+                            label='Mail' name='mailLostPass' variant="outlined" fullWidth
+                            onChange={(e) => setMailLostPass(e.target.value)}
                             sx={{ my: 1 }} />
                           <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 3 }}>
                             <Button
                               variant='contained'
                               onClick={() => handleSubmitChildModal()}
-                              sx={{
-                                bgcolor: "secondary.main",
-                                width: 100
-                              }}
-                            >
+                              sx={{ bgcolor: "secondary.main", width: 100 }}>
                               Envoyer
                             </Button>
                             <Button
                               variant='contained'
-                              onClick={() => handleCloseChildModal()}
+                              onClick={() => setOpenChildModal(false)}
                               sx={{ bgcolor: "secondary.main", width: 100 }}>
                               Fermer
                             </Button>
                           </Box>
                         </Box>
                       </Modal>
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        onClick={() => SubmitFormId()}
+                      <Button variant="contained" fullWidth onClick={() => SubmitFormId()}
                         sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
                         Envoyer
                       </Button>
@@ -412,12 +357,8 @@ export default function VisiteurLayout({ children }) {
                     {/* Inscription */}
                     <Box sx={{ display: 'block', width: 400, ml: 2, }}>
                       <Typography variant='h4'>Inscription</Typography>
-                      <TextField
-                        label='Mail'
-                        name='mail'
-                        value={mailInscription}
-                        variant="outlined"
-                        fullWidth
+                      <TextField label='Mail' name='mail' fullWidth
+                        value={mailInscription} variant="outlined"
                         onChange={(e) => handleFormIdInscription(e)}
                         sx={{ my: 1 }} />
 
@@ -425,13 +366,8 @@ export default function VisiteurLayout({ children }) {
                         <PassInput key={index} values={values} handleFormIdInscription={handleFormIdInscription} />
                       ))}
                       <ToggleButtonGroup
-                        color="info"
-                        value={toggle}
-                        exclusive
-                        onChange={handleChange}
-                        fullWidth
-                        sx={{ my: 1 }}
-                      >
+                        color="info" exclusive fullWidth value={toggle}
+                        onChange={handleChange} sx={{ my: 1 }} >
                         <ToggleButton value="candidat">Candidat</ToggleButton>
                         <ToggleButton value="recruteur">Recruteur</ToggleButton>
                       </ToggleButtonGroup>
@@ -452,9 +388,7 @@ export default function VisiteurLayout({ children }) {
                         </Box>
                       }
                       <Button
-                        variant="contained"
-                        fullWidth
-                        onClick={() => SubmitFormIdInscription()}
+                        variant="contained" fullWidth onClick={() => SubmitFormIdInscription()}
                         sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
                         Envoyer
                       </Button>
@@ -486,7 +420,7 @@ export default function VisiteurLayout({ children }) {
                   ))}
                   <Button
                     variant="contained"
-                    onClick={handleOpen}
+                    onClick={() => setOpenModal(true)}
                     sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
                     Log in / Sign in</Button>
                 </Box>
