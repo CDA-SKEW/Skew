@@ -76,11 +76,11 @@ router
 // Employeur user profil
 
 router
-  // .route("/api/employer/dashboard/:id")
-  // .get(new EmployerOfferControllers().getDashboard);
-
   .route("/api/employer/dashboard/:id")
-  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
+  .get(new EmployerOfferControllers().getDashboard);
+
+  // .route("/api/employer/dashboard/:id")
+  // .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
