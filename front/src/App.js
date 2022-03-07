@@ -26,10 +26,10 @@ import EmployerLayout from "layouts/EmployerLayout";
 import CandidatLayout from "layouts/CandidatLayout";
 import VerifAuth from "pages/visitor/VerifAuth";
 
-const EmployerRoutes = () =>  (
-  <EmployerLayout>    
+const EmployerRoutes = () => (
+  <EmployerLayout>
     <Routes>
-      <Route path="dashboard" exact element={<EmployerDashboard/>} />
+      <Route path="dashboard" exact element={<EmployerDashboard />} />
       <Route path="profil" exact element={<EmployerProfil />} />
       <Route path="addOffer" exact element={<EmployerAddOffer />} />
       <Route path="offer" exact element={<EmployerOffer />} />

@@ -19,8 +19,6 @@ import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -30,7 +28,6 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import {
   Box,
   Button,
-  Dialog,
   DialogActions,
   DialogTitle,
   Divider,
@@ -52,9 +49,6 @@ export default function DeletableChips(props) {
   const [form, setForm] = React.useState({ ...props.id.row });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   /*------------MODALS-------------*/
 
@@ -252,13 +246,6 @@ export default function DeletableChips(props) {
       {columnsBan && (
         // Bannir et supprimer un utilisatcolumnsBanur
         <Box>
-          {/* <Chip
-            label="ban or delete user"
-            color="info"
-            icon={<InfoIcon />}
-            variant="contained"
-            onClick={handleOpen}
-          ></Chip> */}
           <Chip
             label={id.row.isBanned === 1 ? "banned" : "not banned"}
             variant="outlined"
@@ -269,7 +256,6 @@ export default function DeletableChips(props) {
             onClick={handleOpen}
           />
           <Modal
-           fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -339,13 +325,6 @@ export default function DeletableChips(props) {
       {columnsVerif && (
         // Vérifier un user
         <Box>
-          {/* <Chip
-            label="ban or delete user"
-            color="info"
-            icon={<InfoIcon />}
-            variant="contained"
-            onClick={handleOpen}
-          ></Chip> */}
           <Chip
             label={id.row.isVerified === 1 ? "verified" : "not verfied"}
             variant="outlined"
@@ -432,72 +411,65 @@ export default function DeletableChips(props) {
             onClick={handleOpen}
             icon={<VerifiedIcon />}
           />
-          <Dialog
-            fullScreen={fullScreen}
+          <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="responsive-dialog-title"
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                {/* Form */}
-                <Typography
-                  sx={{
-                    mb: 2,
-                    textAlign: "center",
-                    fontSize: "30px",
-                    fontWeight: 700,
-                  }}
-                  variant="h6"
-                  component="h2"
-                >
-                  BADGER CET UTILISATEUR ?
-                </Typography>
-                <Typography
-                  gutterBottom
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                </Typography>
-                <Typography
-                  component="span"
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                >
-                  {/* Update action Button */}
-                  <Stack spacing={10} direction="row" sx={{ m: 5 }}>
-                    <Button
-                      sx={{ color: "#fff", border: "1px solid #33c863" }}
-                      variant="outlined"
-                      startIcon={<VerifiedIcon />}
-                      color="primary"
-                      onClick={() => dispatch(putBadge(id.row.id))}
-                    >
-                      Badge
-                    </Button>
-                    <Button
-                      sx={{ border: "1px solid #33c863" }}
-                      variant="contained"
-                      startIcon={<CancelIcon />}
-                      color="primary"
-                      onClick={handleClose}
-                    >
-                      NON
-                    </Button>
-                  </Stack>
-                </Typography>
-              </Box>
-            </Modal>
-          </Dialog>
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
+                variant="h6"
+                component="h2"
+              >
+                BADGER CET UTILISATEUR ?
+              </Typography>
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
+                {/* Update action Button */}
+                <Stack spacing={10} direction="row" sx={{ m: 5 }}>
+                  <Button
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
+                    variant="outlined"
+                    startIcon={<VerifiedIcon />}
+                    color="primary"
+                    onClick={() => dispatch(putBadge(id.row.id))}
+                  >
+                    Badge
+                  </Button>
+                  <Button
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
+                    onClick={handleClose}
+                  >
+                    NON
+                  </Button>
+                </Stack>
+              </Typography>
+            </Box>
+          </Modal>
         </Box>
       )}
 
@@ -583,106 +555,99 @@ export default function DeletableChips(props) {
             variant="contained"
             onClick={handleOpen}
           ></Chip>
-          <Dialog
-            fullScreen={fullScreen}
+          <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="responsive-dialog-title"
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
           >
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                {/* Form */}
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  sx={{
-                    mb: 2,
-                    textAlign: "center",
-                    fontSize: "20px",
-                    fontWeight: 700,
-                  }}
-                >
-                  REPONDRE A UN MESSAGE
-                  <TextField
-                    disabled
-                    fullWidth
-                    sx={{ mt: 5 }}
-                    required
-                    id="outlined-required"
-                    label="replyTo"
-                    defaultValue={id.row.mail}
-                  />
-                  <TextField
-                    fullWidth
-                    sx={{ mt: 5 }}
-                    required
-                    id="outlined-required"
-                    onChange={handleChange(`sujet`)}
-                    label="Objet"
-                    defaultValue={id.row.sujet}
-                  />
-                  <TextField
-                    disabled
-                    fullWidth
-                    sx={{ mt: 5 }}
-                    required
-                    id="outlined-multiline-static"
-                    label="Message"
-                    multiline
-                    rows={4}
-                    defaultValue={id.row.message}
-                  />
-                  {/* Reply TextField */}
-                  <TextField
-                    fullWidth
-                    sx={{ mt: 5 }}
-                    required
-                    id="outlined-multiline-static"
-                    label="Reply"
-                    multiline
-                    onChange={handleChange(`reply`)}
-                    rows={4}
-                    defaultValue=""
-                  />
-                </Typography>
-                <Typography
-                  component="span"
-                  id="modal-modal-description"
-                  sx={{ mt: 2 }}
-                >
-                  {/* Reply action Button */}
-                  <Stack spacing={5} direction="row" sx={{ m: 4 }}>
-                    <Button
-                      sx={{ color: "#fff", border: "1px solid #33c863" }}
-                      variant="outlined"
-                      color="primary"
-                      endIcon={<SendIcon />}
-                      onClick={() => submitReplyMessage(form)}
-                    >
-                      Envoyer
-                    </Button>
-                    <Button
-                      startIcon={<MessageIcon />}
-                      sx={{ border: "1px solid #33c863" }}
-                      variant="contained"
-                      color="primary"
-                      // Déclenche l'action de la constante CheckDelete
-                      onClick={(e) => setMsg(msg === true ? false : true)}
-                    >
-                      Supprimer
-                    </Button>
-                  </Stack>
-                  {/* Appel de la condition */}
-                  {CheckDelete()}
-                </Typography>
-              </Box>
-            </Modal>
-          </Dialog>
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                variant="h5"
+                component="h2"
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                }}
+              >
+                REPONDRE A UN MESSAGE
+                <TextField
+                  disabled
+                  fullWidth
+                  sx={{ mt: 5 }}
+                  required
+                  id="outlined-required"
+                  label="replyTo"
+                  defaultValue={id.row.mail}
+                />
+                <TextField
+                  fullWidth
+                  sx={{ mt: 5 }}
+                  required
+                  id="outlined-required"
+                  onChange={handleChange(`sujet`)}
+                  label="Objet"
+                  defaultValue={id.row.sujet}
+                />
+                <TextField
+                  disabled
+                  fullWidth
+                  sx={{ mt: 5 }}
+                  required
+                  id="outlined-multiline-static"
+                  label="Message"
+                  multiline
+                  rows={4}
+                  defaultValue={id.row.message}
+                />
+                {/* Reply TextField */}
+                <TextField
+                  fullWidth
+                  sx={{ mt: 5 }}
+                  required
+                  id="outlined-multiline-static"
+                  label="Reply"
+                  multiline
+                  onChange={handleChange(`reply`)}
+                  rows={4}
+                  defaultValue=""
+                />
+              </Typography>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
+                {/* Reply action Button */}
+                <Stack spacing={5} direction="row" sx={{ m: 4 }}>
+                  <Button
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
+                    variant="outlined"
+                    color="primary"
+                    endIcon={<SendIcon />}
+                    onClick={() => submitReplyMessage(form)}
+                  >
+                    Envoyer
+                  </Button>
+                  <Button
+                    startIcon={<MessageIcon />}
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    color="primary"
+                    // Déclenche l'action de la constante CheckDelete
+                    onClick={(e) => setMsg(msg === true ? false : true)}
+                  >
+                    Supprimer
+                  </Button>
+                </Stack>
+                {/* Appel de la condition */}
+                {CheckDelete()}
+              </Typography>
+            </Box>
+          </Modal>
         </Box>
       )}
     </Stack>

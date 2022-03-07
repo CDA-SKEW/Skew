@@ -18,7 +18,7 @@ const Message = function (message) {
 
 // Get All Messages
 Message.getListMessages = function (result) {
-  console.log("Method getMessageAll Model Message");
+  console.log("Method get All Model Message");
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
     /* Requête SQL pour afficher tous les Messages 
@@ -27,7 +27,7 @@ Message.getListMessages = function (result) {
       //   Si erreur l'afficher
       if (error) throw error;
       //   Sinon afficher les datas
-      else result(null, data);
+      result(null, data);
     });
     // Stop la function une fois exécutée
     conn.release();
@@ -35,22 +35,22 @@ Message.getListMessages = function (result) {
 };
 
 // Get One Message
-Message.getMessageId = function (message, result) {
-  //   console.log("Method getID Model Message", message);
-  const { id } = message;
-  connection.getConnection(function (error, conn) {
-    conn.query(
-      ` SELECT * FROM messages WHERE id = :id`,
-      { id },
-      (error, data) => {
-        if (error) throw error;
-        else result(null, data);
-        //   console.log("data", data);
-      }
-    );
-    conn.release();
-  });
-};
+// Message.getMessageId = function (message, result) {
+//   //   console.log("Method getID Model Message", message);
+//   const { id } = message;
+//   connection.getConnection(function (error, conn) {
+//     conn.query(
+//       ` SELECT * FROM messages WHERE id = :id`,
+//       { id },
+//       (error, data) => {
+//         if (error) throw error;
+//         else result(null, data);
+//         //   console.log("data", data);
+//       }
+//     );
+//     conn.release();
+//   });
+// };
 
 // Post Message
 Message.replyMessage = function (result) {
@@ -72,18 +72,35 @@ Message.replyMessage = function (result) {
         });
       }
     );
+    // Stop la function une fois exécutée
     conn.release();
   });
 };
 
 // Delete Message
 Message.deleteMessage = function (message, result) {
+  console.log("Method delete Model Message", message);
+  const { id } = message;
   connection.getConnection(function (error, conn) {
-    conn.query(` DELETE FROM messages WHERE id  = '${message.id}'`, (error, data) => {
-      if (error) throw error;
-      else result(null, data);
-      console.log("data", data);
-    });
+    conn.query(
+      ` DELETE FROM messages 
+    WHERE id  = :id`,
+      { id },
+      (error, data) => {
+        if (error) throw error;
+        conn.query(
+          `SELECT * FROM messages;
+    `,
+          (error, data) => {
+            //   Si erreur l'afficher
+            if (error) throw error;
+            //   Sinon afficher les datas
+            else result(null, data);
+          }
+        );
+        console.log("data", data);
+      }
+    );
     conn.release();
   });
 };

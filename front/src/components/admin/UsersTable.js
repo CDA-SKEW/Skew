@@ -99,7 +99,7 @@ export default function UsersTable(props) {
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Ban or delete user",
       renderCell: (id) => {
         return (
           <Actions

@@ -63,7 +63,7 @@ export const putUser = (id) => {
   return (dispatch) => {
     console.log("put user action", id);
     return axios
-      .put(`http://localhost:1870/api/admin/users/${id}` )
+      .put(`http://localhost:1870/api/admin/users/${id}`)
       .then((res) => {
         console.log("putUser", res.data);
         dispatch({
@@ -245,7 +245,7 @@ export const replyMessage = (form) => {
         // Lien de la base de données
         .post("http://localhost:1870/api/admin/messages", form)
         .then((res) => {
-          console.log("ADMIN Action - Reply message:", res.data.messages);
+          console.log("ADMIN Action - Reply message:", res.data);
           dispatch({
             type: ADD_MESSAGE,
             /* Récupération de la variable "user"
@@ -264,9 +264,9 @@ export const deleteMessage = (id) => {
   return (dispatch) => {
     console.log("delete message action", id);
     return axios
-      .delete(`http://localhost:1870/api/admin/messages/${id}`)
+      .delete(`http://localhost:1870/api/admin/messages/${id}`, id)
       .then((res) => {
-        console.log("deleteMessage", res.data.messages);
+        console.log("deleteMessage", res.data);
         dispatch({
           type: DELETE_MESSAGE,
           payload: res.data.messages,

@@ -29,7 +29,7 @@ Job.getListJobs = function (result) {
         //   Si erreur l'afficher
         if (error) throw error;
         //   Sinon afficher les datas
-        else result(null, data);
+         result(null, data);
       }
     );
     // Stop la function une fois exécutée

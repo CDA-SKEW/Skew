@@ -7,7 +7,7 @@
     "start": "node apiskew.js",
     "dev": "nodemon apiskew.js",
     "connectDb": "nodemon --exec 'mocha -R landing ./test/testConnectDbMocha.js'",
-    "testChai": "nodemon --exec 'mocha --timeout 15000 ./test/admin/testChai*.js'"
+    "chaiRouter": "nodemon --exec 'mocha ./test/admin/chaiRouter*.js'"
   },
   "author": "skew",
   "license": "ISC",
