@@ -54,7 +54,7 @@ router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
 router
-.route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp)
+  .route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
@@ -80,8 +80,8 @@ router
   .route("/api/employer/dashboard/:id")
   .get(new EmployerOfferControllers().getDashboard);
 
-  // .route("/api/employer/dashboard/:id")
-  // .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
+// .route("/api/employer/dashboard/:id")
+// .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
@@ -217,12 +217,12 @@ router
 // ########################################
 router
   .route("/api/candidat/profil/document")
-  .get(new CandidatProfilControllers().getDocumentProfil)
-  .post(new CandidatProfilControllers().createDocumentProfil);
+  // .get(new CandidatProfilControllers().getDocumentProfil)
+  .post(upload.single("document"), new CandidatProfilControllers().createDocumentProfil);
 
 router
   .route("/api/candidat/profil/document/:id")
-  .put(new CandidatProfilControllers().updateDocumentProfil)
+  // .put(new CandidatProfilControllers().updateDocumentProfil)
   .delete(new CandidatProfilControllers().deleteDocumentProfil);
 
 //############################################################
@@ -249,7 +249,7 @@ router
 router
   .route("/api/admin/messages/:id")
   // .get(new MessagesController().getMessageId)
-  .delete (new MessagesController().deleteMessage);
+  .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);

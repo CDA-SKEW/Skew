@@ -138,8 +138,8 @@ export default function FormProfilEmployer(props) {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (messageFlash.length>=0) {
-    setMessage(messageFlash);
+    if (messageFlash.length >= 0) {
+      setMessage(messageFlash);
     }
   }, [messageFlash]);
 

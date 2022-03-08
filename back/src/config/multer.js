@@ -4,10 +4,10 @@ const multer = require('multer')
 // Ici nous définissons la config de stockage de multer
 const storage = multer.diskStorage({
     // Ici on stock le nom de l'image dans le filename
-    
+
     filename: (req, file, cb) => {
         // console.log(file)
-        // console.log("Multer (Nom de l'image): "+ file.originalname)
+        // console.log("Multer (Nom de l'image): " + file.originalname)
 
         // ici la variable ext est le nom original de l'image
         const ext = file.originalname

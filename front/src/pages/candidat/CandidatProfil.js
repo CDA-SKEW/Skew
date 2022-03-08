@@ -50,7 +50,7 @@ const CandidatProfil = () => {
         {/* BOX FORMATION*/}
         <TableFormation ListCertificate={User.certificate} />
         {/* CV Checkbox */}
-        {/* <ChekboxCV listCv={User && User.cv} /> */}
+        <ChekboxCV listCv={User.document} />
 
       </Container>
     </React.Fragment >

@@ -7,7 +7,7 @@ const CandidatExperience = require("../../models/candidat/ExperienceCandidatProf
 const CandidatSkill = require("../../models/candidat/SkillCandidatProfilModel");
 const CandidatInterest = require("../../models/candidat/InterestCandidatProfilModel");
 const CandidatCertificate = require("../../models/candidat/CertificateCandidatProfilModel");
-
+const CandidatDocument = require("../../models/candidat/DocumentCandidat")
 // Import Module
 
 require("dotenv").config();
@@ -369,7 +369,7 @@ class CandidatProfilControllers {
   //  CREATE CERTIFICATE PROFIL CANDIDAT
 
   async createCertificateProfil(req, res) {
-    console.log('REQ.BODY CREATE', req.body);
+    // console.log('REQ.BODY CREATE', req.body);
     let newCertificate = new CandidatCertificate({
       ...req.body
     });
@@ -436,28 +436,48 @@ class CandidatProfilControllers {
   // # DOCUMENT TABLE #
   // ##################
 
-  //  GET CERTIFICATE PROFIL CANDIDAT 
+  //  GET DOCUMENT PROFIL CANDIDAT 
 
-  async getDocumentProfil(req, res) {
-    // console.log("controller GET Profil DOCUMENT");
-    res.json({ message: "controller READ profil DOCUMENT" });
-  }
+  // async getDocumentProfil(req, res) {
+  //   // console.log("controller GET Profil DOCUMENT");
+  //   res.json({ message: "controller READ profil DOCUMENT" });
+  // }
 
-  //  CREATE CERTIFICATE PROFIL CANDIDAT
+  //  CREATE DOCUMENT PROFIL CANDIDAT
 
   async createDocumentProfil(req, res) {
+    // console.log('Controller req.file', req.file, req.body);
     // console.log("controller CREATE Profil candidat DOCUMENT");
-    res.json({ message: "controller CREATE profil candidat DOCUMENT" });
+    // console.log('REQ.BODY CREATE', req.body);
+    let newDocument = new CandidatDocument({
+      ...req.body
+    });
+    try {
+      CandidatDocument.createDocumentProfil(
+        newDocument,
+        req.file,
+        (err, data) => {
+          if (err) res.send(err);
+          return res.json({
+            method: req.method,
+            User: data,
+          });
+        });
+    } catch (error) {
+      throw error;
+    }
+
+    // res.json({ message: "controller CREATE profil candidat DOCUMENT" });
   }
 
-  //  UPDATE CERTIFICATE PROFIL CANDIDAT 
+  //  UPDATE DOCUMENT PROFIL CANDIDAT 
 
-  async updateDocumentProfil(req, res) {
-    // console.log("controller UPDATE Profil Candidat DOCUMENT");
-    res.json({ message: "controller UPDATE profil candidat DOCUMENT" });
-  }
+  // async updateDocumentProfil(req, res) {
+  //   // console.log("controller UPDATE Profil Candidat DOCUMENT");
+  //   res.json({ message: "controller UPDATE profil candidat DOCUMENT" });
+  // }
 
-  //  DELETE CERTIFICATE PROFIL CANDIDAT
+  //  DELETE DOCUMENT PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
     // console.log("controller DELETE Profil Candidat CERTIFICATE");

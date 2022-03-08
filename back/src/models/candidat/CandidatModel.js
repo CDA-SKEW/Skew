@@ -21,20 +21,25 @@ Candidat.getProfil = function (user_id, result) {
         coord: {},
         experience: [],
         skill: [],
-        interest: []
+        interest: [],
+        certificate: [],
+        document: [],
     };
 
     connection.getConnection(function (error, conn) {
         if (error) throw error;
+
         conn.query(`
             SELECT u.id, u.mail,c.*
                 FROM contactProfil as c
                 INNER JOIN user as u
                 ON c.user_id = u.id
                 WHERE u.id = :user_id
+                
             `, { user_id }, (error, data) => {
             if (error) throw error;
             Obj.coord = data[0]
+
             conn.query(`
                 SELECT u.id,e.*
                     FROM user as u
@@ -69,24 +74,47 @@ Candidat.getProfil = function (user_id, result) {
                                 if (error) throw error;
                                 Obj.interest = data
                                 // console.log('INT data', data);
+
                                 conn.query(
                                     `SELECT u.id,c.*
-                FROM user as u
-                INNER JOIN certificate as c
-                ON u.id = user_id
-                WHERE u.id = :user_id;`, { user_id },
+                     FROM user as u
+                     INNER JOIN certificate as c
+                     ON u.id = user_id
+                     WHERE u.id = :user_id;`,
+
+                                    { user_id },
                                     (error, data) => {
                                         if (error) throw error;
                                         // console.log('je suis ici', Obj, data)
                                         Obj.certificate = data
-                                        result(null, Obj);
-                                        conn.release();
+                                        // result(null, Obj);
+                                        // conn.release();
+
+
+                                        conn.query(
+                                            `SELECT u.id,d.*
+                                         FROM user as u
+                                         INNER JOIN document as d
+                                         ON u.id = user_id
+                                         WHERE u.id = :user_id;`,
+
+                                            { user_id },
+                                            (error, data) => {
+                                                if (error) throw error;
+                                                console.log('je suis ici', Obj, data)
+                                                Obj.document = data
+                                                result(null, Obj);
+                                                conn.release();
+
+                                                // });
+                                            });
                                     });
                             });
                     });
             });
         });
     });
+
 };
 
 module.exports = Candidat;

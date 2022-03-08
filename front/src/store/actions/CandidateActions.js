@@ -118,6 +118,24 @@ export const postFormProfilCandidateCertificate = (form) => {
     };
 };
 // *************************************************
+export const postFormDocument = (form) => {
+    // console.log('form Document', form)
+    return (dispatch) => {
+        return api
+            .post(`/candidat/profil/document`, form, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+                console.log("Get Profil Candidate ACTION RETOUR DU BACK TO FRONT ", res.data.userProfil);
+                // dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+
+
+    };
+};
 
 // ##########
 // # DELETE #
