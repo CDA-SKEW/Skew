@@ -22,10 +22,10 @@ class MessagesController {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            messages: data,
             method: req.method,
             status: "success",
             message: "All Messages has been successfully GETTED. !!!",
+            messages: data,
           });
       });
     } catch (error) {

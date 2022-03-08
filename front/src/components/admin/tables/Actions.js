@@ -25,6 +25,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import VerifiedIcon from "@mui/icons-material/Verified";
+// import { useNavigate } from "@reach/router";
 import {
   Box,
   Button,
@@ -239,6 +240,9 @@ export default function DeletableChips(props) {
     dispatch(replyMessage(form));
   };
 
+  // const Actions = (props) => {
+  //   const navigate = useNavigate();
+
   /*--------------Components Chips + Modals------------*/
 
   return (
@@ -293,12 +297,11 @@ export default function DeletableChips(props) {
                 {/* Update action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
-                    autoFocus
                     sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
                     color="primary"
                     startIcon={<RemoveCircleIcon />}
-                    onClick={() => dispatch(putUser(id.row.id))}
+                    onClick={() => () => dispatch(putUser(id.row.id))}
                   >
                     Bannir
                   </Button>
@@ -624,6 +627,7 @@ export default function DeletableChips(props) {
                 {/* Reply action Button */}
                 <Stack spacing={5} direction="row" sx={{ m: 4 }}>
                   <Button
+                    autoFocus
                     sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
                     color="primary"
@@ -633,6 +637,7 @@ export default function DeletableChips(props) {
                     Envoyer
                   </Button>
                   <Button
+                    autoFocus
                     startIcon={<MessageIcon />}
                     sx={{ border: "1px solid #33c863" }}
                     variant="contained"
@@ -653,3 +658,4 @@ export default function DeletableChips(props) {
     </Stack>
   );
 }
+// }

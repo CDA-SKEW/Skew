@@ -1,14 +1,11 @@
 /*------------MUI Imports-------------*/
 
 import React from "react";
-// import IconChips from "components/admin/tables/Chips";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
-// import Avatars from "components/admin/tables/Avatars";
-// import IconChips from "./tables/Chips";
 import MailIcon from "@mui/icons-material/Mail";
 
 /*------------Export function + table header-------------*/

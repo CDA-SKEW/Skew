@@ -83,7 +83,7 @@ Job.getListJobs = function (result) {
 // };
 
 // Delete User
-Job.deleteJob = function (job, result) {
+Job.deleteJob =  function (job, result) {
   console.log("Method delete Model User", job);
   const { id } = job;
   connection.getConnection(function (error, conn) {
