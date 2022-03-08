@@ -54,9 +54,12 @@ export const getDashboardEmployer = () => {
   // console.log("getDashboardEmployer action store ");
   return (dispatch) => {
     return api
-      .get(`/employer/dashboard/${id}`)
+      .get(`/employer/dashboard`,{
+        headers: { 'Authorization': `${localStorage["user_token"]}` },
+      })
       .then((res) => {
         // console.log("return api getDashboardEmployer action store", res.data);
+        if (res.data.token) localStorage["user_token"] = res.data.token;
         dispatch({ type: GET_DASHBOARD_EMPLOYER, payload: res.data });
       })
       .catch((err) => console.log(err));

@@ -12,7 +12,6 @@ const upload = require("../config/multer"),
 
 //User
 const AuthControllers = require("../controllers/AuthControllers");
-const UserControllers = require("../controllers/UserControllers");
 
 //Message
 const ContactControllers = require("../controllers/ContactControllers");
@@ -33,7 +32,6 @@ const JobsController = require("../controllers/admin/JobsController");
 const MessagesController = require("../controllers/admin/MessagesController");
 
 // Middlewares
-const TestMD = require("../middlewares/Test_md");
 const TokenJWT = require("../middlewares/Token_jwt");
 
 // router.route('/api/testUser').post(new CandidatProfilControllers().testUser)
@@ -65,23 +63,16 @@ router
   .route("/api/offresvisiteur/:id")
   .get(new OffreVisiteurControllers().getOne);
 
-// Users
-router
-  .route("/api/user")
-  .get(new UserControllers().getAll)
-  .post(new UserControllers().post);
 
 //------------------------------------------------------------
 // Employeur
 
 // Employeur user profil
-
 router
-  .route("/api/employer/dashboard/:id")
-  .get(new EmployerOfferControllers().getDashboard);
-
   // .route("/api/employer/dashboard/:id")
-  // .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
+  // .get(new EmployerOfferControllers().getDashboard);
+  .route("/api/employer/dashboard")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
