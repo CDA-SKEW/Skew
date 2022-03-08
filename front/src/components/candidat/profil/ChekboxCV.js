@@ -48,9 +48,9 @@ export default function DataTable(props) {
       <Box>
 
       </Box>
-      <div style={{ height: 300, width: '100%' }}>
+      <Box style={{ height: 300, width: '100%' }}>
         <DataGrid rows={listCv} columns={columns} checkboxSelection />
-      </div>
+      </Box>
     </Box >
 
   );

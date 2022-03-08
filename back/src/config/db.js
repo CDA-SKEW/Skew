@@ -10,6 +10,7 @@ const dbOptions = {
   port: process.env.PORT_MYSQL,
   database: process.env.DATABASE,
   debug: false,
+
 };
 
 module.exports = dbOptions;

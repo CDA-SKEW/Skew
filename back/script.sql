@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`contactProfil` (
   CONSTRAINT `fk_contact_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`certificate` (
   CONSTRAINT `fk_experiences_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 PACK_KEYS = DEFAULT;
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`skill` (
   CONSTRAINT `fk_aptitudes_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -206,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`interest` (
   CONSTRAINT `fk_aptitudes_user10`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`experience` (
   CONSTRAINT `fk_experiences_user10`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 PACK_KEYS = DEFAULT;
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`document` (
   CONSTRAINT `fk_aptitudes_user11`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

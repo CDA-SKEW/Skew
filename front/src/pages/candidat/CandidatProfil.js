@@ -1,5 +1,5 @@
 import { Container, CssBaseline } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ChekboxCV from "../../components/candidat/profil/ChekboxCV";
 import Masonry from '@mui/lab/Masonry';
 import TableContact from "components/candidat/profil/TableContact";
@@ -7,20 +7,17 @@ import TableExperience from "components/candidat/profil/TableExperience";
 import TableComp from "components/candidat/profil/TableComp";
 import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
-import { useDispatch, useSelector } from "react-redux";
-import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
+import { useSelector } from "react-redux";
+// import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
 import withCandidat from "components/auth/withCandidat";
-
 const CandidatProfil = () => {
 
-  const dispatch = useDispatch();
-  // dispatch(postFormProfilCandidate());
-  // dispatch(deleteFormProfilCandidate());
-
-  // useEffect(() => dispatch(L()), [])
-  // dispatch(L())
+  // const dispatch = useDispatch();
+  // getProfilCandidate()
   const User = useSelector((state) => state.candidate.userProfil)
-  // console.log('user page candidate profile', User)
+  console.log('user page candidate profile', User)
+  // useEffect(() => dispatch(getProfilCandidate(), []))
+
 
   return (
     <React.Fragment>
@@ -52,7 +49,7 @@ const CandidatProfil = () => {
 
         {/* BOX FORMATION*/}
         <TableFormation ListCertificate={User.certificate} />
-        {/* CV Checkbox*/}
+        {/* CV Checkbox */}
         {/* <ChekboxCV listCv={User && User.cv} /> */}
 
       </Container>

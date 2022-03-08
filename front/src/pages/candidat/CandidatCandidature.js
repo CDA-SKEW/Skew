@@ -10,7 +10,7 @@ const CandidatCandidature = () => {
   const dispatch = useDispatch()
   const candidatures = useSelector(state => state.candidate.candidatures)
 
-  // useEffect(() => dispatch(getProfilCandidate(), []))
+  useEffect(() => dispatch(getProfilCandidate(), []))
   // console.log('candidature', candidatures);
   return (
     <Container
