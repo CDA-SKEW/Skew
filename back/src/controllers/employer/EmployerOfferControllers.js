@@ -7,7 +7,7 @@ class EmployerOfferControllers {
     console.log("controller GetDashboard Employeur");
     // console.log("controller GetDashboard Employeur id ",req.id)
     console.log("controller GetDashboard Employeur id ",req.params.id);
-    if (req.id) {
+    if (req.params.id) {
       try {
         //ici String est une coercion qui permet de typer la variable
         Offer.getDashboard(String(req.params.id), (err, data) => {

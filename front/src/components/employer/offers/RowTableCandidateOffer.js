@@ -1,5 +1,5 @@
 import { Button, Collapse, Divider, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { Box, color } from "@mui/system";
+import { Box} from "@mui/system";
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -12,6 +12,8 @@ import ModalMessageCandidate from "./ModalMessageCandidate";
 import ModalConfimation from "components/ModalConfimation";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import { urlImg } from "utils/url";
+import { logDOM } from "@testing-library/react";
 
 
 export default function RowTableCandidateOffer(props) {
@@ -23,6 +25,8 @@ export default function RowTableCandidateOffer(props) {
     const [open, setOpen] = useState(false);
     // console.log("offer", offer)
     //   console.log("row", row)
+
+    // console.log("value documents",row.cvCandidat.document )
 
     //constante pour les modals confirmation
     const [openModalConfirmationRetain, setOpenModalConfirmationRetain] = useState(false);
@@ -187,16 +191,17 @@ export default function RowTableCandidateOffer(props) {
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
                                     {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (
-                                        //   console.log("value",{doctable})
+                                        // console.log("doc", doctable)
+                                  
                                         <Button
                                             key={index}
-                                            href={doctable.url}
+                                            href={`${urlImg + doctable.document}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             sx={{ color: "black" }}
                                         >
                                             <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                            {doctable.name}
+                                            {doctable.title}
                                         </Button>
                                     ))}
                                 </Box>
