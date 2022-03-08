@@ -29,7 +29,7 @@ User.getListUsers = function (result) {
     /* Requête SQL pour afficher tous les Users 
     de la table user de la DB Skew */
     conn.query(
-      `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
+      `SELECT u.*, c.name, c.lastname, c.badge, c.avatar FROM user as u
       INNER JOIN  contactProfil  as c
       ON u.id = c.user_id;
 `,
@@ -37,7 +37,7 @@ User.getListUsers = function (result) {
         //   Si erreur l'afficher
         if (error) throw error;
         //   Sinon afficher les datas
-        else result(null, data);
+         result(null, data);
       }
     );
     // Stop la function une fois exécutée
@@ -71,7 +71,7 @@ User.putUser = function (user, result) {
     conn.query(
       "select isBanned from user where id = :id",
       { id },
-      (err, data) => {
+      (error, data) => {
         if (error) throw error;
         // Recupérer l'ancien état de la valeur afin de la modifier
         isBanned = data[0].isBanned === 1 ? 0 : 1;
@@ -99,7 +99,7 @@ User.putUser = function (user, result) {
                 else result(null, data);
               }
             );
-            // console.log("data", data);
+            console.log("data", data);
           }
         );
       }
@@ -120,7 +120,7 @@ User.putBadge = function (user, result) {
     conn.query(
       "select badge from contactProfil where user_id = :id",
       { id },
-      (err, data) => {
+      (error, data) => {
         if (error) throw error;
         // Recupérer l'ancien état de la valeur afin de la modifier
         badge = data[0].badge === 1 ? 0 : 1;
@@ -149,7 +149,7 @@ User.putBadge = function (user, result) {
                 else result(null, data);
               }
             );
-            // console.log("data", data);
+            console.log("data", data);
           }
         );
       }
@@ -170,7 +170,7 @@ User.verifUser = function (user, result) {
     conn.query(
       "select isVerified from user where id=:id",
       { id },
-      (err, data) => {
+      (error, data) => {
         if (error) throw error;
         // Recupérer l'ancien état de la valeur afin de la modifier
         isVerified = data[0].isVerified === 1 ? 0 : 1;
@@ -188,7 +188,9 @@ User.verifUser = function (user, result) {
           (error, data) => {
             if (error) throw error;
             conn.query(
-              `SELECT * FROM user;
+              `SELECT u.*, c.name, c.lastname, c.badge FROM user as u
+              INNER JOIN  contactProfil  as c
+              ON u.id = c.user_id;
     `,
               (error, data) => {
                 //   Si erreur l'afficher
@@ -197,7 +199,7 @@ User.verifUser = function (user, result) {
                 else result(null, data);
               }
             );
-            // console.log("data", data);
+            console.log("data", data);
           }
         );
       }
@@ -221,9 +223,7 @@ User.deleteUser = function (user, result) {
       (error, data) => {
         if (error) throw error;
         conn.query(
-          `SELECT u.*, c.name, c.lastname FROM user as u
-          INNER JOIN  contactProfil  as c
-          ON u.id = c.user_id;
+          `SELECT * FROM user;
     `,
           (error, data) => {
             //   Si erreur l'afficher
@@ -232,7 +232,7 @@ User.deleteUser = function (user, result) {
             else result(null, data);
           }
         );
-        // console.log('data', data)
+        console.log("data", data);
       }
     );
     conn.release();

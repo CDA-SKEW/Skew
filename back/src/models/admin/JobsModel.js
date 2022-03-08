@@ -29,7 +29,7 @@ Job.getListJobs = function (result) {
         //   Si erreur l'afficher
         if (error) throw error;
         //   Sinon afficher les datas
-        else result(null, data);
+         result(null, data);
       }
     );
     // Stop la function une fois exécutée
@@ -83,7 +83,7 @@ Job.getListJobs = function (result) {
 // };
 
 // Delete User
-Job.deleteJob = function (job, result) {
+Job.deleteJob =  function (job, result) {
   console.log("Method delete Model User", job);
   const { id } = job;
   connection.getConnection(function (error, conn) {
