@@ -19,10 +19,10 @@ class JobsController {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            job: data,
             method: req.method,
             status: "success",
             message: "All Jobs has been successfully GETTED. !!!",
+            job: data,
           });
       });
     } catch (error) {
@@ -98,10 +98,10 @@ class JobsController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            job: data,
             method: req.method,
             status: "success",
             message: " The job has been successfully DELETED.!!",
+            job: data,
           });
       });
     } catch (error) {
