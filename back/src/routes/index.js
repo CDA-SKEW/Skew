@@ -76,18 +76,14 @@ router
 
 // Employeur user profil
 router
-  .route("/api/employer/profilUser/:id")
-  .get(new EmployerProfilControllers().getProfilUser);
-
-// Employeur user profil Id
-router
-  .route("/api/employer/profilUser/:id")
-  .put(new EmployerProfilControllers().updateProfilUser);
+  .route("/api/employer/profilUser")
+  .get(new TokenJWT().checkToken, new EmployerProfilControllers().getProfilUser)
+  .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUser);
 
 // Employeur user profil password Id
 router
-  .route("/api/employer/profilUserPw/:id")
-  .put(new EmployerProfilControllers().updateProfilUserPw);
+  .route("/api/employer/profilUserPw")
+  .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUserPw);
 
 // Employeur entreprise profil
 router

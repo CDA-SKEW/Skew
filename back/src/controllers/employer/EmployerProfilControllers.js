@@ -4,20 +4,26 @@ const {
   ProfilUserCompagny,
 } = require("../../models/employer/ProfilUserModel");
 
+const jwt = require("jsonwebtoken");
+const checkValidContentToken = require("../../utils/checkValidContentToken");
+
 const func = require("../../utils/function"),
   path = require("path");
-
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
     // console.log("controller get Profil user Employeur");
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
 
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
       //ici String est une coercion qui permet de typer la variable
-      ProfilUser.getById(String(req.params.id), (err, data) => {
+      ProfilUser.getById(String(id), async (err, data) => {
         // console.log("dataid res", data);
         //Si erreur alors affiche console log erreur et res.status
         if (err) {
@@ -32,6 +38,9 @@ class EmployerProfilControllers {
             status: "success",
             message: "Votre profil utilisateur",
             dataProfilUser: data,
+            token: await checkValidContentToken.validContentToken(
+              decoded.payload.mail
+            ),
           });
         }
       });
@@ -47,32 +56,56 @@ class EmployerProfilControllers {
     //   req.body,
     //   req.params.id
     // );
-    if (req.params.id && req.body.mail) {
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+    if (id && req.body.mail) {
       // console.log("controller update mail", req.body);
       let profilUserObj = new ProfilUser({
-        id: Number(req.params.id),
+        id: Number(id),
         mail: String(req.body.mail),
       });
       // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
       // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editMail(profilUserObj, req.body.oldmail, (err, data) => {
-          //Si erreur alors affiche console log erreur et res.status
-          if (err) {
-            console.log("err", err),
-              res.status(500).send({
-                message: err.message || "Une erreur est survenue",
-              });
-          } else {
-            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-            return res.json({
-              method: req.method,
-              status: "success",
-              message: "Votre email a bien été modifié",
-              dataProfilUser: data,
-            });
+        ProfilUser.editMail(
+          profilUserObj,
+          req.body.oldmail,
+          async (err, data) => {
+            //Si erreur alors affiche console log erreur et res.status
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
+              // console.log(data.message);
+              if (data.message === "errorEmail") {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Adresse mail déjà utilisée",
+                  dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail
+                  ),
+                });
+              } else {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Votre email a bien été modifié",
+                  dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail
+                  ),
+                });
+              }
+            }
           }
-        });
+        );
       } catch (error) {
         throw error;
       }
@@ -86,23 +119,22 @@ class EmployerProfilControllers {
     //   req.body,
     //   // req.params.id
     // );
-    if (
-      req.params.id &&
-      req.body.mail &&
-      req.body.password &&
-      req.body.oldPassword
-    ) {
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+    if (id && req.body.mail && req.body.password && req.body.oldPassword) {
       // console.log("controller update mail", req.body);
       let profilUserObj = new ProfilUser({
-        id: req.params.id,
+        id: id,
         mail: req.body.mail,
         pass: req.body.password,
       });
       try {
         ProfilUser.editPw(
           profilUserObj,
-          req.body.oldPassword,
-          (err, data, errorModel) => {
+          req.body.oldPassword, 
+          async (err, data, errorModel)  => {
             if (err) {
               console.log("err", err),
                 res.status(500).send({
@@ -115,6 +147,9 @@ class EmployerProfilControllers {
                   status: "error",
                   message: "Votre ancien mot de passe est incorrect",
                   dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail
+                  ),
                 });
               } else {
                 return res.json({
@@ -122,6 +157,9 @@ class EmployerProfilControllers {
                   status: "success",
                   message: "Votre mot de passe a bien été modifié",
                   dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail
+                  ),
                 });
               }
             }
@@ -217,8 +255,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-        req.file.filename.split(".").slice(0, -1).join(".") +
-        ".webp"
+          req.file.filename.split(".").slice(0, -1).join(".") +
+          ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(

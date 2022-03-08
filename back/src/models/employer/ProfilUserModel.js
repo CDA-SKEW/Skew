@@ -24,7 +24,7 @@ const ProfilUserCompagny = function (profilUserCompagny) {
     (this.zipCode = Number(profilUserCompagny.zipCode)),
     (this.avatar = String(profilUserCompagny.avatar)),
     (this.siret = Number(profilUserCompagny.siret));
-    (this.siren = Number(profilUserCompagny.siren)),
+  (this.siren = Number(profilUserCompagny.siren)),
     (this.category = String(profilUserCompagny.category));
 };
 
@@ -69,7 +69,8 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
       `SELECT u.mail
         From user as u
         WHERE id =:id
-        `, { id },
+        `,
+      { id },
       (error, data) => {
         if (error) throw error;
         // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
@@ -77,34 +78,43 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
         if (oldMail === data[0].mail) {
           // console.log("old mail identique")
           // ici on fait un update de la colonne mail de la table user par l'ID
-          conn.query(
-            `  UPDATE user
-              SET mail=:mail
-              WHERE id =:id
-          `,
-            { mail, id },
-            (error, data) => {
-              if (error) throw error;
-              // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-              conn.query(
-                `SELECT id,mail,date_update, date_create
-            FROM user WHERE id = :id`,
-                { id },
-                (error, data) => {
-                  if (error) throw error;
-                  result(null, data[0]);
-                }
-              );
 
-            });
-        } else result(null, { message: "error" }, true)
+          conn.query(
+            `SELECT id,mail,date_update, date_create FROM user WHERE mail = "${mail}"`,
+            async (error, data) => {
+              if (error) throw error;
+              if (data.length <= 0) {
+                conn.query(
+                  `  UPDATE user
+                    SET mail=:mail
+                    WHERE id =:id
+                `,
+                  { mail, id },
+                  (error, data) => {
+                    if (error) throw error;
+                    // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
+                    conn.query(
+                      `SELECT id,mail,date_update, date_create
+                  FROM user WHERE id = :id`,
+                      { id },
+                      (error, data) => {
+                        if (error) throw error;
+                        result(null, data[0]);
+                      }
+                    );
+                  }
+                );
+              } else {
+                result(null, { id: id, mail: oldMail, message: "errorEmail" });
+              }
+            }
+          );
+        } else result(null, { message: "error" }, true);
       }
     );
     // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
     conn.release();
-  }
-  );
-
+  });
 };
 
 // Update pw in profil employer User (by id)
@@ -166,8 +176,7 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
                     conn.release();
                   }
                 );
-              } else 
-              {
+              } else {
                 conn.query(
                   `SELECT id,mail
                 FROM user WHERE id = :id`,
@@ -179,7 +188,6 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
                 );
                 conn.release();
               }
-
             }
           );
       }
@@ -214,41 +222,36 @@ ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
 ProfilUserCompagny.updateProfilCompagny = function (
   profilUserCompagnyObj,
   reqfile,
-  result,
-
+  result
 ) {
-  const {
-    name,
-    town,
-    address,
-    zipCode,
-    siren,
-    siret,
-    category,
-    user_id,
-  } = profilUserCompagnyObj;
+  const { name, town, address, zipCode, siren, siret, category, user_id } =
+    profilUserCompagnyObj;
 
   let pathAvatar = "./public/images/avatar/",
     pathAvatarDb = "/assets/images/avatar/",
     pathAvatarWebp = "",
-    pathImgWebp = ""
+    pathImgWebp = "";
 
-  const dateImg = new Date().getTime()
+  const dateImg = new Date().getTime();
 
   // console.log("reqfile", reqfile);
   if (reqfile) {
     // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
-    pathImgWebp = pathAvatar + (reqfile.filename.split(".").slice(0, -1).join(".") + ".webp")
+    pathImgWebp =
+      pathAvatar +
+      (reqfile.filename.split(".").slice(0, -1).join(".") + ".webp");
     // console.log("pathImgWebp", pathImgWebp)
 
-    pathAvatarWebp = pathAvatar + "avatar_user_" + user_id + "_" + dateImg + ".webp"
+    pathAvatarWebp =
+      pathAvatar + "avatar_user_" + user_id + "_" + dateImg + ".webp";
     // console.log("pathAvatarWebp", pathAvatarWebp)
 
-    func.renameFile(pathImgWebp, pathAvatarWebp).then(data => {
+    func.renameFile(pathImgWebp, pathAvatarWebp).then((data) => {
       // console.log("data", data)
       if (data) {
         // console.log("je suis true")
-        const avatarImg = pathAvatarDb + "avatar_user_" + user_id + "_" + dateImg + ".webp"
+        const avatarImg =
+          pathAvatarDb + "avatar_user_" + user_id + "_" + dateImg + ".webp";
         // console.log("avatarImg", avatarImg)
         connection.getConnection(function (error, conn) {
           //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
@@ -260,11 +263,11 @@ ProfilUserCompagny.updateProfilCompagny = function (
             (error, data) => {
               if (error) throw error;
               // console.log("data avatar", data[0].avatar)
-              const nameAvatar = (data[0].avatar).split('/')[4]
+              const nameAvatar = data[0].avatar.split("/")[4];
               // console.log("name avatar", nameAvatar)
-              const pathAvatarDbDel = pathAvatar + nameAvatar
+              const pathAvatarDbDel = pathAvatar + nameAvatar;
               // console.log("pathAvatarDbDel ", pathAvatarDbDel)
-              if (pathAvatarDbDel.length > 0) func.removeFile(pathAvatarDbDel)
+              if (pathAvatarDbDel.length > 0) func.removeFile(pathAvatarDbDel);
               conn.query(
                 `
                   UPDATE contactProfil
@@ -300,8 +303,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
                     { user_id },
                     (error, data) => {
                       if (error) throw error;
-                      result(null, data[0])
-
+                      result(null, data[0]);
                     }
                   );
                 }
@@ -312,7 +314,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
           conn.release();
         });
       }
-    })
+    });
   } else {
     //ici on se connect à la base de donnée en appellant le module importé
     connection.getConnection(function (error, conn) {

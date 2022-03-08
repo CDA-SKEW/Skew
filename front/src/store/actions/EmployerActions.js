@@ -17,13 +17,12 @@ import {
   PUT_PROFIL_USER,
   PUT_PROFIL_USER_PW,
 } from "./ActionTypes";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from "jwt-decode";
 
-const id=4
+const id = 4;
 
 //const id = jwt_decode(localStorage["user_token"]).id
 // console.log("token id ",id)
-
 
 // if (res.data.token) localStorage["user_token"] = res.data.token;
 // res.data.token = jwt_decode(res.data.token)
@@ -54,8 +53,8 @@ export const getDashboardEmployer = () => {
   // console.log("getDashboardEmployer action store ");
   return (dispatch) => {
     return api
-      .get(`/employer/dashboard`,{
-        headers: { 'Authorization': `${localStorage["user_token"]}` },
+      .get(`/employer/dashboard`, {
+        headers: { Authorization: `${localStorage["user_token"]}` },
       })
       .then((res) => {
         // console.log("return api getDashboardEmployer action store", res.data);
@@ -92,6 +91,7 @@ export const putFormProfilEmployer = (data) => {
       })
       .then((res) => {
         // console.log("PUT_PROFIL_EMPLOYER action", res.data);
+        if (res.data.token) localStorage["user_token"] = res.data.token;
         dispatch({ type: PUT_PROFIL_EMPLOYER, payload: res.data });
       })
       .catch((err) => console.log(err));
@@ -103,7 +103,9 @@ export const getProfilUser = () => {
   return (dispatch) => {
     // console.log("GET_PROFIL_USER action");
     return api
-      .get(`/employer/profilUser/${id}`)
+      .get(`/employer/profilUser`, {
+        headers: { Authorization: `${localStorage["user_token"]}` },
+      })
       .then((res) => {
         // console.log("return api getProfil User action store", res.data);
         dispatch({ type: GET_PROFIL_USER, payload: res.data });
@@ -117,10 +119,12 @@ export const putFormProfilUser = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_USER action", data);
     return api
-      .put(`/employer/profilUser/${id}`, data, {
+      .put(`/employer/profilUser`, data, {
+        headers: { Authorization: `${localStorage["user_token"]}` },
       })
       .then((res) => {
         // console.log("PUT_PROFIL_EMPLOYER action", res.data);
+        if (res.data.token) localStorage["user_token"] = res.data.token;
         dispatch({ type: PUT_PROFIL_USER, payload: res.data });
       })
       .catch((err) => console.log(err));
@@ -132,10 +136,12 @@ export const putFormProfilUserPw = (data) => {
   return (dispatch) => {
     // console.log("PUT_PROFIL_USER PW action", data);
     return api
-      .put(`/employer/profilUserPw/${id}`, data, {
+      .put(`/employer/profilUserPw`, data, {
+        headers: { Authorization: `${localStorage["user_token"]}` },
       })
       .then((res) => {
         // console.log("PUT_PROFIL_EMPLOYER action retour back", res.data);
+        if (res.data.token) localStorage["user_token"] = res.data.token;
         dispatch({ type: PUT_PROFIL_USER_PW, payload: res.data });
       })
       .catch((err) => console.log(err));
@@ -153,7 +159,6 @@ export const getOffer = () => {
         dispatch({ type: GET_OFFER, payload: res.data });
       })
       .catch((err) => console.log(err));
-
   };
 };
 
@@ -162,12 +167,12 @@ export const postFormAddOffer = (data) => {
   return (dispatch) => {
     // console.log("POST_OFFER action", data);
     return api
-    .post("/employer/offer", data)
-    .then((res) => {
-      // console.log("return api post offer action store", res.data);
-      dispatch({ type: POST_OFFER, payload: res.data });
-    })
-    .catch((err) => console.log(err));
+      .post("/employer/offer", data)
+      .then((res) => {
+        // console.log("return api post offer action store", res.data);
+        dispatch({ type: POST_OFFER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -176,13 +181,12 @@ export const deleteOffer = (data) => {
   return (dispatch) => {
     // console.log("DELETE_OFFER action", data);
     return api
-    .delete(`/employer/offer/${data}`, {
-    })
-    .then((res) => {
-      // console.log("DELETE_OFFER action retour back", res.data);
-      dispatch({ type: DELETE_OFFER, payload: res.data });
-    })
-    .catch((err) => console.log(err));
+      .delete(`/employer/offer/${data}`, {})
+      .then((res) => {
+        // console.log("DELETE_OFFER action retour back", res.data);
+        dispatch({ type: DELETE_OFFER, payload: res.data });
+      })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -191,12 +195,12 @@ export const putActionCandidate = (data) => {
   return (dispatch) => {
     // console.log("PUT_ACTION_CANDIDATE", data, data.user_id);
     return api
-    .put(`/employer/offer/candidat/${data.user_id}`,data)
-    .then((res) => {
-      // console.log("return api PUT_ACTION_CANDIDATE action store", res.data);
-      dispatch({ type: PUT_ACTION_CANDIDATE, payload: res.data });
-    })
-    .catch((err) => console.log(err));
+      .put(`/employer/offer/candidat/${data.user_id}`, data)
+      .then((res) => {
+        // console.log("return api PUT_ACTION_CANDIDATE action store", res.data);
+        dispatch({ type: PUT_ACTION_CANDIDATE, payload: res.data });
+      })
+      .catch((err) => console.log(err));
   };
 };
 
@@ -211,7 +215,6 @@ export const postMessageCandidate = (data) => {
         dispatch({ type: POST_MESSAGE_CANDIDATE, payload: res.data });
       })
       .catch((err) => console.log(err));
-
   };
 };
 

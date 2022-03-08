@@ -12,7 +12,7 @@ module.exports = {
         if (error) throw error;
         conn.query(`SELECT * FROM user WHERE mail = "${mail}"`, (error, data) => {
           if (error) throw error;
-          if (!data[0]) reject(res.json("Invalid token"));
+          if (!data[0]) resolve();
           else if (data[0].isVerified === 1) {
             let token = "visitor";
               token = jwt.sign(
