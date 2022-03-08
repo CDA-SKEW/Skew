@@ -65,10 +65,10 @@ class UsersController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            user: data,
             method: req.method,
             status: "success",
             message: " The user has been successfully BANNED.!!!",
+            user: data,
           });
       });
     } catch (error) {
@@ -88,10 +88,10 @@ class UsersController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            user: data,
             method: req.method,
             status: "success",
             message: " The user has been successfully BADGED.!!!",
+            user: data,
           });
       });
     } catch (error) {
@@ -111,10 +111,10 @@ class UsersController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            user: data,
             method: req.method,
             status: "success",
             message: " The user has been successfully VERIFIED.!!!",
+            user: data,
           });
       });
     } catch (error) {
@@ -133,10 +133,10 @@ class UsersController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            user: data,
             method: req.method,
             status: "success",
             message: " The user has been successfully DELETED.!!",
+            user: data,
           });
       });
     } catch (error) {
