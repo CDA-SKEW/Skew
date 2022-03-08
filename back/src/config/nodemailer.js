@@ -189,7 +189,7 @@ module.exports = {
           mess: "Email SENDED !!! ",
         });
       }
-     
+
     });
   },
 
@@ -204,7 +204,7 @@ module.exports = {
     });
 
     rand = Math.floor((Math.random() * 100) + 54)
-    
+
     host = req.get('host');
 
     link = "http://" + req.get('host') + "/api/auth/verify/" + rand;
@@ -279,7 +279,7 @@ module.exports = {
     // Ici on tcheck notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
     if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
-      if (req.params.id == mailOptions.rand) {
+      if (String(req.params.id) == String(mailOptions.rand)) {
         try {
           user.verify(mailOptions, (err, data) => {
             if (err) res.status(500).send({ flash: err.message || "Une erreur est survenue", });
@@ -291,8 +291,6 @@ module.exports = {
   },
 
   mailLostMdp: (req, res) => {
-
-    console.log('data', req)
     arrayFiles = [];
     // initialisation du tableau array avec data signature
     arrayFiles.push({
@@ -350,9 +348,9 @@ module.exports = {
     // On demande à notre transporter d'envoyer notre mail
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-          res.status(500).send({
-            message: err.message || "Une erreur est survenue",
-          });
+        res.status(500).send({
+          message: err.message || "Une erreur est survenue",
+        });
       } else {
         return res.json({
           method: req.method,

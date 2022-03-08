@@ -53,7 +53,8 @@ router
 router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
-router.route("/api/auth/mailLostMdp").post(new AuthControllers().mailLostMdp);
+router
+.route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);

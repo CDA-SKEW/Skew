@@ -10,7 +10,7 @@ const initialState = {
     user: {},
     flash: "",
     flashCon: "",
-    authenticate: null
+    authenticate: null,
 };
 
 /*
@@ -37,6 +37,11 @@ export function AuthReducer(state = initialState, action) {
                 ...state,
                 flash: action.payload.flash,
                 user: action.payload.user,
+            };
+        case Actions.CHANGEMDP:
+            return {
+                ...state,
+                flash: action.payload.flash,
             };
     }
 }
