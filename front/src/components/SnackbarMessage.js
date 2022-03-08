@@ -20,7 +20,7 @@ export default function SnackbarMessage(props) {
     <Snackbar
       open={alertOpen}
       autoHideDuration={2000}
-      anchorOrigin={{ horizontal: "center", vertical: "top" }}
+      anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
       TransitionComponent={Slide}
     >
       <Alert

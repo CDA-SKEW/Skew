@@ -133,8 +133,8 @@ class EmployerProfilControllers {
       try {
         ProfilUser.editPw(
           profilUserObj,
-          req.body.oldPassword, 
-          async (err, data, errorModel)  => {
+          req.body.oldPassword,
+          async (err, data, errorModel) => {
             if (err) {
               console.log("err", err),
                 res.status(500).send({
@@ -173,13 +173,17 @@ class EmployerProfilControllers {
 
   //action get profil entreprise
   async getProfilCompagny(req, res) {
-    // console.log("controller get profil Compagny");
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+    // console.log("controller get profil Compagny");new TokenJWT().checkToken
     // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
       //ici String est une coercion qui permet de typer la variable
       ProfilUserCompagny.getProfilCompagnyById(
-        String(req.params.id),
-        (err, data) => {
+        String(id),
+        async (err, data) => {
           // console.log("dataid res", data);
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
@@ -194,6 +198,9 @@ class EmployerProfilControllers {
               status: "success",
               message: "Votre profil entreprise",
               dataProfilEmployer: data,
+              token: await checkValidContentToken.validContentToken(
+                decoded.payload.mail
+              ),
             });
           }
         }
@@ -207,22 +214,29 @@ class EmployerProfilControllers {
   async updateProfilCompagny(req, res) {
     let profilUserCompagnyObj;
 
-    if (req.params.id > 0) {
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+
+    if (id > 0) {
       profilUserCompagnyObj = new ProfilUserCompagny({
-        user_id: req.params.id,
-        ...req.body,
+        user_id: id,
+        ...req.body,    
       });
 
       try {
         ProfilUserCompagny.updateProfilCompagny(
           profilUserCompagnyObj,
           req.file,
-          (err, data) => {
+          async (err, data) => {
             //Si erreur alors affiche console log erreur et res.status
             if (err) {
               console.log("err", err),
                 res.status(500).send({
                   message: err.message || "Une erreur est survenue",
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail)
                 });
             } else {
               //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
@@ -231,6 +245,9 @@ class EmployerProfilControllers {
                 status: "success",
                 message: "Votre profil entreprise a été modifié",
                 dataProfilEmployer: data,
+                token: await checkValidContentToken.validContentToken(
+                  decoded.payload.mail
+                ),
               });
             }
           }
@@ -255,8 +272,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-          req.file.filename.split(".").slice(0, -1).join(".") +
-          ".webp"
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
       );
       // console.log("pathImgWebp", pathImgWebp);
       const pathAvatarWebp = path.resolve(
