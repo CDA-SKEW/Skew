@@ -45,6 +45,7 @@ export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const LOGIN = 'LOGIN';
 export const CHECKTOKEN = 'CHECKTOKEN';
 export const REGISTER = 'REGISTER';
+export const CHANGEMDP = 'CHANGEMDP';
 
 // Contact Us
 export const POST_CONTACT_US = 'POST_CONTACT_US';

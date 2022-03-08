@@ -8,6 +8,7 @@ import {
     LOGIN,
     CHECKTOKEN,
     REGISTER,
+    CHANGEMDP,
 } from "./ActionTypes";
 
 /*
@@ -40,15 +41,10 @@ export const login = (data) => {
 
 // Check User
 export const checkToken = () => {
-    console.log("checkToken", localStorage["user_token"])
     return (dispatch) => {
         return api
             .get(`/auth/${localStorage["user_token"]}`)
-            .then((res) => {
-                if (res.data.user) {
-                    dispatch({ type: CHECKTOKEN, payload: res.data });
-                }
-            })
+            .then((res) => { if (res.data.user) { dispatch({ type: CHECKTOKEN, payload: res.data }); } })
             .catch((err) => console.log(err));
     };
 }
@@ -58,9 +54,17 @@ export const register = (data) => {
     return (dispatch) => {
         return api
             .post("/register", data)
-            .then((res) => {
-                dispatch({ type: REGISTER, payload: res.data });
-            })
+            .then((res) => { dispatch({ type: REGISTER, payload: res.data }); })
             .catch((err) => console.log(err));
     };
 };
+
+// Change pass
+export const changePass = (data) => {
+    return (dispatch) => {
+        return api
+            .post(`/auth/mail-lost-mdp`, data)
+            .then((res) => { dispatch({ type: CHANGEMDP, payload: res.data }); })
+            .catch((err) => console.log(err))
+    }
+}

@@ -245,7 +245,7 @@ export const replyMessage = (form) => {
         // Lien de la base de données
         .post("/admin/messages", form)
         .then((res) => {
-          console.log("ADMIN Action - Reply message:", res.data.messages);
+          console.log("ADMIN Action - Reply message:", res.data);
           dispatch({
             type: ADD_MESSAGE,
             /* Récupération de la variable "user"
@@ -266,7 +266,7 @@ export const deleteMessage = (id) => {
     return api
       .delete(`/admin/messages/${id}`)
       .then((res) => {
-        console.log("deleteMessage", res.data.messages);
+        console.log("deleteMessage", res.data);
         dispatch({
           type: DELETE_MESSAGE,
           payload: res.data.messages,

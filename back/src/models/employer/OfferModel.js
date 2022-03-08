@@ -225,7 +225,7 @@ Offer.getOfferId = function (params_id, result) {
                                               index++
                                             ) {
                                               documents.push(
-                                                dataDocument[index].document
+                                                dataDocument[index]
                                               );
                                             }
 
