@@ -97,8 +97,13 @@ export default function MessagesTable(props) {
         enableCellSelect={false}
         rows={messages}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        // Pagination
+        initialState={{
+          ...messages.initialState,
+          pagination: {
+            pageSize: 25,
+          },
+        }}
         checkboxSelection
         disableSelectionOnClick
         // Filtre

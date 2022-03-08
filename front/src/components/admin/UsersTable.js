@@ -8,9 +8,7 @@ import Actions from "components/admin/tables/Actions";
 import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
-// import Status from "components/admin/tables/Status";
 import PeopleIcon from "@mui/icons-material/People";
-// import Badges from "../admin/tables/Badges";
 
 /*------------Export function + table header-------------*/
 
@@ -81,7 +79,7 @@ export default function UsersTable(props) {
       field: "checking",
       headerName: "Vérifié",
       renderCell: (id) => {
-        return <Actions  columnsVerif={true} id={id} key={id} />;
+        return <Actions columnsVerif={true} id={id} key={id} />;
       },
       editable: false,
       minWidth: 200,
@@ -137,8 +135,13 @@ export default function UsersTable(props) {
         rowHeight={80}
         rows={user}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        // Pagination
+        initialState={{
+          ...user.initialState,
+          pagination: {
+            pageSize: 25,
+          },
+        }}
         checkboxSelection
         disableSelectionOnClick
         // Filtre
