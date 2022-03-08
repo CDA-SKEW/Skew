@@ -11,7 +11,7 @@ import {
   GET_PROFIL_USER,
   POST_MESSAGE_CANDIDATE,
   POST_OFFER,
-  POST_PROFIL_EMPLOYER,
+  // POST_PROFIL_EMPLOYER,
   PUT_ACTION_CANDIDATE,
   PUT_PROFIL_EMPLOYER,
   PUT_PROFIL_USER,
@@ -21,7 +21,7 @@ import jwt_decode from 'jwt-decode'
 
 const id=4
 
-// const id = jwt_decode(localStorage["user_token"]).id
+//const id = jwt_decode(localStorage["user_token"]).id
 // console.log("token id ",id)
 
 
