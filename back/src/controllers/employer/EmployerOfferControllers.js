@@ -1,16 +1,24 @@
 const { Offer, StatutCandidate } = require("../../models/employer/OfferModel");
 const nodemailer = require("../../config/nodemailer");
+const jwt = require("jsonwebtoken");
+const checkValidContentToken = require("../../utils/checkValidContentToken");
 
 class EmployerOfferControllers {
   //action GetDashboard by User id
   async getDashboard(req, res) {
-    console.log("controller GetDashboard Employeur");
-    // console.log("controller GetDashboard Employeur id ",req.id)
-    console.log("controller GetDashboard Employeur id ",req.params.id);
-    if (req.params.id) {
+    // console.log("GetDashboard Employeur");
+    const decoded = jwt.decode(req.headers['authorization'], {complete: true})
+    const id= decoded.payload.id
+    // console.log("decoded", decoded)
+    // console.log(
+    //   "controller GetDashboard Employeur id ",
+    //   req.headers.authorization
+    // );
+    // console.log("controller GetDashboard Employeur token id ",id);
+    if (id) {
       try {
         //ici String est une coercion qui permet de typer la variable
-        Offer.getDashboard(String(req.params.id), (err, data) => {
+        Offer.getDashboard(String(id), async (err, data) => {
           // console.log("data id res", data);
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
@@ -25,6 +33,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "info dashboard",
               dashboard: data,
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
             });
           }
         });

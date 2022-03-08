@@ -1,9 +1,8 @@
 import axios from "axios";
 
-console.log(localStorage["user_token"])
 export const api = axios.create({
   baseURL: process.env.REACT_APP_SERVEUR,
-  headers: { "X-Custom-Header": "Skew application", 'Authorization': `${localStorage["user_token"]}` },
+  headers: { "X-Custom-Header": "Skew application"},
   timeout: 2000,
 });
 
