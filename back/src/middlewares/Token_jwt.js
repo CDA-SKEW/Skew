@@ -36,7 +36,7 @@ class TokenJWT {
         }
       );
       // console.log("middleware auth", auth);    
-      if (!auth) res.json("Invalid token");
+      if (!auth) res.json({message:"Invalid token"});
       else next()
     } catch (error) {
       throw error;

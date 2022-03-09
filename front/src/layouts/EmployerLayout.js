@@ -62,10 +62,6 @@ export default function EmployerLayout({ children }) {
         window.scrollTo(0, 0);
     }, [location]);
 
-    React.useEffect(() => {
-        if (!localStorage.getItem('user_token')) navigate("/");
-        }, []);
-
     //dispatch(getProfilEmployer());
 
     const dataProfilEmployer = useSelector(
