@@ -28,6 +28,9 @@ const EmployerOffer = () => {
     (state) => state.employer.dataOffers.offers
   );
 
+  let toto
+  if (!offers) toto = false
+
    // console.log("store offers ", offers );
 
   // console.log("offer page; nunmber offer", offers.length)
@@ -51,7 +54,7 @@ const EmployerOffer = () => {
       </Box>
       {/* {/* partie mes offres/} */}
       {/* {console.log(offers)} */}
-      {offers && offers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />)}
+      {toto  && offers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />)}
     </Container>
   );
 };
