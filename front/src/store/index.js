@@ -15,6 +15,7 @@ import { AdminReducer } from "./reducers/Admin";
 import { AuthReducer } from "./reducers/Auth";
 import { ContactReducer } from "./reducers/Contact";
 import { OffreVisiteurReducer } from "./reducers/OffreVisiteur";
+import { VisiteurDataReducer } from "./reducers/VisiteurData";
 
 /*
  * All (Root) Reducers
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   auth: AuthReducer,
   contact: ContactReducer,
   offreVisiteur: OffreVisiteurReducer,
+  visiteurData: VisiteurDataReducer
 });
 
 /*
