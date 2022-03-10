@@ -3,7 +3,18 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@emotion/react";
 import { theme, themeEmployer } from "configs/theme";
-import { AppBar, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide,
+  Toolbar,
+} from "@mui/material";
 import TopNav from "components/core/navBarUser/TopNav";
 import BackNav from "components/core/navBarUser/BackNav";
 import Fab from "@mui/material/Fab";
@@ -11,12 +22,14 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import ScrollTop from "components/ScrollTop";
 import SlideBarUser from "components/core/navBarUser/SlideBarUser";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfilEmployer } from "store/actions/EmployerActions";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  getDashboardEmployer,
+  getProfilEmployer,
+} from "store/actions/EmployerActions";
+import { Navigate, useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 export default function EmployerLayout({ children }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -50,6 +63,9 @@ export default function EmployerLayout({ children }) {
     { name: "Mot de passe", link: "Employer/profilPw" },
   ];
 
+  const [openEndToken, setOpenEndToken] = React.useState();
+  const [modalEndToken, setModalEndToken] = React.useState();
+
   React.useEffect(() => {
     dispatch(getProfilEmployer());
   }, []);
@@ -63,23 +79,45 @@ export default function EmployerLayout({ children }) {
     (state) => state.employer.dataProfilEmployer
   );
 
-  const [endTokenLet, setEndTokenLet] = React.useState(false);
-
-  React.useEffect(() => {
+  let endToken = 0;
+  if (!localStorage.getItem("user_token")) return <Navigate to="/" />;
+  else {
+    let token = jwt_decode(localStorage.getItem("user_token"));
     setInterval(() => {
-      const token = jwt_decode(localStorage.getItem("user_token"));
-    //   console.log("token decode", token);
-    //   console.log("durée token", token.exp - token.iat);
-    //   console.log("token.exp", token.exp);
-      const endToken = token.exp - Date.now().valueOf() / 1000;
-    //   console.log("fin token", endToken);
+      // console.log("token decode", token);
+      console.log("durée token", token.exp - token.iat);
+      //   console.log("token.exp", token.exp);
+      endToken = Math.floor(token.exp - Date.now().valueOf() / 1000);
+      // console.log("fin token", endToken);
 
-      if (endToken < 60) {
-        setEndTokenLet(true);
-        // console.log("je suis dans la derniere min");
+      if (Number(endToken) < 60) {
+        setOpenEndToken(true);
+        setModalEndToken(endToken);
+        //   console.log("je suis dans la derniere min");
+
+        if (Number(endToken) === 0) {
+          setOpenEndToken(false);
+          console.log("je vais me deconnecter");
+          localStorage.removeItem("user_token");
+          window.location.reload();
+        }
       }
-    }, 10000);
-  }, [localStorage.getItem("user_token")]);
+    }, 1000);
+  }
+
+  const handleClose = async (e) => {
+    e.preventDefault();
+
+    console.log("je continue sur le site");
+
+    setOpenEndToken(false);
+    setModalEndToken(0);
+    await dispatch(getProfilEmployer());
+
+    setTimeout(() => {
+        
+    }, timeout);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -156,6 +194,36 @@ export default function EmployerLayout({ children }) {
             >
                 <Footer />
             </Box> */}
+
+      {openEndToken && (
+        <Dialog
+          open={openEndToken}
+          actions={null}
+          keepMounted
+          aria-describedby="alert-dialog-token"
+        >
+          <DialogContent>
+            <Box display={"flex"} justifyContent={"end"} pb={2}>
+              <CircularProgress
+                variant="determinate"
+                value={modalEndToken * 1.66}
+                sx={{ color: "red" }}
+              />
+            </Box>
+            <DialogContentText
+              sx={{ color: "black", textAlign: "center" }}
+              id="alert-dialog-token"
+            >
+              Vous allez être déconnecté dans {modalEndToken} secondes...
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button sx={{ color: "black" }} onClick={(e) => handleClose(e)}>
+              Rester sur le site
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </ThemeProvider>
   );
 }

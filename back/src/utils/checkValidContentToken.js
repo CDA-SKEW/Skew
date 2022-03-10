@@ -34,7 +34,7 @@ module.exports = {
                   isBanned: data[0].isBanned,
                 },
                 process.env.SIGN_JWT,
-                { expiresIn: "2m" }
+                { expiresIn: "1.1m" }
               );
               resolve(token);
             }
