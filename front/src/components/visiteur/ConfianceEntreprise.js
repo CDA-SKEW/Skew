@@ -55,7 +55,7 @@ export default function ConfianceEntreprise() {
                             alt={list.alt}
                             src={list.img}
                             sx={{
-                                m: 3
+                                my: 3
                             }}
                         />
                     ))}
