@@ -18,7 +18,7 @@ export default function ConfianceEntreprise() {
 
     return (
         <Box sx={{ my: 20, width: '100%' }}>
-            <Typography variant="h2" component="div" sx={{ textAlign: 'center', my: 5 }}>
+            <Typography variant="h2" component="div" sx={{ textAlign: 'center', my: 5, fontSize: { xs: 35, xl: 45 } }}>
                 Ils nous font confiance
             </Typography>
             <Stack spacing={2}>
@@ -26,10 +26,10 @@ export default function ConfianceEntreprise() {
                     display: 'flex', flexWrap: 'wrap',
                     py: 3, borderTop: 2, borderBottom: 2,
                     alignItems: "center", width: '100%',
-                    justifyContent: { xs: "center", md: "space-around" },
+                    justifyContent: "space-around"
                 }}>
                     {listAvatar.map((list, index) => (
-                        <Avatar key={index} alt={list.id} src={`${urlImg + list.avatar}`} sx={{ my: 3 }} />
+                        <Avatar key={index} alt={list.avatar} src={`${urlImg + list.avatar}`} sx={{ my: 3 }} />
                     ))}
                 </ImageListItem>
             </Stack>
