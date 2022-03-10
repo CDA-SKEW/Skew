@@ -41,7 +41,7 @@ CandidatDocument.createDocumentProfil = function (newDocument, file, result) {
 // Delete by ID (row)
 CandidatDocument.deleteDocumentProfil = function (id, result, user_id, id_document) {
     connection.getConnection(function (error, conn) {
-        conn.query(`DELETE FROM document WHERE id_document = ${id_document};`, (error, data) => {
+        conn.query(`DELETE FROM document WHERE id_document = ${id};`, (error, data) => {
             { user_id, id }
             if (error) throw error;
             conn.query(`SELECT u.id,d.*

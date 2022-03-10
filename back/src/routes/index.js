@@ -219,7 +219,7 @@ router
 
 router
   .route("/api/candidat/profil/document/:id")
-// .delete(new CandidatProfilControllers().deleteDocumentProfil);
+  .delete(new CandidatProfilControllers().deleteDocumentProfil);
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #

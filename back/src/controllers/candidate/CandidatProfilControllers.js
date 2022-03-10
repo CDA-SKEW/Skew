@@ -468,9 +468,10 @@ class CandidatProfilControllers {
   //  DELETE DOCUMENT PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
-    // console.log("controller DELETE Profil Candidat CERTIFICATE");
+    // console.log("controller DELETE Profil Candidat DOCUMENT");
     try {
       CandidatDocument.deleteDocumentProfil(req.params.id, (err, data) => {
+
         if (err) res.send(err);
         else {
           return res.send({

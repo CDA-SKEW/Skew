@@ -2,6 +2,7 @@
  * Import - Module
  * *************** */
 import { api } from "configs/axios";
+import { id } from "date-fns/locale";
 
 /*
  * Import types { ... }

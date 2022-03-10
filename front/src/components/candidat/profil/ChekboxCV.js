@@ -52,24 +52,21 @@ export default function DataTable(props) {
   };
 
   const handleSubmitDoc = async (e) => {
-    // console.log("Form waitsend");
-    //empeche le formunliare d'etre submiter
-    // console.log("e", e)
+    //empeche le formunliare d'etre submiter 
     e.preventDefault();
 
 
     const id = jwt_decode(localStorage["user_token"]).id
-    // console.log("token id ", id)
-    // const id_document = document.id_document
+
 
     const formData = new FormData();
     formData.append('user_id', id);
-
     formData.append('title', document.name);
     formData.append('document', document);
-    // console.log('formData', formData);
+
 
     await dispatch(postFormDocument(formData));
+    await setTimeout(() => dispatch(getProfilCandidate()), 777);
 
   }
 
@@ -77,7 +74,7 @@ export default function DataTable(props) {
     const { row, str } = props
     const dispatch = useDispatch()
     const handleDelete = () => {
-      console.log('id Button Trigger ROW', row);
+      console.log('id Button Trigger ROW', row.id_document);
       dispatch(deleteFormProfilCandidateDocument(row.id_document))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
     }
