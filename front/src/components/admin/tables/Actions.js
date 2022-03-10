@@ -248,7 +248,7 @@ export default function DeletableChips(props) {
   return (
     <Stack direction="row" spacing={1}>
       {columnsBan && (
-        // Bannir et supprimer un utilisatcolumnsBanur
+        // Bannir et supprimer un utilisateur
         <Box>
           <Chip
             label={id.row.isBanned === 1 ? "banned" : "not banned"}
@@ -383,7 +383,6 @@ export default function DeletableChips(props) {
                     variant="outlined"
                     startIcon={<CheckCircleOutlineIcon />}
                     color="primary"
-                    // startIcon={<RemoveCircleIcon />}
                     onClick={() => dispatch(verifUser(id.row.id))}
                   >
                     Verif

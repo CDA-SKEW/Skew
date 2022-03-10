@@ -30,8 +30,6 @@ export default function CardTableOffer(props) {
     setOpenModalConfirmation(false);
   };
 
-  // console.log("offer", offer)
-
   return (
     <Box
       borderRadius={3}
@@ -143,10 +141,8 @@ export default function CardTableOffer(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {console.log(offer.profilCandidate)} */}
               {offer &&
                 offer.profilCandidate.map((row, index) => (
-                  // console.log("row",row)
                   <RowTableCandidateOffer
                     key={index}
                     numberCandidat={index}

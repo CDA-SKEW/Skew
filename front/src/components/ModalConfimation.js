@@ -33,14 +33,12 @@ export default function ModalConfimation(props) {
     open,
     offer,
   } = props;
-  // console.log("offer modal confirmation props", props)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("user_token");
-    // console.log('loggouuuttt !!!')
   }
 
   const handleCancel = () => {
@@ -49,7 +47,6 @@ export default function ModalConfimation(props) {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    // console.log("envoi formulaire action", action, id)
 
     switch (action) {
       case "deleteOffer":

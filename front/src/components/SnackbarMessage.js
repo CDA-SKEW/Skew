@@ -6,13 +6,9 @@ import { height } from "@mui/system";
 
 export default function SnackbarMessage(props) {
   const { open, message } = props;
-
-  //  console.log("je suis dans le modal", open, messageEmployer);
-
   const [alertOpen, setAlertOpen] = useState(open);
 
   useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer");
     setAlertOpen(open);
   }, [open]);
 
@@ -20,7 +16,7 @@ export default function SnackbarMessage(props) {
     <Snackbar
       open={alertOpen}
       autoHideDuration={2000}
-      anchorOrigin={{ horizontal: "center", vertical: "top" }}
+      anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
       TransitionComponent={Slide}
     >
       <Alert

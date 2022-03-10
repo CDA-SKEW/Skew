@@ -55,7 +55,6 @@ export default function FormPasswordChange(props) {
 
   // fonction pour la gestion des differents textField des mot de passe
   const handleClickShowPassword = (choice) => {
-    // console.log(choice)
     if (choice === "oldPassword") setShowOldPassword(!showOldPassword);
     if (choice === "newPassword") setShowNewPassword(!showNewPassword);
     if (choice === "confirmPassword")
@@ -64,9 +63,6 @@ export default function FormPasswordChange(props) {
 
   // Fonction pour l'envoi du formulaire
   const sendFormPassword = async (e) => {
-    // console.log("Form waitsend");
-    //empeche le formunliare d'etre submiter
-    // console.log("event", e)  
     e.preventDefault();
 
     // check si mot de passe correspondent
@@ -76,10 +72,6 @@ export default function FormPasswordChange(props) {
         oldPassword,
         password,
       }
-      // console.log(
-      //   "dataFormPersonalEmployer change password",
-      //   dataFormPersonalEmployer
-      // );
 
       //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
         // console.log("je suis dans le succes")
@@ -102,7 +94,6 @@ export default function FormPasswordChange(props) {
 
   // fonction pour remettre le formulaire par défaut
   const cancelFormPassword = () => {
-    // console.log("Cancel upload");
     setOldPassword("");
     setPassword("");
     setConfirmPassword("");

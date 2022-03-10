@@ -17,23 +17,16 @@ const EmployerProfil = () => {
   
   const dispatch = useDispatch();
   useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer")
       dispatch(getProfilEmployer());
       dispatch(getProfilUser());
   },[]);
 
-  //dispatch(getProfilEmployer());
-
   const dataProfilEmployer = useSelector(
     (state) => state.employer.dataProfilEmployer
   );
-  // console.log("store dataProfilEmployer page profil", dataProfilEmployer);
-
   const dataProfilUser = useSelector((state) => state.employer.dataProfilUser);
-  // console.log("store dataProfilUser", dataProfilUser);
 
   const dataApiSiret = useSelector((state) => state.employer.dataSiretApi);
-  // console.log("store dataApiSiret",dataApiSiret)
 
   //Constante pour editer le formulaire entreprise
   const [profilNotEditabled, setProfilNotEditabled] = useState(true);
@@ -50,9 +43,7 @@ const EmployerProfil = () => {
   // Pour popover bouton edit data personnelle
   const [anchorElDataPerso, setAnchorElDataPerso] = useState(null);
 
-  // console.log(themeEmployer)
-
-  return (
+   return (
     <Container>
       <Box
         bgcolor={themeEmployer.palette.bgBox.main}

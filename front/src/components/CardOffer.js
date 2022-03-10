@@ -17,8 +17,6 @@ export default function CardOffer(props) {
   const { listOffer } = props;
   const navigate = useNavigate();
 
-  // console.log("listOffer",listOffer)
-
   return (
     <Card
       sx={{

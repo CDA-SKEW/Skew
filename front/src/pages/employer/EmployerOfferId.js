@@ -13,21 +13,11 @@ import withRecruteur from "components/auth/withRecruteur";
 const EmployerOfferId = () => {
     const { state } = useLocation();
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (!state) navigate(-1);
-    // }, [navigate, state]);
-
-    // console.log("state", state);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // console.log("effect getDataProfilEmployerEmployer");
         dispatch(getProfilEmployer());
     }, []);
-
-    // dispatch(getProfilEmployer());
 
     const dataProfilEmployer = useSelector(
         (state) => state.employer.dataProfilEmployer

@@ -8,13 +8,10 @@ export default function ScrollTop(props) {
     const trigger = useScrollTrigger();
 
     const handleClick = (event) => {
-
-        // console.log("coucou je click")
         const anchor = (event.target.ownerDocument || document).querySelector(
             '#back-to-top-anchor',
         );
-
-        // console.log("anchor", anchor)
+        
         if (anchor) {
             anchor.scrollIntoView({
                 behavior: 'smooth',

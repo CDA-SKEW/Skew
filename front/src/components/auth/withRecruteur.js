@@ -10,8 +10,8 @@ export default function withRecruteur(Component) {
             if (token.isVerified === 1 && token.isBanned === 0 && token.isRecruteur === 1) return <Component />;
             else return <Navigate to="/" />;
         }
-        // return <Component />;
     };
 
     return RecruteurRoute;
 };
+

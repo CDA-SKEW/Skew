@@ -16,7 +16,6 @@ const uploadCv = require("../config/multerCv");
 
 //User
 const AuthControllers = require("../controllers/AuthControllers");
-const UserControllers = require("../controllers/UserControllers");
 
 //Message
 const ContactControllers = require("../controllers/ContactControllers");
@@ -37,7 +36,6 @@ const JobsController = require("../controllers/admin/JobsController");
 const MessagesController = require("../controllers/admin/MessagesController");
 
 // Middlewares
-const TestMD = require("../middlewares/Test_md");
 const TokenJWT = require("../middlewares/Token_jwt");
 
 // router.route('/api/testUser').post(new CandidatProfilControllers().testUser)
@@ -69,79 +67,75 @@ router
   .route("/api/offresvisiteur/:id")
   .get(new OffreVisiteurControllers().getOne);
 
-// Users
-router
-  .route("/api/user")
-  .get(new UserControllers().getAll)
-  .post(new UserControllers().post);
 
 //------------------------------------------------------------
 // Employeur
 
 // Employeur user profil
-
 router
-  .route("/api/employer/dashboard/:id")
-  .get(new EmployerOfferControllers().getDashboard);
-
-// .route("/api/employer/dashboard/:id")
-// .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
+  .route("/api/employer/dashboard")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
 // Employeur user profil
 router
-  .route("/api/employer/profilUser/:id")
-  .get(new EmployerProfilControllers().getProfilUser);
-
-// Employeur user profil Id
-router
-  .route("/api/employer/profilUser/:id")
-  .put(new EmployerProfilControllers().updateProfilUser);
+  .route("/api/employer/profilUser")
+  .get(new TokenJWT().checkToken, new EmployerProfilControllers().getProfilUser)
+  .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUser);
 
 // Employeur user profil password Id
 router
-  .route("/api/employer/profilUserPw/:id")
-  .put(new EmployerProfilControllers().updateProfilUserPw);
-
-// Employeur entreprise profil
-router
-  .route("/api/employer/profil")
-  .post(
-    upload.single("avatar"),
-    sharp,
-    new EmployerProfilControllers().createProfilCompagny
-  );
+  .route("/api/employer/profilUserPw")
+  .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUserPw);
 
 // Employeur entreprise profil Id
 router
-  .route("/api/employer/profil/:id")
-  .get(new EmployerProfilControllers().getProfilCompagny)
-  .put(
+  .route("/api/employer/profil")
+  .get(new TokenJWT().checkToken, new EmployerProfilControllers().getProfilCompagny)
+  .put(new TokenJWT().checkToken,
     upload.single("avatar"),
     sharp,
     new EmployerProfilControllers().updateProfilCompagny
   );
 
-// Employeur offer
-router
-  .route("/api/employer/offer")
-  .get(new EmployerOfferControllers().getOffer)
-  .post(new EmployerOfferControllers().createOffer);
-
 // Employeur offerid
 router
+  .route("/api/employer/offer")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getOfferId)
+  .post(new TokenJWT().checkToken, new EmployerOfferControllers().createOffer)
+
+router
   .route("/api/employer/offer/:id")
-  .get(new EmployerOfferControllers().getOfferId)
-  .delete(new EmployerOfferControllers().delOffer);
+  .delete(new TokenJWT().checkToken, new EmployerOfferControllers().delOffer);
 
 // Employeur statut candidat offer
 router
   .route("/api/employer/offer/candidat/:id")
-  .put(new EmployerOfferControllers().updateCandidate);
+  .put(new TokenJWT().checkToken, new EmployerOfferControllers().updateCandidate);
 
 // Employeur send message candidate
 router
   .route("/api/employer/candidat/message")
-  .post(new EmployerOfferControllers().createMessageCandidate);
+  .post(new TokenJWT().checkToken, new EmployerOfferControllers().createMessageCandidate);
+
+// Employeur entreprise profil
+//  Plus utlisé dans l'application car profil crée par défaut au register
+// Utiliser pour test postman
+router
+  .route("/api/employer/profil")
+  .post(
+    new TokenJWT().checkToken,
+    upload.single("avatar"),
+    sharp,
+    new EmployerProfilControllers().createProfilCompagny
+  );
+
+
+// Employeur offer
+//  Plus utlisé dans l'application
+// Utiliser pour test postman
+router
+  .route("/api/employer/allOffer")
+  .get(new EmployerOfferControllers().getOffer)
 
 //------------------------------------------------------------
 

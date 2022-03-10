@@ -10,7 +10,7 @@ import {
   // GET_USER,
   GET_LIST_JOBS,
   // GET_JOB,
-  PUT_JOB,
+  // PUT_JOB,
   DELETE_JOB,
   GET_LIST_MESSAGES,
   // GET_MESSAGE,
@@ -58,14 +58,14 @@ export const getListUsers = () => {
 //   };
 // };
 
-// User Update (put)
+// User Ban (put)
 export const putUser = (id) => {
   return (dispatch) => {
-    console.log("put user action", id);
+    console.log("put user ban action", id);
     return api
       .put(`/admin/users/${id}` )
       .then((res) => {
-        console.log("putUser", res.data);
+        console.log("putUserBan", res.data);
         dispatch({
           type: PUT_USER,
           payload: res.data.user,
@@ -162,25 +162,21 @@ export const getListJobs = () => {
 // };
 
 // Job Update (put)
-export const putJob = (id) => {
-  return (dispatch) => {
-    console.log("put job action", id);
-    return api
-      .put(`/admin/jobs/${id}`)
-      .then((res) => {
-        console.log("putJob", res.data.job);
-        dispatch({
-          type: PUT_JOB,
-          payload: res.data.job,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-  // return (dispatch) => {
-  //   console.log("put job action");
-  //   // dispatch({ type: PUT_JOB, payload: data });
-  // };
-};
+// export const putJob = (id) => {
+//   return (dispatch) => {
+//     console.log("put job action", id);
+//     return api
+//       .put(`/admin/jobs/${id}`)
+//       .then((res) => {
+//         console.log("putJob", res.data.job);
+//         dispatch({
+//           type: PUT_JOB,
+//           payload: res.data.job,
+//         });
+//       })
+//       .catch((err) => console.log(err));
+//   };
+// };
 
 // Job delete
 export const deleteJob = (id) => {

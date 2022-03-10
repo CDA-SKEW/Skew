@@ -13,10 +13,6 @@ const Img = styled("img")({
 
 export default function OfferIdDataFactory(props) {
     const { dataProfilEmployer } = props;
-
-    // console.log("urlImg ",urlImg )
-    // console.log("dataProfilEmployer",dataProfilEmployer)
-
     return (
         <Box>
             <Grid

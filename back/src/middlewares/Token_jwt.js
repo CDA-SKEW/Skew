@@ -23,22 +23,16 @@ class TokenJWT {
   }
 
   checkToken(req, res, next) {
-    console.log("req.headers", req.headers.authorization);
-    console.log("checkToken req.params", req.params);
     try {
-      console.log("dans try");
       const auth = jwt.verify(
         req.headers.authorization,
         process.env.SIGN_JWT,
         (err, decoded) => {
           if (err) return;
-          console.log("decode jwt:", decoded);
           return decoded;
         }
-      );
-      req.id = auth.id;
-      console.log("middleware req.params", req.id);    
-      if (!auth) res.status(403).send("Invalid token");
+      );   
+      if (!auth) res.json({message:"Invalid token"});
       else next()
     } catch (error) {
       throw error;

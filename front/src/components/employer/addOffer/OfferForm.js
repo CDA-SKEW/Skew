@@ -5,7 +5,6 @@ import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getOffer,
-  getProfilUser,
   postFormAddOffer,
 } from "store/actions/EmployerActions";
 import SnackbarMessage from "../../SnackbarMessage";
@@ -20,7 +19,6 @@ export default function OfferForm() {
   useEffect(() => {
     setTextFlash(messageEmployer);
   }, [dataEmployer]);
-  // console.log("textFlash", textFlash);
 
   // declaration du tableau pour le select
   const types = [
@@ -58,9 +56,7 @@ export default function OfferForm() {
 
   // fonction pour l'envoi du formulaire à la db
   const handleSendAddOffer = async (e) => {
-    // console.log("Form waitsend");
     //empeche le formunliare d'etre submiter
-    // console.log("e", e)
     e.preventDefault();
 
     const dataFormAddOffer = {
@@ -80,7 +76,6 @@ export default function OfferForm() {
       setOpenModal(false);
     }, 3000);
 
-    // console.log("dataFormAddOffer", dataFormAddOffer);
     await dispatch(postFormAddOffer(dataFormAddOffer));
     setTitle("");
     setType("");

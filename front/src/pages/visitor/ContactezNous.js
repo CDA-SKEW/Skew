@@ -70,7 +70,7 @@ export default function ContactezNous() {
             <Box sx={{ px: 5 }}>
                 <Typography
                     align='center'
-                    variant="h3"
+                    variant="h2"
                     sx={{ borderBottom: 2, mx: 'auto', my: 3, pb: 5, width: '50%', }}>
                     Contactez-nous
                 </Typography>

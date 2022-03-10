@@ -5,7 +5,6 @@ const dbOptions = require("../src/config/db")
 const chai = require('chai');
 const expect = chai.expect;
 
-// console.log("dbOptions",dbOptions)
 connectionPool = MySQL.createPool({ ...dbOptions });
 
 it('db.connection.connect...', function (done) {
@@ -13,7 +12,6 @@ it('db.connection.connect...', function (done) {
     if (err) {
       done(err);
     }
-    // console.log(result)
     expect(result.state).to.equal("connected")
     done();
   });

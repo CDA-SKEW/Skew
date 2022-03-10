@@ -24,14 +24,10 @@ const EmployerOffer = () => {
     (state) => state.employer.dataProfilUser
   );
 
-  const offers = useSelector(
+  const dataOffers = useSelector(
     (state) => state.employer.dataOffers.offers
   );
-
-   // console.log("store offers ", offers );
-
-  // console.log("offer page; nunmber offer", offers.length)
-
+  
   return (
     <Container
     >
@@ -50,8 +46,7 @@ const EmployerOffer = () => {
         </Typography>
       </Box>
       {/* {/* partie mes offres/} */}
-      {/* {console.log(offers)} */}
-      {offers && offers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />)}
+      { (dataOffers !== undefined && dataOffers) && (dataOffers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />))}
     </Container>
   );
 };
