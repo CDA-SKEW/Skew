@@ -13,7 +13,6 @@ const ProfilUser = function (profilUser) {
     (this.mail = String(profilUser.mail)),
     (this.pass = String(profilUser.pass));
 };
-// console.log("profilUser dans model", ProfilUser);
 
 //Creation du constructeur profilUserCompagny pour exporter les fonctions dans ce model model
 const ProfilUserCompagny = function (profilUserCompagny) {
@@ -30,12 +29,8 @@ const ProfilUserCompagny = function (profilUserCompagny) {
 
 // Get profil User (by id)
 ProfilUser.getById = function (id, result) {
-  // console.log("model Profiluser", id, result)
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    // si la connection est établie alors on fait la requete Sql,
-    // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
     conn.query(
       `SELECT id,mail,date_update, date_create
      FROM user WHERE id = :id`,
@@ -43,7 +38,6 @@ ProfilUser.getById = function (id, result) {
       (error, data) => {
         if (error) throw error;
         result(null, data[0]);
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
     );
@@ -52,18 +46,8 @@ ProfilUser.getById = function (id, result) {
 
 // Update mail in profil employer User (by id)
 ProfilUser.editMail = function (profilUserObj, oldMail, result) {
-  // console.log(
-  //   "edit mail in Model:",
-  //   "id:",
-  //   typeof profilUserObj.id,
-  //   profilUserObj.id,
-  //   "mail:",
-  //   profilUserObj.mail,
-  //   "oldMail", oldMail
-  // );
   //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { mail, id } = profilUserObj;
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     conn.query(
       `SELECT u.mail
@@ -73,12 +57,7 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
       { id },
       (error, data) => {
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-        // console.log("emailDb", data[0].mail)
         if (oldMail === data[0].mail) {
-          // console.log("old mail identique")
-          // ici on fait un update de la colonne mail de la table user par l'ID
-
           conn.query(
             `SELECT id,mail,date_update, date_create FROM user WHERE mail = "${mail}"`,
             async (error, data) => {
@@ -92,7 +71,6 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
                   { mail, id },
                   (error, data) => {
                     if (error) throw error;
-                    // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
                     conn.query(
                       `SELECT id,mail,date_update, date_create
                   FROM user WHERE id = :id`,
@@ -112,25 +90,12 @@ ProfilUser.editMail = function (profilUserObj, oldMail, result) {
         } else result(null, { message: "error" }, true);
       }
     );
-    // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
     conn.release();
   });
 };
 
 // Update pw in profil employer User (by id)
 ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
-  // console.log(
-  //   "edit pw in Model:",
-  //   "id:",
-  //   typeof profilUserObj.id,
-  //   profilUserObj.id,
-  //   "mail:",
-  //   profilUserObj.mail,
-  //   "pass:",
-  //   profilUserObj.pass,
-  //   "oldPassword",
-  //   oldPassword
-  // );
   //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { mail, id, pass } = profilUserObj;
 
@@ -140,15 +105,11 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
       `SELECT * FROM user where mail =:mail`,
       { mail },
       (error, data) => {
-        // console.log("data", data);
         if (error) throw error;
-        // verifie si le mail existe
         if (data.length <= 0) {
           result(null, true);
           conn.release();
-        }
-        // Compare l'ancien mot de pass ds req.body hachés avec celui dans la db
-        else
+        } else
           bcrypt.compare(
             oldPassword,
             data[0].pass,
@@ -197,13 +158,8 @@ ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
 
 // Get profil employer User (by id)
 ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
-  // console.log("model Profiluser", id, result)
-
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    // si la connection est établie alors on fait la requete Sql,
-    // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
     conn.query(
       `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
      FROM contactProfil WHERE user_id = :id`,
@@ -211,7 +167,6 @@ ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
       (error, data) => {
         if (error) throw error;
         result(null, data[0]);
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
     );
@@ -234,39 +189,28 @@ ProfilUserCompagny.updateProfilCompagny = function (
 
   const dateImg = new Date().getTime();
 
-  // console.log("reqfile", reqfile);
   if (reqfile) {
-    // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
     pathImgWebp =
       pathAvatar +
       (reqfile.filename.split(".").slice(0, -1).join(".") + ".webp");
-    // console.log("pathImgWebp", pathImgWebp)
 
     pathAvatarWebp =
       pathAvatar + "avatar_user_" + user_id + "_" + dateImg + ".webp";
-    // console.log("pathAvatarWebp", pathAvatarWebp)
 
     func.renameFile(pathImgWebp, pathAvatarWebp).then((data) => {
-      // console.log("data", data)
       if (data) {
-        // console.log("je suis true")
         const avatarImg =
           pathAvatarDb + "avatar_user_" + user_id + "_" + dateImg + ".webp";
-        // console.log("avatarImg", avatarImg)
         connection.getConnection(function (error, conn) {
-          //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
-          //requete sql pour recuprer chemin avatar
           conn.query(
             `SELECT avatar
               FROM contactProfil WHERE user_id = :user_id`,
             { user_id },
             (error, data) => {
               if (error) throw error;
-              // console.log("data avatar", data[0].avatar)
               const nameAvatar = data[0].avatar.split("/")[4];
-              // console.log("name avatar", nameAvatar)
               const pathAvatarDbDel = pathAvatar + nameAvatar;
-              // console.log("pathAvatarDbDel ", pathAvatarDbDel)
+
               if (pathAvatarDbDel.length > 0) func.removeFile(pathAvatarDbDel);
               conn.query(
                 `
@@ -281,8 +225,6 @@ ProfilUserCompagny.updateProfilCompagny = function (
                   category =:category
                   WHERE user_id = :user_id;
            `,
-                //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
-                // situé dans ConnectionDb.js dans dossier config
                 {
                   name,
                   address,
@@ -296,7 +238,6 @@ ProfilUserCompagny.updateProfilCompagny = function (
                 },
                 (error, data) => {
                   if (error) throw error;
-                  // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
                   conn.query(
                     `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
                   FROM contactProfil WHERE user_id = :user_id`,
@@ -310,15 +251,12 @@ ProfilUserCompagny.updateProfilCompagny = function (
               );
             }
           );
-          // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
           conn.release();
         });
       }
     });
   } else {
-    //ici on se connect à la base de donnée en appellant le module importé
     connection.getConnection(function (error, conn) {
-      //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
       conn.query(
         `
       UPDATE contactProfil
@@ -331,12 +269,9 @@ ProfilUserCompagny.updateProfilCompagny = function (
       category =:category
       WHERE user_id = :user_id;
     `,
-        //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
-        // situé dans ConnectionDb.js dans dossier config
         { name, address, town, zipCode, siret, siren, category, user_id },
         (error, data) => {
           if (error) throw error;
-          // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
           conn.query(
             `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
          FROM contactProfil WHERE user_id = :user_id`,
@@ -344,10 +279,8 @@ ProfilUserCompagny.updateProfilCompagny = function (
             (error, data) => {
               if (error) throw error;
               result(null, data[0]);
-              // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
             }
           );
-          // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
           conn.release();
         }
       );
@@ -374,8 +307,6 @@ ProfilUserCompagny.createProfilCompagny = function (
     category,
     user_id,
   } = profilUserCompagnyObj;
-  // console.log("Model for create profil entreprise", profilUserCompagny);
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     conn.query(
       `INSERT INTO contactProfil SET
@@ -392,7 +323,6 @@ ProfilUserCompagny.createProfilCompagny = function (
       { user_id, name, address, town, zipCode, avatar, siret, siren, category },
       (error, data) => {
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
           `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
          FROM contactProfil WHERE user_id = :user_id`,
@@ -400,10 +330,8 @@ ProfilUserCompagny.createProfilCompagny = function (
           (error, data) => {
             if (error) throw error;
             result(null, data[0]);
-            // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
           }
         );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
     );

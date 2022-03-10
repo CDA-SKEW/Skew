@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   validContentToken: function (mail, decoded) {
-    // console.log("je suis dans la fonction checkValidContentToken");
     return new Promise((resolve, reject) => {
-      //   console.log("mail", mail);
 
       connection.getConnection(function (error, conn) {
         if (error) throw error;
@@ -23,8 +21,7 @@ module.exports = {
               data[0].isAdmin === decoded.isAdmin &&
               data[0].isBanned === decoded.isBanned
             ) {
-              // console.log("decoded", decoded);
-              // console.log("data[0]", data[0]);
+
               let token = "visitor";
               token = jwt.sign(
                 {
@@ -39,8 +36,6 @@ module.exports = {
                 process.env.SIGN_JWT,
                 { expiresIn: "2m" }
               );
-
-              //   console.log("utils token",token)
               resolve(token);
             }
           }

@@ -83,7 +83,6 @@ Offer.getDashboard = function (params_id, result) {
 };
 
 Offer.getOfferId = function (params_id, result) {
-  // console.log("model param_id",params_id)
   connection.getConnection(function (error, conn) {
     const Obj = {
       profilEmployer: {},
@@ -99,8 +98,6 @@ Offer.getOfferId = function (params_id, result) {
       (error, dataEmployer) => {
         if (error) result(null, { message: "error" });
         if (dataEmployer.length > 0) {
-          // console.log("dataEmployer",dataEmployer)
-          // console.log("dataEmployerID", dataEmployer[0].user_id);
           const userEmployerID = dataEmployer[0].user_id;
           Obj.profilEmployer = dataEmployer[0];
 
@@ -117,11 +114,9 @@ Offer.getOfferId = function (params_id, result) {
             (err, dataOfferByEmployer) => {
               if (error) result(null, { message: "error" });
               Obj.offers = dataOfferByEmployer;
-              // console.log("dataOfferByEmployer",dataOfferByEmployer);
 
               if (dataOfferByEmployer.length > 0) {
                 dataOfferByEmployer.map((el, index) => {
-                  // console.log("index, el", index, el.offer_id);
                   const offerId = el.offer_id;
 
                   // Data candidate postuled
@@ -137,18 +132,10 @@ Offer.getOfferId = function (params_id, result) {
                     { offerId },
                     (err, profilCandidate) => {
                       if (error) throw error;
-                      // el.profilCandidate = profilCandidate;
-                      // console.log(
-                      //   "nb profilCandidate ",
-                      //   profilCandidate.length
-                      // );
                       el.profilCandidate = profilCandidate;
 
                       profilCandidate.map((elc, index2) => {
-                        // console.log(elc)
-
                         let userIdCandidate = elc.user_id;
-                        // console.log("userIdCandidate", userIdCandidate);
 
                         // Data profileCandidate
                         conn.query(
@@ -159,8 +146,6 @@ Offer.getOfferId = function (params_id, result) {
                           { userIdCandidate },
                           (err, dataExperience) => {
                             if (error) throw error;
-                            // elc.cvCandidat = { experience: dataExperience }
-                            // console.log("dataExperience user id", elc.user_id)
 
                             // Data skill
                             conn.query(
@@ -168,8 +153,6 @@ Offer.getOfferId = function (params_id, result) {
                               { userIdCandidate },
                               (error, dataSkill) => {
                                 if (error) throw error;
-
-                                // console.log("dataSkill", dataSkill)
 
                                 const skills = [];
                                 for (
@@ -187,7 +170,6 @@ Offer.getOfferId = function (params_id, result) {
                                   (error, dataInterest) => {
                                     if (error) throw error;
 
-                                    // console.log("dataInterest", dataInterest)
                                     const interests = [];
                                     for (
                                       let index = 0;
@@ -207,7 +189,6 @@ Offer.getOfferId = function (params_id, result) {
                                       { userIdCandidate },
                                       (error, dataCertificate) => {
                                         if (error) throw error;
-                                        // console.log("dataCertificate", dataCertificate)
 
                                         //  Data Documents
                                         conn.query(
@@ -229,7 +210,6 @@ Offer.getOfferId = function (params_id, result) {
                                               );
                                             }
 
-                                            // console.log("dataCertificate", dataCertificate)
                                             elc.cvCandidat = {
                                               experience: dataExperience,
                                               skill: skills,
@@ -243,7 +223,6 @@ Offer.getOfferId = function (params_id, result) {
                                               index ===
                                                 dataOfferByEmployer.length - 1
                                             ) {
-                                              // console.log("index de fin");
                                               result(null, Obj);
                                             }
                                           }
@@ -274,7 +253,6 @@ Offer.getOfferId = function (params_id, result) {
 Offer.createOffer = function (offerObj, result) {
   // //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { user_id, title, type, period, description, profil } = offerObj;
-  // console.log("offerObj dans model offer",offerObj)
   connection.getConnection(function (error, conn) {
     conn.query(
       `INSERT INTO offre SET
@@ -288,7 +266,6 @@ Offer.createOffer = function (offerObj, result) {
       { user_id, title, type, period, description, profil },
       (error, data) => {
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
           `SELECT offer_id, user_id, title,type,period,description,profil, createDate 
          FROM offre WHERE user_id = :user_id`,
@@ -296,10 +273,8 @@ Offer.createOffer = function (offerObj, result) {
           (error, data) => {
             if (error) throw error;
             result(null, data);
-            // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
           }
         );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
     );
@@ -308,7 +283,6 @@ Offer.createOffer = function (offerObj, result) {
 
 // Delete offer
 Offer.deleteOffer = function (id, result) {
-  //  console.log("Method delete Model User", id);
   connection.getConnection(function (error, conn) {
     conn.query(
       ` DELETE FROM postuled
@@ -328,12 +302,10 @@ Offer.deleteOffer = function (id, result) {
               (error, data) => {
                 if (error) throw error;
                 result(null, data);
-                // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-              }
+            }
             );
           }
         );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
     );
@@ -372,7 +344,6 @@ StatutCandidate.updateCandidate = function (statutCandidateObj, result) {
 // Utiliser pour test postman
 // Get Offer
 Offer.getOffer = function (result) {
-  // console.log("Method delete Model User", user);
   connection.getConnection(function (error, conn) {
     conn.query(
       `SELECT offer_id, user_id, title,type,period,description,profil, createDate 
@@ -380,12 +351,10 @@ Offer.getOffer = function (result) {
       (error, data) => {
         if (error) throw error;
         else result(null, data);
-        // console.log('data', data)
       }
     );
     conn.release();
   });
 };
 
-// Ce qui nous permettra de pouvoir l'utiliser sur d'autre page
 module.exports = { Offer, StatutCandidate };

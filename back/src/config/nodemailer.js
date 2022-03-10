@@ -24,8 +24,6 @@ var rand, mailOptions, host, link;
 module.exports = {
   // Action envoi mail par nodemailer
   SendEmailCandidate: (req, res) => {
-    // console.log("je suis dans le controlleur nodemailer");
-    // console.log("req.body", req.body);
 
     arrayFiles = [];
 
@@ -35,8 +33,6 @@ module.exports = {
       path: "public/images/logo/logo.png",
       cid: "signatureLogo", //same cid value as in the html img src
     });
-
-    // console.log(arrayFiles); // On configure notre signature du mail à envoyer par nodemailer
 
     const mailOptions = {
       from: process.env.USER_NODMAILER,
@@ -104,7 +100,6 @@ module.exports = {
             message: err.message || "Une erreur est survenue",
           });
       } else {
-        // console.log("envoi json", "Votre mail a bien été envoyé !")
         return res.json({
           method: req.method,
           status: "success",

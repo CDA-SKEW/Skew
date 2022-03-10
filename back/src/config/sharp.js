@@ -6,8 +6,6 @@ module.exports = (req, res, next) => {
 
     if (req.file) {
         const file = req.file    
-        // console.log(file.path)
-        // console.log(file.filename)
         sharp(file.path)
             .resize({
                 //ratio

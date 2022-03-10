@@ -13,7 +13,6 @@ module.exports = {
   },
   // Fonction pour remplacer un fichier par un autre fichier via leur path
   renameFile: function (file1, file2) {
-    // console.log("je suis dans la fonction")
     return new Promise((resolve, reject) => {
         setTimeout(function () {
           fs.rename(file1, file2, (err) => {
