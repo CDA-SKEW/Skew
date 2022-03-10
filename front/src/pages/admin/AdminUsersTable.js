@@ -10,6 +10,7 @@ const AdminUsersTable = () => {
   const user = useSelector((state) => state.admin.listUsers);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(getListUsers());
   }, []);

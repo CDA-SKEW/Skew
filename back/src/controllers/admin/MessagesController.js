@@ -76,10 +76,10 @@ class MessagesController {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            mess: data,
             method: req.method,
             status: "success",
             message: " The message has been successfully DELETED.!!",
+            messages: data,
           });
       });
     } catch (error) {

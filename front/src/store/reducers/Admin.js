@@ -7,10 +7,10 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-  flash: "",
   listUsers: [],
   listJobs: [],
   listMessages: [],
+ 
 };
 
 /*

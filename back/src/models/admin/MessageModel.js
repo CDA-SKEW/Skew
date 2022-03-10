@@ -89,7 +89,7 @@ Message.deleteMessage = function (message, result) {
       (error, data) => {
         if (error) throw error;
         conn.query(
-          `SELECT * FROM messages;
+          `SELECT * FROM messages ;
     `,
           (error, data) => {
             //   Si erreur l'afficher

@@ -25,7 +25,6 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import VerifiedIcon from "@mui/icons-material/Verified";
-// import { useNavigate } from "@reach/router";
 import {
   Box,
   Button,
@@ -37,6 +36,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 /*------------Export function-------------*/
 
@@ -227,21 +227,26 @@ export default function DeletableChips(props) {
   };
 
   /*-----------------------------------------------------*/
+  // Message flash
+  const { enqueueSnackbar } = useSnackbar();
 
   // MESSAGE: handlechange = Pour changer la valeur d'un input
-  const handleChange = (prop) => (event) => {
+  const handleChange = (prop) => (event, variant) => {
     // console.log("handleInput", prop, event.target.value);
     // Prop = la key du oneChange
     setForm({ ...form, [prop]: event.target.value });
   };
-  const submitReplyMessage = (data) => {
+
+  const submitReplyMessage = (data, variant) => {
     // console.log("form message", data);
     // console.log(form, props);
     dispatch(replyMessage(form));
+    setTimeout(() => {
+      setOpen(false);
+    }, 600);
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar("Le message a été envoyé", { variant });
   };
-
-  // const Actions = (props) => {
-  //   const navigate = useNavigate();
 
   /*--------------Components Chips + Modals------------*/
 
@@ -301,7 +306,7 @@ export default function DeletableChips(props) {
                     variant="outlined"
                     color="primary"
                     startIcon={<RemoveCircleIcon />}
-                    onClick={() => () => dispatch(putUser(id.row.id))}
+                    onClick={() => dispatch(putUser(id.row.id))}
                   >
                     Bannir
                   </Button>
@@ -631,7 +636,7 @@ export default function DeletableChips(props) {
                     variant="outlined"
                     color="primary"
                     endIcon={<SendIcon />}
-                    onClick={() => submitReplyMessage(form)}
+                    onClick={() => submitReplyMessage(form, "success")}
                   >
                     Envoyer
                   </Button>
@@ -642,7 +647,9 @@ export default function DeletableChips(props) {
                     variant="contained"
                     color="primary"
                     // Déclenche l'action de la constante CheckDelete
-                    onClick={(e) => setMsg(msg === true ? false : true)}
+                    onClick={(e) =>
+                      setMsg(msg === true ? false : true, "success")
+                    }
                   >
                     Supprimer
                   </Button>
