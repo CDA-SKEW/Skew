@@ -23,6 +23,9 @@ const ContactControllers = require("../controllers/ContactControllers");
 // Offres visiteur
 const OffreVisiteurControllers = require("../controllers/OffreVisiteurControllers");
 
+// VisiteurData
+const VisiteurDataControllers = require("../controllers/VisiteurDataControllers");
+
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
 const EmployerOfferControllers = require("../controllers/employer/EmployerOfferControllers");
@@ -49,9 +52,7 @@ router.route("/api/login").post(new AuthControllers().login);
 router.route("/api/register").post(new AuthControllers().register);
 
 // Check
-router
-  .route("/api/auth/:token")
-  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router.route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
 router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
@@ -63,9 +64,10 @@ router.route("/api/contact").post(new ContactControllers().post);
 
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
-router
-  .route("/api/offresvisiteur/:id")
-  .get(new OffreVisiteurControllers().getOne);
+router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
+
+// Visiteur data
+router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);
 
 
 //------------------------------------------------------------
