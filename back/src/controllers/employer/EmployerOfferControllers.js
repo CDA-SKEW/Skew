@@ -33,7 +33,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "info dashboard",
               dashboard: data,
-              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail, decoded.payload)
             });
           }
         });
@@ -66,7 +66,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "Mes offres",
               offers: data,
-              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail, decoded.payload)
             });
           }
         });
@@ -99,7 +99,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "Votre offre a bien été publiée !",
               offers: data,
-              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail, decoded.payload)
             });
           }
         });
@@ -132,7 +132,7 @@ class EmployerOfferControllers {
             flash: "Del offer By Id !",
             message: "Votre offre a bien été supprimée !",
             offers: data,
-            token:await checkValidContentToken.validContentToken(decoded.payload.mail)
+            token:await checkValidContentToken.validContentToken(decoded.payload.mail, decoded.payload)
           });
         }
       });
@@ -171,7 +171,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "Le status du candidat pour cette offre a été changé",
               offers: data,
-              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail, decoded.payload)
             });
           }
         });

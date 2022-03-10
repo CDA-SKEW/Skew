@@ -17,10 +17,7 @@ import SnackbarMessage from "components/SnackbarMessage";
 
 export default function ModalMessageCandidate(props) {
   const { onClose, open, offer, row, dataProfilUser } = props;
-  // console.log("row, offer", row, offer)
-
   const dispatch = useDispatch();
-
   const messageEmployer = useSelector((state) => state.employer.flash);
   const [textFlash, setTextFlash] = useState(messageEmployer);
 
@@ -32,8 +29,6 @@ export default function ModalMessageCandidate(props) {
   const [openModal, setOpenModal] = useState(false);
 
   const [form, setForm] = useState({ ...row });
-  // console.log("form", form)
-
 
   const [textMessage, setTextMessage] = useState();
 
@@ -66,7 +61,6 @@ export default function ModalMessageCandidate(props) {
       setOpenModal(false);
       onClose();
     }, 3000);
-    // console.log(dataFormMessageCandidate)
     await dispatch(postMessageCandidate(dataFormMessageCandidate));
   };
   //
@@ -100,8 +94,6 @@ export default function ModalMessageCandidate(props) {
               if (key === "statut") return;
               if (key === "cvCandidat") return;
               else {
-                // console.log("key",key)
-                // console.log("index", index)
                 return (
                   <Grid key={index} item xs={12} sm={12} md={12}>
                     <TextField

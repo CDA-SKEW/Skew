@@ -12,8 +12,6 @@ export default function CandidateInterest(props) {
     const { profilCandidate } = props
     const [openInterest, setOpenInterest] = useState(false);
 
-    // console.log("profilCandidate", profilCandidate)
-
     return (
         <Box>
             <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>

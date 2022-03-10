@@ -39,7 +39,7 @@ class EmployerProfilControllers {
             message: "Votre profil utilisateur",
             dataProfilUser: data,
             token: await checkValidContentToken.validContentToken(
-              decoded.payload.mail
+              decoded.payload.mail, decoded.payload
             ),
           });
         }
@@ -89,7 +89,7 @@ class EmployerProfilControllers {
                   message: "Adresse mail déjà utilisée",
                   dataProfilUser: data,
                   token: await checkValidContentToken.validContentToken(
-                    decoded.payload.mail
+                    decoded.payload.mail, decoded.payload
                   ),
                 });
               } else {
@@ -99,7 +99,7 @@ class EmployerProfilControllers {
                   message: "Votre email a bien été modifié",
                   dataProfilUser: data,
                   token: await checkValidContentToken.validContentToken(
-                    decoded.payload.mail
+                    decoded.payload.mail, decoded.payload
                   ),
                 });
               }
@@ -148,7 +148,7 @@ class EmployerProfilControllers {
                   message: "Votre ancien mot de passe est incorrect",
                   dataProfilUser: data,
                   token: await checkValidContentToken.validContentToken(
-                    decoded.payload.mail
+                    decoded.payload.mail, decoded.payload
                   ),
                 });
               } else {
@@ -158,7 +158,7 @@ class EmployerProfilControllers {
                   message: "Votre mot de passe a bien été modifié",
                   dataProfilUser: data,
                   token: await checkValidContentToken.validContentToken(
-                    decoded.payload.mail
+                    decoded.payload.mail, decoded.payload
                   ),
                 });
               }
@@ -199,7 +199,7 @@ class EmployerProfilControllers {
               message: "Votre profil entreprise",
               dataProfilEmployer: data,
               token: await checkValidContentToken.validContentToken(
-                decoded.payload.mail
+                decoded.payload.mail, decoded.payload
               ),
             });
           }
@@ -236,7 +236,7 @@ class EmployerProfilControllers {
                 res.status(500).send({
                   message: err.message || "Une erreur est survenue",
                   token: await checkValidContentToken.validContentToken(
-                    decoded.payload.mail)
+                    decoded.payload.mail, decoded.payload)
                 });
             } else {
               //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
@@ -246,7 +246,7 @@ class EmployerProfilControllers {
                 message: "Votre profil entreprise a été modifié",
                 dataProfilEmployer: data,
                 token: await checkValidContentToken.validContentToken(
-                  decoded.payload.mail
+                  decoded.payload.mail, decoded.payload
                 ),
               });
             }

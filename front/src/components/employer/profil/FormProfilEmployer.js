@@ -38,7 +38,6 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(
   ref
 ) {
   const { onChange, ...other } = props;
-  // console.log(props.name);
 
   let zipCodeFormat, siretFormat, sirenFormat;
   if (props.name === "zipCode") zipCodeFormat = true;
@@ -112,7 +111,6 @@ export default function FormProfilEmployer(props) {
     buttonProfilVisible,
   } = props;
 
-  // console.log("dataProfilEmployer",dataProfilEmployer)
   const dispatch = useDispatch();
 
   //constante pour mettre les input soit readOnly soit editable
@@ -174,19 +172,16 @@ export default function FormProfilEmployer(props) {
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
   useEffect(() => {
-    // console.log("effect for useState form employer");
     setUseState();
   }, [profilNotEditabled]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
-    // console.log("effect for useState form employer");
     setUseState();
   }, [dataProfilEmployer]);
 
   // useEffect pour api Siret qui est à l'écoute du state du store dataApiSiret
   useEffect(() => {
-    // console.log("use state dataApiSiret", dataApiSiret);
     //Condition si dataApiSiret n'est pas vide
     // si oui, on met les valeurs demmandées via l'API dans le formulaire
     if (dataApiSiret["id"]) {
@@ -207,20 +202,15 @@ export default function FormProfilEmployer(props) {
 
   // fonction get pour envoyer requete api pour saisie par n° de Siret
   const handleSendApiSiret = async (e) => {
-    // console.log("Send Api Siret wait");
-    //empeche le formunliare d'etre submiter
-    // console.log("e", e)
     e.preventDefault();
 
     if (siret.length === 14) {
-      // console.log("N° de siret", siret);
       await dispatch(getApiSiret(siret));
     }
   };
 
   // fonction pour la previsualisation de l'image
   const handleImageChange = (e) => {
-    // console.log("fct changeImage");
     setStateImgUpload("Image non enregistrée");
     e.preventDefault();
     let reader = new FileReader();
@@ -231,8 +221,6 @@ export default function FormProfilEmployer(props) {
         setAvatarSelect(true);
         setAvatarPreview(reader.result);
         setAvatar(file);
-        // console.log("reader.result",reader.result)
-        // console.log("avatar",avatar)
       };
       reader.readAsDataURL(file);
     }
@@ -240,12 +228,7 @@ export default function FormProfilEmployer(props) {
 
   // fonction pour l'envoi du formulaire à la db
   const handleSendFormProfil = async (e) => {
-    // console.log("Form waitsend");
-    //empeche le formunliare d'etre submiter
-    // console.log("e", e)
     e.preventDefault();
-
-    // console.log("formSubmit", formSubmit);
 
     if (!avatar) {
       setStateImgUpload("image obligatoire");
@@ -262,11 +245,9 @@ export default function FormProfilEmployer(props) {
         category,
       };
 
-      // console.log("avatar", avatar);
       const formData = new FormData();
 
       Object.entries(dataFormProfilEmployer).forEach(([cle, valeur]) => {
-        // console.log(`${cle}, ${valeur}`);
         formData.append(cle, valeur);
       });
 
@@ -276,9 +257,6 @@ export default function FormProfilEmployer(props) {
       }
       setAvatarSelect(false);
       setStateImgUpload("");
-      // console.log("formData", formData);
-      // console.log("formSubmit", formSubmit);
-
       setOpenModal(true);
       setTimeout(function () {
         setOpenModal(false);
@@ -293,7 +271,6 @@ export default function FormProfilEmployer(props) {
 
   // fonction pour remettre formulaire par defaut (Cancel)
   const cancelFormProfil = () => {
-    // console.log("Cancel upload", dataProfilEmployer);
     if (!dataProfilEmployer.avatar) {
       setStateImgUpload("image obligatoire");
     } else setStateImgUpload("");

@@ -19,8 +19,6 @@ export default function FormPersonalEmployer(props) {
     profilPersonnalNotEditabled,
     buttonProfilPersonnalVisible,
   } = props;
-  // console.log("dataProfilUser", dataProfilUser);
-
   const dispatch = useDispatch();
 
 
@@ -30,11 +28,8 @@ export default function FormPersonalEmployer(props) {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    // console.log("messageFlash", messageFlash); 
     if (messageFlash.length>=0) {
-    // console.log("messageFlash", messageFlash); 
-    setMessage(messageFlash);
-    // console.log("messageFlash", message);   
+    setMessage(messageFlash);  
     }
   }, [messageFlash]);
 
@@ -51,16 +46,13 @@ export default function FormPersonalEmployer(props) {
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
   useEffect(() => {
-    // console.log("effect for useState form employer");
     setUseState();
   }, [profilPersonnalNotEditabled]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilUser
   useEffect(() => {
-    // console.log("effect for useState form personnal employer");
     setMail(dataProfilUser.mail);   
   }, [dataProfilUser]);
-
 
 
   //constante pour mettre les input soit readOnly soit editable
@@ -81,15 +73,12 @@ export default function FormPersonalEmployer(props) {
 
   // fonction pour remettre le formulaire par défaut
   const cancelFormPersonalProfil = () => {
-    // console.log("Cancel upload");
     setUseState();
   };
 
   // Fonction pour l'envoi du formulaire
   const sendFormPersonalProfil = async (e) => {
-    // console.log("Form waitsend");
     //empeche le formunliare d'etre submiter
-    // console.log("event", e)
     e.preventDefault();
 
     const dataFormPersonalEmployer = {
@@ -104,10 +93,6 @@ export default function FormPersonalEmployer(props) {
     setTimeout(function () {
       setOpenModal(false);
     }, 2000);
-    // console.log(
-    //   "dataFormPersonalEmployer change mail only",
-    //   dataFormPersonalEmployer
-    // );
     await dispatch(putFormProfilUser(dataFormPersonalEmployer));
 
   };

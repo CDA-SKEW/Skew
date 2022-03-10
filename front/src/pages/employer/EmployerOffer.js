@@ -28,11 +28,6 @@ const EmployerOffer = () => {
     (state) => state.employer.dataOffers.offers
   );
   
-
-  // console.log("offer page; dataProfilUser ", dataProfilUser)
-  // console.log("offer page; dataOffer", dataOffers)
-
-
   return (
     <Container
     >
@@ -51,7 +46,6 @@ const EmployerOffer = () => {
         </Typography>
       </Box>
       {/* {/* partie mes offres/} */}
-      {/* {console.log(offers)} */}
       { (dataOffers !== undefined && dataOffers) && (dataOffers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />))}
     </Container>
   );

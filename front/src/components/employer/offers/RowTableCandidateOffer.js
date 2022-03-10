@@ -13,20 +13,12 @@ import ModalConfimation from "components/ModalConfimation";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { urlImg } from "utils/url";
-import { logDOM } from "@testing-library/react";
-
 
 export default function RowTableCandidateOffer(props) {
 
     const navigate = useNavigate();
-
-    // console.log(props)
     const { numberCandidat, row, offer, dataProfilUser } = props;
     const [open, setOpen] = useState(false);
-    // console.log("offer", offer)
-    //   console.log("row", row)
-
-    // console.log("value documents",row.cvCandidat.document )
 
     //constante pour les modals confirmation
     const [openModalConfirmationRetain, setOpenModalConfirmationRetain] = useState(false);
@@ -175,7 +167,6 @@ export default function RowTableCandidateOffer(props) {
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
                                     {row.cvCandidat.skill && row.cvCandidat.skill.map((skilltable, index) => (
-                                        // console.log(skilltable, index)
                                         <Typography padding={1} key={index}>
                                             {skilltable}
                                         </Typography>
@@ -190,9 +181,7 @@ export default function RowTableCandidateOffer(props) {
                                 <Divider sx={{ mx: 2 }} />
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
-                                    {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (
-                                        // console.log("doc", doctable)
-                                  
+                                    {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (                                  
                                         <Button
                                             key={index}
                                             href={`${urlImg + doctable.document}`}

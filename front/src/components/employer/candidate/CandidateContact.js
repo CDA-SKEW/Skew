@@ -5,8 +5,6 @@ import { themeEmployer} from 'configs/theme';
 
 export default function CandidateContact(props) {
     const { profilCandidate } = props
-    // console.log(profilCandidate)
-
     return (
         <Box>
             <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
@@ -26,7 +24,6 @@ export default function CandidateContact(props) {
 
             <Box
                 paddingX={2}
-                paddingTop={1}
                 borderRadius={3}
                 paddingTop={3}
                 paddingBottom={3}

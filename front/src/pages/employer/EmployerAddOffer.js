@@ -10,12 +10,9 @@ import withRecruteur from "components/auth/withRecruteur";
 const EmployerAddOffer = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer");
+  useEffect(() => {;
     dispatch(getProfilEmployer());
   }, []);
-
-  //dispatch(getProfilEmployer());
 
   const dataProfilEmployer = useSelector(
     (state) => state.employer.dataProfilEmployer

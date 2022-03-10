@@ -16,10 +16,7 @@ const CardDashboardStyle = styled(Card)(() => ({
 
 // ----------------------------------------------------------------------
 
-// const TOTAL = 234;
-
 export default function CardDashboard(props) {
-  //console.log(props.list.icon);
   const { list } = props;
 
   return (

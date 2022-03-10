@@ -19,7 +19,6 @@ const ChangePassword = () => {
     }, []);
 
     const dataProfilUser = useSelector((state) => state.employer.dataProfilUser);
-    // console.log("store dataProfilUser", dataProfilUser);
 
     return (
         <Container
