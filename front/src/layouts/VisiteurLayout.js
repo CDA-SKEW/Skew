@@ -77,15 +77,12 @@ export default function VisiteurLayout({ children }) {
     window.location.reload()
   }
   const handleClickNavigate = () => {
-    if (isAdmin === 1) {
-      navigate("/admin");
-    }
-    else if (isCandidat === 1) {
-      navigate("/candidat/dashboard");
-    }
-    else if (isRecruteur === 1) {
-      navigate("/employer/dashboard");
-    }
+    if (isAdmin === 1) { navigate("/admin"); }
+    else if (isCandidat === 1) { navigate("/candidat/dashboard"); }
+    else if (isRecruteur === 1) { navigate("/employer/dashboard"); }
+  }
+  const handleClickLinkedin = (user, link) => {
+    if (user) window.location.href = link;
   }
 
   useEffect(() => {
@@ -135,16 +132,17 @@ export default function VisiteurLayout({ children }) {
                   </MenuItem>
                 ))}
 
+                {userToken &&
+                  <MenuItem onClick={() => handleClickNavigate()}>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                }
+
                 {/* Bouton Login */}
                 {!userToken &&
                   <Button variant="contained" onClick={() => setOpenModal(true)} sx={{ bgcolor: 'secondary.main' }}>
                     Log in / Sign in
                   </Button>
-                }
-                {userToken &&
-                  <MenuItem onClick={() => handleClickNavigate()}>
-                    <Typography textAlign="center">Dashboard</Typography>
-                  </MenuItem>
                 }
                 {userToken &&
                   <Button variant="contained" onClick={logout} sx={{ bgcolor: 'secondary.main' }}>
@@ -209,11 +207,25 @@ export default function VisiteurLayout({ children }) {
                       <Typography textAlign="center">{page.titre}</Typography>
                     </MenuItem>
                   ))}
-                  <Button
-                    variant="contained"
-                    onClick={() => setOpenModal(true)}
-                    sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
-                    Log in / Sign in</Button>
+                  {userToken &&
+                    <MenuItem onClick={() => handleClickNavigate()}>
+                      <Typography textAlign="center">Dashboard</Typography>
+                    </MenuItem>
+                  }
+
+                  {/* Bouton Login */}
+                  {!userToken &&
+                    <Button variant="contained" onClick={() => setOpenModal(true)}
+                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
+                      Log in / Sign in
+                    </Button>
+                  }
+                  {userToken &&
+                    <Button variant="contained" onClick={logout}
+                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
+                      Log out
+                    </Button>
+                  }
                 </Box>
 
                 {/* Modal Login / signin */}
@@ -350,7 +362,9 @@ export default function VisiteurLayout({ children }) {
               size='small'
               key={index}
               color={list.color}
-              href={list.link}>
+              onClick={() => handleClickLinkedin(list.user, list.link)}
+              target="_blank"
+            >
               <LinkedInIcon />
               <Typography variant="body2" alignItems={"center"}>
                 {list.user}
