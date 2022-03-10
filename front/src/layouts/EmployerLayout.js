@@ -11,8 +11,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  Slide,
   Toolbar,
 } from "@mui/material";
 import TopNav from "components/core/navBarUser/TopNav";
@@ -63,8 +61,8 @@ export default function EmployerLayout({ children }) {
     { name: "Mot de passe", link: "Employer/profilPw" },
   ];
 
-  const [openEndToken, setOpenEndToken] = React.useState();
-  const [modalEndToken, setModalEndToken] = React.useState();
+  const [openDialogToken, setOpenDialogToken] = React.useState();
+  const [timeToken, setTimeToken] = React.useState();
 
   React.useEffect(() => {
     dispatch(getProfilEmployer());
@@ -79,44 +77,33 @@ export default function EmployerLayout({ children }) {
     (state) => state.employer.dataProfilEmployer
   );
 
-  let endToken = 0;
-  if (!localStorage.getItem("user_token")) return <Navigate to="/" />;
-  else {
-    let token = jwt_decode(localStorage.getItem("user_token"));
+  React.useEffect(() => {
     setInterval(() => {
-      // console.log("token decode", token);
-      console.log("durée token", token.exp - token.iat);
-      //   console.log("token.exp", token.exp);
-      endToken = Math.floor(token.exp - Date.now().valueOf() / 1000);
-      // console.log("fin token", endToken);
-
-      if (Number(endToken) < 60) {
-        setOpenEndToken(true);
-        setModalEndToken(endToken);
-        //   console.log("je suis dans la derniere min");
-
-        if (Number(endToken) === 0) {
-          setOpenEndToken(false);
-          console.log("je vais me deconnecter");
-          localStorage.removeItem("user_token");
-          window.location.reload();
+      if (!localStorage.getItem("user_token")) return <Navigate to="/" />
+      else {
+        let timeTokenMin = Math.floor(jwt_decode(localStorage.getItem("user_token")).exp - Date.now().valueOf() / 1000)
+        if (Number(timeTokenMin) < 60) {
+          setInterval(() => {
+            setOpenDialogToken(true);
+            let timeTokenSec = Math.floor(jwt_decode(localStorage.getItem("user_token")).exp - Date.now().valueOf() / 1000)
+            setTimeToken(timeTokenSec);
+            if (Number(timeTokenSec) === 0) {
+              setOpenDialogToken(false);
+              localStorage.removeItem("user_token");
+              window.location.reload();
+            }
+          }, 1000);
         }
       }
-    }, 1000);
-  }
+    }, 60000);
+  }, []);
 
-  const handleClose = async (e) => {
+  const handleFormToken = async (e) => {
     e.preventDefault();
-
-    console.log("je continue sur le site");
-
-    setOpenEndToken(false);
-    setModalEndToken(0);
-    await dispatch(getProfilEmployer());
-
-    setTimeout(() => {
-        
-    }, timeout);
+    setTimeout(async () => {
+      await dispatch(getDashboardEmployer());
+      setOpenDialogToken(false);
+    }, 600);
   };
 
   return (
@@ -195,9 +182,9 @@ export default function EmployerLayout({ children }) {
                 <Footer />
             </Box> */}
 
-      {openEndToken && (
+      {openDialogToken && (
         <Dialog
-          open={openEndToken}
+          open={openDialogToken}
           actions={null}
           keepMounted
           aria-describedby="alert-dialog-token"
@@ -206,7 +193,7 @@ export default function EmployerLayout({ children }) {
             <Box display={"flex"} justifyContent={"end"} pb={2}>
               <CircularProgress
                 variant="determinate"
-                value={modalEndToken * 1.66}
+                value={timeToken * 1.66}
                 sx={{ color: "red" }}
               />
             </Box>
@@ -214,11 +201,11 @@ export default function EmployerLayout({ children }) {
               sx={{ color: "black", textAlign: "center" }}
               id="alert-dialog-token"
             >
-              Vous allez être déconnecté dans {modalEndToken} secondes...
+              Vous allez être déconnecté dans {timeToken} secondes...
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button sx={{ color: "black" }} onClick={(e) => handleClose(e)}>
+            <Button sx={{ color: "blue" }} onClick={(e) => handleFormToken(e)}>
               Rester sur le site
             </Button>
           </DialogActions>
