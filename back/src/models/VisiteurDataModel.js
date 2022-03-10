@@ -20,7 +20,8 @@ VisiteurData.getAllEntrepriseAvatar = function (result) {
             `select c.avatar, c.user_id, u.id, u.isRecruteur
             from  contactProfil as c, user as u
             where u.id = c.user_id
-            and u.isRecruteur = 1`, (error, data) => {
+            and u.isRecruteur = 1
+            limit 8`, (error, data) => {
             if (error) throw error;
             result(null, data);
             conn.release();
