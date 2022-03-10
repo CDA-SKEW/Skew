@@ -16,44 +16,24 @@ import url from 'utils/url';
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
     return (
-        <Dialog
-            fullScreen
-            open={open}
-            onClose={handleClose}
-            TransitionComponent={Transition}
-        >
+        <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
             <List sx={{ bgcolor: "#cecece" }}>
-                <Card sx={{
-                    width: "80%",
-                    maxWidth: 800,
-                    mx: 'auto',
-                    my: 10,
-                    bgcolor: '#fff'
-                }}>
+                <Card sx={{ width: "80%", maxWidth: 800, mx: 'auto', my: 10, bgcolor: '#fff' }}>
                     <CardMedia
                         component="img"
                         image={url.url + data.avatar}
                         alt={data.title}
-                        sx={{maxHeight: 250}}
+                        sx={{ maxHeight: 250 }}
                     />
                     <IconButton
                         color="inherit"
                         onClick={handleClose}
                         aria-label="close"
-                        sx={{
-                            position: 'absolute',
-                            top: 90,
-                            bgcolor: 'secondary.main'
-                        }}
-                    >
+                        sx={{ position: 'absolute', top: 90, bgcolor: 'secondary.main' }}>
                         <CloseIcon />
                     </IconButton>
                     <CardContent>
-                        <Box sx={{
-                            display: 'flex',
-                            width: '100%',
-                            justifyContent: 'space-between',
-                        }}>
+                        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', }}>
                             <Typography variant="body2" color="text.secondary">
                                 publié le <br />
                                 {data.createDate}
@@ -82,26 +62,11 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                         </Typography>
                     </CardContent>
                     <CardActions
-                        sx={{
-                            mt: 2,
-                            justifyContent: 'space-between',
-                            px: 5
-                        }}
-                    >
-                        <Button
-                            variant='contained'
-                            sx={{
-                                bgcolor: 'secondary.main'
-                            }}
-                        >
+                        sx={{ mt: 2, justifyContent: 'space-between', px: 5 }}>
+                        <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
                             <FavoriteBorderIcon />
                         </Button>
-                        <Button
-                            variant='contained'
-                            sx={{
-                                bgcolor: 'secondary.main'
-                            }}
-                        >
+                        <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
                             Postuler
                         </Button>
                     </CardActions>

@@ -19,24 +19,16 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Link from '@mui/material/Link';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Slide from '@mui/material/Slide';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 
 import Inscription from 'components/auth/Inscription';
+import Connexion from 'components/auth/Connexion';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { changePass, login } from "store/actions/AuthActions";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -47,15 +39,9 @@ export default function VisiteurLayout({ children }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
-  const [openChildModal, setOpenChildModal] = useState(false);
   const [openDialogConnexion, setOpenDialogConnexion] = useState(false);
   const [openDialogInscription, setOpenDialogInscription] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [certificate, setCertificate] = useState(false);
-  const [mail, setMail] = useState('');
-  const [mailLostPass, setMailLostPass] = useState('');
-  const [pass, setPass] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [errorInscription, setErrorInscription] = useState('');
@@ -75,54 +61,32 @@ export default function VisiteurLayout({ children }) {
     { user: 'Wilfried', link: 'https://www.linkedin.com/in/liwza/', color: 'wil' },
   ];
 
-  const handleClickShowPassword = () => { setShowPassword(!showPassword) };
-  const handleMouseDownPassword = (event) => { event.preventDefault(); };
-
   const isAdmin = useSelector(state => state.auth.user.isAdmin);
   const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
   const isCandidat = useSelector(state => state.auth.user.isCandidat);
+
   const flash = useSelector(state => state.auth.flash);
   const flashCon = useSelector(state => state.auth.flashCon);
 
-  const handleCloseChildModal = () => { setOpenChildModal(false); };
   const handleCloseDialogConnexion = () => { setOpenDialogConnexion(false); }
   const handleCloseDialogInscription = () => { setOpenDialogInscription(false); }
 
-  const SubmitFormId = async (e) => {
-    if (mail && pass) {
-      await dispatch(login({ mail, pass }));
-      setPass('');
-      setCertificate(true)
-    } else {
-      setError('Tous les champs doivent être remplis!');
-      setSuccessInscription('');
-      setErrorInscription('');
-      setSuccess('');
-    }
-  };
-  const handleSubmitChildModal = () => { if (mailLostPass.length > 0) dispatch(changePass({ mailLostPass })) }
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
   const logout = () => {
     localStorage.removeItem("user_token");
     window.location.reload()
   }
-
-  useEffect(() => {
-    if (certificate === true) {
-      if (isAdmin === 1) {
-        navigate("/admin");
-        setCertificate(false)
-      }
-      else if (isCandidat === 1) {
-        navigate("/candidat/dashboard");
-        setCertificate(false)
-      }
-      else if (isRecruteur === 1) {
-        navigate("/employer/dashboard");
-        setCertificate(false)
-      }
+  const handleClickNavigate = () => {
+    if (isAdmin === 1) {
+      navigate("/admin");
     }
-  }, [certificate, isAdmin, isCandidat, isRecruteur, navigate]);
+    else if (isCandidat === 1) {
+      navigate("/candidat/dashboard");
+    }
+    else if (isRecruteur === 1) {
+      navigate("/employer/dashboard");
+    }
+  }
 
   useEffect(() => {
     if (flash.length >= 0) {
@@ -178,6 +142,11 @@ export default function VisiteurLayout({ children }) {
                   </Button>
                 }
                 {userToken &&
+                  <MenuItem onClick={() => handleClickNavigate()}>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                }
+                {userToken &&
                   <Button variant="contained" onClick={logout} sx={{ bgcolor: 'secondary.main' }}>
                     Log out
                   </Button>
@@ -194,96 +163,27 @@ export default function VisiteurLayout({ children }) {
                     display: 'flex', textAlign: 'center'
                   }}>
                     {/* Connexion */}
-                    <Box sx={{ display: 'block', width: 400, pr: 2, borderRight: 2 }}>
-                      <Typography variant='h4'>Connexion</Typography>
-                      <TextField label='Mail' name='mail' variant="outlined" fullWidth
-                        onChange={(e) => setMail(e.target.value)} sx={{ my: 1 }} />
-                      <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
-                        <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
-                        <OutlinedInput name='pass' type={showPassword ? 'text' : 'password'}
-                          value={pass} onChange={(e) => setPass(e.target.value)}
-                          endAdornment={
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end"
-                              >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          }
-                          label="Password"
-                        />
-                      </FormControl>
-                      <Link
-                        component="button" variant="body2"
-                        onClick={() => setOpenChildModal(true)}
-                        sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
-                        Mot de passe oublié
-                      </Link>
-                      <Modal
-                        hideBackdrop
-                        open={openChildModal}
-                        onClose={handleCloseChildModal}
-                        aria-labelledby="child-modal-title"
-                        aria-describedby="child-modal-description"
-                      >
-                        <Box sx={{
-                          position: 'absolute', top: '50%', left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          width: 400, height: 300, bgcolor: '#fff',
-                          pt: 2, px: 4, pb: 3, borderRadius: 2,
-                          display: 'block', textAlign: 'center', border: 1
-                        }}>
-                          <h2 id="child-modal-title">Mot de passe oublié</h2>
-                          <p id="child-modal-description">Entrez votre adresse mail:</p>
-                          <TextField
-                            label='Mail' name='mailLostmdp' variant="outlined" fullWidth
-                            onChange={(e) => setMailLostPass(e.target.value)}
-                            sx={{ my: 1 }} />
-                          <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 3 }}>
-                            <Button
-                              variant='contained'
-                              onClick={() => handleSubmitChildModal()}
-                              sx={{ bgcolor: "secondary.main", width: 100 }}>
-                              Envoyer
-                            </Button>
-                            <Button
-                              variant='contained'
-                              onClick={() => setOpenChildModal(false)}
-                              sx={{ bgcolor: "secondary.main", width: 100 }}>
-                              Fermer
-                            </Button>
-                          </Box>
-                        </Box>
-                      </Modal>
-                      <Button variant="contained" fullWidth onClick={() => SubmitFormId()}
-                        sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
-                        Envoyer
-                      </Button>
-                      {error.length > 0 &&
-                        <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' align='center' >{error}</Typography>
-                        </Box>
-                      }
-                      {success.length > 16 &&
-                        <Box sx={{ my: 3, color: '#ff0000' }} >
-                          <Typography variant='body1' align='center' >{success}</Typography>
-                        </Box>
-                      }
-                    </Box>
+                    <Connexion
+                      dispatch={dispatch}
+                      error={error}
+                      setErrorInscription={setErrorInscription}
+                      success={success}
+                      setSuccess={setSuccess}
+                      setSuccessInscription={setSuccessInscription}
+                      isAdmin={isAdmin}
+                      isCandidat={isCandidat}
+                      isRecruteur={isRecruteur}
+                    />
 
                     {/* Inscription */}
                     <Inscription
                       dispatch={dispatch}
-                      setErrorInscription={setErrorInscription}
-                      setSuccessInscription={setSuccessInscription}
-                      setSuccess={setSuccess}
                       setError={setError}
                       errorInscription={errorInscription}
+                      setErrorInscription={setErrorInscription}
+                      setSuccess={setSuccess}
                       successInscription={successInscription}
+                      setSuccessInscription={setSuccessInscription}
                     />
                   </Box>
                 </Modal>
@@ -367,6 +267,19 @@ export default function VisiteurLayout({ children }) {
                         </Typography>
                       </Toolbar>
                     </AppBar>
+
+                    {/* Connexion */}
+                    <Connexion
+                      dispatch={dispatch}
+                      error={error}
+                      setErrorInscription={setErrorInscription}
+                      success={success}
+                      setSuccess={setSuccess}
+                      setSuccessInscription={setSuccessInscription}
+                      isAdmin={isAdmin}
+                      isRecruteur={isRecruteur}
+                      isCandidat={isCandidat}
+                    />
                   </Dialog>
                 </Box>
               </SwipeableDrawer>
