@@ -61,17 +61,31 @@ export default function VisiteurLayout({ children }) {
     { user: 'Wilfried', link: 'https://www.linkedin.com/in/liwza/', color: 'wil' },
   ];
 
+  const isAdmin = useSelector(state => state.auth.user.isAdmin);
+  const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
+  const isCandidat = useSelector(state => state.auth.user.isCandidat);
+
   const flash = useSelector(state => state.auth.flash);
   const flashCon = useSelector(state => state.auth.flashCon);
 
   const handleCloseDialogConnexion = () => { setOpenDialogConnexion(false); }
   const handleCloseDialogInscription = () => { setOpenDialogInscription(false); }
 
-
   const toggleDrawer = (newOpenDrawer) => () => { setOpenDrawer(newOpenDrawer); };
   const logout = () => {
     localStorage.removeItem("user_token");
     window.location.reload()
+  }
+  const handleClickNavigate = () => {
+    if (isAdmin === 1) {
+      navigate("/admin");
+    }
+    else if (isCandidat === 1) {
+      navigate("/candidat/dashboard");
+    }
+    else if (isRecruteur === 1) {
+      navigate("/employer/dashboard");
+    }
   }
 
   useEffect(() => {
@@ -128,6 +142,11 @@ export default function VisiteurLayout({ children }) {
                   </Button>
                 }
                 {userToken &&
+                  <MenuItem onClick={() => handleClickNavigate()}>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                }
+                {userToken &&
                   <Button variant="contained" onClick={logout} sx={{ bgcolor: 'secondary.main' }}>
                     Log out
                   </Button>
@@ -151,6 +170,9 @@ export default function VisiteurLayout({ children }) {
                       success={success}
                       setSuccess={setSuccess}
                       setSuccessInscription={setSuccessInscription}
+                      isAdmin={isAdmin}
+                      isCandidat={isCandidat}
+                      isRecruteur={isRecruteur}
                     />
 
                     {/* Inscription */}
@@ -254,6 +276,9 @@ export default function VisiteurLayout({ children }) {
                       success={success}
                       setSuccess={setSuccess}
                       setSuccessInscription={setSuccessInscription}
+                      isAdmin={isAdmin}
+                      isRecruteur={isRecruteur}
+                      isCandidat={isCandidat}
                     />
                   </Dialog>
                 </Box>

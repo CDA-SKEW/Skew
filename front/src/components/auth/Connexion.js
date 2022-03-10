@@ -14,11 +14,18 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
 import { changePass, login } from "store/actions/AuthActions";
 
 export default function Connexion(props) {
-    const { dispatch, success, setSuccessInscription, setErrorInscription, setSuccess } = props
+    const { dispatch,
+        success,
+        setSuccessInscription,
+        setErrorInscription,
+        setSuccess,
+        isAdmin,
+        isRecruteur,
+        isCandidat
+    } = props
 
     const navigate = useNavigate();
     const [mail, setMail] = useState('');
@@ -28,10 +35,6 @@ export default function Connexion(props) {
     const [openChildModal, setOpenChildModal] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [certificate, setCertificate] = useState(false);
-
-    const isAdmin = useSelector(state => state.auth.user.isAdmin);
-    const isRecruteur = useSelector(state => state.auth.user.isRecruteur);
-    const isCandidat = useSelector(state => state.auth.user.isCandidat);
 
     const handleClickShowPassword = () => { setShowPassword(!showPassword) };
     const handleMouseDownPassword = (event) => { event.preventDefault(); };
