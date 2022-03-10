@@ -12,7 +12,7 @@ const ParagraphCard = ({ cardsContent }) => {
             {cardsContent.position === true && (
                 <Card
                     sx={{
-                        my: 20, display: "flex", bgcolor: "#fff", boxShadow: "none",
+                        my: 5, display: "flex", bgcolor: "#fff", boxShadow: "none",
                         justifyContent: { xs: "center", md: "space-around" },
                         flexDirection: { xs: "column", md: "row" },
                         alignItems: { xs: "center", md: "none" }
@@ -37,7 +37,7 @@ const ParagraphCard = ({ cardsContent }) => {
             {cardsContent.position === false && (
                 <Card
                     sx={{
-                        my: 20, display: "flex", bgcolor: "#fff", boxShadow: "none",
+                        my: 5, display: "flex", bgcolor: "#fff", boxShadow: "none",
                         justifyContent: { xs: "center", md: "space-around" },
                         flexDirection: { xs: "column", md: "row" },
                         alignItems: { xs: "center", md: "none" },
