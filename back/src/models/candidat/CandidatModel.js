@@ -101,7 +101,7 @@ Candidat.getProfil = function (user_id, result) {
                                             { user_id },
                                             (error, data) => {
                                                 if (error) throw error;
-                                                console.log('je suis ici', Obj, data)
+                                                // console.log('je suis ici', Obj, data)
                                                 Obj.document = data
                                                 result(null, Obj);
                                                 conn.release();

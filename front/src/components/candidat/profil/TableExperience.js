@@ -416,10 +416,6 @@ export default function TableExperience(props) {
 
 
 
-
-
-
-
   // condition check mode edit is activ add new column in tableHead "column action"
   // Constante pour check si le mode edit est actif afficher la colonne action
   const checkViewAction = () => {

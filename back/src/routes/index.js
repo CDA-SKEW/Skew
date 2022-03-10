@@ -6,6 +6,10 @@ const router = require("express").Router();
 const upload = require("../config/multer"),
   sharp = require("../config/sharp");
 
+
+const uploadCv = require("../config/multerCv");
+
+
 //#############
 //#Controllers#
 //#############
@@ -217,13 +221,11 @@ router
 // ########################################
 router
   .route("/api/candidat/profil/document")
-  // .get(new CandidatProfilControllers().getDocumentProfil)
-  .post(upload.single("document"), new CandidatProfilControllers().createDocumentProfil);
+  .post(uploadCv.single("document"), new CandidatProfilControllers().createDocumentProfil);
 
 router
   .route("/api/candidat/profil/document/:id")
-  // .put(new CandidatProfilControllers().updateDocumentProfil)
-  .delete(new CandidatProfilControllers().deleteDocumentProfil);
+// .delete(new CandidatProfilControllers().deleteDocumentProfil);
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #

@@ -436,19 +436,13 @@ class CandidatProfilControllers {
   // # DOCUMENT TABLE #
   // ##################
 
-  //  GET DOCUMENT PROFIL CANDIDAT 
-
-  // async getDocumentProfil(req, res) {
-  //   // console.log("controller GET Profil DOCUMENT");
-  //   res.json({ message: "controller READ profil DOCUMENT" });
-  // }
 
   //  CREATE DOCUMENT PROFIL CANDIDAT
 
   async createDocumentProfil(req, res) {
     // console.log('Controller req.file', req.file, req.body);
     // console.log("controller CREATE Profil candidat DOCUMENT");
-    // console.log('REQ.BODY CREATE', req.body);
+    console.log('REQ.BODY CREATE', req.body);
     let newDocument = new CandidatDocument({
       ...req.body
     });
@@ -470,18 +464,24 @@ class CandidatProfilControllers {
     // res.json({ message: "controller CREATE profil candidat DOCUMENT" });
   }
 
-  //  UPDATE DOCUMENT PROFIL CANDIDAT 
-
-  // async updateDocumentProfil(req, res) {
-  //   // console.log("controller UPDATE Profil Candidat DOCUMENT");
-  //   res.json({ message: "controller UPDATE profil candidat DOCUMENT" });
-  // }
 
   //  DELETE DOCUMENT PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
     // console.log("controller DELETE Profil Candidat CERTIFICATE");
-    res.json({ message: "controller DELETE profil candidat DOCUMENT" });
+    try {
+      CandidatDocument.deleteDocumentProfil(req.params.id, (err, data) => {
+        if (err) res.send(err);
+        else {
+          return res.send({
+            method: req.method,
+            User: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   // **************************************

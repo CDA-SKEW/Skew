@@ -128,8 +128,8 @@ export const postFormDocument = (form) => {
                 },
             })
             .then((res) => {
-                console.log("Get Profil Candidate ACTION RETOUR DU BACK TO FRONT ", res.data.userProfil);
-                // dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+                // console.log("Get Profil Candidate ACTION RETOUR DU BACK TO FRONT ", res.data);
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
             })
             .catch((err) => console.log(err));
 
@@ -177,7 +177,7 @@ export const deleteFormProfilCandidateSkill = (id) => {
 
 // *************************************************
 
-// Delete profil Candidate SKILL
+// Delete profil Candidate INTEREST
 
 export const deleteFormProfilCandidateInterest = (id) => {
     console.log('form PROFIL CANDIDATE DELETE', id)
@@ -195,7 +195,7 @@ export const deleteFormProfilCandidateInterest = (id) => {
 
 // *************************************************
 
-// Delete profil Candidate SKILL
+// Delete profil Candidate CERTIFICATE
 
 export const deleteFormProfilCandidateCertificate = (id) => {
     console.log('form PROFIL CANDIDATE DELETE', id)
@@ -210,7 +210,18 @@ export const deleteFormProfilCandidateCertificate = (id) => {
     };
 };
 // *************************************************
-
+export const deleteFormProfilCandidateDocument = (id_document) => {
+    console.log('form PROFIL CANDIDATE DELETE DOCUMENT', id_document)
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/profil/document/${id_document}`)
+            .then((res) => {
+                // console.log("Get Profil Candidate", res.data);
+                dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
 
 // #######
 // # PUT #
