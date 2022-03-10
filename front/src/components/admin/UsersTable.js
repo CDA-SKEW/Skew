@@ -21,9 +21,10 @@ export default function UsersTable(props) {
     {
       field: "date",
       headerName: "Dates",
-      width: 150,
-      renderCell: () => {
-        return <Dates />;
+      type:"date",
+      width: 170,
+      renderCell: (cell) => {
+        return <Dates user={cell} />;
       },
       editable: false,
     },
@@ -32,7 +33,7 @@ export default function UsersTable(props) {
       headerName: "Avatars",
       width: 100,
       renderCell: (cell) => {
-        return <Avatars avatar={cell} />;
+        return <Avatars contactProfil={cell} />;
       },
     },
     {

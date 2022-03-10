@@ -3,48 +3,87 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const should = require("chai").should();
 const expect = chai.expect;
+const connection = require("../../src/config/ConnectionDB");
 const { app } = require("../../src/Server");
-const { query } = require("../../src/config/ConnectionDB");
 const path = require("path");
 
 chai.use(chaiHttp);
 
-/*****Test Routes chai *****/
+/***** Test Routes chai *****/
 
-describe("UsersController - Chai", () => {
-  let getListUsers = {};
+describe("UsersController - Chai", function () {
+  this.timeout(0);
+  it("should have the correct initial data values", function () {});
+  let user = {};
 
-  /*****Before Each *****/
+  /******* Before Each *******/
 
-  beforeEach(async (conn) => {
-    const rand = Math.floor(Math.random() * 100 + 54);
-    const date = new Date();
-    const format = date.getMilliseconds() + rand;
-
-    conn.query(`
-        SELECT u.*, c.name, c.lastname, c.badge, c.avatar FROM user as u
-        INNER JOIN  contactProfil  as c
-        ON u.id = c.user_id
-            `);
-    console.log("Before each: ", getListUsers);
+  beforeEach(function () {
+    connection.getConnection(function (result, conn, error, data) {
+      conn.query(
+        `select * from user;
+  `
+        // (error, data),
+        // function () {
+        //   if (error) throw error;
+        //   result(null, data);
+        // }
+      );
+      conn.release();
+    });
   });
 
-  it("Get All Users", (done) => {
-    this.timeout(500);
-    setTimeout(done, 300);
-    // Test route Get All Users
-    chai;
-    Promise.all([
-      request(app)
-        .get("/admin/users")
-        .set("Accept", "application/json")
-        .end((err, res) => {
-          if (err) return done(err);
-          res.should.have.status(200);
-          //   res.body.user.should.be.a("array");
-          //   res.body.user[0].should.be.a("object");
-          done();
-        }),
-    ]);
+  /****** Get All Users *******/
+
+  it("Get all users", (done, error) => {
+    // console.log("app", app, done());
+
+    // Test route Get All
+    chai
+      .request(app)
+      .get("/admin/users")
+      .set("Accept", "application/json")
+      .end((err, res) => {
+        if (err) return done(err, " 😞 ");
+        res.should.have.status(200);
+      })
+      // .then((req) => {
+      //   expect(1).to.equal(11); // this will throw a error
+      //   done(); // this will resove the test if there is no error
+      // })
+      // .catch((error) => {
+      //   done(error); //this will catch the thrown error
+      // })
+      .then(() => done(), done);
+  });
+
+  /****** Get put user *******/
+
+  //  it("Get put user", (done, error) => {
+  //   console.log("app", done());
+
+  //   // Test route Get All
+  //   chai
+  //     .request(app)
+  //     .get(`/admin/users/${id}`)
+  //     .set("Accept", "application/json")
+  //     .end((err, res) => {
+  //       if (err) return done(err, " 😞 ");
+  //       res.should.have.status(200);
+  //       // res.body.user.should.be.a("array");
+  //       // res.body.user[0].should.be.a("object");
+  //     })
+  //     .then((req) => {
+  //       expect(1).to.equal(11); // this will throw a error
+  //       done(); // this will resove the test if there is no error
+  //     })
+  //     .catch((error) => {
+  //       done(error); //this will catch the thrown error
+  //     });
+  // });
+
+  it("TEST UNITAIRES OK", (done) => {
+    done();
+    console.log("I'm happy 😆 !!!");
   });
 });
