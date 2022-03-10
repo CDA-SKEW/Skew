@@ -135,16 +135,17 @@ export default function VisiteurLayout({ children }) {
                   </MenuItem>
                 ))}
 
+                {userToken &&
+                  <MenuItem onClick={() => handleClickNavigate()}>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                }
+
                 {/* Bouton Login */}
                 {!userToken &&
                   <Button variant="contained" onClick={() => setOpenModal(true)} sx={{ bgcolor: 'secondary.main' }}>
                     Log in / Sign in
                   </Button>
-                }
-                {userToken &&
-                  <MenuItem onClick={() => handleClickNavigate()}>
-                    <Typography textAlign="center">Dashboard</Typography>
-                  </MenuItem>
                 }
                 {userToken &&
                   <Button variant="contained" onClick={logout} sx={{ bgcolor: 'secondary.main' }}>
@@ -209,11 +210,25 @@ export default function VisiteurLayout({ children }) {
                       <Typography textAlign="center">{page.titre}</Typography>
                     </MenuItem>
                   ))}
-                  <Button
-                    variant="contained"
-                    onClick={() => setOpenModal(true)}
-                    sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
-                    Log in / Sign in</Button>
+                  {userToken &&
+                    <MenuItem onClick={() => handleClickNavigate()}>
+                      <Typography textAlign="center">Dashboard</Typography>
+                    </MenuItem>
+                  }
+
+                  {/* Bouton Login */}
+                  {!userToken &&
+                    <Button variant="contained" onClick={() => setOpenModal(true)}
+                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
+                      Log in / Sign in
+                    </Button>
+                  }
+                  {userToken &&
+                    <Button variant="contained" onClick={logout}
+                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
+                      Log out
+                    </Button>
+                  }
                 </Box>
 
                 {/* Modal Login / signin */}
