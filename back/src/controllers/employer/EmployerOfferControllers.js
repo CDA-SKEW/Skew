@@ -46,11 +46,12 @@ class EmployerOfferControllers {
   //action GetOffer by User id
   async getOfferId(req, res) {
     // console.log("controller get Offer Employeur");
-
-    if (req.params.id) {
+    const decoded = jwt.decode(req.headers['authorization'], {complete: true})
+    const id= decoded.payload.id
+    if (id) {
       try {
         //ici String est une coercion qui permet de typer la variable
-        Offer.getOfferId(String(req.params.id), (err, data) => {
+        Offer.getOfferId(String(id), async (err, data) => {
           // console.log("dataid res", data);
           //Si erreur alors affiche console log erreur et res.status
           if (err) {
@@ -65,6 +66,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "Mes offres",
               offers: data,
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
             });
           }
         });
@@ -76,26 +78,28 @@ class EmployerOfferControllers {
 
   async createOffer(req, res) {
     // console.log("controller create offer Employeur");
-
-    if (req.body.user_id) {
+    const decoded = jwt.decode(req.headers['authorization'], {complete: true})
+    const id= decoded.payload.id
+    if (id) {
       // console.log("post create offer", req.body);
       let offerObj = new Offer({
         ...req.body,
       });
       // console.log("post create offer profilUserObj ", offerObj);
       try {
-        Offer.createOffer(offerObj, (err, data) => {
+        Offer.createOffer(offerObj, async (err, data) => {
           if (err) {
             console.log("err", err),
               res.status(500).send({
                 message: err.message || "Une erreur est survenue",
               });
-          } else {
+          } else {    
             return res.json({
               method: req.method,
               status: "success",
               message: "Votre offre a bien été publiée !",
               offers: data,
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
             });
           }
         });
@@ -108,10 +112,11 @@ class EmployerOfferControllers {
   }
 
   async delOffer(req, res) {
+    const decoded = jwt.decode(req.headers['authorization'], {complete: true})
     // console.log("controller del offer Employeur");
     try {
       //ici String est une coercion qui permet de typer la variable
-      Offer.deleteOffer(String(req.params.id), (err, data) => {
+      Offer.deleteOffer(String(req.params.id), async (err, data) => {
         // console.log("dataid res", data);
         //Si erreur alors affiche console log erreur et res.status
         if (err) {
@@ -127,6 +132,7 @@ class EmployerOfferControllers {
             flash: "Del offer By Id !",
             message: "Votre offre a bien été supprimée !",
             offers: data,
+            token:await checkValidContentToken.validContentToken(decoded.payload.mail)
           });
         }
       });
@@ -137,6 +143,7 @@ class EmployerOfferControllers {
 
   async updateCandidate(req, res) {
     // console.log("controller update statut Candidate", req.body,req.params.id);
+    const decoded = jwt.decode(req.headers['authorization'], {complete: true})
 
     if (req.params.id && req.body.offer_id) {
       let isRetainLet;
@@ -152,7 +159,7 @@ class EmployerOfferControllers {
       // console.log("controller update statut Candidate statutCandidateObj", statutCandidateObj);
 
       try {
-        StatutCandidate.updateCandidate(statutCandidateObj, (err, data) => {
+        StatutCandidate.updateCandidate(statutCandidateObj, async (err, data) => {
           if (err) {
             console.log("err", err),
               res.status(500).send({
@@ -164,6 +171,7 @@ class EmployerOfferControllers {
               status: "success",
               message: "Le status du candidat pour cette offre a été changé",
               offers: data,
+              token:await checkValidContentToken.validContentToken(decoded.payload.mail)
             });
           }
         });

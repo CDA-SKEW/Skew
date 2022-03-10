@@ -12,11 +12,11 @@ import ScrollTop from "components/ScrollTop";
 import SlideBarUser from "components/core/navBarUser/SlideBarUser";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilEmployer } from "store/actions/EmployerActions";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function EmployerLayout({ children }) {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
 
@@ -61,7 +61,6 @@ export default function EmployerLayout({ children }) {
     React.useEffect(() => {
         window.scrollTo(0, 0);
     }, [location]);
-
 
     //dispatch(getProfilEmployer());
 

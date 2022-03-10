@@ -52,7 +52,7 @@ router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
 router
-.route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp)
+  .route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
@@ -69,8 +69,6 @@ router
 
 // Employeur user profil
 router
-  // .route("/api/employer/dashboard/:id")
-  // .get(new EmployerOfferControllers().getDashboard);
   .route("/api/employer/dashboard")
   .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
@@ -85,46 +83,55 @@ router
   .route("/api/employer/profilUserPw")
   .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUserPw);
 
-// Employeur entreprise profil
-router
-  .route("/api/employer/profil")
-  .post(
-    upload.single("avatar"),
-    sharp,
-    new EmployerProfilControllers().createProfilCompagny
-  );
-
 // Employeur entreprise profil Id
 router
-  .route("/api/employer/profil/:id")
-  .get(new EmployerProfilControllers().getProfilCompagny)
-  .put(
+  .route("/api/employer/profil")
+  .get(new TokenJWT().checkToken, new EmployerProfilControllers().getProfilCompagny)
+  .put(new TokenJWT().checkToken,
     upload.single("avatar"),
     sharp,
     new EmployerProfilControllers().updateProfilCompagny
   );
 
-// Employeur offer
-router
-  .route("/api/employer/offer")
-  .get(new EmployerOfferControllers().getOffer)
-  .post(new EmployerOfferControllers().createOffer);
-
 // Employeur offerid
 router
+  .route("/api/employer/offer")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getOfferId)
+  .post(new TokenJWT().checkToken, new EmployerOfferControllers().createOffer)
+
+router
   .route("/api/employer/offer/:id")
-  .get(new EmployerOfferControllers().getOfferId)
-  .delete(new EmployerOfferControllers().delOffer);
+  .delete(new TokenJWT().checkToken, new EmployerOfferControllers().delOffer);
 
 // Employeur statut candidat offer
 router
   .route("/api/employer/offer/candidat/:id")
-  .put(new EmployerOfferControllers().updateCandidate);
+  .put(new TokenJWT().checkToken, new EmployerOfferControllers().updateCandidate);
 
 // Employeur send message candidate
 router
   .route("/api/employer/candidat/message")
-  .post(new EmployerOfferControllers().createMessageCandidate);
+  .post(new TokenJWT().checkToken, new EmployerOfferControllers().createMessageCandidate);
+
+// Employeur entreprise profil
+//  Plus utlisé dans l'application car profil crée par défaut au register
+// Utiliser pour test postman
+router
+  .route("/api/employer/profil")
+  .post(
+    new TokenJWT().checkToken,
+    upload.single("avatar"),
+    sharp,
+    new EmployerProfilControllers().createProfilCompagny
+  );
+
+
+// Employeur offer
+//  Plus utlisé dans l'application
+// Utiliser pour test postman
+router
+  .route("/api/employer/allOffer")
+  .get(new EmployerOfferControllers().getOffer)
 
 //------------------------------------------------------------
 
@@ -236,7 +243,7 @@ router
 router
   .route("/api/admin/messages/:id")
   // .get(new MessagesController().getMessageId)
-  .delete (new MessagesController().deleteMessage);
+  .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);
