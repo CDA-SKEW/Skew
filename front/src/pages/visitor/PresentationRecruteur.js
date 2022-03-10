@@ -47,10 +47,7 @@ export default function PresentationRecruteur() {
     return (
         <VisiteurLayout>
             {/* Présentation agence à l employeur */}
-            <Box sx={{
-                maxWidth: { lg: 'lg', xl: 'xl' }
-            }}
-                mx={'auto'} >
+            <Box sx={{ maxWidth: { lg: 'lg', xl: 'xl' } }} mx={'auto'} >
                 <Card sx={{
                     my: 10, display: "flex", bgcolor: "#fff", boxShadow: "none",
                     justifyContent: { xs: "center", md: "space-around" },
