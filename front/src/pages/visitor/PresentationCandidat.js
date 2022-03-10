@@ -47,7 +47,7 @@ export default function PresentationCandidat() {
 
             {/* Collaboration candidats */}
             <Box sx={{ bgcolor: 'primary.main', width: '100%' }}>
-                <Typography variant="h2" component="div" sx={{ textAlign: 'center', py: 5 }}>
+                <Typography variant="h2" component="div" sx={{ textAlign: 'center', py: 5, fontSize: { xs: 35, xl: 45 } }}>
                     Ils ont collaborés avec nous
                 </Typography>
                 <Box
@@ -82,7 +82,7 @@ export default function PresentationCandidat() {
 
             {/* Dernières offres */}
             <Box sx={{ mb: 10, my: 10 }}>
-                <Typography variant="h2" component="div" sx={{ textAlign: 'center', my: 2, }}>
+                <Typography variant="h2" component="div" sx={{ textAlign: 'center', my: 2, fontSize: { xs: 35, xl: 45 } }}>
                     Nos dernières offres
                 </Typography>
                 <Box sx={{ bgcolor: 'primary.main' }}>

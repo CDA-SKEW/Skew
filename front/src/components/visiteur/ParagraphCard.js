@@ -23,7 +23,7 @@ const ParagraphCard = ({ cardsContent }) => {
                         alt="Pourquoi-nous"
                         sx={{ minWidth: 340, width: '90%' }} />
                     <CardContent sx={{ pt: 0, px: 2, width: '90%' }}>
-                        <Typography variant="h2">{cardsContent.titre}</Typography>
+                        <Typography variant="h2" sx={{ fontSize: { xs: 35, xl: 45 } }}>{cardsContent.titre}</Typography>
                         <Typography
                             variant="body1"
                             color="text.secondary"
@@ -43,7 +43,7 @@ const ParagraphCard = ({ cardsContent }) => {
                         alignItems: { xs: "center", md: "none" },
                     }}>
                     <CardContent sx={{ pt: 0, px: 2, width: '90%' }}>
-                        <Typography variant="h2">{cardsContent.titre}</Typography>
+                        <Typography variant="h2" sx={{ fontSize: { xs: 35, xl: 45 } }}>{cardsContent.titre}</Typography>
                         <Typography
                             variant="body1"
                             color="text.secondary"
