@@ -77,15 +77,12 @@ export default function VisiteurLayout({ children }) {
     window.location.reload()
   }
   const handleClickNavigate = () => {
-    if (isAdmin === 1) {
-      navigate("/admin");
-    }
-    else if (isCandidat === 1) {
-      navigate("/candidat/dashboard");
-    }
-    else if (isRecruteur === 1) {
-      navigate("/employer/dashboard");
-    }
+    if (isAdmin === 1) { navigate("/admin"); }
+    else if (isCandidat === 1) { navigate("/candidat/dashboard"); }
+    else if (isRecruteur === 1) { navigate("/employer/dashboard"); }
+  }
+  const handleClickLinkedin = (user, link) => {
+    if (user) window.location.href = link;
   }
 
   useEffect(() => {
@@ -365,7 +362,9 @@ export default function VisiteurLayout({ children }) {
               size='small'
               key={index}
               color={list.color}
-              href={list.link}>
+              onClick={() => handleClickLinkedin(list.user, list.link)}
+              target="_blank"
+            >
               <LinkedInIcon />
               <Typography variant="body2" alignItems={"center"}>
                 {list.user}
