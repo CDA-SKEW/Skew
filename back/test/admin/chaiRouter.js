@@ -18,66 +18,76 @@ describe("UsersController - Chai", function () {
 
   /******* Before Each *******/
 
-  beforeEach(function (query, insertId) {
+  beforeEach(function () {
     let values = ["leeJackson@gmail.com"];
     let sql = `INSERT INTO user (mail) values(?)`;
     const user = (sql, [values]);
 
-    // console.log("Before EACH:", values, sql, user);
+    console.log("Before EACH:", values, sql, user);
 
-    const userID =  query(
-      `SELECT * FROM user where id = ${user}`
-    );
-    console.log("userID:", insertId);
-  });
+    //   const userID = await query(`select isBanned from user where id = 44`);
+    //   console.log("userID:", 44);
 
-  it("TEST UNITAIRES OK", function (done) {
-    done();
-    console.log("I'm happy 😆 !!!");
-  });
+    //   user = userID[0];
+    //   userID[0].mail.should.be.a("string");
+    // });
 
-  /****** Get All Users *******/
+    it("TEST UNITAIRES OK", function (done) {
+      done();
+      console.log("I'm happy 😆 !!!");
+    });
 
-  it(" Get All users", function (done) {
-    // console.log("app", index.app);
+    /****** Get All Users *******/
 
-    // Test route Get All
-    chai
-      .request(index.app)
-      .get("/api/admin/users")
-      .set("Accept", "application/json")
-      .end((err, res) => {
-        if (err) return done(err);
-        res.should.have.status(200);
-        res.body.user.should.be.a("array");
-        res.body.user[0].should.be.a("object");
-        done();
-      });
-  });
-  it("GET ALL USERS OK", function (done) {
-    done();
-    console.log("I'm happy 😆 !!!");
-  });
+    it(" Get All users", function (done) {
+      console.log("app", index.app);
 
-  /****** Get Update PUT *******/
+      // Test route Get All
+      chai
+        .request(index.app)
+        .get("/api/admin/users")
+        .set("Accept", "application/json")
+        .end((err, res) => {
+          if (err) return done(err, "😞");
+          console.log(res.body);
+          res.should.have.status(200);
+          res.body.user.should.be.a("array");
+          res.body.user[0].should.be.a("object");
+          done();
+        });
+    });
+    it("GET ALL USERS OK", function (done) {
+      done();
+      console.log("I'm happy 😆 !!!");
+    });
 
-  it("Put (ban) user", function (done) {
-    // Test route put (ban user)
-    chai
-      .request(index.app)
-      .get(`/api/admin/users/${id}`)
-      .set("Accept", "application/json")
-      .end((err, res) => {
-        if (err) return done(err);
-        // console.log(res.body)
-        res.should.have.status(200);
-        res.body.dbArticle.should.be.a("array");
-        res.body.dbArticle[0].should.be.a("object");
-        done();
-      });
-  });
-  it("GET PUT USER OK", function (done) {
-    done();
-    console.log("I'm happy 😆 !!!");
+    /****** Get Update PUT *******/
+
+    it(" Put (ban) user", function (done) {
+      // const { id } = user;
+      console.log("id", 44);
+      const body = {
+        mail: "leeJackson@gmail.com",
+      };
+
+      // Test put (ban) user
+      chai
+        .request(index.app)
+        .put(`/api/admin/users/44`)
+        .set("Accept", "application/json")
+        .send(body)
+        .end((err, res) => {
+          if (err) return done(err, "😞");
+          console.log(res.body);
+          res.should.have.status(200);
+          // res.body.user.should.be.a("array");
+          // res.body.user[0].should.be.a("object");
+          done();
+        });
+    });
+    it("GET PUT USER OK", function (done) {
+      done();
+      console.log("I'm happy 😆 !!!");
+    });
   });
 });
