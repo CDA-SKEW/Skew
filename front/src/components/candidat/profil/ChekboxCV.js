@@ -15,6 +15,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // ###########################################
 
 
@@ -66,7 +67,7 @@ export default function DataTable(props) {
 
 
     await dispatch(postFormDocument(formData));
-    await setTimeout(() => dispatch(getProfilCandidate()), 777);
+    await dispatch(getProfilCandidate(id));
 
   }
 
@@ -142,13 +143,20 @@ export default function DataTable(props) {
           Mes CV
         </Typography>
       </Box>
-      <Box>
-        <Button
-          variant="contained"
-          component="label"
-          size="small"
-          sx={{ bgcolor: "#2B2E30" }}
-        >
+      {/* *************************************************************************** */}
+
+
+      {/* Group of BTN Trigger each ModeEdit & ModeAdd */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          alignItems: "center",
+
+        }}>
+
+
+        <Button sx={{ m: 2 }} variant="outlined" size="small" component="label" >
           <Typography>Choisir un document</Typography>
           <TextField
             sx={{ display: "none" }}
@@ -158,27 +166,13 @@ export default function DataTable(props) {
             onChange={(e) => handleDocChange(e)}
           />
         </Button>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            bgcolor: "#DC143C",
-            color: "white",
-            m: 1,
+        <Button sx={{ mr: 6 }} variant="outlined" size="small" type="submit"
+          onClick={(e) => handleSubmitDoc(e)}>
 
-          }}
-          // startIcon={
-          //   <TaskAltIcon
-          //     sx={{ display: { xs: "none", sm: "block" } }}
-          //   />
-          // }
-          type="submit"
-          onClick={(e) => handleSubmitDoc(e)}
-        >
           Ajouter
         </Button>
-
       </Box>
+      {/* *************************************************************************** */}
       <Box style={{ height: 300, width: '100%' }}>
         <TableContainer sx={{ px: "50px" }} component={Paper}>
           <Table sx={{ width: "100%" }}>

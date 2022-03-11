@@ -66,11 +66,12 @@ export default function CandidatLayout({ children }) {
 
     // dispatch(getProfilCandidate());
 
-    // const dataProfilCandidate = useSelector(
-    //     (state) => state.candidate.dataProfilCandidate
-    // );
+    const dataProfilCandidate = useSelector(
+        (state) => state.candidate.userProfil.coord
+    );
+    // console.log('LOG dataprofil', dataProfilCandidate);
 
-    const dataProfilCandidate = { name: "Toto", avatar: "" }
+    // const dataProfilCandidate = { name: "Toto", avatar: "" }
 
     return (
         <ThemeProvider theme={theme}>

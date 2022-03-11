@@ -11,14 +11,14 @@ class Server {
   }
 
   run() {
-    
+
     // Cors
     this.app.use(cors({
-      origin: ['http://localhost:3000', 'http://192.168.1.4:3000', 'https://domain.com/', 'http://domain.com/','http://192.168.1.69:3000', 'http://192.168.1.89:3000'],
+      origin: ['http://localhost:3000', 'http://192.168.1.30:3000', 'http://192.168.1.4:3000', 'https://domain.com/', 'http://domain.com/', 'http://192.168.1.69:3000', 'http://192.168.1.89:3000'],
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       credentials: true
     }))
-   
+
     // Express static permet de diriger un chemin sur un dossier en particulier
     this.app.use("/assets", express.static("public"));
 
@@ -39,7 +39,7 @@ class Server {
         extended: false,
       })
     );
-    
+
     // Routes
     this.app.use(router);
 
