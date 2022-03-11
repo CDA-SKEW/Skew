@@ -37,7 +37,7 @@ User.getListUsers = function (result) {
         //   Si erreur l'afficher
         if (error) throw error;
         //   Sinon afficher les datas
-         result(null, data);
+        result(null, data);
       }
     );
     // Stop la function une fois exécutée
@@ -46,18 +46,18 @@ User.getListUsers = function (result) {
 };
 
 // Get One User
-User.getUserId = function (user, result) {
-  // console.log("Method getID Model User", user);
-  const { id } = user;
-  connection.getConnection(function (error, conn) {
-    conn.query(` SELECT * FROM user WHERE id = :id`, { id }, (error, data) => {
-      if (error) throw error;
-      else result(null, data);
-      // console.log("data", data);
-    });
-    conn.release();
-  });
-};
+// User.getUserId = function (user, result) {
+//   // console.log("Method getID Model User", user);
+//   const { id } = user;
+//   connection.getConnection(function (error, conn) {
+//     conn.query(` SELECT * FROM user WHERE id = :id`, { id }, (error, data) => {
+//       if (error) throw error;
+//       else result(null, data);
+//       // console.log("data", data);
+//     });
+//     conn.release();
+//   });
+// };
 
 // Update User
 User.putUser = function (user, result) {
@@ -90,7 +90,9 @@ User.putUser = function (user, result) {
             // console.log("MODEL BOOL:", isBanned, id);
             if (error) throw error;
             conn.query(
-              `SELECT * FROM user;
+              `SELECT u.*, c.name, c.lastname, c.badge, c.avatar FROM user as u
+              INNER JOIN  contactProfil  as c
+              ON u.id = c.user_id;
     `,
               (error, data) => {
                 //   Si erreur l'afficher
@@ -223,7 +225,9 @@ User.deleteUser = function (user, result) {
       (error, data) => {
         if (error) throw error;
         conn.query(
-          `SELECT * FROM user;
+          `SELECT u.*, c.name, c.lastname, c.badge, c.avatar FROM user as u
+          INNER JOIN  contactProfil  as c
+          ON u.id = c.user_id;
     `,
           (error, data) => {
             //   Si erreur l'afficher

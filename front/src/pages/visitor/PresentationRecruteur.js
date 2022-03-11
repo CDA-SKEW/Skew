@@ -12,9 +12,12 @@ import RerutementSimplifie from 'assets/images/recrutementSimplifie.jpg';
 import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import Avatar1 from 'assets/avatars/avatar1.jpg';
+import Avatar2 from 'assets/avatars/avatar2.jpg';
+import Avatar3 from 'assets/avatars/avatar3.jpg';
+import Avatar from '@mui/material/Avatar';
 
 import ConfianceEntreprise from 'components/visiteur/ConfianceEntreprise';
-import MatchRecruteur from 'components/visiteur/presentationRecruteur/MatchRecruteur';
 
 export default function PresentationRecruteur() {
 
@@ -33,6 +36,12 @@ export default function PresentationRecruteur() {
         { titre: "Publicités", icon: <VisibilityIcon sx={{ fontSize: "75px", display: 'block', mx: 'auto', mt: 5 }} />, text: "Bénéficiez d'une meilleure visibilité auprès des talents que vous recherchez, grâce à notre réseau de sites et nos partenaires." },
         { titre: "Connections", icon: <SearchIcon sx={{ fontSize: "75px", display: 'block', mx: 'auto', mt: 5 }} />, text: "Entrez en contact avec les candidats qui vous intéressent, grâce à notre technologie de recherche et notre plateforme de communication." },
         { titre: "Solutions", icon: <EmojiObjectsIcon sx={{ fontSize: "75px", display: 'block', mx: 'auto', mt: 5 }} />, text: "Prenez des décisions éclairées grâce à notre gamme de logiciels, de services et d'outils d'analyses." },
+    ]
+
+    const UsersList = [
+        { prenom: 'Bruno', nom: 'Bruno', img: Avatar2, alt: 'img1', message: 'C’est tellement motivant de travailler dans une compagnie si ambitieuse, avec les consommateurs au centre de ses préoccupations pour élaborer ses stratégies de marques. Ce qui m’a le plus impressionné depuis mon arrivée chez Bel, est l’expertise et la qualité des gens qui s’y trouvent, c’est ce qui en fait sa richesse !.' },
+        { prenom: 'Luke', nom: 'Skywalker', img: Avatar1, alt: 'image2', message: 'Bel Canada est une compagnie avec une réelle ambition, non seulement en termes de performance et de croissance, mais aussi, en termes de développement et bien-être de ses collaborateurs. Travailler dans une compagnie qui offre un environnement de travail convivial et positif fait la différence!' },
+        { prenom: 'Bob', nom: 'Sponge', img: Avatar3, alt: 'image2', message: 'Travailler chez Bel Canada offre le meilleur de deux mondes. On est à la fois une petite équipe au sein d’une multinationale. Cela veut dire qu’on a le contact humain plus personnel et l’atmosphère de travail agréable, mais également les moyens, les ambitions et des projets d’envergure d’un groupe international.' },
     ]
 
     return (
@@ -163,7 +172,38 @@ export default function PresentationRecruteur() {
             </Box>
 
             <ConfianceEntreprise />
-            <MatchRecruteur />
+
+            {/* Match recruteur */}
+            <Box sx={{ bgcolor: 'primary.main', width: '100%' }}>
+                <Typography variant="h2" component="div"
+                    sx={{ textAlign: 'center', py: 5, fontSize: { xs: 35, xl: 45 } }}>
+                    Ils ont matchés
+                </Typography>
+                <Box
+                    align='center'
+                    sx={{
+                        display: 'flex', pb: 5, mb: 10,
+                        justifyContent: { xs: "center", md: "space-around" },
+                        flexDirection: { xs: "column", md: "row" },
+                        alignItems: { xs: "center", md: "none" },
+                    }}
+                >
+                    {UsersList.map((userList, index) => (
+                        <Card key={index} sx={{ mx: 5, textAlign: 'center', bgcolor: 'primary.main', boxShadow: 'none', }}>
+                            <Avatar alt={userList.alt} src={userList.img} sx={{ width: 125, height: 125, m: 'auto' }} />
+                            <CardContent>
+                                <Typography gutterBottom variant="h4" component="div" sx={{ textAlign: 'center' }}>
+                                    {userList.prenom} {userList.nom}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary"
+                                    sx={{ textAlign: 'justify', fontSize: { sx: 10, md: 20 } }}>
+                                    {userList.message}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </Box>
+            </Box>
         </VisiteurLayout>
     );
 };

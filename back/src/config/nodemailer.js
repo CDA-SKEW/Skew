@@ -181,15 +181,14 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          mess: "Email SENDED !!! ",
+          message: "Email SENDED !!! ",
+          messages: data,
         });
       }
-
     });
   },
 
   VerifUser: (req, res) => {
-
     arrayFiles = [];
     // initialisation du tableau array avec data signature
     arrayFiles.push({
@@ -198,18 +197,19 @@ module.exports = {
       cid: "signatureLogo", //same cid value as in the html img src
     });
 
-    rand = Math.floor((Math.random() * 100) + 54)
+    rand = Math.floor(Math.random() * 100 + 54);
 
-    host = req.get('host');
+    host = req.get("host");
 
-    link = "http://" + req.get('host') + "/api/auth/verify/" + rand;
+    link = "http://" + req.get("host") + "/api/auth/verify/" + rand;
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
       to: req.body.mailInscription,
       subject: "Vérification du compte",
       rand: rand,
-      html: `
+      html:
+        `
       <strong>Félicitation, votre compte est créé !</strong>
       <br><br>
 
@@ -217,7 +217,9 @@ module.exports = {
         Pour finaliser votre inscription, il ne reste plus qu'a cliquer sur ce lien.
       </div>
 
-      <a href=" ` + link + ` ">Click here to verify</a>
+      <a href=" ` +
+        link +
+        ` ">Click here to verify</a>
 
 
       <br><br>
@@ -263,8 +265,9 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          flash: "L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!",
-          mailoptions: mailOptions
+          flash:
+            "L'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!",
+          mailoptions: mailOptions,
         });
       }
     });
@@ -272,17 +275,25 @@ module.exports = {
 
   verifMail: (req, res) => {
     // Ici on tcheck notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
-    if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
+    if (req.protocol + "://" + req.get("host") == "http://" + host) {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
       if (String(req.params.id) == String(mailOptions.rand)) {
         try {
           user.verify(mailOptions, (err, data) => {
-            if (err) res.status(500).send({ flash: err.message || "Une erreur est survenue", });
-            else return res.redirect(process.env.URL + '/#/verif/' + mailOptions.rand)
-          })
-        } catch (error) { throw error; }
-      } else res.end("<h1>Bad Request</h1>")
-    } else res.end("<h1>Request is from unknown source")
+            if (err)
+              res
+                .status(500)
+                .send({ flash: err.message || "Une erreur est survenue" });
+            else
+              return res.redirect(
+                process.env.URL + "/#/verif/" + mailOptions.rand
+              );
+          });
+        } catch (error) {
+          throw error;
+        }
+      } else res.end("<h1>Bad Request</h1>");
+    } else res.end("<h1>Request is from unknown source");
   },
 
   mailLostMdp: (req, res) => {
@@ -351,7 +362,7 @@ module.exports = {
           method: req.method,
           status: "success",
           flash: "success mail new password!",
-          mailoptions: mailOptions
+          mailoptions: mailOptions,
         });
       }
     });

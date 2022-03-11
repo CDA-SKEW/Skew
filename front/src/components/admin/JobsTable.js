@@ -22,8 +22,8 @@ export default function JobsTable(props) {
       field: "date",
       headerName: "Dates",
       width: 150,
-      renderCell: () => {
-        return <Dates />;
+      renderCell: (cell) => {
+        return <Dates user={cell} />;
       },
       editable: false,
     },
