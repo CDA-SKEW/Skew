@@ -32,6 +32,10 @@ export default function Home() {
         { nombre: "25000", titre: "Offres" }
     ];
 
+    const handleOverEnter = () => {
+        return { bgcolor: '#fff' }
+    }
+
     return (
         <VisiteurLayout>
             <Typography variant="h2"
@@ -52,10 +56,7 @@ export default function Home() {
                         key={index}
                         sx={{ width: "45%", m: 'auto', minWidth: 150, maxWidth: 600, }}
                     >
-                        <CardActionArea
-                            onClick={() => navigate({ pathname: `/${card.lien}` })}
-
-                        >
+                        <CardActionArea onClick={() => navigate({ pathname: `/${card.lien}` })}>
                             <CardMedia
                                 component="img"
                                 image={card.image}
