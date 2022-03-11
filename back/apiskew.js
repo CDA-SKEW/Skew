@@ -7,3 +7,5 @@ const port = process.env.PORT || 3005;
 
 const index = new Server(app, port);
 index.run();
+
+module.exports = index

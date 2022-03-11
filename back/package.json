@@ -7,6 +7,7 @@
     "start": "node apiskew.js",
     "dev": "nodemon apiskew.js",
     "connectDb": "nodemon --exec 'mocha -R landing ./test/testConnectDbMocha.js'",
+    "testRouterEmployer": "nodemon --exec 'mocha ./test/employer/chaiRouterEmployer.js'",
     "chai": "nodemon --exec 'mocha  ./test/admin/chaiRouter*.js'",
     "mocha": "nodemon --exec 'mocha  ./test/admin/mochaCRUD*.js'"
   },
