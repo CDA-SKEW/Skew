@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   validContentToken: function (mail, decoded) {
     return new Promise((resolve, reject) => {
-
       connection.getConnection(function (error, conn) {
         if (error) throw error;
         conn.query(
@@ -34,7 +33,7 @@ module.exports = {
                   isBanned: data[0].isBanned,
                 },
                 process.env.SIGN_JWT,
-                { expiresIn: "2m" }
+                { expiresIn: "10m" }
               );
               resolve(token);
             }
