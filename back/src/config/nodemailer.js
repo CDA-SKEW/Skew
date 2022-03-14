@@ -118,8 +118,8 @@ module.exports = {
       cid: "signatureLogo", //same cid value as in the html img src
     });
 
-    console.log(arrayFiles); // On configure notre mail à envoyer par nodemailer
-    console.log("Reply NodeMailer Config");
+    // console.log(arrayFiles); // On configure notre mail à envoyer par nodemailer
+    // console.log("Reply NodeMailer Config");
     const mailOptions = {
       from: process.env.USER_NODMAILER,
       to: req.body.mail,
@@ -170,7 +170,7 @@ module.exports = {
   `,
       attachments: arrayFiles,
     };
-    console.log(mailOptions);
+    // console.log(mailOptions);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log("err", err),

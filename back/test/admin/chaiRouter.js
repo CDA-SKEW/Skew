@@ -6,129 +6,204 @@ const expect = chai.expect;
 const connection = require("../../src/config/ConnectionDB");
 const index = require("../../apiskew");
 const path = require("path");
+const bcrypt = require("bcrypt");
 
 chai.use(chaiHttp);
 
-/***** Test Routes chai *****/
+/***************
+ * users routes
+ ***************/
 
-// describe("UsersController - Chai", function () {
-//   this.timeout(0);
-//   it("should have the correct initial data values", function () {});
-//   let user = {};
+describe("UsersController - Chai", function () {
+  // this.timeout(0);
+  // it("should have the correct initial data values", function () {});
+  let user = {};
 
-/****** Get All Users *******/
+  // Loop for create Customer before 'it'
+  beforeEach(async () => {
+    const { mail, pass, isAdmin, isCandidat, isRecruteur } = {
+      mail: "test" + Date.now() + "@test.test",
+      pass: await bcrypt.hash("test", 10),
+      isAdmin: 0,
+      isCandidat: 1,
+      isRecruteur: 0,
+    };
+    connection.getConnection(async function (error, conn) {
+      if (error) throw error;
+      conn.query(
+        `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur)
+        VALUES ("${mail}", "${pass}", "${isAdmin}", "${isCandidat}", "${isRecruteur}")`,
+        (err, data) => {
+          if (err) throw err;
+          // console.log("data", data);
+          user.id = data.insertId;
+          user = { ...user, mail, pass, isAdmin, isCandidat, isRecruteur };
 
-// it(" Get All users", function (done) {
-//   // console.log("app", index.app);
+          // console.log("beforeEach TU, create user", user);
+        }
+      );
+    });
+  });
 
-//   // Test route Get All
-//   chai
-//     .request(index.app)
-//     .get("/api/admin/users")
-//     .set("Accept", "application/json")
-//     .end((err, res) => {
-//       if (err) return done(err, "😞");
-//       console.log(res.body);
-//       res.should.have.status(200);
-//       res.body.user.should.be.a("array");
-//       res.body.user[0].should.be.a("object");
-//       done();
-//     });
-//   it("GET ALL USER OK", function (done) {
-//     done();
-//     console.log("I'm happy 😆 !!!");
-//   });
-// });
+  // // Exemple
+  // it("Exemple", (done) => {
+  //   done();
+  // });
 
-/****** Get Update PUT *******/
+  /****** Get All Users *******/
 
-// it(" Put (ban) user", function (done) {
-//   // const { id } = user;
-//   console.log("id", 44);
-//   const body = {
-//     mail: "leeJackson@gmail.com",
-//   };
+  // it(" Get All users", function (done) {
+  //   // console.log("app", index.app);
 
-//   // Test put (ban) user
-//   chai
-//     .request(index.app)
-//     .put(`/api/admin/users/44`)
-//     .set("Accept", "application/json")
-//     .send(body)
-//     .end((err, res) => {
-//       if (err) return done(err, "😞");
-//       // console.log(res.body);
-//       res.should.have.status(200);
-//       res.body.user.should.be.a("array");
-//       res.body.user[0].should.be.a("object");
-//       done();
-//     });
-// });
-// it("GET PUT USER OK", function (done) {
-//   done();
-//   console.log("I'm happy 😆 !!!");
-// });
+  //   // Test route Get All
+  //   chai
+  //     .request(index.app)
+  //     .get("/api/admin/users")
+  //     .set("Accept", "application/json")
+  //     .end((err, res) => {
+  //       if (err) return done(err);
+  //       // console.log(res.body);
+  //       res.should.have.status(200);
+  //       res.body.user.should.be.a("array");
+  //       res.body.user[0].should.be.a("object");
+  //       done();
+  //       console.log("USER GET ALL: I'm happy 😆 !!!");
+  //     });
+  // });
 
-/****** Get Update PUT *******/
+  /****** Get By ID User *******/
 
-// it(" Delete user", function (done) {
-//   // const { id } = user;
-//   console.log("id", 44);
-//   const body = {
-//     mail: "leeJackson@gmail.com",
-//   };
+  // it(" Get By ID users", function (done) {
+  //   // Test route Get Id
+  //   chai
+  //     .request(index.app)
+  //     .get(`/api/admin/users/${user.id}`)
+  //     .set("Accept", "application/json")
+  //     .end((err, res) => {
+  //       if (err) return done(err);
+  //       // console.log(res.body);
+  //       res.should.have.status(200);
+  //       res.body.user.should.be.a("array");
+  //       res.body.user[0].should.be.a("object");
+  //       done();
+  //       console.log("USER GET ID: I'm happy 😆 !!!");
+  //     });
+  // });
 
-//   // Test delete user
-//   chai
-//     .request(index.app)
-//     .delete(`/api/admin/users/44`)
-//     .set("Accept", "application/json")
-//     .send(body)
-//     .end((err, res) => {
-//       if (err) return done(err, "😞");
-//       // console.log(res.body);
-//       res.should.have.status(200);
-//       res.body.user.should.be.a("array");
-//       res.body.user[0].should.be.a("object");
-//       done();
-//     });
-// });
-// it("GET DELETE USER OK", function (done) {
-//   done();
-//   console.log("I'm happy 😆 !!!");
-// });
-// });
+  /****** Get Update PUT *******/
 
-/*---------MESSAGES----------*/
+  // it(" Put (ban) user", function (done) {
+  //   // Test put (ban) user
+  //   chai
+  //     .request(index.app)
+  //     .put(`/api/admin/users/${user.id}`)
+  //     .set("Accept", "application/json")
+  //     .end((err, res) => {
+  //       if (err) return done(err);
+  //       // console.log(res.body);
+  //       res.should.have.status(200);
+  //       res.body.user.should.be.a("array");
+  //       res.body.user[0].should.be.a("object");
+  //       done();
+  //       console.log("PUT USER (ban) I'm happy 😆 !!!");
+  //     });
+  // });
 
-// describe("MessagesController - Chai", function () {
-//   this.timeout(0);
-//   it("should have the correct initial data values", function () {});
-//   let message = {};
+  /****** Delete  user *******/
 
-//   it(" Post message (reply)", function (done, req) {
-//     // console.log("app", index.app);
-//     const body = {
-//       mail: "ellen@yahoo.fr",
-//       firstname: "YeagerBomB",
-//       sujet: "coucou !",
-//       reply: "Pour ne pas prendre de tes nouvelles",
-//     };
+  //   it(" Delete user", function (done) {
+  //     // Test delete user
+  //     chai
+  //       .request(index.app)
+  //       .delete(`/api/admin/users/${user.id}`)
+  //       .set("Accept", "application/json")
+  //       .end((err, res) => {
+  //         if (err) return done(err);
+  //         console.log(res.body);
+  //         res.should.have.status(200);
+  //         res.body.user.should.be.a("array");
+  //         res.body.user[0].should.be.a("object");
+  //         done();
+  //         console.log("DELETE USER : I'm happy 😆 !!!");
+  //       });
+  //   });
+  // });
+});
 
-//     // Test route Get All
-//     chai
-//       .request(index.app)
-//       .post("/api/admin/messages")
-//       .set("Accept", "application/json")
-//       .send(body)
-//       .end((err, res) => {
-//         if (err) return done(err, "😞");
-//         console.log(res.body);
-//         res.should.have.status(200);
-//         res.body.messages.should.be.a("array");
-//         res.body.messages[0].should.be.a("object");
-//         done();
-//         console.log("I'm happy 😆 !!!");
-//       });
-//   });
-// });
+/******************
+ * messages routes
+ ******************/
+
+describe("MessagesController - Chai", function () {
+  // this.timeout(0);
+  // it("should have the correct initial data values", function () {});
+  let messages = {};
+
+   // Loop for create Customer before 'it'
+    beforeEach(async () => {
+      const { message, mail, name, firstname, tel, sujet } = {
+        name: "YeagerBomB",
+        firstname: "Ellen",
+        tel: "0607080905",
+        message: "salut !",
+        mail: "test" + Date.now() + "@test.test",
+        sujet: "Des news !!!",
+      };
+      connection.getConnection(async function (error, conn) {
+        if (error) throw error;
+        conn.query(
+          `INSERT INTO messages (message,  mail, name, firstname, tel, sujet)
+            VALUES ("${message}", "${mail}", "${name}", "${firstname}", "${tel}",  "${sujet}")`,
+          (err, data) => {
+            if (err) throw err;
+            console.log("data", messages);
+            messages.id = data.insertId;
+            messages = {
+              ...messages,
+              message,
+              mail,
+              name,
+              firstname,
+              tel,
+              sujet,
+            };
+            console.log("beforeEach TU, create message", messages);
+          }
+        );
+      });
+    });
+
+  // Exemple
+    it("Exemple", (done) => {
+      done();
+    });
+
+  /****** Post Message (reply) *******/
+
+  // it(" Post Messages (reply)", function (done) {
+  //   // Test route Get Post
+  //   // const { firstname, sujet, mail, reply } = {
+  //   //   // mail: "test" + Date.now() + "@test.test",
+  //   //   mail: "soukainataa1987@gmail.com",
+  //   //   firstname: "Ellen",
+  //   //   sujet: "Salut!!!",
+  //   //   reply: "Non aucunes !!!",
+  //   // };
+  //   // messages = { ...messages, reply, firstname, sujet, mail };
+  //   // console.log("SEND message", reply);
+
+  //   chai
+  //     .request(index.app)
+  //     .post("/api/admin/messages/")
+  //     .set("Accept", "application/json")
+  //     .end((err, res) => {
+  //       if (err) return done(err);
+  //       // console.log(res.body);
+  //       // res.should.have.status(200);
+  //       // res.body.user.should.be.a("array");
+  //       // res.body.user[0].should.be.a("object");
+  //       done();
+  //       console.log("POST MESSAGE OK: I'm happy 😆 !!!");
+  //     });
+  // });
+});

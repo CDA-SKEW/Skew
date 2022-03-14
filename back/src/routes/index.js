@@ -246,14 +246,14 @@ router
   .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
-  // .get(new MessagesController().getMessageId)
+  .get(new MessagesController().getMessageId)
   .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);
 router
   .route("/api/admin/users/:id")
-  // .get(new UsersController().getUserId)
+  .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
