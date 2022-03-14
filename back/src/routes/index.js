@@ -32,6 +32,8 @@ const EmployerOfferControllers = require("../controllers/employer/EmployerOfferC
 
 //Candidat
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
+//Candidat Candidatures
+const CandidatCandidaturesControllers = require("../controllers/candidate/CandidatCandidatureControllers")
 
 // Admin
 const UsersController = require("../controllers/admin/UsersController");
@@ -222,6 +224,16 @@ router
 router
   .route("/api/candidat/profil/document/:id")
   .delete(new CandidatProfilControllers().deleteDocumentProfil);
+
+
+
+
+// ########################
+// #Candidat/Candidatures #
+// ########################
+router
+  .route("api/candidat/candidatures/:id")
+  .get(new CandidatCandidaturesControllers().getCandidatures);
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #

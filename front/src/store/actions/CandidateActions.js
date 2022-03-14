@@ -14,6 +14,7 @@ import {
     POST_PROFIL_CANDIDATE,
     PUT_PROFIL_CANDIDATE,
     DELETE_PROFIL_CANDIDATE,
+    GET_OFFRE_CANDIDATE,
 } from "./ActionTypes";
 
 /*
@@ -26,13 +27,26 @@ import {
 // Get profil candidate
 
 export const getProfilCandidate = (user_id) => {
-    console.log("contact user ACTION", user_id);
+    // console.log("contact user ACTION", user_id);
     return (dispatch) => {
         return api
             .get(`/candidat/profil/5`)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: GET_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    }
+};
+
+export const getOffreCandidate = (user_id) => {
+    console.log("OFFRE user ACTION", user_id);
+    return (dispatch) => {
+        return api
+            .get(`/candidat/candidatures/5`)
+            .then((res) => {
+                // console.log("Get offre Candidate", res.data);
+                dispatch({ type: GET_OFFRE_CANDIDATE, payload: res.data.candidatures });
             })
             .catch((err) => console.log(err));
     }

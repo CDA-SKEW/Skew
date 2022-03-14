@@ -53,7 +53,7 @@ export default function CandidatLayout({ children }) {
     ]
     // const token = jwt_decode(localStorage.getItem('candidat'))
     React.useEffect(() => {
-        // console.log("effect getDataProfilEmployerEmployer");
+
         dispatch(getProfilCandidate());
     }, []);
 
@@ -69,9 +69,7 @@ export default function CandidatLayout({ children }) {
     const dataProfilCandidate = useSelector(
         (state) => state.candidate.userProfil.coord
     );
-    // console.log('LOG dataprofil', dataProfilCandidate);
 
-    // const dataProfilCandidate = { name: "Toto", avatar: "" }
 
     return (
         <ThemeProvider theme={theme}>

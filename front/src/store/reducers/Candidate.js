@@ -25,6 +25,9 @@ const initialState = {
     certificate: [],
     document: []
   },
+  candidatures: {
+    candidatures: [{ id: 1, title: 'dev', ets: 'EDF', city: 'kekpar' }]
+  },
 };
 
 /*
@@ -34,8 +37,15 @@ export function CandidateReducer(state = initialState, action) {
   switch (action.type) {
     default:
       return state;
+
+    case Actions.GET_OFFRE_CANDIDATE:
+      console.log("reduccer get profil OFFRE", action.payload);
+      return {
+        ...state, candidatures: action.payload
+      };
+
     case Actions.GET_PROFIL_CANDIDATE:
-      console.log("reduccer get profil  candidat", action.payload);
+      // console.log("reduccer get profil  candidat", action.payload);
       return {
         ...state, userProfil: action.payload
       };

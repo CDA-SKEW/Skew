@@ -3,15 +3,15 @@ import React from "react";
 import CandidatureList from "components/candidat/listOffer/CandidatureList";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProfilCandidate } from "store/actions/CandidateActions";
+import { getOffreCandidate } from "store/actions/CandidateActions";
 import withCandidat from "components/auth/withCandidat";
 
 const CandidatCandidature = () => {
   const dispatch = useDispatch()
   const candidatures = useSelector(state => state.candidate.candidatures)
 
-  useEffect(() => dispatch(getProfilCandidate(), []))
-  // console.log('candidature', candidatures);
+  useEffect(() => dispatch(getOffreCandidate(), []))
+  console.log('candidature', candidatures);
   return (
     <Container
       sx={{
