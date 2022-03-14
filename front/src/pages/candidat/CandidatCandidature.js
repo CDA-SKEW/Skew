@@ -1,17 +1,22 @@
 import { Container } from "@mui/material";
 import React from "react";
-import CandidatureList from "components/candidat/listOffer/CandidatureList";
+import CandidatureRow from "components/candidat/listOffer/CandidatureRow";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import List from '@mui/material/List';
+
 import { getOffreCandidate } from "store/actions/CandidateActions";
 import withCandidat from "components/auth/withCandidat";
 
 const CandidatCandidature = () => {
-  const dispatch = useDispatch()
-  const candidatures = useSelector(state => state.candidate.candidatures)
 
-  useEffect(() => dispatch(getOffreCandidate(), []))
-  console.log('candidature', candidatures);
+  const ListCandidature = useSelector(state => state.candidate.candidaturesProfil)
+  const dispatch = useDispatch()
+  console.log(ListCandidature);
+  useEffect(() => {
+    dispatch(getOffreCandidate())
+  }, [])
+
   return (
     <Container
       sx={{
@@ -20,9 +25,12 @@ const CandidatCandidature = () => {
         height: "auto",
         mt: 2,
       }}>
-      {candidatures && candidatures.map((ListCandidature, index) => (
-        <CandidatureList ListCandidature={ListCandidature} key={index} />
-      ))}
+      {/* Liste des candidature UserID */}
+      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        {ListCandidature && ListCandidature.map((candidature, index) => (
+          <CandidatureRow key={index} candidature={candidature} />
+        ))}
+      </List>
     </Container>
 
   );

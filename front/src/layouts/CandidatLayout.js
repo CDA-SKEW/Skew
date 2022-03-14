@@ -37,13 +37,13 @@ export default function CandidatLayout({ children }) {
     const pagesReponsive = [
         { name: 'Mon compte', link: 'Candidat/profil' },
         // { name: 'Changer Mot de passe', link: 'Employer/profilPw' },
-        { name: 'Offres Postulé', link: 'Candidat/candidature' },
+        { name: 'Offres Postulé', link: 'Candidat/candidatures' },
         // { name: 'Mes offres', link: 'Employer/offer' }
     ]
 
     //   Définir les liens employeur pour la slideBar
     const listItems = [
-        { name: 'Offres Postulé', link: 'Candidat/candidature' },
+        { name: 'Offres Postulé', link: 'Candidat/candidatures' },
         // { name: 'Mes offres', link: 'Employer/offer' }
     ]
 

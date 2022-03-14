@@ -8,15 +8,12 @@ import TableComp from "components/candidat/profil/TableComp";
 import TableInt from "components/candidat/profil/TableInt";
 import TableFormation from "components/candidat/profil/TableFormation";
 import { useSelector } from "react-redux";
-// import { getProfilCandidate, postFormProfilCandidate, putFormProfilCandidate, deleteFormProfilCandidate } from "store/actions/CandidateActions";
 import withCandidat from "components/auth/withCandidat";
 const CandidatProfil = () => {
 
-  // const dispatch = useDispatch();
-  // getProfilCandidate()
+
   const User = useSelector((state) => state.candidate.userProfil)
-  console.log('user page candidate profile', User)
-  // useEffect(() => dispatch(getProfilCandidate(), []))
+  console.log(User);
 
 
   return (
@@ -28,13 +25,6 @@ const CandidatProfil = () => {
           height: "auto"
         }}
       >
-        {/* <Box
-          sx={{ position: "relative", display: "flex", justifyContent: "right" }}>
-          <Button
-            sx={{ color: "white", bgcolor: "red" }}>
-            Edit All
-          </Button>
-        </Box> */}
         {/*   {/* BOX CONTACT*/}
         <TableContact User={User.coord} />
 

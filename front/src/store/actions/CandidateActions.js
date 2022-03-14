@@ -17,6 +17,8 @@ import {
     GET_OFFRE_CANDIDATE,
 } from "./ActionTypes";
 
+const token = '5' // || localStorage.getItem('user_token')
+
 /*
  * Actions
  * ******* */
@@ -30,7 +32,7 @@ export const getProfilCandidate = (user_id) => {
     // console.log("contact user ACTION", user_id);
     return (dispatch) => {
         return api
-            .get(`/candidat/profil/5`)
+            .get(`/candidat/profil/${token}`)
             .then((res) => {
                 // console.log("Get Profil Candidate", res.data);
                 dispatch({ type: GET_PROFIL_CANDIDATE, payload: res.data.userProfil });
@@ -39,11 +41,11 @@ export const getProfilCandidate = (user_id) => {
     }
 };
 
-export const getOffreCandidate = (user_id) => {
-    console.log("OFFRE user ACTION", user_id);
+export const getOffreCandidate = () => {
+    // console.log("OFFRE user ACTION", token);
     return (dispatch) => {
         return api
-            .get(`/candidat/candidatures/5`)
+            .get(`/candidat/candidatures/${token}`)
             .then((res) => {
                 // console.log("Get offre Candidate", res.data);
                 dispatch({ type: GET_OFFRE_CANDIDATE, payload: res.data.candidatures });

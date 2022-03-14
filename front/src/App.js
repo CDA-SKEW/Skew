@@ -45,7 +45,7 @@ const CandidatRoutes = () => (
     <Routes>
       <Route path="profil" exact element={<CandidatProfil />} />
       <Route path="dashboard" exact element={<CandidatDashboard />} />
-      <Route path="candidature" exact element={<CandidatCandidature />} />
+      <Route path="candidatures" exact element={<CandidatCandidature />} />
     </Routes>
   </CandidatLayout>
 );

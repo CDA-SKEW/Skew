@@ -1,5 +1,4 @@
 // Import Model
-
 const req = require("express/lib/request");
 const CandidatCandidatures = require("../../models/candidat/CandidatureModel");
 
@@ -7,7 +6,7 @@ const CandidatCandidatures = require("../../models/candidat/CandidatureModel");
 
 require("dotenv").config();
 
-class CandidatCandidatureControllers {
+class CandidatCandidaturesControllers {
     // #######################
     // # CANDIDATURE COMPLET #
     // #######################
@@ -15,16 +14,17 @@ class CandidatCandidatureControllers {
     // CANDIDAT CANDIDATURES GET ALL DATA
 
     async getCandidatures(req, res) {
-        // console.log('getProfile', req.params.id)
+        // console.log('getCandidature', req.params.id)
         try {
             CandidatCandidatures.getCandidatures(String(req.params.id), (err, data) => {
-                // console.log("data res", data);
+                console.log("data res", data);
                 if (err) {
                     console.log("err", err),
                         res.status(500).send({
                         });
-                } else {
-                    // console.log('res getProfil')
+                }
+                else {
+                    // console.log('res getCandidature', data)
                     return res.json({
                         method: req.method,
                         candidatures: data,
@@ -36,4 +36,4 @@ class CandidatCandidatureControllers {
         }
     }
 }
-module.exports = CandidatCandidatureControllers;
+module.exports = CandidatCandidaturesControllers;

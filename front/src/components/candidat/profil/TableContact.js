@@ -44,7 +44,6 @@ export default function TableContact(props) {
     setMail(User.mail)
   };
   useEffect(() => {
-    // console.log("effect for useState form employer");
     setUseState();
   }, []);
 
@@ -52,11 +51,7 @@ export default function TableContact(props) {
   function ModeText() {
     return (
       <TableBody>
-
-        {/* {ListUser.map((ListUser, index) => ( */}
-
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-
           <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{User.id}</TableCell>
           <TableCell align='center'  >{User.address}<br />{User.zipCode}<br />{User.town}</TableCell>
           <TableCell align='center'  >{User.phone}</TableCell>
@@ -73,13 +68,10 @@ export default function TableContact(props) {
     const [form, setForm] = useState({ ...User })
 
     const handleChange = (prop) => (event) => {
-      // console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
-      // console.log('end form', form)
     }
 
     const submitForm = async () => {
-      // e.preventDefault();
       console.log('SUBMIT', form)
       await dispatch(putFormProfilCandidate({ ...form }));
       setAdress("");

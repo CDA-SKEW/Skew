@@ -33,7 +33,7 @@ const EmployerOfferControllers = require("../controllers/employer/EmployerOfferC
 //Candidat
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
 //Candidat Candidatures
-const CandidatCandidaturesControllers = require("../controllers/candidate/CandidatCandidatureControllers")
+const CandidatCandidaturesControllers = require("../controllers/candidate/CandidatCandidaturesControllers")
 
 // Admin
 const UsersController = require("../controllers/admin/UsersController");
@@ -156,7 +156,6 @@ router
 
 router
   .route("/api/candidat/profil/contact/:id")
-  // .get(new CandidatProfilControllers().getContactProfil)
   .put(new CandidatProfilControllers().updateContactProfil);
 
 // ############################################
@@ -165,7 +164,6 @@ router
 
 router
   .route("/api/candidat/profil/experience")
-  // .get(new CandidatProfilControllers().getExperienceProfil)
   .post(new CandidatProfilControllers().createExperienceProfil);
 
 router
@@ -179,7 +177,6 @@ router
 // ##################################
 router
   .route("/api/candidat/profil/skill")
-  // .get(new CandidatProfilControllers().getSkillProfil)
   .post(new CandidatProfilControllers().createSkillProfil);
 
 router
@@ -205,7 +202,6 @@ router
 // ##############################################
 router
   .route("/api/candidat/profil/certificate")
-  // .get(new CandidatProfilControllers().getCertificateProfil)
   .post(new CandidatProfilControllers().createCertificateProfil);
 
 router
@@ -225,14 +221,11 @@ router
   .route("/api/candidat/profil/document/:id")
   .delete(new CandidatProfilControllers().deleteDocumentProfil);
 
-
-
-
 // ########################
 // #Candidat/Candidatures #
 // ########################
 router
-  .route("api/candidat/candidatures/:id")
+  .route("/api/candidat/candidatures/:id")
   .get(new CandidatCandidaturesControllers().getCandidatures);
 
 //############################################################
