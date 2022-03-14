@@ -1,7 +1,7 @@
 
 const { spawn } = require('child_process');
 require('dotenv').config();
-const MONGO_URI = process.env.MONGO_URI_LOCAL
+
 // console.log(MONGO_URI)
 
 // Restore le backup dans mongo Atlas

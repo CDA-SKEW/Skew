@@ -1,13 +1,23 @@
-const { spawn } = require("child_process");
-const cron = require("../back/node_modules/node-cron"),
+const { spawn } = require("child_process"),
+  cron = require('node-cron'),
   fs = require("fs"),
+  moment = require('moment'),
   path = require("path");
 
-require("../back/node_modules/dotenv").config();
+require('dotenv').config()
 
 const DB_USER = process.env.DB_USER,
   DB_PASSWORD = process.env.DB_PASSWORD,
   DB_NAME = process.env.DB_NAME;
+
+console.log("toto", DB_USER, DB_PASSWORD,
+  DB_NAME)
+
+const folder = path.resolve("../backup/files");
+const dirDay = path.resolve(folder + "/dirDay");
+const dirWeek = path.resolve(folder + "/dirWeek");
+const dirMonth = path.resolve(folder + "/dirMonth");
+const dirYear = path.resolve(folder + "/dirYear");
 
 // Fonction gestion des repertoire
 function mkDir(folder) {
@@ -25,19 +35,11 @@ function rmDir(folder) {
   });
 }
 
-let folder = path.resolve("../fichiers_backupDb_Skew");
-mkDir(folder);
-
-const dirDay = path.resolve(folder + "/dirDay");
-const dirWeek = path.resolve(folder + "/dirWeek");
-const dirMonth = path.resolve(folder + "/dirMonth");
-const dirYear = path.resolve(folder + "/dirYear");
-
 // console.log("coucou1")
 
 //toute les 10 secondes on fait cette action '*/30 * * * * *'
 // tache effectuer tout les 23h de 59 min '59 23 * * *'
-cron.schedule("*/30 * * * * *", () => {
+cron.schedule("*/10 * * * * *", () => {
   // console.log("coucou2")
 
   mkDir(dirDay);
@@ -77,8 +79,8 @@ cron.schedule("*/30 * * * * *", () => {
 const backup = (dir) => {
   //console.log("fonction backup", dir)
 
-  const fileName = `${DB_NAME}_${moment().format("YYYY_MM_DD")}.sql`;
-  const wstream = fs.createWriteStream(`./database/backup/history/${fileName}`);
+  let fileName = `${DB_NAME}_${moment().format("YYYY_MM_DD_HH_MM_SS")}.sql`;
+  let wstream = fs.createWriteStream(`${dir}/${fileName}`);
 
   console.log("---------------------");
   console.log("Running Database Backup Cron Job");
