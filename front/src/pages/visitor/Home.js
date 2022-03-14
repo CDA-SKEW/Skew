@@ -128,54 +128,6 @@ export default function Home() {
                     <CardsHome key={index} card={card} />
                 ))}
             </Box>
-            {/* <Box maxWidth='xl' disableGutters
-                sx={{ display: 'flex', mx: 'auto', my: 10 }}>
-                {CardsList.map((card, index) => (
-                    <Card
-                        key={index}
-                        sx={{ width: "45%", m: 'auto', minWidth: 150, maxWidth: 600, }}
-                        onMouseEnter={() => handleOverEnter()}
-                        onMouseLeave={() => handleOverLeave()}
-                    >
-                        <CardActionArea onClick={() => navigate({ pathname: `/${card.lien}` })}>
-                            <CardMedia
-                                component="img"
-                                image={card.image}
-                                sx={{
-                                    filter: 'sepia(100%) opacity(65%)',
-                                    height: 400
-                                }}
-                            />
-                            {!isShownHoverContent && (
-                                <Typography color="initial" align='center'
-                                    sx={{
-                                        fontSize: { xs: 20, md: 45 },
-                                        fontWeight: 'bold',
-                                        position: 'absolute',
-                                        top: '20%',
-                                        width: "100%",
-
-                                    }}>
-                                    {card.titre}
-                                </Typography>
-                            )}
-                            {isShownHoverContent && (
-                                <Typography color="initial" align='center'
-                                    sx={{
-                                        fontSize: { xs: 20, md: 45 },
-                                        fontWeight: 'bold',
-                                        position: 'absolute',
-                                        top: '20%',
-                                        width: "100%",
-
-                                    }}>
-                                    {card.titre2}
-                                </Typography>
-                            )}
-                        </CardActionArea>
-                    </Card>
-                ))}
-            </Box> */}
 
             {/* Carte du pourquoi */}
             <Box maxWidth="xl" sx={{ mx: 'auto' }}>
