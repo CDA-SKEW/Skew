@@ -10,9 +10,6 @@ const DB_USER = process.env.USERDB,
   DB_PASSWORD = process.env.PASSWORD,
   DB_NAME = process.env.DATABASE;
 
-console.log("toto", DB_USER, DB_PASSWORD,
-  DB_NAME)
-
 const folder = path.resolve("../backup/files");
 const dirDay = path.resolve(folder + "/dirDay");
 const dirWeek = path.resolve(folder + "/dirWeek");
@@ -35,12 +32,11 @@ function rmDir(folder) {
   });
 }
 
-// console.log("coucou1")
-
-//toute les 10 secondes on fait cette action '*/30 * * * * *'
+//toute les 10 secondes on fait cette action '*/10 * * * * *'
+// cron.schedule("*/10 * * * * *", () => {
+  
 // tache effectuer tout les 23h de 59 min '59 23 * * *'
-cron.schedule("*/10 * * * * *", () => {
-  // console.log("coucou2")
+cron.schedule("59 23 * * *", () => {
 
   mkDir(dirDay);
   fs.readdir(dirDay, (err, files) => {
@@ -79,7 +75,7 @@ cron.schedule("*/10 * * * * *", () => {
 const backup = (dir) => {
   //console.log("fonction backup", dir)
 
-  let fileName = `${DB_NAME}_${moment().format("YYYY_MM_DD_HH_MM_SS")}.sql`;
+  let fileName = `${DB_NAME}_${moment().format("YYYY_MM_DD_hh_mm_ss")}.sql`;
   let wstream = fs.createWriteStream(`${dir}/${fileName}`);
 
   console.log("---------------------");
@@ -93,7 +89,6 @@ const backup = (dir) => {
   ]);
 
   // On lance le stream de notre backup
-  // ?? à commenter si vous tester la method synchron
   mysqldump.stdout
     .pipe(wstream)
     .on("finish", () => {
