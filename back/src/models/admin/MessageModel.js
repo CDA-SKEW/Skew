@@ -18,7 +18,7 @@ const Message = function (message) {
 
 // Get All Messages
 Message.getListMessages = function (result) {
-  console.log("Method get All Model Message");
+  // console.log("Method get All Model Message");
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
     /* Requête SQL pour afficher tous les Messages 
@@ -35,33 +35,34 @@ Message.getListMessages = function (result) {
 };
 
 // Get One Message
-// Message.getMessageId = function (message, result) {
-//   //   console.log("Method getID Model Message", message);
-//   const { id } = message;
-//   connection.getConnection(function (error, conn) {
-//     conn.query(
-//       ` SELECT * FROM messages WHERE id = :id`,
-//       { id },
-//       (error, data) => {
-//         if (error) throw error;
-//         else result(null, data);
-//         //   console.log("data", data);
-//       }
-//     );
-//     conn.release();
-//   });
-// };
+Message.getMessageId = function (message, result) {
+  //   console.log("Method getID Model Message", message);
+  const { id } = message;
+  connection.getConnection(function (error, conn) {
+    conn.query(
+      ` SELECT * FROM messages WHERE id = :id`,
+      { id },
+      (error, data) => {
+        if (error) throw error;
+        else result(null, data);
+        //   console.log("data", data);
+      }
+    );
+    conn.release();
+  });
+};
 
 // Post Message
 Message.replyMessage = function (result) {
-  const { message } = newMessage;
+  const { message } = message;
   connection.getConnection(function (error, conn) {
     console.log(req.body.message, "MODEL");
     conn.query(
       `
-          INSERT INTO messages ( message)
+          INSERT INTO messages (message) 
           VALUES 
-          newMessage = :message
+          message = :message
+         
       `,
       { message },
       (error, data) => {

@@ -46,18 +46,18 @@ User.getListUsers = function (result) {
 };
 
 // Get One User
-// User.getUserId = function (user, result) {
-//   // console.log("Method getID Model User", user);
-//   const { id } = user;
-//   connection.getConnection(function (error, conn) {
-//     conn.query(` SELECT * FROM user WHERE id = :id`, { id }, (error, data) => {
-//       if (error) throw error;
-//       else result(null, data);
-//       // console.log("data", data);
-//     });
-//     conn.release();
-//   });
-// };
+User.getUserId = function (user, result) {
+  // console.log("Method getID Model User", user);
+  const { id } = user;
+  connection.getConnection(function (error, conn) {
+    conn.query(` SELECT * FROM user WHERE id = :id`, { id }, (error, data) => {
+      if (error) throw error;
+      else result(null, data);
+      // console.log("data", data);
+    });
+    conn.release();
+  });
+};
 
 // Update User
 User.putUser = function (user, result) {
@@ -236,7 +236,7 @@ User.deleteUser = function (user, result) {
             else result(null, data);
           }
         );
-        console.log("data", data);
+        // console.log("data", data);
       }
     );
     conn.release();
