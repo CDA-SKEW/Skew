@@ -19,7 +19,7 @@ import ConfianceEntreprise from 'components/visiteur/ConfianceEntreprise';
 export default function PresentationCandidat() {
 
     const CardsContents = [
-        { image: WhyCandidat1, titre: "Trouver votre job", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: true },
+        { image: WhyCandidat1, titre: "Trouver votre job", texte: "Chez SKEW, notre mission consiste à aider les chercheurs d’emploi à décrocher le poste idéal. Nous comptons beaucoups de collaborateurs à travers le monde, chacun s’investissant à 100 % dans la poursuite de cet objectif et s’efforçant d’améliorer l’expérience de recrutement grâce au recueil de données et de témoignages authentiques. Nous favorisons un environnement de travail propice à la collaboration afin d’offrir la meilleure expérience aux chercheurs d’emploi.", position: true },
         { image: WhyCandidat2, titre: "Nos méthodes", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: false },
     ];
 
@@ -38,8 +38,8 @@ export default function PresentationCandidat() {
     return (
         <VisiteurLayout>
 
-            {/* Carte du pourquoi nous */}
-            <Box maxWidth="xl">
+            {/* Presentation candidat */}
+            <Box sx={{ maxWidth: { lg: 'lg', xl: 'xl' } }} mx={'auto'}>
                 {CardsContents.map((cardsContent, index) => (
                     <ParagraphCard cardsContent={cardsContent} key={index} />
                 ))}
@@ -47,7 +47,7 @@ export default function PresentationCandidat() {
 
             {/* Collaboration candidats */}
             <Box sx={{ bgcolor: 'primary.main', width: '100%' }}>
-                <Typography variant="h2" component="div" sx={{ textAlign: 'center', py: 5 }}>
+                <Typography variant="h2" component="div" sx={{ textAlign: 'center', py: 5, fontSize: { xs: 35, xl: 45 } }}>
                     Ils ont collaborés avec nous
                 </Typography>
                 <Box
@@ -82,7 +82,7 @@ export default function PresentationCandidat() {
 
             {/* Dernières offres */}
             <Box sx={{ mb: 10, my: 10 }}>
-                <Typography variant="h2" component="div" sx={{ textAlign: 'center', my: 2, }}>
+                <Typography variant="h2" component="div" sx={{ textAlign: 'center', my: 2, fontSize: { xs: 35, xl: 45 } }}>
                     Nos dernières offres
                 </Typography>
                 <Box sx={{ bgcolor: 'primary.main' }}>
@@ -130,7 +130,7 @@ export default function PresentationCandidat() {
                     </List>
                 </Box>
             </Box>
-            
+
         </VisiteurLayout>
     );
 };

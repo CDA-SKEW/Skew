@@ -71,7 +71,6 @@ router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOn
 // Visiteur data
 router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);
 
-
 //------------------------------------------------------------
 // Employeur
 
