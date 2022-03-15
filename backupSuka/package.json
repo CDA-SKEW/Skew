@@ -1,0 +1,17 @@
+{
+  "name": "backupsuka",
+  "version": "1.0.0",
+  "description": "backup",
+  "main": "cron.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon cron.js"
+  },
+  "author": "Attoumani Soukainata",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "node-cron": "^3.0.0",
+    "shelljs": "^0.8.4"
+  }
+}
