@@ -74,7 +74,7 @@ class MessagesController {
     // essayes cette fonction
     try {
       Message.deleteMessage({ id }, (err, data) => {
-        console.log("response controller job ID", data);
+        // console.log("response controller job ID", data);
         if (err) res.send({ message: "error in request db" });
         // Sinon retourner cette réponse avec les data
         else
