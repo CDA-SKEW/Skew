@@ -19,10 +19,6 @@ function CardsHome({ card }) {
     const navigate = useNavigate();
     const [isShownHoverContent, setIsShownHoverContent] = useState(false);
 
-    const CardsList = [
-        { titre: "Je suis un recruteur", titre2: 'Tous nos talents à votre disposition', lien: "recruteur", color: "tiers", image: RecruteurCard },
-        { titre: "Je suis un candidat", titre2: 'Viens découvrir toutes nos offres d\'emploi', lien: "candidat", color: "secondary", image: CandidatCard }
-    ];
     const handleOverEnter = () => {
         setIsShownHoverContent(true)
     }
