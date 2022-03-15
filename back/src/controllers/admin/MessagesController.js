@@ -59,10 +59,13 @@ class MessagesController {
 
   // POST MESSAGE
   async replyMessage(req, res) {
-    // console.log("controller Reply message");
+    // console.log('REQ.BODY REPLY MESAGE', req.body)
     if ({ ...req.body }) {
       nodemailer.replyMessage(req, res);
-    } else res.json("Error Request");
+    } else
+      return res.json({
+        message: "Error",
+      });
   }
 
   // DELETE MESSAGE

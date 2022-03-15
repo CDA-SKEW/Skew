@@ -178,11 +178,11 @@ module.exports = {
             message: err.message || "Une erreur est survenue",
           });
       } else {
-        return res.json({
+      // console.log('callback res nodemail reply')
+        res.json({
           method: req.method,
           status: "success",
           message: "Email SENDED !!! ",
-          messages: data,
         });
       }
     });

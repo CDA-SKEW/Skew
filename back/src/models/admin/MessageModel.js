@@ -54,15 +54,15 @@ Message.getMessageId = function (message, result) {
 
 // Post Message
 Message.replyMessage = function (result) {
-  const { message } = newMessage;
+  const { message } = message;
   connection.getConnection(function (error, conn) {
     console.log(req.body.message, "MODEL");
     conn.query(
       `
           INSERT INTO messages (message) 
           VALUES 
-          newMessage = :message
-        
+          message = :message
+         
       `,
       { message },
       (error, data) => {
