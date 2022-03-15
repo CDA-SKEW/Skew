@@ -27,4 +27,3 @@ child.on('exit', (code, signal) => {
     else if (signal) console.log('Process killed with signal:', signal);
     else console.log('Restore successfull ');
 });
-
