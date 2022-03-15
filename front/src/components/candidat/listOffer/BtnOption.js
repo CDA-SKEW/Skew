@@ -8,6 +8,10 @@ import Divider from '@mui/material/Divider';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { getOffreCandidate, deleteFormProfilCandidateOffre } from "store/actions/CandidateActions";
+import { useDispatch } from "react-redux";
+
+
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -50,7 +54,15 @@ const StyledMenu = styled((props) => (
     },
 }));
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus(props) {
+    const { id } = props
+    console.log('id Button Trigger ROW', id);
+    const dispatch = useDispatch()
+    const handleDelete = () => {
+        dispatch(deleteFormProfilCandidateOffre(id))
+        setTimeout(() => dispatch(getOffreCandidate()), 777)
+    }
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -92,7 +104,7 @@ export default function CustomizedMenus() {
                     Relancer
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
-                <MenuItem onClick={handleClose} disableRipple>
+                <MenuItem onClick={handleDelete} disableRipple>
                     <DeleteIcon />
                     Supprimer
                 </MenuItem>

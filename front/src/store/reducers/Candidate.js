@@ -15,7 +15,8 @@ const initialState = {
     certificate: [],
     document: []
   },
-  candidaturesProfil: []
+  candidaturesProfil: [],
+  message: ''
 };
 
 /*
@@ -30,6 +31,10 @@ export function CandidateReducer(state = initialState, action) {
       return {
         ...state, candidaturesProfil: action.payload
       };
+    case Actions.DELETE_OFFRE_CANDIDATE:
+      return {
+        ...state, candidaturesProfil: action.payload.candidatures
+      };
 
     case Actions.GET_PROFIL_CANDIDATE:
       return {
@@ -38,7 +43,7 @@ export function CandidateReducer(state = initialState, action) {
 
     case Actions.POST_PROFIL_CANDIDATE:
       return {
-        ...state, userProfil: action.payload.userProfil
+        ...state, message: action.payload
       };
 
     case Actions.PUT_PROFIL_CANDIDATE:

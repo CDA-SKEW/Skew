@@ -17,15 +17,13 @@ const CandidatCandidatures = function (candidature) {
 
 // Get All
 CandidatCandidatures.getCandidatures = function (id, result) {
-    // let Obj = {
-    //     candidature: []
-    // }
+
     connection.getConnection(function (error, conn) {
         if (error) throw error;
 
         conn.query(
             `
-           select p.statut,o.title,o.type,o.period, o.description ,c.name ,u.mail from postuled as p
+           select p.statut, p.id, o.title, o.type, o.period, o.description ,c.name ,u.mail from postuled as p
            inner join offre as o
            ON p.offre_id= o.offer_id
            inner join contactProfil as c
@@ -37,7 +35,6 @@ CandidatCandidatures.getCandidatures = function (id, result) {
             , { id }, (error, data) => {
                 if (error) throw error;
                 console.log('DATA', data);
-                // Obj.candidature = data
                 result(null, data);
                 conn.release();
 
@@ -46,4 +43,17 @@ CandidatCandidatures.getCandidatures = function (id, result) {
     }
     )
 }
+
+// Delete by ID (row)
+CandidatCandidatures.deleteCandidatures = function (id, result) {
+    console.log('ID ', id);
+    connection.getConnection(function (error, conn) {
+        if (error) throw error
+        conn.query(`DELETE FROM postuled WHERE id = ${id}`, (error, data) => {
+            if (error) throw error;
+            result(null, data);
+            conn.release();
+        });
+    });
+};
 module.exports = CandidatCandidatures;

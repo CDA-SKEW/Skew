@@ -344,7 +344,7 @@ export default function TableExperience(props) {
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch()
     const handleDelete = () => {
-      console.log('id Button Trigger ROW', row);
+      // console.log('id Button Trigger ROW', row);
       dispatch(deleteFormProfilCandidateExperience(row.id))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
     }

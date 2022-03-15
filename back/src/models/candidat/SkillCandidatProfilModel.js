@@ -19,21 +19,11 @@ CandidatSkill.createSkillProfil = function (newSkill, result) {
          SET 
          user_id = :user_id,
             skill = :skill
-            ;`,
-            { skill, user_id }
-            , (error, data) => {
-                if (error) throw error;
-                conn.query(`SELECT u.id,s.*
-            FROM user as u
-            INNER JOIN skill as s
-            ON u.id = s.user_id
-            WHERE u.id = :user_id;`, { user_id }, (error, data) => {
-                    if (error) throw error;
-                    result(null, data);
-                    conn.release();
-                });
-            }
-        );
+        ;`, { skill, user_id }, (error, data) => {
+            if (error) throw error;
+            result(null, data);
+            conn.release();
+        });
     });
 };
 

@@ -1,7 +1,6 @@
 // Import Model
 const req = require("express/lib/request");
 const CandidatCandidatures = require("../../models/candidat/CandidatureModel");
-
 // Import Module
 
 require("dotenv").config();
@@ -14,7 +13,6 @@ class CandidatCandidaturesControllers {
     // CANDIDAT CANDIDATURES GET ALL DATA
 
     async getCandidatures(req, res) {
-        // console.log('getCandidature', req.params.id)
         try {
             CandidatCandidatures.getCandidatures(String(req.params.id), (err, data) => {
                 console.log("data res", data);
@@ -24,7 +22,6 @@ class CandidatCandidaturesControllers {
                         });
                 }
                 else {
-                    // console.log('res getCandidature', data)
                     return res.json({
                         method: req.method,
                         candidatures: data,
@@ -35,5 +32,23 @@ class CandidatCandidaturesControllers {
             throw error;
         }
     }
+
+    async deleteCandidatures(req, res) {
+        try {
+            CandidatCandidatures.deleteCandidatures(req.params.id, (err, data) => {
+                if (err) res.send(err);
+                else {
+                    return res.send({
+                        method: req.method,
+                        // message: 'user deleted !',
+                        candidatures: data,
+                    });
+                }
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 module.exports = CandidatCandidaturesControllers;

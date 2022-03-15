@@ -54,9 +54,9 @@ export default function ResponsiveGrid(props) {
       setForm({ ...form, [prop]: event.target.value })
     }
 
-    const submitForm = async (data) => {
+    const submitForm = (data) => {
       console.log('SUBMIT', form)
-      await dispatch(postFormProfilCandidateSkill({ ...form }))
+      dispatch(postFormProfilCandidateSkill({ ...form }))
       setAddSkill("");
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
