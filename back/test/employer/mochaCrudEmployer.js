@@ -7,7 +7,6 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const connection = require("../../src/config/ConnectionDB");
 var assert = require("assert");
-const { user } = require("../../src/config/db");
 
 require("dotenv").config();
 
