@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -14,13 +14,90 @@ import { CardActionArea } from '@mui/material';
 
 import ParagraphCard from 'components/visiteur/ParagraphCard';
 
-export default function Home() {
+function CardsHome({ card }) {
 
     const navigate = useNavigate();
+    const [isShownHoverContent, setIsShownHoverContent] = useState(false);
 
     const CardsList = [
-        { titre: "Je suis un recruteur", lien: "recruteur", color: "tiers", image: RecruteurCard },
-        { titre: "Je suis un candidat", lien: "candidat", color: "secondary", image: CandidatCard }
+        { titre: "Je suis un recruteur", titre2: 'Tous nos talents à votre disposition', lien: "recruteur", color: "tiers", image: RecruteurCard },
+        { titre: "Je suis un candidat", titre2: 'Viens découvrir toutes nos offres d\'emploi', lien: "candidat", color: "secondary", image: CandidatCard }
+    ];
+    const handleOverEnter = () => {
+        setIsShownHoverContent(true)
+    }
+    const handleOverLeave = () => {
+        setIsShownHoverContent(false)
+    }
+    return (
+        <React.Fragment>
+            {!isShownHoverContent && (
+                <Card
+                    sx={{ width: "45%", m: 'auto', minWidth: 150, maxWidth: 600, }}
+                    onMouseEnter={() => handleOverEnter()}
+                    onMouseLeave={() => handleOverLeave()}
+                >
+                    <CardActionArea onClick={() => navigate({ pathname: `/${card.lien}` })}>
+                        <CardMedia
+                            component="img"
+                            image={card.image}
+                            sx={{
+                                filter: 'sepia(100%) opacity(65%)',
+                                height: 400
+                            }}
+                        />
+                        <Typography color="initial" align='center'
+                            sx={{
+                                fontSize: { xs: 20, md: 45 },
+                                fontWeight: 'bold',
+                                position: 'absolute',
+                                top: '20%',
+                                width: "100%",
+
+                            }}>
+                            {card.titre}
+                        </Typography>
+                    </CardActionArea>
+                </Card>
+            )}
+            {isShownHoverContent && (
+                <Card
+                    sx={{ width: "45%", m: 'auto', minWidth: 150, maxWidth: 600, }}
+                    onMouseEnter={() => handleOverEnter()}
+                    onMouseLeave={() => handleOverLeave()}
+                >
+                    <CardActionArea onClick={() => navigate({ pathname: `/${card.lien}` })}>
+                        <CardMedia
+                            component="img"
+                            image={card.image}
+                            sx={{
+                                filter: 'blur(6px)',
+                                height: 400
+                            }}
+                        />
+                        <Typography color="initial" align='center'
+                            sx={{
+                                fontSize: { xs: 20, md: 45 },
+                                fontWeight: 'bold',
+                                position: 'absolute',
+                                top: '20%',
+                                width: "100%",
+
+                            }}>
+                            {card.titre2}
+                        </Typography>
+                    </CardActionArea>
+                </Card>
+            )}
+        </React.Fragment>
+    )
+}
+
+export default function Home() {
+
+    const CardsList = [
+        { titre: "Je suis un recruteur", titre2: 'Tous nos talents à votre disposition', lien: "recruteur", color: "tiers", image: RecruteurCard },
+        { titre: "Je suis un candidat", titre2: 'Viens découvrir toutes nos offres d\'emploi', lien: "candidat", color: "secondary", image: CandidatCard }
     ];
     const CardsContents = [
         { image: WhyHome1, titre: "Pourquoi nous?", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: true },
@@ -31,10 +108,6 @@ export default function Home() {
         { nombre: "500", titre: "Entreprises" },
         { nombre: "25000", titre: "Offres" }
     ];
-
-    const handleOverEnter = () => {
-        return { bgcolor: '#fff' }
-    }
 
     return (
         <VisiteurLayout>
@@ -52,32 +125,7 @@ export default function Home() {
             <Box maxWidth='xl' disableGutters
                 sx={{ display: 'flex', mx: 'auto', my: 10 }}>
                 {CardsList.map((card, index) => (
-                    <Card
-                        key={index}
-                        sx={{ width: "45%", m: 'auto', minWidth: 150, maxWidth: 600, }}
-                    >
-                        <CardActionArea onClick={() => navigate({ pathname: `/${card.lien}` })}>
-                            <CardMedia
-                                component="img"
-                                image={card.image}
-                                sx={{
-                                    filter: 'sepia(100%) opacity(65%)',
-                                    height: 400
-                                }}
-                            />
-                            <Typography color="initial" align='center'
-                                sx={{
-                                    fontSize: { xs: 20, md: 45 },
-                                    fontWeight: 'bold',
-                                    position: 'absolute',
-                                    top: '20%',
-                                    width: "100%",
-
-                                }}>
-                                {card.titre}
-                            </Typography>
-                        </CardActionArea>
-                    </Card>
+                    <CardsHome key={index} card={card} />
                 ))}
             </Box>
 
@@ -104,7 +152,6 @@ export default function Home() {
                     ))}
                 </Stack>
             </Box>
-
         </VisiteurLayout>
     );
 };
