@@ -44,4 +44,4 @@ yarn-error.lo
 /backupWil/files/*
 
 # Part API
-# api/config/swagger/*
+/back/src/config/swagger*

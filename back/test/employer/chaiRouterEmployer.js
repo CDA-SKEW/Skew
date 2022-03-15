@@ -35,7 +35,9 @@ describe("Test Router avec ChaiRouter", () => {
       { expiresIn: "2m" }
     );
     i++;
+    // console.log(token)
   });
+
 
   //Test connection db
   it("db.connection.connect...", function (done) {
