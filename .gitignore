@@ -36,10 +36,12 @@ yarn-error.lo
 
 /front/package-lock.json
 /back/package-lock.json
-
+/backupWil/package-lock.json
 
 # Part Backup
-backup/fichiers_backupDb_Skew/*
+/backupWil/node_modules
+/backupWil/.env
+/backupWil/files/*
 
 # Part API
 # api/config/swagger/*

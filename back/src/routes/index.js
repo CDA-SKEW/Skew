@@ -58,8 +58,7 @@ router.route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthContro
 router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
-router
-  .route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp)
+router.route("/api/auth/mail-lost-mdp").put(new AuthControllers().mailLostMdp)
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);
@@ -251,14 +250,14 @@ router
   .post(new MessagesController().replyMessage);
 router
   .route("/api/admin/messages/:id")
-  // .get(new MessagesController().getMessageId)
+  .get(new MessagesController().getMessageId)
   .delete(new MessagesController().deleteMessage);
 
 // Users
 router.route("/api/admin/users").get(new UsersController().getListUsers);
 router
   .route("/api/admin/users/:id")
-  // .get(new UsersController().getUserId)
+  .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
 router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
