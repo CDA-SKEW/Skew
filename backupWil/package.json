@@ -1,0 +1,19 @@
+{
+  "name": "backup",
+  "version": "1.0.0",
+  "description": "backup pour application Skew",
+  "main": "backupSkew.js",
+  "scripts": {
+    "backupSkewDev": "nodemon backupSkewAuto.js",
+    "backupSkewAuto": "node backupSkewAuto.js",
+    "backupSkewOne": "node backupSkewOne.js",
+    "restoreSkew": "node restoreSkew.js"
+  },
+  "author": "skew",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "moment": "^2.29.1",
+    "node-cron": "^3.0.0"
+  }
+}
