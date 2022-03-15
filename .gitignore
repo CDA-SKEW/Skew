@@ -47,4 +47,4 @@ yarn-error.lo
 /backupKevin/.env
 
 # Part API
-# api/config/swagger/*
+/back/src/config/swagger*

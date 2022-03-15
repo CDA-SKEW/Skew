@@ -28,6 +28,21 @@ class Server {
       })
     );
 
+    // ************** Swagger ******************
+    //** express-oas-generator
+    //**  Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
+    //** à décommenter pour la génération
+    //** express-oas-generator
+
+    //const expressOasGenerator = require('express-oas-generator')
+    //expressOasGenerator.init(app, {});
+
+    //** Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
+    const swaggerUi = require("swagger-ui-express");
+    const swaggerDocument = require("./config/swagger.json");
+    // ************** / Swagger ******************
+
+
     // Express static permet de diriger un chemin sur un dossier en particulier
     this.app.use("/assets", express.static("public"));
 
@@ -47,6 +62,16 @@ class Server {
         extended: false,
       })
     );
+
+    // ************** Swagger ******************
+    //** Route Swagger
+    //** Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
+    // ************** / Swagger ******************
 
     // Routes
     this.app.use(router);
