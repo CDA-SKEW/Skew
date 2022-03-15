@@ -1,19 +1,21 @@
+// node-cron: https://www.npmjs.com/package/node-cron
+// child-process: https://nodejs.org/api/child_process.html
+
 // Request node-cron & Express
 const cron = require("node-cron");
 const express = require("express");
 const fs = require("fs");
-// const shell = require("shell.js");
-const spawn = require("child_process").spawn;
-const connection = require("../back/src/config/ConnectionDB");
-// const nodemailer = require("nodemailer");
+// Processus enfants
+const { spawn } = require("child_process");
 
-// Create an new instance
-app = express();
+require("dotenv").config();
 
-// node-cron: https://www.npmjs.com/package/node-cron
-// child-process: https://nodejs.org/api/child_process.html
+app = express(),
+PORT = process.env.PORT || 1870;
+  // Creér le fichier "dumpadmin.sql"
+  // const skew = fs.createWriteStream("dumpadmin.sql");
 
-/* * * * * * 
+  /* * * * * * 
   | | | | | |
   | | | | | day of week
   | | | | month
@@ -22,30 +24,61 @@ app = express();
   | minute
   second ( optional ) */
 
-// S'exécute toutes les minutes
-// cron.schedule("* * * * *", function () {
-//   console.log("Process running every minute");
-// });
+  // S'exécute toutes les minutes
+  // cron.schedule("* * * * *", function () {
+  //   console.log("Process running every minute");
+  // });
 
-// Effacer le fichier errors.log tous les 25 du mois
-cron.schedule("0 0 25 * *", function () {
-  console.log("---------------------");
-  console.log("Running Cron process delete");
-  fs.unlink("./errors.log", (err) => {
-    if (err) throw err;
-    console.log("File errors.log successfully deleted!");
+  // var mysqldump = spawn("mysqldump", [
+  //   //   "-u",
+  //     "DB_USER",
+  //     // "-p",
+  //   "DB_PASSWORD",
+  //   "DB_NAME",
+  // ]);
+
+  // mysqldump.stdout
+  //   .pipe(skew)
+  //   .on("finish", function () {
+  //     console.log("Completed");
+  //   })
+  //   .on("error", function (err) {
+  //     console.log(err);
+  //   });
+
+  // Fréquence de sauvegarde comme ici 1 fois par jour
+  cron.schedule(" * * * * * * ", () => {
+    // Générer dynamiquement le nom du fichier avec moment.js
+    const fileName = `${process.env.DATABASE}_${moment().format(
+      "YYYY_MM_DD"
+    )}.sql`;
+    const skew = fs.createWriteStream("dumpadmin.sql");
+    console.log("---------------------");
+    console.log("Running Database Backup Cron Job");
+    const mysqldump = spawn("mysqldump", [
+      "-u",
+      process.env.USERDB,
+      `-p${process.env.PASSWORD}`,
+      process.env.DATABASE,
+    ]);
+
+    mysqldump.stdout
+      .pipe(skew)
+      .on("finish", () => {
+        console.log("DB Backup Completed !");
+      })
+      .on("error", (err) => {
+        console.log(err);
+      });
+
+    cron.schedule("* * * * *", function () {
+      console.log("Process running every minute");
+    });
   });
-});
 
-// Back up the database at 12:32.
-cron.schedule("32 12 * * *", function () {
-  console.log("---------------------");
-  console.log("Running Cron process database");
-  if (shell.exec("connection").code !== 0) {
-    shell.exit(1);
-  } else {
-    shell.echo("Database backup completed!");
-  }
+// Express run PORT
+app.listen(PORT, function () {
+  console.log(
+    `Ecoute le port ${PORT}, lancé le : ${new Date().toLocaleString()}`
+  );
 });
-
-app.listen(1870);
