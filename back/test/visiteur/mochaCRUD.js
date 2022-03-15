@@ -1,5 +1,6 @@
 // Config Chai
-const { Contact } = require("../../src/models/ContactModel");
+const Contact = require("../../src/models/ContactModel");
+const MessageAdmin = require("../../src/models/admin/MessageModel");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const connection = require("../../src/config/ConnectionDB");
@@ -15,9 +16,9 @@ describe("Test Create Read Delete Message avec MOCHA", () => {
 
     //Loop for create Create Message 'it'
     beforeEach((done) => {
-        const { nom, prenom, tel, mail, message, sujet } = {
-            nom: "Sponge",
-            prenom: "Bob",
+        const { name, firstname, tel, mail, message, sujet } = {
+            name: "Sponge",
+            firstname: "Bob",
             tel: 1234567890,
             mail: "bob@sponge.fr",
             message: "Mocha description",
@@ -26,28 +27,24 @@ describe("Test Create Read Delete Message avec MOCHA", () => {
 
         connection.getConnection(function (error, conn) {
             conn.query(
-                `INSERT INTO messages SET name=:nom, firstname=:prenom, tel=:tel, mail=:mail, message=:message, sujet=:sujet`,
-                { nom, prenom, tel, mail, message, sujet },
+                `INSERT INTO messages SET name=:name, firstname=:firstname, tel=:tel, mail=:mail, message=:message, sujet=:sujet`,
+                { name, firstname, tel, mail, message, sujet },
                 function (err, data) {
-                    // message.id = data.insertId;
-                    messages = {
-                        ...message,
-                        nom,
-                        prenom,
-                        tel,
-                        mail,
-                        message,
-                        sujet,
-                    };
+                    messages.id = data.insertId;
                 }
             );
             done();
         });
     });
 
+    //test
+    it('GET TEST', (done) => {
+        done();
+    })
+
     //Create Message
     it("POST MESSAGE", (done) => {
-        let messageObj = {
+        let newContact = {
             name: "Vador",
             firstname: "Dark",
             tel: 1212121212,
@@ -56,12 +53,35 @@ describe("Test Create Read Delete Message avec MOCHA", () => {
             sujet: "Mocha2",
         };
 
-        Contact.post(messageObj, result => {
+        Contact.post(newContact, (err, data) => {
             if (err) console.log("err", err);
-            console.log('data', result)
-            assert.strictEqual("object", typeof result);
+            assert.strictEqual("object", typeof data);
             boucle = boucle + 1;
             done();
+        });
+    });
+
+    //Read Messages
+    it("GET MESSAGE", (done) => {
+        MessageAdmin.getListMessages((err, data) => {
+            if (err) console.log("err", err);
+            assert.strictEqual("object", typeof data);
+            boucle = boucle + 1;
+            done();
+        });
+    });
+
+    //Delete Message
+    it("DELETE MESSAGE", (done) => {
+        let id = messages.id - boucle;
+        connection.getConnection(function (error, conn) {
+            conn.query(
+                `delete from messages where id >${id}`,
+                function (err, data) {
+                    assert.strictEqual("object", typeof data);
+                    done();
+                }
+            );
         });
     });
 });
