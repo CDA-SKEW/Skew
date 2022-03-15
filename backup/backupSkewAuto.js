@@ -6,9 +6,9 @@ const { spawn } = require("child_process"),
 
 require('dotenv').config()
 
-const DB_USER = process.env.DB_USER,
-  DB_PASSWORD = process.env.DB_PASSWORD,
-  DB_NAME = process.env.DB_NAME;
+const DB_USER = process.env.USERDB,
+  DB_PASSWORD = process.env.PASSWORD,
+  DB_NAME = process.env.DATABASE;
 
 console.log("toto", DB_USER, DB_PASSWORD,
   DB_NAME)

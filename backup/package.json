@@ -1,13 +1,13 @@
 {
   "name": "backup",
   "version": "1.0.0",
-  "description": "",
+  "description": "backup pour application Skew",
   "main": "backupSkew.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "backupSkew": "nodemon backupSkew.js"
+    "backupSkewDev": "nodemon backupSkewAuto.js",
+    "backupSkewAuto": "node backupSkewAuto.js"
   },
-  "author": "",
+  "author": "skew",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
