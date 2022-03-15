@@ -8,7 +8,7 @@ class ContactControllers {
         let newContact = new Contact ({
             name: String(req.body.nom),
             firstname: String(req.body.prenom),
-            tel: String(req.body.tel),
+            tel: Number(req.body.tel),
             mail: String(req.body.mail),
             message: String(req.body.message),
             sujet: String(req.body.sujet),
