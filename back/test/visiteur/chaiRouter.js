@@ -3,11 +3,9 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const should = require("chai").should();
 const expect = chai.expect;
-const path = require("path");
-
 const connection = require("../../src/config/ConnectionDB");
 const index = require("../../apiskew");
-const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 
 chai.use(chaiHttp);
