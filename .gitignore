@@ -45,6 +45,7 @@ yarn-error.lo
 
 /backupKevin/node_modules
 /backupKevin/.env
+
 # Part BackupSuka
 /backupSuka/node_modules
 /backupSuka/.env
