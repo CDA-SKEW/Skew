@@ -60,7 +60,6 @@ export default function OfferForm() {
     e.preventDefault();
 
     const dataFormAddOffer = {
-      user_id: 4,
       title,
       type,
       period,

@@ -24,7 +24,7 @@ const EmployerDashboard = () => {
 
   const dashboard = useSelector(
     (state) => state.employer.dataDashboardEmployer
-  ) || "";
+  );
 
   useEffect(() => {
     setNbOffer(dashboard.numberOffers);

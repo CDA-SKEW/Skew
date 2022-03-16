@@ -50,13 +50,13 @@ export default function SlideBarUser(props) {
             variant="permanent"
             anchor="left"
         >
-            {dataProfilUser.avatar > 0 && (
-                <Box
-                    display={"flex"} justifyContent='start' marginTop={2} paddingX={2} >
-                    {dataProfilUser && (
-                        <Avatar alt="" srcSet={`${urlImg + dataProfilUser.avatar}`} sx={{ width: 90, height: 90 }} />)}
-                </Box>
-            )}
+
+            <Box
+                display={"flex"} justifyContent='start' marginTop={2} paddingX={2} >
+                {dataProfilUser.avatar && (
+                    <Avatar alt="" srcSet={`${urlImg + dataProfilUser.avatar}`} sx={{ width: 90, height: 90 }} />)}
+            </Box>
+
             <Box
                 display={"flex"} justifyContent='start' flexWrap={"wrap"} paddingX={3} marginY={2}>
                 {dataProfilUser && (
