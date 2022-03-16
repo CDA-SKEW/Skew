@@ -38,7 +38,6 @@ describe("Test Router avec ChaiRouter", () => {
     // console.log(token)
   });
 
-
   //Test connection db
   it("db.connection.connect...", function (done) {
     connection.getConnection(function (error, conn) {
@@ -151,7 +150,6 @@ describe("Test Router avec ChaiRouter", () => {
         done();
       });
   });
-
 
   //Test route put avec image
   it('Test route Put avec img: /api/employer/profil', (done) => {

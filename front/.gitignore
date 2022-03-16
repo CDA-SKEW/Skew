@@ -20,6 +20,7 @@
 /front/platforms
 /front/node_modules
 /front/.env
+/front/dist/*
 
 # misc
 .env

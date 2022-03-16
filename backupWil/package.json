@@ -6,7 +6,7 @@
   "scripts": {
     "backupSkewDev": "nodemon backupSkewAuto.js",
     "backupSkewAuto": "node backupSkewAuto.js",
-    "backupSkewOne": "node backupSkewOne.js",
+    "backupSkewOne": "node backupSkewOne.js"
   },
   "author": "skew",
   "license": "ISC",
