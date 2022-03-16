@@ -9,8 +9,8 @@ const DB_USER = process.env.USERDB,
   DB_PASSWORD = process.env.PASSWORD,
   DB_NAME = process.env.DATABASE;
 
-const folder = path.resolve("../backup/files/simpleBackup");
-mkDir(folder)
+const folder = path.resolve("../backupWil/files/simpleBackup");
+mkDir(folder);
 
 // Fonction creation repertoire
 function mkDir(folder) {
@@ -19,7 +19,6 @@ function mkDir(folder) {
   });
   return folder;
 }
-
 
 let fileName = `${DB_NAME}_${moment().format("YYYY_MM_DD_hh_mm_ss")}.sql`;
 let wstream = fs.createWriteStream(`${folder}/${fileName}`);

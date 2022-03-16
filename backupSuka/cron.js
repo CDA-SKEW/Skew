@@ -3,6 +3,7 @@
 
 // Request node-cron, moment & fs
 const cron = require("node-cron");
+const moment = require("moment");
 const fs = require("fs");
 const moment = require("moment");
 // Processus enfants
@@ -20,7 +21,7 @@ require("dotenv").config();
   second ( optional ) */
 
 // Créer un nouveau répertoire avec fs
-// fs.mkdir("../backupSuka/adminBackup", function (err) {
+// fs.mkdir("../backupSuka/backup", function (err) {
 //   if (err) {
 //     console.log(err);
 //   } else {
@@ -35,10 +36,9 @@ cron.schedule("0 0 * * *", () => {
     process.env.DATABASE
   }_${moment().format("YYYY_MM_DD")}.dump.sql`;
   // Ajouter le fichier créé dans un dossier en spécifiant le chemin
-  const skew = fs.createWriteStream(
-    `../backupSuka/adminBackup/${fileName}.gz`,
-    { compressFile: true }
-  );
+  const skew = fs.createWriteStream(`../backupSuka/backup/${fileName}.gz`, {
+    compressFile: true,
+  });
   console.log("-------------------✈️--------------------");
   console.log("Running Database Backup Cron Job");
   // Exécuter

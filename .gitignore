@@ -43,10 +43,13 @@ yarn-error.lo
 /backupWil/.env
 /backupWil/files/*
 
+/backupKevin/node_modules
+/backupKevin/.env
+
 # Part BackupSuka
 /backupSuka/node_modules
 /backupSuka/.env
 /backupSuka/adminBackup/*
 
 # Part API
-# api/config/swagger/*
+/back/src/config/swagger*

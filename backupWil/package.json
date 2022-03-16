@@ -7,7 +7,6 @@
     "backupSkewDev": "nodemon backupSkewAuto.js",
     "backupSkewAuto": "node backupSkewAuto.js",
     "backupSkewOne": "node backupSkewOne.js",
-    "restoreSkew": "node restoreSkew.js"
   },
   "author": "skew",
   "license": "ISC",

@@ -10,7 +10,7 @@ const DB_USER = process.env.USERDB,
   DB_PASSWORD = process.env.PASSWORD,
   DB_NAME = process.env.DATABASE;
 
-const folder = path.resolve("../backup/files");
+const folder = path.resolve("../backupWil/files");
 const dirDay = path.resolve(folder + "/dirDay");
 const dirWeek = path.resolve(folder + "/dirWeek");
 const dirMonth = path.resolve(folder + "/dirMonth");
