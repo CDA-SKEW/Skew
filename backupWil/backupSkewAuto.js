@@ -33,10 +33,10 @@ function rmDir(folder) {
 }
 
 //toute les 10 secondes on fait cette action '*/10 * * * * *'
-// cron.schedule("*/10 * * * * *", () => {
+cron.schedule("*/10 * * * * *", () => {
   
 // tache effectuer tout les 23h de 59 min '59 23 * * *'
-cron.schedule("59 23 * * *", () => {
+// cron.schedule("59 23 * * *", () => {
 
   mkDir(dirDay);
   fs.readdir(dirDay, (err, files) => {
