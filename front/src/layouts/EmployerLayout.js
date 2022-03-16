@@ -87,7 +87,7 @@ export default function EmployerLayout({ children }) {
             setOpenDialogToken(true);
             let timeTokenSec = Math.floor(jwt_decode(localStorage.getItem("user_token")).exp - Date.now().valueOf() / 1000)
             setTimeToken(timeTokenSec);
-            if (Number(timeTokenSec) === 0) {
+            if (Number(timeTokenSec) <= 0) {
               setOpenDialogToken(false);
               localStorage.removeItem("user_token");
               window.location.reload();
@@ -132,12 +132,12 @@ export default function EmployerLayout({ children }) {
         </AppBar>
 
         {/*sidebar Layout*/}
-        <SlideBarUser
+        {dataProfilEmployer && (<SlideBarUser
           drawerWidth={drawerWidth}
           listItems={listItems}
           listItemGeneral={listItemGeneral}
           dataProfilUser={dataProfilEmployer}
-        />
+        />)}
 
         {/* Body*/}
         <ThemeProvider theme={themeEmployer}>
