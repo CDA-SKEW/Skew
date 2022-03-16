@@ -1,17 +1,14 @@
-// Request node-cron & Express
-const cron = require("node-cron");
-const express = require("express");
-const fs = require("fs");
-// const shell = require("shell.js");
-const spawn = require("child_process").spawn;
-const connection = require("../back/src/config/ConnectionDB");
-// const nodemailer = require("nodemailer");
-
-// Create an new instance
-app = express();
-
 // node-cron: https://www.npmjs.com/package/node-cron
 // child-process: https://nodejs.org/api/child_process.html
+
+// Request node-cron & Moment
+const cron = require("node-cron");
+const moment = require("moment");
+const fs = require("fs");
+// Processus enfants
+const { spawn } = require("child_process");
+// ENV
+require("dotenv").config();
 
 /* * * * * * 
   | | | | | |
@@ -22,30 +19,41 @@ app = express();
   | minute
   second ( optional ) */
 
-// S'exécute toutes les minutes
-// cron.schedule("* * * * *", function () {
-//   console.log("Process running every minute");
+// Créer un nouveau répertoire avec fs
+// fs.mkdir("../backupSuka/backup", function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("New directory successfully created.");
+//   }
 // });
 
-// Effacer le fichier errors.log tous les 25 du mois
-cron.schedule("0 0 25 * *", function () {
-  console.log("---------------------");
-  console.log("Running Cron process delete");
-  fs.unlink("./errors.log", (err) => {
-    if (err) throw err;
-    console.log("File errors.log successfully deleted!");
+// Fréquence de sauvegarde comme ici 1 fois par jour
+cron.schedule("0 0 * * *", () => {
+  // Générer dynamiquement le nom du fichier avec moment.js
+  const fileName = `${Math.round(Date.now() / 1000)}${
+    process.env.DATABASE
+  }_${moment().format("YYYY_MM_DD")}.dump.sql`;
+  // Ajouter le fichier créé dans un dossier en spécifiant le chemin
+  const skew = fs.createWriteStream(`../backupSuka/backup/${fileName}.gz`, {
+    compressFile: true,
   });
-});
+  console.log("-------------------✈️--------------------");
+  console.log("Running Database Backup Cron Job");
+  // Exécuter
+  const mysqldump = spawn("mysqldump", [
+    "-u",
+    process.env.USERDB,
+    `-p${process.env.PASSWORD}`,
+    process.env.DATABASE,
+  ]);
 
-// Back up the database at 12:32.
-cron.schedule("32 12 * * *", function () {
-  console.log("---------------------");
-  console.log("Running Cron process database");
-  if (shell.exec("connection").code !== 0) {
-    shell.exit(1);
-  } else {
-    shell.echo("Database backup completed!");
-  }
+  mysqldump.stdout
+    .pipe(skew)
+    .on("finish", () => {
+      console.log("Database Backup Completed !  👌");
+    })
+    .on("error", (err) => {
+      console.log(err);
+    });
 });
-
-app.listen(1870);

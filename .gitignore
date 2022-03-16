@@ -45,6 +45,10 @@ yarn-error.lo
 
 /backupKevin/node_modules
 /backupKevin/.env
+# Part BackupSuka
+/backupSuka/node_modules
+/backupSuka/.env
+/backupSuka/adminBackup/*
 
 # Part API
 /back/src/config/swagger*
