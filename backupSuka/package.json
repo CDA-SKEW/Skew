@@ -5,7 +5,8 @@
   "main": "cron.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon cron.js"
+    "dev": "nodemon cron.js",
+    "restore": "nodemon restore.js"
   },
   "author": "Attoumani Soukainata",
   "license": "ISC",

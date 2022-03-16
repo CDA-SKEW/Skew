@@ -1,14 +1,13 @@
 // node-cron: https://www.npmjs.com/package/node-cron
 // child-process: https://nodejs.org/api/child_process.html
 
-// Request node-cron & Express
+// Request node-cron, moment & fs
 const cron = require("node-cron");
 const fs = require("fs");
+const moment = require("moment");
 // Processus enfants
 const { spawn } = require("child_process");
-const moment = require("moment");
-const { exec } = require("child_process");
-
+// ENV
 require("dotenv").config();
 
 /* * * * * * 
@@ -30,7 +29,7 @@ require("dotenv").config();
 // });
 
 // Fréquence de sauvegarde comme ici 1 fois par jour
-cron.schedule("* * * * * *", () => {
+cron.schedule("0 0 * * *", () => {
   // Générer dynamiquement le nom du fichier avec moment.js
   const fileName = `${Math.round(Date.now() / 1000)}${
     process.env.DATABASE
