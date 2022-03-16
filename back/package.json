@@ -12,7 +12,7 @@
     "mochaCrudEmployer": "nodemon --exec 'mocha ./test/employer/mochaCrudEmployer.js'",
     "chai": "nodemon --exec 'mocha  ./test/admin/chaiRouter*.js'",
     "mocha": "nodemon --exec 'mocha  ./test/admin/mochaCRUD*.js'",
-    "chaiCandidat": "nodemon --exec 'mocha  ./test/candidat/chaiRouter.js'",
+    "chaiCandidat": "nodemon --exec 'mocha ./test/candidat/chaiRouter*.js'",
     "mochaCandidat": "nodemon --exec 'mocha  ./test/candidat/mochaCRUD.js'"
   },
   "author": "skew",
