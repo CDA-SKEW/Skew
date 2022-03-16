@@ -1,6 +1,8 @@
 {
   "name": "skew",
   "version": "0.1.0",
+  "homepage": "./",
+  "main": "src/start.js",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
@@ -26,6 +28,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
+    "cross-env": "^7.0.3",
     "css-mediaquery": "^0.1.2",
     "date-fns": "^2.28.0",
     "dateformat": "^5.0.3",
@@ -44,27 +47,40 @@
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.3"
   },
-  "homepage": "./",
-  "main": "src/start.js",
   "scripts": {
-    "start": "nf start -p 3000",
-    "react-start": "BROWSER=none react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "pack": "build --dir",
-    "dist": "npm run build && build",
-    "postinstall": "install-app-deps",
-    "electron": "electron .",
-    "electron-start": "node src/start-react"
+    "w:build": "cross-env BUILD_PATH='./dist/webapp' react-scripts build",
+    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && yarn build && sudo rm ./public/electron.js ./public/preload.js",
+    "e:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=build/electron.js"
   },
   "build": {
-    "appId": "com.electron.electron-with-create-react-app",
-    "win": {
-      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
-    },
+    "appId": "skew.app",
+    "productName": "skew app",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
     "directories": {
-      "buildResources": "public"
+      "buildResources": "public",
+      "output": "dist/electron"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
     }
   },
   "eslintConfig": {
