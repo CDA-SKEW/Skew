@@ -55,10 +55,8 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-// 0 0 * * *
-
 // Fréquence de sauvegarde comme ici 1 fois par jour
-cron.schedule("* * * * * *", () => {
+cron.schedule("0 0 * * *", () => {
   // Générer dynamiquement le nom du fichier avec moment.js
   const fileName = `${process.env.DATABASE}_${moment().format(
     "YYYY_MM_DD"
@@ -105,7 +103,7 @@ cron.schedule("* * * * * *", () => {
     html: `
     <h4 style="color:#0A2061;">Hello Souka ! Le backup vient d'être réalisé ! 💻</h4>
     <div style="display: flex;margin-bottom: 15px;">
-    <span>Celui est éfféctué une fois par jours.</span>
+    <span>Celui-ci est éfféctué une fois par jours.</span>
     </div>  
       <div style="display: flex;margin-bottom: 15px;">  
        <div style="margin-top:auto;margin-bottom:auto;width:100px;height:auto">
