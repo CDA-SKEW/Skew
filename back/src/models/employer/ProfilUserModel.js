@@ -183,7 +183,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
     profilUserCompagnyObj;
 
   let pathAvatar = "./public/images/avatar/",
-    pathAvatarDb = "/assets/images/avatar/",
+    pathAvatarDb = "/api/assets/images/avatar/",
     pathAvatarWebp = "",
     pathImgWebp = "";
 

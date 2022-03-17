@@ -53,7 +53,7 @@ class Server {
 
 
     // Express static permet de diriger un chemin sur un dossier en particulier
-    this.app.use("/assets", express.static("public"));
+    this.app.use("/api/assets", express.static("public"));
 
     // Disable header express default
     this.app.disable("x-powered-by");
