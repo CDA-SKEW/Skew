@@ -2,7 +2,8 @@
   "name": "skew",
   "version": "0.1.0",
   "homepage": "./",
-  "main": "src/start.js",
+  "productName": "Skew app",
+  "main": "build/electron.js",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
@@ -33,7 +34,6 @@
     "dateformat": "^5.0.3",
     "devextreme": "21.2.5",
     "devextreme-react": "21.2.5",
-    "electron": "^17.1.2",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "notistack": "^2.0.3",
@@ -102,6 +102,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "electron": "^17.1.2",
     "electron-builder": "^22.14.13",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1"
