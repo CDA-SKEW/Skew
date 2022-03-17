@@ -38,8 +38,8 @@ class Server {
     //expressOasGenerator.init(app, {});
 
     //** Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
-    // const swaggerUi = require("swagger-ui-express");
-    // const swaggerDocument = require("./config/swagger.json");
+    const swaggerUi = require("swagger-ui-express");
+    const swaggerDocument = require("./config/swagger.json");
     // ************** / Swagger ******************
 
 
@@ -69,7 +69,7 @@ class Server {
     // this.app.use(
     //   "/api-docs",
     //   swaggerUi.serve,
-    //   swaggerUi.setup(swaggerDocument)
+      swaggerUi.setup(swaggerDocument)
     // );
     // voici le lien pour l'api doc ex:http://localhost:3003/api-docs/#/
     // ************** / Swagger ******************
