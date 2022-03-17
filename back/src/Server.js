@@ -26,6 +26,13 @@ class Server {
           "http://192.168.1.69:3000",
           "http://192.168.1.89:3000",
           "http://192.168.1.98:3000",
+          "http://51.210.109.34",
+          "https://51.210.109.34",
+          "https://www.skew.liwza.com",
+          "http://www.skew.liwza.com",
+          "https://skew.liwza.com",
+          "http://skew.liwza.com"
+          
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
