@@ -15,13 +15,22 @@ class Server {
     this.app.use(
       cors({
         origin: [
+          "http://dr-kh.fr",
+          "http://www.dr-kh.fr",
+          "https://dr-kh.fr",
+          "https://www.dr-kh.fr",
           "http://localhost:3000",
           "http://192.168.1.4:3000",
-          "https://domain.com/",
-          "http://domain.com/",
+          "http://skew.souka.fr",
+          "https://www.skew.souka.fr",
           "http://192.168.1.69:3000",
           "http://192.168.1.89:3000",
           "http://192.168.1.98:3000",
+          "https://www.skew.liwza.com",
+          "http://www.skew.liwza.com",
+          "https://skew.liwza.com",
+          "http://skew.liwza.com"
+          
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
@@ -44,7 +53,7 @@ class Server {
 
 
     // Express static permet de diriger un chemin sur un dossier en particulier
-    this.app.use("/assets", express.static("public"));
+    this.app.use("/api/assets", express.static("public"));
 
     // Disable header express default
     this.app.disable("x-powered-by");

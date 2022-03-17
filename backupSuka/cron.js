@@ -52,7 +52,7 @@ cron.schedule("0 0 * * *", () => {
     "YYYY_MM_DD"
   )}.dump.sql`;
   // Ajouter le fichier créé précédemment dans un dossier en spécifiant le chemin
-  const skew = fs.createWriteStream(`../backupSuka/backup/${fileName}.gz`, {
+  const skew = fs.createWriteStream(`../backupSuka/backup/${fileName}.sql`, {
     compressFile: true,
   });
   console.log("---------------------------------------");
@@ -93,7 +93,11 @@ cron.schedule("0 0 * * *", () => {
     html: `
     <h4 style="color:#0A2061;">Hello Souka ! Le backup vient d'être réalisé ! 💻</h4>
     <div style="display: flex;margin-bottom: 15px;">
+<<<<<<< HEAD
     <span>Celui est éfféctué une fois par jours.</span>
+=======
+    <span>Celui-ci est éfféctué une fois par jours.</span>
+>>>>>>> 5edf7808b136bbe635d3b900eca2b71d2cbefef4
     </div>  
       <div style="display: flex;margin-bottom: 15px;">  
        <div style="margin-top:auto;margin-bottom:auto;width:100px;height:auto">

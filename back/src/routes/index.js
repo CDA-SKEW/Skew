@@ -48,6 +48,13 @@ const TokenJWT = require("../middlewares/Token_jwt");
 /*
  * Routes
  * ****** */
+
+// Test
+router.get('/api/test', (req, res) => {
+  console.log('Test OK')
+  res.json({ message: 'Test OK !!' })
+})
+
 //------------------------------------------------------------
 // Authentification
 router.route("/api/login").post(new AuthControllers().login);
