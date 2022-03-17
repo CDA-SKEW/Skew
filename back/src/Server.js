@@ -17,8 +17,8 @@ class Server {
         origin: [
           "http://localhost:3000",
           "http://192.168.1.4:3000",
-          "https://domain.com/",
-          "http://domain.com/",
+          "http://skew.souka.fr",
+          "https://skew.souka.fr",
           "http://192.168.1.69:3000",
           "http://192.168.1.89:3000",
           "http://192.168.1.98:3000",

@@ -50,7 +50,7 @@ yarn-error.lo
 # Part BackupSuka
 /backupSuka/node_modules
 /backupSuka/.env
-/backupSuka/adminBackup/*
+/backupSuka/backup/*
 
 # Part API
 /back/src/config/swagger*
