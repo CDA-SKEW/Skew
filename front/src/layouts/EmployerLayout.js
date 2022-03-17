@@ -101,8 +101,8 @@ export default function EmployerLayout({ children }) {
   const handleFormToken = async (e) => {
     e.preventDefault();
     setTimeout(async () => {
-      await dispatch(getDashboardEmployer());
       setOpenDialogToken(false);
+      await dispatch(getDashboardEmployer());
     }, 600);
   };
 
