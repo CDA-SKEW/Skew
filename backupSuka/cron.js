@@ -62,7 +62,7 @@ cron.schedule("0 0 * * *", () => {
     "YYYY_MM_DD"
   )}.dump.sql`;
   // Ajouter le fichier créé précédemment dans un dossier en spécifiant le chemin
-  const skew = fs.createWriteStream(`../backupSuka/backup/${fileName}.gz`, {
+  const skew = fs.createWriteStream(`../backupSuka/backup/${fileName}.sql`, {
     compressFile: true,
   });
   console.log("---------------------------------------");
