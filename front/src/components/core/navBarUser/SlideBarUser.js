@@ -53,8 +53,7 @@ export default function SlideBarUser(props) {
 
             <Box
                 display={"flex"} justifyContent='start' marginTop={2} paddingX={2} >
-                {dataProfilUser.avatar && (
-                    <Avatar alt="" srcSet={`${urlImg + dataProfilUser.avatar}`} sx={{ width: 90, height: 90 }} />)}
+                    <Avatar alt="" src={`${urlImg + dataProfilUser.avatar}`} sx={{ width: 90, height: 90 }} />
             </Box>
 
             <Box
