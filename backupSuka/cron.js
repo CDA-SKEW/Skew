@@ -5,16 +5,6 @@
 // node-cron: https://www.npmjs.com/package/node-cron
 // child-process: https://nodejs.org/api/child_process.html
 
-// Request node-cron, moment & fs
-const cron = require("node-cron");
-const moment = require("moment");
-const fs = require("fs");
-const moment = require("moment");
-// Processus enfants
-const { spawn } = require("child_process");
-// ENV
-require("dotenv").config();
-
 /* * * * * * 
   | | | | | |
   | | | | | day of week
