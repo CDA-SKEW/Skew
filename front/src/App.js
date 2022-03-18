@@ -24,6 +24,7 @@ import ChangePassword from "pages/employer/ChangePassword";
 
 import EmployerLayout from "layouts/EmployerLayout";
 import CandidatLayout from "layouts/CandidatLayout";
+import AdminLayout from "layouts/AdminLayout";
 import VerifAuth from "pages/visitor/VerifAuth";
 
 const EmployerRoutes = () => (
@@ -50,14 +51,21 @@ const CandidatRoutes = () => (
   </CandidatLayout>
 );
 
+const AdminRoute = () => (
+  <AdminLayout>
+    <Routes>
+      <Route path="/" exact element={<AdminPage />} />
+      <Route path="users" exact element={<AdminUsersTable />} />
+      <Route path="jobs" exact element={<AdminJobs />} />
+      <Route path="messages" exact element={<AdminMessages />} />
+    </Routes>
+  </AdminLayout>
+);
+
 function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/admin" exact element={<AdminPage />} />
-        <Route path="/admin/users" exact element={<AdminUsersTable />} />
-        <Route path="/admin/jobs" exact element={<AdminJobs />} />
-        <Route path="/admin/messages" exact element={<AdminMessages />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/recruteur" exact element={<PresentationRecruteur />} />
         <Route path="/candidat" exact element={<PresentationCandidat />} />
@@ -65,6 +73,7 @@ function App() {
         <Route path="/offres" exact element={<Offres />} />
         <Route path="/Employer/*" element={<EmployerRoutes />} />
         <Route path="/Candidat/*" element={<CandidatRoutes />} />
+        <Route path="/admin/*" element={<AdminRoute />} />
         <Route path="/verif/:rand" element={<VerifAuth />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
