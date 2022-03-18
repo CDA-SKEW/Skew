@@ -18,7 +18,7 @@ export default function OfferForm() {
 
   useEffect(() => {
     setTextFlash(messageEmployer);
-  }, [dataEmployer]);
+  }, [messageEmployer,dataEmployer]);
 
   // declaration du tableau pour le select
   const types = [

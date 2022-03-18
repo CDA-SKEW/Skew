@@ -28,7 +28,7 @@ export default function ModalMessageCandidate(props) {
   // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);
 
-  const [form, setForm] = useState({ ...row });
+  const [form] = useState({ ...row });
 
   const [textMessage, setTextMessage] = useState();
 

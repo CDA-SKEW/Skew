@@ -19,7 +19,7 @@ const EmployerProfil = () => {
   useEffect(() => {
       dispatch(getProfilEmployer());
       dispatch(getProfilUser());
-  },[]);
+  },[dispatch]);
 
   const dataProfilEmployer = useSelector(
     (state) => state.employer.dataProfilEmployer

@@ -46,8 +46,10 @@ export default function FormPersonalEmployer(props) {
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
   useEffect(() => {
-    setUseState();
-  }, [profilPersonnalNotEditabled]);
+    if (profilPersonnalNotEditabled===true) {
+    setEditPassword(false);
+    setMail(dataProfilUser.mail);}
+  }, [profilPersonnalNotEditabled,dataProfilUser]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilUser
   useEffect(() => {
