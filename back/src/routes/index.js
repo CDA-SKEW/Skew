@@ -48,6 +48,13 @@ const TokenJWT = require("../middlewares/Token_jwt");
 /*
  * Routes
  * ****** */
+
+// Test
+router.get('/api/test', (req, res) => {
+  console.log('Test OK')
+  res.json({ message: 'Test OK !!' })
+})
+
 //------------------------------------------------------------
 // Authentification
 router.route("/api/login").post(new AuthControllers().login);
@@ -58,7 +65,7 @@ router.route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthContro
 router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
 // Mot de passe oublié
-router.route("/api/auth/mail-lost-mdp").put(new AuthControllers().mailLostMdp)
+router.route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp);
 
 // Messages
 router.route("/api/contact").post(new ContactControllers().post);

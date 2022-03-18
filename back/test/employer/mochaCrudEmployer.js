@@ -7,7 +7,6 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const connection = require("../../src/config/ConnectionDB");
 var assert = require("assert");
-const { user } = require("../../src/config/db");
 
 require("dotenv").config();
 
@@ -17,7 +16,6 @@ describe("---Test CRUD avec Mocha---", () => {
   describe("Test Create Read Delete Offer avec MOCHA", () => {
     let offer = {};
     let boucle = 1;
-
     //Loop for create Create Offer 'it'
     beforeEach((done) => {
       const { title, type, period, description, profil, user_id } = {
@@ -49,7 +47,6 @@ describe("---Test CRUD avec Mocha---", () => {
         done();
       });
     });
-
     //Create Offer
     it("POST OFFER", (done) => {
       let offerObj = {
@@ -69,7 +66,6 @@ describe("---Test CRUD avec Mocha---", () => {
         done();
       });
     });
-
     //Get ALL offer
     it("GET ALL OFFER", (done) => {
       Offer.getOffer((err, data) => {
@@ -80,7 +76,6 @@ describe("---Test CRUD avec Mocha---", () => {
         done();
       });
     });
-
     it("DELETE OFFER ID", (done) => {
       //console.log("GETID: ", offer.id);
       Offer.deleteOffer(offer.id, (err, data) => {
@@ -91,7 +86,6 @@ describe("---Test CRUD avec Mocha---", () => {
         done();
       });
     });
-
     // Delete ALL Offer
     it("DELETE ALL OFFER Create during TU", (done) => {
       // console.log("GETID Delete all: ", offer.id, boucle);
@@ -113,7 +107,6 @@ describe("---Test CRUD avec Mocha---", () => {
   describe("Test Update  Read Delete Profil employer avec MOCHA", () => {
     let user = {};
     let boucle = 1;
-
     //Loop for create Create Offer 'it'
     beforeEach((done) => {
       const { mail } = {
@@ -142,7 +135,6 @@ describe("---Test CRUD avec Mocha---", () => {
         );
       });
     });
-
     it("PUT PROFIL EMPLOYER", (done) => {
       let profilUserCompagnyObj = {
         user_id: user.id,
@@ -169,7 +161,6 @@ describe("---Test CRUD avec Mocha---", () => {
         }
       );
     });
-
     // Delete ALL Offer
     it("GET PROFIL EMPLOYER after update", (done) => {
       ProfilUserCompagny.getProfilCompagnyById(
@@ -183,7 +174,6 @@ describe("---Test CRUD avec Mocha---", () => {
         }
       );
     });
-
     // Delete ALL Offer
     it("DELETE USER Create during TU", (done) => {
       //console.log("GETID Delete all: ", user.id);

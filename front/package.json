@@ -1,6 +1,9 @@
 {
   "name": "skew",
   "version": "0.1.0",
+  "homepage": "./",
+  "productName": "Skew app",
+  "main": "build/electron.js",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
@@ -46,8 +49,38 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "w:build": "cross-env BUILD_PATH='./dist/webapp' react-scripts build",
+    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && yarn build && sudo rm ./public/electron.js ./public/preload.js",
+    "e:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=build/electron.js",
+    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+  },
+  "build": {
+    "appId": "skew.app",
+    "productName": "skew app",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "public",
+      "output": "dist/electron"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "deb"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -68,7 +101,14 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^17.1.2",
+    "electron-builder": "^22.14.13",
+    "electron-is-dev": "^2.0.0",
+    "electronmon": "^2.0.2",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "wait-on": "^6.0.1"
   }
 }

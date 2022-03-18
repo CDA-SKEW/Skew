@@ -3,11 +3,9 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const should = require("chai").should();
 const expect = chai.expect;
-const path = require("path");
-
 const connection = require("../../src/config/ConnectionDB");
 const index = require("../../apiskew");
-const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 
 chai.use(chaiHttp);
@@ -105,4 +103,31 @@ describe("Test Router avec ChaiRouter", () => {
                     });
             });
     });
+
+    // Test route Update
+    it("Test route update: /api/admin/users/:id", (done) => {
+        chai
+            .request(index.app)
+            .get("/api/admin/users")
+            .end((err, res) => {
+                if (err) return done(err);
+                res.should.have.status(200);
+                console.log('res.body', res.body.user[0])
+                //id de l'user
+                const id = res.body.user[0].id
+
+                const body = {
+                    isVerified: 1,
+                }
+                chai
+                    .request(index.app)
+                    .put(`/api/admin/users/${id}`)
+                    .end((err, res) => {
+                        if (err) return done(err);
+                        res.should.have.status(200);
+                        res.body.should.be.a("object");
+                        done();
+                    });
+            })
+    })
 })

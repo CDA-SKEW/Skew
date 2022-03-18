@@ -66,6 +66,7 @@ class EmployerOfferControllers {
     if (id) {
       let offerObj = new Offer({
         ...req.body,
+        user_id: id
       });
       try {
         Offer.createOffer(offerObj, async (err, data) => {
@@ -120,8 +121,8 @@ class EmployerOfferControllers {
 
     if (req.params.id && req.body.offer_id) {
       let isRetainLet;
-      if (req.body.isRetain === true) isRetainLet = 1;
-      if (req.body.isRetain === false) isRetainLet = 0;
+      if (Boolean(req.body.isRetain) === true) isRetainLet = 1;
+      if (Boolean(req.body.isRetain) === false) isRetainLet = 0;
 
       let statutCandidateObj = new StatutCandidate({
         user_id: req.params.id,

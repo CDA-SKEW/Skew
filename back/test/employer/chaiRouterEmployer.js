@@ -35,6 +35,7 @@ describe("Test Router avec ChaiRouter", () => {
       { expiresIn: "2m" }
     );
     i++;
+    // console.log(token)
   });
 
   //Test connection db
@@ -149,7 +150,6 @@ describe("Test Router avec ChaiRouter", () => {
         done();
       });
   });
-
 
   //Test route put avec image
   it('Test route Put avec img: /api/employer/profil', (done) => {
