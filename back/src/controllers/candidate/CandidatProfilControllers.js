@@ -125,7 +125,7 @@ class CandidatProfilControllers {
   //  UPDATE EXPERIENCE PROFIL CANDIDAT 
 
   async updateExperienceProfil(req, res) {
-    // console.log('REQ.BODY CREATE', req.body);
+    // console.log('REQ.BODY UPDATE EXP', req.body);
     let experienceObj = new CandidatExperience({
       id: Number(req.params.id),
       ...req.body
@@ -195,7 +195,7 @@ class CandidatProfilControllers {
   //  CREATE SKILL PROFIL CANDIDAT
 
   async createSkillProfil(req, res) {
-
+    console.log('create skill')
     let newSkill = new CandidatSkill({
       ...req.body
     });
@@ -204,6 +204,7 @@ class CandidatProfilControllers {
         if (err) res.send(err);
         return res.json({
           method: req.method,
+          message: 'user created',
           User: data,
         });
       });
@@ -215,6 +216,7 @@ class CandidatProfilControllers {
   //  UPDATE SKILL PROFIL CANDIDAT 
 
   async updateSkillProfil(req, res) {
+    console.log('update skill')
     let skillObj = new CandidatSkill({
       id: Number(req.params.id),
       ...req.body
@@ -224,6 +226,7 @@ class CandidatProfilControllers {
         if (err) res.json(err);
         return res.json({
           method: req.method,
+          message: 'user updated',
           User: data,
         });
       });
@@ -391,7 +394,7 @@ class CandidatProfilControllers {
 
   async updateCertificateProfil(req, res) {
 
-    console.log('REQ.BODY CREATE', req.body);
+    console.log('REQ.BODY UPDATE', req.body);
     let { isCertified } = req.body;
     console.log("isCertified", Boolean(isCertified));
     isCertified = isCertified === "true" ? 1 : 0;
