@@ -2,7 +2,7 @@
   "name": "skew",
   "version": "0.1.0",
   "homepage": "./",
-  "main": "./src-electron/electron.js",
+  "main": "build/electron.js",
   "description": "skew app",
   "author": {
     "name": "kevin",
@@ -86,7 +86,9 @@
       "target": "nsis"
     },
     "linux": {
-      "target": "deb"
+      "target": "deb",
+      "icon": "public/android-chrome-256x256.png",
+      "category": "Development"
     }
   },
   "eslintConfig": {
