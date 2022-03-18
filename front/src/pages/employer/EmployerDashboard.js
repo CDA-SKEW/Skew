@@ -20,7 +20,7 @@ const EmployerDashboard = () => {
 
   useEffect(() => {
     dispatch(getDashboardEmployer());
-  }, []);
+  }, [dispatch]);
 
   const dashboard = useSelector(
     (state) => state.employer.dataDashboardEmployer
