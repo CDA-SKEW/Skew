@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "productName": "Skew app",
   "homepage": "./",
-  "main": "./src-electron/electron.js",
+  "main": "build/electron.js",
   "author": {
     "name": "liwza",
     "email": "liwza@liwza.com",
     "url": "https://liwza.com"
   },
- "description": "Skew Application",
+  "description": "Skew Application",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
@@ -59,12 +59,13 @@
     "eject": "react-scripts eject",
     "w:build": "cross-env BUILD_PATH='./dist/webapp' react-scripts build",
     "e:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && npm run build && sudo rm ./public/electron.js ./public/preload.js",
+    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && npm run build ",
+    "e:buildDev": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && npm run build && sudo rm ./public/electron.js ./public/preload.js ",
     "e:dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "e:mac": "npm run e:build && electron-builder -m -c.extraMetadata.main=src-electron/electron.js",
-    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=src-electron/electron.js",
-    "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=src-electron/electron.js"
+    "e:mac": "npm run e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
+    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=build/electron.js && sudo rm ./public/electron.js ./public/preload.js",
+    "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js"
   },
   "build": {
     "appId": "Skew.app",
@@ -79,13 +80,16 @@
       "output": "dist/electron"
     },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "icon": "build/icons"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "build/icons"
     },
     "linux": {
-      "target": "deb"
+      "target": "deb",
+      "category": "Utility"
     }
   },
   "eslintConfig": {
