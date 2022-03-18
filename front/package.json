@@ -1,8 +1,16 @@
 {
   "name": "skew",
   "version": "0.1.0",
+  "author": {
+    "name": "Suka",
+    "email": "soukainataa1987@gmail.com",
+    "url": "https://404notfound.com"
+  },
+  "description": "Skew",
+  "email": "soukainataa1987@gmail.com",
+  "license": "MIT",
   "homepage": "./",
-  "main": "src/start.js",
+  "main": "src-electron/electron.js",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
@@ -33,7 +41,6 @@
     "dateformat": "^5.0.3",
     "devextreme": "21.2.5",
     "devextreme-react": "21.2.5",
-    "electron": "^17.1.2",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "notistack": "^2.0.3",
@@ -44,6 +51,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "wait-on": "^6.0.1",
     "web-vitals": "^2.1.3"
   },
   "scripts": {
@@ -53,12 +61,12 @@
     "eject": "react-scripts eject",
     "w:build": "cross-env BUILD_PATH='./dist/webapp' react-scripts build",
     "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && yarn build && sudo rm ./public/electron.js ./public/preload.js",
-    "e:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",
+    "e:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"yarn:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=src-electron/electron.js",
+    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=src-electron/electron.js",
+    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=src-electron/electron.js"
   },
   "build": {
     "appId": "skew.app",
@@ -104,6 +112,7 @@
     "cross-env": "^7.0.3",
     "electron-builder": "^22.14.13",
     "redux-devtools-extension": "^2.13.9",
+    "electron": "^17.1.2",
     "redux-thunk": "^2.4.1"
   }
 }
