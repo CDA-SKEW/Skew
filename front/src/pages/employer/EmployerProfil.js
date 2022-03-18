@@ -16,6 +16,7 @@ import withRecruteur from "components/auth/withRecruteur";
 const EmployerProfil = () => {
   
   const dispatch = useDispatch();
+  
   useEffect(() => {
       dispatch(getProfilEmployer());
       dispatch(getProfilUser());

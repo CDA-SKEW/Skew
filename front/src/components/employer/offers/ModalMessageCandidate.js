@@ -29,7 +29,6 @@ export default function ModalMessageCandidate(props) {
   const [openModal, setOpenModal] = useState(false);
 
   const [form] = useState({ ...row });
-
   const [textMessage, setTextMessage] = useState();
 
   const handleCancel = () => {
