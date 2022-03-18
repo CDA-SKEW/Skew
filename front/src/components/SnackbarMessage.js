@@ -2,7 +2,6 @@
 import { Alert, Snackbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Slide from '@mui/material/Slide';
-import { height } from "@mui/system";
 
 export default function SnackbarMessage(props) {
   const { open, message } = props;

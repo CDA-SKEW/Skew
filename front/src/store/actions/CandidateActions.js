@@ -15,6 +15,7 @@ import {
     PUT_PROFIL_CANDIDATE,
     DELETE_PROFIL_CANDIDATE,
     GET_OFFRE_CANDIDATE,
+    DELETE_OFFRE_CANDIDATE,
 } from "./ActionTypes";
 
 const token = '5' // || localStorage.getItem('user_token')
@@ -86,8 +87,8 @@ export const postFormProfilCandidateSkill = (form) => {
         return api
             .post(`/candidat/profil/skill`, form)
             .then((res) => {
-                // console.log("Get Profil Candidate", res.data);
-                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+                console.log("Post skill Profil Candidate", res.data);
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.message });
             })
             .catch((err) => console.log(err));
 
@@ -240,6 +241,17 @@ export const deleteFormProfilCandidateDocument = (id_document) => {
     };
 };
 
+export const deleteFormProfilCandidateOffre = (id) => {
+    // console.log('form OFFRE CANDIDATE DELETE', id)
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/candidatures/${id}`)
+            .then((res) => {
+                dispatch({ type: DELETE_OFFRE_CANDIDATE, payload: res.data.candidatures });
+            })
+            .catch((err) => console.log(err));
+    };
+};
 // #######
 // # PUT #
 // #######

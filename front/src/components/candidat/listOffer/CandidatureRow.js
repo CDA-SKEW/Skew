@@ -11,7 +11,8 @@ import BtnOption from 'components/candidat/listOffer/BtnOption'
 import { Box } from '@mui/material';
 
 export default function CandidatureRow(props) {
-  const { name, type, title, description, statut } = props.candidature
+  const { name, type, title, description, statut, id } = props.candidature
+  console.log('candidature', props)
 
   return (
     <Box>
@@ -41,7 +42,7 @@ export default function CandidatureRow(props) {
 
               {/* BTN OPTION */}
 
-              <BtnOption />
+              <BtnOption id={id} />
 
               <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "end" }}>
                 {statut === 0 ? <Typography sx={{ color: "black" }}> Candidature Validé <CheckCircleOutlineIcon sx={{ color: "green", fontSize: 30, mb: -1, mr: 1 }} /></Typography>
