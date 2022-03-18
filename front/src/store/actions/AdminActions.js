@@ -15,7 +15,6 @@ import {
   GET_MESSAGE,
   DELETE_MESSAGE,
   ADD_MESSAGE,
-  GET_MESSAGES,
 } from "./ActionTypes";
 
 /*
