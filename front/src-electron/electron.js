@@ -1,7 +1,7 @@
 // Module to control the application lifecycle and the native browser window.
 const { app, BrowserWindow, protocol } = require("electron");
 const path = require("path");
-const url = require("url");
+// const url = require("url");
 
 // Create the native browser window.
 function createWindow() {
@@ -19,7 +19,7 @@ function createWindow() {
   // by the Create React App build process.
   // In development, set it to localhost to allow live/hot-reloading.
   const appURL = app.isPackaged
-    ? url.format({
+    ? app.url.format({
         pathname: path.join(__dirname, "/../build/index.html"),
         protocol: "file:",
         slashes: true,
