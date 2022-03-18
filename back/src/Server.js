@@ -22,6 +22,8 @@ class Server {
           "http://localhost:3000",
           "http://192.168.1.4:3000",
           "http://skew.souka.fr",
+          "https://skew.souka.fr",
+          "http://www.skew.souka.fr",
           "https://www.skew.souka.fr",
           "http://192.168.1.69:3000",
           "http://192.168.1.89:3000",
@@ -47,8 +49,8 @@ class Server {
     //expressOasGenerator.init(app, {});
 
     //** Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
-    // const swaggerUi = require("swagger-ui-express");
-    // const swaggerDocument = require("./config/swagger.json");
+    const swaggerUi = require("swagger-ui-express");
+    const swaggerDocument = require("./config/swagger.json");
     // ************** / Swagger ******************
 
 
@@ -77,8 +79,8 @@ class Server {
     //** Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
     // this.app.use(
     //   "/api-docs",
-    //   swaggerUi.serve,
-    //   swaggerUi.setup(swaggerDocument)
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
     // );
     // voici le lien pour l'api doc ex:http://localhost:3003/api-docs/#/
     // ************** / Swagger ******************
