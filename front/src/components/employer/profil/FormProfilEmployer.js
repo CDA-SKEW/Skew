@@ -172,12 +172,33 @@ export default function FormProfilEmployer(props) {
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
   useEffect(() => {
-    setUseState();
-  }, [profilNotEditabled]);
+   if (profilNotEditabled===true) {
+    setStateImgUpload("");
+    setAvatar(dataProfilEmployer.avatar)
+    setAvatarSelect(false);
+    setAvatarPreview("");
+    setSiret(dataProfilEmployer.siret);
+    setSiren(dataProfilEmployer.siren);
+    setFactoryName(dataProfilEmployer.name);
+    setAddress(dataProfilEmployer.address);
+    setZipCode(dataProfilEmployer.zipCode);
+    setTown(dataProfilEmployer.town);
+    setCategory(dataProfilEmployer.category);}
+  }, [profilNotEditabled,dataProfilEmployer]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
-    setUseState();
+    setStateImgUpload("");
+    setAvatar(dataProfilEmployer.avatar)
+    setAvatarSelect(false);
+    setAvatarPreview("");
+    setSiret(dataProfilEmployer.siret);
+    setSiren(dataProfilEmployer.siren);
+    setFactoryName(dataProfilEmployer.name);
+    setAddress(dataProfilEmployer.address);
+    setZipCode(dataProfilEmployer.zipCode);
+    setTown(dataProfilEmployer.town);
+    setCategory(dataProfilEmployer.category);
   }, [dataProfilEmployer]);
 
   // useEffect pour api Siret qui est à l'écoute du state du store dataApiSiret

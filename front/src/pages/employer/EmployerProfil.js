@@ -16,10 +16,11 @@ import withRecruteur from "components/auth/withRecruteur";
 const EmployerProfil = () => {
   
   const dispatch = useDispatch();
+  
   useEffect(() => {
       dispatch(getProfilEmployer());
       dispatch(getProfilUser());
-  },[]);
+  },[dispatch]);
 
   const dataProfilEmployer = useSelector(
     (state) => state.employer.dataProfilEmployer

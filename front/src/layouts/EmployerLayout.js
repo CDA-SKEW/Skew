@@ -66,7 +66,7 @@ export default function EmployerLayout({ children }) {
 
   React.useEffect(() => {
     dispatch(getProfilEmployer());
-  }, []);
+  }, [dispatch]);
 
   //   ici à chaque chargement de la page, on revie t en haut de page
   React.useEffect(() => {

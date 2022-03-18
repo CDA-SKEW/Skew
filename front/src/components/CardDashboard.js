@@ -7,7 +7,7 @@ import { themeEmployer } from "configs/theme";
 const CardDashboardStyle = styled(Card)(() => ({
   textAlign: "center",
   color: themeEmployer.palette.textTitleItems.main,
-  backgroundColor: themeEmployer.palette. bgCardDashboard.main,
+  backgroundColor: themeEmployer.palette.bgCardDashboard.main,
   height: "150px",
   width: "150px",
   marginTop: 8,

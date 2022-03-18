@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "productName": "Skew app",
   "homepage": "./",
-  "main": "build/electron.js",
+  "main": "./src-electron/electron.js",
   "author": {
     "name": "liwza",
     "email": "liwza@liwza.com",
@@ -58,17 +58,17 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "w:build": "cross-env BUILD_PATH='./dist/webapp' react-scripts build",
-    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && yarn build && sudo rm ./public/electron.js ./public/preload.js",
     "e:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",
+    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && npm run build && sudo rm ./public/electron.js ./public/preload.js",
+    "e:dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "e:mac": "npm run e:build && electron-builder -m -c.extraMetadata.main=src-electron/electron.js",
+    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=src-electron/electron.js",
+    "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=src-electron/electron.js"
   },
   "build": {
-    "appId": "skew.app",
-    "productName": "skew app",
+    "appId": "Skew.app",
+    "productName": "Skew Application",
     "files": [
       "build/**/*",
       "node_modules/**/*",
