@@ -28,7 +28,7 @@ export default function ModalMessageCandidate(props) {
   // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);
 
-  const [form, setForm] = useState({ ...row });
+  const [form] = useState({ ...row });
 
   const [textMessage, setTextMessage] = useState();
 
@@ -86,13 +86,13 @@ export default function ModalMessageCandidate(props) {
           <Grid container rowSpacing={2}>
             {Object.entries(row).map((arr, index) => {
               const key = arr[0];
-              if (key === "offre_id") return;
-              if (key === "user_id") return;
-              if (key === "address") return;
-              if (key === "zipCode") return;
-              if (key === "town") return;
-              if (key === "statut") return;
-              if (key === "cvCandidat") return;
+              if (key === "offre_id") return (<div></div>);
+              if (key === "user_id") return(<div></div>);
+              if (key === "address") return(<div></div>);
+              if (key === "zipCode") return(<div></div>);
+              if (key === "town") return(<div></div>);
+              if (key === "statut") return(<div></div>);
+              if (key === "cvCandidat") return(<div></div>);
               else {
                 return (
                   <Grid key={index} item xs={12} sm={12} md={12}>
