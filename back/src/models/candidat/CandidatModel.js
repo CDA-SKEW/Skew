@@ -15,7 +15,6 @@ const Candidat = function (candidat) {
 
 // Get All
 Candidat.getProfil = function (user_id, result) {
-    // console.log('getProfil', user_id)
 
     let Obj = {
         coord: {},
@@ -48,7 +47,6 @@ Candidat.getProfil = function (user_id, result) {
                             WHERE u.id = :user_id;
                 `, { user_id }, (error, data) => {
                 if (error) throw error;
-                // console.log('exp data', data);
                 Obj.experience = data
 
                 conn.query(
@@ -60,7 +58,6 @@ Candidat.getProfil = function (user_id, result) {
 
                     { user_id }, (error, data) => {
                         if (error) throw error;
-                        // console.log('SKILL data', data);
                         Obj.skill = data
 
                         conn.query(
@@ -73,7 +70,6 @@ Candidat.getProfil = function (user_id, result) {
                             { user_id }, (error, data) => {
                                 if (error) throw error;
                                 Obj.interest = data
-                                // console.log('INT data', data);
 
                                 conn.query(
                                     `SELECT u.id,c.*
@@ -85,10 +81,8 @@ Candidat.getProfil = function (user_id, result) {
                                     { user_id },
                                     (error, data) => {
                                         if (error) throw error;
-                                        // console.log('je suis ici', Obj, data)
                                         Obj.certificate = data
-                                        // result(null, Obj);
-                                        // conn.release();
+
 
 
                                         conn.query(
@@ -101,7 +95,6 @@ Candidat.getProfil = function (user_id, result) {
                                             { user_id },
                                             (error, data) => {
                                                 if (error) throw error;
-                                                // console.log('je suis ici', Obj, data)
                                                 Obj.document = data
                                                 result(null, Obj);
                                                 conn.release();

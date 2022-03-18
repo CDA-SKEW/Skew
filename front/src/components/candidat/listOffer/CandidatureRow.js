@@ -12,8 +12,6 @@ import { Box } from '@mui/material';
 
 export default function CandidatureRow(props) {
   const { name, type, title, description, statut, id } = props.candidature
-  console.log('candidature', props)
-
   return (
     <Box>
 

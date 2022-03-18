@@ -3,26 +3,22 @@ import React, { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import Collapse from "@mui/material/Collapse";
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { BottomNavigationAction, Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-// import DateRangePicker from '@mui/lab/DateRangePicker';
-import Grid from '@mui/material/Grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { getProfilCandidate, postFormProfilCandidateExperience, putFormProfilCandidateExperience, deleteFormProfilCandidateExperience } from "store/actions/CandidateActions";
-import { useNavigate } from "react-router";
 import moment from "moment";
 
 
@@ -48,11 +44,6 @@ export default function TableExperience(props) {
     const { handleExpDateParent, dateExp } = props
     const [value, setValue] = useState(dateExp)
     const handleExpDate = (prop) => (event) => {
-      // 2012-06-22T03:40:06.000Z
-
-      console.log('format date', prop, event)
-      console.log('?KKKKK', moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
-
       handleExpDateParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
       setValue(event)
     }
@@ -62,7 +53,6 @@ export default function TableExperience(props) {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label=""
-          // value={String(value)}
           onChange={handleExpDate('dateStart')}
           renderInput={(params) => <TextField {...params} helperText={null} />}
         />
@@ -76,11 +66,6 @@ export default function TableExperience(props) {
     const { handleExpDateEndParent, dateExpEnd } = props
     const [value2, setValue2] = useState(dateExpEnd)
     const handleExpDateEnd = (prop) => (event) => {
-
-
-      console.log('format date', prop, event)
-      console.log('DATE END', moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
-
       handleExpDateEndParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
       setValue2(event)
     }
@@ -90,7 +75,6 @@ export default function TableExperience(props) {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label=""
-          // value={String(value)}
           onChange={handleExpDateEnd('dateEnd')}
           renderInput={(params) => <TextField {...params} helperText={null} />}
         />
@@ -104,9 +88,8 @@ export default function TableExperience(props) {
   //Condition Trigger mode edit 
   const CheckModeEdit = (props) => {
     const { status, row } = props
-    // console.log('props mode edit', props)
     if (status === true) return <ModeEdit data={row} />
-    return <div></div>
+    else return <></>;
   }
   /* *************************************************************************** */
 
@@ -116,7 +99,6 @@ export default function TableExperience(props) {
     const { data } = props
     const dispatch = useDispatch()
     const [form, setForm] = useState({ ...data })
-    // const navigate = useNavigate();
 
 
     const handleChange = (prop) => (event) => {
@@ -124,15 +106,11 @@ export default function TableExperience(props) {
     }
 
     const handleExpDateParent = (prop, value) => {
-      console.log('handleChange from cert DATE', prop, value)
       setForm({ ...form, [prop]: value })
-      console.log('form certificate', form)
     }
 
     const handleExpDateEndParent = (prop, value) => {
-      console.log('handleChange from cert DATE', prop, value)
       setForm({ ...form, [prop]: value })
-      console.log('form certificate', form)
     }
 
     const submitForm = () => {
@@ -219,9 +197,8 @@ export default function TableExperience(props) {
   //Condition Trigger mode Add 
   const CheckModeAdd = (props) => {
     const { status, row } = props
-    // console.log('props mode edit', props)
     if (status === true) return <ModeAdd data={row} />
-    return <tr><td></td></tr>
+    else return <></>;
   }
 
   /* *************************************************************************** */
@@ -239,19 +216,14 @@ export default function TableExperience(props) {
     }
 
     const handleExpDateParent = (prop, value) => {
-      console.log('handleChange from cert DATE', prop, value)
       setForm({ ...form, [prop]: value })
-      console.log('form certificate', form)
     }
 
     const handleExpDateEndParent = (prop, value) => {
-      console.log('handleChange from cert DATE', prop, value)
       setForm({ ...form, [prop]: value })
-      console.log('form certificate', form)
     }
 
     const submitForm = async (data) => {
-      // console.log('SUBMIT', form)
       await dispatch(postFormProfilCandidateExperience({ ...form }))
       setCompagny("");
       setJob("");
@@ -344,7 +316,6 @@ export default function TableExperience(props) {
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch()
     const handleDelete = () => {
-      // console.log('id Button Trigger ROW', row);
       dispatch(deleteFormProfilCandidateExperience(row.id))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
     }
@@ -352,7 +323,6 @@ export default function TableExperience(props) {
     /*const ActionBtn trigger only if mode edit is true & the btn open the edit row */
 
     const ActionBTN = () => {
-      // console.log('ACTION BTN', edit)
       if (edit === true) return <Box sx={{ display: "flex", flexDirection: "column", m: 2 }}><Button onClick={(e) => setOpen(open === true ? false : true)}>
         <BorderColorIcon />
       </Button>
@@ -361,7 +331,7 @@ export default function TableExperience(props) {
           <DeleteIcon />
         </Button>
       </Box>
-      else <div></div>
+      else return <></>;
     }
 
     /* *************************************************************************** */
@@ -408,7 +378,6 @@ export default function TableExperience(props) {
   };
 
   useEffect(() => {
-    // console.log("effect for useState form employer");
     setUseState();
   }, []);
 
@@ -500,8 +469,6 @@ export default function TableExperience(props) {
               <TableCell align='center'>Start-Year</TableCell>
               <TableCell align='center'>End-Year</TableCell>
               {checkViewAction()}
-              {/* {checkViewAction()} = <TableCell align='left'>Action</TableCell>
-              but appear only if mode edit is trigger */}
             </TableRow>
           </TableHead>
           <TableBody>

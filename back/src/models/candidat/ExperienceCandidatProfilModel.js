@@ -17,7 +17,6 @@ const CandidatExperience = function (experience) {
 // Create Experience
 CandidatExperience.createExperienceProfil = function (newExperience, result) {
     const { compagny, job, description, dateStart, dateEnd, user_id, id } = newExperience
-    console.log('mlodel create expérience', newExperience)
     connection.getConnection(function (error, conn) {
         conn.query(`
         INSERT INTO experience
@@ -49,7 +48,6 @@ CandidatExperience.createExperienceProfil = function (newExperience, result) {
 // // Edit One
 CandidatExperience.updateExperienceProfil = function (experienceObj, result) {
     const { compagny, job, description, dateStart, dateEnd, user_id, id } = experienceObj
-    console.log("edit", experienceObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE experience,user

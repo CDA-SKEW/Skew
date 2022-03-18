@@ -11,7 +11,6 @@ const CandidatDocument = function (document) {
 // Create Document
 CandidatDocument.createDocumentProfil = function (newDocument, file, result) {
     const { user_id, title } = newDocument
-    // console.log('mlodel create Document', newDocument, file)
     connection.getConnection(function (error, conn) {
         conn.query(`
         INSERT INTO document

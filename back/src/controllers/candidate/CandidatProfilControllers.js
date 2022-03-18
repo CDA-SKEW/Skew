@@ -20,16 +20,13 @@ class CandidatProfilControllers {
   // PROFIL CANDIDAT GET ALL DATA
 
   async getProfil(req, res) {
-    // console.log('getProfile', req.params.id)
     try {
       Candidat.getProfil(String(req.params.id), (err, data) => {
-        // console.log("data res", data);
         if (err) {
           console.log("err", err),
             res.status(500).send({
             });
         } else {
-          // console.log('res getProfil')
           return res.json({
             method: req.method,
             userProfil: data,
@@ -51,7 +48,6 @@ class CandidatProfilControllers {
   //  UPDATE CONTACT PROFIL CANDIDAT 
 
   async updateContactProfil(req, res) {
-    // console.log('REQ.BODY UPDATE', req.body);
     let candidatObj = new CandidatContact({
       id: Number(req.params.id),
       ...req.body
@@ -60,7 +56,6 @@ class CandidatProfilControllers {
     try {
       CandidatContact.updateContactProfil(candidatObj, (err, data) => {
         if (err) res.json(err);
-        // console.log('RES JSON CONTACT', res);
         return res.json({
           method: req.method,
           User: data,
@@ -104,7 +99,6 @@ class CandidatProfilControllers {
   //  CREATE EXPERIENCE PROFIL CANDIDAT 
 
   async createExperienceProfil(req, res) {
-    // console.log('REQ.BODY CREATE', req.body);
     let newExperience = new CandidatExperience({
       ...req.body
     });
@@ -125,7 +119,6 @@ class CandidatProfilControllers {
   //  UPDATE EXPERIENCE PROFIL CANDIDAT 
 
   async updateExperienceProfil(req, res) {
-    // console.log('REQ.BODY UPDATE EXP', req.body);
     let experienceObj = new CandidatExperience({
       id: Number(req.params.id),
       ...req.body
@@ -195,7 +188,6 @@ class CandidatProfilControllers {
   //  CREATE SKILL PROFIL CANDIDAT
 
   async createSkillProfil(req, res) {
-    console.log('create skill')
     let newSkill = new CandidatSkill({
       ...req.body
     });
@@ -216,7 +208,6 @@ class CandidatProfilControllers {
   //  UPDATE SKILL PROFIL CANDIDAT 
 
   async updateSkillProfil(req, res) {
-    console.log('update skill')
     let skillObj = new CandidatSkill({
       id: Number(req.params.id),
       ...req.body
@@ -372,7 +363,6 @@ class CandidatProfilControllers {
   //  CREATE CERTIFICATE PROFIL CANDIDAT
 
   async createCertificateProfil(req, res) {
-    // console.log('REQ.BODY CREATE', req.body);
     let newCertificate = new CandidatCertificate({
       ...req.body
     });
@@ -394,9 +384,7 @@ class CandidatProfilControllers {
 
   async updateCertificateProfil(req, res) {
 
-    console.log('REQ.BODY UPDATE', req.body);
     let { isCertified } = req.body;
-    console.log("isCertified", Boolean(isCertified));
     isCertified = isCertified === "true" ? 1 : 0;
     let certificateObj = new CandidatCertificate({
       id: Number(req.params.id),
@@ -443,8 +431,6 @@ class CandidatProfilControllers {
   //  CREATE DOCUMENT PROFIL CANDIDAT
 
   async createDocumentProfil(req, res) {
-    // console.log('Controller req.file', req.file, req.body);
-    // console.log("controller CREATE Profil candidat DOCUMENT");
     console.log('REQ.BODY CREATE', req.body);
     let newDocument = new CandidatDocument({
       ...req.body
@@ -463,15 +449,12 @@ class CandidatProfilControllers {
     } catch (error) {
       throw error;
     }
-
-    // res.json({ message: "controller CREATE profil candidat DOCUMENT" });
   }
 
 
   //  DELETE DOCUMENT PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
-    // console.log("controller DELETE Profil Candidat DOCUMENT");
     try {
       CandidatDocument.deleteDocumentProfil(req.params.id, (err, data) => {
 

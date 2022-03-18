@@ -45,10 +45,7 @@ CandidatCertificate.createCertificateProfil = function (newCertificate, result) 
 
 // // Edit One
 CandidatCertificate.updateCertificateProfil = function (certificateObj, result) {
-    // console.log('REQ.BODY CREATE', req.body);
     const { school, title, year, validate, user_id, id } = certificateObj
-    console.log("edit", certificateObj);
-    // let isValidate;
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE certificate,user
@@ -62,7 +59,6 @@ CandidatCertificate.updateCertificateProfil = function (certificateObj, result) 
             { school, title, year, validate, user_id, id }
             , (error, data) => {
                 if (error) throw error;
-                // isValidate = certificate.validate === 1 ? 0 : 1;
                 conn.query(`SELECT u.id,c.*
             FROM user as u
             INNER JOIN certificate as c

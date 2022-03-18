@@ -56,7 +56,6 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenus(props) {
     const { id } = props
-    console.log('id Button Trigger ROW', id);
     const dispatch = useDispatch()
     const handleDelete = () => {
         dispatch(deleteFormProfilCandidateOffre(id))

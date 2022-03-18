@@ -12,7 +12,6 @@ const CandidatCandidature = () => {
 
   const ListCandidature = useSelector(state => state.candidate.candidaturesProfil)
   const dispatch = useDispatch()
-  console.log(ListCandidature);
   useEffect(() => {
     dispatch(getOffreCandidate())
   }, [])
