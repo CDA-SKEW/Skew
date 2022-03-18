@@ -34,7 +34,7 @@ CandidatCandidatures.getCandidatures = function (id, result) {
         `
             , { id }, (error, data) => {
                 if (error) throw error;
-                console.log('DATA', data);
+                // console.log('DATA', data);
                 result(null, data);
                 conn.release();
 
@@ -46,7 +46,7 @@ CandidatCandidatures.getCandidatures = function (id, result) {
 
 // Delete by ID (row)
 CandidatCandidatures.deleteCandidatures = function (id, result) {
-    console.log('ID ', id);
+    // console.log('ID ', id);
     connection.getConnection(function (error, conn) {
         if (error) throw error
         conn.query(`DELETE FROM postuled WHERE id = ${id}`, (error, data) => {

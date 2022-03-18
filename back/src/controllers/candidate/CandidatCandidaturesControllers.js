@@ -15,7 +15,7 @@ class CandidatCandidaturesControllers {
     async getCandidatures(req, res) {
         try {
             CandidatCandidatures.getCandidatures(String(req.params.id), (err, data) => {
-                console.log("data res", data);
+                // console.log("data res", data);
                 if (err) {
                     console.log("err", err),
                         res.status(500).send({
