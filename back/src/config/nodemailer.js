@@ -312,13 +312,8 @@ module.exports = {
       html: `
       <strong>Modification du mot de passe</strong>
       <br><br>
-
-
       <p>Voici votre nouveau mot de passe:</p>
-
       <p>${req.pass}</p>
-
-
       <br><br>
       <div style="text-align:left;margin-left: 15px;">
          <div style="font-size: 13px;">
