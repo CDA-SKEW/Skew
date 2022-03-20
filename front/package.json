@@ -1,11 +1,11 @@
 {
   "name": "skew",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "productName": "Skew app",
   "homepage": "./",
-  "main": "build/electron.js",
+  "main": "src-electron/electron.js",
   "author": {
-    "name": "liwza",
+    "name": "Skew",
     "email": "liwza@liwza.com",
     "url": "https://liwza.com"
   },
@@ -65,7 +65,7 @@
     "electron": "wait-on tcp:3000 && electron .",
     "e:mac": "npm run e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
     "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=build/electron.js && sudo rm ./public/electron.js ./public/preload.js",
-    "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js"
+    "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js ./build"
   },
   "build": {
     "appId": "Skew.app",
@@ -80,16 +80,15 @@
       "output": "dist/electron"
     },
     "mac": {
-      "target": "dmg",
-      "icon": "build/icons"
+      "category": "public.app-category.utilities",
+      "target": "dmg"
     },
     "win": {
-      "target": "nsis",
-      "icon": "build/icons"
+      "target": "nsis"
     },
     "linux": {
-      "target": "deb",
-      "category": "Utility"
+      "category": "Utility",
+      "target": "deb"
     }
   },
   "eslintConfig": {
