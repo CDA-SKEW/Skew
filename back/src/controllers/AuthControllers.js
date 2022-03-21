@@ -4,7 +4,6 @@ const nodemailer = require("../config/nodemailer");
 
 // Import Module
 const jwt = require("jsonwebtoken");
-const { password } = require("../config/db");
 
 require("dotenv").config();
 
@@ -87,8 +86,8 @@ class AuthControllers {
             isAdmin: user.isAdmin,
             isCandidat: user.isCandidat,
             isRecruteur: user.isRecruteur,
-            // isVerified: user.isVerified,
-            // isBanned: user.isBanned
+            isVerified: user.isVerified,
+            isBanned: user.isBanned
           }
         });
       } else return res.json({ error: 'Fils de pull !' })

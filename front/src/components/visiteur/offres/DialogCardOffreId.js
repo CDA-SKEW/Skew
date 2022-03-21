@@ -20,9 +20,10 @@ import { useNavigate } from 'react-router-dom';
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
     const navigate = useNavigate();
-    const [openNoToken, setOpenNoToken] = useState(false)
+    const [openNoToken, setOpenNoToken] = useState(false);
+    const [favoris, setFavoris] = useState("")
 
-    const handleopenmodal = () => {
+    const handleOpenModal = () => {
         setOpenNoToken(true)
     }
 
@@ -30,10 +31,16 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
         setOpenNoToken(false);
     };
 
+    const handleClickFavoris = () => {
+        if (!localStorage["user_token"]) { handleOpenModal(); }
+    }
+
     const handleClickPostuled = () => {
         if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
-        else { handleopenmodal() }
+        else { handleOpenModal() }
     }
+
+    console.log('data', data)
 
     return (
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -83,7 +90,11 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                     </CardContent>
                     <CardActions
                         sx={{ mt: 2, justifyContent: 'space-between', px: 5 }}>
-                        <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
+                        <Button
+                            variant='contained'
+                            sx={{ bgcolor: 'secondary.main' }}
+                            onClick={() => handleClickFavoris()}
+                        >
                             <FavoriteBorderIcon />
                         </Button>
                         <Button
@@ -114,7 +125,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                         <Button
                             onClick={handleCloseNoToken}
                             variant='contained'
-                            sx={{color: '#000'}}
+                            sx={{ color: '#000' }}
                         >
                             Fermer
                         </Button>
