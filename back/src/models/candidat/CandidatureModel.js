@@ -23,7 +23,7 @@ CandidatCandidatures.getCandidatures = function (id, result) {
 
         conn.query(
             `
-           select p.statut, p.id, o.title, o.type, o.period, o.description ,c.name ,u.mail from postuled as p
+           select p.statut, p.id, o.title, o.type, o.period, o.description , c.name, c.avatar, u.mail from postuled as p
            inner join offre as o
            ON p.offre_id= o.offer_id
            inner join contactProfil as c
