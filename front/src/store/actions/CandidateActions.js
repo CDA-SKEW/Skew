@@ -71,8 +71,6 @@ export const postFormProfilCandidateExperience = (form) => {
                 dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
             })
             .catch((err) => console.log(err));
-
-
     };
 };
 // *************************************************
