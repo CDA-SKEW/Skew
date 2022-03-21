@@ -47,7 +47,7 @@ export default function CardOffer(props) {
         <CardMedia
           component="img"
           height="140"
-          image={`${urlImg + listOffer.image}`}
+          image={`${urlImg + listOffer.avatar}`}
           alt="imageEmployer"
         />
         <CardContent>
