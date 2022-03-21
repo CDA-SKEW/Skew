@@ -69,7 +69,7 @@
   },
   "build": {
     "appId": "Skew.app",
-    "productName": "Skew Application",
+    "productName": "Skew",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -84,7 +84,8 @@
       "target": "dmg"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "build/icons/favicon.png"
     },
     "linux": {
       "category": "Utility",
