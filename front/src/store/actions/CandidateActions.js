@@ -2,6 +2,7 @@
  * Import - Module
  * *************** */
 import { api } from "configs/axios";
+import jwt_decode from "jwt-decode"
 
 /*
  * Import types { ... }
@@ -17,7 +18,12 @@ import {
     DELETE_OFFRE_CANDIDATE,
 } from "./ActionTypes";
 
-const token = '5' // || localStorage.getItem('user_token')
+let token
+if (localStorage.getItem('user_token')) token = jwt_decode(localStorage.getItem('user_token'))
+// token = '5' // || localStorage.getItem('user_token')
+// const 
+
+console.log("token", token)
 
 /*
  * Actions
@@ -27,12 +33,13 @@ const token = '5' // || localStorage.getItem('user_token')
 // ######################
 
 // Get profil candidate
-
-export const getProfilCandidate = (user_id) => {
+export const getProfilCandidate = () => {
+    console.log('response getProfilCandidate 1')
     return (dispatch) => {
         return api
-            .get(`/candidat/profil/${token}`)
+            .get(`/candidat/profil/${token.id}`)
             .then((res) => {
+                console.log('response getProfilCandidate 2', res)
                 dispatch({ type: GET_PROFIL_CANDIDATE, payload: res.data.userProfil });
             })
             .catch((err) => console.log(err));
@@ -42,7 +49,7 @@ export const getProfilCandidate = (user_id) => {
 export const getOffreCandidate = () => {
     return (dispatch) => {
         return api
-            .get(`/candidat/candidatures/${token}`)
+            .get(`/candidat/candidatures/${token.id}`)
             .then((res) => {
                 dispatch({ type: GET_OFFRE_CANDIDATE, payload: res.data.candidatures });
             })

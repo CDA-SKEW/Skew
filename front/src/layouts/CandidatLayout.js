@@ -10,7 +10,7 @@ import BackNav from "components/core/navBarUser/BackNav";
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ScrollTop from "components/ScrollTop";
-import SlideBarUser from "components/core/navBarUser/SlideBarUser";
+import SlideBarUser from "components/core/navBarUser/SlideBarCandidat";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilCandidate } from "store/actions/CandidateActions";
 import { useLocation } from "react-router-dom";

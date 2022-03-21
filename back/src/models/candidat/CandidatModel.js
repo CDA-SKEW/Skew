@@ -29,12 +29,11 @@ Candidat.getProfil = function (user_id, result) {
         if (error) throw error;
 
         conn.query(`
-            SELECT u.id, u.mail,c.*
+            SELECT u.id, u.mail, c.*
                 FROM contactProfil as c
                 INNER JOIN user as u
                 ON c.user_id = u.id
                 WHERE u.id = :user_id
-                
             `, { user_id }, (error, data) => {
             if (error) throw error;
             Obj.coord = data[0]

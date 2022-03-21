@@ -24,12 +24,13 @@ describe("PostulRouteur - Chai", function () {
     beforeEach(async () => {
 
         //Creation user dans la table user
-        const { mail, pass, isAdmin, isCandidat, isRecruteur } = {
-            mail: "test1" + Date.now() + "@test1.test1",
-            pass: await bcrypt.hash("test1", 10),
+        const { mail, pass, isAdmin, isCandidat, isRecruteur, isVerified } = {
+            mail: "candidate@candidate.com",
+            pass: await bcrypt.hash("rfn2K22$", 10),
             isAdmin: 0,
             isCandidat: 1,
-            isRecruteur: 1
+            isRecruteur: 1,
+            isVerified: 1
         };
 
         // Création de l'offre dans la table offre
@@ -45,8 +46,8 @@ describe("PostulRouteur - Chai", function () {
             if (error) throw error;
 
             conn.query(
-                `INSERT INTO user (mail,pass,isAdmin,isCandidat,isRecruteur)
-                    VALUES ("${mail}","${pass}","${isAdmin}","${isCandidat}","${isRecruteur}")`, (err, data) => {
+                `INSERT INTO user (mail,pass,isAdmin,isCandidat,isRecruteur,isVerified)
+                    VALUES ("${mail}","${pass}","${isAdmin}","${isCandidat}","${isRecruteur}","${isVerified}")`, (err, data) => {
                 if (err) throw err;
                 // console.log('Creation User', data)
                 user.id = data.insertId
