@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -9,7 +9,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import { Box } from '@mui/system';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import { Box } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { urlImg } from "utils/url";
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +20,19 @@ import { useNavigate } from 'react-router-dom';
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
     const navigate = useNavigate();
+    const [openNoToken, setOpenNoToken] = useState(false)
+
+    const handleopenmodal = () => {
+        setOpenNoToken(true)
+    }
+
+    const handleCloseNoToken = () => {
+        setOpenNoToken(false);
+    };
 
     const handleClickPostuled = () => {
         if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
+        else { handleopenmodal() }
     }
 
     return (
@@ -83,6 +96,32 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                     </CardActions>
                 </Card>
             </List>
+
+            <Dialog
+                open={openNoToken}
+                onClose={handleCloseNoToken}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                sx={{ bgcolor: '#fff' }}
+            >
+                <Card sx={{ bgcolor: '#fff' }}>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Vous n'êtes pas connecté
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={handleCloseNoToken}
+                            variant='contained'
+                            sx={{color: '#000'}}
+                        >
+                            Fermer
+                        </Button>
+                    </DialogActions>
+                </Card>
+            </Dialog>
+
         </Dialog>
     );
 };
