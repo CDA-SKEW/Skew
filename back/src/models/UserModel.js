@@ -51,10 +51,17 @@ User.register = function (body, result) {
             VALUES ("${body.mail}", "${await bcrypt.hash(body.pass, 10)}", 0, ${body.isCandidat}, ${body.isRecruteur})`,
           (error, newUser) => {
             if (error) throw error;
-            conn.query(`INSERT INTO contactProfil (user_id) VALUES (${newUser.insertId})`, (err, profilUser) => {
-              if (err) throw err
-              else result(null, 'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
-            })
+            if (body.isCandidat === 1) {
+              conn.query(`INSERT INTO contactProfil (user_id, avatar) VALUES (${newUser.insertId}, "/api/assets/images/avatar/logoDefaultCandidat.png")`, (err, profilUser) => {
+                if (err) throw err
+                else result(null, 'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
+              })
+            } else if (body.isRecruteur === 1) {
+              conn.query(`INSERT INTO contactProfil (user_id) VALUES (${newUser.insertId})`, (err, profilUser) => {
+                if (err) throw err
+                else result(null, 'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
+              })
+            }
             conn.release();
           }
         );
