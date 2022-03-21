@@ -29,8 +29,10 @@ class Server {
           "https://www.skew.liwza.com",
           "http://www.skew.liwza.com",
           "https://skew.liwza.com",
-          "http://skew.liwza.com"
-          
+          "http://skew.liwza.com",
+          "https://eti.hsuk.ml/",
+          "http://eti.hsuk.ml/"
+
         ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
