@@ -70,7 +70,7 @@
   },
   "build": {
     "appId": "skew.app",
-    "productName": "skew",
+    "productName": "skew app",
     "files": [
       "build/**/*",
       "node_modules/**/*",
