@@ -83,7 +83,12 @@ export default function Offres() {
 
     return (
         <VisiteurLayout>
-            <Typography variant="h2">
+            <Typography variant="h2"
+                sx={{
+                    fontSize: { xs: 30, md: 55 },
+                    fontFamily: "'Indie Flower', cursive"
+                }}
+            >
                 Plus de 10 000 offres d'emplois sur notre site
             </Typography>
 
@@ -121,7 +126,7 @@ export default function Offres() {
             {/* Liste des offres accueil */}
             <Box maxWidth="lg" sx={{ m: 'auto', }}>
                 {SplitList.length > 0 && (
-                    <Box>
+                    <Box sx={{ m: 'auto' }}>
                         <Box
                             sx={{
                                 display: 'flex', flexWrap: 'wrap', m: 'auto',
@@ -138,12 +143,15 @@ export default function Offres() {
                                 />
                             ))}
                         </Box>
-                        <Pagination
-                            count={pages}
-                            page={page}
-                            onChange={handleChange}
-                            sx={{ margin: "auto", maxWidth: '345px' }}
-                        />
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Pagination
+                                count={pages}
+                                page={page}
+                                onChange={handleChange}
+                                size='large'
+                                sx={{ margin: "auto" }}
+                            />
+                        </Box>
                     </Box>
                 )}
                 {!SplitList.length && (
