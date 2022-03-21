@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`offre` (
   CONSTRAINT `fk_offre_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `Skew`.`user` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`postuled` (
   CONSTRAINT `fk_postuled_offre1`
     FOREIGN KEY (`offre_id`)
     REFERENCES `Skew`.`offre` (`offer_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -242,6 +242,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`document` (
   `user_id` INT NULL,
   `title` VARCHAR(255),
   `document` VARCHAR(45) NULL DEFAULT 'compétence',
+  PRIMARY KEY (`id_document`),
   INDEX `fk_aptitudes_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_aptitudes_user11`
     FOREIGN KEY (`user_id`)
@@ -255,12 +256,17 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+INSERT INTO user(mail, pass, isAdmin, isVerified) 
+VALUES ("admin@gmail.com", "$2b$10$/kIYeZiDw374HmyM5reJr.QRJ6Lij1LyQXu8XcnAIHLHJfRD6p2Iu", 1, 1);
+INSERT INTO contactProfil (user_id)
+VALUES (1);
 
-INSERT INTO user(mail, pass, isAdmin) 
-VALUES ("admin@gmail.com", "$2b$10$/kIYeZiDw374HmyM5reJr.QRJ6Lij1LyQXu8XcnAIHLHJfRD6p2Iu", 1);
+INSERT INTO user(mail, pass, isCandidat, isVerified) 
+VALUES ("candidat@gmail.com", "$2b$10$uUzLNFtK50jqYPENRMjepurWn3ZztfYmooY.LBLo4MKwvPHkRZR.a", 1, 1);
+INSERT INTO contactProfil (user_id, avatar)
+VALUES (2, "/api/assets/images/avatar/logoDefaultCandidat.png");
 
-INSERT INTO user(mail, pass, isCandidat) 
-VALUES ("candidat@gmail.com", "$2b$10$uUzLNFtK50jqYPENRMjepurWn3ZztfYmooY.LBLo4MKwvPHkRZR.a", 1);
-
-INSERT INTO user(mail, pass, isRecruteur) 
-VALUES ("recruteur@gmail.com", "$2b$10$dUI1Q8evYKmevTzVHk.Q5O7QEQYXKiFwRLbZL5jqv64adG5YXZ4bO", 1);
+INSERT INTO user(mail, pass, isRecruteur, isVerified) 
+VALUES ("recruteur@gmail.com", "$2b$10$dUI1Q8evYKmevTzVHk.Q5O7QEQYXKiFwRLbZL5jqv64adG5YXZ4bO", 1, 1);
+INSERT INTO contactProfil (user_id)
+VALUES (3);
