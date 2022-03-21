@@ -1,9 +1,9 @@
 {
-  "name": "skew",
+  "name": "Skew",
   "version": "0.1.0",
   "homepage": "./",
   "main": "build/electron.js",
-  "description": "skew app",
+  "description": "Skew",
   "author": {
     "name": "kevin",
     "email": "kevin.hueri@gmail.com",
@@ -67,7 +67,7 @@
   },
   "build": {
     "appId": "com.skew.my-app",
-    "productName": "skew app",
+    "productName": "Skew",
     "copyright": "Copyright@2022 ${author}",
     "files": [
       "build/**/*",
@@ -86,7 +86,6 @@
     },
     "linux": {
       "target": "deb",
-      "icon": "public/android-chrome-256x256.png",
       "category": "Development"
     }
   },
