@@ -1,5 +1,5 @@
 {
-  "name": "Skew",
+  "name": "skew",
   "version": "0.1.0",
   "homepage": "./",
   "main": "build/electron.js",
