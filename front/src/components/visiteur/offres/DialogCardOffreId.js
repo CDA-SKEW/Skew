@@ -17,11 +17,18 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { urlImg } from "utils/url";
 import { useNavigate } from 'react-router-dom';
 
+import { useDispatch } from "react-redux";
+import { checkToken } from "store/actions/AuthActions"
+import { store } from 'store';
+
+store.dispatch(checkToken(localStorage['usertoken']))
+
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [openNoToken, setOpenNoToken] = useState(false);
-    const [favoris, setFavoris] = useState("")
+    // const [favoris, setFavoris] = useState("")
 
     const handleOpenModal = () => {
         setOpenNoToken(true)
@@ -33,6 +40,9 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
 
     const handleClickFavoris = () => {
         if (!localStorage["user_token"]) { handleOpenModal(); }
+        else {
+
+        }
     }
 
     const handleClickPostuled = () => {
