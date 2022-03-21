@@ -11,9 +11,16 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import { Box } from '@mui/system';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import url from 'utils/url';
+import { urlImg } from "utils/url";
+import { useNavigate } from 'react-router-dom';
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
+
+    const navigate = useNavigate();
+
+    const handleClickPostuled = () => {
+        if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
+    }
 
     return (
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -21,7 +28,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                 <Card sx={{ width: "80%", maxWidth: 800, mx: 'auto', my: 10, bgcolor: '#fff' }}>
                     <CardMedia
                         component="img"
-                        image={url.url + data.avatar}
+                        image={`${urlImg + data.avatar}`}
                         alt={data.title}
                         sx={{ maxHeight: 250 }}
                     />
@@ -66,7 +73,11 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                         <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
                             <FavoriteBorderIcon />
                         </Button>
-                        <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
+                        <Button
+                            variant='contained'
+                            sx={{ bgcolor: 'secondary.main' }}
+                            onClick={() => handleClickPostuled()}
+                        >
                             Postuler
                         </Button>
                     </CardActions>

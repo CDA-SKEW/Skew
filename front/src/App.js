@@ -21,7 +21,7 @@ import EmployerOffer from "pages/employer/EmployerOffer";
 import EmployerOfferId from "pages/employer/EmployerOfferId";
 import EmployerCandidateId from "pages/employer/EmployerCandidateId";
 import ChangePassword from "pages/employer/ChangePassword";
-
+import Postuled from "pages/Postuled";
 import EmployerLayout from "layouts/EmployerLayout";
 import CandidatLayout from "layouts/CandidatLayout";
 import AdminLayout from "layouts/AdminLayout";
@@ -75,6 +75,7 @@ function App() {
         <Route path="/Candidat/*" element={<CandidatRoutes />} />
         <Route path="/admin/*" element={<AdminRoute />} />
         <Route path="/verif/:rand" element={<VerifAuth />} />
+        <Route path="/postuled/:id" element={< Postuled />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
