@@ -26,7 +26,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate } from "react-router";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { SnackbarProvider } from 'notistack';
+import { SnackbarProvider } from "notistack";
 
 const drawerWidth = 240;
 
@@ -37,7 +37,6 @@ function ResponsiveDrawer({ children }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
 
   // Navigation Links
   const navigate = useNavigate();
