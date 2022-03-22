@@ -72,7 +72,7 @@ export default function Connexion(props) {
     }, [certificate, isAdmin, isCandidat, isRecruteur, navigate]);
 
     return (
-        <Box sx={{ display: 'block', width: 380, mx: { xs: 'auto' }, mr: { md: 2 }, mt: { xs: 5, md: 0 } }}>
+        <Box sx={{ display: 'block', width: 350, mx: { xs: 'auto' }, mr: { md: 2 }, mt: { xs: 5, md: 0 } }}>
             <Typography variant='h4' sx={{ display: { xs: 'none', md: 'block' } }}>Connexion</Typography>
             <TextField label='Mail' name='mail' variant="outlined" fullWidth
                 onChange={(e) => setMail(e.target.value)} sx={{ my: 1 }} />
