@@ -43,13 +43,14 @@ export default function ResponsiveGrid(props) {
 
   function AddSkill() {
     const dispatch = useDispatch()
-    const [form, setForm] = useState({ user_id: 5 })
+    const [form, setForm] = useState({})
 
     const changeForm = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
     }
 
-    const submitForm = (data) => {
+    const submitForm = () => {
+      console.log('post skill', form)
       dispatch(postFormProfilCandidateSkill({ ...form }))
       setAddSkill("");
       setTimeout(() => dispatch(getProfilCandidate()), 777)

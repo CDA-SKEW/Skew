@@ -45,13 +45,13 @@ export default function ResponsiveGrid(props) {
 
     function AddInterest() {
         const dispatch = useDispatch()
-        const [form, setForm] = useState({ user_id: 5 })
+        const [form, setForm] = useState({})
 
         const changeForm = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
         }
 
-        const submitForm = async (data) => {
+        const submitForm = async () => {
             await dispatch(postFormProfilCandidateInterest({ ...form }))
             setAddInterest("");
             setTimeout(() => dispatch(getProfilCandidate()), 777)

@@ -21,7 +21,6 @@ import {
 let token
 if (localStorage.getItem('user_token')) token = jwt_decode(localStorage.getItem('user_token'))
 // token = '5' // || localStorage.getItem('user_token')
-// const 
 
 console.log("token", token)
 
@@ -64,6 +63,7 @@ export const getOffreCandidate = () => {
 // *************************************************
 // Post profil Candidate EXPERIENCE
 export const postFormProfilCandidateExperience = (form) => {
+    form.user_id = token.id
     return (dispatch) => {
         return api
             .post(`/candidat/profil/experience`, form)
@@ -80,6 +80,7 @@ export const postFormProfilCandidateExperience = (form) => {
 // Post profil Candidate SKILL
 
 export const postFormProfilCandidateSkill = (form) => {
+    form.user_id = token.id
     return (dispatch) => {
         return api
             .post(`/candidat/profil/skill`, form)
@@ -87,8 +88,6 @@ export const postFormProfilCandidateSkill = (form) => {
                 dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.message });
             })
             .catch((err) => console.log(err));
-
-
     };
 };
 // *************************************************
@@ -98,6 +97,7 @@ export const postFormProfilCandidateSkill = (form) => {
 // Post profil Candidate SKILL
 
 export const postFormProfilCandidateInterest = (form) => {
+    form.user_id = token.id
     return (dispatch) => {
         return api
             .post(`/candidat/profil/interest`, form)
@@ -116,6 +116,7 @@ export const postFormProfilCandidateInterest = (form) => {
 // Post profil Candidate CERTIFICATE
 
 export const postFormProfilCandidateCertificate = (form) => {
+    form.user_id = token.id
     return (dispatch) => {
         return api
             .post(`/candidat/profil/certificate`, form)

@@ -114,6 +114,7 @@ export default function TableExperience(props) {
     }
 
     const submitForm = () => {
+      console.log('post experience', form)
       dispatch(putFormProfilCandidateExperience({ ...form }))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
@@ -209,7 +210,7 @@ export default function TableExperience(props) {
   function ModeAdd(props) {
     // const { data } = props
     const dispatch = useDispatch()
-    const [form, setForm] = useState({ user_id: 5 })
+    const [form, setForm] = useState({})
 
     const changeForm = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
@@ -223,7 +224,8 @@ export default function TableExperience(props) {
       setForm({ ...form, [prop]: value })
     }
 
-    const submitForm = async (data) => {
+    const submitForm = async () => {
+      console.log('post experience', form)
       await dispatch(postFormProfilCandidateExperience({ ...form }))
       setCompagny("");
       setJob("");
