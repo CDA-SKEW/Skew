@@ -201,7 +201,6 @@ class EmployerProfilControllers {
         user_id: id,
         ...req.body,
       });
-
       try {
         ProfilUserCompagny.updateProfilCompagny(
           profilUserCompagnyObj,
@@ -245,8 +244,8 @@ class EmployerProfilControllers {
       // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
       const pathImgWebp = path.resolve(
         pathAvatar +
-          req.file.filename.split(".").slice(0, -1).join(".") +
-          ".webp"
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
       );
       const pathAvatarWebp = path.resolve(
         pathAvatar + "avatar_user_" + req.body.user_id + ".webp"
