@@ -30,7 +30,7 @@ export default function Offres() {
     const [open, setOpen] = useState(false);
 
     const listOffer = useSelector(state => state.offreVisiteur.listOffer)
-    
+
     const handleSearchJob = (value) => {
         setJob(value);
         setPage(1);
@@ -56,12 +56,9 @@ export default function Offres() {
 
     const handleChange = (event, value) => { setPage(value); };
 
-    const title = (item) =>
-        item.title.toLowerCase().includes(job.toLowerCase());
-    const types = (item2) =>
-        item2.type.toLowerCase().includes(type.toLowerCase());
-    const locations = (item3) =>
-        item3.town.toLowerCase().includes(location.toLowerCase());
+    const title = (item) => item.title.toLowerCase().includes(job.toLowerCase());
+    const types = (item2) => item2.type.toLowerCase().includes(type.toLowerCase());
+    const locations = (item3) => item3.town.toLowerCase().includes(location.toLowerCase());
 
     const filterList = listOffer
         .filter((item) => title(item))
@@ -71,16 +68,12 @@ export default function Offres() {
     function splitArray(array, chunk) {
         var i, j, rslt = [];
         chunk = chunk - 1;
-        for (i = 0, j = array.length; i < j; i += chunk) {
-            rslt.push(array.slice(i, i + chunk + 1));
-        }
+        for (i = 0, j = array.length; i < j; i += chunk) { rslt.push(array.slice(i, i + chunk + 1)); }
         return rslt;
     }
 
     const SplitList = splitArray(filterList, 8)
-
     const pages = SplitList.length
-
 
     return (
         <VisiteurLayout>
@@ -108,19 +101,19 @@ export default function Offres() {
                 <TextField
                     placeholder="Job" name='job' fullWidth variant='standard'
                     onChange={(e) => handleSearchJob(e.target.value)}
-                    sx={{ width: 300, }}
+                    sx={{ width: 300 }}
                 />
                 <Divider variant='fullWidth' sx={{ m: 0.5, }} orientation="vertical" />
                 <TextField
                     placeholder="Type" name='type' fullWidth variant='standard'
                     onChange={(e) => handleSearchType(e.target.value)}
-                    sx={{ width: 300, }}
+                    sx={{ width: 300 }}
                 />
                 <Divider variant='fullWidth' sx={{ m: 0.5 }} orientation="vertical" />
                 <TextField
                     placeholder="Localisation" name='location' fullWidth variant='standard'
                     onChange={(e) => handleSearchLocation(e.target.value)}
-                    sx={{ width: 300, }}
+                    sx={{ width: 300 }}
                 />
             </Paper>
 
@@ -146,11 +139,9 @@ export default function Offres() {
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Pagination
-                                count={pages}
-                                page={page}
+                                count={pages} page={page}
                                 onChange={handleChange}
-                                size='large'
-                                sx={{ margin: "auto" }}
+                                size='large' sx={{ margin: "auto" }}
                             />
                         </Box>
                     </Box>
@@ -163,10 +154,8 @@ export default function Offres() {
             </Box>
 
             <DialogCardOffreId
-                open={open}
-                handleClose={handleClose}
-                Transition={Transition}
-                data={valueModal}
+                open={open} handleClose={handleClose}
+                Transition={Transition} data={valueModal}
             />
         </VisiteurLayout>
     );

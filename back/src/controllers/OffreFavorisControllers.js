@@ -8,14 +8,27 @@ require("dotenv").config();
 
 class FavorisControllers {
     async addFavoris(req, res) {
+        let newOffreFavoris = new OffreFavoris ({
+            offre_id: Number(req.params.id),
+            user_id: Number(req.body.user_id),
+            is_favoris: Number(req.body.is_favoris),
+        })
+        console.log('newOffreFavoris', newOffreFavoris)
         try {
-
+            OffreFavoris.post(newOffreFavoris, (err, data) => {
+                if (err) res.send(err);
+                return res.send ({
+                    method: req.method,
+                    status: 'success',
+                    flash: 'Create favoris Success !',
+                    dbMessages: data,
+                })
+            })
         } catch (error) { throw error; }
     }
 
     async getFavoris(req, res) {
         try {
-            console.log('req.params.id', req.params.id)
             OffreFavoris.getOne(req.params.id, (err, data) => {
                 if (err) {
                     res.status(500).send({
