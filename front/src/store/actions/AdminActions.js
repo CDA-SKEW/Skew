@@ -52,11 +52,11 @@ export const getListUsers = () => {
 // User ID
 export const getUserId = (id) => {
   return (dispatch) => {
-    console.log("get:admin One user");
+    // console.log("get:admin One user");
     return api
       .put(`/admin/users/${id}`)
       .then((res) => {
-        console.log("putUserBan", res.data);
+        // console.log("putUserBan", res.data);
         dispatch({
           type: GET_USER,
           payload: res.data.user,
@@ -69,11 +69,11 @@ export const getUserId = (id) => {
 // User Ban (put)
 export const putUser = (id) => {
   return (dispatch) => {
-    console.log("put user ban action", id);
+    // console.log("put user ban action", id);
     return api
       .put(`/admin/users/${id}`)
       .then((res) => {
-        console.log("putUserBan", res.data);
+        // console.log("putUserBan", res.data);
         dispatch({
           type: PUT_USER,
           payload: res.data.user,
@@ -85,11 +85,11 @@ export const putUser = (id) => {
 
 export const putBadge = (id) => {
   return (dispatch) => {
-    console.log("put badge action", id);
+    // console.log("put badge action", id);
     return api
       .put(`/admin/users/badge/${id}`)
       .then((res) => {
-        console.log("putUserBadge", res.data);
+        // console.log("putUserBadge", res.data);
         dispatch({
           type: PUT_USER,
           payload: res.data.user,
@@ -101,11 +101,11 @@ export const putBadge = (id) => {
 
 export const verifUser = (id) => {
   return (dispatch) => {
-    console.log("put verif action", id);
+    // console.log("put verif action", id);
     return api
       .put(`/admin/users/verif/${id}`)
       .then((res) => {
-        console.log("putUserVerif", res.data);
+        // console.log("putUserVerif", res.data);
         dispatch({
           type: PUT_USER,
           payload: res.data.user,
@@ -118,11 +118,11 @@ export const verifUser = (id) => {
 //  User Delete
 export const deleteUser = (id) => {
   return (dispatch) => {
-    console.log("delete user action", id);
+    // console.log("delete user action", id);
     return api
       .delete(`/admin/users/${id}`)
       .then((res) => {
-        console.log("deleteUser", res.data);
+        // console.log("deleteUser", res.data);
         dispatch({
           type: DELETE_USER,
           payload: res.data.user,
@@ -144,7 +144,7 @@ export const getListJobs = () => {
         // Lien de la base de données
         .get("/admin/jobs")
         .then((res) => {
-          console.log("getListJobs:", res.data.job);
+          // console.log("getListJobs:", res.data.job);
           // eslint-disable-next-line array-callback-return
           res.data.job.map((el, index) => {
             el.id = index;
@@ -165,11 +165,11 @@ export const getListJobs = () => {
 // Job ID
 export const getJobId = (id) => {
   return (dispatch) => {
-    console.log("get:admin One job");
+    // console.log("get:admin One job");
     return api
       .delete(`/admin/jobs/${id}`)
       .then((res) => {
-        console.log("deleteJob", res.data.job);
+        // console.log("deleteJob", res.data.job);
         // eslint-disable-next-line array-callback-return
         res.data.job.map((el, index) => {
           el.id = index;
@@ -186,11 +186,11 @@ export const getJobId = (id) => {
 // Job delete
 export const deleteJob = (id) => {
   return (dispatch) => {
-    console.log("delete job action", id);
+    // console.log("delete job action", id);
     return api
       .delete(`/admin/jobs/${id}`)
       .then((res) => {
-        console.log("deleteJob", res.data.job);
+        // console.log("deleteJob", res.data.job);
         // eslint-disable-next-line array-callback-return
         res.data.job.map((el, index) => {
           el.id = index;
@@ -216,7 +216,7 @@ export const getListMessages = () => {
         // Lien de la base de données
         .get("/admin/messages")
         .then((res) => {
-          console.log("getListMessages:", res.data.messages);
+          // console.log("getListMessages:", res.data.messages);
           dispatch({
             type: GET_LIST_MESSAGES,
             /* Récupération de la variable "user"
@@ -233,11 +233,11 @@ export const getListMessages = () => {
 // Message ID
 export const getMessageId = (id) => {
   return (dispatch) => {
-    console.log("ID message action", id);
+    // console.log("ID message action", id);
     return api
     .delete(`/admin/messages/${id}`)
     .then((res) => {
-      console.log("deleteJob", res.data.job);
+      // console.log("deleteJob", res.data.job);
       // eslint-disable-next-line array-callback-return
       res.data.job.map((el, index) => {
         el.id = index;
@@ -254,14 +254,14 @@ export const getMessageId = (id) => {
 
 // Reply Message (POST)
 export const replyMessage = (form) => {
-  console.log("action reply message", form);
+  // console.log("action reply message", form);
   return (dispatch) => {
     return (
       api
         // Lien de la base de données
         .post("/admin/messages", form)
         .then((res) => {
-          console.log("ADMIN Action - Reply message:", res.data);
+          // console.log("ADMIN Action - Reply message:", res.data);
           dispatch({
             type: ADD_MESSAGE,
             /* Récupération de la variable "user"
@@ -278,11 +278,11 @@ export const replyMessage = (form) => {
 // DELETE Message
 export const deleteMessage = (id) => {
   return (dispatch) => {
-    console.log("delete message action", id);
+    // console.log("delete message action", id);
     return api
       .delete(`/admin/messages/${id}`)
       .then((res) => {
-        console.log("deleteMessage", res.data);
+        // console.log("deleteMessage", res.data);
         dispatch({
           type: DELETE_MESSAGE,
           payload: res.data.messages,

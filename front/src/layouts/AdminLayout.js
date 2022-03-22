@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Import MUI
 
 import * as React from "react";
@@ -27,8 +28,12 @@ import { useNavigate } from "react-router";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { SnackbarProvider } from "notistack";
+import ModalConfimation from "components/ModalConfimation";
+import { Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+import SlideBarUser from "components/core/navBarUser/SlideBarUser";
 
-const drawerWidth = 240;
+const drawerWidth = 230;
 
 function ResponsiveDrawer({ children }) {
   const { window } = children;
@@ -40,6 +45,27 @@ function ResponsiveDrawer({ children }) {
 
   // Navigation Links
   const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  //constante pour le modal contact
+  const [openModalConfirmation, setOpenModalConfirmation] =
+    React.useState(false);
+  const handleClickOpenModalConfirmation = () => {
+    setOpenModalConfirmation(true);
+  };
+  const handleCloseModalConfirmation = () => {
+    setOpenModalConfirmation(false);
+    setAnchorElNav(null);
+  };
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   const ItemNav = [
     { id: 1, name: "Dashboard", icon: <DashboardIcon />, path: "/admin" },
@@ -83,11 +109,10 @@ function ResponsiveDrawer({ children }) {
       <Divider />
       {/* Deconnexion button  */}
       <Button
-        onClick={() => navigate("/")}
+        onClick={handleClickOpenModalConfirmation}
         sx={{
           width: 120,
           background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
-          // display: "flex",
           flexDirection: "row",
           alignItems: "flex-start",
           mt: 30,
@@ -98,6 +123,16 @@ function ResponsiveDrawer({ children }) {
       >
         Exit
       </Button>
+      <ModalConfimation
+        keepMounted
+        open={openModalConfirmation}
+        onClose={handleCloseModalConfirmation}
+        titleModal="Déconnexion"
+        textModal="Êtes-vous sûr de vouloir vous deconnecter?"
+        colorBgModal="#161C24"
+        colorTextModal="#fff"
+        action="disconnect"
+      />
     </Box>
   );
 
@@ -109,7 +144,7 @@ function ResponsiveDrawer({ children }) {
       {/* SnackbarProvider = message flash */}
       <SnackbarProvider>
         <CssBaseline />
-        <GlobalStyles />;
+        <GlobalStyles />
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar
@@ -132,6 +167,9 @@ function ResponsiveDrawer({ children }) {
               >
                 <MenuIcon />
               </IconButton>
+              <Typography variant="h5" noWrap component="div">
+                Espace Admin
+              </Typography>
             </Toolbar>
           </AppBar>
           <Box
@@ -176,7 +214,7 @@ function ResponsiveDrawer({ children }) {
             component="main"
             sx={{
               flexGrow: 1,
-              p: 3,
+              p: 4,
               width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
@@ -188,13 +226,12 @@ function ResponsiveDrawer({ children }) {
     </ThemeProvider>
   );
 }
-
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
+  //   /**
+  //    * Injected by the documentation to work in an iframe.
+  //    * You won't need it on your project.
+  //    */
+  //   window: PropTypes.func,
 };
 
 export default ResponsiveDrawer;

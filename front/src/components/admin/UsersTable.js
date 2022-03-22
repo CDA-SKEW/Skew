@@ -21,7 +21,7 @@ export default function UsersTable(props) {
     {
       field: "date",
       headerName: "Dates",
-      type:"date",
+      type: "date",
       width: 170,
       renderCell: (cell) => {
         return <Dates user={cell} />;
@@ -41,14 +41,12 @@ export default function UsersTable(props) {
       headerName: "Noms",
       editable: true,
       minWidth: 100,
-      flex: 1,
     },
     {
       field: "lastname",
       headerName: "Prénoms",
       editable: true,
       minWidth: 100,
-      flex: 1,
     },
     {
       field: "fullName",
@@ -56,7 +54,6 @@ export default function UsersTable(props) {
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       minWidth: 200,
-      flex: 1,
       valueGetter: (params) =>
         `${params.row.lastname || ""} ${params.row.name || ""}`,
     },
@@ -64,7 +61,6 @@ export default function UsersTable(props) {
       field: "mail",
       editable: false,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "status",
@@ -74,7 +70,6 @@ export default function UsersTable(props) {
       },
       editable: false,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "checking",
@@ -84,7 +79,6 @@ export default function UsersTable(props) {
       },
       editable: false,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "badge",
@@ -94,7 +88,6 @@ export default function UsersTable(props) {
       },
       editable: false,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "action",
@@ -111,43 +104,47 @@ export default function UsersTable(props) {
       },
       editable: false,
       minWidth: 200,
-      flex: 1,
     },
   ];
 
   /*--------------Components------------*/
 
   return (
-    <Box sx={{ pb: 5 }}>
-      <Typography
-        variant="h4"
-        color="primary"
-        sx={{
-          textAlign: "center",
-          mb: "50px",
-          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
-          borderRadius: 2,
-        }}
-      >
-        <PeopleIcon /> Admin gestion des utilisateurs | Skew.com
-      </Typography>
-      <DataGrid
-        autoHeight
-        rowHeight={80}
-        rows={user}
-        columns={columns}
-        // Pagination
-        initialState={{
-          ...user.initialState,
-          pagination: {
-            pageSize: 25,
-          },
-        }}
-        checkboxSelection
-        disableSelectionOnClick
-        // Filtre
-        components={{ Toolbar: GridToolbar }}
-      />
+    <Box style={{ height: 400, width: "100%" }}>
+      <Box style={{ display: "flex", height: "100%" }}>
+        <Box style={{ flexGrow: 1 }}>
+          <Typography
+            variant="h4"
+            color="primary"
+            sx={{
+              textAlign: "center",
+              mb: "50px",
+              background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+              borderRadius: 2,
+            }}
+          >
+            <PeopleIcon /> Admin gestion des utilisateurs | Skew.com
+          </Typography>
+          <DataGrid
+            autoHeight
+            rowHeight={80}
+            enableCellSelect={false}
+            rows={user}
+            columns={columns}
+            // Pagination
+            initialState={{
+              ...user.initialState,
+              pagination: {
+                pageSize: 25,
+              },
+            }}
+            checkboxSelection
+            disableSelectionOnClick
+            // Filtre
+            components={{ Toolbar: GridToolbar }}
+          />
+        </Box>
+      </Box>
     </Box>
   );
 }

@@ -20,64 +20,64 @@ describe("UsersController - Chai", function () {
   let user = {};
 
   // Loop for create Customer before 'it'
-  beforeEach(async () => {
-    const { mail, pass, isAdmin, isCandidat, isRecruteur, isVerified } = {
-      mail: "soukainataa1987@gmail.com",
-      pass: await bcrypt.hash("Suka20$$", 10),
-      isAdmin: 1,
-      isCandidat: 0,
-      isRecruteur: 0,
-      isVerified: 1,
-    };
-    connection.getConnection(async function (error, conn) {
-      if (error) throw error;
-      conn.query(
-        `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur, isVerified)
-        VALUES ("${mail}", "${pass}", "${isAdmin}", "${isCandidat}", "${isRecruteur}", "${isVerified}")`,
-        (err, data) => {
-          if (err) throw err;
-          console.log("data", data);
-          user.id = data.insertId;
-          user = {
-            ...user,
-            mail,
-            pass,
-            isAdmin,
-            isCandidat,
-            isRecruteur,
-            isVerified,
-          };
+  // beforeEach(async () => {
+  //   const { mail, pass, isAdmin, isCandidat, isRecruteur, isVerified } = {
+  //     mail: "soukainataa1987@gmail.com",
+  //     pass: await bcrypt.hash("Suka20$$", 10),
+  //     isAdmin: 1,
+  //     isCandidat: 0,
+  //     isRecruteur: 0,
+  //     isVerified: 1,
+  //   };
+  //   connection.getConnection(async function (error, conn) {
+  //     if (error) throw error;
+  //     conn.query(
+  //       `INSERT INTO user (mail, pass, isAdmin, isCandidat, isRecruteur, isVerified)
+  //       VALUES ("${mail}", "${pass}", "${isAdmin}", "${isCandidat}", "${isRecruteur}", "${isVerified}")`,
+  //       (err, data) => {
+  //         if (err) throw err;
+  //         // console.log("data", data);
+  //         user.id = data.insertId;
+  //         user = {
+  //           ...user,
+  //           mail,
+  //           pass,
+  //           isAdmin,
+  //           isCandidat,
+  //           isRecruteur,
+  //           isVerified,
+  //         };
 
-          console.log("beforeEach TU, create user", user);
-        }
-      );
-    });
+  //         // console.log("beforeEach TU, create user", user);
+  //       }
+  //     );
+  //   });
   });
 
   // // Exemple
-  it("Exemple", (done) => {
-    done();
-  });
+  // it("Exemple", (done) => {
+  //   done();
+  // });
 
   /****** Get All Users *******/
 
-  // it(" Get All users", function (done) {
-  //   // console.log("app", index.app);
-  //   // Test route Get All
-  //   chai
-  //     .request(index.app)
-  //     .get("/api/admin/users")
-  //     .set("Accept", "application/json")
-  //     .end((err, res) => {
-  //       if (err) return done(err);
-  //       // console.log(res.body);
-  //       res.should.have.status(200);
-  //       res.body.user.should.be.a("array");
-  //       res.body.user[0].should.be.a("object");
-  //       done();
-  //       console.log("USER GET ALL: I'm happy 😆 !!!");
-  //     });
-  // });
+  it(" Get All users", function (done) {
+    // console.log("app", index.app);
+    // Test route Get All
+    chai
+      .request(index.app)
+      .get("/api/admin/users")
+      .set("Accept", "application/json")
+      .end((err, res) => {
+        if (err) return done(err);
+        // console.log(res.body);
+        res.should.have.status(200);
+        res.body.user.should.be.a("array");
+        res.body.user[0].should.be.a("object");
+        done();
+        console.log("USER GET ALL: I'm happy 😆 !!!");
+      });
+  });
 
   /****** Get By ID User *******/
 
@@ -136,7 +136,7 @@ describe("UsersController - Chai", function () {
   //       });
   //   });
   // });
-});
+// });
 
 /******************
  * messages routes

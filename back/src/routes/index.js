@@ -244,10 +244,9 @@ router
 
 // Jobs
 router.route("/api/admin/jobs").get(new JobsController().getListJobs);
-
 router
   .route("/api/admin/jobs/:id")
-  // .get(new JobsController().getJobId)
+  .get(new JobsController().getJobId)
   .delete(new JobsController().deleteJob);
 
 // Messages

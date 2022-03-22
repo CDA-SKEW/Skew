@@ -32,7 +32,6 @@ export default function JobsTable(props) {
       headerName: "Titre",
       minWidth: 200,
       editable: true,
-      flex: 1,
     },
     {
       field: "type",
@@ -51,14 +50,12 @@ export default function JobsTable(props) {
       headerName: "Description",
       minWidth: 300,
       editable: true,
-      flex: 1,
     },
     {
       field: "profil",
       headerName: "Profil",
       minWidth: 300,
       editable: true,
-      flex: 1,
     },
     {
       field: "action",
@@ -68,45 +65,48 @@ export default function JobsTable(props) {
       },
       minWidth: 100,
       editable: false,
-      flex: 1,
     },
   ];
 
   /*--------------Components------------*/
 
   return (
-    <Box>
-      <Typography
-        variant="h4"
-        color="primary"
-        sx={{
-          textAlign: "center",
-          mb: "50px",
-          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
-          borderRadius: 2,
-        }}
-      >
-        <WorkIcon /> Admin gestion des offres d'emploi | Skew.com
-      </Typography>
-      <DataGrid
-        sx={{ width: "100%" }}
-        autoHeight
-        rowHeight={80}
-        enableCellSelect={false}
-        rows={job}
-        columns={columns}
-        // Pagination
-        initialState={{
-          ...job.initialState,
-          pagination: {
-            pageSize: 25,
-          },
-        }}
-        checkboxSelection
-        disableSelectionOnClick
-        // Filtre
-        components={{ Toolbar: GridToolbar }}
-      />
+    <Box style={{ height: 400, width: "100%" }}>
+      <Box style={{ display: "flex", height: "100%" }}>
+        <Box style={{ flexGrow: 1 }}>
+          <Typography
+            variant="h4"
+            color="primary"
+            sx={{
+              textAlign: "center",
+              mb: "50px",
+              background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+              borderRadius: 2,
+            }}
+          >
+            <WorkIcon /> Admin gestion des offres d'emploi | Skew.com
+          </Typography>
+          <DataGrid
+            sx={{ width: "100%" }}
+            autoHeight
+            rowHeight={80}
+            enableCellSelect={false}
+            rows={job}
+            columns={columns}
+            // Pagination
+            initialState={{
+              ...job.initialState,
+              pagination: {
+                pageSize: 25,
+              },
+            }}
+            checkboxSelection
+            disableSelectionOnClick
+            // Filtre
+            components={{ Toolbar: GridToolbar }}
+          />
+        </Box>
+      </Box>
     </Box>
   );
 }
