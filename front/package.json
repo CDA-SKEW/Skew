@@ -9,8 +9,7 @@
   "description": "Skew",
   "email": "soukainataa1987@gmail.com",
   "license": "MIT",
-  "homepage": "./",
-  "main": "src-electron/electron.js",
+  "main": "./",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
