@@ -5,6 +5,15 @@
 import { POST_MESSAGES} from "./ActionTypes";
 
 /*
+ * Import types { ... }
+ * ******************** */
+// import {
+//     GET_MESSAGES_DATA,
+//     ADD_MESSAGES_DATA,
+//     DELETE_MESSAGES_DATA,
+// } from './ActionTypes';
+
+/*
  * Actions
  * ******* */
 

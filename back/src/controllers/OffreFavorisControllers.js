@@ -1,22 +1,20 @@
 // Import Model
 const OffreFavoris = require("../models/OffreFavorisModel");
 
-// Import Module
-const jwt = require("jsonwebtoken");
-
 require("dotenv").config();
 
 class FavorisControllers {
     async addFavoris(req, res) {
-        let newOffreFavoris = new OffreFavoris ({
+        console.log('newOffreFavoris', req.params.id, req.body.id)
+        let newOffreFavoris = new OffreFavoris({
             offre_id: Number(req.params.id),
-            user_id: Number(req.body.user_id),
-            is_favoris: Number(req.body.is_favoris),
+            user_id: Number(req.body.id),
+            is_favoris: 1,
         })
         try {
             OffreFavoris.post(newOffreFavoris, (err, data) => {
                 if (err) res.send(err);
-                return res.send ({
+                return res.send({
                     method: req.method,
                     status: 'success',
                     flash: 'Create favoris Success !',

@@ -20,9 +20,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { checkToken } from "store/actions/AuthActions"
 import { store } from 'store';
-import { getOffreFavoriteId, postOffreFavorite } from 'store/actions/OffreFavoriteActions'
+import { postOffreFavorite } from 'store/actions/OffreFavoriteActions'
 
-store.dispatch(checkToken(localStorage['usertoken']));
+store.dispatch(checkToken(localStorage['user_token']));
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
@@ -32,7 +32,8 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
 
     const checkToken = useSelector(state => state.auth.token);
     const favoris = useSelector(state => state.offreFavorite.favoris);
-    console.log("checkToken", favoris)
+    console.log("favoris", favoris)
+    console.log("checkToken", checkToken.id)
 
     const handleOpenModal = () => {
         setOpenNoToken(true)
@@ -43,18 +44,15 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     };
 
     const handleClickFavoris = () => {
-        if (!localStorage["user_token"]) { handleOpenModal(); }
-        else {
-            if(favoris) { dispatch(postOffreFavorite(data.offer_id, checkToken.id))}
-        }
+        if (!localStorage["user_token"]) handleOpenModal();
+        else if (Object.keys(favoris).length === 0) { dispatch(postOffreFavorite(data.offer_id, checkToken)) }
+        else { console.log('non') }
     }
 
     const handleClickPostuled = () => {
         if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
         else { handleOpenModal() }
     }
-
-    console.log('data', data)
 
     return (
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
