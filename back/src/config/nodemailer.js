@@ -173,7 +173,7 @@ module.exports = {
     // console.log(mailOptions);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.log("err", err),
+        // console.log("err", err),
           res.status(500).json({
             message: err.message || "Une erreur est survenue",
           });

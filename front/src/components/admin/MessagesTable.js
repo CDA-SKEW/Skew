@@ -31,7 +31,6 @@ export default function MessagesTable(props) {
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       minWidth: 200,
-      flex: 1,
       valueGetter: (params) =>
         `${params.row.name || ""} ${params.row.firstname || ""}`,
     },
@@ -40,20 +39,17 @@ export default function MessagesTable(props) {
       headerName: "Téléphone",
       editable: true,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "mail",
       editable: true,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "sujet",
       headerName: "Objet",
       editable: true,
       minWidth: 200,
-      flex: 1,
     },
     {
       field: "action",
@@ -70,45 +66,48 @@ export default function MessagesTable(props) {
       },
       editable: false,
       minWidth: 200,
-      flex: 1,
     },
   ];
 
   /*--------------Components------------*/
 
   return (
-    <Box>
-      <Typography
-        variant="h4"
-        color="primary"
-        sx={{
-          textAlign: "center",
-          mb: "50px",
-          background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
-          borderRadius: 2,
-        }}
-      >
-        <MailIcon /> Admin gestion de la messagerie | Skew.com
-      </Typography>
-      <DataGrid
-        sx={{ width: "100%" }}
-        autoHeight
-        rowHeight={80}
-        enableCellSelect={false}
-        rows={messages}
-        columns={columns}
-        // Pagination
-        initialState={{
-          ...messages.initialState,
-          pagination: {
-            pageSize: 25,
-          },
-        }}
-        checkboxSelection
-        disableSelectionOnClick
-        // Filtre
-        components={{ Toolbar: GridToolbar }}
-      />
+    <Box style={{ height: 400, width: "100%" }}>
+      <Box style={{ display: "flex", height: "100%" }}>
+        <Box style={{ flexGrow: 1 }}>
+          <Typography
+            variant="h4"
+            color="primary"
+            sx={{
+              textAlign: "center",
+              mb: "50px",
+              background: "linear-gradient(to right bottom, #E8FFEF, #C1F8D2)",
+              borderRadius: 2,
+            }}
+          >
+            <MailIcon /> Admin gestion de la messagerie | Skew.com
+          </Typography>
+          <DataGrid
+            sx={{ width: "100%" }}
+            autoHeight
+            rowHeight={80}
+            enableCellSelect={false}
+            rows={messages}
+            columns={columns}
+            // Pagination
+            initialState={{
+              ...messages.initialState,
+              pagination: {
+                pageSize: 25,
+              },
+            }}
+            checkboxSelection
+            disableSelectionOnClick
+            // Filtre
+            components={{ Toolbar: GridToolbar }}
+          />
+        </Box>
+      </Box>
     </Box>
   );
 }
