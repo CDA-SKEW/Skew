@@ -28,7 +28,6 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const [openNoToken, setOpenNoToken] = useState(false);
 
     const favoris = useSelector(state => state.offreFavorite.favoris);
-    console.log('favoris', favoris)
     const handleOpenModal = () => {
         setOpenNoToken(true)
     }

@@ -28,7 +28,6 @@ OffreFavoris.getOne = function (newFavoris, result) {
 // Post favoris
 
 OffreFavoris.post = function (newFavoris, result) {
-    console.log('newFavoris', newFavoris)
     connection.getConnection(async function (error, conn) {
         if (error) throw error;
         conn.query(
