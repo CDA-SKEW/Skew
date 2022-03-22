@@ -16,9 +16,15 @@ const storage = multer.diskStorage({
         // console.log("Multer (Nom de l'image): " + file.originalname)
 
         // ici la variable ext est le nom original de l'image
-        const ext = file.originalname
+        const ext = file.originalname,
+            date = Date.now(),
+            completed = date + '_' + ext;
+
+        console.log('filename edit', file)
+        req.body.name = completed
+
         //File name prends la valeur de la variable ext
-        cb(null, ext)
+        cb(null, completed)
     },
 })
 
@@ -37,16 +43,8 @@ const uploadCv = multer({
     // Ici nous avons un filtre qui va nous permetre de configurer les extensions accepter par notre middleware ou autre
     fileFilter: (req, file, cb) => {
 
-        // console.log("file.mimetype",file.mimetype)
-
-        if (
-            file.mimetype === "application/pdf"
-
-        ) {
-            cb(null, true)
-        } else {
-            cb(null, false)
-        }
+        if (file.mimetype === "application/pdf") cb(null, true)
+        else cb(null, false)
 
     }
 })
