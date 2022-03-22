@@ -432,6 +432,7 @@ class CandidatProfilControllers {
 
   async createDocumentProfil(req, res) {
     console.log('REQ.BODY CREATE', req.body);
+    // req.body.name = req.nameEditCV
     let newDocument = new CandidatDocument({
       ...req.body
     });
@@ -451,13 +452,11 @@ class CandidatProfilControllers {
     }
   }
 
-
   //  DELETE DOCUMENT PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
     try {
       CandidatDocument.deleteDocumentProfil(req.params.id, (err, data) => {
-
         if (err) res.send(err);
         else {
           return res.send({
