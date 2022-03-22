@@ -194,31 +194,46 @@ export default function VisiteurLayout({ children }) {
                 <MenuIcon />
               </IconButton>
               <SwipeableDrawer
-                container={container}
+                open={openDrawer} container={container}
                 anchor="bottom"
-                open={openDrawer}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
                 disableSwipeToOpen={false}
                 ModalProps={{ keepMounted: true }}>
-                <Box sx={{ listStyleType: 'none', textAlign: 'center' }}>
+                <Box sx={{ listStyleType: 'none' }}>
                   {pages.map((page, index) => (
-                    <MenuItem key={index} onClick={() => navigate({ pathname: `/${page.lien}` })}>
-                      <Typography textAlign="center">{page.titre}</Typography>
+                    <MenuItem
+                      key={index}
+                      onClick={() => navigate({ pathname: `/${page.lien}` })}
+                      sx={{ justifyContent: 'center' }}
+                    >
+                      <Typography>{page.titre}</Typography>
                     </MenuItem>
                   ))}
                   {userToken &&
-                    <MenuItem onClick={() => handleClickNavigate()}>
+                    <MenuItem
+                      sx={{ justifyContent: 'center' }}
+                      onClick={() => handleClickNavigate()}
+                    >
                       <Typography textAlign="center">Dashboard</Typography>
                     </MenuItem>
                   }
 
                   {/* Bouton Login */}
                   {!userToken &&
-                    <Button variant="contained" onClick={() => setOpenModal(true)}
-                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
-                      Log in / Sign in
-                    </Button>
+                    <Box sx={{width: 370, m:'auto'}}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={() => setOpenModal(true)}
+                        sx={{
+                          bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2,
+                          my: 2, mx: 'auto', justifyContent: 'center'
+                        }}
+                      >
+                        Log in / Sign in
+                      </Button>
+                    </Box>
                   }
                   {userToken &&
                     <Button variant="contained" onClick={logout}

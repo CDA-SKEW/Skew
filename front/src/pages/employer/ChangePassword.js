@@ -16,7 +16,7 @@ const ChangePassword = () => {
 
     useEffect(() => {
         dispatch(getProfilUser());
-    }, []);
+    }, [dispatch]);
 
     const dataProfilUser = useSelector((state) => state.employer.dataProfilUser);
 

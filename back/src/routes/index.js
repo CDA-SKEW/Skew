@@ -23,6 +23,9 @@ const ContactControllers = require("../controllers/ContactControllers");
 // Offres visiteur
 const OffreVisiteurControllers = require("../controllers/OffreVisiteurControllers");
 
+// Offres favorites
+const OffreFavoriteControllers = require("../controllers/OffreFavorisControllers");
+
 // VisiteurData
 const VisiteurDataControllers = require("../controllers/VisiteurDataControllers");
 
@@ -73,6 +76,10 @@ router.route("/api/contact").post(new ContactControllers().post);
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
 router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
+
+// Offres favorites
+router.route("/api/offrefavorite/:id").get(new OffreFavoriteControllers().getFavoris);
+router.route("/api/offrefavorite/:id").post(new OffreFavoriteControllers().addFavoris);
 
 // Visiteur data
 router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);

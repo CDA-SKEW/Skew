@@ -145,6 +145,7 @@ export const getListJobs = () => {
         .get("/admin/jobs")
         .then((res) => {
           console.log("getListJobs:", res.data.job);
+          // eslint-disable-next-line array-callback-return
           res.data.job.map((el, index) => {
             el.id = index;
           });
@@ -169,6 +170,7 @@ export const getJobId = (id) => {
       .delete(`/admin/jobs/${id}`)
       .then((res) => {
         console.log("deleteJob", res.data.job);
+        // eslint-disable-next-line array-callback-return
         res.data.job.map((el, index) => {
           el.id = index;
         });
@@ -189,6 +191,7 @@ export const deleteJob = (id) => {
       .delete(`/admin/jobs/${id}`)
       .then((res) => {
         console.log("deleteJob", res.data.job);
+        // eslint-disable-next-line array-callback-return
         res.data.job.map((el, index) => {
           el.id = index;
         });
@@ -235,6 +238,7 @@ export const getMessageId = (id) => {
     .delete(`/admin/messages/${id}`)
     .then((res) => {
       console.log("deleteJob", res.data.job);
+      // eslint-disable-next-line array-callback-return
       res.data.job.map((el, index) => {
         el.id = index;
       });

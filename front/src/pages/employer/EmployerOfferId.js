@@ -17,7 +17,7 @@ const EmployerOfferId = () => {
 
     useEffect(() => {
         dispatch(getProfilEmployer());
-    }, []);
+    }, [dispatch]);
 
     const dataProfilEmployer = useSelector(
         (state) => state.employer.dataProfilEmployer

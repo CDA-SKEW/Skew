@@ -40,7 +40,7 @@ export default function FormPasswordChange(props) {
         setMessage(messageFlash);
       }
     }
-  }, [messageFlash || messageError || dataProfilUser]);
+  }, [messageFlash, messageError ,dataProfilUser]);
 
 
   // constante pour visualisation des differents mot de passe
