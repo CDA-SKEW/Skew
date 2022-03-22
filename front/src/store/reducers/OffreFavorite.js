@@ -8,6 +8,7 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
   favoris: {},
+  addFavoris: {}
 };
 
 /*
@@ -27,7 +28,7 @@ export function OffreFavoriteReducer(state = initialState, action) {
             return {
                 ...state,
                 flash: action.payload.flash,
-                favoris: action.payload.dbOffresVisiteur
+                addFavoris: action.payload.dbOffresVisiteur
             };
     }
 }

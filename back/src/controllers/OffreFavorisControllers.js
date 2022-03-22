@@ -5,11 +5,9 @@ require("dotenv").config();
 
 class FavorisControllers {
     async addFavoris(req, res) {
-        console.log('newOffreFavoris', req.params.id, req.body.id)
         let newOffreFavoris = new OffreFavoris({
             offre_id: Number(req.params.id),
-            user_id: Number(req.body.id),
-            is_favoris: 1,
+            user_id: Number(req.body.user_id),
         })
         try {
             OffreFavoris.post(newOffreFavoris, (err, data) => {
@@ -18,15 +16,20 @@ class FavorisControllers {
                     method: req.method,
                     status: 'success',
                     flash: 'Create favoris Success !',
-                    dbMessages: data,
+                    dbOffreFavoris: data,
                 })
             })
         } catch (error) { throw error; }
     }
 
     async getFavoris(req, res) {
+        let newOffreFavoris = new OffreFavoris({
+            offre_id: Number(req.params.id),
+            user_id: Number(req.body.user_id),
+        })
+        console.log('req.body.id', req.body)
         try {
-            OffreFavoris.getOne(req.params.id, (err, data) => {
+            OffreFavoris.getOne(newOffreFavoris, (err, data) => {
                 if (err) {
                     res.status(500).send({
                         message: err.message || "Une erreur est survenue",
@@ -40,6 +43,23 @@ class FavorisControllers {
                     });
                 }
             });
+        } catch (error) { throw error; }
+    }
+
+    async deleteFavoris(req, res) {
+        let newOffreFavoris = new OffreFavoris({
+            offre_id: Number(req.params.id),
+            user_id: Number(req.body.user_id),
+        })
+        try {
+            OffreFavoris.delete(newOffreFavoris, (err,data) => {
+                return res.send({
+                    method: req.method,
+                    status: 'success',
+                    flash: 'Delete favoris Success !',
+                    dbOffreFavoris: data,
+                })
+            })
         } catch (error) { throw error; }
     }
 }

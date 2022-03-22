@@ -80,6 +80,7 @@ router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOn
 // Offres favorites
 router.route("/api/offrefavorite/:id").get(new OffreFavoriteControllers().getFavoris);
 router.route("/api/offrefavorite/:id").post(new OffreFavoriteControllers().addFavoris);
+router.route("/api/offrefavorite/:id").delete(new OffreFavoriteControllers().deleteFavoris);
 
 // Visiteur data
 router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);

@@ -13,11 +13,11 @@ const OffreFavoris = function (data) {
 
 // getOne favoris
 
-OffreFavoris.getOne = function (id, result) {
+OffreFavoris.getOne = function (newFavoris, result) {
     connection.getConnection(async function (error, conn) {
         if (error) throw error;
         conn.query(
-            `SELECT * FROM favoris WHERE offre_id = ${id};`, (error, data) => {
+            `SELECT * FROM favoris WHERE offre_id = ${newFavoris.offre_id} AND user_id = ${newFavoris.user_id};`, (error, data) => {
                 if (error) throw error;
                 result(null, data[0]);
                 conn.release();
@@ -37,6 +37,21 @@ OffreFavoris.post = function (newFavoris, result) {
                 else result(null, 'L\'offre est favorite!');
             })
         conn.release();
+    })
+}
+
+// Delete favoris
+
+OffreFavoris.delete = function (newFavoris, result) {
+    connection.getConnection(async function (error, conn) {
+        if (error) throw error;
+        conn.query(
+            `DELETE FROM favoris WHERE offre_id = ${newFavoris.offre_id} AND user_id = ${newFavoris.user_id};`
+            ,(err, favorisdata) => {
+                if (err) throw err
+                else result(null, 'L\'offre favorite est supprimée')
+            }
+        )
     })
 }
 

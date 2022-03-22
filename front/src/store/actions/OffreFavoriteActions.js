@@ -3,11 +3,10 @@
  * *************** */
 import { api } from "configs/axios";
 
-import { GET_OFFRE_FAVORITE_ID, POST_OFFRE_FAVORITE } from "./ActionTypes";
-
 /*
  * Import types { ... }
  * ******************** */
+import { GET_OFFRE_FAVORITE_ID, POST_OFFRE_FAVORITE } from "./ActionTypes";
 
 /*
  * Actions

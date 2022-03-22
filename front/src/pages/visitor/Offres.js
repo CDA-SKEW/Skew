@@ -10,8 +10,8 @@ import Pagination from '@mui/material/Pagination';
 import DialogCardOffreId from 'components/visiteur/offres/DialogCardOffreId';
 import CardOffreUnique from 'components/visiteur/offres/CardOffreUnique';
 
-import { useSelector } from "react-redux";
-import { getOffreVisiteur } from "store/actions/OffreVisiteurActions"
+import { useSelector, useDispatch } from "react-redux";
+import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
 import { store } from 'store';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -44,7 +44,7 @@ export default function Offres() {
         setPage(1);
     };
     const handleClickOpen = (data) => {
-        setValueModal(data)
+        setValueModal(data);
         setOpen(true);
     };
     const handleClose = () => {
@@ -63,17 +63,17 @@ export default function Offres() {
     const filterList = listOffer
         .filter((item) => title(item))
         .filter((item2) => types(item2))
-        .filter((item3) => locations(item3))
+        .filter((item3) => locations(item3));
 
     function splitArray(array, chunk) {
         var i, j, rslt = [];
         chunk = chunk - 1;
-        for (i = 0, j = array.length; i < j; i += chunk) { rslt.push(array.slice(i, i + chunk + 1)); }
+        for (i = 0, j = array.length; i < j; i += chunk) { rslt.push(array.slice(i, i + chunk + 1)); };
         return rslt;
     }
 
-    const SplitList = splitArray(filterList, 8)
-    const pages = SplitList.length
+    const SplitList = splitArray(filterList, 8);
+    const pages = SplitList.length;
 
     return (
         <VisiteurLayout>
