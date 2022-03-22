@@ -11,7 +11,7 @@ import DialogCardOffreId from 'components/visiteur/offres/DialogCardOffreId';
 import CardOffreUnique from 'components/visiteur/offres/CardOffreUnique';
 
 import { useSelector } from "react-redux";
-import { getOffreVisiteur } from "../../store/actions/OffreVisiteurActions"
+import { getOffreVisiteur } from "store/actions/OffreVisiteurActions"
 import { store } from 'store';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

@@ -17,22 +17,22 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { urlImg } from "utils/url";
 import { useNavigate } from 'react-router-dom';
 
-// import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { checkToken } from "store/actions/AuthActions"
 import { store } from 'store';
+import { getOffreFavoriteId, postOffreFavorite } from 'store/actions/OffreFavoriteActions'
 
-store.dispatch(checkToken(localStorage['usertoken']))
+store.dispatch(checkToken(localStorage['usertoken']));
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [openNoToken, setOpenNoToken] = useState(false);
-    // const [favoris, setFavoris] = useState("")
 
     const checkToken = useSelector(state => state.auth.token);
-    console.log("checkToken", checkToken)
+    const favoris = useSelector(state => state.offreFavorite.favoris);
+    console.log("checkToken", favoris)
 
     const handleOpenModal = () => {
         setOpenNoToken(true)
@@ -45,7 +45,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const handleClickFavoris = () => {
         if (!localStorage["user_token"]) { handleOpenModal(); }
         else {
-            
+            if(favoris) { dispatch(postOffreFavorite(data.offer_id, checkToken.id))}
         }
     }
 

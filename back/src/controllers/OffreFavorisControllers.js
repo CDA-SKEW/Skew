@@ -13,7 +13,6 @@ class FavorisControllers {
             user_id: Number(req.body.user_id),
             is_favoris: Number(req.body.is_favoris),
         })
-        console.log('newOffreFavoris', newOffreFavoris)
         try {
             OffreFavoris.post(newOffreFavoris, (err, data) => {
                 if (err) res.send(err);

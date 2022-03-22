@@ -26,9 +26,10 @@ export const getOffreFavoriteId = (id) => {
 };
 
 export const postOffreFavorite = (id, data) => {
+    console.log('data', data)
     return (dispatch) => {
         return api
-            .get(`/offresvisiteur/${id}`, data)
+            .get(`/offrefavorite/${id}`, data)
             .then((res) => {
                 dispatch({ type: POST_OFFRE_FAVORITE, payload: res.data })
             })
