@@ -221,7 +221,7 @@ export default function VisiteurLayout({ children }) {
 
                   {/* Bouton Login */}
                   {!userToken &&
-                    <Box sx={{width: 370, m:'auto'}}>
+                    <Box sx={{width: 350, m:'auto'}}>
                       <Button
                         variant="contained"
                         fullWidth
@@ -256,14 +256,14 @@ export default function VisiteurLayout({ children }) {
                       display: 'block'
                     }}
                   >
-                    <Button variant="outlined" fullWidth
+                    <Button variant="contained" fullWidth
                       onClick={() => setOpenDialogConnexion(true)}
-                      sx={{ bgcolor: '#0099FF', fontSize: 17, my: 3, display: 'block' }}>
+                      sx={{ bgcolor: '#ABC4FF', fontSize: 17, my: 3, display: 'block' }}>
                       Connexion
                     </Button>
-                    <Button variant="outlined" fullWidth
+                    <Button variant="contained" fullWidth
                       onClick={() => setOpenDialogInscription(true)}
-                      sx={{ bgcolor: '#0099FF', fontSize: 17, my: 3, display: 'block' }}>
+                      sx={{ bgcolor: '#ABC4FF', fontSize: 17, my: 3, display: 'block' }}>
                       Inscription
                     </Button>
                   </Box>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -14,15 +14,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import { Box } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { urlImg } from "utils/url";
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from "react-redux";
-import { checkToken } from "store/actions/AuthActions"
-import { store } from 'store';
-import { postOffreFavorite } from 'store/actions/OffreFavoriteActions'
-
-store.dispatch(checkToken(localStorage['user_token']));
+import { getOffreFavoriteId, postOffreFavorite, deleteOffreFavorite } from 'store/actions/OffreFavoriteActions'
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
@@ -30,11 +27,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const dispatch = useDispatch();
     const [openNoToken, setOpenNoToken] = useState(false);
 
-    const checkToken = useSelector(state => state.auth.token);
     const favoris = useSelector(state => state.offreFavorite.favoris);
-    console.log("favoris", favoris)
-    console.log("checkToken", checkToken.id)
-
     const handleOpenModal = () => {
         setOpenNoToken(true)
     }
@@ -43,16 +36,26 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
         setOpenNoToken(false);
     };
 
-    const handleClickFavoris = () => {
+    const handleClickFavoris = async () => {
         if (!localStorage["user_token"]) handleOpenModal();
-        else if (Object.keys(favoris).length === 0) { dispatch(postOffreFavorite(data.offer_id, checkToken)) }
-        else { console.log('non') }
+        else if (!favoris) {
+            await dispatch(postOffreFavorite(data));
+            dispatch(getOffreFavoriteId(data.offer_id));
+        }
+        else {
+            await dispatch(deleteOffreFavorite(data.offer_id));
+            dispatch(getOffreFavoriteId(data.offer_id));
+        }
     }
 
     const handleClickPostuled = () => {
         if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
         else { handleOpenModal() }
     }
+
+    useEffect(() => {
+        if (data.offer_id) dispatch(getOffreFavoriteId(data.offer_id));
+    }, [dispatch, data.offer_id]);
 
     return (
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -102,13 +105,24 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                     </CardContent>
                     <CardActions
                         sx={{ mt: 2, justifyContent: 'space-between', px: 5 }}>
-                        <Button
-                            variant='contained'
-                            sx={{ bgcolor: 'secondary.main' }}
-                            onClick={() => handleClickFavoris()}
-                        >
-                            <FavoriteBorderIcon />
-                        </Button>
+                        {!favoris &&
+                            <Button
+                                variant='contained'
+                                sx={{ bgcolor: 'secondary.main' }}
+                                onClick={() => handleClickFavoris()}
+                            >
+                                <FavoriteBorderIcon />
+                            </Button>
+                        }
+                        {favoris &&
+                            <Button
+                                variant='contained'
+                                sx={{ bgcolor: 'secondary.main' }}
+                                onClick={() => handleClickFavoris()}
+                            >
+                                <FavoriteIcon />
+                            </Button>
+                        }
                         <Button
                             variant='contained'
                             sx={{ bgcolor: 'secondary.main' }}
