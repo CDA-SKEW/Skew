@@ -19,11 +19,7 @@ import { urlImg } from "utils/url";
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from "react-redux";
-import { checkToken } from "store/actions/AuthActions"
-import { store } from 'store';
-import { getOffreFavoriteId, postOffreFavorite } from 'store/actions/OffreFavoriteActions'
-
-store.dispatch(checkToken(localStorage['user_token']));
+import { getOffreFavoriteId, postOffreFavorite, deleteOffreFavorite } from 'store/actions/OffreFavoriteActions'
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
@@ -31,9 +27,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const dispatch = useDispatch();
     const [openNoToken, setOpenNoToken] = useState(false);
 
-    const checkToken = useSelector(state => state.auth.token);
     const favoris = useSelector(state => state.offreFavorite.favoris);
-    console.log("favoris", favoris)
 
     const handleOpenModal = () => {
         setOpenNoToken(true)
@@ -46,10 +40,13 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const handleClickFavoris = async () => {
         if (!localStorage["user_token"]) handleOpenModal();
         else if (!favoris) {
-            await dispatch(postOffreFavorite(data.offer_id, checkToken));
-            dispatch(getOffreFavoriteId(data.offer_id, checkToken))
+            await dispatch(postOffreFavorite(data.offer_id));
+            dispatch(getOffreFavoriteId(data.offer_id));
         }
-        else { console.log('non') }
+        else {
+            await dispatch(deleteOffreFavorite(data.offer_id));
+            dispatch(getOffreFavoriteId(data.offer_id));
+        }
     }
 
     const handleClickPostuled = () => {
@@ -58,8 +55,8 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     }
 
     useEffect(() => {
-        if (data.offer_id) dispatch(getOffreFavoriteId(data.offer_id, checkToken));
-    }, [dispatch, data.offer_id, checkToken]);
+        if (data.offer_id) dispatch(getOffreFavoriteId(data.offer_id));
+    }, [dispatch, data.offer_id]);
 
     return (
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>

@@ -78,9 +78,9 @@ router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
 router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
 
 // Offres favorites
-router.route("/api/offrefavorite/:id").get(new OffreFavoriteControllers().getFavoris);
-router.route("/api/offrefavorite/:id").post(new OffreFavoriteControllers().addFavoris);
-router.route("/api/offrefavorite/:id").delete(new OffreFavoriteControllers().deleteFavoris);
+router.route("/api/offrefavorite/:id").get(new TokenJWT().checkToken, new OffreFavoriteControllers().getFavoris);
+router.route("/api/offrefavorite/:id").post(new TokenJWT().checkToken, new OffreFavoriteControllers().addFavoris);
+router.route("/api/offrefavorite/:id").delete(new TokenJWT().checkToken, new OffreFavoriteControllers().deleteFavoris);
 
 // Visiteur data
 router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);

@@ -1,33 +1,42 @@
 // Import Model
 const OffreFavoris = require("../models/OffreFavorisModel");
+const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
 class FavorisControllers {
     async addFavoris(req, res) {
+        const decoded = jwt.decode(req.headers['authorization'], { complete: true })
+        const id = decoded.payload.id
         let newOffreFavoris = new OffreFavoris({
             offre_id: Number(req.params.id),
-            user_id: Number(req.body.user_id),
+            user_id: Number(id),
         })
         try {
             OffreFavoris.post(newOffreFavoris, (err, data) => {
-                if (err) res.send(err);
-                return res.send({
-                    method: req.method,
-                    status: 'success',
-                    flash: 'Create favoris Success !',
-                    dbOffreFavoris: data,
-                })
-            })
+                if (err) {
+                    res.status(500).send({
+                        message: err.message || "Une erreur est survenue",
+                    });
+                } else {
+                    return res.send({
+                        method: req.method,
+                        status: "success",
+                        flash: "Post Offre Success !",
+                        dbOffreFavoris: data,
+                    });
+                }
+            });
         } catch (error) { throw error; }
     }
 
     async getFavoris(req, res) {
+        const decoded = jwt.decode(req.headers['authorization'], { complete: true })
+        const id = decoded.payload.id
         let newOffreFavoris = new OffreFavoris({
             offre_id: Number(req.params.id),
-            user_id: Number(req.body.user_id),
+            user_id: Number(id),
         })
-        console.log('req.body.id', req.body)
         try {
             OffreFavoris.getOne(newOffreFavoris, (err, data) => {
                 if (err) {
@@ -39,7 +48,7 @@ class FavorisControllers {
                         method: req.method,
                         status: "success",
                         flash: "Get Offre Success !",
-                        dbOffresVisiteur: data,
+                        dbOffreFavoris: data,
                     });
                 }
             });
@@ -47,19 +56,27 @@ class FavorisControllers {
     }
 
     async deleteFavoris(req, res) {
+        const decoded = jwt.decode(req.headers['authorization'], { complete: true })
+        const id = decoded.payload.id
         let newOffreFavoris = new OffreFavoris({
             offre_id: Number(req.params.id),
-            user_id: Number(req.body.user_id),
+            user_id: Number(id),
         })
         try {
-            OffreFavoris.delete(newOffreFavoris, (err,data) => {
-                return res.send({
-                    method: req.method,
-                    status: 'success',
-                    flash: 'Delete favoris Success !',
-                    dbOffreFavoris: data,
-                })
-            })
+            OffreFavoris.delete(newOffreFavoris, (err, data) => {
+                if (err) {
+                    res.status(500).send({
+                        message: err.message || "Une erreur est survenue",
+                    });
+                } else {
+                    return res.send({
+                        method: req.method,
+                        status: "success",
+                        flash: "Delete Offre Success !",
+                        dbOffreFavoris: data,
+                    });
+                }
+            });
         } catch (error) { throw error; }
     }
 }
