@@ -8,6 +8,7 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
     favoris: {},
+    flash: ""
 };
 
 /*
@@ -32,8 +33,7 @@ export function OffreFavoriteReducer(state = initialState, action) {
         case Actions.DELETE_OFFRE_FAVORITE:
             return {
                 ...state,
-                flash: action.payload.flash,
-                favoris: action.payload.dbOffreFavoris
+                flash: action.payload.dbOffreFavoris
             };
     }
 }

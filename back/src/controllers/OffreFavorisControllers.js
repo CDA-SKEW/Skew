@@ -9,7 +9,7 @@ class FavorisControllers {
         const decoded = jwt.decode(req.headers['authorization'], { complete: true })
         const id = decoded.payload.id
         let newOffreFavoris = new OffreFavoris({
-            offre_id: Number(req.params.id),
+            offre_id: Number(req.body.offer_id),
             user_id: Number(id),
         })
         try {
@@ -72,8 +72,7 @@ class FavorisControllers {
                     return res.send({
                         method: req.method,
                         status: "success",
-                        flash: "Delete Offre Success !",
-                        dbOffreFavoris: data,
+                        flash: data,
                     });
                 }
             });

@@ -12,7 +12,7 @@ import { GET_OFFRE_FAVORITE_ID, POST_OFFRE_FAVORITE, DELETE_OFFRE_FAVORITE } fro
  * Actions
  * ******* */
 
-// GET OFFRES FAVORITE
+// GET OFFRE FAVORITE
 export const getOffreFavoriteId = (id) => {
     return (dispatch) => {
         return api
@@ -25,10 +25,11 @@ export const getOffreFavoriteId = (id) => {
     };
 };
 
+// POST OFFRE FAVORITE
 export const postOffreFavorite = (id) => {
     return (dispatch) => {
         return api
-            .post(`/offrefavorite/${id}`, { headers: { Authorization: `${localStorage["user_token"]}` } })
+            .post(`/offrefavorite`, id, { headers: { Authorization: `${localStorage["user_token"]}` } })
             .then((res) => {
                 if (res.data.token) localStorage["user_token"] = res.data.token;
                 dispatch({ type: POST_OFFRE_FAVORITE, payload: res.data })
@@ -37,10 +38,11 @@ export const postOffreFavorite = (id) => {
     };
 };
 
+// DELETE OFFRE FAVORITE
 export const deleteOffreFavorite = (id) => {
     return (dispatch) => {
         return api
-            .post(`/offrefavorite/${id}`, { headers: { Authorization: `${localStorage["user_token"]}` } })
+            .delete(`/offrefavorite/${id}`, { headers: { Authorization: `${localStorage["user_token"]}` } })
             .then((res) => {
                 if (res.data.token) localStorage["user_token"] = res.data.token;
                 dispatch({ type: DELETE_OFFRE_FAVORITE, payload: res.data })

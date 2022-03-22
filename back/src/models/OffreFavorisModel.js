@@ -28,13 +28,14 @@ OffreFavoris.getOne = function (newFavoris, result) {
 // Post favoris
 
 OffreFavoris.post = function (newFavoris, result) {
+    console.log('newFavoris', newFavoris)
     connection.getConnection(async function (error, conn) {
         if (error) throw error;
         conn.query(
             `INSERT INTO favoris (offre_id, user_id, is_favoris) VALUES ( ${newFavoris.offre_id}, ${newFavoris.user_id}, 1);`
-            , (err, favorisdata) => {
+            , (err, data) => {
                 if (err) throw err
-                else result(null, 'L\'offre est favorite!');
+                else result(null, data [0]);
             })
         conn.release();
     })
@@ -47,9 +48,9 @@ OffreFavoris.delete = function (newFavoris, result) {
         if (error) throw error;
         conn.query(
             `DELETE FROM favoris WHERE offre_id = ${newFavoris.offre_id} AND user_id = ${newFavoris.user_id};`
-            ,(err, favorisdata) => {
+            ,(err, data) => {
                 if (err) throw err
-                else result(null, 'L\'offre favorite est supprimée')
+                else result(null, 'L\'offre a bien été supprimée')
             }
         )
     })

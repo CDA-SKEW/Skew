@@ -79,7 +79,7 @@ router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOn
 
 // Offres favorites
 router.route("/api/offrefavorite/:id").get(new TokenJWT().checkToken, new OffreFavoriteControllers().getFavoris);
-router.route("/api/offrefavorite/:id").post(new TokenJWT().checkToken, new OffreFavoriteControllers().addFavoris);
+router.route("/api/offrefavorite").post(new TokenJWT().checkToken, new OffreFavoriteControllers().addFavoris);
 router.route("/api/offrefavorite/:id").delete(new TokenJWT().checkToken, new OffreFavoriteControllers().deleteFavoris);
 
 // Visiteur data

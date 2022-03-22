@@ -28,7 +28,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const [openNoToken, setOpenNoToken] = useState(false);
 
     const favoris = useSelector(state => state.offreFavorite.favoris);
-
+    console.log('favoris', favoris)
     const handleOpenModal = () => {
         setOpenNoToken(true)
     }
@@ -40,7 +40,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     const handleClickFavoris = async () => {
         if (!localStorage["user_token"]) handleOpenModal();
         else if (!favoris) {
-            await dispatch(postOffreFavorite(data.offer_id));
+            await dispatch(postOffreFavorite(data));
             dispatch(getOffreFavoriteId(data.offer_id));
         }
         else {
