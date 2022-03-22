@@ -19,10 +19,8 @@ import {
 } from "./ActionTypes";
 
 let token
-if (localStorage.getItem('user_token')) token = jwt_decode(localStorage.getItem('user_token'))
-// token = '5' // || localStorage.getItem('user_token')
 
-console.log("token", token)
+if (localStorage.getItem('user_token')) token = jwt_decode(localStorage.getItem('user_token'))
 
 /*
  * Actions
@@ -33,7 +31,7 @@ console.log("token", token)
 
 // Get profil candidate
 export const getProfilCandidate = () => {
-    console.log('response getProfilCandidate 1')
+    token = jwt_decode(localStorage.getItem('user_token'))
     return (dispatch) => {
         return api
             .get(`/candidat/profil/${token.id}`)
@@ -46,6 +44,7 @@ export const getProfilCandidate = () => {
 };
 
 export const getOffreCandidate = () => {
+    token = jwt_decode(localStorage.getItem('user_token'))
     return (dispatch) => {
         return api
             .get(`/candidat/candidatures/${token.id}`)
