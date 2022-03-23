@@ -135,7 +135,7 @@ export default function UsersTable(props) {
   /*--------------Components------------*/
 
   return (
-    <Box style={{ height: 520, width: "100%" }}>
+    <Box style={{ height: 400, width: "100%" }}>
       <Box style={{ display: "flex", height: "100%" }}>
         <Box style={{ flexGrow: 1 }}>
           <Typography
