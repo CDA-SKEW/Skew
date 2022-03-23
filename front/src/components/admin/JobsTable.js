@@ -2,18 +2,40 @@
 
 import React from "react";
 import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
+import { Box } from "@mui/system";
+import {
+  DataGrid,
+  GridToolbar,
+  gridPageCountSelector,
+  gridPageSelector,
+  useGridApiContext,
+  useGridSelector,
+} from "@mui/x-data-grid";
+import Dates from "components/admin/tables/Dates";
+import Pagination from "@mui/material/Pagination";
 import WorkIcon from "@mui/icons-material/Work";
 
 /*------------Export function + table header-------------*/
 
+// Pagination
+function CustomPagination() {
+  const apiRef = useGridApiContext();
+  const page = useGridSelector(apiRef, gridPageSelector);
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+  return (
+    <Pagination
+      color="secondary"
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, value) => apiRef.current.setPage(value - 1)}
+    />
+  );
+}
+
 export default function JobsTable(props) {
-  // console.log("job1 table + props", props);
   const { job } = props;
-  // console.log("job2 table + job", job);
 
   // Table Head
   const columns = [
@@ -30,31 +52,31 @@ export default function JobsTable(props) {
     {
       field: "title",
       headerName: "Titre",
-      minWidth: 200,
+      width: 150,
       editable: true,
     },
     {
       field: "type",
       headerName: "Type",
-      wminWidth: 200,
+      width: 150,
       editable: true,
     },
     {
       field: "period",
       headerName: "Période",
-      minWidth: 200,
+      width: 200,
       editable: true,
     },
     {
       field: "description",
       headerName: "Description",
-      minWidth: 300,
+      width: 300,
       editable: true,
     },
     {
       field: "profil",
       headerName: "Profil",
-      minWidth: 300,
+      width: 150,
       editable: true,
     },
     {
@@ -63,7 +85,7 @@ export default function JobsTable(props) {
       renderCell: (id) => {
         return <Actions columnsDeleteJob={true} key={id} id={id} />;
       },
-      minWidth: 100,
+      width: 200,
       editable: false,
     },
   ];
@@ -87,23 +109,17 @@ export default function JobsTable(props) {
             <WorkIcon /> Admin gestion des offres d'emploi | Skew.com
           </Typography>
           <DataGrid
-            sx={{ width: "100%" }}
-            autoHeight
-            rowHeight={80}
+           rowHeight={80}
             enableCellSelect={false}
             rows={job}
             columns={columns}
-            // Pagination
-            initialState={{
-              ...job.initialState,
-              pagination: {
-                pageSize: 25,
-              },
-            }}
             checkboxSelection
             disableSelectionOnClick
-            // Filtre
-            components={{ Toolbar: GridToolbar }}
+            // Filtre + pagination
+            components={{
+              Toolbar: GridToolbar,
+              Pagination: CustomPagination,
+            }}
           />
         </Box>
       </Box>
