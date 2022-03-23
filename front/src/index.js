@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "store";
 // import "assets/style/css/App.css";
 import App from "./App";
+<<<<<<< HEAD
 // import reportWebVitals from "tests/reportWebVitals";
 import * as serviceWorkerRegistration from "./tests/serviceWorkerRegistration";
 
@@ -28,3 +31,17 @@ if (window.cordova) {
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
+=======
+import reportWebVitals from "tests/reportWebVitals";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+
+reportWebVitals();
+>>>>>>> 2b288e32856c89e6f75af58144df14d4051c0f22

@@ -90,7 +90,10 @@ npm i -s react-redux redux redux-thunk redux-devtools-extension
 
 </div>
 
-
+## Create Backup
+```
+mysqldump -u <user> -p Skew > skew-after.sql
+```
 
 
 

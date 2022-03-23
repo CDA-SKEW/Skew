@@ -23,6 +23,7 @@
 
 # misc
 .env
+*/.env
 .DS_Store
 .env.local
 .env.development.local
@@ -31,4 +32,25 @@
 
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
+yarn-error.lo
+
+/front/package-lock.json
+/back/package-lock.json
+/backupWil/package-lock.json
+
+# Part Backup
+/backupWil/node_modules
+/backupWil/.env
+/backupWil/files/*
+
+/backupKevin/node_modules
+/backupKevin/.env
+/backupKevin/files/*
+
+# Part BackupSuka
+/backupSuka/node_modules
+/backupSuka/.env
+/backupSuka/backup/*
+
+# Part API
+/back/src/config/swagger*

@@ -1,4 +1,10 @@
 export const style = {
-    h1: { color: "grey" }
-  };
-  
+  h6: { color: "white" },
+  ".MuiDrawer-root > .MuiPaper-root": {
+    overflow: "visible",
+    backgroundColor: "#fff",
+  },
+  TextField: {
+    width: "100%",
+  },
+};
