@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.js": "./static/js/main.28b55360.chunk.js",
+    "main.js.map": "./static/js/main.28b55360.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.fd0c643c.js",
+    "runtime-main.js.map": "./static/js/runtime-main.fd0c643c.js.map",
+    "static/js/2.1aaccd1b.chunk.js": "./static/js/2.1aaccd1b.chunk.js",
+    "static/js/2.1aaccd1b.chunk.js.map": "./static/js/2.1aaccd1b.chunk.js.map",
+    "static/js/3.783cd5a2.chunk.js": "./static/js/3.783cd5a2.chunk.js",
+    "static/js/3.783cd5a2.chunk.js.map": "./static/js/3.783cd5a2.chunk.js.map",
+    "index.html": "./index.html",
+    "service-worker.js": "./service-worker.js",
+    "service-worker.js.map": "./service-worker.js.map",
+    "static/js/2.1aaccd1b.chunk.js.LICENSE.txt": "./static/js/2.1aaccd1b.chunk.js.LICENSE.txt",
+    "static/media/WhyCandidat01.1f255478.jpg": "./static/media/WhyCandidat01.1f255478.jpg",
+    "static/media/WhyCandidat02.3a4d6611.jpg": "./static/media/WhyCandidat02.3a4d6611.jpg",
+    "static/media/WhyHome01.01d005eb.jpg": "./static/media/WhyHome01.01d005eb.jpg",
+    "static/media/WhyHome02.67ab6e1d.jpg": "./static/media/WhyHome02.67ab6e1d.jpg",
+    "static/media/avatar1.f2038083.jpg": "./static/media/avatar1.f2038083.jpg",
+    "static/media/avatar2.c67e3ed4.jpg": "./static/media/avatar2.c67e3ed4.jpg",
+    "static/media/avatar3.328021a6.jpg": "./static/media/avatar3.328021a6.jpg",
+    "static/media/candidatCard.5e23fc8b.jpg": "./static/media/candidatCard.5e23fc8b.jpg",
+    "static/media/recrutementSimplifie.8251ddfc.jpg": "./static/media/recrutementSimplifie.8251ddfc.jpg",
+    "static/media/recruteurCard.5b7d1843.jpg": "./static/media/recruteurCard.5b7d1843.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fd0c643c.js",
+    "static/js/2.1aaccd1b.chunk.js",
+    "static/js/main.28b55360.chunk.js"
+  ]
+}
