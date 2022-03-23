@@ -21,6 +21,12 @@
 /front/node_modules
 /front/.env
 
+
+
+# production cordova
+/platforms/*
+/build
+
 # misc
 .env
 */.env
