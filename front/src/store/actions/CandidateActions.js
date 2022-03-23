@@ -145,6 +145,22 @@ export const postFormDocument = (form) => {
     };
 };
 
+export const postFormPostuled = (form) => {
+    console.log('postFormPostuler', form)
+    return (dispatch) => {
+        return api
+            .post(`/candidat/candidature`, form, {
+
+            })
+            // .then((res) => {
+            //     dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            // })
+            .catch((err) => console.log(err));
+
+
+    };
+};
+
 // ##########
 // # DELETE #
 // ##########

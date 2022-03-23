@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import VisiteurLayout from 'layouts/VisiteurLayout';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,28 +10,55 @@ import Button from '@mui/material/Button';
 // import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getOffreVisiteurId } from "../store/actions/OffreVisiteurActions";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getOffreCandidate, getProfilCandidate, postFormPostuled } from 'store/actions/CandidateActions';
 
 
 
-export default function Postuled() {
+export default function Postuled(props) {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const id = useParams()
+
     useEffect(() => {
         dispatch(getOffreVisiteurId(id.id));
     }, [dispatch, id]);
 
 
-    const offre = useSelector(state => state.offreVisiteur.offer);
+    useEffect(() => {
+        dispatch(getProfilCandidate());
+        dispatch(getOffreCandidate())
+    }, [dispatch]);
 
-    // const navigate = useNavigate();
-    const handleChangeCv = () => {
+    const offre = useSelector(state => state.offreVisiteur.offer)
+    const Cv = useSelector((state) => state.candidate.userProfil.document)
+    // const ListCandidature = useSelector(state => state.candidate.candidaturesProfil)
+    const user = useSelector(state => state.candidate.userProfil.coord)
 
+    // const [idCv, setIdCv] = useState("");
+    // const [userId, setUserId] = useState("");
+    const [titleCV, setTitleCV] = useState("");
+    const [form, setForm] = useState({});
+
+    useEffect(() => {
+        console.log('offreeeeee', offre.offer_id)
+        setForm({ ...form, offre_id: offre.offer_id, user_id: user.id });
+    }, [offre])
+
+    const handleChangeCv = (prop) => (event) => {
+        console.log('handleChangeCV1', event.target.value)
+        console.log('handleChangeCV2', event.target.name)
+        setTitleCV(event.target.value)
+        setForm({ ...form, [prop]: event.target.value });
     }
 
-    const handleClickPostuled = () => {
-
+    const handleClickPostuled = async () => {
+        console.log('Postuled send', form)
+        await dispatch(postFormPostuled(form))
+        setForm({})
+        dispatch(getOffreCandidate())
+        navigate("/candidat/candidatures")
     }
 
     return (
@@ -53,20 +80,35 @@ export default function Postuled() {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            // value={cv}
-                            label="Age"
-                            onChange={() => handleChangeCv()}
+                            value={titleCV}
+                            label="Cv"
+                            onChange={handleChangeCv('document_id')}
                         >
-                            <MenuItem value={10}>a changer avec les cv importé</MenuItem>
+                            {Cv.map((option, index) => {
+                                // console.log('loop select', option)
+                                return (
+                                    <MenuItem key={index} value={option.id_document}>
+                                        {option.title}
+                                    </MenuItem>
+                                )
+                            })}
                         </Select>
                     </FormControl>
 
-                    <Button 
-                    variant="contained"
-                    fullWidth
-                    onClick={() => handleClickPostuled()}
-                    sx={{my: 10}}
+                    {/* {ListCandidature.length > 0 && (
+                        (Number(ListCandidature[0].offre_id) === Number(offre.offer_id) ?
+                        <Typography textAlign={"center"} color={"red"} p={2}>Vous avez déjà postulé à cette offre </Typography>
+                            :  */}
+                    <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={() => handleClickPostuled()}
+                        sx={{ my: 10 }}
                     >Envoyer</Button>
+                    {/* )
+                    )} */}
+
+
                 </Box>
             </Box>
         </VisiteurLayout>
