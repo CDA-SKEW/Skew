@@ -1,33 +1,41 @@
 // Import Model
 const {
   ProfilUser,
-  ProfilUserCompagny
+  ProfilUserCompagny,
 } = require("../../models/employer/ProfilUserModel");
+
+const jwt = require("jsonwebtoken");
+const checkValidContentToken = require("../../utils/checkValidContentToken");
+
+const func = require("../../utils/function"),
+  path = require("path");
 
 // const class du controlleur EmployerProfilControlleur
 class EmployerProfilControllers {
   //action get ProfilUser
   async getProfilUser(req, res) {
-    // console.log("controller get Profil user Employeur");
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
 
-    // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
     try {
-      //ici String est une coercion qui permet de typer la variable
-      ProfilUser.getById(String(req.params.id), (err, data) => {
-        // console.log("dataid res", data);
-        //Si erreur alors affiche console log erreur et res.status
+      ProfilUser.getById(String(id), async (err, data) => {
         if (err) {
           console.log("err", err),
             res.status(500).send({
               message: err.message || "Une erreur est survenue",
             });
-          //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
         } else {
           return res.json({
             method: req.method,
             status: "success",
             message: "Votre profil utilisateur",
             dataProfilUser: data,
+            token: await checkValidContentToken.validContentToken(
+              decoded.payload.mail,
+              decoded.payload
+            ),
           });
         }
       });
@@ -36,39 +44,109 @@ class EmployerProfilControllers {
     }
   }
 
-  //action get Update mail ProfilUser
+  //action Update mail ProfilUser
   async updateProfilUser(req, res) {
-    // console.log(
-    //   "controller get Profil user Employeur",
-    //   req.body,
-    //   req.params.id
-    // );
-    if (req.params.id && req.body.mail) {
-      // console.log("controller update mail", req.body);
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+    if (id && req.body.mail) {
       let profilUserObj = new ProfilUser({
-        id: Number(req.params.id),
+        id: Number(id),
         mail: String(req.body.mail),
       });
-      // console.log("controller new profilUserObj", profilUserObj, req.body.oldMail);
-      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUser.editMail(profilUserObj, (err, data) => {
-          //Si erreur alors affiche console log erreur et res.status
-          if (err) {
-            console.log("err", err),
-              res.status(500).send({
-                message: err.message || "Une erreur est survenue",
-              });
-          } else {
-            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
-            return res.json({
-              method: req.method,
-              status: "success",
-              message: "Votre profil entreprise a bien été modifié",
-              dataProfilUser: data,
-            });
+        ProfilUser.editMail(
+          profilUserObj,
+          req.body.oldmail,
+          async (err, data) => {
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              if (data.message === "errorEmail") {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Adresse mail déjà utilisée",
+                  dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail,
+                    decoded.payload
+                  ),
+                });
+              } else {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Votre email a bien été modifié",
+                  dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail,
+                    decoded.payload
+                  ),
+                });
+              }
+            }
           }
-        });
+        );
+      } catch (error) {
+        throw error;
+      }
+    } else res.json("Error Request");
+  }
+
+  //action Update password ProfilUser
+  async updateProfilUserPw(req, res) {
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+    if (id && req.body.mail && req.body.password && req.body.oldPassword) {
+      let profilUserObj = new ProfilUser({
+        id: id,
+        mail: req.body.mail,
+        pass: req.body.password,
+      });
+      try {
+        ProfilUser.editPw(
+          profilUserObj,
+          req.body.oldPassword,
+          async (err, data, errorModel) => {
+            if (err) {
+              console.log("err", err),
+                res.status(500).send({
+                  message: err.message || "Une erreur est survenue",
+                });
+            } else {
+              if (errorModel) {
+                return res.json({
+                  method: req.method,
+                  status: "error",
+                  message: "Votre ancien mot de passe est incorrect",
+                  dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail,
+                    decoded.payload
+                  ),
+                });
+              } else {
+                return res.json({
+                  method: req.method,
+                  status: "success",
+                  message: "Votre mot de passe a bien été modifié",
+                  dataProfilUser: data,
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail,
+                    decoded.payload
+                  ),
+                });
+              }
+            }
+          }
+        );
       } catch (error) {
         throw error;
       }
@@ -77,27 +155,29 @@ class EmployerProfilControllers {
 
   //action get profil entreprise
   async getProfilCompagny(req, res) {
-    // console.log("controller get profil Compagny");
-    // Appel de la fonction getById dans model ProfilUser en passant la data req.params.id
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id
     try {
-      //ici String est une coercion qui permet de typer la variable
       ProfilUserCompagny.getProfilCompagnyById(
-        String(req.params.id),
-        (err, data) => {
-          // console.log("dataid res", data);
-          //Si erreur alors affiche console log erreur et res.status
+        String(id),
+        async (err, data) => {
           if (err) {
             console.log("err", err),
               res.status(500).send({
                 message: err.message || "Une erreur est survenue",
               });
-            //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
           } else {
             return res.json({
               method: req.method,
               status: "success",
               message: "Votre profil entreprise",
               dataProfilEmployer: data,
+              token: await checkValidContentToken.validContentToken(
+                decoded.payload.mail,
+                decoded.payload
+              ),
             });
           }
         }
@@ -107,37 +187,44 @@ class EmployerProfilControllers {
     }
   }
 
-  //action creation profil entreprise
-  async createProfilCompagny(req, res) {
-    // console.log(
-    //   "controller post Profil Compagny Employeur",
-    //   req.body
-    // );
+  //action modifier profil entreprise
+  async updateProfilCompagny(req, res) {
+    let profilUserCompagnyObj;
 
-    if (req.body.user_id) {
-      // console.log("post Profil Compagny Employeur", req.body);
-      let profilUserCompagnyObj = new ProfilUserCompagny({
+    const decoded = jwt.decode(req.headers["authorization"], {
+      complete: true,
+    });
+    const id = decoded.payload.id;
+
+    if (id > 0) {
+      profilUserCompagnyObj = new ProfilUserCompagny({
+        user_id: id,
         ...req.body,
       });
-      // console.log("post Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
-      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUserCompagny.createProfilCompagny(
+        ProfilUserCompagny.updateProfilCompagny(
           profilUserCompagnyObj,
-          (err, data) => {
-            //Si erreur alors affiche console log erreur et res.status
+          req.file,
+          async (err, data) => {
             if (err) {
               console.log("err", err),
                 res.status(500).send({
                   message: err.message || "Une erreur est survenue",
+                  token: await checkValidContentToken.validContentToken(
+                    decoded.payload.mail,
+                    decoded.payload
+                  ),
                 });
             } else {
-              //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
               return res.json({
                 method: req.method,
                 status: "success",
-                message: "Votre profil entreprise a été crée",
+                message: "Votre profil entreprise a été modifié",
                 dataProfilEmployer: data,
+                token: await checkValidContentToken.validContentToken(
+                  decoded.payload.mail,
+                  decoded.payload
+                ),
               });
             }
           }
@@ -148,48 +235,44 @@ class EmployerProfilControllers {
     } else res.json("Error Request");
   }
 
-  //action modifier profil entreprise
-  async updateProfilCompagny(req, res) {
-    //   console.log(
-    //   "controller update Profil Employeur",
-    //   req.body, "req.params",req.params.id
-    // );
-    //  console.log("reqfile", req.file)
-    // console.log("reqbody", req.body)
-    const pathAvatar = "assets/images/avatar/",
-      pathAvatarDb = "/assets/images/avatar/"
-
-    // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
-    const pathImgWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + ".webp"
-    // console.log(pathImgWebp)
-    const pathAvatarWebp = pathAvatar + (req.file.filename.split('.').slice(0, -1).join('.')) + "_" + req.params.id + ".webp"
-    // console.log(pathAvatarWebp)
-
-
-    if (req.params.id) {
-      // console.log("post Profil Compagny Employeur", req.body);
+  //  Plus utlisé dans l'application car profil crée par défaut au register
+  // Utiliser pour test postman
+  //action creation profil entreprise
+  async createProfilCompagny(req, res) {
+    let index = req.file.mimetype.indexOf("image");
+    if (index !== -1) {
+      // Recupère le chemin complet avec extention .webp ou l'image a été enregister avec sharp (avec le nom orignal)
+      const pathImgWebp = path.resolve(
+        pathAvatar +
+        req.file.filename.split(".").slice(0, -1).join(".") +
+        ".webp"
+      );
+      const pathAvatarWebp = path.resolve(
+        pathAvatar + "avatar_user_" + req.body.user_id + ".webp"
+      );
+      setTimeout(function () {
+        func.renameFile(pathImgWebp, pathAvatarWebp);
+      }, 600);
+    }
+    if (req.body.user_id && req.file) {
       let profilUserCompagnyObj = new ProfilUserCompagny({
-        user_id: req.params.id,
+        avatar: pathAvatarDb + "avatar_user_" + req.body.user_id + ".webp",
         ...req.body,
       });
-      // console.log("update Profil Compagny Employeur profilUserObj ", profilUserCompagnyObj );
-      // Appel de la fonction editmail dans model ProfilUser en passant l'objet profilUserObj et req.body.oldMail
       try {
-        ProfilUserCompagny.updateProfilCompagny(
+        ProfilUserCompagny.createProfilCompagny(
           profilUserCompagnyObj,
           (err, data) => {
-            //Si erreur alors affiche console log erreur et res.status
             if (err) {
               console.log("err", err),
                 res.status(500).send({
                   message: err.message || "Une erreur est survenue",
                 });
             } else {
-              //sinon on envoi les datas retournées du model en format json (data ds controller= result ds model)
               return res.json({
                 method: req.method,
                 status: "success",
-                message: "Votre profil entreprise a été modifié",
+                message: "Votre profil entreprise a été crée",
                 dataProfilEmployer: data,
               });
             }

@@ -4,14 +4,10 @@ import { useEffect, useState } from "react";
 import Slide from '@mui/material/Slide';
 
 export default function SnackbarMessage(props) {
-  const { open, messageEmployer } = props;
-
-  //  console.log("je suis dans le modal", open, messageEmployer);
-
+  const { open, message } = props;
   const [alertOpen, setAlertOpen] = useState(open);
 
   useEffect(() => {
-    // console.log("effect getDataProfilEmployerEmployer");
     setAlertOpen(open);
   }, [open]);
 
@@ -19,7 +15,7 @@ export default function SnackbarMessage(props) {
     <Snackbar
       open={alertOpen}
       autoHideDuration={2000}
-      anchorOrigin={{ horizontal: "center", vertical: "top" }}
+      anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
       TransitionComponent={Slide}
     >
       <Alert
@@ -27,9 +23,11 @@ export default function SnackbarMessage(props) {
         sx={{
           bgcolor: "#ABC4FF",
           borderRadius: "10px",
+          minWidth:"300px",
+          height:"50px"
         }}
       >
-        <Typography variant="span">{messageEmployer}</Typography>
+        <Typography variant="span">{message}</Typography>
       </Alert>
     </Snackbar>
   );

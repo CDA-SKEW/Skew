@@ -10,6 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { Icon } from "@iconify/react";
 import { alpha } from "@mui/material/styles";
+import { urlImg } from "utils/url";
 
 /*------------Styles-------------*/
 
@@ -42,6 +43,7 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 export default function ListUsers(props) {
   const { listUsers } = props;
+  console.log("avatar", listUsers);
   // Afficher uniquement les 6 derniers users
   const SliceUsers = listUsers.slice(0, 4);
 
@@ -57,10 +59,21 @@ export default function ListUsers(props) {
           <List key={index} sx={{ width: "100%", maxWidth: 360 }}>
             <ListItem alignItems="flex-start" component="div">
               <ListItemAvatar>
-                <Avatar alt="avatar" src={user.avatar} />
+                <Avatar alt="avatar" src={`${urlImg + user.avatar}`} />
               </ListItemAvatar>
               <ListItemText
-                primary={user.fullName}
+                primary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      {user.lastname || ""} {user.name || ""}
+                    </Typography>
+                  </React.Fragment>
+                }
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -69,7 +82,7 @@ export default function ListUsers(props) {
                       variant="body2"
                       color="text.primary"
                     >
-                      {user.email}
+                      {user.mail}
                     </Typography>
                   </React.Fragment>
                 }

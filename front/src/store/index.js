@@ -13,7 +13,10 @@ import { MessagesReducer } from "./reducers/Messages";
 import { CandidateReducer } from "./reducers/Candidate";
 import { AdminReducer } from "./reducers/Admin";
 import { AuthReducer } from "./reducers/Auth";
-import { OffresVisiteurReducer } from "./reducers/OffresVisiteur";
+import { ContactReducer } from "./reducers/Contact";
+import { OffreVisiteurReducer } from "./reducers/OffreVisiteur";
+import { OffreFavoriteReducer } from "./reducers/OffreFavorite";
+import { VisiteurDataReducer } from "./reducers/VisiteurData";
 
 /*
  * All (Root) Reducers
@@ -24,7 +27,10 @@ const rootReducer = combineReducers({
   candidate: CandidateReducer,
   admin: AdminReducer,
   auth: AuthReducer,
-  offresVisiteur: OffresVisiteurReducer,
+  contact: ContactReducer,
+  offreVisiteur: OffreVisiteurReducer,
+  offreFavorite: OffreFavoriteReducer,
+  visiteurData: VisiteurDataReducer
 });
 
 /*

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Grid,
@@ -13,13 +13,35 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 import { Box } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { putFormProfilUserPw } from "store/actions/EmployerActions";
+import SnackbarMessage from "./SnackbarMessage";
 
 export default function FormPasswordChange(props) {
   const { displayButton, dataProfilUser} = props;
 
   const dispatch = useDispatch();
+
+  // declaration des constantes pour le SnackbarMessage
+  const [openModal, setOpenModal] = useState(false);
+  const messageFlash = useSelector((state) => state.employer.flash);
+  const messageError = useSelector((state) => state.employer.statusMessage);
+  const [messageErroPw, setMessageErroPw] = useState("");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (messageFlash.length >= 0) {
+      if (messageError === "error") {
+        setMessageErroPw(messageFlash);
+        setMessage("");
+      }
+      if (messageError === "success") {
+        setMessageErroPw("")
+        setMessage(messageFlash);
+      }
+    }
+  }, [messageFlash, messageError ,dataProfilUser]);
+
 
   // constante pour visualisation des differents mot de passe
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -33,7 +55,6 @@ export default function FormPasswordChange(props) {
 
   // fonction pour la gestion des differents textField des mot de passe
   const handleClickShowPassword = (choice) => {
-    // console.log(choice)
     if (choice === "oldPassword") setShowOldPassword(!showOldPassword);
     if (choice === "newPassword") setShowNewPassword(!showNewPassword);
     if (choice === "confirmPassword")
@@ -42,23 +63,24 @@ export default function FormPasswordChange(props) {
 
   // Fonction pour l'envoi du formulaire
   const sendFormPassword = async (e) => {
-    // console.log("Form waitsend");
-    //empeche le formunliare d'etre submiter
-    // console.log("event", e)  
     e.preventDefault();
 
     // check si mot de passe correspondent
     if (password === confirmPassword) {
       const dataFormPersonalEmployer = {
-        user_id:dataProfilUser.user_id,
-        mail:dataProfilUser.mail,
-        oldPassword,  
+        mail: dataProfilUser.mail,
+        oldPassword,
         password,
-      };
-      // console.log(
-      //   "dataFormPersonalEmployer change password",
-      //   dataFormPersonalEmployer
-      // );
+      }
+
+      //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
+        // console.log("je suis dans le succes")
+        setOpenModal(true);
+        setTimeout(function () {
+          setOpenModal(false)
+        }, 2000)
+        setMessage("");
+
       await dispatch(putFormProfilUserPw(dataFormPersonalEmployer));
 
       setOldPassword("");
@@ -72,11 +94,11 @@ export default function FormPasswordChange(props) {
 
   // fonction pour remettre le formulaire par défaut
   const cancelFormPassword = () => {
-    // console.log("Cancel upload");
     setOldPassword("");
     setPassword("");
     setConfirmPassword("");
     setCheckpassword(false);
+    setMessageErroPw("");
   };
 
   return (
@@ -112,6 +134,8 @@ export default function FormPasswordChange(props) {
             }}
             onChange={(e) => setOldPassword(e.target.value)}
           />
+          {messageErroPw && (
+            <Typography variant="span" color="red" >{messageErroPw}</Typography>)}
         </Grid>
 
         <Grid item xs={10}>
@@ -175,7 +199,7 @@ export default function FormPasswordChange(props) {
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid
             item
-           xs={10}
+            xs={10}
             padding={1}
             display={"flex"}
             justifyContent={{ xs: "center", md: "end" }}
@@ -190,7 +214,7 @@ export default function FormPasswordChange(props) {
                 display: displayButton,
               }}
               type="submit"
-              startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}}/>}
+              startIcon={<TaskAltIcon sx={{ display: { xs: "none", sm: "block" } }} />}
             >
               Modifier
             </Button>
@@ -204,7 +228,7 @@ export default function FormPasswordChange(props) {
                 m: 1,
                 display: displayButton,
               }}
-              startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}} />}
+              startIcon={<HighlightOffIcon sx={{ display: { xs: "none", sm: "block" } }} />}
               onClick={(e) => cancelFormPassword()}
             >
               Annuler
@@ -212,6 +236,10 @@ export default function FormPasswordChange(props) {
           </Grid>
         </Grid>
       </Grid>
+
+      {(openModal && message) && (
+        <SnackbarMessage message={message} open={openModal} />
+      )}
     </Box>
   );
 }

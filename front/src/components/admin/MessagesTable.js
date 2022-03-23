@@ -1,76 +1,57 @@
 /*------------MUI Imports-------------*/
 
 import React from "react";
-// import IconChips from "components/admin/tables/Chips";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
-import Avatars from "components/admin/tables/Avatars";
-import IconChips from "./tables/Chips";
 import MailIcon from "@mui/icons-material/Mail";
 
 /*------------Export function + table header-------------*/
 
 export default function MessagesTable(props) {
-  const { listMessages } = props;
+  const { messages } = props;
 
   // Table Head
   const columns = [
-    { field: "id", headerName: "ID", editable: true },
+    // { field: "id", headerName: "ID", editable: true },
     {
       field: "date",
       headerName: "Dates",
       width: 150,
-      renderCell: () => {
-        return <Dates />;
+      renderCell: (cell) => {
+        return <Dates user={cell} />;
       },
       editable: false,
     },
     {
-      field: "avatar",
-      headerName: "Avatars",
-      width: 100,
-      renderCell: (cell) => {
-        return <Avatars avatar={cell} />;
-      },
-    },
-
-    {
       field: "fullName",
       headerName: "Nom complet",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
       minWidth: 200,
       flex: 1,
+      valueGetter: (params) =>
+        `${params.row.name || ""} ${params.row.firstname || ""}`,
     },
     {
-      field: "phone",
+      field: "tel",
       headerName: "Téléphone",
       editable: true,
       minWidth: 200,
       flex: 1,
     },
     {
-      field: "email",
+      field: "mail",
       editable: true,
       minWidth: 200,
       flex: 1,
     },
     {
-      field: "subject",
+      field: "sujet",
       headerName: "Objet",
       editable: true,
-      minWidth: 200,
-      flex: 1,
-    },
-
-    {
-      field: "status",
-      headerName: "Status",
-      renderCell: (cell) => {
-        return <IconChips user={cell} />;
-      },
-      editable: false,
       minWidth: 200,
       flex: 1,
     },
@@ -114,10 +95,15 @@ export default function MessagesTable(props) {
         autoHeight
         rowHeight={80}
         enableCellSelect={false}
-        rows={listMessages}
+        rows={messages}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        // Pagination
+        initialState={{
+          ...messages.initialState,
+          pagination: {
+            pageSize: 25,
+          },
+        }}
         checkboxSelection
         disableSelectionOnClick
         // Filtre

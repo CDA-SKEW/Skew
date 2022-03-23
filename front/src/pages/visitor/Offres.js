@@ -1,33 +1,35 @@
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import VisiteurLayout from 'layouts/VisiteurLayout';
-import Logo1 from 'assets/images/imageEmployor.png';
-import Logo2 from 'assets/images/WhyCandidat01.jpg';
-import Logo3 from 'assets/images/WhyCandidat02.jpg';
-import Logo4 from 'assets/images/WhyHome01.jpg';
-import Logo5 from 'assets/images/WhyHome02.jpg';
 import Slide from '@mui/material/Slide';
+import Paper from "@mui/material/Paper";
+import Divider from "@mui/material/Divider";
+import TextField from '@mui/material/TextField';
+import Pagination from '@mui/material/Pagination';
 
-import MoteurRechercheOffres from 'components/visiteur/offres/MoteurRechercheOffres';
-import ListOffresFiltrees from 'components/visiteur/offres/ListOffresFiltrees';
-import LastOffres from 'components/visiteur/offres/LastOffres';
 import DialogCardOffreId from 'components/visiteur/offres/DialogCardOffreId';
+import CardOffreUnique from 'components/visiteur/offres/CardOffreUnique';
+
+import { useSelector, useDispatch } from "react-redux";
+import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
+import { store } from 'store';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
+store.dispatch(getOffreVisiteur())
+
 export default function Offres() {
 
-    const [date, setDate] = useState("");
     const [job, setJob] = useState("");
-    const [image, setImage] = useState("");
-    const [description, setDescription] = useState("")
-    const [profil, setProfil] = useState("")
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
     const [page, setPage] = useState(1);
+    const [valueModal, setValueModal] = useState({});
     const [open, setOpen] = useState(false);
+
+    const listOffer = useSelector(state => state.offreVisiteur.listOffer)
 
     const handleSearchJob = (value) => {
         setJob(value);
@@ -42,188 +44,119 @@ export default function Offres() {
         setPage(1);
     };
     const handleClickOpen = (data) => {
+        setValueModal(data);
         setOpen(true);
-        setJob(data.titleOffer);
-        setImage(data.image);
-        setDescription(data.descriptif);
-        setProfil(data.profil);
-        setDate(data.dateOfferDays);
-        setType(data.typeContrat);
-        setLocation(data.localisation)
     };
     const handleClose = () => {
         setOpen(false);
         setJob('');
-        setImage('');
-        setDescription('');
-        setProfil('');
-        setDate('');
         setType('');
         setLocation('');
     };
 
+    const handleChange = (event, value) => { setPage(value); };
+
+    const title = (item) => item.title.toLowerCase().includes(job.toLowerCase());
+    const types = (item2) => item2.type.toLowerCase().includes(type.toLowerCase());
+    const locations = (item3) => item3.town.toLowerCase().includes(location.toLowerCase());
+
+    const filterList = listOffer
+        .filter((item) => title(item))
+        .filter((item2) => types(item2))
+        .filter((item3) => locations(item3));
+
+    function splitArray(array, chunk) {
+        var i, j, rslt = [];
+        chunk = chunk - 1;
+        for (i = 0, j = array.length; i < j; i += chunk) { rslt.push(array.slice(i, i + chunk + 1)); };
+        return rslt;
+    }
+
+    const SplitList = splitArray(filterList, 8);
+    const pages = SplitList.length;
+
     return (
         <VisiteurLayout>
-            <Typography variant="h2">
+            <Typography variant="h2"
+                sx={{
+                    fontSize: { xs: 30, md: 55 },
+                    fontFamily: "'Indie Flower', cursive"
+                }}
+            >
                 Plus de 10 000 offres d'emplois sur notre site
             </Typography>
-            <MoteurRechercheOffres
-                handleSearchJob={handleSearchJob}
-                handleSearchType={handleSearchType}
-                handleSearchLocation={handleSearchLocation}
-            />
-            <ListOffresFiltrees
-                listOffer={listOffer}
-                job={job}
-                type={type}
-                location={location}
-                page={page}
-                setPage={setPage}
-                handleClickOpen={handleClickOpen}
-            />
-            <LastOffres
-                listOffer={listOffer}
-                handleClickOpen={handleClickOpen}
-            />
+
+            {/* Moteur de recherche d'offres */}
+            <Paper
+                component="form"
+                sx={{
+                    display: { xs: 'block', md: "flex" },
+                    alignItems: "center", bgcolor: '#fff',
+                    width: { xs: 350, md: 600, lg: 900 },
+                    height: { md: 75 },
+                    mb: 10, mx: "auto", p: 3,
+                    boxShadow: '0 0 25px #1e90ff',
+                }}
+            >
+                <TextField
+                    placeholder="Job" name='job' fullWidth variant='standard'
+                    onChange={(e) => handleSearchJob(e.target.value)}
+                    sx={{ width: 300 }}
+                />
+                <Divider variant='fullWidth' sx={{ m: 0.5, }} orientation="vertical" />
+                <TextField
+                    placeholder="Type" name='type' fullWidth variant='standard'
+                    onChange={(e) => handleSearchType(e.target.value)}
+                    sx={{ width: 300 }}
+                />
+                <Divider variant='fullWidth' sx={{ m: 0.5 }} orientation="vertical" />
+                <TextField
+                    placeholder="Localisation" name='location' fullWidth variant='standard'
+                    onChange={(e) => handleSearchLocation(e.target.value)}
+                    sx={{ width: 300 }}
+                />
+            </Paper>
+
+            {/* Liste des offres accueil */}
+            <Box maxWidth="lg" sx={{ m: 'auto', }}>
+                {SplitList.length > 0 && (
+                    <Box sx={{ m: 'auto' }}>
+                        <Box
+                            sx={{
+                                display: 'flex', flexWrap: 'wrap', m: 'auto',
+                                justifyContent: { xs: "center", md: "space-around" },
+                                flexDirection: { xs: "column", md: "row" },
+                                alignItems: { xs: "center", md: "none" },
+                            }}
+                        >
+                            {SplitList[(page - 1)].map((listOffer, index) => (
+                                <CardOffreUnique
+                                    handleClickOpen={handleClickOpen}
+                                    key={index}
+                                    listOffer={listOffer}
+                                />
+                            ))}
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Pagination
+                                count={pages} page={page}
+                                onChange={handleChange}
+                                size='large' sx={{ margin: "auto" }}
+                            />
+                        </Box>
+                    </Box>
+                )}
+                {!SplitList.length && (
+                    <Typography variant='body1' sx={{ textAlign: 'center', color: '#808080' }}>
+                        Aucun résultat ne correspond à votre recherche
+                    </Typography>
+                )}
+            </Box>
+
             <DialogCardOffreId
-                open={open}
-                handleClose={handleClose}
-                Transition={Transition}
-                listOffer={listOffer}
-                job={job}
-                image={image}
-                description={description}
-                profil={profil}
-                date={date}
-                type={type}
-                location={location}
+                open={open} handleClose={handleClose}
+                Transition={Transition} data={valueModal}
             />
         </VisiteurLayout>
     );
 };
-
-const listOffer = [
-    {
-        image: Logo1,
-        titleOffer: 'Maçon',
-        nameEmployor: 'Maconnerie',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: true,
-        typeContrat: 'CDI',
-        localisation: "Rouen",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo2,
-        titleOffer: 'Developpeur',
-        nameEmployor: 'Google',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: true,
-        typeContrat: 'CDI',
-        localisation: "Paris",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo3,
-        titleOffer: 'Intégrateur',
-        nameEmployor: 'Faceboock',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: false,
-        typeContrat: 'CDI',
-        localisation: "Grenoble",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-
-    },
-    {
-        image: Logo4,
-        titleOffer: 'Boulanger',
-        nameEmployor: 'Boulangerie',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: false,
-        typeContrat: 'CDD',
-        localisation: "Lyon",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-
-    },
-    {
-        image: Logo5,
-        titleOffer: 'Patissier',
-        nameEmployor: 'Patisserie',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: true, typeContrat: 'CDD',
-        localisation: "Paris",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo1,
-        titleOffer: 'Maçon',
-        nameEmployor: 'Ecole',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: true,
-        typeContrat: 'CDD',
-        localisation: "Paris",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo2,
-        titleOffer: 'Maçon',
-        nameEmployor: 'Mc Donald',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: true,
-        typeContrat: 'CDD',
-        localisation: "Paris",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo3,
-        titleOffer: 'Developpeur',
-        nameEmployor: 'Vinci',
-        dateOfferDays: '01/01/2021',
-        badgeEmployor: true,
-        typeContrat: 'Interim',
-        localisation: "Marseille",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-
-    },
-    {
-        image: Logo4,
-        titleOffer: 'Developpeur',
-        nameEmployor: 'Faceboock',
-        dateOfferDays: '22/06/2021',
-        badgeEmployor: false,
-        typeContrat: 'CDI',
-        localisation: "Paris",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo5,
-        titleOffer: 'Developpeur',
-        nameEmployor: 'MaLiterie',
-        dateOfferDays: '20/06/2021',
-        badgeEmployor: true,
-        typeContrat: 'CDI',
-        localisation: "Lyon",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-    {
-        image: Logo1,
-        titleOffer: 'Developpeur',
-        nameEmployor: 'Faceboock',
-        dateOfferDays: '20/06/2021',
-        badgeEmployor: true,
-        typeContrat: 'CDI',
-        localisation: "Paris",
-        descriptif: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.',
-        profil: 'Duis ac augue ut lectus congue luctus. Vivamus eu lacus vestibulum, luctus ante dignissim, interdum orci. Donec in ullamcorper lacus, molestie accumsan tortor. Cras tristique leo nulla, quis condimentum nisi volutpat ut. Praesent non ipsum massa. Vestibulum ut consequat sapien. Curabitur mattis felis id dolor tristique lobortis. Donec mattis nunc ut ornare malesuada. Vivamus id congue ipsum.'
-    },
-]

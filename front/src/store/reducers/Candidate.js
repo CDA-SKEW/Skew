@@ -7,13 +7,17 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-  dataProfilCandidate: {},
-  candidatures: []
+  userProfil: {
+    coord: {},
+    experience: [],
+    skill: [],
+    interest: [],
+    certificate: [],
+    document: []
+  },
+  candidaturesProfil: [],
+  message: ''
 };
-
-
-
-
 
 /*
  * Reducers
@@ -22,30 +26,33 @@ export function CandidateReducer(state = initialState, action) {
   switch (action.type) {
     default:
       return state;
-    case Actions.GET_PROFIL_CANDIDATE:
-      console.log("reduccer get profil candidat", action.payload);
+
+    case Actions.GET_OFFRE_CANDIDATE:
       return {
-        ...state, dataProfilCandidate: action.payload.dataProfilCandidate, candidatures: action.payload.candidatures.postul
+        ...state, candidaturesProfil: action.payload
+      };
+    case Actions.DELETE_OFFRE_CANDIDATE:
+      return {
+        ...state, candidaturesProfil: action.payload.candidatures
+      };
+
+    case Actions.GET_PROFIL_CANDIDATE:
+      return {
+        ...state, userProfil: action.payload
       };
 
     case Actions.POST_PROFIL_CANDIDATE:
-      console.log("POST_PROFIL_CANDIDATE Reducer", action.payload);
       return {
-        // flash: action.payload.flash,
-        ...state, dataProfilCandidate: action.payload.dataProfilCandidate, candidatures: action.payload.candidatures.postul
+        ...state, message: action.payload
       };
 
     case Actions.PUT_PROFIL_CANDIDATE:
-      console.log("PUT_PROFIL_CANDIDATE Reducer", action.payload);
       return {
-        // flash: action.payload.flash,
-        ...state, dataProfilCandidate: action.payload.dataProfilCandidate, candidatures: action.payload.candidatures.postul
+        ...state, userProfil: action.payload.userProfil
       };
     case Actions.DELETE_PROFIL_CANDIDATE:
-      console.log("DELETE_PROFIL_CANDIDATE Reducer", action.payload);
       return {
-        // flash: action.payload.flash,
-        ...state, dataProfilCandidate: action.payload.dataProfilCandidate, candidatures: action.payload.candidatures.postul
+        ...state, userProfil: action.payload.userProfil
       };
   }
 }

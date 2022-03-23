@@ -9,6 +9,7 @@ import CardTableOffer from "components/employer/offers/CardTableOffer";
 import { themeEmployer } from "configs/theme";
 import { getOffer, getProfilUser } from "store/actions/EmployerActions";
 import { useDispatch, useSelector } from "react-redux";
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerOffer = () => {
 
@@ -17,19 +18,16 @@ const EmployerOffer = () => {
   useEffect(() => {
     dispatch(getOffer());
     dispatch(getProfilUser());
-  }, []);
+  }, [dispatch]);
 
   const dataProfilUser = useSelector(
     (state) => state.employer.dataProfilUser
   );
 
-  const offers = useSelector(
-    (state) => state.employer.dataOffers
+  const dataOffers = useSelector(
+    (state) => state.employer.dataOffers.offers
   );
-  // console.log("store offers ", offers );
-
-  // console.log("afffer page; nunmber offer", offers.length)
-
+  
   return (
     <Container
     >
@@ -48,10 +46,9 @@ const EmployerOffer = () => {
         </Typography>
       </Box>
       {/* {/* partie mes offres/} */}
-      {/* {console.log(offers)} */}
-      {offers && offers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />)}
+      { (dataOffers !== undefined && dataOffers) && (dataOffers.map((offer, index) => <CardTableOffer key={index} offer={offer} dataProfilUser={dataProfilUser} />))}
     </Container>
   );
 };
 
-export default EmployerOffer;
+export default withRecruteur(EmployerOffer);

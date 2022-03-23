@@ -11,26 +11,9 @@ const CandidatCertificate = function (certificate) {
         this.validate = Number(certificate.validate)
 };
 
-// Get ID
-CandidatCertificate.getCertificateProfil = function (id, result) {
-    connection.getConnection(function (error, conn) {
-        if (error) throw error;
-        conn.query(
-            `SELECT u.id,c.*
-            FROM user as u
-            INNER JOIN certificate as c
-            ON u.id = user_id
-            WHERE u.id = ${id};`,
 
-            (error, data) => {
-                if (error) throw error;
-                result(null, data);
-                conn.release();
-            });
-    });
-};
 
-// Create Experience
+// Create Certificate
 CandidatCertificate.createCertificateProfil = function (newCertificate, result) {
     const { school, title, year, validate, user_id } = newCertificate
     connection.getConnection(function (error, conn) {
@@ -63,7 +46,6 @@ CandidatCertificate.createCertificateProfil = function (newCertificate, result) 
 // // Edit One
 CandidatCertificate.updateCertificateProfil = function (certificateObj, result) {
     const { school, title, year, validate, user_id, id } = certificateObj
-    console.log("edit", certificateObj);
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE certificate,user

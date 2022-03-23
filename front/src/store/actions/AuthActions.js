@@ -1,13 +1,14 @@
 /*
  * Import - Module
  * *************** */
-import axios from "axios";
+import { api } from "configs/axios";
 import jwt_decode from 'jwt-decode'
 
 import {
     LOGIN,
     CHECKTOKEN,
     REGISTER,
+    CHANGEMDP,
 } from "./ActionTypes";
 
 /*
@@ -21,22 +22,17 @@ import {
 // Login
 export const login = (data) => {
     return (dispatch) => {
-        return axios
-            .post("http://localhost:3033/api/login", data)
+        return api
+            .post("/login", data)
             .then((res) => {
-                if (res.data.success) {
-                    console.log('res;login', res.data, jwt_decode(res.data.token))
+                if (res.data.success === 'success') {
                     if (res.data.token) localStorage["user_token"] = res.data.token;
                     res.data.token = jwt_decode(res.data.token)
                     res.data.authenticate = true
-                    dispatch({
-                        type: LOGIN,
-                        payload: res.data
-                    });
-                } else if (res.data.error) {
-
+                    dispatch({ type: LOGIN, payload: res.data });
                 } else {
-
+                    res.data.authenticate = false
+                    dispatch({ type: LOGIN, payload: res.data });
                 }
             })
             .catch((err) => console.log(err));
@@ -45,16 +41,10 @@ export const login = (data) => {
 
 // Check User
 export const checkToken = () => {
-    console.log("checkToken", localStorage["user_token"])
     return (dispatch) => {
-        return axios
-            .get(`http://localhost:3033/api/auth/${localStorage["user_token"]}`)
-            .then((res) => {
-                if (res.data.user) {
-                    // console.log("check", res.data);
-                    dispatch({ type: CHECKTOKEN, payload: res.data });
-                }
-            })
+        return api
+            .get(`/auth/${localStorage["user_token"]}`)
+            .then((res) => { if (res.data.user) { dispatch({ type: CHECKTOKEN, payload: res.data }); } })
             .catch((err) => console.log(err));
     };
 }
@@ -62,11 +52,19 @@ export const checkToken = () => {
 // REGISTER
 export const register = (data) => {
     return (dispatch) => {
-        return axios
-            .post("http://localhost:3033/api/register", data)
-            .then((res) => {
-                dispatch({ type: REGISTER, payload: res.data });
-            })
+        return api
+            .post("/register", data)
+            .then((res) => { dispatch({ type: REGISTER, payload: res.data }); })
             .catch((err) => console.log(err));
     };
 };
+
+// Change pass
+export const changePass = (data) => {
+    return (dispatch) => {
+        return api
+            .post(`/auth/mail-lost-mdp`, data)
+            .then((res) => { dispatch({ type: CHANGEMDP, payload: res.data }); })
+            .catch((err) => console.log(err))
+    }
+}

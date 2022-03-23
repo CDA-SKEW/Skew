@@ -1,109 +1,295 @@
 /*
  * Import - Module
  * *************** */
-// import axios from "axios";
+import { api } from "configs/axios";
+import jwt_decode from "jwt-decode"
 
 /*
  * Import types { ... }
  * ******************** */
+
 
 import {
     GET_PROFIL_CANDIDATE,
     POST_PROFIL_CANDIDATE,
     PUT_PROFIL_CANDIDATE,
     DELETE_PROFIL_CANDIDATE,
+    GET_OFFRE_CANDIDATE,
+    DELETE_OFFRE_CANDIDATE,
 } from "./ActionTypes";
+
+let token
+
+if (localStorage.getItem('user_token')) token = jwt_decode(localStorage.getItem('user_token'))
 
 /*
  * Actions
  * ******* */
-// Post profil candidate
-// export const postFormProfilCandidate = (data) => {
-//     return (dispatch) => {
-//         console.log("POST_PROFIL_CANDIDATE action", data);
-//         dispatch({ type: GET_PROFIL_CANDIDATE, payload: data });
-//     };
-// };
-
-let data = {
-    dataProfilCandidate: {
-        coord:
-        {
-            id: 1,
-            name: 'Sairien',
-            lastName: 'Jean',
-            address: '22 rue la shmitrie',
-            zipCode: '44520',
-            town: 'Trou perdu',
-            mail: 'gogo@gadget.com',
-            phone: '0202020202'
-        },
-        experience: [
-            {
-                id: 1, company: 'comp', job: 'dev', description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-                dateStart: '30/02/2018', dateEnd: '30/02/2019'
-            },
-            {
-                id: 2, company: 'EDF', job: 'dev-front', description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-                dateStart: '30/08/2016', dateEnd: '30/02/2018'
-            }
-        ],
-        skill: ['HTML', 'CSS', 'VUEJS', 'REACTJS', 'FAIRE LE CAFE', 'DU BON', 'TEST'],
-        interest: ['Planche à voile', 'cerveau lent', 'Foot', 'Pillier de comptoir'],
-        certificate: [
-            { id: 1, school: 'Arinfo', title: 'Dev Web', year: 2020, validate: 0 },
-            { id: 2, school: 'Arinfo', title: 'CDA', year: 2022, validate: 0 },
-            { id: 3, school: 'Arinfo', title: 'Faire le café', year: 2023, validate: 0 },
-        ],
-        cv: [
-            { id: 1, title: 'Dev-web' },
-            { id: 2, title: 'CDA' },
-        ]
-    },
-
-    candidatures: {
-        postul: [
-            { id: 1, title: 'Boucher', ets: 'Arinfo', city: 'lambé', date: '31/02/2022', statusCheck: true, statusDist: false, statusQuery: false, statusValid: "Candidature Validé" },
-            { id: 2, title: 'Dev Web', ets: 'Arinfo', city: 'Le Mans', date: '31/02/2022', statusCheck: false, statusDist: true, statusQuery: false },
-            { id: 3, title: 'Tech-lead', ets: 'Arinfo', city: 'Paris 16eme', date: '31/02/2022', statusCheck: false, statusDist: false, statusQuery: true },
-        ]
-    }
-};
+// ######################
+// # GET PROFIL COMPLET #
+// ######################
 
 // Get profil candidate
 export const getProfilCandidate = () => {
+    token = jwt_decode(localStorage.getItem('user_token'))
     return (dispatch) => {
-        console.log("GET_PROFIL_CANDIDATE action", data);
-        dispatch({ type: GET_PROFIL_CANDIDATE, payload: data });
+        return api
+            .get(`/candidat/profil/${token.id}`)
+            .then((res) => {
+                console.log('response getProfilCandidate 2', res)
+                dispatch({ type: GET_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    }
+};
+
+export const getOffreCandidate = () => {
+    token = jwt_decode(localStorage.getItem('user_token'))
+    return (dispatch) => {
+        return api
+            .get(`/candidat/candidatures/${token.id}`)
+            .then((res) => {
+                dispatch({ type: GET_OFFRE_CANDIDATE, payload: res.data.candidatures });
+            })
+            .catch((err) => console.log(err));
+    }
+};
+
+// ########
+// # POST #
+// ########
+
+// *************************************************
+// Post profil Candidate EXPERIENCE
+export const postFormProfilCandidateExperience = (form) => {
+    form.user_id = token.id
+    return (dispatch) => {
+        return api
+            .post(`/candidat/profil/experience`, form)
+            .then((res) => {
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// *************************************************
+
+// *************************************************
+
+// Post profil Candidate SKILL
+
+export const postFormProfilCandidateSkill = (form) => {
+    form.user_id = token.id
+    return (dispatch) => {
+        return api
+            .post(`/candidat/profil/skill`, form)
+            .then((res) => {
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.message });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// *************************************************
+
+// *************************************************
+
+// Post profil Candidate SKILL
+
+export const postFormProfilCandidateInterest = (form) => {
+    form.user_id = token.id
+    return (dispatch) => {
+        return api
+            .post(`/candidat/profil/interest`, form)
+            .then((res) => {
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+
+
+    };
+};
+// *************************************************
+
+// *************************************************
+
+// Post profil Candidate CERTIFICATE
+
+export const postFormProfilCandidateCertificate = (form) => {
+    form.user_id = token.id
+    return (dispatch) => {
+        return api
+            .post(`/candidat/profil/certificate`, form)
+            .then((res) => {
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+
+
+    };
+};
+// *************************************************
+export const postFormDocument = (form) => {
+    return (dispatch) => {
+        return api
+            .post(`/candidat/profil/document`, form, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+                dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+
+
     };
 };
 
-
-// Post profil Candidate
-export const postFormProfilCandidate = (form) => {
-    console.log('form PROFIL CANDIDATE POST', form)
-    // data.dataProfilCandidate.coord = form
-    // data.dataProfilCandidate.exp = formExp
-    // data.dataProfilCandidate.skill = formComp
+export const postFormPostuled = (form) => {
+    console.log('postFormPostuler', form)
     return (dispatch) => {
-        console.log("POST_PROFIL_CANDIDATE action", data);
-        dispatch({ type: POST_PROFIL_CANDIDATE, payload: data });
+        return api
+            .post(`/candidat/candidature`, form, {
+
+            })
+            // .then((res) => {
+            //     dispatch({ type: POST_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            // })
+            .catch((err) => console.log(err));
+
+
     };
 };
 
-// Put profil Candidate
+// ##########
+// # DELETE #
+// ##########
+
+// *************************************************
+// Delete profil Candidate EXPERIENCE
+
+export const deleteFormProfilCandidateExperience = (id, form) => {
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/profil/experience/${id}`, form)
+            .then((res) => {
+                dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// *************************************************
+
+// *************************************************
+// Delete profil Candidate SKILL
+
+export const deleteFormProfilCandidateSkill = (id) => {
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/profil/skill/${id}`)
+            .then((res) => {
+                dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// *************************************************
+
+// *************************************************
+
+// Delete profil Candidate INTEREST
+
+export const deleteFormProfilCandidateInterest = (id) => {
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/profil/interest/${id}`)
+            .then((res) => {
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// *************************************************
+
+// *************************************************
+
+// Delete profil Candidate CERTIFICATE
+
+export const deleteFormProfilCandidateCertificate = (id) => {
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/profil/certificate/${id}`)
+            .then((res) => {
+                dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// *************************************************
+export const deleteFormProfilCandidateDocument = (id_document) => {
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/profil/document/${id_document}`)
+            .then((res) => {
+                dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+
+export const deleteFormProfilCandidateOffre = (id) => {
+    return (dispatch) => {
+        return api
+            .delete(`/candidat/candidatures/${id}`)
+            .then((res) => {
+                dispatch({ type: DELETE_OFFRE_CANDIDATE, payload: res.data.candidatures });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+// #######
+// # PUT #
+// #######
+
+// *************************************************
+
+// Put profil Contact Candidate
+
 export const putFormProfilCandidate = (form) => {
-    console.log('form PROFIL CANDIDATE PUT', form)
     return (dispatch) => {
-        // console.log("PUT_PROFIL_EMPLOYER action", data);
-        dispatch({ type: PUT_PROFIL_CANDIDATE, payload: data });
+        return api
+            .put(`/candidat/profil/contact/${form.user_id}`, form)
+            .then((res) => {
+                dispatch({ type: PUT_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
     };
 };
-// Delete profil Candidate
-export const deleteFormProfilCandidate = (form) => {
-    console.log('form PROFIL CANDIDATE DELETE', form)
+
+// *************************************************
+
+// Put profil Experience Candidate
+
+export const putFormProfilCandidateExperience = (form, id) => {
     return (dispatch) => {
-        // console.log("DELETE_PROFIL_EMPLOYER action", data);
-        dispatch({ type: DELETE_PROFIL_CANDIDATE, payload: data });
+        return api
+            .put(`/candidat/profil/experience/${form.id}`, form)
+            .then((res) => {
+                dispatch({ type: PUT_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+
+// *************************************************
+
+// Put profil Certificate Candidate
+export const putFormProfilCandidateCertificate = (form, id) => {
+    return (dispatch) => {
+        return api
+            .put(`/candidat/profil/certificate/${form.id}`, form)
+            .then((res) => {
+                dispatch({ type: PUT_PROFIL_CANDIDATE, payload: res.data.userProfil });
+            })
+            .catch((err) => console.log(err));
     };
 };

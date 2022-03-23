@@ -3,44 +3,26 @@ const { user } = require("../../config/db");
 
 // Model
 const CandidatContact = function (candidat) {
-    // this.id = user.id;
-    this.user_id = candidat.user_id,
-        this.name = candidat.name,
-        this.lastName = candidat.lastName,
-        this.mail = candidat.mail,
-        this.address = candidat.address,
-        this.zipCode = candidat.zipCode,
-        this.town = candidat.town,
-        this.phone = candidat.phone;
+
+    this.id = Number(candidat.id),
+        this.user_id = Number(candidat.user_id),
+        this.name = String(candidat.name),
+        this.lastName = String(candidat.lastName),
+        this.mail = String(candidat.mail),
+        this.address = String(candidat.address),
+        this.zipCode = Number(candidat.zipCode),
+        this.town = String(candidat.town),
+        this.phone = candidat.phone
 
 };
 
-// Get ID
-CandidatContact.getContactProfil = function (id, result) {
-    connection.getConnection(function (error, conn) {
-        if (error) throw error;
-        conn.query(
-            `SELECT u.mail, c.town, c.zipCode, c.address, c.phone
-            FROM user as u
-            INNER JOIN contactProfil as c
-            ON id = user_id
-            WHERE id = ${id};`,
-
-            (error, data) => {
-                if (error) throw error;
-                result(null, data);
-                conn.release();
-            });
-    });
-};
 
 // Edit One
 CandidatContact.updateContactProfil = function (candidatObj, result) {
-    const { name, lastName, address, zipCode, town, phone, mail, user_id } = candidatObj
-    console.log("edit", candidatObj);
+    const { name, lastName, address, zipCode, town, phone, mail, user_id, id } = candidatObj
     connection.getConnection(function (error, conn) {
         conn.query(`
-        UPDATE contactProfil,user
+        UPDATE contactProfil, user as u
             SET 
             name = :name,
             lastName = :lastName,
@@ -50,10 +32,10 @@ CandidatContact.updateContactProfil = function (candidatObj, result) {
             phone = :phone,
             mail = :mail
             WHERE user_id = :user_id;`,
-            { name, lastName, address, zipCode, town, phone, mail, user_id }
+            { name, lastName, address, zipCode, town, phone, mail, user_id, id }
             , (error, data) => {
                 if (error) throw error;
-                conn.query(`SELECT u.mail,c.name,c.lastName, c.town, c.zipCode, c.address, c.phone
+                conn.query(`SELECT u.id,c.user_id, u.mail,c.name,c.lastName, c.town, c.zipCode, c.address, c.phone
             FROM user as u
             INNER JOIN contactProfil as c
             ON id = user_id

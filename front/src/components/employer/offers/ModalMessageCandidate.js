@@ -7,7 +7,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
@@ -16,17 +16,19 @@ import { useDispatch, useSelector } from "react-redux";
 import SnackbarMessage from "components/SnackbarMessage";
 
 export default function ModalMessageCandidate(props) {
+  const { onClose, open, offer, row, dataProfilUser } = props;
   const dispatch = useDispatch();
+  const messageEmployer = useSelector((state) => state.employer.flash);
+  const [textFlash, setTextFlash] = useState(messageEmployer);
 
-  const messageEmployer = useSelector((state) => state.employer.flashs);
+  useEffect(() => {
+    setTextFlash(messageEmployer)
+  }, [messageEmployer]);
+
   // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);
 
-  const { onClose, open, offer, row, dataProfilUser } = props;
-  // console.log("row, offer", row, offer)
-
-  const [form, setForm] = useState({ ...row });
-  // console.log("form", form)
+  const [form] = useState({ ...row });
 
   const [textMessage, setTextMessage] = useState();
 
@@ -39,8 +41,9 @@ export default function ModalMessageCandidate(props) {
     e.preventDefault();
 
     const dataFormMessageCandidate = {
-      user_id: dataProfilUser.user_id,
+      user_id: offer.user_id,
       mailEmployeur: dataProfilUser.mail,
+      subject: "Offres n°" + offer.offer_id + " - " + offer.title,
       name: form.name,
       lastName: form.lastName,
       phone: form.phone,
@@ -49,13 +52,15 @@ export default function ModalMessageCandidate(props) {
     };
     setTextMessage("");
 
-    //passage de la varaiblesecondesSnackbarMessage à false apres 2 secondes et fermeture dialogue
-    setOpenModal(true);
+    //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue*
+    setTimeout(function () {
+      setOpenModal(true);
+    }, 1000);
+ 
     setTimeout(function () {
       setOpenModal(false);
       onClose();
-    }, 2000);
-    // console.log(dataFormMessageCandidate)
+    }, 3000);
     await dispatch(postMessageCandidate(dataFormMessageCandidate));
   };
   //
@@ -81,15 +86,14 @@ export default function ModalMessageCandidate(props) {
           <Grid container rowSpacing={2}>
             {Object.entries(row).map((arr, index) => {
               const key = arr[0];
-              if (key === "user_id") return;
-              if (key === "address") return;
-              if (key === "zipCode") return;
-              if (key === "town") return;
-              if (key === "statut") return;
-              if (key === "cvCandidat") return;
+              if (key === "offre_id") return (<div></div>);
+              if (key === "user_id") return(<div></div>);
+              if (key === "address") return(<div></div>);
+              if (key === "zipCode") return(<div></div>);
+              if (key === "town") return(<div></div>);
+              if (key === "statut") return(<div></div>);
+              if (key === "cvCandidat") return(<div></div>);
               else {
-                // console.log("key",key)
-                // console.log("index", index)
                 return (
                   <Grid key={index} item xs={12} sm={12} md={12}>
                     <TextField
@@ -146,7 +150,7 @@ export default function ModalMessageCandidate(props) {
       </Box>
 
       {openModal && (
-        <SnackbarMessage messageEmployer={messageEmployer} open={openModal} />
+        <SnackbarMessage message={textFlash} open={openModal} />
       )}
     </Dialog>
   );

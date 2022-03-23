@@ -1,32 +1,23 @@
 /*------------MUI Imports-------------*/
-
 import * as React from "react";
-import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import MobileDatePicker from "@mui/lab/MobileDatePicker";
+import Stack from "@mui/material/Stack";
+import moment from "moment";
 
 /*------------Export function-------------*/
-
-export default function MaterialUIPickers() {
-  const [value, setValue] = React.useState(new Date());
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
+export default function NativePickers(props) {
+  const { user } = props;
 
   /*--------------Components------------*/
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Stack>
-        <MobileDatePicker
-          inputFormat="dd/MM/yyyy"
-          value={value}
-          onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </Stack>
-    </LocalizationProvider>
+    <Stack component="form">
+      <TextField
+        defaultValue={moment.utc(user.row.date_create).format("DD/MM/YYYY")}
+        sx={{ width: 110}}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+    </Stack>
   );
 }

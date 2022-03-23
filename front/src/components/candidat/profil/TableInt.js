@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Stack, TextField } from '@mui/material';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { display } from "@mui/system";
+import { getProfilCandidate, deleteFormProfilCandidateInterest, postFormProfilCandidateInterest } from "store/actions/CandidateActions";
+
+import { useDispatch } from "react-redux"
 
 
 
 export default function ResponsiveGrid(props) {
-    const { ListInterest,
-        dataProfilCandidat } = props
+    const { ListInterest } = props
     const [edit, setEdit] = React.useState(false);
-    const [interest, setInterest] = useState("");
+    // const [interest, setInterest] = useState("");
+    const dispatch = useDispatch()
 
 
 
-    const setUseState = () => {
-        setInterest(ListInterest.intetest);
-    };
-    useEffect(() => {
-        // console.log("effect for useState form employer");
-        setUseState();
-    }, [dataProfilCandidat]);
 
-    const BtnDelete = () => {
-        if (edit === true) return <Button sx={{ color: "red" }} >
+
+    const handleDelete = (id) => {
+        dispatch(deleteFormProfilCandidateInterest(id))
+        setTimeout(() => dispatch(getProfilCandidate()), 777)
+    }
+
+    const BtnDelete = (id) => {
+        if (edit === true) return <Button sx={{ color: "red" }} onClick={() => handleDelete(id)} >
             <DeleteIcon />
         </Button>
         else return;
@@ -44,6 +44,19 @@ export default function ResponsiveGrid(props) {
     }
 
     function AddInterest() {
+        const dispatch = useDispatch()
+        const [form, setForm] = useState({})
+
+        const changeForm = (prop) => (event) => {
+            setForm({ ...form, [prop]: event.target.value })
+        }
+
+        const submitForm = async () => {
+            await dispatch(postFormProfilCandidateInterest({ ...form }))
+            setAddInterest("");
+            setTimeout(() => dispatch(getProfilCandidate()), 777)
+            setEdit(false) // close editMode
+        }
         return (
             <Box>
                 <Box>
@@ -53,13 +66,14 @@ export default function ResponsiveGrid(props) {
                         required
                         id="outlined-required"
                         label="Add Interest"
+                        onChange={changeForm('interest')}
                     />
                     <Button sx={{ color: "black" }} >
                         <CheckCircleOutlineIcon />
                     </Button>
                 </Box>
                 <Box>
-                    <Button sx={{ color: "green" }} >
+                    <Button sx={{ color: "green" }} onClick={() => submitForm()} >
                         <CheckCircleOutlineIcon />
                         Submit
                     </Button>
@@ -78,9 +92,9 @@ export default function ResponsiveGrid(props) {
     function ModeText(props) {
         return (
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 4, md: 8 }}>
-                {ListInterest.map((interest, index) => (
+                {ListInterest.map((el, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
-                        <Typography>{interest}</Typography>
+                        <Typography>{el.interest}</Typography>
                     </Grid>
                 ))}
             </Grid>
@@ -91,7 +105,7 @@ export default function ResponsiveGrid(props) {
     function ModeEdit(props) {
         return (
             <Stack direction="column" spacing={2}>
-                {ListInterest.map((interest, index) => (
+                {ListInterest.map((el, index) => (
                     <Box>
                         <TextField
                             key={index}
@@ -99,9 +113,9 @@ export default function ResponsiveGrid(props) {
                             required
                             id="outlined-required"
                             label="Interest"
-                            defaultValue={interest}
+                            defaultValue={el.interest}
                         />
-                        {BtnDelete()}
+                        {BtnDelete(el.id)}
                     </Box>
                 ))}
                 <Box sx={{ display: 'flex', justifyContent: 'right' }}>

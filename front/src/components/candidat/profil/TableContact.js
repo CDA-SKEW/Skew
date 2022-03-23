@@ -5,20 +5,19 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
-import { getProfilCandidate, postFormProfilCandidate } from "store/actions/CandidateActions";
+import { getProfilCandidate, putFormProfilCandidate } from "store/actions/CandidateActions";
 
 
 
 export default function TableContact(props) {
 
-  const { ListUser, dataProfilCandidate } = props
+  const { User } = props
+
 
   const dispatch = useDispatch();
   const [edit, setEdit] = React.useState(false);
@@ -36,30 +35,25 @@ export default function TableContact(props) {
 
   const setUseState = () => {
 
-    setAdress(ListUser.address);
-    setZipCode(ListUser.zipCode);
-    setTown(ListUser.town);
-    setPhone(ListUser.phone);
-    setMail(ListUser.mail)
+    setAdress(User.address);
+    setZipCode(User.zipCode);
+    setTown(User.town);
+    setPhone(User.phone);
+    setMail(User.mail)
   };
   useEffect(() => {
-    // console.log("effect for useState form employer");
     setUseState();
-  }, [dataProfilCandidate]);
+  }, []);
 
 
   function ModeText() {
     return (
       <TableBody>
-
-        {/* {ListUser.map((ListUser, index) => ( */}
-
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-
-          <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{ListUser.id}</TableCell>
-          <TableCell align='center'  >{ListUser.address}<br />{ListUser.zipCode}<br />{ListUser.town}</TableCell>
-          <TableCell align='center'  >{ListUser.phone}</TableCell>
-          <TableCell align='center'  >{ListUser.mail}</TableCell>
+          <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{User.id}</TableCell>
+          <TableCell align='center'  >{User.address}<br />{User.zipCode}<br />{User.town}</TableCell>
+          <TableCell align='center'  >{User.phone}</TableCell>
+          <TableCell align='center'  >{User.mail}</TableCell>
         </TableRow>
         {/* ))} */}
       </TableBody>
@@ -69,17 +63,19 @@ export default function TableContact(props) {
 
 
   function ModeEdit() {
-    const [form, setForm] = useState({ ...ListUser })
+    const [form, setForm] = useState({ ...User })
 
     const handleChange = (prop) => (event) => {
-      // console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
-      // console.log('end form', form)
     }
 
-    const submitForm = () => {
-      // console.log('SUBMIT', form)
-      dispatch(postFormProfilCandidate({ ...form }))
+    const submitForm = async () => {
+      await dispatch(putFormProfilCandidate({ ...form }));
+      setAdress("");
+      setZipCode("");
+      setTown("");
+      setPhone("");
+      setMail("");
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
     }

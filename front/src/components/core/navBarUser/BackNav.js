@@ -11,11 +11,7 @@ import ModalConfimation from 'components/ModalConfimation';
 
 export default function BackNav(props) {
     const navigate = useNavigate()
-
     const { pages, pagesReponsive } = props
-
-    // console.log(pages)
-
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     //constante pour le modal contact

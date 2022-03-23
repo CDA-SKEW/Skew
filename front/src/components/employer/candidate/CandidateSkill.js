@@ -49,7 +49,6 @@ export default function Candidateskill(props) {
 
                     <Box display={"flex"} justifyContent={"space-around"} flexWrap="wrap">
                         {profilCandidate.cvCandidat.skill && (profilCandidate.cvCandidat.skill.map((skillTable, index) => (
-                            // console.log(skilltable, index)
                             <Typography variant="body2" component="span" padding={1} key={index}>
                                 {skillTable}
                             </Typography>

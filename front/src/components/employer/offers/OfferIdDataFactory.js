@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import styled from "@emotion/styled";
+import { urlImg } from "utils/url";
 
 const Img = styled("img")({
     margin: "auto",
@@ -11,9 +12,7 @@ const Img = styled("img")({
 });
 
 export default function OfferIdDataFactory(props) {
-
     const { dataProfilEmployer } = props;
-
     return (
         <Box>
             <Grid
@@ -49,7 +48,7 @@ export default function OfferIdDataFactory(props) {
                 >
 
                     <Img alt="imageEmployer"
-                        src={dataProfilEmployer.avatar}
+                        src={`${urlImg + dataProfilEmployer.avatar}`}
                     />
 
                 </Grid>
@@ -62,7 +61,7 @@ export default function OfferIdDataFactory(props) {
                 px={1}
                 mb={2}
             >
-                <Grid item xs={0} sm={8} md={8}
+                <Grid item xs={0} sm={7} md={7}
                     mb={2}>
 
 
@@ -113,7 +112,7 @@ export default function OfferIdDataFactory(props) {
                 >
 
                     <Img alt="imageEmployer"
-                        src={dataProfilEmployer.avatar}
+                        src={`${urlImg + dataProfilEmployer.avatar}`}
                     />
                 </Grid>
             </Grid>

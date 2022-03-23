@@ -3,21 +3,23 @@ import AdminLayout from "layouts/AdminLayout";
 import JobsTable from "components/admin/JobsTable";
 import { getListJobs } from "store/actions/AdminActions";
 import { useDispatch, useSelector } from "react-redux";
+import withAdmin from "components/auth/withAdmin";
 
 const AdminJobs = () => {
   /*------------ listJobs import via Store-------------*/
-  const listJobs = useSelector((state) => state.admin.listJobs);
+  const job = useSelector((state) => state.admin.listJobs);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getListJobs());
-  }, []);
+  }, [dispatch]);
 
   return (
     <AdminLayout>
-      <JobsTable listJobs={listJobs} />
+        <JobsTable job={job} />
     </AdminLayout>
   );
 };
 
-export default AdminJobs;
+export default withAdmin(AdminJobs);
+// export default AdminJobs;

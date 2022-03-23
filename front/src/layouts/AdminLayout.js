@@ -26,6 +26,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate } from "react-router";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import { SnackbarProvider } from 'notistack';
 
 const drawerWidth = 240;
 
@@ -36,6 +37,7 @@ function ResponsiveDrawer({ children }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
 
   // Navigation Links
   const navigate = useNavigate();
@@ -105,82 +107,85 @@ function ResponsiveDrawer({ children }) {
 
   return (
     <ThemeProvider theme={themeAdmin}>
-      <CssBaseline />
-      <GlobalStyles />;
-      <Box sx={{ display: "flex" }}>
+      {/* SnackbarProvider = message flash */}
+      <SnackbarProvider>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-            ml: { sm: `${drawerWidth}px` },
-          }}
-        >
-          <Toolbar sx={{ backgroundColor: "#161C24" }}>
-            <IconButton
-              color="primary"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
+        <GlobalStyles />;
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <AppBar
+            position="fixed"
+            sx={{
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
+              ml: { sm: `${drawerWidth}px` },
+            }}
+          >
+            <Toolbar sx={{ backgroundColor: "#161C24" }}>
+              <IconButton
+                color="primary"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{
+                  mr: 2,
+                  display: { sm: "none" },
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <Box
+            component="nav"
+            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+            aria-label="mailbox folders"
+          >
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Drawer
+              container={container}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
               sx={{
-                mr: 2,
-                display: { sm: "none" },
+                display: { xs: "block", sm: "none" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: drawerWidth,
+                },
               }}
             >
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <Box
-          component="nav"
-          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-          aria-label="mailbox folders"
-        >
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+              {drawer}
+            </Drawer>
+            <Drawer
+              variant="permanent"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                "& .MuiDrawer-paper": {
+                  boxSizing: "border-box",
+                  width: drawerWidth,
+                },
+              }}
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Box>
+          <Box
+            component="main"
             sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
+              flexGrow: 1,
+              p: 3,
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
-            {drawer}
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: "none", sm: "block" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
-            }}
-            open
-          >
-            {drawer}
-          </Drawer>
+            <Toolbar />
+            {children}
+          </Box>
         </Box>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
-          }}
-        >
-          <Toolbar />
-          {children}
-        </Box>
-      </Box>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

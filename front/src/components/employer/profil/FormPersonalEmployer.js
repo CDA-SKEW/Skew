@@ -7,10 +7,11 @@ import {
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
 import { putFormProfilUser } from "store/actions/EmployerActions";
 import FormPasswordChange from "components/FormPasswordChange";
+import SnackbarMessage from "components/SnackbarMessage";
 
 export default function FormPersonalEmployer(props) {
   const {
@@ -18,9 +19,19 @@ export default function FormPersonalEmployer(props) {
     profilPersonnalNotEditabled,
     buttonProfilPersonnalVisible,
   } = props;
-  // console.log("dataProfilUser", dataProfilUser);
-
   const dispatch = useDispatch();
+
+
+  // declaration des constantes pour le SnackbarMessage
+  const [openModal, setOpenModal] = useState(false);
+  const messageFlash = useSelector((state) => state.employer.flash);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (messageFlash.length>=0) {
+    setMessage(messageFlash);  
+    }
+  }, [messageFlash]);
 
   // constante generale pour le formulaire
   const [editPassword, setEditPassword] = React.useState(false);
@@ -35,15 +46,16 @@ export default function FormPersonalEmployer(props) {
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
   useEffect(() => {
-    // console.log("effect for useState form employer");
-    setUseState();
-  }, [profilPersonnalNotEditabled]);
+    if (profilPersonnalNotEditabled===true) {
+    setEditPassword(false);
+    setMail(dataProfilUser.mail);}
+  }, [profilPersonnalNotEditabled,dataProfilUser]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilUser
   useEffect(() => {
-    // console.log("effect for useState form personnal employer");
-    setMail(dataProfilUser.mail);
+    setMail(dataProfilUser.mail);   
   }, [dataProfilUser]);
+
 
   //constante pour mettre les input soit readOnly soit editable
   const inputProps = {
@@ -63,27 +75,27 @@ export default function FormPersonalEmployer(props) {
 
   // fonction pour remettre le formulaire par défaut
   const cancelFormPersonalProfil = () => {
-    // console.log("Cancel upload");
     setUseState();
   };
 
   // Fonction pour l'envoi du formulaire
   const sendFormPersonalProfil = async (e) => {
-    // console.log("Form waitsend");
     //empeche le formunliare d'etre submiter
-    // console.log("event", e)
     e.preventDefault();
 
-      const dataFormPersonalEmployer = {
-        user_id:dataProfilUser.user_id,
-        oldmail:dataProfilUser.mail,
-        mail,
-      };
-      // console.log(
-      //   "dataFormPersonalEmployer change mail only",
-      //   dataFormPersonalEmployer
-      // );
-      await dispatch(putFormProfilUser(dataFormPersonalEmployer));
+    const dataFormPersonalEmployer = {
+      user_id: dataProfilUser.user_id,
+      oldmail: dataProfilUser.mail,
+      mail,
+    };
+
+
+    //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
+    setOpenModal(true);
+    setTimeout(function () {
+      setOpenModal(false);
+    }, 2000);
+    await dispatch(putFormProfilUser(dataFormPersonalEmployer));
 
   };
 
@@ -132,7 +144,7 @@ export default function FormPersonalEmployer(props) {
                 item
                 xs={10}
                 display={"flex"}
-                justifyContent={ { xs: "center", md: "end" }}
+                justifyContent={{ xs: "center", md: "end" }}
                 padding={2}
               >
                 <Button
@@ -144,7 +156,7 @@ export default function FormPersonalEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<TaskAltIcon sx={{display:{xs:"none", sm:"block"}}} />}
+                  startIcon={<TaskAltIcon sx={{ display: { xs: "none", sm: "block" } }} />}
                   type="submit"
                 >
                   Modifier
@@ -159,11 +171,12 @@ export default function FormPersonalEmployer(props) {
                     m: 1,
                     display: displayButton,
                   }}
-                  startIcon={<HighlightOffIcon sx={{display:{xs:"none", sm:"block"}}} />}
+                  startIcon={<HighlightOffIcon sx={{ display: { xs: "none", sm: "block" } }} />}
                   onClick={(e) => cancelFormPersonalProfil()}
                 >
                   Annuler
                 </Button>
+
               </Grid>
             </Grid>
           </Grid>
@@ -172,8 +185,8 @@ export default function FormPersonalEmployer(props) {
 
       <Grid item md={6} xs={12} sm={12}>
         <Box
-        display={"flex"} 
-        justifyContent={"center"}
+          display={"flex"}
+          justifyContent={"center"}
         >
           <Button
             variant="contained"
@@ -189,6 +202,11 @@ export default function FormPersonalEmployer(props) {
         </Box>
         {editPassword && <FormPasswordChange displayButton={true} dataProfilUser={dataProfilUser} />}
       </Grid>
+
+              {openModal && (
+        <SnackbarMessage message={message} open={openModal} />
+      )}
+
     </Box>
   );
 }

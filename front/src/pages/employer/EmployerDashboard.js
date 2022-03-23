@@ -1,60 +1,57 @@
 import { Container, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
 import CardOffer from "components/CardOffer";
 import { themeEmployer } from "configs/theme";
+import withRecruteur from "components/auth/withRecruteur";
 
-// import image en static mais à voir pour aller chercher l'image dans le back plus tard
-import imageEmployer from "assets/images/imageEmployor.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getOffer } from "store/actions/EmployerActions";
-import { useNavigate } from "react-router-dom";
+import { getDashboardEmployer } from "store/actions/EmployerActions";
 
 const EmployerDashboard = () => {
+  const dispatch = useDispatch();
+  const [nbOffer, setNbOffer] = useState("");
+  const [nbCandidateReceive, setNbCandidateReceive] = useState("");
+  const [nbNotif, setNbNotif] = useState("");
 
-  const { nbNotif, nbCandidateReceive, NbMyOffers } = {
-    nbNotif: [0, 1, 2, 3, 4, 5],
-    nbCandidateReceive: [0, 1, 2, 3],
-    NbMyOffers: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-  };
+  useEffect(() => {
+    dispatch(getDashboardEmployer());
+  }, [dispatch]);
+
+  const dashboard = useSelector(
+    (state) => state.employer.dataDashboardEmployer
+  );
+
+  useEffect(() => {
+    setNbOffer(dashboard.numberOffers);
+    setNbCandidateReceive(dashboard.numberCandidate);
+    setNbNotif(dashboard.numberCandidateNull);
+  }, [dashboard]);
 
   const arrayDash = [
     {
       icon: <LibraryBooksIcon sx={{ width: "35px", height: "35px" }} />,
-      number: NbMyOffers.length,
+      number: nbOffer,
       text: "Mes offres déposée",
     },
     {
       icon: <VisibilityIcon sx={{ width: "35px", height: "35px" }} />,
-      number: nbCandidateReceive.length,
+      number: nbCandidateReceive,
       text: "Candidatures reçues",
     },
     {
       icon: <NotificationsActiveIcon sx={{ width: "35px", height: "35px" }} />,
-      number: nbNotif.length,
+      number: nbNotif,
       text: "Notifications",
     },
   ];
 
-  const dispatch = useDispatch();
-
-
-  useEffect(() => {
-    dispatch(getOffer());
-  }, []);
-
-
-  const offers = useSelector(
-    (state) => state.employer.dataOffers
-  );
-
   return (
-    <Container
-    >
+    <Container>
       {/* Card résumé dashboard */}
 
       <Box
@@ -63,11 +60,7 @@ const EmployerDashboard = () => {
         paddingBottom={2}
       >
         {/* Titre section Résumé dashboard */}
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
           <Typography
             variant="h5"
             component="h5"
@@ -88,7 +81,7 @@ const EmployerDashboard = () => {
           sx={{
             justifyContent: { xs: "center", md: "space-around" },
             flexDirection: { xs: "column", md: "row" },
-            alignItems: { xs: "center", md: "none" }
+            alignItems: { xs: "center", md: "none" },
           }}
         >
           {arrayDash.length > 0 &&
@@ -108,11 +101,7 @@ const EmployerDashboard = () => {
         marginTop={4}
       >
         {/* Titre section Dernieres offres postées dashboard */}
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
           <Typography
             variant="h5"
             component="h5"
@@ -133,11 +122,11 @@ const EmployerDashboard = () => {
           sx={{
             justifyContent: { xs: "center", md: "space-around" },
             flexDirection: { xs: "column", md: "row" },
-            alignItems: { xs: "center", md: "none" }
+            alignItems: { xs: "center", md: "none" },
           }}
         >
-          {offers.length > 0 &&
-            offers
+          {dashboard.offers &&
+            dashboard.offers
               .slice(-3)
               .reverse()
               .map((listOffer, index) => (
@@ -149,5 +138,5 @@ const EmployerDashboard = () => {
   );
 };
 
-export default EmployerDashboard;
-//  
+export default withRecruteur(EmployerDashboard);
+//

@@ -1,38 +1,21 @@
 // Import de Multer
 const multer = require('multer')
-    
-const pathImg ="./assets/images/avatar",
-pathDoc="./assets/documents/"
 
 // Ici nous définissons la config de stockage de multer
 const storage = multer.diskStorage({
-    // Ici on stock le nom de l'image dans le filename
 
-    destination: function (req, file, cb) {
-        // console.log(file.mimetype)
-        if (file.mimetype === "application/pdf") cb(null, pathDoc)
-        else cb(null, pathImg )
-    },
     filename: (req, file, cb) => {
-        // console.log(file)
-        // console.log("Multer (Nom de l'image): "+ file.originalname)
-
-        // ici la variable ext est le nom original de l'image
         const ext = file.originalname
-        //File name prends la valeur de la variable ext
         cb(null, ext)
     },
 })
 
 // Ici seront initialiser les parametres de la config de multer
 const upload = multer({
-    // Ici nous renseignons le stockage definit au dessus
+
     storage: storage,
-    // Ici seront renseignés les limits des fichiers (taile, proportion, ...)
     limits: {
-        // se limite à une taille de fichier en byte
-        fileSize: 35 * 1024 * 1024, //ici limite la taille à 80048,576 Ko donc 8.048 Moctet
-        //Se limite à 1 fichier
+        fileSize: 20 * 1024 * 1024, //ici limite la taille à 80048,576 Ko donc 8.048 Moctet
         files: 1
     },
     // Ici nous avons un filtre qui va nous permetre de configurer les extensions accepter par notre middleware ou autre
@@ -44,6 +27,7 @@ const upload = multer({
             file.mimetype === "image/gif" ||
             file.mimetype === "image/webp" ||
             file.mimetype === "image/jpeg" ||
+            file.mimetype === "image/svg+xml" ||
             file.mimetype === "application/pdf"
 
         ) {

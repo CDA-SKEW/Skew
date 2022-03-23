@@ -1,11 +1,18 @@
 // import module connection de la base de données
 const connection = require("../../config/ConnectionDB");
 
+// Module
+const bcrypt = require("bcrypt");
+
+const func = require("../../utils/function"),
+  path = require("path");
+
 //Creation du Constructeur profilUser pour exporter les fonctions dans ce model model
 const ProfilUser = function (profilUser) {
-  (this.id = profilUser.id), (this.mail = profilUser.mail);
+  (this.id = Number(profilUser.id)),
+    (this.mail = String(profilUser.mail)),
+    (this.pass = String(profilUser.pass));
 };
-// console.log("profilUser dans model", ProfilUser);
 
 //Creation du constructeur profilUserCompagny pour exporter les fonctions dans ce model model
 const ProfilUserCompagny = function (profilUserCompagny) {
@@ -20,22 +27,17 @@ const ProfilUserCompagny = function (profilUserCompagny) {
     (this.category = String(profilUserCompagny.category));
 };
 
-// Get profil employer User (by id)
+// Get profil User (by id)
 ProfilUser.getById = function (id, result) {
-  // console.log("model Profiluser", id, result)
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    // si la connection est établie alors on fait la requete Sql,
-    // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
     conn.query(
       `SELECT id,mail,date_update, date_create
      FROM user WHERE id = :id`,
       { id },
       (error, data) => {
         if (error) throw error;
-        result(null, data);
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+        result(null, data[0]);
         conn.release();
       }
     );
@@ -43,40 +45,112 @@ ProfilUser.getById = function (id, result) {
 };
 
 // Update mail in profil employer User (by id)
-ProfilUser.editMail = function (profilUserObj, result) {
-  // console.log(
-  //   "edit mail in Model:",
-  //   "id:",
-  //   typeof profilUserObj.id,
-  //   profilUserObj.id,
-  //   "mail:",
-  //   profilUserObj.mail,
-  // );
+ProfilUser.editMail = function (profilUserObj, oldMail, result) {
   //Declarations des constantes de profilUserCompagnyObj pour mysql
   const { mail, id } = profilUserObj;
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
-    // ici on fait un update de la colonne mail de la table user par l'ID
     conn.query(
-      `       UPDATE user
-              SET mail=:mail
-              WHERE id =:id
+      `SELECT u.mail
+        From user as u
+        WHERE id =:id
         `,
-      { mail, id },
+      { id },
       (error, data) => {
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-        conn.query(
-          `SELECT id,mail,date_update, date_create
-          FROM user WHERE id = :id`,
-          { id },
-          (error, data) => {
-            if (error) throw error;
-            result(null, data);
-          }
-        );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-        conn.release();
+        if (oldMail === data[0].mail) {
+          conn.query(
+            `SELECT id,mail,date_update, date_create FROM user WHERE mail = "${mail}"`,
+            async (error, data) => {
+              if (error) throw error;
+              if (data.length <= 0) {
+                conn.query(
+                  `  UPDATE user
+                    SET mail=:mail
+                    WHERE id =:id
+                `,
+                  { mail, id },
+                  (error, data) => {
+                    if (error) throw error;
+                    conn.query(
+                      `SELECT id,mail,date_update, date_create
+                  FROM user WHERE id = :id`,
+                      { id },
+                      (error, data) => {
+                        if (error) throw error;
+                        result(null, data[0]);
+                      }
+                    );
+                  }
+                );
+              } else {
+                result(null, { id: id, mail: oldMail, message: "errorEmail" });
+              }
+            }
+          );
+        } else result(null, { message: "error" }, true);
+      }
+    );
+    conn.release();
+  });
+};
+
+// Update pw in profil employer User (by id)
+ProfilUser.editPw = function async(profilUserObj, oldPassword, result) {
+  //Declarations des constantes de profilUserCompagnyObj pour mysql
+  const { mail, id, pass } = profilUserObj;
+
+  connection.getConnection(function (error, conn) {
+    if (error) throw error;
+    conn.query(
+      `SELECT * FROM user where mail =:mail`,
+      { mail },
+      (error, data) => {
+        if (error) throw error;
+        if (data.length <= 0) {
+          result(null, true);
+          conn.release();
+        } else
+          bcrypt.compare(
+            oldPassword,
+            data[0].pass,
+            async function (err, check) {
+              if (err) throw err;
+              if (check) {
+                const passBcrypt = await bcrypt.hash(pass, 10);
+                conn.query(
+                  `UPDATE user
+                SET pass =:passBcrypt
+                WHERE id =:id
+                `,
+                  { passBcrypt, id },
+                  (error, data) => {
+                    if (error) throw error;
+                    conn.query(
+                      `SELECT id,mail,date_update
+                    FROM user WHERE id = :id`,
+                      { id },
+                      (error, data) => {
+                        if (error) throw error;
+                        result(null, data[0]);
+                      }
+                    );
+                    conn.release();
+                  }
+                );
+              } else {
+                conn.query(
+                  `SELECT id,mail
+                FROM user WHERE id = :id`,
+                  { id },
+                  (error, data) => {
+                    if (error) throw error;
+                    result(null, data[0], true);
+                  }
+                );
+                conn.release();
+              }
+            }
+          );
       }
     );
   });
@@ -84,28 +158,139 @@ ProfilUser.editMail = function (profilUserObj, result) {
 
 // Get profil employer User (by id)
 ProfilUserCompagny.getProfilCompagnyById = function (id, result) {
-  // console.log("model Profiluser", id, result)
-
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     if (error) throw error;
-    // si la connection est établie alors on fait la requete Sql,
-    // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
     conn.query(
       `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
      FROM contactProfil WHERE user_id = :id`,
       { id },
       (error, data) => {
         if (error) throw error;
-        result(null, data);
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+        result(null, data[0]);
         conn.release();
       }
     );
   });
 };
 
-// Creation profil employer User
+// Update profil employer Compagny
+ProfilUserCompagny.updateProfilCompagny = function (
+  profilUserCompagnyObj,
+  reqfile,
+  result
+) {
+  const { name, town, address, zipCode, siren, siret, category, user_id } =
+    profilUserCompagnyObj;
+
+  let pathAvatar = "./public/images/avatar/",
+    pathAvatarDb = "/api/assets/images/avatar/",
+    pathAvatarWebp = "",
+    pathImgWebp = "";
+
+  const dateImg = new Date().getTime();
+
+  if (reqfile) {
+    pathImgWebp =
+      pathAvatar +
+      (reqfile.filename.split(".").slice(0, -1).join(".") + ".webp");
+
+    pathAvatarWebp =
+      pathAvatar + "avatar_user_" + user_id + "_" + dateImg + ".webp";
+
+    func.renameFile(pathImgWebp, pathAvatarWebp).then((data) => {
+      if (data) {
+        const avatarImg =
+          pathAvatarDb + "avatar_user_" + user_id + "_" + dateImg + ".webp";
+        connection.getConnection(function (error, conn) {
+          conn.query(
+            `SELECT avatar
+              FROM contactProfil WHERE user_id = :user_id`,
+            { user_id },
+            (error, data) => {
+              if (error) throw error;
+              const nameAvatar = data[0].avatar.split("/")[4];
+              const pathAvatarDbDel = pathAvatar + nameAvatar;
+
+              if (pathAvatarDbDel.length > 0) func.removeFile(pathAvatarDbDel);
+              conn.query(
+                `
+                  UPDATE contactProfil
+                  SET name = :name,
+                  address =:address,
+                  town = :town,
+                  zipCode = :zipCode,
+                  avatar = :avatarImg,
+                  siret = :siret,
+                  siren = :siren,
+                  category =:category
+                  WHERE user_id = :user_id;
+           `,
+                {
+                  name,
+                  address,
+                  town,
+                  zipCode,
+                  avatarImg,
+                  siret,
+                  siren,
+                  category,
+                  user_id,
+                },
+                (error, data) => {
+                  if (error) throw error;
+                  conn.query(
+                    `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
+                  FROM contactProfil WHERE user_id = :user_id`,
+                    { user_id },
+                    (error, data) => {
+                      if (error) throw error;
+                      result(null, data[0]);
+                    }
+                  );
+                }
+              );
+            }
+          );
+          conn.release();
+        });
+      }
+    });
+  } else {
+    connection.getConnection(function (error, conn) {
+      conn.query(
+        `
+      UPDATE contactProfil
+      SET name = :name,
+      address =:address,
+      town = :town,
+      zipCode = :zipCode,
+      siret = :siret,
+      siren = :siren,
+      category =:category
+      WHERE user_id = :user_id;
+    `,
+        { name, address, town, zipCode, siret, siren, category, user_id },
+        (error, data) => {
+          if (error) throw error;
+          conn.query(
+            `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
+         FROM contactProfil WHERE user_id = :user_id`,
+            { user_id },
+            (error, data) => {
+              if (error) throw error;
+              result(null, data[0]);
+            }
+          );
+          conn.release();
+        }
+      );
+    });
+  }
+};
+
+// Creation profil employer Compagny
+//  Plus utlisé dans l'application car profil crée par défaut au register
+// Utiliser pour test postman
 ProfilUserCompagny.createProfilCompagny = function (
   profilUserCompagnyObj,
   result
@@ -122,8 +307,6 @@ ProfilUserCompagny.createProfilCompagny = function (
     category,
     user_id,
   } = profilUserCompagnyObj;
-  // console.log("Model for create profil entreprise", profilUserCompagny);
-  //ici on se connect à la base de donnée en appellant le module importé
   connection.getConnection(function (error, conn) {
     conn.query(
       `INSERT INTO contactProfil SET
@@ -140,79 +323,18 @@ ProfilUserCompagny.createProfilCompagny = function (
       { user_id, name, address, town, zipCode, avatar, siret, siren, category },
       (error, data) => {
         if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
         conn.query(
           `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
          FROM contactProfil WHERE user_id = :user_id`,
           { user_id },
           (error, data) => {
             if (error) throw error;
-            result(null, data);
-            // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
+            result(null, data[0]);
           }
         );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
         conn.release();
       }
     );
   });
 };
-
-// Update profil employer User
-ProfilUserCompagny.updateProfilCompagny = function (
-  profilUserCompagnyObj,
-  result
-) {
-  //Declarations des constantes de profilUserCompagnyObj pour mysql
-  const {
-    name,
-    town,
-    address,
-    zipCode,
-    avatar,
-    siren,
-    siret,
-    category,
-    user_id,
-  } = profilUserCompagnyObj;
-  // console.log("Model for update profil entreprise", profilUserCompagnyObj);
-  //ici on se connect à la base de donnée en appellant le module importé
-  connection.getConnection(function (error, conn) {
-    //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
-    conn.query(
-      `
-      UPDATE contactProfil
-      SET name = :name,
-      address =:address,
-      town = :town,
-      zipCode = :zipCode,
-      avatar = :avatar,
-      siret = :siret,
-      siren = :siren,
-      category =:category
-      WHERE user_id = :user_id;
-    `,
-      //ici on declare les values qui vont etre envoyées dasn la fonction queryFormat pour la gestion des simple cote
-      // situé dans ConnectionDb.js dans dossier config
-      { name, address, town, zipCode, avatar, siret, siren, category, user_id },
-      (error, data) => {
-        if (error) throw error;
-        // ici on fait un select de la table user par l'ID en gradant que les colonnes id, mail, date update et date create
-        conn.query(
-          `SELECT user_id, name, address,town,zipCode,avatar,siret,siren,category
-         FROM contactProfil WHERE user_id = :user_id`,
-          { user_id },
-          (error, data) => {
-            if (error) throw error;
-            result(null, data);
-            // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-          }
-        );
-        // Mettre fin à la connexion avec la db pour eviter que les data ne soit plus rendues au bout de 10 requetes (definit ds les options)
-        conn.release();
-      }
-    );
-  });
-};
-
 module.exports = { ProfilUser, ProfilUserCompagny };

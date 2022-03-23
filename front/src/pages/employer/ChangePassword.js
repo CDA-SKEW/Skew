@@ -4,12 +4,21 @@ import {
     Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import { themeEmployer } from "configs/theme";
 import FormPasswordChange from "components/FormPasswordChange";
+import withRecruteur from "components/auth/withRecruteur";
+import { useDispatch, useSelector } from "react-redux";
+import { getProfilUser } from "store/actions/EmployerActions";
 
-const ChangePassword = (props) => {
-    const { mail } = props
+const ChangePassword = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getProfilUser());
+    }, [dispatch]);
+
+    const dataProfilUser = useSelector((state) => state.employer.dataProfilUser);
 
     return (
         <Container
@@ -43,7 +52,7 @@ const ChangePassword = (props) => {
                     spacing={2}
                 >
                     <Grid item xs={12} sm={12} md={9} xl={6}>
-                        <FormPasswordChange mail={mail} />
+                        {dataProfilUser && (<FormPasswordChange dataProfilUser={dataProfilUser} />)}
                     </Grid>
                 </Grid>
 
@@ -54,4 +63,4 @@ const ChangePassword = (props) => {
     );
 };
 
-export default ChangePassword;
+export default withRecruteur(ChangePassword);

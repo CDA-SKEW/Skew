@@ -4,7 +4,11 @@
 const router = require("express").Router();
 
 const upload = require("../config/multer"),
-  sharp = require('../config/sharp')
+  sharp = require("../config/sharp");
+
+
+const uploadCv = require("../config/multerCv");
+
 
 //#############
 //#Controllers#
@@ -12,7 +16,18 @@ const upload = require("../config/multer"),
 
 //User
 const AuthControllers = require("../controllers/AuthControllers");
-const UserControllers = require("../controllers/UserControllers");
+
+//Message
+const ContactControllers = require("../controllers/ContactControllers");
+
+// Offres visiteur
+const OffreVisiteurControllers = require("../controllers/OffreVisiteurControllers");
+
+// Offres favorites
+const OffreFavoriteControllers = require("../controllers/OffreFavorisControllers");
+
+// VisiteurData
+const VisiteurDataControllers = require("../controllers/VisiteurDataControllers");
 
 //Employer
 const EmployerProfilControllers = require("../controllers/employer/EmployerProfilControllers");
@@ -20,6 +35,8 @@ const EmployerOfferControllers = require("../controllers/employer/EmployerOfferC
 
 //Candidat
 const CandidatProfilControllers = require("../controllers/candidate/CandidatProfilControllers");
+//Candidat Candidatures
+const CandidatCandidaturesControllers = require("../controllers/candidate/CandidatCandidaturesControllers")
 
 // Admin
 const UsersController = require("../controllers/admin/UsersController");
@@ -27,73 +44,115 @@ const JobsController = require("../controllers/admin/JobsController");
 const MessagesController = require("../controllers/admin/MessagesController");
 
 // Middlewares
-const TestMD = require("../middlewares/Test_md");
-const TokenJWT = require("../middlewares/Token_jwt")
+const TokenJWT = require("../middlewares/Token_jwt");
 
 // router.route('/api/testUser').post(new CandidatProfilControllers().testUser)
 
 /*
  * Routes
  * ****** */
+
+// Test
+router.get('/api/test', (req, res) => {
+  console.log('Test OK')
+  res.json({ message: 'Test OK !!' })
+})
+
 //------------------------------------------------------------
 // Authentification
 router.route("/api/login").post(new AuthControllers().login);
 router.route("/api/register").post(new AuthControllers().register);
 
 // Check
-router.route("/api/auth/:token")
-  .get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router.route("/api/auth/:token").get(new TokenJWT().checkIsValid, new AuthControllers().checkToken);
+router.route("/api/auth/verify/:id").get(new AuthControllers().verifMail);
 
-// Users
-router
-  .route("/api/user")
-  .get(new UserControllers().getAll)
-  .post(new UserControllers().post);
+// Mot de passe oublié
+router.route("/api/auth/mail-lost-mdp").post(new AuthControllers().mailLostMdp);
+
+// Messages
+router.route("/api/contact").post(new ContactControllers().post);
+
+// Offres visiteur
+router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
+router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
+
+// Offres favorites
+router.route("/api/offrefavorite/:id").get(new TokenJWT().checkToken, new OffreFavoriteControllers().getFavoris);
+router.route("/api/offrefavorite").post(new TokenJWT().checkToken, new OffreFavoriteControllers().addFavoris);
+router.route("/api/offrefavorite/:id").delete(new TokenJWT().checkToken, new OffreFavoriteControllers().deleteFavoris);
+
+// Visiteur data
+router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);
 
 //------------------------------------------------------------
 // Employeur
 
 // Employeur user profil
 router
-  .route("/api/employer/profilUser/:id")
-  .get(new EmployerProfilControllers().getProfilUser);
+  .route("/api/employer/dashboard")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getDashboard);
 
-// Employeur user profil Id
+// Employeur user profil
 router
-  .route("/api/employer/profilUser/:id")
-  .put(new EmployerProfilControllers().updateProfilUser);
+  .route("/api/employer/profilUser")
+  .get(new TokenJWT().checkToken, new EmployerProfilControllers().getProfilUser)
+  .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUser);
 
-// Employeur entreprise profil
+// Employeur user profil password Id
 router
-  .route("/api/employer/profil")
-  .post(upload.single('avatar'), sharp, new EmployerProfilControllers().createProfilCompagny);
+  .route("/api/employer/profilUserPw")
+  .put(new TokenJWT().checkToken, new EmployerProfilControllers().updateProfilUserPw);
 
 // Employeur entreprise profil Id
 router
-  .route("/api/employer/profil/:id")
-  .get(new EmployerProfilControllers().getProfilCompagny)
-  .put(upload.single('avatar'), sharp, new EmployerProfilControllers().updateProfilCompagny);
-
-// Employeur offer
-router
-  .route("/api/employer/offer")
-  .get(new EmployerOfferControllers().getOffer)
-  .post(new EmployerOfferControllers().createOffer);
+  .route("/api/employer/profil")
+  .get(new TokenJWT().checkToken, new EmployerProfilControllers().getProfilCompagny)
+  .put(new TokenJWT().checkToken,
+    upload.single("avatar"),
+    sharp,
+    new EmployerProfilControllers().updateProfilCompagny
+  );
 
 // Employeur offerid
 router
+  .route("/api/employer/offer")
+  .get(new TokenJWT().checkToken, new EmployerOfferControllers().getOfferId)
+  .post(new TokenJWT().checkToken, new EmployerOfferControllers().createOffer)
+
+router
   .route("/api/employer/offer/:id")
-  .delete(new EmployerOfferControllers().delOffer);
+  .delete(new TokenJWT().checkToken, new EmployerOfferControllers().delOffer);
 
 // Employeur statut candidat offer
 router
   .route("/api/employer/offer/candidat/:id")
-  .put(new EmployerOfferControllers().updateCandidate);
+  .put(new TokenJWT().checkToken, new EmployerOfferControllers().updateCandidate);
 
 // Employeur send message candidate
 router
-  .route("/api/employer/candidat/message/")
-  .post(new EmployerOfferControllers().createMessageCandidate);
+  .route("/api/employer/candidat/message")
+  .post(new TokenJWT().checkToken, new EmployerOfferControllers().createMessageCandidate);
+
+// Employeur entreprise profil
+//  Plus utlisé dans l'application car profil crée par défaut au register
+// Utiliser pour test postman
+router
+  .route("/api/employer/profil")
+  .post(
+    new TokenJWT().checkToken,
+    upload.single("avatar"),
+    sharp,
+    new EmployerProfilControllers().createProfilCompagny
+  );
+
+
+// Employeur offer
+//  Plus utlisé dans l'application
+// Utiliser pour test postman
+router
+  .route("/api/employer/allOffer")
+  .get(new EmployerOfferControllers().getOffer)
 
 //------------------------------------------------------------
 
@@ -101,7 +160,7 @@ router
 //# Candidat profil GET PROFIL COMPLET#
 //#####################################
 router
-  .route("/api/candidat/profil")
+  .route("/api/candidat/profil/:id")
   .get(new CandidatProfilControllers().getProfil);
 
 //#########################################
@@ -110,8 +169,7 @@ router
 
 router
   .route("/api/candidat/profil/contact/:id")
-  .get(new CandidatProfilControllers().getContactProfil)
-  .put(new CandidatProfilControllers().updateContactProfil)
+  .put(new CandidatProfilControllers().updateContactProfil);
 
 // ############################################
 // #CandidatProfilExperience Table-EXPERIENCE #
@@ -119,67 +177,74 @@ router
 
 router
   .route("/api/candidat/profil/experience")
-  // .get(new CandidatProfilControllers().getExperienceProfil)
-  .post(new CandidatProfilControllers().createExperienceProfil)
+  .post(new CandidatProfilControllers().createExperienceProfil);
 
 router
   .route("/api/candidat/profil/experience/:id")
   .get(new CandidatProfilControllers().getExperienceProfil)
   .put(new CandidatProfilControllers().updateExperienceProfil)
-  .delete(new CandidatProfilControllers().deleteExperienceProfil)
+  .delete(new CandidatProfilControllers().deleteExperienceProfil);
 
 // ##################################
 // #CandidatProfilSkill Table-SKILL #
 // ##################################
 router
   .route("/api/candidat/profil/skill")
-  // .get(new CandidatProfilControllers().getSkillProfil)
-  .post(new CandidatProfilControllers().createSkillProfil)
+  .post(new CandidatProfilControllers().createSkillProfil);
 
 router
   .route("/api/candidat/profil/skill/:id")
   .get(new CandidatProfilControllers().getSkillProfil)
   .put(new CandidatProfilControllers().updateSkillProfil)
-  .delete(new CandidatProfilControllers().deleteSkillProfil)
+  .delete(new CandidatProfilControllers().deleteSkillProfil);
 
 // ########################################
 // #CandidatProfilInterest Table-INTEREST #
 // ########################################
 router
   .route("/api/candidat/profil/interest")
-  .post(new CandidatProfilControllers().createInterestProfil)
+  .post(new CandidatProfilControllers().createInterestProfil);
 router
   .route("/api/candidat/profil/interest/:id")
   .get(new CandidatProfilControllers().getInterestProfil)
   .put(new CandidatProfilControllers().updateInterestProfil)
-  .delete(new CandidatProfilControllers().deleteInterestProfil)
+  .delete(new CandidatProfilControllers().deleteInterestProfil);
 
 // ##############################################
 // #CandidatProfilCertificate Table-CERTIFICATE #
 // ##############################################
 router
   .route("/api/candidat/profil/certificate")
-  // .get(new CandidatProfilControllers().getCertificateProfil)
-  .post(new CandidatProfilControllers().createCertificateProfil)
+  .post(new CandidatProfilControllers().createCertificateProfil);
 
 router
   .route("/api/candidat/profil/certificate/:id")
   .get(new CandidatProfilControllers().getCertificateProfil)
   .put(new CandidatProfilControllers().updateCertificateProfil)
-  .delete(new CandidatProfilControllers().deleteCertificateProfil)
+  .delete(new CandidatProfilControllers().deleteCertificateProfil);
 
 // ########################################
 // #CandidatProfilDocument Table-DOCUMENT #
 // ########################################
 router
   .route("/api/candidat/profil/document")
-  .get(new CandidatProfilControllers().getDocumentProfil)
-  .post(new CandidatProfilControllers().createDocumentProfil)
+  .post(uploadCv.single("document"), new CandidatProfilControllers().createDocumentProfil);
 
 router
   .route("/api/candidat/profil/document/:id")
-  .put(new CandidatProfilControllers().updateDocumentProfil)
-  .delete(new CandidatProfilControllers().deleteDocumentProfil)
+  .delete(new CandidatProfilControllers().deleteDocumentProfil);
+
+// ########################
+// #Candidat/Candidatures #
+// ########################
+router
+  .route("/api/candidat/candidature")
+  .post(new CandidatCandidaturesControllers().postCandidatures);
+
+router
+  .route("/api/candidat/candidatures/:id")
+  .get(new CandidatCandidaturesControllers().getCandidatures)
+  .delete(new CandidatCandidaturesControllers().deleteCandidatures);
 
 //############################################################
 //#                   FIN ROUTEUR CANDIDAT                   #
@@ -189,32 +254,34 @@ router
 
 // ADMIN
 
-// Users
-router.route("/api/admin").get(new UsersController().getUserAll);
+// Jobs
+router.route("/api/admin/jobs").get(new JobsController().getListJobs);
 
 router
-  .route("/api/admin/:id")
+  .route("/api/admin/jobs/:id")
+  // .get(new JobsController().getJobId)
+  .delete(new JobsController().deleteJob);
+
+// Messages
+router
+  .route("/api/admin/messages")
+  .get(new MessagesController().getListMessages)
+  .post(new MessagesController().replyMessage);
+router
+  .route("/api/admin/messages/:id")
+  .get(new MessagesController().getMessageId)
+  .delete(new MessagesController().deleteMessage);
+
+// Users
+router.route("/api/admin/users").get(new UsersController().getListUsers);
+router
+  .route("/api/admin/users/:id")
   .get(new UsersController().getUserId)
   .put(new UsersController().putUser)
   .delete(new UsersController().deleteUser);
+router.route("/api/admin/users/badge/:id").put(new UsersController().putBadge);
+router.route("/api/admin/users/verif/:id").put(new UsersController().verifUser);
 
-// Jobs
-router.route("/api/admin/jobs").get(new JobsController().getJobAll);
-router.route("/api/admin/jobs/:id").get(new JobsController().getJobId);
-// .delete(new JobsController().deleteJob);
-
-// Messages
-router.route("/api/admin/messages").get(new MessagesController().getMessageAll);
-// .post(new MessagesController().addMessage);
-
-router
-  .route("/api/admin/messages/:id")
-  .get(new MessagesController().getMessageId);
-// .delete(new MessagesController().deleteMessage);
-
-// Authentification
-
-// router.use(new TokenJWT().checkIsValid)
 // Session
 
 /*

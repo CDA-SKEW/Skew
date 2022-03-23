@@ -1,5 +1,5 @@
-import { Button, Collapse, Divider, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Collapse, Divider, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
+import { Box} from "@mui/system";
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -11,17 +11,14 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import ModalMessageCandidate from "./ModalMessageCandidate";
 import ModalConfimation from "components/ModalConfimation";
 import { useNavigate } from "react-router-dom";
-
+import moment from "moment";
+import { urlImg } from "utils/url";
 
 export default function RowTableCandidateOffer(props) {
 
     const navigate = useNavigate();
-
-    // console.log(props)
     const { numberCandidat, row, offer, dataProfilUser } = props;
     const [open, setOpen] = useState(false);
-    // console.log("offer", offer)
-    //   console.log("row", row)
 
     //constante pour les modals confirmation
     const [openModalConfirmationRetain, setOpenModalConfirmationRetain] = useState(false);
@@ -41,7 +38,7 @@ export default function RowTableCandidateOffer(props) {
     };
 
 
-     //constante pour le modal contact
+    //constante pour le modal contact
     const [openContact, setOpenContact] = useState(false);
     const handleClickModalContact = () => {
         setOpenContact(true);
@@ -60,7 +57,7 @@ export default function RowTableCandidateOffer(props) {
                 <TableCell align="center">{row.lastName}</TableCell>
                 <TableCell align="center">{row.mail}</TableCell>
                 <TableCell align="center">{row.phone}</TableCell>
-                <TableCell align="center">{row.statut}</TableCell>
+                {row.statut === 0 ? <TableCell align="center" sx={{ color: "red" }}>Non retenu</TableCell> : row.statut === 1 ? <TableCell align="center" sx={{ color: "green" }}>Retenu</TableCell> : <TableCell align="center" sx={{ color: "orange" }}>En attente</TableCell>}
                 <TableCell align="center">
                     <IconButton
                         aria-label="expand row"
@@ -145,7 +142,7 @@ export default function RowTableCandidateOffer(props) {
                                                 </TableCell>
                                                 <TableCell align="center">{candidatRow.job}</TableCell>
                                                 <TableCell align="center">
-                                                    {candidatRow.dateStart}
+                                                    {moment.utc(candidatRow.dateStart).format('DD/MM/YYYY')}
                                                 </TableCell>
                                                 <TableCell
                                                     sx={{ minWidth: { xs: "500px", sm: "500px" } }}
@@ -154,7 +151,7 @@ export default function RowTableCandidateOffer(props) {
                                                     {candidatRow.description}
                                                 </TableCell>
                                                 <TableCell align="center">
-                                                    {candidatRow.dateEnd}
+                                                    {moment.utc(candidatRow.dateEnd).format('DD/MM/YYYY')}
                                                 </TableCell>
                                             </TableRow>
                                         ))}
@@ -170,7 +167,6 @@ export default function RowTableCandidateOffer(props) {
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
                                     {row.cvCandidat.skill && row.cvCandidat.skill.map((skilltable, index) => (
-                                        // console.log(skilltable, index)
                                         <Typography padding={1} key={index}>
                                             {skilltable}
                                         </Typography>
@@ -185,17 +181,16 @@ export default function RowTableCandidateOffer(props) {
                                 <Divider sx={{ mx: 2 }} />
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
-                                    {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (
-                                        //   console.log("value",{doctable})
+                                    {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (                                  
                                         <Button
                                             key={index}
-                                            href={doctable.url}
+                                            href={`${urlImg + doctable.document}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             sx={{ color: "black" }}
                                         >
                                             <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                            {doctable.name}
+                                            {doctable.title}
                                         </Button>
                                     ))}
                                 </Box>
@@ -255,7 +250,7 @@ export default function RowTableCandidateOffer(props) {
                                             }}
                                         />
                                     }
-                                    onClick={e => navigate("/Employer/candidate/" + row.user_id ,{ state: { profilCandidate: row} })}
+                                    onClick={e => navigate("/Employer/candidate/" + row.user_id, { state: { profilCandidate: row } })}
 
                                 >
                                     Voir candidat

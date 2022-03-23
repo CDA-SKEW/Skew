@@ -7,14 +7,12 @@ import CandidateSkill from "components/employer/candidate/CandidateSkill"
 import CandidateInterest from "components/employer/candidate/CandidateInterest"
 import CandidateCertificate from "components/employer/candidate/CandidateCertificate"
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerCandidateId = () => {
 
     const { state } = useLocation();
     const navigate = useNavigate();
-
-    // console.log("state", state)
 
     return (
         <Container  >
@@ -22,8 +20,6 @@ const EmployerCandidateId = () => {
                 display={"flex"}
                 justifyContent={"end"}
                 alignItems={"center"}
-                // bgcolor={"#FF7F50"}
-                // color={"white"}
                 px={2}
             >
 
@@ -76,4 +72,4 @@ const EmployerCandidateId = () => {
     );
 };
 
-export default EmployerCandidateId;
+export default withRecruteur(EmployerCandidateId);

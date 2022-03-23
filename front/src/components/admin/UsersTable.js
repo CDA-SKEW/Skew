@@ -8,13 +8,12 @@ import Actions from "components/admin/tables/Actions";
 import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
-import Badges from "components/admin/tables/Badges";
 import PeopleIcon from "@mui/icons-material/People";
 
 /*------------Export function + table header-------------*/
 
 export default function UsersTable(props) {
-  const { listUsers } = props;
+  const { user } = props;
 
   // Table Head
   const columns = [
@@ -22,9 +21,10 @@ export default function UsersTable(props) {
     {
       field: "date",
       headerName: "Dates",
-      width: 150,
-      renderCell: () => {
-        return <Dates />;
+      type:"date",
+      width: 170,
+      renderCell: (cell) => {
+        return <Dates user={cell} />;
       },
       editable: false,
     },
@@ -33,7 +33,7 @@ export default function UsersTable(props) {
       headerName: "Avatars",
       width: 100,
       renderCell: (cell) => {
-        return <Avatars avatar={cell} />;
+        return <Avatars contactProfil={cell} />;
       },
     },
     {
@@ -44,7 +44,7 @@ export default function UsersTable(props) {
       flex: 1,
     },
     {
-      field: "firstName",
+      field: "lastname",
       headerName: "Prénoms",
       editable: true,
       minWidth: 100,
@@ -58,10 +58,10 @@ export default function UsersTable(props) {
       minWidth: 200,
       flex: 1,
       valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.name || ""}`,
+        `${params.row.lastname || ""} ${params.row.name || ""}`,
     },
     {
-      field: "email",
+      field: "mail",
       editable: false,
       minWidth: 200,
       flex: 1,
@@ -78,9 +78,19 @@ export default function UsersTable(props) {
     },
     {
       field: "checking",
-      headerName: "Vérifier",
-      renderCell: (cell) => {
-        return <Badges user={cell} />;
+      headerName: "Vérifié",
+      renderCell: (id) => {
+        return <Actions columnsVerif={true} id={id} key={id} />;
+      },
+      editable: false,
+      minWidth: 200,
+      flex: 1,
+    },
+    {
+      field: "badge",
+      headerName: "Certifié",
+      renderCell: (id) => {
+        return <Actions columnsBadge={true} id={id} key={id} />;
       },
       editable: false,
       minWidth: 200,
@@ -88,7 +98,7 @@ export default function UsersTable(props) {
     },
     {
       field: "action",
-      headerName: "Actions",
+      headerName: "Ban or delete user",
       renderCell: (id) => {
         return (
           <Actions
@@ -124,10 +134,15 @@ export default function UsersTable(props) {
       <DataGrid
         autoHeight
         rowHeight={80}
-        rows={listUsers}
+        rows={user}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        // Pagination
+        initialState={{
+          ...user.initialState,
+          pagination: {
+            pageSize: 25,
+          },
+        }}
         checkboxSelection
         disableSelectionOnClick
         // Filtre

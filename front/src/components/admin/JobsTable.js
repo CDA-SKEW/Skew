@@ -1,29 +1,29 @@
 /*------------MUI Imports-------------*/
 
 import React from "react";
-// import IconChips from "components/admin/tables/Chips";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Dates from "components/admin/tables/Dates";
 import Actions from "components/admin/tables/Actions";
-import Badges from "components/admin/tables/Badges";
 import WorkIcon from "@mui/icons-material/Work";
 
 /*------------Export function + table header-------------*/
 
 export default function JobsTable(props) {
-  const { listJobs } = props;
+  // console.log("job1 table + props", props);
+  const { job } = props;
+  // console.log("job2 table + job", job);
 
   // Table Head
   const columns = [
-    { field: "id", headerName: "ID", editable: true },
+    { field: "offer_id", headerName: "ID", editable: true },
     {
       field: "date",
       headerName: "Dates",
       width: 150,
-      renderCell: () => {
-        return <Dates />;
+      renderCell: (cell) => {
+        return <Dates user={cell} />;
       },
       editable: false,
     },
@@ -49,26 +49,15 @@ export default function JobsTable(props) {
     {
       field: "description",
       headerName: "Description",
-      minWidth: 200,
+      minWidth: 300,
       editable: true,
       flex: 1,
     },
     {
-      field: "profile",
+      field: "profil",
       headerName: "Profil",
-      minWidth: 200,
+      minWidth: 300,
       editable: true,
-      flex: 1,
-    },
-    {
-      field: "checking",
-      headerName: "Vérifier",
-      renderCell: (cell) => {
-        // console.log(id);
-        return <Badges user={cell} />;
-      },
-      minWidth: 200,
-      editable: false,
       flex: 1,
     },
     {
@@ -99,14 +88,20 @@ export default function JobsTable(props) {
       >
         <WorkIcon /> Admin gestion des offres d'emploi | Skew.com
       </Typography>
-
       <DataGrid
+        sx={{ width: "100%" }}
         autoHeight
         rowHeight={80}
-        rows={listJobs}
+        enableCellSelect={false}
+        rows={job}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        // Pagination
+        initialState={{
+          ...job.initialState,
+          pagination: {
+            pageSize: 25,
+          },
+        }}
         checkboxSelection
         disableSelectionOnClick
         // Filtre

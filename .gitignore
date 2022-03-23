@@ -36,3 +36,21 @@ yarn-error.lo
 
 /front/package-lock.json
 /back/package-lock.json
+/backupWil/package-lock.json
+
+# Part Backup
+/backupWil/node_modules
+/backupWil/.env
+/backupWil/files/*
+
+/backupKevin/node_modules
+/backupKevin/.env
+/backupKevin/files/*
+
+# Part BackupSuka
+/backupSuka/node_modules
+/backupSuka/.env
+/backupSuka/backup/*
+
+# Part API
+/back/src/config/swagger*

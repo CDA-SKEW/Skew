@@ -8,26 +8,16 @@ import OfferIdDataFactory from "components/employer/offers/OfferIdDataFactory"
 import OfferIdDataOffer from "components/employer/offers/OfferIdDataOffer"
 import { getProfilEmployer } from "store/actions/EmployerActions";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import withRecruteur from "components/auth/withRecruteur";
 
 const EmployerOfferId = () => {
     const { state } = useLocation();
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (!state) navigate(-1);
-    // }, [navigate, state]);
-
-    // console.log("state", state);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // console.log("effect getDataProfilEmployerEmployer");
         dispatch(getProfilEmployer());
-    }, []);
-
-    // dispatch(getProfilEmployer());
+    }, [dispatch]);
 
     const dataProfilEmployer = useSelector(
         (state) => state.employer.dataProfilEmployer
@@ -79,4 +69,4 @@ const EmployerOfferId = () => {
     );
 };
 
-export default EmployerOfferId;
+export default withRecruteur(EmployerOfferId);

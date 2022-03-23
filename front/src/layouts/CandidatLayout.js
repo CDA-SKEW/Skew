@@ -5,13 +5,12 @@ import Toolbar from "@mui/material/Toolbar";
 import { ThemeProvider } from "@emotion/react";
 import { theme, themeCandidate } from "configs/theme";
 import { AppBar } from '@mui/material';
-import Footer from "components/core/Footer";
 import TopNav from "components/core/navBarUser/TopNav";
 import BackNav from "components/core/navBarUser/BackNav";
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ScrollTop from "components/ScrollTop";
-import SlideBarUser from "components/core/navBarUser/SlideBarUser";
+import SlideBarUser from "components/core/navBarUser/SlideBarCandidat";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfilCandidate } from "store/actions/CandidateActions";
 import { useLocation } from "react-router-dom";
@@ -38,13 +37,13 @@ export default function CandidatLayout({ children }) {
     const pagesReponsive = [
         { name: 'Mon compte', link: 'Candidat/profil' },
         // { name: 'Changer Mot de passe', link: 'Employer/profilPw' },
-        { name: 'Offres Postulé', link: 'Candidat/candidature' },
+        { name: 'Offres Postulé', link: 'Candidat/candidatures' },
         // { name: 'Mes offres', link: 'Employer/offer' }
     ]
 
     //   Définir les liens employeur pour la slideBar
     const listItems = [
-        { name: 'Offres Postulé', link: 'Candidat/candidature' },
+        { name: 'Offres Postulé', link: 'Candidat/candidatures' },
         // { name: 'Mes offres', link: 'Employer/offer' }
     ]
 
@@ -52,9 +51,9 @@ export default function CandidatLayout({ children }) {
         { name: 'Mon compte', link: 'Candidat/profil' },
         // { name: 'Mot de passe', link: 'Employer/profilPw' }
     ]
-
+    // const token = jwt_decode(localStorage.getItem('candidat'))
     React.useEffect(() => {
-        // console.log("effect getDataProfilEmployerEmployer");
+
         dispatch(getProfilCandidate());
     }, []);
 
@@ -65,13 +64,12 @@ export default function CandidatLayout({ children }) {
     }, [location]);
 
 
-    dispatch(getProfilCandidate());
+    // dispatch(getProfilCandidate());
 
-    // const dataProfilCandidate = useSelector(
-    //     (state) => state.candidate.dataProfilCandidate
-    // );
+    const dataProfilCandidate = useSelector(
+        (state) => state.candidate.userProfil.coord
+    );
 
-    const dataProfilCandidate = { name: "Toto", avatar: "" }
 
     return (
         <ThemeProvider theme={theme}>

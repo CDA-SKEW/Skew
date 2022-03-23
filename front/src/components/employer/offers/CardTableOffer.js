@@ -1,16 +1,24 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { themeEmployer } from "configs/theme";
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RowTableCandidateOffer from "./RowTableCandidateOffer";
-import ModalConfimation from "components/ModalConfimation"
+import ModalConfimation from "components/ModalConfimation";
 import { useNavigate } from "react-router-dom";
 
-
 export default function CardTableOffer(props) {
-  const { offer, dataProfilUser } = props
+  const { offer, dataProfilUser } = props;
   const navigate = useNavigate();
 
   //constante pour le modal contact
@@ -22,8 +30,6 @@ export default function CardTableOffer(props) {
     setOpenModalConfirmation(false);
   };
 
-  // console.log("offer", offer)
-
   return (
     <Box
       borderRadius={3}
@@ -32,9 +38,16 @@ export default function CardTableOffer(props) {
       marginBottom={3}
       bgcolor={themeEmployer.palette.bgBox.main}
     >
-
       <Typography textAlign={"center"} marginBottom={2} variant="h6">
-        <Button sx={{fontWeight:"bold", fontSize:"18px"}} variant="string" onClick={e => navigate("/Employer/offer/" + offer.offer_id, { state: { offer: offer } })} >
+        <Button
+          sx={{ fontWeight: "bold", fontSize: "18px" }}
+          variant="string"
+          onClick={(e) =>
+            navigate("/Employer/offer/" + offer.offer_id, {
+              state: { offer: offer },
+            })
+          }
+        >
           Offres n°{offer.offer_id} - {offer.title}
         </Button>
       </Typography>
@@ -58,7 +71,11 @@ export default function CardTableOffer(props) {
           startIcon={
             <VisibilityIcon sx={{ display: { xs: "none", sm: "block" } }} />
           }
-          onClick={e => navigate("/Employer/offer/" + offer.offer_id, { state: { offer: offer } })}
+          onClick={(e) =>
+            navigate("/Employer/offer/" + offer.offer_id, {
+              state: { offer: offer },
+            })
+          }
         >
           Voir l'offre
         </Button>
@@ -93,7 +110,6 @@ export default function CardTableOffer(props) {
           action="deleteOffer"
           param={offer.offer_id}
         />
-
       </Box>
 
       <Box paddingX={2} paddingTop={1}>
@@ -125,16 +141,20 @@ export default function CardTableOffer(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {console.log(offer.profilCandidate)} */}
               {offer &&
                 offer.profilCandidate.map((row, index) => (
-                  // console.log("row",row)
-                  <RowTableCandidateOffer key={index} numberCandidat={index} row={row} offer={offer} dataProfilUser={dataProfilUser} />
+                  <RowTableCandidateOffer
+                    key={index}
+                    numberCandidat={index}
+                    row={row}
+                    offer={offer}
+                    dataProfilUser={dataProfilUser}
+                  />
                 ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Box>
     </Box>
-  )
+  );
 }

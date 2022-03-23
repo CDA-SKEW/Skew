@@ -7,7 +7,7 @@ const CandidatExperience = require("../../models/candidat/ExperienceCandidatProf
 const CandidatSkill = require("../../models/candidat/SkillCandidatProfilModel");
 const CandidatInterest = require("../../models/candidat/InterestCandidatProfilModel");
 const CandidatCertificate = require("../../models/candidat/CertificateCandidatProfilModel");
-
+const CandidatDocument = require("../../models/candidat/DocumentCandidat")
 // Import Module
 
 require("dotenv").config();
@@ -21,8 +21,7 @@ class CandidatProfilControllers {
 
   async getProfil(req, res) {
     try {
-      Candidat.getProfil((err, data) => {
-        console.log("data res", data);
+      Candidat.getProfil(String(req.params.id), (err, data) => {
         if (err) {
           console.log("err", err),
             res.status(500).send({
@@ -30,7 +29,7 @@ class CandidatProfilControllers {
         } else {
           return res.json({
             method: req.method,
-            User: data,
+            userProfil: data,
           });
         }
       });
@@ -45,42 +44,14 @@ class CandidatProfilControllers {
   // # CONTACT TABLE #
   // #################
 
-  // GET CONTACT PROFIL CANDIDAT
-
-  async getContactProfil(req, res) {
-    try {
-      CandidatContact.getContactProfil(String(req.params.id), (err, data) => {
-        if (err) {
-          console.log("err", err),
-            res.status(500).send({
-              message: err.message || "Une erreur est survenue",
-            });
-        } else {
-          return res.json({
-            method: req.method,
-            User: data,
-          })
-        }
-      });
-    }
-    catch (error) {
-      throw error;
-    }
-  }
 
   //  UPDATE CONTACT PROFIL CANDIDAT 
 
   async updateContactProfil(req, res) {
-
     let candidatObj = new CandidatContact({
-      user_id: Number(req.params.id),
-      mail: String(req.body.mail),
-      name: String(req.body.name),
-      lastName: String(req.body.lastName),
-      address: String(req.body.address),
-      zipCode: Number(req.body.zipCode),
-      town: String(req.body.town),
-      phone: String(req.body.phone),
+      id: Number(req.params.id),
+      ...req.body
+
     });
     try {
       CandidatContact.updateContactProfil(candidatObj, (err, data) => {
@@ -124,6 +95,7 @@ class CandidatProfilControllers {
     }
   }
 
+
   //  CREATE EXPERIENCE PROFIL CANDIDAT 
 
   async createExperienceProfil(req, res) {
@@ -150,12 +122,6 @@ class CandidatProfilControllers {
     let experienceObj = new CandidatExperience({
       id: Number(req.params.id),
       ...req.body
-      // compagny: String(req.body.compagny),
-      // job: String(req.body.job),
-      // description: String(req.body.description),
-      // dateStart: (req.body.dateStart),
-      // dateEnd: (req.body.dateEnd),
-
     });
     try {
       CandidatExperience.updateExperienceProfil(experienceObj, (err, data) => {
@@ -222,7 +188,6 @@ class CandidatProfilControllers {
   //  CREATE SKILL PROFIL CANDIDAT
 
   async createSkillProfil(req, res) {
-
     let newSkill = new CandidatSkill({
       ...req.body
     });
@@ -231,6 +196,7 @@ class CandidatProfilControllers {
         if (err) res.send(err);
         return res.json({
           method: req.method,
+          message: 'user created',
           User: data,
         });
       });
@@ -251,6 +217,7 @@ class CandidatProfilControllers {
         if (err) res.json(err);
         return res.json({
           method: req.method,
+          message: 'user updated',
           User: data,
         });
       });
@@ -372,6 +339,7 @@ class CandidatProfilControllers {
   //  GET CERTIFICATE PROFIL CANDIDAT 
 
   async getCertificateProfil(req, res) {
+
     try {
       CandidatCertificate.getCertificateProfil(String(req.params.id), (err, data) => {
         if (err) {
@@ -415,6 +383,9 @@ class CandidatProfilControllers {
   //  UPDATE CERTIFICATE PROFIL CANDIDAT 
 
   async updateCertificateProfil(req, res) {
+
+    let { isCertified } = req.body;
+    isCertified = isCertified === "true" ? 1 : 0;
     let certificateObj = new CandidatCertificate({
       id: Number(req.params.id),
       ...req.body
@@ -456,32 +427,47 @@ class CandidatProfilControllers {
   // # DOCUMENT TABLE #
   // ##################
 
-  //  GET CERTIFICATE PROFIL CANDIDAT 
 
-  async getDocumentProfil(req, res) {
-    console.log("controller GET Profil DOCUMENT");
-    res.json({ message: "controller READ profil DOCUMENT" });
-  }
-
-  //  CREATE CERTIFICATE PROFIL CANDIDAT
+  //  CREATE DOCUMENT PROFIL CANDIDAT
 
   async createDocumentProfil(req, res) {
-    console.log("controller CREATE Profil candidat DOCUMENT");
-    res.json({ message: "controller CREATE profil candidat DOCUMENT" });
+    console.log('REQ.BODY CREATE', req.body);
+    // req.body.name = req.nameEditCV
+    let newDocument = new CandidatDocument({
+      ...req.body
+    });
+    try {
+      CandidatDocument.createDocumentProfil(
+        newDocument,
+        req.file,
+        (err, data) => {
+          if (err) res.send(err);
+          return res.json({
+            method: req.method,
+            User: data,
+          });
+        });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  //  UPDATE CERTIFICATE PROFIL CANDIDAT 
-
-  async updateDocumentProfil(req, res) {
-    console.log("controller UPDATE Profil Candidat DOCUMENT");
-    res.json({ message: "controller UPDATE profil candidat DOCUMENT" });
-  }
-
-  //  DELETE CERTIFICATE PROFIL CANDIDAT
+  //  DELETE DOCUMENT PROFIL CANDIDAT
 
   async deleteDocumentProfil(req, res) {
-    console.log("controller DELETE Profil Candidat CERTIFICATE");
-    res.json({ message: "controller DELETE profil candidat DOCUMENT" });
+    try {
+      CandidatDocument.deleteDocumentProfil(req.params.id, (err, data) => {
+        if (err) res.send(err);
+        else {
+          return res.send({
+            method: req.method,
+            User: data,
+          });
+        }
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   // **************************************

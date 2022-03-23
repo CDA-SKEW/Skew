@@ -7,7 +7,7 @@ import { themeEmployer } from "configs/theme";
 const CardDashboardStyle = styled(Card)(() => ({
   textAlign: "center",
   color: themeEmployer.palette.textTitleItems.main,
-  backgroundColor: themeEmployer.palette. bgCardDashboard.main,
+  backgroundColor: themeEmployer.palette.bgCardDashboard.main,
   height: "150px",
   width: "150px",
   marginTop: 8,
@@ -16,10 +16,7 @@ const CardDashboardStyle = styled(Card)(() => ({
 
 // ----------------------------------------------------------------------
 
-// const TOTAL = 234;
-
 export default function CardDashboard(props) {
-  //console.log(props.list.icon);
   const { list } = props;
 
   return (

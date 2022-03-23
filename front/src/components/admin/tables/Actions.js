@@ -8,17 +8,23 @@ import {
   deleteJob,
   deleteUser,
   deleteMessage,
-  addMessage,
+  replyMessage,
   putUser,
+  putBadge,
+  verifUser,
 } from "store/actions/AdminActions";
 import DeleteIcon from "@mui/icons-material/Delete";
-import BlockIcon from "@mui/icons-material/Block";
 import SendIcon from "@mui/icons-material/Send";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import MessageIcon from "@mui/icons-material/Message";
 import PersonIcon from "@mui/icons-material/Person";
-
+import CancelIcon from "@mui/icons-material/Cancel";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import InfoIcon from "@mui/icons-material/Info";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import {
   Box,
   Button,
@@ -30,15 +36,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 /*------------Export function-------------*/
 
 export default function DeletableChips(props) {
+  // console.log("props row table message", props);
   // Transmettre les données du STORE avec dispatch (crud)
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
   const [user, setUser] = React.useState(false);
+  const [form, setForm] = React.useState({ ...props.id.row });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -90,32 +99,29 @@ export default function DeletableChips(props) {
   /*---------------------------------------------*/
 
   // Boolean actions operators
-  const { columnsBan, columnsDeleteJob, columnsAddMessage, id } = props;
-
-  /* Condition de la fonction: si more est = à true alors 
-  retourner le component DeleteForm sinon retourner div vide */
-  const CheckDelete = () => {
-    if (msg === true) return <DeleteForm />;
-    else return <div></div>;
-  };
-
-  const UserDeleteButton = () => {
-    if (user === true) return <DeleteUser />;
-    else return <div></div>;
-  };
+  const {
+    columnsVerif,
+    columnsBadge,
+    columnsBan,
+    columnsDeleteJob,
+    columnsAddMessage,
+    id,
+  } = props;
 
   /* Transformation d'une fonction en composant conditionel, 
-  elle s'affiche sous une certaine consition*/
+  elle s'affiche sous une certaine consition */
+
+  // Message
   function DeleteForm() {
     return (
       <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
-          sx={{ mb: 2, textAlign: "center" }}
+          sx={{ mb: 2, textAlign: "center", fontSize: "20px", fontWeight: 700 }}
           variant="h6"
           component="h2"
         >
-          OU ALORS VOULEZ-VOUS SUPPRIMER CE MESSAGE ?
+          SUPPRIMER CE MESSAGE ?
         </Typography>
         <Typography
           gutterBottom
@@ -129,19 +135,21 @@ export default function DeletableChips(props) {
         </Typography>
         <Typography component="span">
           <DialogActions>
-            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+            <Stack spacing={10} direction="row" sx={{ m: 4 }}>
               <Button
-                autoFocus
+                sx={{ color: "#fff", border: "1px solid #33c863" }}
                 variant="outlined"
-                color="error"
+                color="primary"
+                endIcon={<SendIcon />}
                 onClick={() => dispatch(deleteMessage(id.row.id))}
               >
                 OUI
               </Button>
               <Button
-                autoFocus
-                variant="outlined"
-                color="success"
+                sx={{ border: "1px solid #33c863" }}
+                variant="contained"
+                startIcon={<CancelIcon />}
+                color="primary"
                 onClick={handleClose}
               >
                 NON
@@ -153,12 +161,13 @@ export default function DeletableChips(props) {
     );
   }
 
+  // User
   function DeleteUser() {
     return (
       <Box>
         <Divider sx={{ mb: 2 }} />
         <Typography
-          sx={{ mb: 2, textAlign: "center" }}
+          sx={{ mb: 2, textAlign: "center", fontSize: "20px", fontWeight: 700 }}
           variant="h6"
           component="h2"
         >
@@ -176,19 +185,21 @@ export default function DeletableChips(props) {
         </Typography>
         <Typography component="span">
           <DialogActions>
-            <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+            <Stack spacing={10} direction="row" sx={{ m: 4 }}>
               <Button
-                autoFocus
+                sx={{ color: "#fff", border: "1px solid #33c863" }}
                 variant="outlined"
-                color="error"
+                startIcon={<CheckCircleOutlineIcon />}
+                color="primary"
                 onClick={() => dispatch(deleteUser(id.row.id))}
               >
                 OUI
               </Button>
               <Button
-                autoFocus
-                variant="outlined"
-                color="success"
+                sx={{ border: "1px solid #33c863" }}
+                variant="contained"
+                startIcon={<CancelIcon />}
+                color="primary"
                 onClick={handleClose}
               >
                 NON
@@ -200,6 +211,43 @@ export default function DeletableChips(props) {
     );
   }
 
+  /* Condition de la fonction: si more est = à true alors 
+  retourner le component DeleteForm sinon retourner div vide */
+
+  // Message
+  const CheckDelete = () => {
+    if (msg === true) return <DeleteForm />;
+    else return <Box></Box>;
+  };
+
+  // User
+  const UserDeleteButton = () => {
+    if (user === true) return <DeleteUser />;
+    else return <Box></Box>;
+  };
+
+  /*-----------------------------------------------------*/
+  // Message flash
+  const { enqueueSnackbar } = useSnackbar();
+
+  // MESSAGE: handlechange = Pour changer la valeur d'un input
+  const handleChange = (prop) => (event, variant) => {
+    // console.log("handleInput", prop, event.target.value);
+    // Prop = la key du oneChange
+    setForm({ ...form, [prop]: event.target.value });
+  };
+
+  const submitReplyMessage = (data, variant) => {
+    // console.log("form message", data);
+    // console.log(form, props);
+    dispatch(replyMessage(form));
+    setTimeout(() => {
+      setOpen(false);
+    }, 600);
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar("Le message a été envoyé", { variant });
+  };
+
   /*--------------Components Chips + Modals------------*/
 
   return (
@@ -208,13 +256,14 @@ export default function DeletableChips(props) {
         // Bannir et supprimer un utilisateur
         <Box>
           <Chip
-            label="ban or delete user"
-            color="error"
-            sx={{ color: "#E57373" }}
+            label={id.row.isBanned === 1 ? "banned" : "not banned"}
             variant="outlined"
-            // icon={<BlockIcon />}
+            color={id.row.isBanned === 1 ? "warning" : "success"}
+            icon={
+              id.row.isBanned === 1 ? <RemoveCircleIcon /> : <CheckCircleIcon />
+            }
             onClick={handleOpen}
-          ></Chip>
+          />
           <Modal
             open={open}
             onClose={handleClose}
@@ -224,7 +273,12 @@ export default function DeletableChips(props) {
             <Box sx={style}>
               {/* Form */}
               <Typography
-                sx={{ mb: 2, textAlign: "center" }}
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
                 variant="h6"
                 component="h2"
               >
@@ -245,22 +299,23 @@ export default function DeletableChips(props) {
                 id="modal-modal-description"
                 sx={{ mt: 2 }}
               >
-                {/* Reply action Button */}
+                {/* Update action Button */}
                 <Stack spacing={2} direction="row" sx={{ m: 4 }}>
                   <Button
-                    startIcon={<BlockIcon />}
-                    autoFocus
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
-                    color="warning"
+                    color="primary"
+                    startIcon={<RemoveCircleIcon />}
                     onClick={() => dispatch(putUser(id.row.id))}
                   >
                     Bannir
                   </Button>
                   <Button
-                    startIcon={<PersonIcon />}
                     autoFocus
-                    variant="outlined"
-                    color="error"
+                    startIcon={<PersonIcon />}
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    color="primary"
                     // Déclenche l'action de la constante CheckDelete
                     onClick={(e) => setUser(user === true ? false : true)}
                   >
@@ -268,8 +323,157 @@ export default function DeletableChips(props) {
                   </Button>
                 </Stack>
                 {/* Appel de la condition */}
-
                 {UserDeleteButton()}
+              </Typography>
+            </Box>
+          </Modal>
+        </Box>
+      )}
+
+      {columnsVerif && (
+        // Vérifier un user
+        <Box>
+          <Chip
+            label={id.row.isVerified === 1 ? "verified" : "not verfied"}
+            variant="outlined"
+            color={id.row.isVerified === 1 ? "primary" : "error"}
+            icon={
+              id.row.isVerified === 1 ? (
+                <CheckCircleIcon />
+              ) : (
+                <RemoveCircleIcon />
+              )
+            }
+            onClick={handleOpen}
+          />
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
+                variant="h6"
+                component="h2"
+              >
+                CHECKER CET UTILISATEUR ?
+              </Typography>
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
+                {/* Update action Button */}
+                <Stack spacing={10} direction="row" sx={{ m: 4 }}>
+                  <Button
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
+                    variant="outlined"
+                    startIcon={<CheckCircleOutlineIcon />}
+                    color="primary"
+                    onClick={() => dispatch(verifUser(id.row.id))}
+                  >
+                    Verif
+                  </Button>
+                  <Button
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
+                    onClick={handleClose}
+                  >
+                    NON
+                  </Button>
+                </Stack>
+              </Typography>
+            </Box>
+          </Modal>
+        </Box>
+      )}
+
+      {columnsBadge && (
+        // Badge User
+        <Box>
+          <Chip
+            label={id.row.badge === 1 ? "badged" : "not badged"}
+            variant="contained"
+            color={id.row.badge === 1 ? "primary" : "default"}
+            onClick={handleOpen}
+            icon={<VerifiedIcon />}
+          />
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              {/* Form */}
+              <Typography
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "30px",
+                  fontWeight: 700,
+                }}
+                variant="h6"
+                component="h2"
+              >
+                BADGER CET UTILISATEUR ?
+              </Typography>
+              <Typography
+                gutterBottom
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco
+              </Typography>
+              <Typography
+                component="span"
+                id="modal-modal-description"
+                sx={{ mt: 2 }}
+              >
+                {/* Update action Button */}
+                <Stack spacing={10} direction="row" sx={{ m: 5 }}>
+                  <Button
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
+                    variant="outlined"
+                    startIcon={<VerifiedIcon />}
+                    color="primary"
+                    onClick={() => dispatch(putBadge(id.row.id))}
+                  >
+                    Badge
+                  </Button>
+                  <Button
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
+                    onClick={handleClose}
+                  >
+                    NON
+                  </Button>
+                </Stack>
               </Typography>
             </Box>
           </Modal>
@@ -295,7 +499,12 @@ export default function DeletableChips(props) {
             <Box sx={style}>
               {/* Form */}
               <Typography
-                sx={{ mb: 2, textAlign: "center" }}
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                }}
                 variant="h6"
                 component="h2"
               >
@@ -317,20 +526,21 @@ export default function DeletableChips(props) {
                 sx={{ mt: 2 }}
               >
                 {/* Reply action Button */}
-                <Stack spacing={2} direction="row" sx={{ m: 8 }}>
+                <Stack spacing={10} direction="row" sx={{ m: 8 }}>
                   <Button
-                    autoFocus
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
-                    color="error"
+                    color="primary"
                     startIcon={<DeleteIcon />}
-                    onClick={() => dispatch(deleteJob(id.row.id))}
+                    onClick={() => dispatch(deleteJob(id.row.offer_id))}
                   >
                     OUI
                   </Button>
                   <Button
-                    autoFocus
-                    variant="outlined"
-                    color="success"
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    startIcon={<CancelIcon />}
+                    color="primary"
                     onClick={handleClose}
                   >
                     NON
@@ -347,10 +557,9 @@ export default function DeletableChips(props) {
         <Box>
           <Chip
             label="reply or delete message"
-            color="error"
-            sx={{ color: "#E57373" }}
-            variant="outlined"
-            // icon={<ReplyIcon />}
+            color="info"
+            icon={<InfoIcon />}
+            variant="contained"
             onClick={handleOpen}
           ></Chip>
           <Modal
@@ -361,31 +570,55 @@ export default function DeletableChips(props) {
           >
             <Box sx={style}>
               {/* Form */}
-              <Typography variant="h5" component="h2">
+              <Typography
+                variant="h5"
+                component="h2"
+                sx={{
+                  mb: 2,
+                  textAlign: "center",
+                  fontSize: "20px",
+                  fontWeight: 700,
+                }}
+              >
                 REPONDRE A UN MESSAGE
                 <TextField
+                  disabled
                   fullWidth
                   sx={{ mt: 5 }}
                   required
                   id="outlined-required"
-                  label="To"
-                  defaultValue={id.row.fullName}
+                  label="replyTo"
+                  defaultValue={id.row.mail}
                 />
                 <TextField
                   fullWidth
                   sx={{ mt: 5 }}
                   required
                   id="outlined-required"
-                  label="subject"
-                  defaultValue={id.row.subject}
+                  onChange={handleChange(`sujet`)}
+                  label="Objet"
+                  defaultValue={id.row.sujet}
                 />
                 <TextField
+                  disabled
                   fullWidth
                   sx={{ mt: 5 }}
                   required
                   id="outlined-multiline-static"
                   label="Message"
                   multiline
+                  rows={4}
+                  defaultValue={id.row.message}
+                />
+                {/* Reply TextField */}
+                <TextField
+                  fullWidth
+                  sx={{ mt: 5 }}
+                  required
+                  id="outlined-multiline-static"
+                  label="Reply"
+                  multiline
+                  onChange={handleChange(`reply`)}
                   rows={4}
                   defaultValue=""
                 />
@@ -396,22 +629,27 @@ export default function DeletableChips(props) {
                 sx={{ mt: 2 }}
               >
                 {/* Reply action Button */}
-                <Stack spacing={2} direction="row" sx={{ m: 4 }}>
+                <Stack spacing={5} direction="row" sx={{ m: 4 }}>
                   <Button
+                    autoFocus
+                    sx={{ color: "#fff", border: "1px solid #33c863" }}
                     variant="outlined"
-                    color="success"
+                    color="primary"
                     endIcon={<SendIcon />}
-                    onClick={() => dispatch(addMessage(id.row.id))}
+                    onClick={() => submitReplyMessage(form, "success")}
                   >
                     Envoyer
                   </Button>
                   <Button
-                    startIcon={<MessageIcon />}
                     autoFocus
-                    variant="outlined"
-                    color="error"
+                    startIcon={<MessageIcon />}
+                    sx={{ border: "1px solid #33c863" }}
+                    variant="contained"
+                    color="primary"
                     // Déclenche l'action de la constante CheckDelete
-                    onClick={(e) => setMsg(msg === true ? false : true)}
+                    onClick={(e) =>
+                      setMsg(msg === true ? false : true, "success")
+                    }
                   >
                     Supprimer
                   </Button>
@@ -426,3 +664,4 @@ export default function DeletableChips(props) {
     </Stack>
   );
 }
+// }

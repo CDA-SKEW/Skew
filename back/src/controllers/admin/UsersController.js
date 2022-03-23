@@ -3,22 +3,25 @@ const User = require("../../models/admin/UsersModel");
 
 require("dotenv").config();
 
-class UsersControllers {
+class UsersController {
   // GET ALL USERS
-  // Récupération de la route "usersAll"
-  async getUserAll(req, res) {
+  // Récupération de la route "getListUsers"
+  async getListUsers(req, res) {
+    // console.log("getAllUsers");
     // Essayes cette fonction
     try {
       /* SQL récupération de tous les users
       à partir de la fonction qui a été créé dans le model */
-      User.getUserAll((err, data) => {
-        // console.log('response controller all user', data);
+      User.getListUsers((err, data) => {
+        // console.log("response controller all users", data);
         // Si il y a erreur le mentionner
         if (err) res.send({ message: "error in request db" });
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            users: data,
+            user: data,
+            method: req.method,
+            status: "success",
             message: "All users has been successfully GETTED. !!!",
           });
       });
@@ -40,7 +43,9 @@ class UsersControllers {
         // Sinon retourné cette réponse avec les data
         else
           return res.json({
-            users: data,
+            user: data,
+            method: req.method,
+            status: "success",
             message: "The user has been successfully GETTED. !!!",
           });
       });
@@ -49,34 +54,69 @@ class UsersControllers {
     }
   }
 
-  // BAN USER
+  // UPDATE USER (ban)
   async putUser(req, res) {
     const { id } = req.params;
-    let { isBanned, isVerified, isAdmin, isCandidat, isRecruteur } = req.body;
-    console.log("isBanned", typeof isBanned, isBanned, Boolean(isBanned));
-
-    isAdmin = isAdmin === "true" ? 1 : 0;
-    isBanned = isBanned === "true" ? 1 : 0;
-    isVerified = isVerified === "true" ? 1 : 0;
-    isCandidat = isCandidat === "true" ? 1 : 0;
-    isRecruteur = isRecruteur === "true" ? 1 : 0;
-
     // Essayes cette fonction
     try {
-      // console.log(id, { ...req.body });
-      User.putUser(
-        { id, isBanned, isVerified, isAdmin, isCandidat, isRecruteur },
-        (err, data) => {
-          console.log("response controller user ban", data);
-          if (err) res.send({ message: "error in request db" });
-          // Sinon retourner cette réponse avec les data
-          else
-            return res.json({
-              users: data,
-              message: " The user has been successfully UPDATED.!!!",
-            });
-        }
-      );
+      User.putUser({ id }, (err, data) => {
+        // console.log("response controller user update", data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourner cette réponse avec les data
+        else
+          return res.json({
+            method: req.method,
+            status: "success",
+            message: " The user has been successfully BANNED.!!!",
+            user: data,
+          });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // BADGE
+  async putBadge(req, res) {
+    const { id } = req.params;
+    // Essayes cette fonction
+    try {
+      // console.log("UpdateBadgeController", id, badge);
+      User.putBadge({ id }, (err, data) => {
+        // console.log("response controller user update", data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourner cette réponse avec les data
+        else
+          return res.json({
+            method: req.method,
+            status: "success",
+            message: " The user has been successfully BADGED.!!!",
+            user: data,
+          });
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Verif
+  async verifUser(req, res) {
+    const { id } = req.params;
+    // Essayes cette fonction
+    try {
+      // console.log("UpdateBadgeController", id, badge);
+      User.verifUser({ id }, (err, data) => {
+        // console.log("response controller user update", data);
+        if (err) res.send({ message: "error in request db" });
+        // Sinon retourner cette réponse avec les data
+        else
+          return res.json({
+            method: req.method,
+            status: "success",
+            message: " The user has been successfully VERIFIED.!!!",
+            user: data,
+          });
+      });
     } catch (error) {
       throw error;
     }
@@ -93,8 +133,10 @@ class UsersControllers {
         // Sinon retourner cette réponse avec les data
         else
           return res.json({
-            users: data,
+            method: req.method,
+            status: "success",
             message: " The user has been successfully DELETED.!!",
+            user: data,
           });
       });
     } catch (error) {
@@ -103,4 +145,4 @@ class UsersControllers {
   }
 }
 
-module.exports = UsersControllers;
+module.exports = UsersController;
