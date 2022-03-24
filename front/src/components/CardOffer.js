@@ -20,7 +20,8 @@ export default function CardOffer(props) {
   return (
     <Card
       sx={{
-        width: 300,
+        width: 250,
+        height: 300,
         border: "2px solid",
         borderColor: "black",
         borderRadius: 1,
@@ -46,7 +47,7 @@ export default function CardOffer(props) {
         )}
         <CardMedia
           component="img"
-          height="140"
+          height="100"
           image={`${urlImg + listOffer.image}`}
           alt="imageEmployer"
         />

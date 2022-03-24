@@ -184,7 +184,7 @@ export default function RowTableCandidateOffer(props) {
                                     {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (                                  
                                         <Button
                                             key={index}
-                                            href={`${urlImg + doctable.document}`}
+                                            href={`${urlImg}/api${doctable.document}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             sx={{ color: "black" }}
