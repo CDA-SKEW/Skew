@@ -369,7 +369,14 @@ export default function VisiteurLayout({ children }) {
         </Box>
       </AppBar>
 
-      <Container component="main" disableGutters maxWidth="100%">{children}</Container>
+      <Container
+        component="main"
+        disableGutters
+        maxWidth="100%"
+        sx={{ minHeight: "75vh"}}
+      >
+        {children}
+      </Container>
 
       {/* Footer */}
       <Box
