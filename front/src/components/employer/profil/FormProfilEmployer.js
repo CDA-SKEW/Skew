@@ -269,15 +269,11 @@ export default function FormProfilEmployer(props) {
       setOpenModal(true);
       setTimeout(function () {
         setOpenModal(false);
+        navigate("/Employer/dashboard")
       }, 2000);
 
       if (formSubmit === "modified") {
         await dispatch(putFormProfilEmployer(formData));
-
-        setTimeout(function () {
-        navigate("/Employer/dashboard")
-        }, 2000);
- 
 
       }
 

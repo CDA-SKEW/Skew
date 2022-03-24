@@ -30,7 +30,7 @@ class EmployerProfilControllers {
           return res.json({
             method: req.method,
             status: "success",
-            message: "Votre profil utilisateur",
+            message: "",
             dataProfilUser: data,
             token: await checkValidContentToken.validContentToken(
               decoded.payload.mail,

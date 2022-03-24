@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import { putFormProfilUser } from "store/actions/EmployerActions";
 import FormPasswordChange from "components/FormPasswordChange";
 import SnackbarMessage from "components/SnackbarMessage";
-import { useNavigate } from "react-router-dom";
+
 
 export default function FormPersonalEmployer(props) {
   const {
@@ -21,8 +21,6 @@ export default function FormPersonalEmployer(props) {
     buttonProfilPersonnalVisible,
   } = props;
   const dispatch = useDispatch();
-
-  const navigate = useNavigate()
 
   // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);
@@ -99,9 +97,6 @@ export default function FormPersonalEmployer(props) {
     }, 2000);
     await dispatch(putFormProfilUser(dataFormPersonalEmployer));
 
-    setTimeout(function () {
-      navigate("/Employer/dashboard")
-      }, 2000);
   };
 
   return (
