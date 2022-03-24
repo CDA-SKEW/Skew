@@ -221,7 +221,7 @@ export default function VisiteurLayout({ children }) {
 
                   {/* Bouton Login */}
                   {!userToken &&
-                    <Box sx={{width: 350, m:'auto'}}>
+                    <Box sx={{ width: 300, m: 'auto' }}>
                       <Button
                         variant="contained"
                         fullWidth
@@ -236,10 +236,19 @@ export default function VisiteurLayout({ children }) {
                     </Box>
                   }
                   {userToken &&
-                    <Button variant="contained" onClick={logout}
-                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
-                      Log out
-                    </Button>
+                    <Box sx={{ width: 300, m: 'auto' }}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={logout}
+                        sx={{
+                          bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2,
+                          my: 2, mx: 'auto', justifyContent: 'center'
+                        }}
+                      >
+                        Log out
+                      </Button>
+                    </Box>
                   }
                 </Box>
 
@@ -252,7 +261,7 @@ export default function VisiteurLayout({ children }) {
                   <Box
                     sx={{
                       position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                      width: 350, height: 190, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
+                      width: 300, height: 190, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
                       display: 'block'
                     }}
                   >

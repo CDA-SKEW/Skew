@@ -112,7 +112,7 @@ export default function Inscription(props) {
     }, [toggle]);
 
     return (
-        <Box sx={{ display: 'block', width: 350, mx: { xs: 'auto' }, ml: { md: 2 }, mt: { xs: 5, md: 0 } }}>
+        <Box sx={{ display: 'block', width: 300, mx: { xs: 'auto' }, ml: { md: 2 }, mt: { xs: 5, md: 0 } }}>
             <Typography variant='h4' sx={{ display: { xs: 'none', md: 'block' } }}>Inscription</Typography>
             <TextField label='Mail' name='mail' fullWidth
                 value={mailInscription} variant="outlined"
