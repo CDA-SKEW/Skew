@@ -24,10 +24,10 @@ class Server {
     this.app.use(
       cors({
         origin: [
-          "http://dr-kh.fr",
-          "http://www.dr-kh.fr",
-          "https://dr-kh.fr",
-          "https://www.dr-kh.fr",
+          "http://skew.dr-kh.fr",
+          "http://www.skew.dr-kh.fr",
+          "https://skew.dr-kh.fr",
+          "https://www.skew.dr-kh.fr",
           "http://localhost:3000",
           "http://192.168.1.4:3000",
           "http://192.168.1.69:3000",
