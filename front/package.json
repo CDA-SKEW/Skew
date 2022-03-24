@@ -110,10 +110,14 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "w:build": "cross-env BUILD_PATH='./dist/webapp' node scripts/build.js",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "w:build": "cross-env BUILD_PATH='./dist/webapp' react-scripts build",
+    "create:cordova": "cordova create skewapp com.exemple.skewapp skewapp && cp ./skewapp/config.xml ./",
+    "build:cordova": "npm run build && cordova platform add android",
+    "emulate:cordova": "cordova emulate android",
+    "clean:cordova": "rm -r ./www ./skewapp ./platforms config.xml",
     "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && yarn build && sudo rm ./public/electron.js ./public/preload.js",
     "e:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
     "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",

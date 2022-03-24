@@ -1,0 +1,42 @@
+{
+  "name": "apiskewjs",
+  "version": "1.0.0",
+  "description": "api pour application Skew",
+  "main": "apiskew.js",
+  "scripts": {
+    "start": "node apiskew.js",
+    "dev": "nodemon apiskew.js",
+    "connectDb": "nodemon --exec 'mocha -R landing ./test/testConnectDbMocha.js'",
+    "testRouterEmployer": "nodemon --exec 'mocha ./test/employer/chaiRouterEmployer.js'",
+    "mochaCrudEmployer": "nodemon --exec 'mocha ./test/employer/mochaCrudEmployer.js'",
+    "testRouterVisiteur": "nodemon --exec 'mocha ./test/visiteur/chaiRouter.js'",
+    "mochaCrudVisiteur": "nodemon --exec 'mocha ./test/visiteur/mochaCRUD.js'",
+    "chai": "nodemon --exec 'mocha  ./test/admin/chaiRouter*.js'",
+    "mocha": "nodemon --exec 'mocha  ./test/admin/mochaCRUD*.js'",
+    "chaiCandidat": "nodemon --exec 'mocha ./test/candidat/chaiRouter*.js'",
+    "mochaCandidat": "nodemon --exec 'mocha  ./test/candidat/mochaCRUD.js'"
+  },
+  "author": "skew",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "multer": "^1.4.4",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.7.2",
+    "sharp": "^0.30.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "express-oas-generator": "^1.0.41",
+    "mocha": "^9.2.0",
+    "supertest": "^6.2.2",
+    "swagger-ui-express": "^4.3.0"
+  }
+}
