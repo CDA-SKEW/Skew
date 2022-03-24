@@ -62,11 +62,11 @@ User.getUserId = function (user, result) {
 // Update User
 User.putUser = function (user, result) {
   let isBanned;
-  console.log("Method BANNED Model User", user);
+  // console.log("Method BANNED Model User", user);
   //Declarations des constantes de user pour mysql
   const { id } = user;
   connection.getConnection(function (error, conn) {
-    console.log("MODEL: isBanned id", id);
+    // console.log("MODEL: isBanned id", id);
     // Selection de la valeur bool de la table pour l'update
     conn.query(
       "select isBanned from user where id = :id",
@@ -75,7 +75,7 @@ User.putUser = function (user, result) {
         if (error) throw error;
         // Recupérer l'ancien état de la valeur afin de la modifier
         isBanned = data[0].isBanned === 1 ? 0 : 1;
-        console.log("isBanned data value");
+        // console.log("isBanned data value");
         //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
         conn.query(
           `UPDATE user 
@@ -101,7 +101,7 @@ User.putUser = function (user, result) {
                 else result(null, data);
               }
             );
-            console.log("data", data);
+            // console.log("data", data);
           }
         );
       }
@@ -113,11 +113,11 @@ User.putUser = function (user, result) {
 // Badge User
 User.putBadge = function (user, result) {
   let badge;
-  console.log("Method BADGE Model User", user);
+  // console.log("Method BADGE Model User", user);
   //Declarations des constantes de user pour mysql
   const { id } = user;
   connection.getConnection(function (error, conn) {
-    console.log("MODEL:Badge id", id);
+    // console.log("MODEL:Badge id", id);
     // Selection de la valeur bool de la table pour l'update
     conn.query(
       "select badge from contactProfil where user_id = :id",
@@ -126,7 +126,7 @@ User.putBadge = function (user, result) {
         if (error) throw error;
         // Recupérer l'ancien état de la valeur afin de la modifier
         badge = data[0].badge === 1 ? 0 : 1;
-        console.log("badge data value");
+        // console.log("badge data value");
         //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
         conn.query(
           `UPDATE contactProfil
@@ -151,7 +151,7 @@ User.putBadge = function (user, result) {
                 else result(null, data);
               }
             );
-            console.log("data", data);
+            // console.log("data", data);
           }
         );
       }
@@ -163,11 +163,11 @@ User.putBadge = function (user, result) {
 // Verif User
 User.verifUser = function (user, result) {
   let isVerified;
-  console.log("Method VERIF Model User", user);
+  // console.log("Method VERIF Model User", user);
   //Declarations des constantes de user pour mysql
   const { id } = user;
   connection.getConnection(function (error, conn) {
-    console.log("MODEL:Verif id", id);
+    // console.log("MODEL:Verif id", id);
     // Selection de la valeur bool de la table pour l'update
     conn.query(
       "select isVerified from user where id=:id",
@@ -176,7 +176,7 @@ User.verifUser = function (user, result) {
         if (error) throw error;
         // Recupérer l'ancien état de la valeur afin de la modifier
         isVerified = data[0].isVerified === 1 ? 0 : 1;
-        console.log("isVerified data value");
+        // console.log("isVerified data value");
         //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
         conn.query(
           `UPDATE user
@@ -201,7 +201,7 @@ User.verifUser = function (user, result) {
                 else result(null, data);
               }
             );
-            console.log("data", data);
+            // console.log("data", data);
           }
         );
       }

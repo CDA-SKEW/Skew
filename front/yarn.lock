@@ -8539,7 +8539,7 @@ electron-to-chromium@^1.4.17:
 
 electron@^17.1.2:
   version "17.1.2"
-  resolved "https://registry.npmjs.org/electron/-/electron-17.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-17.1.2.tgz#b4e4a0df883d9a9854cf865efa2bb00b12d55b1d"
   integrity sha512-hqKQaUIRWX5Y2eAD8FZINWD/e5TKdpkbBYbkcZmJS4Bd1PKQsaDVc9h5xoA8zZQkPymE9rss+swjRpAFurOPGQ==
   dependencies:
     "@electron/get" "^1.13.0"
