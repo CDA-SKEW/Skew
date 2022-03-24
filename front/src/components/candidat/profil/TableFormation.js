@@ -14,16 +14,10 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { getProfilCandidate, postFormProfilCandidateCertificate, putFormProfilCandidateCertificate, deleteFormProfilCandidateCertificate } from "store/actions/CandidateActions";
-import { add } from "date-fns";
-import dateFormat, { masks } from "dateformat";
 
 
 import Chip from '@mui/material/Chip';
@@ -87,7 +81,6 @@ export default function TableFormation(props) {
 
         const handleChangeSwitch = (prop) => (event) => {
             const { checked } = event.target
-            console.log('handleChangeSwitch', prop, checked)
             setValue((value === true) ? false : true)
             handleSwitchParent(prop, checked);
         };
@@ -115,9 +108,10 @@ export default function TableFormation(props) {
     //Condition Trigger mode edit 
     const CheckModeEdit = (props) => {
         const { status, row } = props
-        // console.log('props mode edit', props)
         if (status === true) return <ModeEdit data={row} />
-        return <div></div>
+        else return <></>;
+
+
     }
     /* *************************************************************************** */
 
@@ -128,7 +122,6 @@ export default function TableFormation(props) {
         const dispatch = useDispatch()
         const [form, setForm] = useState({ ...data })
 
-        // console.log('data certificate', form)
 
         const handleChange = (prop) => (event) => {
             setForm({ ...form, [prop]: event.target.value })
@@ -143,7 +136,6 @@ export default function TableFormation(props) {
         }
 
         const submitForm = () => {
-            console.log('SUBMIT Certificate UPDATE', form)
             dispatch(putFormProfilCandidateCertificate({ ...form }))
             setTimeout(() => dispatch(getProfilCandidate()), 777)
             setEdit(false) // close editMode
@@ -209,9 +201,8 @@ export default function TableFormation(props) {
     //Condition Trigger mode Add 
     const CheckModeAdd = (props) => {
         const { status, row } = props
-        // console.log('props mode edit', props)
         if (status === true) return <ModeAdd data={row} />
-        return <div></div>
+        else return <></>;
     }
 
     /* *************************************************************************** */
@@ -228,19 +219,14 @@ export default function TableFormation(props) {
         }
 
         const handleDateParent = (prop, value) => {
-            // console.log('handleChange from cert DATE', prop, value)
             setForm({ ...form, [prop]: value })
-            // console.log('form certificate', form)
         }
 
         const handleSwitchParent = (prop, value) => {
-            console.log('handleSwitchParent bouyaka !!!', prop, value)
             setForm({ ...form, [prop]: value })
-            console.log('form', form)
         }
 
         const submitForm = async (data) => {
-            console.log('submitForm', form)
             await dispatch(postFormProfilCandidateCertificate({ ...form }))
             setSchool("");
             setTitle("");
@@ -313,11 +299,10 @@ export default function TableFormation(props) {
     // #################################################################
 
     function Row(props) {
-        const { row, str } = props
+        const { row } = props
         const [open, setOpen] = React.useState(false);
         const dispatch = useDispatch()
         const handleDelete = () => {
-            console.log('id Button Trigger ROW', row);
             dispatch(deleteFormProfilCandidateCertificate(row.id))
             setTimeout(() => dispatch(getProfilCandidate()), 777)
         }
@@ -325,7 +310,6 @@ export default function TableFormation(props) {
         /*const ActionBtn trigger only if mode edit is true & the btn open the edit row */
 
         const ActionBTN = () => {
-            // console.log('ACTION BTN', edit)
             if (edit === true) return <Box sx={{ display: "flex", flexDirection: 'column' }}>
                 <Button onClick={(e) => setOpen(open === true ? false : true)}>
                     <BorderColorIcon />
@@ -335,7 +319,7 @@ export default function TableFormation(props) {
                     <DeleteIcon />
                 </Button>
             </Box>
-            else <div></div>
+            else return <></>;
         }
 
         /* *************************************************************************** */
@@ -373,7 +357,7 @@ export default function TableFormation(props) {
     const checkViewAction = () => {
         if (edit || openAdd === true) return <TableCell align='center'>Action
         </TableCell>
-        else return <div></div>;
+        else return <></>;
     }
 
     /* *************************************************************************** */

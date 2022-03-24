@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, Stack, TextField } from '@mui/material';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { display } from "@mui/system";
+
 import { getProfilCandidate, deleteFormProfilCandidateSkill, postFormProfilCandidateSkill } from "store/actions/CandidateActions";
 import { useDispatch } from "react-redux";
 
@@ -16,15 +16,11 @@ import { useDispatch } from "react-redux";
 export default function ResponsiveGrid(props) {
   const { ListSkill } = props
   const [edit, setEdit] = React.useState(false);
-  const [skill, setSkill] = useState("");
+  // const [skill, setSkill] = useState("");
   const dispatch = useDispatch()
 
-  // const setUseState = () => {
-  //   setSkill(ListSkill);
-  // };
 
   const handleDelete = (id) => {
-    console.log('id Button Trigger', ListSkill);
     dispatch(deleteFormProfilCandidateSkill(id))
     setTimeout(() => dispatch(getProfilCandidate()), 777)
   }
@@ -47,15 +43,14 @@ export default function ResponsiveGrid(props) {
 
   function AddSkill() {
     const dispatch = useDispatch()
-    const [form, setForm] = useState({ user_id: 5 })
+    const [form, setForm] = useState({})
 
     const changeForm = (prop) => (event) => {
-      // console.log('change form', prop, event.target.value)
       setForm({ ...form, [prop]: event.target.value })
     }
 
-    const submitForm = (data) => {
-      console.log('SUBMIT', form)
+    const submitForm = () => {
+      console.log('post skill', form)
       dispatch(postFormProfilCandidateSkill({ ...form }))
       setAddSkill("");
       setTimeout(() => dispatch(getProfilCandidate()), 777)
@@ -111,7 +106,6 @@ export default function ResponsiveGrid(props) {
     return (
       <Stack direction="column" spacing={2}>
         {ListSkill.map((el, index) => {
-          console.log('loop skill', el)
           return (
             <Box>
               <TextField

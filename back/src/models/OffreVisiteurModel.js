@@ -45,7 +45,6 @@ OffreVisiteur.getOne = function (data, result) {
             where u.id = c.user_id
             and u.id = o.user_id
             and o.offer_id =  "${data.id}"`, (error, offredata) => {
-            console.log('data', offredata)
             if (error) throw error;
             result(null, offredata[0]);
             conn.release();

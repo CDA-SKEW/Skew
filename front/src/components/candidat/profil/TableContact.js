@@ -5,10 +5,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { useDispatch } from "react-redux";
@@ -72,7 +70,6 @@ export default function TableContact(props) {
     }
 
     const submitForm = async () => {
-      console.log('SUBMIT', form)
       await dispatch(putFormProfilCandidate({ ...form }));
       setAdress("");
       setZipCode("");

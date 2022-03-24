@@ -23,6 +23,9 @@ const ContactControllers = require("../controllers/ContactControllers");
 // Offres visiteur
 const OffreVisiteurControllers = require("../controllers/OffreVisiteurControllers");
 
+// Offres favorites
+const OffreFavoriteControllers = require("../controllers/OffreFavorisControllers");
+
 // VisiteurData
 const VisiteurDataControllers = require("../controllers/VisiteurDataControllers");
 
@@ -73,6 +76,11 @@ router.route("/api/contact").post(new ContactControllers().post);
 // Offres visiteur
 router.route("/api/offresvisiteur").get(new OffreVisiteurControllers().getAll);
 router.route("/api/offresvisiteur/:id").get(new OffreVisiteurControllers().getOne);
+
+// Offres favorites
+router.route("/api/offrefavorite/:id").get(new TokenJWT().checkToken, new OffreFavoriteControllers().getFavoris);
+router.route("/api/offrefavorite").post(new TokenJWT().checkToken, new OffreFavoriteControllers().addFavoris);
+router.route("/api/offrefavorite/:id").delete(new TokenJWT().checkToken, new OffreFavoriteControllers().deleteFavoris);
 
 // Visiteur data
 router.route("/api/visiteur-data").get(new VisiteurDataControllers().getAllEntrepriseAvatar);
@@ -230,6 +238,10 @@ router
 // #Candidat/Candidatures #
 // ########################
 router
+  .route("/api/candidat/candidature")
+  .post(new CandidatCandidaturesControllers().postCandidatures);
+
+router
   .route("/api/candidat/candidatures/:id")
   .get(new CandidatCandidaturesControllers().getCandidatures)
   .delete(new CandidatCandidaturesControllers().deleteCandidatures);
@@ -244,10 +256,9 @@ router
 
 // Jobs
 router.route("/api/admin/jobs").get(new JobsController().getListJobs);
-
 router
   .route("/api/admin/jobs/:id")
-  // .get(new JobsController().getJobId)
+  .get(new JobsController().getJobId)
   .delete(new JobsController().deleteJob);
 
 // Messages

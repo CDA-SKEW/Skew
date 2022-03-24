@@ -56,7 +56,6 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenus(props) {
     const { id } = props
-    console.log('id Button Trigger ROW', id);
     const dispatch = useDispatch()
     const handleDelete = () => {
         dispatch(deleteFormProfilCandidateOffre(id))
@@ -95,15 +94,6 @@ export default function CustomizedMenus(props) {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} disableRipple>
-                    <VisibilityIcon />
-                    Voir L'offre
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    < MessageIcon />
-                    Relancer
-                </MenuItem>
-                <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleDelete} disableRipple>
                     <DeleteIcon />
                     Supprimer

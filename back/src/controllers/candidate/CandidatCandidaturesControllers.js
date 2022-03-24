@@ -1,6 +1,6 @@
 // Import Model
 const req = require("express/lib/request");
-const CandidatCandidatures = require("../../models/candidat/CandidatureModel");
+const { CandidatCandidatures, CandidatPostuled } = require("../../models/candidat/CandidatureModel");
 // Import Module
 
 require("dotenv").config();
@@ -15,7 +15,6 @@ class CandidatCandidaturesControllers {
     async getCandidatures(req, res) {
         try {
             CandidatCandidatures.getCandidatures(String(req.params.id), (err, data) => {
-                // console.log("data res", data);
                 if (err) {
                     console.log("err", err),
                         res.status(500).send({
@@ -32,6 +31,40 @@ class CandidatCandidaturesControllers {
             throw error;
         }
     }
+
+    // POst candidature
+    async postCandidatures(req, res) {
+        let candidatPostuledObj;
+
+        console.log('Cv', req.body);
+        if (req.body.document_id && req.body.offre_id && req.body.user_id) {
+            candidatPostuledObj = new CandidatPostuled({
+                ...req.body,
+            });
+            try {
+                CandidatPostuled.postCandidatures(req.body, (err, data) => {
+                    if (err) {
+                        console.log("err", err),
+                            res.status(500).send({
+                            });
+                    }
+                    else {
+                        return res.json({
+                            method: req.method,
+                            candidatures: data,
+                        });
+                    }
+                });
+            } catch (error) {
+                throw error;
+            }
+        } else {
+            res.status(500).json({
+            });
+        }
+    }
+
+    // ############################
 
     async deleteCandidatures(req, res) {
         try {

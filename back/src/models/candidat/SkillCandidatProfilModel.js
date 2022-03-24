@@ -30,8 +30,6 @@ CandidatSkill.createSkillProfil = function (newSkill, result) {
 
 //Delete Skill
 CandidatSkill.deleteSkillProfil = function (id, result) {
-    // console.log('model skill delete id', id)
-
     connection.getConnection(function (error, conn) {
         conn.query(`select user_id FROM skill WHERE id = ${id}`, (error, skill) => {
             if (error) throw error;
@@ -44,7 +42,6 @@ CandidatSkill.deleteSkillProfil = function (id, result) {
                         WHERE u.id = :user_id;`
                     , { user_id: skill.user_id }, (error, data) => {
                         if (error) throw error;
-                        console.log('model skill delete data', data)
                         result(null, data);
                         conn.release();
                     });

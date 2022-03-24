@@ -51,10 +51,17 @@ User.register = function (body, result) {
             VALUES ("${body.mail}", "${await bcrypt.hash(body.pass, 10)}", 0, ${body.isCandidat}, ${body.isRecruteur})`,
           (error, newUser) => {
             if (error) throw error;
-            conn.query(`INSERT INTO contactProfil (user_id) VALUES (${newUser.insertId})`, (err, profilUser) => {
-              if (err) throw err
-              else result(null, 'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
-            })
+            if (body.isCandidat === 1) {
+              conn.query(`INSERT INTO contactProfil (user_id, avatar) VALUES (${newUser.insertId}, "/api/assets/images/avatar/logoDefaultCandidat.png")`, (err, profilUser) => {
+                if (err) throw err
+                else result(null, 'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
+              })
+            } else if (body.isRecruteur === 1) {
+              conn.query(`INSERT INTO contactProfil (user_id) VALUES (${newUser.insertId})`, (err, profilUser) => {
+                if (err) throw err
+                else result(null, 'L\'utilisateur a bien été créé. veuillez valider par mail pour pouvoir vous connecter!');
+              })
+            }
             conn.release();
           }
         );
@@ -81,7 +88,6 @@ User.changePass = function (body, result) {
     if (error) throw error;
     conn.query(`SELECT * FROM user WHERE mail = "${body.mail}"`, async (error, data) => {
       if (error) throw error;
-      console.log('body', data);
       if (!data) result(null, "Le mail n'est pas enregistré dans notre base de données!");
       else conn.query(`UPDATE user SET pass = :pass WHERE mail = :mail`,
         { pass: await bcrypt.hash(body.pass, 10), mail: body.mail }, (error, info) => {

@@ -52,7 +52,6 @@ CandidatInterest.deleteInterestProfil = function (id, result) {
                         WHERE u.id = :user_id;`
                     , { user_id: skill.user_id }, (error, data) => {
                         if (error) throw error;
-                        console.log('model interest delete data', data)
                         result(null, data);
                         conn.release();
                     });

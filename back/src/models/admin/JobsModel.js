@@ -18,7 +18,7 @@ const Job = function (job) {
 };
 
 Job.getListJobs = function (result) {
-  console.log("Method getAll Model Jobs");
+  // console.log("Method getAll Model Jobs");
   // Se connecter à la base de données
   connection.getConnection(function (err, conn) {
     /* Requête SQL pour afficher tous les Jobs 
@@ -29,7 +29,7 @@ Job.getListJobs = function (result) {
         //   Si erreur l'afficher
         if (error) throw error;
         //   Sinon afficher les datas
-         result(null, data);
+        result(null, data);
       }
     );
     // Stop la function une fois exécutée
@@ -38,53 +38,26 @@ Job.getListJobs = function (result) {
 };
 
 // Get One Job
-// Job.getJobId = function (job, result) {
-//   // console.log("Method getID Model User", user);
-//   const { id } = job;
-//   connection.getConnection(function (error, conn) {
-//     conn.query(
-//       ` SELECT * FROM offre WHERE offer_id = :id;`,
-//       { id },
-//       (error, data) => {
-//         if (error) throw error;
-//         else result(null, data);
-//         // console.log("data", data);
-//       }
-//     );
-//     conn.release();
-//   });
-// };
-
-// Update User
-// Job.putJob = function (job, result) {
-//   // console.log("Method UPDATE Model Job", job);
-//   //Declarations des constantes de user pour mysql
-//   const { isVerified, id } = job;
-//   connection.getConnection(function (error, conn) {
-//     //ici on fait la requete SQL avec les datas déclarées en const au début de la fonction
-//     conn.query(
-//       `UPDATE offre 
-//       set 
-//       isVerified = :isVerified
-//       WHERE offer_id = :id;
-//        `,
-//       //ici on déclare les values qui vont être envoyées dans la fonction queryFormat pour la gestion des single quotes
-//       // situé dans ConnectionDb.js dans dossier config
-//       { isVerified, id },
-//       (error, data) => {
-//         // console.log(id, isVerified);
-//         if (error) throw error;
-//         result(null, data);
-//         // console.log("data", data);
-//       }
-//     );
-//     conn.release();
-//   });
-// };
+Job.getJobId = function (job, result) {
+  // console.log("Method getID Model User", user);
+  const { id } = job;
+  connection.getConnection(function (error, conn) {
+    conn.query(
+      ` SELECT * FROM offre WHERE offer_id = :id;`,
+      { id },
+      (error, data) => {
+        if (error) throw error;
+        else result(null, data);
+        // console.log("data", data);
+      }
+    );
+    conn.release();
+  });
+};
 
 // Delete User
-Job.deleteJob =  function (job, result) {
-  console.log("Method delete Model User", job);
+Job.deleteJob = function (job, result) {
+  // console.log("Method delete Model User", job);
   const { id } = job;
   connection.getConnection(function (error, conn) {
     conn.query(
@@ -103,7 +76,7 @@ Job.deleteJob =  function (job, result) {
             else result(null, data);
           }
         );
-        console.log('data', data)
+        // console.log("data", data);
       }
     );
     conn.release();

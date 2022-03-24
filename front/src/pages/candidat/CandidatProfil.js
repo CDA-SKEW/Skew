@@ -13,7 +13,7 @@ const CandidatProfil = () => {
 
 
   const User = useSelector((state) => state.candidate.userProfil)
-  console.log(User);
+
 
 
   return (

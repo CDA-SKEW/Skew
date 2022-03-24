@@ -32,7 +32,7 @@ export default function CardOffer(props) {
       onClick={e => navigate("/Employer/offer/" + listOffer.offer_id, { state: { offer: listOffer } })}
     >
       <CardActionArea>
-        {listOffer.badgeEmployor===1 && (
+        {listOffer.badgeEmployor === 1 && (
           <VerifiedUserIcon
             sx={{
               position: "absolute",
@@ -65,7 +65,7 @@ export default function CardOffer(props) {
             }}
           >
 
-            {listOffer.titleOffer ? listOffer.titleOffer: listOffer.title}
+            {listOffer.titleOffer ? listOffer.titleOffer : listOffer.title}
 
 
           </Typography>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -9,11 +9,53 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import { Box } from '@mui/system';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import { Box } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import url from 'utils/url';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { urlImg } from "utils/url";
+import { useNavigate } from 'react-router-dom';
+
+import { useSelector, useDispatch } from "react-redux";
+import { getOffreFavoriteId, postOffreFavorite, deleteOffreFavorite } from 'store/actions/OffreFavoriteActions'
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [openNoToken, setOpenNoToken] = useState(false);
+
+    const favoris = useSelector(state => state.offreFavorite.favoris);
+    const handleOpenModal = () => {
+        setOpenNoToken(true)
+    }
+
+    const handleCloseNoToken = () => {
+        setOpenNoToken(false);
+    };
+
+    const handleClickFavoris = async () => {
+        if (!localStorage["user_token"]) handleOpenModal();
+        else if (!favoris) {
+            await dispatch(postOffreFavorite(data));
+            dispatch(getOffreFavoriteId(data.offer_id));
+        }
+        else {
+            await dispatch(deleteOffreFavorite(data.offer_id));
+            dispatch(getOffreFavoriteId(data.offer_id));
+        }
+    }
+
+    const handleClickPostuled = () => {
+        if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
+        else { handleOpenModal() }
+    }
+
+    useEffect(() => {
+        if (data.offer_id) dispatch(getOffreFavoriteId(data.offer_id));
+    }, [dispatch, data.offer_id]);
 
     return (
         <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -21,7 +63,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                 <Card sx={{ width: "80%", maxWidth: 800, mx: 'auto', my: 10, bgcolor: '#fff' }}>
                     <CardMedia
                         component="img"
-                        image={url.url + data.avatar}
+                        image={`${urlImg + data.avatar}`}
                         alt={data.title}
                         sx={{ maxHeight: 250 }}
                     />
@@ -63,15 +105,60 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                     </CardContent>
                     <CardActions
                         sx={{ mt: 2, justifyContent: 'space-between', px: 5 }}>
-                        <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
-                            <FavoriteBorderIcon />
-                        </Button>
-                        <Button variant='contained' sx={{ bgcolor: 'secondary.main' }}>
+                        {!favoris &&
+                            <Button
+                                variant='contained'
+                                sx={{ bgcolor: 'secondary.main' }}
+                                onClick={() => handleClickFavoris()}
+                            >
+                                <FavoriteBorderIcon />
+                            </Button>
+                        }
+                        {favoris &&
+                            <Button
+                                variant='contained'
+                                sx={{ bgcolor: 'secondary.main' }}
+                                onClick={() => handleClickFavoris()}
+                            >
+                                <FavoriteIcon />
+                            </Button>
+                        }
+                        <Button
+                            variant='contained'
+                            sx={{ bgcolor: 'secondary.main' }}
+                            onClick={() => handleClickPostuled()}
+                        >
                             Postuler
                         </Button>
                     </CardActions>
                 </Card>
             </List>
+
+            <Dialog
+                open={openNoToken}
+                onClose={handleCloseNoToken}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                sx={{ bgcolor: '#fff' }}
+            >
+                <Card sx={{ bgcolor: '#fff' }}>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Vous n'êtes pas connecté
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={handleCloseNoToken}
+                            variant='contained'
+                            sx={{ color: '#000' }}
+                        >
+                            Fermer
+                        </Button>
+                    </DialogActions>
+                </Card>
+            </Dialog>
+
         </Dialog>
     );
 };

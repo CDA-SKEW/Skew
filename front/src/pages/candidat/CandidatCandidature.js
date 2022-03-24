@@ -10,12 +10,13 @@ import withCandidat from "components/auth/withCandidat";
 
 const CandidatCandidature = () => {
 
-  const ListCandidature = useSelector(state => state.candidate.candidaturesProfil)
+
   const dispatch = useDispatch()
-  console.log(ListCandidature);
   useEffect(() => {
     dispatch(getOffreCandidate())
-  }, [])
+  }, [dispatch])
+
+  const ListCandidature = useSelector(state => state.candidate.candidaturesProfil)
 
   return (
     <Container

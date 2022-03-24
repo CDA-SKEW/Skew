@@ -20,7 +20,7 @@ const Message = function (message) {
 Message.getListMessages = function (result) {
   // console.log("Method get All Model Message");
   // Se connecter à la base de données
-  connection.getConnection(function (err, conn) {
+  connection.getConnection(function (error, conn) {
     /* Requête SQL pour afficher tous les Messages 
     de la table messages de la DB Skew */
     conn.query(`SELECT * FROM messages`, (error, data) => {
@@ -56,7 +56,7 @@ Message.getMessageId = function (message, result) {
 Message.replyMessage = function (result) {
   const { message } = message;
   connection.getConnection(function (error, conn) {
-    console.log(req.body.message, "MODEL");
+    // console.log(req.body.message, "MODEL");
     conn.query(
       `
           INSERT INTO messages (message) 
@@ -80,7 +80,7 @@ Message.replyMessage = function (result) {
 
 // Delete Message
 Message.deleteMessage = function (message, result) {
-  console.log("Method delete Model Message", message);
+  // console.log("Method delete Model Message", message);
   const { id } = message;
   connection.getConnection(function (error, conn) {
     conn.query(
@@ -99,7 +99,7 @@ Message.deleteMessage = function (message, result) {
             else result(null, data);
           }
         );
-        console.log("data", data);
+        // console.log("data", data);
       }
     );
     conn.release();
