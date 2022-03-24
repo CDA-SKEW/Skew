@@ -42,11 +42,11 @@ export default function VisiteurLayout({ children }) {
   const [openDialogConnexion, setOpenDialogConnexion] = useState(false);
   const [openDialogInscription, setOpenDialogInscription] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [errorConnexion, setErrorConnexion] = useState('');
   const [successLostMdp, setSuccessLostMdp] = useState('')
   const [errorInscription, setErrorInscription] = useState('');
   const [successInscription, setSuccessInscription] = useState('');
+  const [errorChamps, setErrorChamps] = useState('')
   const userToken = localStorage["user_token"];
 
   const pages = [
@@ -90,17 +90,17 @@ export default function VisiteurLayout({ children }) {
     if (flash.length >= 0) {
       setSuccessInscription(flash);
       setErrorInscription('');
-      setSuccess('');
-      setError('');
+      setErrorConnexion('');
+      setErrorChamps('');
     }
   }, [flash]);
 
   useEffect(() => {
     if (flashCon.length >= 0) {
-      setSuccess(flashCon);
-      setError('');
+      setErrorConnexion(flashCon);
       setSuccessInscription('');
       setErrorInscription('');
+      setErrorChamps('');
     }
   }, [flashCon]);
 
@@ -166,25 +166,27 @@ export default function VisiteurLayout({ children }) {
                       dispatch={dispatch}
                       successLostMdp={successLostMdp}
                       setSuccessLostMdp={setSuccessLostMdp}
-                      error={error}
+                      errorConnexion={errorConnexion}
                       setErrorInscription={setErrorInscription}
-                      success={success}
-                      setSuccess={setSuccess}
+                      setErrorConnexion={setErrorConnexion}
                       setSuccessInscription={setSuccessInscription}
                       isAdmin={isAdmin}
                       isCandidat={isCandidat}
                       isRecruteur={isRecruteur}
+                      errorChamps={errorChamps}
+                      setErrorChamps={setErrorChamps}
+                      flashCon={flashCon}
                     />
 
                     {/* Inscription */}
                     <Inscription
                       dispatch={dispatch}
-                      setError={setError}
+                      setErrorConnexion={setErrorConnexion}
                       errorInscription={errorInscription}
                       setErrorInscription={setErrorInscription}
-                      setSuccess={setSuccess}
                       successInscription={successInscription}
                       setSuccessInscription={setSuccessInscription}
+                      setErrorChamps={setErrorChamps}
                     />
                   </Box>
                 </Modal>
@@ -312,12 +314,15 @@ export default function VisiteurLayout({ children }) {
                       dispatch={dispatch}
                       successLostMdp={successLostMdp}
                       setSuccessLostMdp={setSuccessLostMdp}
-                      error={error}
+                      errorConnexion={errorConnexion}
                       setErrorInscription={setErrorInscription}
+                      setErrorConnexion={setErrorConnexion}
                       setSuccessInscription={setSuccessInscription}
                       isAdmin={isAdmin}
-                      isRecruteur={isRecruteur}
                       isCandidat={isCandidat}
+                      isRecruteur={isRecruteur}
+                      errorChamps={errorChamps}
+                      setErrorChamps={setErrorChamps}
                     />
                   </Dialog>
                 </Box>
@@ -353,12 +358,12 @@ export default function VisiteurLayout({ children }) {
 
             <Inscription
               dispatch={dispatch}
-              setErrorInscription={setErrorInscription}
-              setSuccessInscription={setSuccessInscription}
-              setSuccess={setSuccess}
-              setError={setError}
+              setErrorConnexion={setErrorConnexion}
               errorInscription={errorInscription}
+              setErrorInscription={setErrorInscription}
               successInscription={successInscription}
+              setSuccessInscription={setSuccessInscription}
+              setErrorChamps={setErrorChamps}
             />
           </Dialog>
         </Box>

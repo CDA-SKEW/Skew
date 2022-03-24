@@ -356,7 +356,6 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
-          flash: "success mail new password!",
           mailoptions: mailOptions,
         });
       }

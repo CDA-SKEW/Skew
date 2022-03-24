@@ -20,17 +20,21 @@ export default function Connexion(props) {
     const { dispatch,
         successLostMdp,
         setSuccessLostMdp,
-        setSuccessInscription,
+        errorConnexion,
         setErrorInscription,
+        setErrorConnexion,
+        setSuccessInscription,
         isAdmin,
         isRecruteur,
-        isCandidat
+        isCandidat,
+        errorChamps,
+        setErrorChamps,
+        flashCon
     } = props
 
     const navigate = useNavigate();
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
-    const [error, setError] = useState('');
     const [mailLostPass, setMailLostPass] = useState('');
     const [openChildModal, setOpenChildModal] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -41,21 +45,25 @@ export default function Connexion(props) {
     const handleCloseChildModal = () => { setOpenChildModal(false); };
     const handleSubmitChildModal = () => {
         if (mailLostPass.length > 0) {
-            dispatch(changePass({ mailLostPass }))
-            setSuccessLostMdp('Un mail vient de vous être envoyé!')
+            dispatch(changePass({ mailLostPass }));
+            setSuccessLostMdp('Un mail vient de vous être envoyé!');
+            setErrorChamps('');
+            setErrorConnexion('');
         }
     }
 
-    const SubmitFormId = async (e) => {
+    const SubmitFormId = (e) => {
         if (mail && pass) {
-            await dispatch(login({ mail, pass }));
+            dispatch(login({ mail, pass }));
             setPass('');
-            setCertificate(true)
+            setCertificate(true);
+            setErrorChamps('');
         } else {
-            setError('Tous les champs doivent être remplis!');
+            setErrorChamps('Tous les champs doivent être remplis!');
+            setErrorConnexion('');
             setSuccessInscription('');
             setErrorInscription('');
-            setSuccessLostMdp('');
+            setSuccessLostMdp(flashCon);
         }
     };
 
@@ -153,9 +161,14 @@ export default function Connexion(props) {
                 sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
                 Envoyer
             </Button>
-            {error.length > 0 &&
+            {errorChamps.length > 0 &&
                 <Box sx={{ my: 3, color: '#ff0000' }} >
-                    <Typography variant='body1' align='center' >{error}</Typography>
+                    <Typography variant='body1' align='center' >{errorChamps}</Typography>
+                </Box>
+            }
+            {errorConnexion.length > 0 &&
+                <Box sx={{ my: 3, color: '#ff0000' }} >
+                    <Typography variant='body1' align='center' >{errorConnexion}</Typography>
                 </Box>
             }
         </Box>

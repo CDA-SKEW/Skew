@@ -49,7 +49,14 @@ function PassInput({ values, handleFormIdInscription }) {
 
 export default function Inscription(props) {
 
-    const { dispatch, setErrorInscription, setSuccessInscription, setSuccess, setError, errorInscription, successInscription } = props
+    const { dispatch,
+        setErrorConnexion,
+        errorInscription,
+        setErrorInscription,
+        successInscription,
+        setSuccessInscription,
+        setErrorChamps
+    } = props
 
     const [passInscription, setPassInscription] = useState('');
     const [pass2, setPass2] = useState('');
@@ -89,14 +96,14 @@ export default function Inscription(props) {
             } else {
                 setErrorInscription('Les mots de passe ne coîncident pas!');
                 setSuccessInscription('');
-                setSuccess('');
-                setError('');
+                setErrorConnexion('');
+                setErrorChamps('')
             }
         } else {
             setErrorInscription('Entrez tous les champs requis!');
             setSuccessInscription('');
-            setSuccess('');
-            setError('');
+            setErrorConnexion('');
+            setErrorChamps('')
         }
     };
 
