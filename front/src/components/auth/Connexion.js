@@ -18,10 +18,10 @@ import { changePass, login } from "store/actions/AuthActions";
 
 export default function Connexion(props) {
     const { dispatch,
-        success,
+        successLostMdp,
+        setSuccessLostMdp,
         setSuccessInscription,
         setErrorInscription,
-        setSuccess,
         isAdmin,
         isRecruteur,
         isCandidat
@@ -39,7 +39,12 @@ export default function Connexion(props) {
     const handleClickShowPassword = () => { setShowPassword(!showPassword) };
     const handleMouseDownPassword = (event) => { event.preventDefault(); };
     const handleCloseChildModal = () => { setOpenChildModal(false); };
-    const handleSubmitChildModal = () => { if (mailLostPass.length > 0) dispatch(changePass({ mailLostPass })) }
+    const handleSubmitChildModal = () => {
+        if (mailLostPass.length > 0) {
+            dispatch(changePass({ mailLostPass }))
+            setSuccessLostMdp('Un mail vient de vous être envoyé!')
+        }
+    }
 
     const SubmitFormId = async (e) => {
         if (mail && pass) {
@@ -50,7 +55,7 @@ export default function Connexion(props) {
             setError('Tous les champs doivent être remplis!');
             setSuccessInscription('');
             setErrorInscription('');
-            setSuccess('');
+            setSuccessLostMdp('');
         }
     };
 
@@ -113,7 +118,7 @@ export default function Connexion(props) {
                 <Box sx={{
                     position: 'absolute', top: '50%', left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: 400, height: 300, bgcolor: '#fff',
+                    width: 300, bgcolor: '#fff',
                     pt: 2, px: 4, pb: 3, borderRadius: 2,
                     display: 'block', textAlign: 'center', border: 1
                 }}>
@@ -137,6 +142,11 @@ export default function Connexion(props) {
                             Fermer
                         </Button>
                     </Box>
+                    {successLostMdp &&
+                        <Box sx={{ my: 3, color: '#1E90FF' }} >
+                            <Typography variant='body1' align='center' >{successLostMdp}</Typography>
+                        </Box>
+                    }
                 </Box>
             </Modal>
             <Button variant="contained" fullWidth onClick={() => SubmitFormId()}
@@ -146,11 +156,6 @@ export default function Connexion(props) {
             {error.length > 0 &&
                 <Box sx={{ my: 3, color: '#ff0000' }} >
                     <Typography variant='body1' align='center' >{error}</Typography>
-                </Box>
-            }
-            {success.length > 16 &&
-                <Box sx={{ my: 3, color: '#ff0000' }} >
-                    <Typography variant='body1' align='center' >{success}</Typography>
                 </Box>
             }
         </Box>

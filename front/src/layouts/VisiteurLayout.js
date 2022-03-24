@@ -44,6 +44,7 @@ export default function VisiteurLayout({ children }) {
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [successLostMdp, setSuccessLostMdp] = useState('')
   const [errorInscription, setErrorInscription] = useState('');
   const [successInscription, setSuccessInscription] = useState('');
   const userToken = localStorage["user_token"];
@@ -163,6 +164,8 @@ export default function VisiteurLayout({ children }) {
                     {/* Connexion */}
                     <Connexion
                       dispatch={dispatch}
+                      successLostMdp={successLostMdp}
+                      setSuccessLostMdp={setSuccessLostMdp}
                       error={error}
                       setErrorInscription={setErrorInscription}
                       success={success}
@@ -307,10 +310,10 @@ export default function VisiteurLayout({ children }) {
                     {/* Connexion */}
                     <Connexion
                       dispatch={dispatch}
+                      successLostMdp={successLostMdp}
+                      setSuccessLostMdp={setSuccessLostMdp}
                       error={error}
                       setErrorInscription={setErrorInscription}
-                      success={success}
-                      setSuccess={setSuccess}
                       setSuccessInscription={setSuccessInscription}
                       isAdmin={isAdmin}
                       isRecruteur={isRecruteur}
