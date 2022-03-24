@@ -204,14 +204,13 @@ ProfilUserCompagny.updateProfilCompagny = function (
         connection.getConnection(function (error, conn) {
           conn.query(
             `SELECT avatar
-              FROM contactProfil WHERE user_id = :user_id`,
+              FROM contactProfil WHERE user_id = :user_id`, 
             { user_id },
             (error, data) => {
               if (error) throw error;
-              const nameAvatar = data[0].avatar.split("/")[4];
+              const nameAvatar = data[0].avatar.split("/")[5];
               const pathAvatarDbDel = pathAvatar + nameAvatar;
-
-              if (pathAvatarDbDel.length > 0) func.removeFile(pathAvatarDbDel);
+              if (data[0].avatar) func.removeFile(pathAvatarDbDel);
               conn.query(
                 `
                   UPDATE contactProfil

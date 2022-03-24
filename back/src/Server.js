@@ -11,30 +11,35 @@ class Server {
   }
 
   run() {
-    // Cors
+    //Cors
     this.app.use(
-      cors({
-        origin: [
-          "http://dr-kh.fr",
-          "http://www.dr-kh.fr",
-          "https://dr-kh.fr",
-          "https://www.dr-kh.fr",
-          "http://localhost:3000",
-          "http://192.168.1.4:3000",
-          "http://skew.souka.fr",
-          "https://www.skew.souka.fr",
-          "http://192.168.1.69:3000",
-          "http://192.168.1.89:3000",
-          "http://192.168.1.98:3000",
-          "https://www.skew.liwza.com",
-          "http://www.skew.liwza.com",
-          "https://skew.liwza.com",
-          "http://skew.liwza.com"
-          
-        ],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-      })
+      cors(
+        {
+          origin: [
+            "http://dr-kh.fr",
+            "http://www.dr-kh.fr",
+            "https://dr-kh.fr",
+            "https://www.dr-kh.fr",
+            "http://localhost:3000",
+            "http://192.168.1.62:3000",
+            "http://192.168.1.4:3000",
+            "http://skew.souka.fr",
+            "https://skew.souka.fr",
+            "http://192.168.1.69:3000",
+            "http://192.168.1.89:3000",
+            "http://192.168.1.98:3000",
+            "https://www.skew.liwza.com",
+            "http://www.skew.liwza.com",
+            "https://skew.liwza.com",
+            "http://skew.liwza.com"
+
+          ],
+          methods: ["GET", "POST", "PUT", "DELETE"],
+          credentials: true,
+          // allRoutes: true,
+          //headers: 'content-type'
+        }
+      )
     );
 
     // ************** Swagger ******************
