@@ -94,15 +94,6 @@ export default function CustomizedMenus(props) {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose} disableRipple>
-                    <VisibilityIcon />
-                    Voir L'offre
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                    < MessageIcon />
-                    Relancer
-                </MenuItem>
-                <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleDelete} disableRipple>
                     <DeleteIcon />
                     Supprimer

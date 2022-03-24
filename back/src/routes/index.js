@@ -238,6 +238,10 @@ router
 // #Candidat/Candidatures #
 // ########################
 router
+  .route("/api/candidat/candidature")
+  .post(new CandidatCandidaturesControllers().postCandidatures);
+
+router
   .route("/api/candidat/candidatures/:id")
   .get(new CandidatCandidaturesControllers().getCandidatures)
   .delete(new CandidatCandidaturesControllers().deleteCandidatures);
