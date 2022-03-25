@@ -11,6 +11,7 @@ const initialState = {
     token: {},
     flash: "",
     flashCon: "",
+    flashLostMdp: "",
     authenticate: null,
 };
 
@@ -42,7 +43,7 @@ export function AuthReducer(state = initialState, action) {
         case Actions.CHANGEMDP:
             return {
                 ...state,
-                flash: action.payload.flash,
+                flashLostMdp: action.payload.flash,
             };
     }
 }

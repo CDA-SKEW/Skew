@@ -42,10 +42,11 @@ export default function VisiteurLayout({ children }) {
   const [openDialogConnexion, setOpenDialogConnexion] = useState(false);
   const [openDialogInscription, setOpenDialogInscription] = useState(false);
   const [openDrawer, setOpenDrawer] = React.useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [errorConnexion, setErrorConnexion] = useState('');
+  const [successLostMdp, setSuccessLostMdp] = useState('')
   const [errorInscription, setErrorInscription] = useState('');
   const [successInscription, setSuccessInscription] = useState('');
+  const [errorChamps, setErrorChamps] = useState('')
   const userToken = localStorage["user_token"];
 
   const pages = [
@@ -89,17 +90,17 @@ export default function VisiteurLayout({ children }) {
     if (flash.length >= 0) {
       setSuccessInscription(flash);
       setErrorInscription('');
-      setSuccess('');
-      setError('');
+      setErrorConnexion('');
+      setErrorChamps('');
     }
   }, [flash]);
 
   useEffect(() => {
     if (flashCon.length >= 0) {
-      setSuccess(flashCon);
-      setError('');
+      setErrorConnexion(flashCon);
       setSuccessInscription('');
       setErrorInscription('');
+      setErrorChamps('');
     }
   }, [flashCon]);
 
@@ -163,25 +164,29 @@ export default function VisiteurLayout({ children }) {
                     {/* Connexion */}
                     <Connexion
                       dispatch={dispatch}
-                      error={error}
+                      successLostMdp={successLostMdp}
+                      setSuccessLostMdp={setSuccessLostMdp}
+                      errorConnexion={errorConnexion}
                       setErrorInscription={setErrorInscription}
-                      success={success}
-                      setSuccess={setSuccess}
+                      setErrorConnexion={setErrorConnexion}
                       setSuccessInscription={setSuccessInscription}
                       isAdmin={isAdmin}
                       isCandidat={isCandidat}
                       isRecruteur={isRecruteur}
+                      errorChamps={errorChamps}
+                      setErrorChamps={setErrorChamps}
+                      flashCon={flashCon}
                     />
 
                     {/* Inscription */}
                     <Inscription
                       dispatch={dispatch}
-                      setError={setError}
+                      setErrorConnexion={setErrorConnexion}
                       errorInscription={errorInscription}
                       setErrorInscription={setErrorInscription}
-                      setSuccess={setSuccess}
                       successInscription={successInscription}
                       setSuccessInscription={setSuccessInscription}
+                      setErrorChamps={setErrorChamps}
                     />
                   </Box>
                 </Modal>
@@ -221,7 +226,7 @@ export default function VisiteurLayout({ children }) {
 
                   {/* Bouton Login */}
                   {!userToken &&
-                    <Box sx={{width: 350, m:'auto'}}>
+                    <Box sx={{ width: 300, m: 'auto' }}>
                       <Button
                         variant="contained"
                         fullWidth
@@ -236,10 +241,19 @@ export default function VisiteurLayout({ children }) {
                     </Box>
                   }
                   {userToken &&
-                    <Button variant="contained" onClick={logout}
-                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
-                      Log out
-                    </Button>
+                    <Box sx={{ width: 300, m: 'auto' }}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={logout}
+                        sx={{
+                          bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2,
+                          my: 2, mx: 'auto', justifyContent: 'center'
+                        }}
+                      >
+                        Log out
+                      </Button>
+                    </Box>
                   }
                 </Box>
 
@@ -252,7 +266,7 @@ export default function VisiteurLayout({ children }) {
                   <Box
                     sx={{
                       position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                      width: 350, height: 190, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
+                      width: 300, height: 190, bgcolor: '#fff', pt: 2, px: 4, pb: 3, borderRadius: 2,
                       display: 'block'
                     }}
                   >
@@ -298,14 +312,17 @@ export default function VisiteurLayout({ children }) {
                     {/* Connexion */}
                     <Connexion
                       dispatch={dispatch}
-                      error={error}
+                      successLostMdp={successLostMdp}
+                      setSuccessLostMdp={setSuccessLostMdp}
+                      errorConnexion={errorConnexion}
                       setErrorInscription={setErrorInscription}
-                      success={success}
-                      setSuccess={setSuccess}
+                      setErrorConnexion={setErrorConnexion}
                       setSuccessInscription={setSuccessInscription}
                       isAdmin={isAdmin}
-                      isRecruteur={isRecruteur}
                       isCandidat={isCandidat}
+                      isRecruteur={isRecruteur}
+                      errorChamps={errorChamps}
+                      setErrorChamps={setErrorChamps}
                     />
                   </Dialog>
                 </Box>
@@ -341,18 +358,25 @@ export default function VisiteurLayout({ children }) {
 
             <Inscription
               dispatch={dispatch}
-              setErrorInscription={setErrorInscription}
-              setSuccessInscription={setSuccessInscription}
-              setSuccess={setSuccess}
-              setError={setError}
+              setErrorConnexion={setErrorConnexion}
               errorInscription={errorInscription}
+              setErrorInscription={setErrorInscription}
               successInscription={successInscription}
+              setSuccessInscription={setSuccessInscription}
+              setErrorChamps={setErrorChamps}
             />
           </Dialog>
         </Box>
       </AppBar>
 
-      <Container component="main" disableGutters maxWidth="100%">{children}</Container>
+      <Container
+        component="main"
+        disableGutters
+        maxWidth="100%"
+        sx={{ minHeight: "80vh"}}
+      >
+        {children}
+      </Container>
 
       {/* Footer */}
       <Box
