@@ -1,6 +1,6 @@
 
 import React, { useEffect } from "react";
-import AdminLayout from "layouts/AdminLayout";
+import AdminLayout from "layouts/AdminLayout 2";
 import MessagesTable from "components/admin/MessagesTable";
 import { getListMessages } from "store/actions/AdminActions";
 import { useDispatch, useSelector } from "react-redux";
