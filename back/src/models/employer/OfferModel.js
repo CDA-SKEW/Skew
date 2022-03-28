@@ -192,30 +192,29 @@ Offer.getOfferId = function (params_id, result) {
 
                                         //  Data Documents
                                         conn.query(
-                                          `select d.*
-                                         FROM document as d
-                                         where d.user_id=:userIdCandidate`,
-                                          { userIdCandidate },
+                                          `select  p.pdf ,d.title,d.name,d.document FROM postuled as p
+                                          inner join document as d On p.document_id=d.id_document
+                                          where p.user_id=:userIdCandidate and p.offre_id=:offerId`,
+                                          { userIdCandidate, offerId },
                                           (error, dataDocument) => {
                                             if (error) throw error;
-
-                                            const documents = [];
-                                            for (
-                                              let index = 0;
-                                              index < dataDocument.length;
-                                              index++
-                                            ) {
-                                              documents.push(
-                                                dataDocument[index]
-                                              );
-                                            }
-
+                                            // const documents = [];
+                                            // for (
+                                            //   let index = 0;
+                                            //   index < dataDocument.length;
+                                            //   index++
+                                            // ) {
+                                            //   documents.push(
+                                            //     dataDocument[index]
+                                            //   );
+                                            // }
                                             elc.cvCandidat = {
                                               experience: dataExperience,
                                               skill: skills,
                                               interest: interests,
                                               certificate: dataCertificate,
-                                              document: documents,
+                                              // document: documents,
+                                              document: dataDocument,
                                             };
                                             if (
                                               index2 ===

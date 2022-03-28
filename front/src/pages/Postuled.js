@@ -40,14 +40,9 @@ export default function Postuled(props) {
     // const alreadyPostuled = [{ offreId, userId }]
     const isPostuled = (arr, value) => {
         return arr.includes(arr.find(el => {
-            console.log('loop match', el.offer_id, value)
             return el.offre_id === value
         }))
     }
-
-    console.log("resultat is postuled", isPostuled(listCandidatureUser, offre.offer_id), offre.offer_id);
-    // console.log("result", alreadyPostuled);
-
 
     const [titleCV, setTitleCV] = useState("");
     const [form, setForm] = useState({});
@@ -63,7 +58,6 @@ export default function Postuled(props) {
     }
 
     const handleClickPostuled = async () => {
-        console.log('Postuled send', form)
         await dispatch(postFormPostuled(form))
         setForm({})
         dispatch(getOffreCandidate())
@@ -98,7 +92,6 @@ export default function Postuled(props) {
                                     onChange={handleChangeCv('document_id')}
                                 >
                                     {Cv.map((option, index) => {
-                                        // console.log('loop select', option)
                                         return (
                                             <MenuItem key={index} value={option.id_document}>
                                                 {option.title}

@@ -37,6 +37,7 @@ const EmployerRoutes = () => (
       <Route path="offer/:id" exact element={<EmployerOfferId />} />
       <Route path="candidate/:id" exact element={<EmployerCandidateId />} />
       <Route path="profilPw" exact element={<ChangePassword />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   </EmployerLayout>
 );
