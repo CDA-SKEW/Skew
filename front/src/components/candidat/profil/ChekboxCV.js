@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { DataGrid } from '@mui/x-data-grid';
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
@@ -15,28 +14,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // ###########################################
-
-
-// const columns = [
-//   { field: 'id_document', headerName: 'id-CV', width: 250 },
-//   { field: 'title', headerName: 'Title', width: 250 }
-// ];
-
-
 
 export default function DataTable(props) {
 
   const { listCv } = props
-  // console.log("listCV", listCv);
   const dispatch = useDispatch();
 
   const [document, setDocument] = useState({});
 
 
   const handleDocChange = (e) => {
-    // console.log("fct changeImage");
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
@@ -44,8 +32,6 @@ export default function DataTable(props) {
     if (file) {
       reader.onloadend = () => {
         setDocument(file);
-        // console.log("File DOC", file)
-        // console.log('doc', document);
       };
       reader.readAsDataURL(file);
     }
@@ -72,10 +58,9 @@ export default function DataTable(props) {
   }
 
   function Row(props) {
-    const { row, str } = props
+    const { row } = props
     const dispatch = useDispatch()
     const handleDelete = () => {
-      console.log('id Button Trigger ROW', row.id_document);
       dispatch(deleteFormProfilCandidateDocument(row.id_document))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
     }
@@ -181,13 +166,9 @@ export default function DataTable(props) {
                 <TableCell align='center'>Cv N°</TableCell>
                 <TableCell align='center' >Title</TableCell>
                 <TableCell align='center' >Action</TableCell>
-                {/* {checkViewAction()} */}
-                {/* {checkViewAction()} = <TableCell align='left'>Action</TableCell>
-              but appear only if mode edit is trigger */}
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* <CheckModeAdd status={openAdd} /> */}
               {listCv.length > 0 &&
                 listCv.map((row, index) => <Row key={index} row={row} />)}
             </TableBody>

@@ -1,16 +1,18 @@
 import { Container, CssBaseline, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CardDashboard from "components/CardDashboard";
-import CardOffer from "components/CardOffer";
+import CardOffer from "components/CardOfferCandidate";
 import { themeCandidate } from "configs/theme";
 import withCandidat from "components/auth/withCandidat";
 
 // import image en static mais à voir pour aller chercher l'image dans le back plus tard
-import imageEmployer from "assets/images/imageEmployor.png";
+// import imageEmployer from "assets/images/imageEmployor.png";
+import { useDispatch, useSelector } from "react-redux";
+import { getOffreCandidate } from "store/actions/CandidateActions";
 
 const CandidatDashboard = () => {
   const { nbNotif, nbProfilView, NbMyPost } = {
@@ -36,45 +38,21 @@ const CandidatDashboard = () => {
       text: "Notifications",
     },
   ];
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getOffreCandidate())
+  }, [])
 
-  const arrayOffer = [
-    {
-      image: imageEmployer,
-      titleOffer: "Devellopeur Application",
-      nameEmployor: "arinfo",
-      dateOfferDays: "10",
-      badgeEmployor: true,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Développeur web",
-      nameEmployor: "SII",
-      dateOfferDays: "20",
-      badgeEmployor: true,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Assistante de direction et gestion de paye",
-      nameEmployor: "Covea",
-      dateOfferDays: "2",
-      badgeEmployor: false,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Chauffeur Routier",
-      nameEmployor: "ST micro electronique",
-      dateOfferDays: "1",
-      badgeEmployor: false,
-    },
-    {
-      image: imageEmployer,
-      titleOffer: "Cuisinier",
-      nameEmployor: "pole emploi",
-      dateOfferDays: "15",
-      badgeEmployor: true,
-    },
-  ];
+  const arrayOffer = useSelector(state => state.candidate.candidaturesProfil)
+  console.log('arrayOffer', arrayOffer)
 
+  // {
+  //   image: imageEmployer,
+  //   titleOffer: "Cuisinier",
+  //   nameEmployor: "pole emploi",
+  //   dateOfferDays: "15",
+  //   badgeEmployor: true,
+  // },
   return (
     <React.Fragment>
       <CssBaseline />

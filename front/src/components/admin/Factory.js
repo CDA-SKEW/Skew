@@ -33,7 +33,7 @@ const IconWrapperStyle = styled("div")(({ theme }) => ({
 
 export default function Factory(props) {
   const { listJobs } = props;
-  console.log(listJobs.length);
+  // console.log(listJobs.length);
   return (
     <RootStyle>
       <IconWrapperStyle>

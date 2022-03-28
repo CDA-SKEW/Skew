@@ -57,6 +57,7 @@ export function EmployerReducer(state = initialState, action) {
         // flash: action.payload.flash,
         ...state,
         dataProfilUser: action.payload.dataProfilUser,
+        flash: action.payload.message,
       };
 
     case Actions.PUT_PROFIL_USER:

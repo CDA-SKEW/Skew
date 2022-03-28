@@ -8,6 +8,7 @@ import * as Actions from "../actions/ActionTypes";
  * ******** */
 const initialState = {
     listOffer: [],
+    offer: {},
     flash: "",
 };
 
@@ -28,7 +29,7 @@ export function OffreVisiteurReducer(state = initialState, action) {
             return {
                 ...state,
                 flash: action.payload.flash,
-                listOffer: action.payload.dbOffresVisiteur
+                offer: action.payload.dbOffresVisiteur
             };
     }
 }

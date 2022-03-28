@@ -29,6 +29,7 @@ export default function ModalMessageCandidate(props) {
   const [openModal, setOpenModal] = useState(false);
 
   const [form] = useState({ ...row });
+
   const [textMessage, setTextMessage] = useState();
 
   const handleCancel = () => {
@@ -55,7 +56,7 @@ export default function ModalMessageCandidate(props) {
     setTimeout(function () {
       setOpenModal(true);
     }, 1000);
- 
+
     setTimeout(function () {
       setOpenModal(false);
       onClose();
@@ -64,93 +65,95 @@ export default function ModalMessageCandidate(props) {
   };
   //
   return (
-    <Dialog maxWidth="sm" open={open}>
-      <Box component="form" onSubmit={(e) => handleSendMessage(e)}>
-        <DialogTitle
-          sx={{
-            bgcolor: "#004F98",
-            color: "white",
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          Message au candidat{" "}
-          <Button onClick={handleCancel}>
-            <CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }} />
-          </Button>
-        </DialogTitle>
-        <DialogContent dividers>
-          <Grid container rowSpacing={2}>
-            {Object.entries(row).map((arr, index) => {
-              const key = arr[0];
-              if (key === "offre_id") return (<div></div>);
-              if (key === "user_id") return(<div></div>);
-              if (key === "address") return(<div></div>);
-              if (key === "zipCode") return(<div></div>);
-              if (key === "town") return(<div></div>);
-              if (key === "statut") return(<div></div>);
-              if (key === "cvCandidat") return(<div></div>);
-              else {
-                return (
-                  <Grid key={index} item xs={12} sm={12} md={12}>
-                    <TextField
-                      fullWidth
-                      InputProps={{ readOnly: true }}
-                      id={`outlined-adornment-${key}`}
-                      value={form[`${key}`]}
-                      label={key}
-                    />
-                  </Grid>
-                );
-              }
-            })}
-
-            <Grid item xs={12} sm={12} md={12}>
-              <TextField
-                fullWidth
-                InputProps={{ readOnly: true }}
-                label="Objet"
-                variant="outlined"
-                size="small"
-                value={"Offres n°" + offer.offer_id + " - " + offer.title}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={12}>
-              <TextField
-                required
-                fullWidth
-                label="Message"
-                multiline
-                rows={6}
-                variant="outlined"
-                size="small"
-                value={textMessage}
-                onChange={(e) => {
-                  setTextMessage(e.target.value);
-                }}
-              />
-            </Grid>
-          </Grid>
-        </DialogContent>
-
-        <DialogActions>
-          <Button
-            variant="outlined"
-            endIcon={<SendIcon />}
-            sx={{ bgcolor: "#ABC4FF", color: "black" }}
-            type="submit"
+    <React.Fragment>
+      <Dialog maxWidth="sm" open={open}>
+        <Box component="form" onSubmit={(e) => handleSendMessage(e)}>
+          <DialogTitle
+            sx={{
+              bgcolor: "#004F98",
+              color: "white",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            Envoyer
-          </Button>
-        </DialogActions>
-      </Box>
+            Message au candidat{" "}
+            <Button onClick={handleCancel}>
+              <CancelTwoToneIcon sx={{ fontSize: 40, color: "white" }} />
+            </Button>
+          </DialogTitle>
+          <DialogContent dividers>
+            <Grid container rowSpacing={2}>
+              {Object.entries(row).map((arr, index) => {
+                const key = arr[0];
+                if (key === "offre_id") return (<Grid key={index} item xs={12} sm={12} md={12}></Grid>);
+                if (key === "user_id") return (<Grid key={index} item xs={12} sm={12} md={12}></Grid>);
+                if (key === "address") return (<Grid key={index} item xs={12} sm={12} md={12}></Grid>);
+                if (key === "zipCode") return (<Grid key={index} item xs={12} sm={12} md={12}></Grid>);
+                if (key === "town") return (<Grid key={index} item xs={12} sm={12} md={12}></Grid>);
+                if (key === "statut") return <Grid key={index} item xs={12} sm={12} md={12}></Grid>;
+                if (key === "cvCandidat") return (<Grid key={index} item xs={12} sm={12} md={12}></Grid>);
+                else {
+                  return (
+                    <Grid key={index} item xs={12} sm={12} md={12}>
+                      <TextField
+                        fullWidth
+                        InputProps={{ readOnly: true }}
+                        id={`outlined-adornment-${key}`}
+                        value={form[`${key}`]}
+                        label={key}
+                      />
+                    </Grid>
+                  );
+                }
+              })}
 
-      {openModal && (
-        <SnackbarMessage message={textFlash} open={openModal} />
-      )}
-    </Dialog>
+              <Grid item xs={12} sm={12} md={12}>
+                <TextField
+                  fullWidth
+                  InputProps={{ readOnly: true }}
+                  label="Objet"
+                  variant="outlined"
+                  size="small"
+                  value={"Offres n°" + offer.offer_id + " - " + offer.title}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={12} md={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Message"
+                  multiline
+                  rows={6}
+                  variant="outlined"
+                  size="small"
+                  value={textMessage}
+                  onChange={(e) => {
+                    setTextMessage(e.target.value);
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </DialogContent>
+
+          <DialogActions>
+            <Button
+              variant="outlined"
+              endIcon={<SendIcon />}
+              sx={{ bgcolor: "#ABC4FF", color: "black" }}
+              type="submit"
+            >
+              Envoyer
+            </Button>
+          </DialogActions>
+        </Box>
+
+        {openModal && (
+          <SnackbarMessage message={textFlash} open={openModal} />
+        )}
+      </Dialog>
+    </React.Fragment>
   );
 }

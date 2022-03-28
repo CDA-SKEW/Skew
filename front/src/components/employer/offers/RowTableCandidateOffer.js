@@ -1,5 +1,5 @@
-import { Button, Collapse, Divider, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
-import { Box} from "@mui/system";
+import { Button, Collapse, Divider, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -181,18 +181,26 @@ export default function RowTableCandidateOffer(props) {
                                 <Divider sx={{ mx: 2 }} />
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
-                                    {row.cvCandidat.document && row.cvCandidat.document.map((doctable, index) => (                                  
-                                        <Button
-                                            key={index}
-                                            href={`${urlImg + doctable.document}`}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            sx={{ color: "black" }}
-                                        >
-                                            <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                            {doctable.title}
-                                        </Button>
-                                    ))}
+                                    <Button
+                                        href={`${urlImg}/api${row.cvCandidat.document[0].document}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        sx={{ color: "black" }}
+                                    >
+                                        <PictureAsPdfIcon sx={{ pr: 1 }} />
+                                        {row.cvCandidat.document[0].name}
+                                    </Button>
+
+                                    <Button
+                                        href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        sx={{ color: "black" }}
+                                    >
+                                        <PictureAsPdfIcon sx={{ pr: 1 }} />
+                                        Lettre motivation
+                                    </Button>
+
                                 </Box>
                             </Box>
 
@@ -224,7 +232,6 @@ export default function RowTableCandidateOffer(props) {
                                 </Button>
 
                                 <ModalMessageCandidate
-                                    id="ringtone-menu"
                                     keepMounted
                                     open={openContact}
                                     onClose={handleCloseContact}
@@ -332,6 +339,8 @@ export default function RowTableCandidateOffer(props) {
                     </Collapse>
                 </TableCell>
             </TableRow>
+
+
         </React.Fragment>
     );
 

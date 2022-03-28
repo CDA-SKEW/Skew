@@ -14,11 +14,11 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { putFormProfilUserPw } from "store/actions/EmployerActions";
+import { getProfilUser, putFormProfilUserPw } from "store/actions/EmployerActions";
 import SnackbarMessage from "./SnackbarMessage";
 
 export default function FormPasswordChange(props) {
-  const { displayButton, dataProfilUser} = props;
+  const { displayButton, dataProfilUser } = props;
 
   const dispatch = useDispatch();
 
@@ -27,21 +27,22 @@ export default function FormPasswordChange(props) {
   const messageFlash = useSelector((state) => state.employer.flash);
   const messageError = useSelector((state) => state.employer.statusMessage);
   const [messageErroPw, setMessageErroPw] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("")
 
   useEffect(() => {
-    if (messageFlash.length >= 0) {
-      if (messageError === "error") {
-        setMessageErroPw(messageFlash);
-        setMessage("");
-      }
-      if (messageError === "success") {
+    if (messageError === "error") {
+      setMessageErroPw(messageFlash);
+      setTimeout(function () {
         setMessageErroPw("")
-        setMessage(messageFlash);
-      }
+      }, 2000)
+      setMessage("");
     }
-  }, [messageFlash, messageError ,dataProfilUser]);
+    if (messageError === "success") {
+      setMessageErroPw("")
+      setMessage(messageFlash);
+    }
 
+  }, [messageError, messageFlash]);
 
   // constante pour visualisation des differents mot de passe
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -73,22 +74,26 @@ export default function FormPasswordChange(props) {
         password,
       }
 
-      //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
-        // console.log("je suis dans le succes")
-        setOpenModal(true);
-        setTimeout(function () {
-          setOpenModal(false)
-        }, 2000)
-        setMessage("");
-
       await dispatch(putFormProfilUserPw(dataFormPersonalEmployer));
 
       setOldPassword("");
       setPassword("");
       setConfirmPassword("");
+
+      //passage de la variable pour SnackbarMessage à false apres 2 secondes et fermeture dialogue
+      // console.log("je suis dans le succes")
+      setOpenModal(true);
+      setTimeout(function () {
+        setOpenModal(false)
+        dispatch(getProfilUser())
+      }, 2500)
+
       setCheckpassword(false);
     } else {
       setCheckpassword(true);
+      setTimeout(function () {
+        setCheckpassword(false);
+      }, 2000)
     }
   };
 
@@ -237,7 +242,7 @@ export default function FormPasswordChange(props) {
         </Grid>
       </Grid>
 
-      {(openModal && message) && (
+      {(openModal && message.length > 0) && (
         <SnackbarMessage message={message} open={openModal} />
       )}
     </Box>

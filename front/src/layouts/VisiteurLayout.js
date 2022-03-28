@@ -30,6 +30,8 @@ import Connexion from 'components/auth/Connexion';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
+import jwt_decode from "jwt-decode";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -77,9 +79,9 @@ export default function VisiteurLayout({ children }) {
     window.location.reload()
   }
   const handleClickNavigate = () => {
-    if (isAdmin === 1) { navigate("/admin"); }
-    else if (isCandidat === 1) { navigate("/candidat/dashboard"); }
-    else if (isRecruteur === 1) { navigate("/employer/dashboard"); }
+    if (jwt_decode(localStorage.getItem("user_token")).isAdmin === 1) { navigate("/admin"); }
+    else if (jwt_decode(localStorage.getItem("user_token")).isCandidat === 1) { navigate("/candidat/dashboard"); }
+    else if (jwt_decode(localStorage.getItem("user_token")).isRecruteur === 1) { navigate("/employer/dashboard"); }
   }
   const handleClickLinkedin = (user, link) => {
     if (user) window.location.href = link;
@@ -194,31 +196,46 @@ export default function VisiteurLayout({ children }) {
                 <MenuIcon />
               </IconButton>
               <SwipeableDrawer
-                container={container}
+                open={openDrawer} container={container}
                 anchor="bottom"
-                open={openDrawer}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
                 disableSwipeToOpen={false}
                 ModalProps={{ keepMounted: true }}>
-                <Box sx={{ listStyleType: 'none', textAlign: 'center' }}>
+                <Box sx={{ listStyleType: 'none' }}>
                   {pages.map((page, index) => (
-                    <MenuItem key={index} onClick={() => navigate({ pathname: `/${page.lien}` })}>
-                      <Typography textAlign="center">{page.titre}</Typography>
+                    <MenuItem
+                      key={index}
+                      onClick={() => navigate({ pathname: `/${page.lien}` })}
+                      sx={{ justifyContent: 'center' }}
+                    >
+                      <Typography>{page.titre}</Typography>
                     </MenuItem>
                   ))}
                   {userToken &&
-                    <MenuItem onClick={() => handleClickNavigate()}>
+                    <MenuItem
+                      sx={{ justifyContent: 'center' }}
+                      onClick={() => handleClickNavigate()}
+                    >
                       <Typography textAlign="center">Dashboard</Typography>
                     </MenuItem>
                   }
 
                   {/* Bouton Login */}
                   {!userToken &&
-                    <Button variant="contained" onClick={() => setOpenModal(true)}
-                      sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2, width: '80%', my: 2, mx: 'auto' }}>
-                      Log in / Sign in
-                    </Button>
+                    <Box sx={{width: 350, m:'auto'}}>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        onClick={() => setOpenModal(true)}
+                        sx={{
+                          bgcolor: '#ABC4FF', fontWeight: 'bold', py: 2,
+                          my: 2, mx: 'auto', justifyContent: 'center'
+                        }}
+                      >
+                        Log in / Sign in
+                      </Button>
+                    </Box>
                   }
                   {userToken &&
                     <Button variant="contained" onClick={logout}
@@ -241,14 +258,14 @@ export default function VisiteurLayout({ children }) {
                       display: 'block'
                     }}
                   >
-                    <Button variant="outlined" fullWidth
+                    <Button variant="contained" fullWidth
                       onClick={() => setOpenDialogConnexion(true)}
-                      sx={{ bgcolor: '#0099FF', fontSize: 17, my: 3, display: 'block' }}>
+                      sx={{ bgcolor: '#ABC4FF', fontSize: 17, my: 3, display: 'block' }}>
                       Connexion
                     </Button>
-                    <Button variant="outlined" fullWidth
+                    <Button variant="contained" fullWidth
                       onClick={() => setOpenDialogInscription(true)}
-                      sx={{ bgcolor: '#0099FF', fontSize: 17, my: 3, display: 'block' }}>
+                      sx={{ bgcolor: '#ABC4FF', fontSize: 17, my: 3, display: 'block' }}>
                       Inscription
                     </Button>
                   </Box>
