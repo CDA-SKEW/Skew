@@ -1,31 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import * as serviceWorkerRegistration from './tests/serviceWorkerRegistration';
-import reportWebVitals from './tests/reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store } from "store";
+// import "assets/style/css/App.css";
+import App from "./App";
+import reportWebVitals from "tests/reportWebVitals";
 
-const startApp = () => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById("root")
-  );
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
-  serviceWorkerRegistration.register();
-};
-
-if (window.cordova) {
-  document.addEventListener('deviceready', startApp, false)
-} else {
-  startApp()
-}
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
-
+reportWebVitals();

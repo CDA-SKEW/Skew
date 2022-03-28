@@ -4,21 +4,21 @@ import { Button, Grid, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getOffer,
   postFormAddOffer,
 } from "store/actions/EmployerActions";
 import SnackbarMessage from "../../SnackbarMessage";
+import { useNavigate } from "react-router-dom";
 
 export default function OfferForm() {
   const dispatch = useDispatch();
 
   const messageEmployer = useSelector((state) => state.employer.flash);
-  const dataEmployer = useSelector((state) => state.employer.dataOffers);
   const [textFlash, setTextFlash] = useState("");
+  const navigate = useNavigate()
 
   useEffect(() => {
     setTextFlash(messageEmployer);
-  }, [messageEmployer,dataEmployer]);
+  }, [messageEmployer]);
 
   // declaration du tableau pour le select
   const types = [
@@ -68,12 +68,12 @@ export default function OfferForm() {
     };
 
     //passage de la variable pour SnackbarMessage à false apres 2
-    setTimeout(function () {
-      setOpenModal(true);
-    }, 1000);
+    setOpenModal(true);
+
     setTimeout(function () {
       setOpenModal(false);
-    }, 3000);
+      navigate("/Employer/offer")
+    }, 2000);
 
     await dispatch(postFormAddOffer(dataFormAddOffer));
     setTitle("");
@@ -81,10 +81,6 @@ export default function OfferForm() {
     setPeriod("");
     setDescription("");
     setProfil("");
-
-    setTimeout(() => {
-      dispatch(getOffer());
-    }, 600);
   };
 
   return (

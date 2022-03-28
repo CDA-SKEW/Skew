@@ -21,7 +21,7 @@ const AdminPage = () => {
     dispatch(getListUsers());
     dispatch(getListJobs());
     dispatch(getListMessages());
-  }, []);
+  }, [dispatch]);
 
   return (
     <AdminLayout>
@@ -34,5 +34,5 @@ const AdminPage = () => {
   );
 };
 
-// export default withAdmin(AdminPage);
-export default AdminPage;
+export default withAdmin(AdminPage);
+// export default AdminPage;

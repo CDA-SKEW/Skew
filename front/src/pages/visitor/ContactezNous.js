@@ -71,7 +71,11 @@ export default function ContactezNous() {
                 <Typography
                     align='center'
                     variant="h2"
-                    sx={{ borderBottom: 2, mx: 'auto', my: 3, pb: 5, width: '50%', }}>
+                    sx={{
+                        fontSize: { xs: 30, md: 55 },
+                        fontFamily: "'Indie Flower', cursive"
+                    }}
+                >
                     Contactez-nous
                 </Typography>
                 <Box sx={{ maxWidth: 620, mx: 'auto' }}>

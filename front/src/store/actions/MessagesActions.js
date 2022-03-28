@@ -22,7 +22,6 @@ import { POST_MESSAGES} from "./ActionTypes";
 // Post messages
 export const postMessages = (data) => {
     return (dispatch) => {
-      console.log("POST_MESSAGES action", data);
       dispatch({ type: POST_MESSAGES, payload: data });
     };
   };

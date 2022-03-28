@@ -7,42 +7,33 @@ import * as Actions from "../actions/ActionTypes";
  * Selector
  * ******** */
 const initialState = {
-    user: {},
-    token: {},
-    flash: "",
-    flashCon: "",
-    authenticate: null,
+    favoris: {},
+    flash: ""
 };
 
 /*
  * Reducers
  * ******** */
-export function AuthReducer(state = initialState, action) {
+export function OffreFavoriteReducer(state = initialState, action) {
     switch (action.type) {
         default:
             return state;
-        case Actions.LOGIN:
-            return {
-                ...state,
-                flashCon: action.payload.flash,
-                authenticate: action.payload.authenticate,
-                user: action.payload.token,
-            };
-        case Actions.REGISTER:
+        case Actions.GET_OFFRE_FAVORITE_ID:
             return {
                 ...state,
                 flash: action.payload.flash,
+                favoris: action.payload.dbOffreFavoris
             };
-        case Actions.CHECKTOKEN:
+        case Actions.POST_OFFRE_FAVORITE:
             return {
                 ...state,
                 flash: action.payload.flash,
-                token: action.payload.user,
+                favoris: action.payload.dbOffreFavoris
             };
-        case Actions.CHANGEMDP:
+        case Actions.DELETE_OFFRE_FAVORITE:
             return {
                 ...state,
-                flash: action.payload.flash,
+                flash: action.payload.dbOffreFavoris
             };
     }
 }

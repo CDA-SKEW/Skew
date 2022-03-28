@@ -13,6 +13,7 @@ import { putFormProfilUser } from "store/actions/EmployerActions";
 import FormPasswordChange from "components/FormPasswordChange";
 import SnackbarMessage from "components/SnackbarMessage";
 
+
 export default function FormPersonalEmployer(props) {
   const {
     dataProfilUser,
@@ -20,7 +21,6 @@ export default function FormPersonalEmployer(props) {
     buttonProfilPersonnalVisible,
   } = props;
   const dispatch = useDispatch();
-
 
   // declaration des constantes pour le SnackbarMessage
   const [openModal, setOpenModal] = useState(false);

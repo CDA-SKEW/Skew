@@ -13,7 +13,7 @@ const AdminUsersTable = () => {
 
   useEffect(() => {
     dispatch(getListUsers());
-  }, []);
+  }, [dispatch]);
 
   return (
     <AdminLayout>
@@ -22,5 +22,5 @@ const AdminUsersTable = () => {
   );
 };
 
-// export default withAdmin(AdminUsersTable);
-export default AdminUsersTable;
+export default withAdmin(AdminUsersTable);
+// export default AdminUsersTable;

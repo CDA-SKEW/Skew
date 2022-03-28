@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button, Grid, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Avatar, Button, Grid, Typography } from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { urlImg } from "utils/url";
@@ -15,21 +14,7 @@ import {
 } from "store/actions/EmployerActions";
 import NumberFormat from "react-number-format";
 import SnackbarMessage from "components/SnackbarMessage";
-
-
-const ImgPreview = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "40%",
-  maxHeight: "40%",
-});
-
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "60%",
-  maxHeight: "60%",
-});
+import { useNavigate } from "react-router-dom";
 
 //----------------------
 // // Fonction pour formater les input siret siren et zipcode avec InputProps={{ inputComponent: NumberFormatCustom }}
@@ -111,6 +96,8 @@ export default function FormProfilEmployer(props) {
     buttonProfilVisible,
   } = props;
 
+  const navigate = useNavigate()
+
   const dispatch = useDispatch();
 
   //constante pour mettre les input soit readOnly soit editable
@@ -158,7 +145,7 @@ export default function FormProfilEmployer(props) {
   // fonction set des useState
   const setUseState = () => {
     setStateImgUpload("");
-    setAvatar(dataProfilEmployer.avatar)
+    setAvatar(dataProfilEmployer.avatar);
     setAvatarSelect(false);
     setAvatarPreview("");
     setSiret(dataProfilEmployer.siret);
@@ -172,24 +159,25 @@ export default function FormProfilEmployer(props) {
 
   // useEffect pour donner les datas par défault au form qui est à l'ecoute de l'etat du boton etidable dans parent
   useEffect(() => {
-   if (profilNotEditabled===true) {
-    setStateImgUpload("");
-    setAvatar(dataProfilEmployer.avatar)
-    setAvatarSelect(false);
-    setAvatarPreview("");
-    setSiret(dataProfilEmployer.siret);
-    setSiren(dataProfilEmployer.siren);
-    setFactoryName(dataProfilEmployer.name);
-    setAddress(dataProfilEmployer.address);
-    setZipCode(dataProfilEmployer.zipCode);
-    setTown(dataProfilEmployer.town);
-    setCategory(dataProfilEmployer.category);}
-  }, [profilNotEditabled,dataProfilEmployer]);
+    if (profilNotEditabled === true) {
+      setStateImgUpload("");
+      setAvatar(dataProfilEmployer.avatar);
+      setAvatarSelect(false);
+      setAvatarPreview("");
+      setSiret(dataProfilEmployer.siret);
+      setSiren(dataProfilEmployer.siren);
+      setFactoryName(dataProfilEmployer.name);
+      setAddress(dataProfilEmployer.address);
+      setZipCode(dataProfilEmployer.zipCode);
+      setTown(dataProfilEmployer.town);
+      setCategory(dataProfilEmployer.category);
+    }
+  }, [profilNotEditabled, dataProfilEmployer]);
 
   // useEffect pour donner les datas par défault au form qui est à l'écoute du state du store dataProfilEmployer
   useEffect(() => {
     setStateImgUpload("");
-    setAvatar(dataProfilEmployer.avatar)
+    setAvatar(dataProfilEmployer.avatar);
     setAvatarSelect(false);
     setAvatarPreview("");
     setSiret(dataProfilEmployer.siret);
@@ -210,10 +198,10 @@ export default function FormProfilEmployer(props) {
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
         dataApiSiret.numero_voie +
-        " " +
-        dataApiSiret.type_voie +
-        " " +
-        dataApiSiret.libelle_voie
+          " " +
+          dataApiSiret.type_voie +
+          " " +
+          dataApiSiret.libelle_voie
       );
       setZipCode(dataApiSiret.code_postal);
       setTown(dataApiSiret.libelle_commune);
@@ -281,9 +269,13 @@ export default function FormProfilEmployer(props) {
       setOpenModal(true);
       setTimeout(function () {
         setOpenModal(false);
+        navigate("/Employer/dashboard")
       }, 2000);
 
-      if (formSubmit === "modified") await dispatch(putFormProfilEmployer(formData));
+      if (formSubmit === "modified") {
+        await dispatch(putFormProfilEmployer(formData));
+
+      }
 
       // Plus utilisé dans l'application car profil crée par défaut au register
       // if (formSubmit === "create") await dispatch(postFormProfilEmployer(formData));
@@ -325,9 +317,27 @@ export default function FormProfilEmployer(props) {
             >
               <Grid item xs={12}>
                 {avatarSelect ? (
-                  <ImgPreview alt="imageEmployer" src={`${avatarPreview}`} />
+                  <Avatar
+                    alt=""
+                    src={`${avatarPreview}`}
+                    sx={{
+                      width: 150,
+                      height: 150,
+                      margin: "auto",
+                      display: "block",
+                    }}
+                  />
                 ) : (
-                  <Img alt="imageEmployer" src={`${urlImg + avatar}`} />
+                  <Avatar
+                    alt=""
+                    src={`${urlImg + avatar}`}
+                    sx={{
+                      width: 180,
+                      height: 180,
+                      margin: "auto",
+                      display: "block",
+                    }}
+                  />
                 )}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
@@ -632,14 +642,11 @@ export default function FormProfilEmployer(props) {
               </Grid>
             )} */}
             {/* ----------------------------------------------------------------------------------------------- */}
-
           </Grid>
         </Grid>
       </Grid>
 
-      {openModal && (
-        <SnackbarMessage message={message} open={openModal} />
-      )}
+      {openModal && <SnackbarMessage message={message} open={openModal} />}
     </Box>
   );
 }
