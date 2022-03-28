@@ -64,7 +64,7 @@
     "e:dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "e:mac": "npm run e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=build/electron.js && sudo rm ./public/electron.js ./public/preload.js ./build" ,
+    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js ./build",
     "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js ./build"
   },
   "build": {
