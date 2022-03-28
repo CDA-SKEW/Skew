@@ -148,7 +148,8 @@ export default function EmployerLayout({ children }) {
             sx={{
               flexGrow: 1,
               bgcolor: themeEmployer.palette.bgPage.main,
-              p: 4,
+              py: 4,
+              px: 2,
               minHeight: "100vh",
               width: "100%",
             }}

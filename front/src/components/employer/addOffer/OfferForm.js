@@ -72,6 +72,7 @@ export default function OfferForm() {
 
     setTimeout(function () {
       setOpenModal(false);
+      navigate("/Employer/offer")
     }, 2000);
 
     await dispatch(postFormAddOffer(dataFormAddOffer));
@@ -80,10 +81,6 @@ export default function OfferForm() {
     setPeriod("");
     setDescription("");
     setProfil("");
-
-    setTimeout(() => {
-   navigate("/Employer/offer")
-    }, 1500);
   };
 
   return (

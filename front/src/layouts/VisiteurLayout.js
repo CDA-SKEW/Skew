@@ -30,6 +30,8 @@ import Connexion from 'components/auth/Connexion';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
+import jwt_decode from "jwt-decode";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -78,9 +80,9 @@ export default function VisiteurLayout({ children }) {
     window.location.reload()
   }
   const handleClickNavigate = () => {
-    if (isAdmin === 1) { navigate("/admin"); }
-    else if (isCandidat === 1) { navigate("/candidat/dashboard"); }
-    else if (isRecruteur === 1) { navigate("/employer/dashboard"); }
+    if (jwt_decode(localStorage.getItem("user_token")).isAdmin === 1) { navigate("/admin"); }
+    else if (jwt_decode(localStorage.getItem("user_token")).isCandidat === 1) { navigate("/candidat/dashboard"); }
+    else if (jwt_decode(localStorage.getItem("user_token")).isRecruteur === 1) { navigate("/employer/dashboard"); }
   }
   const handleClickLinkedin = (user, link) => {
     if (user) window.location.href = link;

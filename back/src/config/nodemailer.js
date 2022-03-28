@@ -83,7 +83,7 @@ module.exports = {
               </div>  
               <div style="display: flex;">
                   <span style="margin-right:2px">Link:</span>
-                  <a href="http://localhost:3000/" target="_blank"  rel="noreferrer" style="color:#428BCA;">
+                  <a href="${process.env.URL}" target="_blank"  rel="noreferrer" style="color:#428BCA;">
                       Skew Application</a>
               </div>  
            </div>

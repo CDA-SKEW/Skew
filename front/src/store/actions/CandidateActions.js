@@ -36,7 +36,6 @@ export const getProfilCandidate = () => {
         return api
             .get(`/candidat/profil/${token.id}`)
             .then((res) => {
-                console.log('response getProfilCandidate 2', res)
                 dispatch({ type: GET_PROFIL_CANDIDATE, payload: res.data.userProfil });
             })
             .catch((err) => console.log(err));
@@ -146,7 +145,6 @@ export const postFormDocument = (form) => {
 };
 
 export const postFormPostuled = (form) => {
-    console.log('postFormPostuler', form)
     return (dispatch) => {
         return api
             .post(`/candidat/candidature`, form, {
