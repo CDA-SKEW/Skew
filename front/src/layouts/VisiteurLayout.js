@@ -125,7 +125,6 @@ export default function VisiteurLayout({ children }) {
                 </Typography>
               </Box>
             </Box>
-
             {/* Menu */}
             <Box sx={{ display: { xs: "none", md: "block" } }}>
               <List sx={{ flexGrow: 1, display: "flex", justifyContent: 'space-around', }}>
@@ -194,7 +193,6 @@ export default function VisiteurLayout({ children }) {
                 </Modal>
               </List>
             </Box>
-
             {/* Menu responsive */}
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, flexDirection: 'row-reverse' }} >
               <IconButton size="large" onClick={toggleDrawer(true)} color="inherit">
@@ -332,7 +330,6 @@ export default function VisiteurLayout({ children }) {
             </Box>
           </Toolbar>
         </Box>
-
         {/* Dialog Inscription */}
         <Box>
           <Dialog
@@ -370,16 +367,15 @@ export default function VisiteurLayout({ children }) {
           </Dialog>
         </Box>
       </AppBar>
-
+      {/* Contenu de page */}
       <Container
         component="main"
         disableGutters
         maxWidth="100%"
-        sx={{ minHeight: "80vh"}}
+        sx={{ minHeight: "80vh" }}
       >
         {children}
       </Container>
-
       {/* Footer */}
       <Box
         sx={{
@@ -414,7 +410,6 @@ export default function VisiteurLayout({ children }) {
           ))}
         </Box>
       </Box>
-
     </ThemeProvider>
   );
 };
