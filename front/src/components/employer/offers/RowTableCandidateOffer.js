@@ -188,18 +188,20 @@ export default function RowTableCandidateOffer(props) {
                                         sx={{ color: "black" }}
                                     >
                                         <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                        {row.cvCandidat.document[0].name}
+                                        {row.cvCandidat.document[0].title}
                                     </Button>
 
-                                    <Button
-                                        href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        sx={{ color: "black" }}
-                                    >
-                                        <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                        Lettre motivation
-                                    </Button>
+                                    {row.cvCandidat.document[0].pdf && (
+                                        <Button
+                                            href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            sx={{ color: "black" }}
+                                        >
+                                            <PictureAsPdfIcon sx={{ pr: 1 }} />
+                                            Lettre motivation
+                                        </Button>
+                                    )}
 
                                 </Box>
                             </Box>
