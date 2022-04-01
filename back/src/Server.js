@@ -47,8 +47,8 @@ class Server {
     //** à décommenter pour la génération
     //** express-oas-generator
 
-    //const expressOasGenerator = require('express-oas-generator')
-    //expressOasGenerator.init(app, {});
+    // const expressOasGenerator = require('express-oas-generator')
+    // expressOasGenerator.init(app, {});
 
     //** Attention quand le site est en production commenter ces lignes pour openAPI/swagger pour que ce ne soit pas accessible en ligne
     // const swaggerUi = require("swagger-ui-express");
