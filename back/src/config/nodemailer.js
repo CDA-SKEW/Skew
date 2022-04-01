@@ -274,7 +274,8 @@ module.exports = {
   },
 
   verifMail: (req, res) => {
-    // Ici on tcheck notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
+    console.log('host', host, req.get("host"))
+    // Ici on check notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
     if (req.protocol + "://" + req.get("host") == "http://" + host) {
       // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
       if (String(req.params.id) == String(mailOptions.rand)) {
