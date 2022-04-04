@@ -31,7 +31,7 @@ CandidatContact.updateContactProfil = function (candidatObj, result) {
             town = :town,
             phone = :phone,
             mail = :mail
-            WHERE user_id = :user_id;`,
+            WHERE id = :user_id;`,
             { name, lastName, address, zipCode, town, phone, mail, user_id, id }
             , (error, data) => {
                 if (error) throw error;
