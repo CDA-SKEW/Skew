@@ -25,7 +25,7 @@ class Server {
           "https://skew.souka.fr",
           "http://www.skew.souka.fr",
           "https://www.skew.souka.fr",
-          "http://192.168.1.69:3000",
+          "http://192.168.1.22:3000",
           "http://192.168.1.89:3000",
           "http://192.168.1.98:3000",
           "https://www.skew.liwza.com",
