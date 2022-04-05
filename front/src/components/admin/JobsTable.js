@@ -52,7 +52,7 @@ export default function JobsTable(props) {
     {
       field: "title",
       headerName: "Titre",
-      width: 150,
+      width: 200,
       editable: true,
     },
     {
@@ -76,7 +76,7 @@ export default function JobsTable(props) {
     {
       field: "profil",
       headerName: "Profil",
-      width: 150,
+      width: 200,
       editable: true,
     },
     {
@@ -85,8 +85,8 @@ export default function JobsTable(props) {
       renderCell: (id) => {
         return <Actions columnsDeleteJob={true} key={id} id={id} />;
       },
-      width: 200,
       editable: false,
+      width: 200,
     },
   ];
 

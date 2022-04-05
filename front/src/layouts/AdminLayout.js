@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -16,6 +17,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ModalConfimation from "components/ModalConfimation";
+// eslint-disable-next-line no-unused-vars
 import AppBar from "@mui/material/AppBar";
 import { ThemeProvider } from "@mui/material/styles";
 import { themeAdmin } from "../configs/theme";
