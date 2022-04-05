@@ -24,7 +24,7 @@ import ChangePassword from "pages/employer/ChangePassword";
 import Postuled from "pages/Postuled";
 import EmployerLayout from "layouts/EmployerLayout";
 import CandidatLayout from "layouts/CandidatLayout";
-import AdminLayout from "layouts/AdminLayout 2";
+import AdminLayout from "layouts/AdminLayout";
 import VerifAuth from "pages/visitor/VerifAuth";
 
 const EmployerRoutes = () => (
