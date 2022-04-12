@@ -70,7 +70,7 @@ export default function ListUsers(props) {
                       variant="body2"
                       color="text.primary"
                     >
-                      {user.lastname || ""} {user.name || ""}
+                       {user.name}
                     </Typography>
                   </React.Fragment>
                 }
