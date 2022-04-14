@@ -106,3 +106,5 @@ mysqldump -u <user> -p Skew > skew-after.sql
 
 Released under [MIT](/LICENSE).
 @skew
+
+Swagger permet de visualiser et d'interagir avec les ressources de l'API sans avoir aucune logique de mise en œuvre en place. Il est automatiquement généré à partir de votre spécification OpenAPI, la documentation visuelle facilitant l'implémentation back-end et la consommation côté client.

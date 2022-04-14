@@ -10,7 +10,7 @@ import Pagination from '@mui/material/Pagination';
 import DialogCardOffreId from 'components/visiteur/offres/DialogCardOffreId';
 import CardOffreUnique from 'components/visiteur/offres/CardOffreUnique';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
 import { store } from 'store';
 

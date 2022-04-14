@@ -49,7 +49,14 @@ function PassInput({ values, handleFormIdInscription }) {
 
 export default function Inscription(props) {
 
-    const { dispatch, setErrorInscription, setSuccessInscription, setSuccess, setError, errorInscription, successInscription } = props
+    const { dispatch,
+        setErrorConnexion,
+        errorInscription,
+        setErrorInscription,
+        successInscription,
+        setSuccessInscription,
+        setErrorChamps
+    } = props
 
     const [passInscription, setPassInscription] = useState('');
     const [pass2, setPass2] = useState('');
@@ -89,14 +96,14 @@ export default function Inscription(props) {
             } else {
                 setErrorInscription('Les mots de passe ne coîncident pas!');
                 setSuccessInscription('');
-                setSuccess('');
-                setError('');
+                setErrorConnexion('');
+                setErrorChamps('')
             }
         } else {
             setErrorInscription('Entrez tous les champs requis!');
             setSuccessInscription('');
-            setSuccess('');
-            setError('');
+            setErrorConnexion('');
+            setErrorChamps('')
         }
     };
 
@@ -112,7 +119,7 @@ export default function Inscription(props) {
     }, [toggle]);
 
     return (
-        <Box sx={{ display: 'block', width: 350, mx: { xs: 'auto' }, ml: { md: 2 }, mt: { xs: 5, md: 0 } }}>
+        <Box sx={{ display: 'block', width: 300, mx: { xs: 'auto' }, ml: { md: 2 }, mt: { xs: 5, md: 0 } }}>
             <Typography variant='h4' sx={{ display: { xs: 'none', md: 'block' } }}>Inscription</Typography>
             <TextField label='Mail' name='mail' fullWidth
                 value={mailInscription} variant="outlined"

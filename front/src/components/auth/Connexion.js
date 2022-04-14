@@ -18,19 +18,23 @@ import { changePass, login } from "store/actions/AuthActions";
 
 export default function Connexion(props) {
     const { dispatch,
-        success,
-        setSuccessInscription,
+        successLostMdp,
+        setSuccessLostMdp,
+        errorConnexion,
         setErrorInscription,
-        setSuccess,
+        setErrorConnexion,
+        setSuccessInscription,
         isAdmin,
         isRecruteur,
-        isCandidat
+        isCandidat,
+        errorChamps,
+        setErrorChamps,
+        flashCon
     } = props
 
     const navigate = useNavigate();
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
-    const [error, setError] = useState('');
     const [mailLostPass, setMailLostPass] = useState('');
     const [openChildModal, setOpenChildModal] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -39,18 +43,27 @@ export default function Connexion(props) {
     const handleClickShowPassword = () => { setShowPassword(!showPassword) };
     const handleMouseDownPassword = (event) => { event.preventDefault(); };
     const handleCloseChildModal = () => { setOpenChildModal(false); };
-    const handleSubmitChildModal = () => { if (mailLostPass.length > 0) dispatch(changePass({ mailLostPass })) }
+    const handleSubmitChildModal = () => {
+        if (mailLostPass.length > 0) {
+            dispatch(changePass({ mailLostPass }));
+            setSuccessLostMdp('Un mail vient de vous être envoyé!');
+            setErrorChamps('');
+            setErrorConnexion('');
+        }
+    }
 
-    const SubmitFormId = async (e) => {
+    const SubmitFormId = (e) => {
         if (mail && pass) {
-            await dispatch(login({ mail, pass }));
+            dispatch(login({ mail, pass }));
             setPass('');
-            setCertificate(true)
+            setCertificate(true);
+            setErrorChamps('');
         } else {
-            setError('Tous les champs doivent être remplis!');
+            setErrorChamps('Tous les champs doivent être remplis!');
+            setErrorConnexion('');
             setSuccessInscription('');
             setErrorInscription('');
-            setSuccess('');
+            setSuccessLostMdp(flashCon);
         }
     };
 
@@ -72,7 +85,7 @@ export default function Connexion(props) {
     }, [certificate, isAdmin, isCandidat, isRecruteur, navigate]);
 
     return (
-        <Box sx={{ display: 'block', width: 350, mx: { xs: 'auto' }, mr: { md: 2 }, mt: { xs: 5, md: 0 } }}>
+        <Box sx={{ display: 'block', width: 300, mx: { xs: 'auto' }, mr: { md: 2 }, mt: { xs: 5, md: 0 } }}>
             <Typography variant='h4' sx={{ display: { xs: 'none', md: 'block' } }}>Connexion</Typography>
             <TextField label='Mail' name='mail' variant="outlined" fullWidth
                 onChange={(e) => setMail(e.target.value)} sx={{ my: 1 }} />
@@ -95,13 +108,14 @@ export default function Connexion(props) {
                     label="Password"
                 />
             </FormControl>
-            <Link
-                component="button" variant="body2"
-                onClick={() => setOpenChildModal(true)}
-                sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
-                Mot de passe oublié
-            </Link>
-
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Link
+                    component="button" variant="body2"
+                    onClick={() => setOpenChildModal(true)}
+                    sx={{ color: '#0099FF', fontSize: 17, my: 3 }}>
+                    Mot de passe oublié
+                </Link>
+            </Box>
             <Modal
                 hideBackdrop
                 open={openChildModal}
@@ -112,7 +126,7 @@ export default function Connexion(props) {
                 <Box sx={{
                     position: 'absolute', top: '50%', left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    width: 400, height: 300, bgcolor: '#fff',
+                    width: 300, bgcolor: '#fff',
                     pt: 2, px: 4, pb: 3, borderRadius: 2,
                     display: 'block', textAlign: 'center', border: 1
                 }}>
@@ -136,20 +150,25 @@ export default function Connexion(props) {
                             Fermer
                         </Button>
                     </Box>
+                    {successLostMdp &&
+                        <Box sx={{ my: 3, color: '#1E90FF' }} >
+                            <Typography variant='body1' align='center' >{successLostMdp}</Typography>
+                        </Box>
+                    }
                 </Box>
             </Modal>
             <Button variant="contained" fullWidth onClick={() => SubmitFormId()}
                 sx={{ bgcolor: '#ABC4FF', fontWeight: 'bold', my: 1, py: 1 }}>
                 Envoyer
             </Button>
-            {error.length > 0 &&
+            {errorChamps.length > 0 &&
                 <Box sx={{ my: 3, color: '#ff0000' }} >
-                    <Typography variant='body1' align='center' >{error}</Typography>
+                    <Typography variant='body1' align='center' >{errorChamps}</Typography>
                 </Box>
             }
-            {success.length > 16 &&
+            {errorConnexion.length > 0 &&
                 <Box sx={{ my: 3, color: '#ff0000' }} >
-                    <Typography variant='body1' align='center' >{success}</Typography>
+                    <Typography variant='body1' align='center' >{errorConnexion}</Typography>
                 </Box>
             }
         </Box>
