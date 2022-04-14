@@ -98,7 +98,7 @@ export default function VisiteurLayout({ children }) {
   }, [flash]);
 
   useEffect(() => {
-    if (flashCon.length > 0) {
+    if (flashCon) {
       setErrorConnexion(flashCon);
       setSuccessInscription('');
       setErrorInscription('');
