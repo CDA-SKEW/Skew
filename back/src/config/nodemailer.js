@@ -83,7 +83,7 @@ module.exports = {
               </div>  
               <div style="display: flex;">
                   <span style="margin-right:2px">Link:</span>
-                  <a href="${process.env.URL}" target="_blank"  rel="noreferrer" style="color:#428BCA;">
+                  <a href="http://localhost:3000/" target="_blank"  rel="noreferrer" style="color:#428BCA;">
                       Skew Application</a>
               </div>  
            </div>
@@ -173,12 +173,12 @@ module.exports = {
     // console.log(mailOptions);
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        // console.log("err", err),
+        console.log("err", err),
           res.status(500).json({
             message: err.message || "Une erreur est survenue",
           });
       } else {
-      // console.log('callback res nodemail reply')
+        // console.log('callback res nodemail reply')
         res.json({
           method: req.method,
           status: "success",
@@ -199,9 +199,9 @@ module.exports = {
 
     rand = Math.floor(Math.random() * 100 + 54);
 
-    host = req.get("host");
+    host = process.env.URL;
 
-    link = "http://" + req.get("host") + "/api/auth/verify/" + rand;
+    link = host + "/api/auth/verify/" + rand;
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
@@ -274,27 +274,23 @@ module.exports = {
   },
 
   verifMail: (req, res) => {
-    console.log('host', host, req.get("host"))
-    // Ici on check notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
-    if (req.protocol + "://" + req.get("host") == "http://" + host) {
-      // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
-      if (String(req.params.id) == String(mailOptions.rand)) {
-        try {
-          user.verify(mailOptions, (err, data) => {
-            if (err)
-              res
-                .status(500)
-                .send({ flash: err.message || "Une erreur est survenue" });
-            else
-              return res.redirect(
-                process.env.URL + "/#/verif/" + mailOptions.rand
-              );
-          });
-        } catch (error) {
-          throw error;
-        }
-      } else res.end("<h1>Bad Request</h1>");
-    } else res.end("<h1>Request is from unknown source");
+    // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
+    if (String(req.params.id) == String(mailOptions.rand)) {
+      try {
+        user.verify(mailOptions, (err, data) => {
+          if (err)
+            res
+              .status(500)
+              .send({ flash: err.message || "Une erreur est survenue" });
+          else
+            return res.redirect(
+              process.env.URL + "/#/verif/" + mailOptions.rand
+            );
+        });
+      } catch (error) {
+        throw error;
+      }
+    } else res.end("<h1>Bad Request</h1>");
   },
 
   mailLostMdp: (req, res) => {
@@ -313,8 +309,13 @@ module.exports = {
       html: `
       <strong>Modification du mot de passe</strong>
       <br><br>
+
+
       <p>Voici votre nouveau mot de passe:</p>
+
       <p>${req.pass}</p>
+
+
       <br><br>
       <div style="text-align:left;margin-left: 15px;">
          <div style="font-size: 13px;">
@@ -357,6 +358,7 @@ module.exports = {
         return res.json({
           method: req.method,
           status: "success",
+          flash: "success mail new password!",
           mailoptions: mailOptions,
         });
       }
