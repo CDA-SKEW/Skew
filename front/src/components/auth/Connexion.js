@@ -12,6 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@mui/material/Link';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 import { useNavigate } from 'react-router-dom';
 import { changePass, login } from "store/actions/AuthActions";
@@ -56,8 +57,8 @@ export default function Connexion(props) {
         if (mail && pass) {
             dispatch(login({ mail, pass }));
             setPass('');
-            setCertificate(true);
             setErrorChamps('');
+            setCertificate(true);
         } else {
             setErrorChamps('Tous les champs doivent être remplis!');
             setErrorConnexion('');
@@ -87,27 +88,30 @@ export default function Connexion(props) {
     return (
         <Box sx={{ display: 'block', width: 300, mx: { xs: 'auto' }, mr: { md: 2 }, mt: { xs: 5, md: 0 } }}>
             <Typography variant='h4' sx={{ display: { xs: 'none', md: 'block' } }}>Connexion</Typography>
-            <TextField label='Mail' name='mail' variant="outlined" fullWidth
-                onChange={(e) => setMail(e.target.value)} sx={{ my: 1 }} />
-            <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
-                <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
-                <OutlinedInput name='pass' type={showPassword ? 'text' : 'password'}
-                    value={pass} onChange={(e) => setPass(e.target.value)}
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end"
-                            >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    label="Password"
-                />
-            </FormControl>
+            <Stack component="form">
+                <TextField label='Mail' name='mail' variant="outlined" fullWidth
+                    onChange={(e) => setMail(e.target.value)} sx={{ my: 1 }} />
+                <FormControl sx={{ my: 1 }} variant="outlined" fullWidth>
+                    <InputLabel htmlFor="outlined-adornment-password">Mot de passe</InputLabel>
+                    <OutlinedInput name='pass' type={showPassword ? 'text' : 'password'}
+                        value={pass} onChange={(e) => setPass(e.target.value)}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        label="Password"
+                        autoComplete="off"
+                    />
+                </FormControl>
+            </Stack>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Link
                     component="button" variant="body2"
