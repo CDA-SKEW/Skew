@@ -89,7 +89,7 @@ export default function VisiteurLayout({ children }) {
   }
 
   useEffect(() => {
-    if (flash.length >= 0) {
+    if (flash.length > 0) {
       setSuccessInscription(flash);
       setErrorInscription('');
       setErrorConnexion('');
@@ -98,7 +98,7 @@ export default function VisiteurLayout({ children }) {
   }, [flash]);
 
   useEffect(() => {
-    if (flashCon.length >= 0) {
+    if (flashCon.length > 0) {
       setErrorConnexion(flashCon);
       setSuccessInscription('');
       setErrorInscription('');
@@ -323,6 +323,7 @@ export default function VisiteurLayout({ children }) {
                       isRecruteur={isRecruteur}
                       errorChamps={errorChamps}
                       setErrorChamps={setErrorChamps}
+                      flashCon={flashCon}
                     />
                   </Dialog>
                 </Box>
