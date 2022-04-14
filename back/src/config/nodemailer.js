@@ -178,7 +178,7 @@ module.exports = {
             message: err.message || "Une erreur est survenue",
           });
       } else {
-      // console.log('callback res nodemail reply')
+        // console.log('callback res nodemail reply')
         res.json({
           method: req.method,
           status: "success",
@@ -199,9 +199,9 @@ module.exports = {
 
     rand = Math.floor(Math.random() * 100 + 54);
 
-    host = req.get("host");
+    host = process.env.URL;
 
-    link = "http://" + req.get("host") + "/api/auth/verify/" + rand;
+    link = host + "/api/auth/verify/" + rand;
 
     mailOptions = {
       from: process.env.USER_NODMAILER,
@@ -274,26 +274,23 @@ module.exports = {
   },
 
   verifMail: (req, res) => {
-    // Ici on tcheck notre protocole hébergeur (nodejs localhost) et le liens générer dans le mail
-    if (req.protocol + "://" + req.get("host") == "http://" + host) {
-      // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
-      if (String(req.params.id) == String(mailOptions.rand)) {
-        try {
-          user.verify(mailOptions, (err, data) => {
-            if (err)
-              res
-                .status(500)
-                .send({ flash: err.message || "Une erreur est survenue" });
-            else
-              return res.redirect(
-                process.env.URL + "/#/verif/" + mailOptions.rand
-              );
-          });
-        } catch (error) {
-          throw error;
-        }
-      } else res.end("<h1>Bad Request</h1>");
-    } else res.end("<h1>Request is from unknown source");
+    // Ici on tcheck notre id du mail avec la variable enregistrer en cache (rand)
+    if (String(req.params.id) == String(mailOptions.rand)) {
+      try {
+        user.verify(mailOptions, (err, data) => {
+          if (err)
+            res
+              .status(500)
+              .send({ flash: err.message || "Une erreur est survenue" });
+          else
+            return res.redirect(
+              process.env.URL + "/#/verif/" + mailOptions.rand
+            );
+        });
+      } catch (error) {
+        throw error;
+      }
+    } else res.end("<h1>Bad Request</h1>");
   },
 
   mailLostMdp: (req, res) => {
