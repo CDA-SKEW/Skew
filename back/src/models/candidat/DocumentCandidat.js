@@ -14,15 +14,17 @@ const CandidatDocument = function (document) {
 // Create Document
 CandidatDocument.createDocumentProfil = function (newDocument, file, result) {
     const { user_id, title, name } = newDocument
+    const documentPath = "/assets/documents/" + name
     connection.getConnection(function (error, conn) {
         conn.query(`
         INSERT INTO document
          SET 
             user_id = :user_id,
             title = :title,
-            name = :name
+            name = :name,
+            document= :documentPath
             ;`,
-            { user_id, title, name }
+            { user_id, title, name, documentPath }
             , (error, data) => {
                 if (error) throw error;
                 conn.query(`SELECT u.id,d.*

@@ -8,6 +8,7 @@ import {
 } from "store/actions/EmployerActions";
 import SnackbarMessage from "../../SnackbarMessage";
 import { useNavigate } from "react-router-dom";
+import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
 
 export default function OfferForm() {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ export default function OfferForm() {
     }, 2000);
 
     await dispatch(postFormAddOffer(dataFormAddOffer));
+    await dispatch(getOffreVisiteur())
     setTitle("");
     setType("");
     setPeriod("");

@@ -38,8 +38,8 @@ export default function CandidatureRow(props) {
             <BtnOption id={id} />
 
             <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "end" }}>
-              {statut === 0 ? <Typography sx={{ color: "black" }}> Candidature Validé <CheckCircleOutlineIcon sx={{ color: "green", fontSize: 30, mb: -1, mr: 1 }} /></Typography>
-                : statut === 1 ? <Typography sx={{ color: "black" }}> Candidature Refusé <DoNotDisturbIcon sx={{ color: "red", fontSize: 30, mb: -1, mr: 1 }} /></Typography>
+              {statut === 1 ? <Typography sx={{ color: "black" }}> Candidature Validé <CheckCircleOutlineIcon sx={{ color: "green", fontSize: 30, mb: -1, mr: 1 }} /></Typography>
+                : statut === 0 ? <Typography sx={{ color: "black" }}> Candidature Refusé <DoNotDisturbIcon sx={{ color: "red", fontSize: 30, mb: -1, mr: 1 }} /></Typography>
                   : <Typography sx={{ color: "black" }}> Candidature en cours d'examen <QueryBuilderIcon sx={{ color: "black", fontSize: 30, mb: -1, mr: 1 }} /></Typography>}
             </Box>
           </ListItemText>

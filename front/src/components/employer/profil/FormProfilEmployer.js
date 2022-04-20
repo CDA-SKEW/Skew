@@ -197,7 +197,7 @@ export default function FormProfilEmployer(props) {
       setSiren(dataApiSiret.siren);
       setFactoryName(dataApiSiret.unite_legale["denomination"]);
       setAddress(
-        dataApiSiret.numero_voie +
+        (dataApiSiret.numero_voie? dataApiSiret.numero_voie:"" )+
           " " +
           dataApiSiret.type_voie +
           " " +
