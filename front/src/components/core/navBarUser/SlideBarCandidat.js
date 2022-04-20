@@ -32,7 +32,6 @@ export default function SlideBarUser(props) {
     };
 
     const { drawerWidth, listItems, listItemGeneral, dataProfilUser } = props
-    console.log('dataprofilUser', dataProfilUser)
 
     return (
         <Drawer

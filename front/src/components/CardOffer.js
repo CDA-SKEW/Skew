@@ -20,13 +20,13 @@ export default function CardOffer(props) {
   return (
     <Card
       sx={{
-        width: 250,
-        height: 300,
+        width: { xs:"220px", sm:"300px" ,lg:"350px"},
         border: "2px solid",
         borderColor: "black",
         borderRadius: 1,
+        px:1,
         mb: 1,
-        mx: 1,
+        mx: 3,
         bgcolor: '#fff'
       }}
       onClick={e => navigate("/Employer/offer/" + listOffer.offer_id, { state: { offer: listOffer } })}
@@ -47,7 +47,7 @@ export default function CardOffer(props) {
         )}
         <CardMedia
           component="img"
-          height="100"
+          // height="100"
           image={`${urlImg + listOffer.image}`}
           alt="imageEmployer"
         />
@@ -58,7 +58,7 @@ export default function CardOffer(props) {
             sx={{
               textTransform: "uppercase",
               textAlign: "center",
-              height: 60,
+              height: "auto",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -110,7 +110,7 @@ export default function CardOffer(props) {
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ textAlign: "center", mt: 1 }}
+            sx={{ textAlign: "center" }}
           >
             Publié il y {listOffer.dateOfferDays} jours
           </Typography>
