@@ -210,7 +210,7 @@ ProfilUserCompagny.updateProfilCompagny = function (
               if (error) throw error;
               const nameAvatar = data[0].avatar.split("/")[5];
               const pathAvatarDbDel = pathAvatar + nameAvatar;
-              if (data[0].avatar) func.removeFile(pathAvatarDbDel);
+              if (nameAvatar!= undefined) func.removeFile(pathAvatarDbDel);
               conn.query(
                 `
                   UPDATE contactProfil

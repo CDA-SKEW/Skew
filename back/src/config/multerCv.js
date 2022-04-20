@@ -19,8 +19,6 @@ const storage = multer.diskStorage({
         const ext = file.originalname,
             date = Date.now(),
             completed = date + '_' + ext;
-
-        console.log('filename edit', file)
         req.body.name = completed
 
         //File name prends la valeur de la variable ext
