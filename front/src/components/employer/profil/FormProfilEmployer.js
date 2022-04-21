@@ -321,23 +321,26 @@ export default function FormProfilEmployer(props) {
                     alt=""
                     src={`${avatarPreview}`}
                     sx={{
-                      width: 150,
-                      height: 150,
+                      width: { xs:200, sm:250, md:300, lg:350, xl:400},
+                      height:"auto",
                       margin: "auto",
-                      display: "block",
+                      // display: "block",
                     }}
+                    variant="square"
                   />
-                ) : (
+                ) : ( avatar && (
                   <Avatar
                     alt=""
                     src={`${urlImg + avatar}`}
                     sx={{
-                      width: 180,
-                      height: 180,
+                      width: { xs:200, sm:250, md:280, lg:310, xl:340},
+                      height:"auto",
                       margin: "auto",
-                      display: "block",
+                      // display: "block",
                     }}
+                    variant="square"
                   />
+                )
                 )}
                 {{ stateImgUpload } && (
                   <Typography color={"red"}>{stateImgUpload}</Typography>
