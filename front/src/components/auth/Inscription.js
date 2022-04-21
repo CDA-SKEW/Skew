@@ -12,6 +12,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 import { register } from "store/actions/AuthActions";
 
@@ -42,6 +43,7 @@ function PassInput({ values, handleFormIdInscription }) {
                     </InputAdornment>
                 }
                 label="Password"
+                autoComplete="off"
             />
         </FormControl>
     )
@@ -49,7 +51,14 @@ function PassInput({ values, handleFormIdInscription }) {
 
 export default function Inscription(props) {
 
-    const { dispatch, setErrorInscription, setSuccessInscription, setSuccess, setError, errorInscription, successInscription } = props
+    const { dispatch,
+        setErrorConnexion,
+        errorInscription,
+        setErrorInscription,
+        successInscription,
+        setSuccessInscription,
+        setErrorChamps
+    } = props
 
     const [passInscription, setPassInscription] = useState('');
     const [pass2, setPass2] = useState('');
@@ -89,14 +98,14 @@ export default function Inscription(props) {
             } else {
                 setErrorInscription('Les mots de passe ne coîncident pas!');
                 setSuccessInscription('');
-                setSuccess('');
-                setError('');
+                setErrorConnexion('');
+                setErrorChamps('')
             }
         } else {
             setErrorInscription('Entrez tous les champs requis!');
             setSuccessInscription('');
-            setSuccess('');
-            setError('');
+            setErrorConnexion('');
+            setErrorChamps('')
         }
     };
 
@@ -112,22 +121,24 @@ export default function Inscription(props) {
     }, [toggle]);
 
     return (
-        <Box sx={{ display: 'block', width: 350, mx: { xs: 'auto' }, ml: { md: 2 }, mt: { xs: 5, md: 0 } }}>
+        <Box sx={{ display: 'block', width: 300, mx: { xs: 'auto' }, ml: { md: 2 }, mt: { xs: 5, md: 0 } }}>
             <Typography variant='h4' sx={{ display: { xs: 'none', md: 'block' } }}>Inscription</Typography>
-            <TextField label='Mail' name='mail' fullWidth
-                value={mailInscription} variant="outlined"
-                onChange={(e) => handleFormIdInscription(e)}
-                sx={{ my: 1 }} />
+            <Stack component="form">
+                <TextField label='Mail' name='mail' fullWidth
+                    value={mailInscription} variant="outlined"
+                    onChange={(e) => handleFormIdInscription(e)}
+                    sx={{ my: 1 }} />
 
-            {passList.map((values, index) => (
-                <PassInput key={index} values={values} handleFormIdInscription={handleFormIdInscription} />
-            ))}
-            <ToggleButtonGroup
-                color="info" exclusive fullWidth value={toggle}
-                onChange={handleChange} sx={{ my: 1 }} >
-                <ToggleButton value="candidat">Candidat</ToggleButton>
-                <ToggleButton value="recruteur">Recruteur</ToggleButton>
-            </ToggleButtonGroup>
+                {passList.map((values, index) => (
+                    <PassInput key={index} values={values} handleFormIdInscription={handleFormIdInscription} />
+                ))}
+                <ToggleButtonGroup
+                    color="info" exclusive fullWidth value={toggle}
+                    onChange={handleChange} sx={{ my: 1 }} >
+                    <ToggleButton value="candidat">Candidat</ToggleButton>
+                    <ToggleButton value="recruteur">Recruteur</ToggleButton>
+                </ToggleButtonGroup>
+            </Stack>
             {errorInscription.length > 0 &&
                 <Box sx={{ my: 3, color: '#ff0000' }} >
                     <Typography variant='body1' align='center' >{errorInscription}</Typography>

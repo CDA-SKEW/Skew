@@ -65,7 +65,7 @@ export default function EmployerLayout({ children }) {
   const [timeToken, setTimeToken] = React.useState();
 
   React.useEffect(() => {
-    dispatch(getProfilEmployer());
+    dispatch(getProfilEmployer())
   }, [dispatch]);
 
   //   ici à chaque chargement de la page, on revie t en haut de page
@@ -100,10 +100,13 @@ export default function EmployerLayout({ children }) {
 
   const handleFormToken = async (e) => {
     e.preventDefault();
-    setTimeout(async () => {
-      setOpenDialogToken(false);
-      await dispatch(getDashboardEmployer());
+    setTimeout(async () => { 
+      window.location.reload()     
+      await dispatch(getDashboardEmployer());       
     }, 600);
+    setOpenDialogToken(false);
+    
+
   };
 
   return (
