@@ -15,8 +15,10 @@ import {
   getOffer,
   putActionCandidate,
 } from "store/actions/EmployerActions";
-import { useNavigate } from "react-router-dom";;
+import { useNavigate } from "react-router-dom";
 import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
