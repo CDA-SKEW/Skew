@@ -20,7 +20,6 @@ const CandidatContact = function (candidat) {
 // Edit One
 CandidatContact.updateContactProfil = function (candidatObj, result) {
     const { name, lastName, address, zipCode, town, phone, mail, user_id, id } = candidatObj
-    console.log(candidatObj)
     connection.getConnection(function (error, conn) {
         conn.query(`
         UPDATE contactProfil
