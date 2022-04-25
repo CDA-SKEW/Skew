@@ -195,7 +195,7 @@ export default function RowTableCandidateOffer(props) {
                                         <Button
                                             href={`${urlImg}/api${row.cvCandidat.document[0].document}`}
                                             target="_blank"
-                                            rel="noreferrer"
+                                            // rel="noreferrer"
                                             sx={{ color: "black" }}
                                         >
                                             <PictureAsPdfIcon sx={{ pr: 1 }} />
@@ -206,7 +206,7 @@ export default function RowTableCandidateOffer(props) {
                                             <Button
                                                 href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
                                                 target="_blank"
-                                                rel="noreferrer"
+                                                // rel="noreferrer"
                                                 sx={{ color: "black" }}
                                             >
                                                 <PictureAsPdfIcon sx={{ pr: 1 }} />

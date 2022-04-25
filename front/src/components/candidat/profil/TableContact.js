@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -25,25 +25,24 @@ export default function TableContact(props) {
 
   // Declaration des constantes pour le formulaire
 
-  const [address, setAdress] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [town, setTown] = useState("");
-  const [phone, setPhone] = useState("");
-  const [mail, setMail] = useState("");
+  // const [address, setAdress] = useState("");
+  // const [zipCode, setZipCode] = useState("");
+  // const [town, setTown] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [mail, setMail] = useState("");
 
 
 
-  const setUseState = () => {
-
-    setAdress(User.address);
-    setZipCode(User.zipCode);
-    setTown(User.town);
-    setPhone(User.phone);
-    setMail(User.mail)
-  };
-  useEffect(() => {
-    setUseState();
-  }, []);
+  // const setUseState = () => {
+  //   setAdress(User.address);
+  //   setZipCode(User.zipCode);
+  //   setTown(User.town);
+  //   setPhone(User.phone);
+  //   setMail(User.mail)
+  // };
+  // useEffect(() => {
+  //   setUseState();
+  // }, []);
 
 
   function ModeText() {
@@ -51,6 +50,8 @@ export default function TableContact(props) {
       <TableBody>
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           <TableCell align='center' component="th" scope="row" sx={{ display: "none" }}>{User.id}</TableCell>
+          <TableCell align='center'  >{User.name}</TableCell>
+          <TableCell align='center'  >{User.lastName}</TableCell>
           <TableCell align='center'  >{User.address}<br />{User.zipCode}<br />{User.town}</TableCell>
           <TableCell align='center'  >{User.phone}</TableCell>
           <TableCell align='center'  >{User.mail}</TableCell>
@@ -71,11 +72,11 @@ export default function TableContact(props) {
 
     const submitForm = async () => {
       await dispatch(putFormProfilCandidate({ ...form }));
-      setAdress("");
-      setZipCode("");
-      setTown("");
-      setPhone("");
-      setMail("");
+      // setAdress("");
+      // setZipCode("");
+      // setTown("");
+      // setPhone("");
+      // setMail("");
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
     }
@@ -83,6 +84,29 @@ export default function TableContact(props) {
     return (
       <TableBody>
         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
+        <TableCell align='center' sx={{ minWidth: 200 }} >
+            <TextField
+              required
+              size="large"
+              label="name"
+              onChange={handleChange('name')}
+              id="outlined-adornment-name"
+              value={form['name']}
+              sx={{ my: 2 }}
+            />
+            <TextField
+              required
+              size="large"
+              label="lastName"
+              onChange={handleChange('lastName')}
+              id="outlined-adornment-lastName"
+              value={form['lastName']}
+              sx={{ my: 2 }}
+            />
+          </TableCell >
+
+
           <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column', minWidth: 200 }} >
             <TextField
               required
@@ -208,6 +232,8 @@ export default function TableContact(props) {
         <Table sx={{ width: "100%" }} >
           <TableHead sx={{ bgcolor: "#FF7F50" }}>
             <TableRow>
+              <TableCell align='center'>Name</TableCell>
+              <TableCell align='center'>First name</TableCell>
               <TableCell align='center'>Address</TableCell>
               <TableCell align='center' >Phone</TableCell>
               <TableCell align='center' >Mail</TableCell>
