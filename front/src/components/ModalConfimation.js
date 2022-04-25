@@ -18,6 +18,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
 
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -84,7 +86,10 @@ export default function ModalConfimation(props) {
 
       case "disconnect":
         logout()
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+          window.location.reload()
+          }, 200);
         break;
       default:
         break;

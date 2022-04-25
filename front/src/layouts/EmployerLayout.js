@@ -24,12 +24,13 @@ import {
   getDashboardEmployer,
   getProfilEmployer,
 } from "store/actions/EmployerActions";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 export default function EmployerLayout({ children }) {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // {/*Constante pour largeur slideBar*/ }
   const drawerWidth = 230;
@@ -90,7 +91,10 @@ export default function EmployerLayout({ children }) {
             if (Number(timeTokenSec) <= 0) {
               setOpenDialogToken(false);
               localStorage.removeItem("user_token");
-              window.location.reload();
+              setTimeout(() => {
+                navigate("/");
+                window.location.reload()
+              }, 200);
             }
           }, 1000);
         }
@@ -100,13 +104,11 @@ export default function EmployerLayout({ children }) {
 
   const handleFormToken = async (e) => {
     e.preventDefault();
-    setTimeout(async () => { 
-      window.location.reload()     
-      await dispatch(getDashboardEmployer());       
-    }, 600);
     setOpenDialogToken(false);
-    
-
+    window.location.reload()
+    setTimeout(async () => {
+      await dispatch(getDashboardEmployer());
+    }, 600);
   };
 
   return (

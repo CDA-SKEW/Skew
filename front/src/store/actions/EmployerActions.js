@@ -89,6 +89,7 @@ export const getProfilUser = () => {
         headers: { Authorization: `${localStorage["user_token"]}` },
       })
       .then((res) => {
+        if (res.data.token) localStorage["user_token"] = res.data.token;
         dispatch({ type: GET_PROFIL_USER, payload: res.data });
       })
       .catch((err) => console.log(err));
