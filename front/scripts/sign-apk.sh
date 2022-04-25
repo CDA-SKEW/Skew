@@ -28,4 +28,4 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore app-release-uns
 # zipalign -v 4 ./app-release-unsigned.apk NameApp.apk
 # zipalign -v 4 ./app-release-unsigned.apk meteo.apk
 # zipalign -v 4 ./app-release-unsigned.apk $name.apk
-~/Android/Sdk/build-tools/31.0.0/zipalign -v 4 ./app-release-unsigned.apk $name.apkname.apk
+~/Android/Sdk/build-tools/29.0.3/zipalign -v 4 ./app-release-unsigned.apk $name.apkname.apk
