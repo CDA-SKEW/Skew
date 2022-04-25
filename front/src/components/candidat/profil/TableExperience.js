@@ -43,6 +43,7 @@ export default function TableExperience(props) {
 
     const { handleExpDateParent, dateExp } = props
     const [value, setValue] = useState(dateExp)
+
     const handleExpDate = (prop) => (event) => {
       handleExpDateParent(prop, moment(event).format("YYYY-MM-DDTHH:mm:ss.SSS"))
       setValue(event)
@@ -52,7 +53,8 @@ export default function TableExperience(props) {
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
-          label=""
+          label="dateStart"
+          value={value}
           onChange={handleExpDate('dateStart')}
           renderInput={(params) => <TextField {...params} helperText={null} />}
         />
@@ -74,7 +76,8 @@ export default function TableExperience(props) {
     return (
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
-          label=""
+          label="dateEnd"
+          value={value2}
           onChange={handleExpDateEnd('dateEnd')}
           renderInput={(params) => <TextField {...params} helperText={null} />}
         />
@@ -98,8 +101,7 @@ export default function TableExperience(props) {
   function ModeEdit(props) {
     const { data } = props
     const dispatch = useDispatch()
-    const [form, setForm] = useState({ ...data })
-
+    const [form, setForm] = useState({ ...data, dateStart: moment(data.dateStart).format("YYYY-MM-DDTHH:mm:ss.SSS"), dateEnd: moment(data.dateEnd).format("YYYY-MM-DDTHH:mm:ss.SSS") })
 
     const handleChange = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
@@ -114,7 +116,7 @@ export default function TableExperience(props) {
     }
 
     const submitForm = () => {
-      console.log('post experience', form)
+      // console.log('post experience', form)
       dispatch(putFormProfilCandidateExperience({ ...form }))
       setTimeout(() => dispatch(getProfilCandidate()), 777)
       setEdit(false) // close editMode
@@ -211,7 +213,7 @@ export default function TableExperience(props) {
     // const { data } = props
     const dispatch = useDispatch()
     const [form, setForm] = useState({})
-
+ 
     const changeForm = (prop) => (event) => {
       setForm({ ...form, [prop]: event.target.value })
     }
@@ -224,17 +226,18 @@ export default function TableExperience(props) {
       setForm({ ...form, [prop]: value })
     }
 
-    const submitForm = async () => {
-      console.log('post experience', form)
-      await dispatch(postFormProfilCandidateExperience({ ...form }))
-      setCompagny("");
-      setJob("");
-      setDateStart("");
-      setDateEnd("");
-      setTimeout(() => dispatch(getProfilCandidate()), 777)
-      setEdit(false) // close editMode
-    }
+    const submitForm = async (e) => {
+        // console.log('post experience', form)
 
+        await dispatch(postFormProfilCandidateExperience({ ...form }))
+        setCompagny("");
+        setJob("");
+        setDateStart("");
+        setDateEnd("");
+        setTimeout(() => dispatch(getProfilCandidate()), 777)
+        setEdit(false) // close editMode
+ 
+    }
 
 
     return (
@@ -294,7 +297,7 @@ export default function TableExperience(props) {
 
         <TableCell align='center' sx={{ display: 'flex', flexDirection: 'column' }}>
 
-          <Button sx={{ color: "green", m: 2 }} onClick={() => submitForm()}>
+          <Button sx={{ color: "green", m: 2 }} onClick={(e) => submitForm(e)}>
             <CheckCircleOutlineIcon />
             Submit
           </Button>
@@ -369,18 +372,11 @@ export default function TableExperience(props) {
   const [dateStart, setDateStart] = useState("");
   const [dateEnd, setDateEnd] = useState("");
 
-
-
-
-  const setUseState = () => {
+  useEffect(() => {
     setCompagny(ListExp.compagny);
     setJob(ListExp.job);
     setDateStart(ListExp.dateStart);
     setDateEnd(ListExp.dateEnd);
-  };
-
-  useEffect(() => {
-    setUseState();
   }, []);
 
   /* *************************************************************************** */

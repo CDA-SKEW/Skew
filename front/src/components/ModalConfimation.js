@@ -86,7 +86,10 @@ export default function ModalConfimation(props) {
 
       case "disconnect":
         logout()
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+          window.location.reload()
+          }, 200);
         break;
       default:
         break;

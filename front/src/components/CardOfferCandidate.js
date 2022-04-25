@@ -20,12 +20,13 @@ export default function CardOffer(props) {
   return (
     <Card
       sx={{
-        width: 300,
+        width: { xs:"220px", sm:"300px" ,lg:"350px"},
         border: "2px solid",
         borderColor: "black",
         borderRadius: 1,
+        px:1,
         mb: 1,
-        mx: 1,
+        mx: 3,
         bgcolor: '#fff'
       }}
       onClick={e => navigate("/Employer/offer/" + listOffer.offer_id, { state: { offer: listOffer } })}
@@ -46,7 +47,7 @@ export default function CardOffer(props) {
         )}
         <CardMedia
           component="img"
-          height="140"
+          // height="140"
           image={`${urlImg + listOffer.avatar}`}
           alt="imageEmployer"
         />
