@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "./static/js/main.371e1fba.js",
+    "main.js": "./static/js/main.45b813ee.js",
     "static/js/787.3300c6ef.chunk.js": "./static/js/787.3300c6ef.chunk.js",
     "static/media/WhyHome01.jpg": "./static/media/WhyHome01.01d005ebef5c5be446d2.jpg",
     "static/media/404.png": "./static/media/404.b30ca17a013f50a154c3.png",
@@ -14,10 +14,10 @@
     "static/media/WhyCandidat01.jpg": "./static/media/WhyCandidat01.1f255478981ad9d0af17.jpg",
     "static/media/recruteurCard.jpg": "./static/media/recruteurCard.5b7d184367ebab3fcb64.jpg",
     "index.html": "./index.html",
-    "main.371e1fba.js.map": "./static/js/main.371e1fba.js.map",
+    "main.45b813ee.js.map": "./static/js/main.45b813ee.js.map",
     "787.3300c6ef.chunk.js.map": "./static/js/787.3300c6ef.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.371e1fba.js"
+    "static/js/main.45b813ee.js"
   ]
 }
