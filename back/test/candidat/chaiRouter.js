@@ -79,22 +79,22 @@ describe("PostulRouteur - Chai", function () {
 
     /****** Get All Users *******/
 
-    it(" delete Postulation", function (done) {
-        this.timeout(0);
-        id = postuled.id
-        chai
-            .request(index.app)
-            .delete(`/api/candidat/candidatures/${id}`)
-            .set("Accept", "application/json")
-            .end((err, res) => {
-                if (err) return done(err);
-                console.log("res.body", res.body);
-                res.should.have.status(200);
-                res.body.candidatures.should.be.a("object");
-                done();
-                console.log("OFFRE POSTULE CANDIDAT DELETE : You'r Rock Dude !  😎 🆗");
-            });
-    });
+    // it(" delete Postulation", function (done) {
+    //     this.timeout(0);
+    //     id = postuled.id
+    //     chai
+    //         .request(index.app)
+    //         .delete(`/api/candidat/candidatures/${id}`)
+    //         .set("Accept", "application/json")
+    //         .end((err, res) => {
+    //             if (err) return done(err);
+    //             console.log("res.body", res.body);
+    //             res.should.have.status(200);
+    //             res.body.candidatures.should.be.a("object");
+    //             done();
+    //             console.log("OFFRE POSTULE CANDIDAT DELETE : You'r Rock Dude !  😎 🆗");
+    //         });
+    // });
 
     // /****** Get By ID User *******/
 
