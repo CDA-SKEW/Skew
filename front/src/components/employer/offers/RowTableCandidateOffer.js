@@ -113,60 +113,70 @@ export default function RowTableCandidateOffer(props) {
                                 </Box>
                             </Box>
 
-                            <Box border={1} marginBottom={2}>
-                                <Table size="small" aria-label="purchases">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>
-                                                Entreprise
-                                            </TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>
-                                                Poste
-                                            </TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>
-                                                Date de début
-                                            </TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>
-                                                Description
-                                            </TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: "bold" }}>
-                                                Date de fin
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {row.cvCandidat.experience.map((candidatRow, index) => (
-                                            <TableRow hover key={index}>
-                                                <TableCell align="center">
-                                                    {candidatRow.compagny}
-                                                </TableCell>
-                                                <TableCell align="center">{candidatRow.job}</TableCell>
-                                                <TableCell align="center">
-                                                    {moment.utc(candidatRow.dateStart).format('DD/MM/YYYY')}
-                                                </TableCell>
-                                                <TableCell
-                                                    sx={{ minWidth: { xs: "500px", sm: "500px" } }}
-                                                    align="center"
-                                                >
-                                                    {candidatRow.description}
-                                                </TableCell>
-                                                <TableCell align="center">
-                                                    {moment.utc(candidatRow.dateEnd).format('DD/MM/YYYY')}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </Box>
 
                             <Box border={1} marginBottom={2}>
                                 <Typography textAlign={"center"} fontWeight={"bold"}>
-                                    Skill(s)
+                                    Expérience(s)
+                                </Typography>
+                                
+                                <Divider sx={{ mx: 2 }} />
+
+                                <Box marginBottom={2}>
+                                    <Table size="small" aria-label="purchases">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                                                    Entreprise
+                                                </TableCell>
+                                                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                                                    Poste
+                                                </TableCell>
+                                                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                                                    Date de début
+                                                </TableCell>
+                                                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                                                    Description
+                                                </TableCell>
+                                                <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                                                    Date de fin
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {row.cvCandidat && row.cvCandidat.experience.length>0 && row.cvCandidat.experience.map((candidatRow, index) => (
+                                                <TableRow hover key={index}>
+                                                    <TableCell align="center">
+                                                        {candidatRow.compagny}
+                                                    </TableCell>
+                                                    <TableCell align="center">{candidatRow.job}</TableCell>
+                                                    <TableCell align="center">
+                                                        {moment.utc(candidatRow.dateStart).format('DD/MM/YYYY')}
+                                                    </TableCell>
+                                                    <TableCell
+                                                        sx={{ minWidth: { xs: "500px", sm: "500px" } }}
+                                                        align="center"
+                                                    >
+                                                        {candidatRow.description}
+                                                    </TableCell>
+                                                    <TableCell align="center">
+                                                        {moment.utc(candidatRow.dateEnd).format('DD/MM/YYYY')}
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Box>
+                            </Box>
+
+
+                            <Box border={1} marginBottom={2}>
+                                <Typography textAlign={"center"} fontWeight={"bold"}>
+                                    Compétence(s)
                                 </Typography>
                                 <Divider sx={{ mx: 2 }} />
 
                                 <Box display={"flex"} justifyContent={"space-around"}>
-                                    {row.cvCandidat.skill && row.cvCandidat.skill.map((skilltable, index) => (
+                                    {row.cvCandidat && row.cvCandidat.skill && row.cvCandidat.skill.map((skilltable, index) => (
                                         <Typography padding={1} key={index}>
                                             {skilltable}
                                         </Typography>
@@ -180,28 +190,32 @@ export default function RowTableCandidateOffer(props) {
                                 </Typography>
                                 <Divider sx={{ mx: 2 }} />
 
-                                <Box display={"flex"} justifyContent={"space-around"}>
-                                    <Button
-                                        href={`${urlImg}/api${row.cvCandidat.document[0].document}`}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        sx={{ color: "black" }}
-                                    >
-                                        <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                        {row.cvCandidat.document[0].name}
-                                    </Button>
+                                {row.cvCandidat && row.cvCandidat.document.length > 0 && (
+                                    <Box display={"flex"} justifyContent={"space-around"}>
+                                        <Button
+                                            href={`${urlImg}/api${row.cvCandidat.document[0].document}`}
+                                            target="_blank"
+                                            // rel="noreferrer"
+                                            sx={{ color: "black" }}
+                                        >
+                                            <PictureAsPdfIcon sx={{ pr: 1 }} />
+                                            {row.cvCandidat.document[0].title}
+                                        </Button>
 
-                                    <Button
-                                        href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        sx={{ color: "black" }}
-                                    >
-                                        <PictureAsPdfIcon sx={{ pr: 1 }} />
-                                        Lettre motivation
-                                    </Button>
+                                        {row.cvCandidat && row.cvCandidat.document[0].pdf && (
+                                            <Button
+                                                href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
+                                                target="_blank"
+                                                // rel="noreferrer"
+                                                sx={{ color: "black" }}
+                                            >
+                                                <PictureAsPdfIcon sx={{ pr: 1 }} />
+                                                Lettre motivation
+                                            </Button>
+                                        )}
 
-                                </Box>
+                                    </Box>
+                                    )}
                             </Box>
 
                             <Box
