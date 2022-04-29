@@ -431,7 +431,6 @@ class CandidatProfilControllers {
   //  CREATE DOCUMENT PROFIL CANDIDAT
 
   async createDocumentProfil(req, res) {
-    console.log('REQ.BODY CREATE', req.body);
     // req.body.name = req.nameEditCV
     let newDocument = new CandidatDocument({
       ...req.body

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import VisiteurLayout from 'layouts/VisiteurLayout';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,10 +11,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOffreVisiteurId } from "../store/actions/OffreVisiteurActions";
 import { useNavigate, useParams } from 'react-router-dom';
 import { getOffreCandidate, getProfilCandidate, postFormPostuled } from 'store/actions/CandidateActions';
+import withCandidat from 'components/auth/withCandidat';
+import CandidatLayout from 'layouts/CandidatLayout';
 
-
-
-export default function Postuled(props) {
+const Postuled = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch();
@@ -65,7 +64,7 @@ export default function Postuled(props) {
     }
 
     return (
-        <VisiteurLayout>
+        <CandidatLayout>
             <Box sx={{ px: 5 }}>
                 <Typography
                     align='center' variant="h2"
@@ -117,6 +116,8 @@ export default function Postuled(props) {
 
 
             </Box>
-        </VisiteurLayout>
+        </CandidatLayout>
     );
 };
+
+export default withCandidat(Postuled);

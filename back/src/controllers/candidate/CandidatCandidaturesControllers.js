@@ -35,8 +35,7 @@ class CandidatCandidaturesControllers {
     // POst candidature
     async postCandidatures(req, res) {
         let candidatPostuledObj;
-
-        console.log('Cv', req.body);
+;
         if (req.body.document_id && req.body.offre_id && req.body.user_id) {
             candidatPostuledObj = new CandidatPostuled({
                 ...req.body,

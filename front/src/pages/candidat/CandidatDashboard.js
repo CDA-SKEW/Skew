@@ -44,9 +44,7 @@ const CandidatDashboard = () => {
   }, [])
 
   const arrayOffer = useSelector(state => state.candidate.candidaturesProfil)
-  console.log('arrayOffer', arrayOffer)
-
-  // {
+   // {
   //   image: imageEmployer,
   //   titleOffer: "Cuisinier",
   //   nameEmployor: "pole emploi",

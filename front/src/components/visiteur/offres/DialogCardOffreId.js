@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from "react-redux";
 import { getOffreFavoriteId, postOffreFavorite, deleteOffreFavorite } from 'store/actions/OffreFavoriteActions'
+import jwt_decode from 'jwt-decode'
 
 export default function DialogCardOffreId({ data, open, handleClose, Transition }) {
 
@@ -49,8 +50,12 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
     }
 
     const handleClickPostuled = () => {
-        if (localStorage["user_token"]) { navigate(`/postuled/${data.offer_id}`); }
-        else { handleOpenModal() }
+        if (!localStorage["user_token"]) handleOpenModal()
+        else {
+            const token = jwt_decode(localStorage.getItem("user_token"));
+            if (token.isVerified === 1 && token.isBanned === 0 && token.isCandidat === 1) { navigate(`/postuled/${data.offer_id}`); }
+            else { handleOpenModal() }
+        }
     }
 
     useEffect(() => {
@@ -144,7 +149,7 @@ export default function DialogCardOffreId({ data, open, handleClose, Transition 
                 <Card sx={{ bgcolor: '#fff' }}>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Vous n'êtes pas connecté
+                            Vous n'êtes pas connecté en tant que candidat
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

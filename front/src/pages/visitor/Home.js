@@ -96,8 +96,8 @@ export default function Home() {
         { titre: "Je suis un candidat", titre2: 'Viens découvrir toutes nos offres d\'emploi', lien: "candidat", color: "secondary", image: CandidatCard }
     ];
     const CardsContents = [
-        { image: WhyHome1, titre: "Pourquoi nous?", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: true },
-        { image: WhyHome2, titre: "Nos méthodes", texte: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", position: false },
+        { image: WhyHome1, titre: "Pourquoi nous?", texte: "Skew est une toute nouvelle plateforme de recherche d'emploi innovante! En effet, nous proposons un lien direct avec les candidat ou employeur, une interface clair et ergonomique ainsi qu'un tableau de bord repertoriant toutes les informations souhaitées pour postuler ou proposer des offres venant de tous domaines.", position: true },
+        { image: WhyHome2, titre: "Notre peuple", texte: "Chez Indeed, notre mission est d'aider les gens à trouver un emploi. Nous avons plus de 11,500 les employés du monde entier poursuivent passionnément cet objectif et améliorent le parcours de recrutement grâce à des histoires et des données réelles. Nous favorisons un lieu de travail collaboratif qui s'efforce de créer la meilleure expérience pour les demandeurs d'emploi.", position: false },
     ];
     const StatList = [
         { nombre: "2500", titre: "Candidats" },
@@ -134,8 +134,14 @@ export default function Home() {
 
             {/* Barre de statistique */}
             <Box
-                maxWidth='xl'
-                sx={{ bgcolor: "primary.main", mx: 'auto', my: 10, borderRadius: { sx: 0, md: 50 } }}>
+                maxWidth='md'
+                sx={{
+                    bgcolor: "primary.main",
+                    mx: 'auto',
+                    my: 10,
+                    borderRadius: { sx: 0, md: 50 }
+                }}
+            >
                 <Stack direction="row" spacing={2} sx={{ mx: { xs: 0, xl: "75px" } }}>
                     {StatList.map((stat, index) => (
                         <Typography

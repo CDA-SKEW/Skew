@@ -22,30 +22,39 @@ CandidatContact.updateContactProfil = function (candidatObj, result) {
     const { name, lastName, address, zipCode, town, phone, mail, user_id, id } = candidatObj
     connection.getConnection(function (error, conn) {
         conn.query(`
-        UPDATE contactProfil, user as u
-            SET 
-            name = :name,
+        UPDATE contactProfil
+            SET name = :name,
             lastName = :lastName,
             address = :address,
             zipCode = :zipCode,
             town = :town,
-            phone = :phone,
-            mail = :mail
-            WHERE id = :user_id;`,
-            { name, lastName, address, zipCode, town, phone, mail, user_id, id }
+            phone = :phone
+            WHERE user_id = :user_id;`,
+            { name, lastName, address, zipCode, town, phone, user_id }
             , (error, data) => {
                 if (error) throw error;
-                conn.query(`SELECT u.id,c.user_id, u.mail,c.name,c.lastName, c.town, c.zipCode, c.address, c.phone
+
+                conn.query(`
+        UPDATE user
+            SET mail = :mail
+            WHERE id = :id;`,
+                    { mail, id}
+                    , (error, data) => {
+                        if (error) throw error;
+
+                        conn.query(`SELECT u.id,c.user_id, u.mail,c.name,c.lastName, c.town, c.zipCode, c.address, c.phone
             FROM user as u
             INNER JOIN contactProfil as c
             ON id = user_id
             WHERE id = :user_id;`, { user_id }, (error, data) => {
-                    if (error) throw error;
-                    result(null, data);
-                });
-                conn.release();
-            }
-        );
+                            if (error) throw error;
+                            result(null, data);
+                        });
+                        conn.release();
+                    }
+                );
+            })
+
     });
 };
 module.exports = CandidatContact;

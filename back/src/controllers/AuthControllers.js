@@ -31,7 +31,6 @@ class AuthControllers {
             );
             return res.status(200).send({
               success: 'success',
-              flash: "Login Success!",
               token,
             });
           } else return res.status(202).send({
@@ -121,7 +120,6 @@ class AuthControllers {
           nodemailer.mailLostMdp(newUser, res, (res) => {
             return res.send({
               status: "success",
-              flash: data,
             });
           })
         }

@@ -51,7 +51,6 @@ CandidatCandidatures.getCandidatures = function (id, result) {
 }
 
 CandidatPostuled.postCandidatures = function (body, result) {
-    console.log('modelbody', body);
     const { offre_id, document_id, user_id } = body;
     connection.getConnection(function (error, conn) {
         conn.query(`

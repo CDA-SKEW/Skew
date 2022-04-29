@@ -16,6 +16,9 @@ import {
   putActionCandidate,
 } from "store/actions/EmployerActions";
 import { useNavigate } from "react-router-dom";
+import { getOffreVisiteur } from "store/actions/OffreVisiteurActions";
+
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -51,9 +54,10 @@ export default function ModalConfimation(props) {
     switch (action) {
       case "deleteOffer":
         await dispatch(deleteOffer(param));
-        setTimeout(() => {
-          dispatch(getOffer());
-        }, 600);
+        await setTimeout(() => {
+           dispatch(getOffer());
+           dispatch(getOffreVisiteur())
+        }, 400);
         break;
 
       case "candidateRetain":
@@ -63,9 +67,9 @@ export default function ModalConfimation(props) {
           isRetain: true,
         };
         await dispatch(putActionCandidate(dataRetain));
-        setTimeout(() => {
+        await setTimeout(() => {
           dispatch(getOffer());
-        }, 600);
+        }, 400);
         break;
 
       case "candidateNoRetain":
@@ -75,14 +79,17 @@ export default function ModalConfimation(props) {
           isRetain: false,
         };
         await dispatch(putActionCandidate(dataNoRetain));
-        setTimeout(() => {
-          dispatch(getOffer());
-        }, 600);
+        await setTimeout(() => {
+        dispatch(getOffer());
+        }, 400);
         break;
 
       case "disconnect":
         logout()
-        navigate("/");
+        setTimeout(() => {
+          navigate("/");
+          window.location.reload()
+          }, 200);
         break;
       default:
         break;

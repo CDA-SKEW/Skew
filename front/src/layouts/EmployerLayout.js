@@ -24,12 +24,13 @@ import {
   getDashboardEmployer,
   getProfilEmployer,
 } from "store/actions/EmployerActions";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 export default function EmployerLayout({ children }) {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // {/*Constante pour largeur slideBar*/ }
   const drawerWidth = 230;
@@ -65,7 +66,7 @@ export default function EmployerLayout({ children }) {
   const [timeToken, setTimeToken] = React.useState();
 
   React.useEffect(() => {
-    dispatch(getProfilEmployer());
+    dispatch(getProfilEmployer())
   }, [dispatch]);
 
   //   ici à chaque chargement de la page, on revie t en haut de page
@@ -90,7 +91,10 @@ export default function EmployerLayout({ children }) {
             if (Number(timeTokenSec) <= 0) {
               setOpenDialogToken(false);
               localStorage.removeItem("user_token");
-              window.location.reload();
+              setTimeout(() => {
+                navigate("/");
+                window.location.reload()
+              }, 200);
             }
           }, 1000);
         }
@@ -100,8 +104,9 @@ export default function EmployerLayout({ children }) {
 
   const handleFormToken = async (e) => {
     e.preventDefault();
+    setOpenDialogToken(false);
+    window.location.reload()
     setTimeout(async () => {
-      setOpenDialogToken(false);
       await dispatch(getDashboardEmployer());
     }, 600);
   };
