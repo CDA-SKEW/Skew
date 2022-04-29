@@ -6,10 +6,10 @@ var assert = require("assert");
  * users controller
  ******************/
 
-describe("USERS CONTROLLER", function () {
-    this.timeout(0);
-  let user = {};
-  let id = 334;
+// describe("USERS CONTROLLER", function () {
+//     this.timeout(0);
+//   let user = {};
+//   let id = 334;
 
 // beforeEach((done) => {
 //   const { mail, pass, isAdmin, isCandidat, isRecruteur, isBanned } = {
@@ -18,7 +18,7 @@ describe("USERS CONTROLLER", function () {
 //     isAdmin: 0,
 //     isCandidat: 1,
 //     isRecruteur: 0,
-//     isBanned: 1,
+//     isBanned: 0,
 //   };
 //   connection.getConnection(async function (error, conn) {
 //     if (error) throw error;
@@ -44,7 +44,7 @@ describe("USERS CONTROLLER", function () {
 //       done()
 //     );
 //   });
- });
+//  });
 
 //   Test
 // it("TEST CONTROLLER // user", (done) => {
@@ -53,18 +53,18 @@ describe("USERS CONTROLLER", function () {
 // });
 
 // Get ALL Users
-it("GET ALL || USERS", (done) => {
-  let sql = `SELECT * FROM user`;
-  connection.getConnection(async function (error, conn) {
-    if (error) throw error;
-    conn.query(sql, (err, data) => {
-      if (err) console.log(err);
-      console.log("get ALL Users Test OK 🥳", data);
-      assert(data);
-      done();
-    });
-  });
-});
+// it("GET ALL || USERS", (done) => {
+//   let sql = `SELECT * FROM user`;
+//   connection.getConnection(async function (error, conn) {
+//     if (error) throw error;
+//     conn.query(sql, (err, data) => {
+//       if (err) console.log(err);
+//       console.log("get ALL Users Test OK 🥳", data);
+//       assert(data);
+//       done();
+//     });
+//   });
+// });
 
 // Get ID User
 // it("GET ID || USER", (done) => {
@@ -179,26 +179,26 @@ it("GET ALL || USERS", (done) => {
   // });
 
   // Post (reply) message
-//   it("POST || MESSAGE", (done) => {
-//     let values = {
-//       firstname: "Souka",
-//       sujet: "Salut",
-//       message:
-//         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-//       mail: "soukainataa1987@gmail.com",
-//       reply: "dfgsdfhjgfhjrtf",
-//     };
-//     console.log(values);
-//     let sql = `INSERT INTO messages (message) values (message) `;
-//     connection.getConnection(async function (err, conn) {
-//       if (err) throw error;
-//       conn.query(sql, values, (err, data) => {
-//         if (err) console.log(err);
-//         // console.log("POST: ", data);
-//         console.log("POST (reply) message Test OK 🥳", data);
-//         assert(data);
-//         done();
-//       });
-//     });
-//   });
-// });
+  // it("POST || MESSAGE", (done) => {
+  //   let values = {
+  //     firstname: "Souka",
+  //     sujet: "Salut",
+  //     message:
+  //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  //     mail: "soukainataa1987@gmail.com",
+  //     reply: "dfgsdfhjgfhjrtf",
+  //   };
+  //   console.log(values);
+  //   let sql = `INSERT INTO messages (message) values (message) `;
+  //   connection.getConnection(async function (err, conn) {
+  //     if (err) throw error;
+  //     conn.query(sql, values, (err, data) => {
+  //       if (err) console.log(err);
+  //       // console.log("POST: ", data);
+  //       console.log("POST (reply) message Test OK 🥳", data);
+  //       assert(data);
+  //       done();
+  //     });
+  //   });
+  // });
+//});
