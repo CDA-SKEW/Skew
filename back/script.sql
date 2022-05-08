@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `Skew`.`document` (
   `user_id` INT NULL,
   `title` VARCHAR(255),
   `name` VARCHAR(255),
-  `document` VARCHAR(45) NULL,
+  `document` VARCHAR(255) NULL,
     PRIMARY KEY (`id_document`),
   UNIQUE INDEX `id_UNIQUE` (`id_document` ASC) VISIBLE,
   INDEX `fk_aptitudes_user1_idx` (`user_id` ASC) VISIBLE,
