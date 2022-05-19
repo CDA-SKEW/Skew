@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { urlImg } from "utils/url";
 
+
+
 export default function RowTableCandidateOffer(props) {
 
     const navigate = useNavigate();
@@ -47,6 +49,10 @@ export default function RowTableCandidateOffer(props) {
         setOpenContact(false);
     };
 
+
+    const handleClickPdf = async (url)=> {
+        window.open(url, "_blank",'noopener,noreferrer');
+      };
 
 
     return (
@@ -150,7 +156,7 @@ export default function RowTableCandidateOffer(props) {
                                                     </TableCell>
                                                     <TableCell align="center">{candidatRow.job}</TableCell>
                                                     <TableCell align="center">
-                                                        {moment.utc(candidatRow.dateStart).format('DD/MM/YYYY')}
+                                                        {moment.utc(candidatRow.daurlart).format('DD/MM/YYYY')}
                                                     </TableCell>
                                                     <TableCell
                                                         sx={{ minWidth: { xs: "500px", sm: "500px" } }}
@@ -175,9 +181,9 @@ export default function RowTableCandidateOffer(props) {
                                 </Typography>
                                 <Divider sx={{ mx: 2 }} />
 
-                                <Box display={"flex"} justifyContent={"space-around"}>
+                                <Box display={"flex"} flexWrap={"wrap"} flexDirection={"rows"} justifyContent={"space-evenly"} width="100%">
                                     {row.cvCandidat && row.cvCandidat.skill && row.cvCandidat.skill.map((skilltable, index) => (
-                                        <Typography padding={1} key={index}>
+                                        <Typography padding={1} margin={1} key={index} bgcolor="#F0F0F0">
                                             {skilltable}
                                         </Typography>
                                     ))}
@@ -187,14 +193,15 @@ export default function RowTableCandidateOffer(props) {
                             <Box border={1} marginBottom={2}>
                                 <Typography textAlign={"center"} fontWeight={"bold"}>
                                     Document(s)
-                                </Typography>
+                                </Typography>   
                                 <Divider sx={{ mx: 2 }} />
 
                                 {row.cvCandidat && row.cvCandidat.document.length > 0 && (
                                     <Box display={"flex"} justifyContent={"space-around"}>
                                         <Button
-                                            href={`${urlImg}/api${row.cvCandidat.document[0].document}`}
-                                            target="_blank"
+                                         onClick={(e) => handleClickPdf(`${urlImg}/api${row.cvCandidat.document[0].document}`)}
+                                            // href={`${urlImg}/api${row.cvCandidat.document[0].document}`}
+                                            // target="_blank"
                                             // rel="noreferrer"
                                             sx={{ color: "black" }}
                                         >
@@ -204,8 +211,9 @@ export default function RowTableCandidateOffer(props) {
 
                                         {row.cvCandidat && row.cvCandidat.document[0].pdf && (
                                             <Button
-                                                href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
-                                                target="_blank"
+                                            onClick={(e) => handleClickPdf(`${urlImg}/api${row.cvCandidat.document[0].pdf}`)}
+                                                // href={`${urlImg}/api${row.cvCandidat.document[0].pdf}`}
+                                                // target="_blank"
                                                 // rel="noreferrer"
                                                 sx={{ color: "black" }}
                                             >

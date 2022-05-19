@@ -27,6 +27,9 @@ export default function OfferIdDataOffer(props) {
                 flexDirection={{ xs: "column", sm: "column", md: "row" }}
                 px={1}
                 pb={3}
+                mb={1} 
+                borderBottom={1}
+                borderColor="gray"
             >
 
                 <Grid item xs={12} sm={12} md={12} rowSpacing={1} display={"flex"} flexDirection={{ xs: "column", sm: "column", md: "row" }}>
@@ -48,16 +51,19 @@ export default function OfferIdDataOffer(props) {
                 justifyContent={"start"}
                 px={1}
                 pb={1}
+                mb={1}               
+                borderBottom={1}
+                borderColor="gray"
             >
-                <Grid item xs={12} sm={12} md={3} alignItems="center" display={"inline"} >
-                    <Typography variant="body2" display={"inline"}>
+                <Grid item xs={12} sm={12} md={3} alignItems="center" >
+                    <Typography variant="body2">
                         Description du poste:
                     </Typography>
                 </Grid>
 
 
-                <Grid item xs={12} sm={12} md={9}>
-                    <Typography variant="body2" display={"inline"} paragraph={true} sx={{ whiteSpace: "normal" }}>
+                <Grid item xs={12} sm={12} md={9} alignItems="center">
+                    <Typography variant="body2" sx={{whiteSpace:"pre-line"}} px={1}>
                         {offer.description}
                     </Typography>
                 </Grid>
@@ -72,14 +78,14 @@ export default function OfferIdDataOffer(props) {
                 pb={3}
             >
                 <Grid item xs={12} sm={12} md={3} alignItems="center"  >
-                    <Typography variant="body2" display={"inline"}>
+                    <Typography variant="body2">
                         Profil recherché:
                     </Typography>
                 </Grid>
 
 
-                <Grid item xs={12} sm={12} md={9}>
-                    <Typography variant="body2" display={"inline"} paragraph={true} sx={{ whiteSpace: "normal" }}>
+                <Grid item xs={12} sm={12} md={9} alignItems="center" >
+                    <Typography variant="body2" sx={{whiteSpace:"pre-line"}} px={1}>
                         {offer.profil}
                     </Typography>
                 </Grid>
