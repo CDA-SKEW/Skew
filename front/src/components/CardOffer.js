@@ -20,11 +20,10 @@ export default function CardOffer(props) {
   return (
     <Card
       sx={{
-        width: { xs:"220px", sm:"300px" ,lg:"350px"},
+        width: { xs: "240px", sm: "270px", lg: "300px" },
         border: "2px solid",
         borderColor: "black",
         borderRadius: 1,
-        px:1,
         mb: 1,
         mx: 3,
         bgcolor: '#fff'
@@ -47,21 +46,26 @@ export default function CardOffer(props) {
         )}
         <CardMedia
           component="img"
-          // height="100"
+          height={"auto"}
+         sx= {{paddingX:1, paddingTop:1}}
+          // width={"auto"}
           image={`${urlImg + listOffer.image}`}
           alt="imageEmployer"
         />
-        <CardContent>
+        <CardContent sx={{
+          px:2
+        }}>
           <Typography
             gutterBottom
             component="div"
             sx={{
               textTransform: "uppercase",
               textAlign: "center",
-              height: "auto",
+              height: "50px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginY:3,
             }}
           >
 
@@ -103,6 +107,12 @@ export default function CardOffer(props) {
             sx={{
               textTransform: "uppercase",
               textAlign: "center",
+              height: "25px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop:3,
+              bgcolor: '#f0f0f0'
             }}
           >
             {listOffer.nameEmployor}
@@ -110,7 +120,7 @@ export default function CardOffer(props) {
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ textAlign: "center" }}
+            sx={{ textAlign: "center",marginTop:1 }}
           >
             Publié il y {listOffer.dateOfferDays} jours
           </Typography>
