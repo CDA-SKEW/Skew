@@ -2,7 +2,7 @@
   "name": "skew",
   "version": "0.1.0",
   "homepage": "./",
-  "main": "dist/electron.js",
+  "main": "build/electron.js",
   "description": "Skew",
   "author": {
     "name": "kevin",
