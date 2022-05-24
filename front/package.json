@@ -68,8 +68,9 @@
     "e:linux": "npm run e:build && electron-builder -l && -c.extraMetadata.main=build/electron.js"
   },
   "build": {
-    "appId": "skew.app",
-    "productName": "skew app",
+    "appId": "com.skew.my-app",
+    "productName": "Skew",
+    "copyright": "Copyright@2022 ${author}",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -86,7 +87,8 @@
       "target": "nsis"
     },
     "linux": {
-      "target": "deb"
+      "target": "deb",
+      "category": "Development"
     }
   },
   "eslintConfig": {
