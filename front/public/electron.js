@@ -27,6 +27,16 @@ function createWindow() {
     : "http://localhost:3000";
   mainWindow.loadURL(appURL);
 
+  //ancien code avec require URL
+  //   const appURL = app.isPackaged
+  //   ? url.format({
+  //       pathname: path.join(__dirname, "/../build/index.html"),
+  //       protocol: "file:",
+  //       slashes: true,
+  //     })
+  //   : "http://localhost:3000";
+  // mainWindow.loadURL(appURL);
+
   // Automatically open Chrome's DevTools in development mode.
   if (!app.isPackaged) {
     mainWindow.webContents.openDevTools();
@@ -47,6 +57,20 @@ function setupLocalFilesNormalizerProxy() {
     }
   );
 }
+
+//ancien code avec require URL
+// function setupLocalFilesNormalizerProxy() {
+//   protocol.registerHttpProtocol(
+//     "file",
+//     (request, callback) => {
+//       const url = request.url.substr(8);
+//       callback({ path: path.normalize(`${__dirname}/${url}`) });
+//     },
+//     (error) => {
+//       if (error) console.error("Failed to register protocol");
+//     }
+//   );
+// }
 
 // This method will be called when Electron has finished its initialization and
 // is ready to create the browser windows.

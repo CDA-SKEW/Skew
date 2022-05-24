@@ -2,7 +2,7 @@
   "name": "skew",
   "version": "0.1.0",
   "homepage": "./",
-  "main": "build/electron.js",
+  "main": "src-electron/electron.js",
   "description": "Skew",
   "author": {
     "name": "kevin",
@@ -59,13 +59,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && yarn build",
-    "e:start": "concurrently -k \"cross-env BROWSER=none npm run start\" \"wait-on http://localhost:3000 && electronmon .\"",
-    "e:dev": "concurrently -k \"BROWSER=none npm run start\" \"npm:electron\"",
+    "e:start": "concurrently -k \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electronmon .\"",
+    "e:build": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && npm run build ",
+    "e:buildDev": "chmod +x ./src-electron/build.sh && ./src-electron/build.sh && npm run build && sudo rm ./public/electron.js ./public/preload.js ",
+    "e:dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "e:mac": "npm run e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "e:linux": "yarn e:build && electron-builder -l && -c.extraMetadata.main=build/electron.js"
+    "e:win": "npm run e:build && electron-builder -w -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js ./build",
+    "e:linux": "npm run e:build && electron-builder -l -c.extraMetadata.main=build/electron.js && sudo rm -r ./public/electron.js ./public/preload.js ./build"
   },
   "build": {
     "appId": "com.skew.my-app",
@@ -111,8 +112,9 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.4",
+    "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
-    "electron": "^17.4.5",
+    "electron": "^17.1.2",
     "electron-builder": "^22.14.13",
     "electron-is-dev": "^2.0.0",
     "electronmon": "^2.0.2",
