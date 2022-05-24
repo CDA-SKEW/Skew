@@ -1,16 +1,16 @@
 {
   "name": "skew",
   "version": "0.1.0",
-  "author": {
-    "name": "Squall",
-    "email": "massot.etiennepro@gmail.com",
-    "url": "https://404notfound.com"
-  },
+  "homepage": "./",
+  "main": "dist/electron.js",
   "description": "Skew",
+  "author": {
+    "name": "kevin",
+    "email": "kevin.hueri@gmail.com",
+    "url": "https:dr-kh.fr"
+  },
   "email": "soukainataa1987@gmail.com",
   "license": "MIT",
-  "homepage": "./",
-  "main": "build/electron.js",
   "private": true,
   "dependencies": {
     "@devexpress/dx-react-core": "2.7.6",
