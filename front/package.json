@@ -64,9 +64,9 @@
     "e:start": "concurrently -k \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electronmon .\"",
     "e:dev": "concurrently -k \"BROWSER=none yarn start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=build/electron.js",
-    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=build/electron.js",
-    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=build/electron.js"
+    "e:mac": "yarn e:build && electron-builder -m -c.extraMetadata.main=dist/electron.js",
+    "e:win": "yarn e:build && electron-builder -w -c.extraMetadata.main=dist/electron.js",
+    "e:linux": "yarn e:build && electron-builder -l -c.extraMetadata.main=dist/electron.js"
   },
   "build": {
     "appId": "skew.app",
@@ -109,6 +109,7 @@
     ]
   },
   "devDependencies": {
+    "@ionic/app-scripts": "^3.2.4",
     "cross-env": "^7.0.3",
     "electron": "^17.1.0",
     "electron-builder": "^22.14.13",
